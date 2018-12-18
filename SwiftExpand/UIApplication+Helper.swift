@@ -59,26 +59,41 @@ extension UIApplication{
             return UIDevice.current.name;
         }
     }
- 
+    
     static var mainWindow: UIWindow {
         get {
-            let app = UIApplication.shared.delegate as! AppDelegate;
-            if app.window != nil {
-                app.window!.backgroundColor = .white;
-                app.window!.makeKeyAndVisible();
-                return app.window!;
+            if let window = UIApplication.shared.keyWindow {
+                window.backgroundColor = UIColor.white
+                window.makeKeyAndVisible()
+                return window
+            } else {
+                let window = UIWindow(frame: UIScreen.main.bounds)
+                window.backgroundColor = UIColor.white
+                window.makeKeyAndVisible()
+                return window
             }
-            app.window = UIWindow.init(frame: UIScreen.main.bounds);
-            app.window?.backgroundColor = .white;
-            app.window?.makeKeyAndVisible();
-            return app.window!;
-        }
-        set {
-            let app = UIApplication.shared.delegate as! AppDelegate;
-            app.window = newValue;
-
         }
     }
+    
+//    static var mainWindow: UIWindow {
+//        get {
+//            let app = UIApplication.shared.delegate as! AppDelegate;
+//            if app.window != nil {
+//                app.window!.backgroundColor = .white;
+//                app.window!.makeKeyAndVisible();
+//                return app.window!;
+//            }
+//            app.window = UIWindow.init(frame: UIScreen.main.bounds);
+//            app.window?.backgroundColor = .white;
+//            app.window?.makeKeyAndVisible();
+//            return app.window!;
+//        }
+//        set {
+//            let app = UIApplication.shared.delegate as! AppDelegate;
+//            app.window = newValue;
+//
+//        }
+//    }
     
     static var rootController: UIViewController {
         get {
@@ -105,6 +120,11 @@ extension UIApplication{
     }
     
     //MARK: func
+    static func setupRootController(_ window:inout UIWindow,_ controller:AnyObject,_ isAdjust:Bool) -> Void {
+        window = UIApplication.mainWindow;
+        UIApplication.setupRootController(controller, isAdjust);
+    }
+    
     static func setupRootController(_ controller:AnyObject,_ isAdjust:Bool) -> Void {
         var contr = controller;
         if controller is String {
