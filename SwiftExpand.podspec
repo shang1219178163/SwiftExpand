@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
    s.source       = { :git => "https://github.com/shang1219178163/SwiftExpand.git", :tag => "#{s.version}" }
 
    s.source_files = "SwiftExpand/**.{swift,h,m}"
-   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    s.swift_version = "4.0"
 
 end
