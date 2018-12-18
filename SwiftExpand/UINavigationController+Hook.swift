@@ -28,7 +28,7 @@ extension UINavigationController{
     @objc func swz_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //需要注入的代码写在此处
         //判断是否是根控制器
-        if self.children.count > 0 {
+        if self.childViewControllers.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
         }
 
