@@ -11,7 +11,7 @@ import UIKit
 
 public typealias ButtonClick = ((_ sender:UIButton)->()) // 定义数据类型(其实就是设置别名)
 
-public extension UIButton{
+extension UIButton{
     
 //    private public struct RuntimeKey {
 //        public static let actionBlock = UnsafeRawPointer.init(bitPattern: "actionBlock".hashValue)

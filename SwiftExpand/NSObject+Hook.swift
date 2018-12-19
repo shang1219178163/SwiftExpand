@@ -10,7 +10,7 @@ import UIKit
 
 //private let onceToken = "Method Swizzling";
 
-public extension NSObject{
+extension NSObject{
     
     public static func swizzleMethodInstance(_ clz: AnyClass, origSel:Selector, replSel:Selector) -> Bool {
         

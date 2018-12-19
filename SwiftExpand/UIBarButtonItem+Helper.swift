@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UIBarButtonItem{
+extension UIBarButtonItem{
     
    public var systemType: UIBarButtonItem.SystemItem {
         get {

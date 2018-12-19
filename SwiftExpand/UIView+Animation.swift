@@ -10,7 +10,7 @@ import UIKit
 
 public let kDurationRotation = 5.0;
 
-public extension UIView{
+extension UIView{
     
     public func animRotation(fromValue:Double,toValue:Double,duration:Double, repeatCount:Float,key:String?) {
         // 1.创建动画

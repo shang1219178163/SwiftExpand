@@ -9,7 +9,7 @@
 
 import UIKit
 
-public extension UIViewController{
+extension UIViewController{
     
     public var dataList: NSMutableArray {
         get {

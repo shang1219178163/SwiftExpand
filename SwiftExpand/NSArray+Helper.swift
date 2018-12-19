@@ -9,7 +9,7 @@
 
 import UIKit
 
-public extension Array{
+extension Array{
     
     public var random: Element? {
         if self.count == 0 {
@@ -69,12 +69,12 @@ public extension Array{
                 marr.append(item);
             }
         }
-        return marr as! Array<Element>;
+    return (marr as! Array<Element>);
     }
     
 }
 
-public extension NSArray{
+extension NSArray{
 
     
     

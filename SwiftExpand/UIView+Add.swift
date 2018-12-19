@@ -10,7 +10,7 @@
 import UIKit
 
 
-public extension UIView {
+extension UIView {
     
     
     

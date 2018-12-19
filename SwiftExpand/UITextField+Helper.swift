@@ -10,7 +10,7 @@
 
 import UIKit
 
-public extension UITextField{
+extension UITextField{
 
     //    MARK: - -TextFieldRightView
     public func asoryView(_ isRight: Bool, unitName: String!, viewSize:CGSize) -> UIView! {

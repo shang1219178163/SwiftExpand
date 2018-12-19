@@ -11,7 +11,7 @@
 import UIKit
 
 
-public extension UICollectionView{
+extension UICollectionView{
   
 
     

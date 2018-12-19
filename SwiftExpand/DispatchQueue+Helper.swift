@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension DispatchQueue{
+extension DispatchQueue{
     private static var _onceTracker = [String]();
     public class func once(token: String, block: () -> ()) {
         objc_sync_enter(self);

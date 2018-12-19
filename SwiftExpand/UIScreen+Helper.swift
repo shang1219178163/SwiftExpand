@@ -10,7 +10,7 @@
 import UIKit
 
 
-public extension UIScreen {
+extension UIScreen {
     
     public static var width : CGFloat {
         get {

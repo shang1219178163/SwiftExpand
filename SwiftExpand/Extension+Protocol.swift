@@ -26,7 +26,7 @@ public final class ExtensionBaseTypeAble<T>: BaseTypeAble {
 }
 
 /// 为协议实现默认方法
-public extension BaseTypeAble where WarpperType == UIColor{
+extension BaseTypeAble where WarpperType == UIColor{
     /// 获取红色
     public func red() -> CGFloat {
         var value: CGFloat = 0
@@ -47,14 +47,14 @@ public extension BaseTypeAble where WarpperType == UIColor{
     }
 }
 
-public extension UIColor{
+extension UIColor{
     public var type: ExtensionBaseTypeAble<UIColor> {
         return ExtensionBaseTypeAble(self);
     }
     
 }
 
-public extension BaseTypeAble where WarpperType == Data{
+extension BaseTypeAble where WarpperType == Data{
     
     public func toUInt8() -> [UInt8] {
         var bytes = [UInt8](repeatElement(0, count: type.count));
@@ -74,7 +74,7 @@ public extension BaseTypeAble where WarpperType == Data{
     }
 }
 
-public extension Data{
+extension Data{
     public var type: ExtensionBaseTypeAble<Data> {
         return ExtensionBaseTypeAble(self);
     }

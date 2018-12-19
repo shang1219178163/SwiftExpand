@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UINavigationController{
+extension UINavigationController{
     
 //    class func initializeMethod() {
 //        // Make sure This isn't a subclass of UIViewController, So that It applies to all UIViewController childs
