@@ -8,7 +8,7 @@
 
 import UIKit
 
-let kDurationRotation = 5.0;
+public let kDurationRotation = 5.0;
 
 public extension UIView{
     

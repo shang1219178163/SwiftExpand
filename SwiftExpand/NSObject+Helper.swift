@@ -12,19 +12,19 @@ import UIKit
 
 //import ObjectMapper
 
-func NSStringFromIndexPath(_ indexPath:NSIndexPath) -> String {
+public func NSStringFromIndexPath(_ indexPath:NSIndexPath) -> String {
     return String(format: "{%d,%d}", indexPath.section, indexPath.row);
 }
 
-func iOSVer(version:Float)->Bool{
+public func iOSVer(version:Float)->Bool{
     return (UIDevice.current.systemVersion as NSString).floatValue > version;
 }
 
-func kScaleWidth(_ width: CGFloat) -> CGFloat {
+public func kScaleWidth(_ width: CGFloat) -> CGFloat {
     return width * UIScreen.main.bounds.size.width / 320.0
 }
 
-func SwiftClassFromString(_ name:String) -> AnyClass {
+public func SwiftClassFromString(_ name:String) -> AnyClass {
 //    let nameKey = "CFBundleName";
 //    这里也是坑，请不要翻译oc的代码，而是去NSBundle类里面看它的api
 //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as? String;
@@ -33,7 +33,7 @@ func SwiftClassFromString(_ name:String) -> AnyClass {
     return cls;
 }
 
-func UICtrFromString(_ vcName:String) -> UIViewController {
+public func UICtrFromString(_ vcName:String) -> UIViewController {
     // 动态获取命名空间
 //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
     //字符串转类
@@ -49,7 +49,7 @@ func UICtrFromString(_ vcName:String) -> UIViewController {
     return controller;
 }
 
-func UINavCtrFromObj(_ obj:AnyObject) -> UINavigationController?{
+public func UINavCtrFromObj(_ obj:AnyObject) -> UINavigationController?{
     if obj is UINavigationController {
         return obj as? UINavigationController;
         
@@ -63,7 +63,7 @@ func UINavCtrFromObj(_ obj:AnyObject) -> UINavigationController?{
     return nil;
 }
 
-func UINavListFromList(_ list:Array<Any>) -> Array<UINavigationController>!{
+public func UINavListFromList(_ list:Array<Any>) -> Array<UINavigationController>!{
     let marr = NSMutableArray();
     for obj in list {
         if obj is String {
@@ -96,7 +96,7 @@ func UINavListFromList(_ list:Array<Any>) -> Array<UINavigationController>!{
     return viewControllers;
 }
 
-func UITarBarCtrFromList(_ list:Array<Any>) -> UITabBarController!{
+public func UITarBarCtrFromList(_ list:Array<Any>) -> UITabBarController!{
     let tabBarController = UITabBarController();
     tabBarController.tabBar.tintColor = .theme;
     tabBarController.tabBar.barTintColor = .white;
@@ -105,11 +105,11 @@ func UITarBarCtrFromList(_ list:Array<Any>) -> UITabBarController!{
     return tabBarController;
 }
 
-func UIColorFromDim(_ white:CGFloat, _ a:CGFloat) -> UIColor{
+public func UIColorFromDim(_ white:CGFloat, _ a:CGFloat) -> UIColor{
     return .init(white: white, alpha: a);
 }
 
-func BNStringShortFromClass(_ cls:Swift.AnyClass) -> String {
+public func BNStringShortFromClass(_ cls:Swift.AnyClass) -> String {
     var className:String = NSStringFromClass(cls);
     if className.contains(".") {
         let rangePoint = className.range(of: ".");
@@ -118,7 +118,7 @@ func BNStringShortFromClass(_ cls:Swift.AnyClass) -> String {
     return className;
 }
 
-extension NSObject{
+public extension NSObject{
  
     public var block:SwiftBlock {
         set {
