@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension NumberFormatter{
+public extension NumberFormatter{
     
-    static func numberFormat(identify:String) -> NumberFormatter {
+    public static func numberFormat(identify:String) -> NumberFormatter {
         
         let dic = Thread.current.threadDictionary;
         if dic.object(forKey: identify) != nil {

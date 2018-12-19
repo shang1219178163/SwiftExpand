@@ -9,9 +9,9 @@
 
 import UIKit
 
-extension Array{
+public extension Array{
     
-    var random: Element? {
+    public var random: Element? {
         if self.count == 0 {
             return nil;
         }
@@ -19,11 +19,11 @@ extension Array{
         return self[idx];
     }
     //弃用
-    func randomElement() -> Element? {
+    public func randomElement() -> Element? {
         return self.random;
     }
     
-    var shuffle: Array! {
+    public var shuffle: Array! {
         if self.count == 0 {
             return self;
         }
@@ -43,21 +43,20 @@ extension Array{
     }
     
 
-    func subarray(_ range:NSRange) -> Array {
+    public func subarray(_ range:NSRange) -> Array {
         return self.subarray(range.location, range.length)
 //        assert(range.location < self.count);
 //        return Array(self[range.location...range.length]);
     }
     
-    func subarray(_ loc: Int, _ len: Int) -> Array {
+    public func subarray(_ loc: Int, _ len: Int) -> Array {
         assert(loc < self.count);
         return Array(self[loc...len]);
     }
 
-   static func itemPrefix(prefix:String, count:Int, type:Int) -> Array! {
+   public static func itemPrefix(prefix:String, count:Int, type:Int) -> Array! {
         
         var marr:[Any] = [];
-        
         for i in 0...count {
             
             let item = String(format: "%@%d", prefix,i);
@@ -75,7 +74,7 @@ extension Array{
     
 }
 
-extension NSArray{
+public extension NSArray{
 
     
     

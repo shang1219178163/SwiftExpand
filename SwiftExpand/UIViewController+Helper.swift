@@ -9,13 +9,12 @@
 import Foundation
 import UIKit
 
-extension UIViewController{
+public extension UIViewController{
     
-    var controllerName: String {
+    public var controllerName: String {
         get {
 
             var className:String = BNStringShortFromClass(self.classForCoder);
-            
             if className.contains("Controller") {
                 var range = className.range(of: "Controller");
                 if className.contains("ViewController") {
@@ -29,9 +28,9 @@ extension UIViewController{
     }
     
     
-    func createBarItem(titile:String, imgName:AnyObject?, isLeft:Bool, isHidden:Bool, target:AnyObject, action:Selector) -> UIButton {
+    public func createBarItem(titile:String, imgName:AnyObject?, isLeft:Bool, isHidden:Bool, target:AnyObject, action:Selector) -> UIButton {
         
-//        var imageName : String = (imgName as? String)!;
+//        public var imageName : String = (imgName as? String)!;
 //        assert(imgName?.isEmpty == true, "无效的图片名称");
         
         let image = UIImage(named: imgName as! String)?.withRenderingMode(.alwaysOriginal);
@@ -64,7 +63,7 @@ extension UIViewController{
         return btn;
     }
     
-    @objc func handleActionItem(sender:UIBarButtonItem) -> Void {
+    @objc public func handleActionItem(sender:UIBarButtonItem) -> Void {
         let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ObjClick;
         if block != nil {
             block!(sender);
@@ -72,7 +71,7 @@ extension UIViewController{
         }
     }
     
-    func createBarItem(systemItem:UIBarButtonItem.SystemItem, isLeft:Bool, action:@escaping (ObjClick)) -> Void {
+    public func createBarItem(systemItem:UIBarButtonItem.SystemItem, isLeft:Bool, action:@escaping (ObjClick)) -> Void {
 
         let item:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(handleActionItem(sender:)));
         item.systemType = systemItem;
@@ -86,7 +85,7 @@ extension UIViewController{
 
     };
     
-     func createBtnBarItem(title:String?, image:AnyObject?, tag:NSInteger, isLeft:Bool, isHidden:Bool, action:@escaping (ViewClick)) -> UIButton! {
+     public func createBtnBarItem(title:String?, image:AnyObject?, tag:NSInteger, isLeft:Bool, isHidden:Bool, action:@escaping (ViewClick)) -> UIButton! {
 
         let size = image != nil && UIImage(named:image as! String) != nil ? CGSize(width: 40, height: 40) : CGSize(width: 32, height: 32);
         let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: size);
@@ -116,9 +115,9 @@ extension UIViewController{
     }
 
     
-//    func createBarItem(titile:String, imgName:AnyObject?, isLeft:Bool, isHidden:Bool, handler:void(^)(id obj, id item, NSInteger idx)handler) -> UIButton {
+//    public func createBarItem(titile:String, imgName:AnyObject?, isLeft:Bool, isHidden:Bool, handler:void(^)(id obj, id item, NSInteger idx)handler) -> UIButton {
 //
-//        //        var imageName : String = (imgName as? String)!;
+//        //        public var imageName : String = (imgName as? String)!;
 //
 //        //        assert(imgName?.isEmpty == true, "无效的图片名称");
 //        let image = UIImage(named: imgName as! String)?.withRenderingMode(.alwaysOriginal);

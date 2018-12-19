@@ -12,13 +12,13 @@ import UIKit
 
 public extension UIScreen {
     
-    public class var width : CGFloat {
+    public static var width : CGFloat {
         get {
             return UIScreen.main.bounds.size.width
         }
     }
     
-    public class var height : CGFloat {
+    public static var height : CGFloat {
         get {
             return UIScreen.main.bounds.size.height
         }

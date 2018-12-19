@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension UIBarButtonItem{
+public extension UIBarButtonItem{
     
-   var systemType: UIBarButtonItem.SystemItem {
+   public var systemType: UIBarButtonItem.SystemItem {
         get {
             return objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as! UIBarButtonItem.SystemItem;
 
@@ -22,7 +22,7 @@ extension UIBarButtonItem{
     }
     
     
-//    func isOneItem(sysItem:UIBarButtonSystemItem!) -> Bool {
+//    public func isOneItem(sysItem:UIBarButtonSystemItem!) -> Bool {
 //        
 //        let style = self.value(forKey: "systemItem");
 //        if UIBarButtonSystemItem(rawValue: style as! Int) == sysItem {

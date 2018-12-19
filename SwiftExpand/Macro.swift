@@ -9,14 +9,10 @@
 
 import UIKit
 
+public let kScreenWidth = UIScreen.main.bounds.width;
+public let kScreenHeight = UIScreen.main.bounds.height;
 
-let kScreenWidth = UIScreen.main.bounds.width;
-let kScreenHeight = UIScreen.main.bounds.height;
-
-let kScale_width = UIScreen.main.bounds.width;
-
-
-func DDLog(_ msgs: Any..., fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
+public func DDLog(_ msgs: Any..., fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
     #if DEBUG
     let params = msgs.compactMap{ "\($0)" }.joined(separator: "\n__");
     let formatter = DateFormatter.dateFormat(formatStr: "yyyy-MM-dd HH:mm:ss.SSS");

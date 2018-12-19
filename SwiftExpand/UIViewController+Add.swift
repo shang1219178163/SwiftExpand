@@ -9,9 +9,9 @@
 
 import UIKit
 
-extension UIViewController{
+public extension UIViewController{
     
-    var dataList: NSMutableArray {
+    public var dataList: NSMutableArray {
         get {
             var list = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? NSMutableArray;
             if list == nil {
@@ -25,7 +25,7 @@ extension UIViewController{
         }
     }
     
-    var tableView: UITableView {
+    public var tableView: UITableView {
         get {
             var table = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UITableView;
             if table == nil {

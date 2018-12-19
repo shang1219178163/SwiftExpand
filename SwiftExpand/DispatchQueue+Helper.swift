@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension DispatchQueue{
+public extension DispatchQueue{
     private static var _onceTracker = [String]();
     public class func once(token: String, block: () -> ()) {
         objc_sync_enter(self);
@@ -24,11 +24,11 @@ extension DispatchQueue{
         block();
     }
     
-    func async(block: @escaping() ->()) {
+    public func async(block: @escaping() ->()) {
         self.async(execute: block);
     }
     
-    func after(time: DispatchTime, block:@escaping() -> ()) {
+    public func after(time: DispatchTime, block:@escaping() -> ()) {
         self.asyncAfter(deadline: time, execute: block);
     }
 }

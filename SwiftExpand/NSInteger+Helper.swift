@@ -8,15 +8,15 @@
 
 import UIKit
 
-extension Int{
-    var isEven:Bool     {return (self % 2 == 0)}
-    var isOdd:Bool      {return (self % 2 != 0)}
-    var isPositive:Bool {return (self >= 0)}
-    var isNegative:Bool {return (self < 0)}
-    var toDouble:Double {return Double(self)}
-    var toFloat:Float   {return Float(self)}
+public extension Int{
+    public var isEven:Bool     {return (self % 2 == 0)}
+    public var isOdd:Bool      {return (self % 2 != 0)}
+    public var isPositive:Bool {return (self >= 0)}
+    public var isNegative:Bool {return (self < 0)}
+    public var toDouble:Double {return Double(self)}
+    public var toFloat:Float   {return Float(self)}
     
-    var digits: Int {
+    public var digits: Int {
         if (self == 0) {
             return 1
         } else if(Int(fabs(Double(self))) <= LONG_MAX){
@@ -27,7 +27,7 @@ extension Int{
         }
     }
     
-    var string: String {
+    public var string: String {
         get {
             var str = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? String;
             if str == nil {
@@ -41,7 +41,7 @@ extension Int{
 }
 
 extension Double{
-    func roundedTo(decimals: Int) -> Double {
+    public func roundedTo(decimals: Int) -> Double {
         let format = NumberFormatter()
         format.numberStyle = NumberFormatter.Style.decimal
         format.multiplier = 2
@@ -52,7 +52,7 @@ extension Double{
         return (format.number(from: format.string(for: self )! )) as! Double
     }
     
-    var string: String {
+    public var string: String {
         get {
             var str = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? String;
             if str == nil {

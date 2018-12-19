@@ -9,10 +9,10 @@
 
 import UIKit
 
-extension UITableViewCell{
+public extension UITableViewCell{
     
     /// cell默认identifier
-    static var identifier: String {
+    public static var identifier: String {
         get {
             var str = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? String;
             if str == nil {
@@ -27,7 +27,7 @@ extension UITableViewCell{
     }
     
     /// cell-源方法生成,自定义identifier
-    static func cellWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewCell! {
+    public static func cellWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewCell! {
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
         if cell == nil {
             cell = self.init(style: .default, reuseIdentifier: identifier);
@@ -40,14 +40,14 @@ extension UITableViewCell{
     }
     
     /// cell-使用默认identifier生成
-    static func cellWithTableView(_ tableView:UITableView) -> UITableViewCell! {
+    public static func cellWithTableView(_ tableView:UITableView) -> UITableViewCell! {
 //        let identifier = NSStringFromClass(self.classForCoder());
 //        return self.cellWithTableView(tableView, identifier: identifier);
         return self.cellWithTableView(tableView, identifier: self.identifier);
 
     }
         
-    var imgViewLeft: UIImageView {
+    public var imgViewLeft: UIImageView {
         get {
             var imgView = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UIImageView;
             if imgView == nil {
@@ -65,7 +65,7 @@ extension UITableViewCell{
         }
     }
     
-    var imgViewRight: UIImageView {
+    public var imgViewRight: UIImageView {
         get {
             var imgView = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UIImageView;
             if imgView == nil {
@@ -84,7 +84,7 @@ extension UITableViewCell{
         }
     }
     
-    var labelLeft: UILabel {
+    public var labelLeft: UILabel {
         get {
             var label = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UILabel;
             if label == nil {
@@ -102,7 +102,7 @@ extension UITableViewCell{
         }
     }
   
-    var labelLeftSub: UILabel {
+    public var labelLeftSub: UILabel {
         get {
             var label = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UILabel;
             if label == nil {
@@ -121,7 +121,7 @@ extension UITableViewCell{
     }
     
     
-    var labelRight: UILabel {
+    public var labelRight: UILabel {
         get {
             var label = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UILabel;
             if label == nil {
@@ -139,7 +139,7 @@ extension UITableViewCell{
         }
     }
     
-    var btn: UIButton {
+    public var btn: UIButton {
         get {
             var button = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UIButton;
             if button == nil {
@@ -158,7 +158,7 @@ extension UITableViewCell{
         }
     }
     
-    var textField: UITextField {
+    public var textField: UITextField {
         get {
             var tf = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UITextField;
             if tf == nil {
@@ -180,7 +180,7 @@ extension UITableViewCell{
         }
     }
     
-    var textView: UITextView {
+    public var textView: UITextView {
         get {
             var tv = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UITextView;
             if tv == nil {

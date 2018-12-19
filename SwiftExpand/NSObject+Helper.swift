@@ -20,7 +20,7 @@ func iOSVer(version:Float)->Bool{
     return (UIDevice.current.systemVersion as NSString).floatValue > version;
 }
 
-func kScale_width(_ width: CGFloat) -> CGFloat {
+func kScaleWidth(_ width: CGFloat) -> CGFloat {
     return width * UIScreen.main.bounds.size.width / 320.0
 }
 
@@ -120,7 +120,7 @@ func BNStringShortFromClass(_ cls:Swift.AnyClass) -> String {
 
 extension NSObject{
  
-    var block:SwiftBlock {
+    public var block:SwiftBlock {
         set {
             objc_setAssociatedObject(self, AssociationKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
@@ -130,20 +130,20 @@ extension NSObject{
         }
     }
     
-    func BNClassName(_ className:String) -> AnyClass {
+    public func BNClassName(_ className:String) -> AnyClass {
         let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
         let cls : AnyClass = NSClassFromString(appName + "." + className)!;
         return cls;
     }
         
-    func attrDict(font:AnyObject, textColor:UIColor) -> Dictionary<NSAttributedString.Key, Any> {
+    public func attrDict(font:AnyObject, textColor:UIColor) -> Dictionary<NSAttributedString.Key, Any> {
         let font = font is NSInteger == false ? font as! UIFont : UIFont.systemFont(ofSize:CGFloat(font.floatValue));
         let dic = [NSAttributedString.Key.font:font,
                    NSAttributedString.Key.foregroundColor: textColor];
         return dic;
     }
     
-    func attrParaDict(font:AnyObject, textColor:UIColor, alignment:NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
+    public func attrParaDict(font:AnyObject, textColor:UIColor, alignment:NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
         
         let paraStyle = NSMutableParagraphStyle();
         paraStyle.lineBreakMode = .byCharWrapping;
@@ -156,7 +156,7 @@ extension NSObject{
         return mdic.copy() as! Dictionary<NSAttributedString.Key, Any>;
     }
     
-    func sizeWithText(text:AnyObject!, font:AnyObject, width:CGFloat) -> CGSize {
+    public func sizeWithText(text:AnyObject!, font:AnyObject, width:CGFloat) -> CGSize {
 
         assert(text is String || text is NSAttributedString, "请检查text格式!");
         assert(font is UIFont || font is Int, "请检查font格式!");
@@ -181,7 +181,7 @@ extension NSObject{
     }
     
     //MARK: 转json
-    func jsonValue() -> String! {
+    public func jsonValue() -> String! {
         
         if JSONSerialization.isValidJSONObject(self) == false {
             return "";
@@ -194,7 +194,7 @@ extension NSObject{
         
     }
 //    //MARK: 转json(备用)
-//    static func jsonValue(_ obj:AnyObject!) -> String! {
+//    public static func jsonValue(_ obj:AnyObject!) -> String! {
 //        if JSONSerialization.isValidJSONObject(obj) == false {
 //            return "";
 //        }
@@ -207,7 +207,7 @@ extension NSObject{
 //    }
     
      //MARK:数据解析通用化封装
-//   static func modelWithJSONFile(_ fileName:String) -> AnyObject? {
+//   public static func modelWithJSONFile(_ fileName:String) -> AnyObject? {
 //
 //        let jsonString = fileName.jsonFileToJSONString();
 //        let rootModel = Mapper<self.classForCoder()>().map(JSONString: jsonString);

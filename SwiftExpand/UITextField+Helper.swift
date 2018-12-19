@@ -10,10 +10,10 @@
 
 import UIKit
 
-extension UITextField{
-    
+public extension UITextField{
+
     //    MARK: - -TextFieldRightView
-    func asoryView(_ isRight: Bool, unitName: String!, viewSize:CGSize) -> UIView! {
+    public func asoryView(_ isRight: Bool, unitName: String!, viewSize:CGSize) -> UIView! {
         
         assert(unitName != nil && unitName.valid() == true);
         
@@ -38,7 +38,7 @@ extension UITextField{
      
     }
     
-    func asoryView(_ isRight: Bool, unitName: String!) -> Void {
+    public func asoryView(_ isRight: Bool, unitName: String!) -> Void {
         if isRight == true {
             self.rightView = self.asoryView(isRight, unitName: unitName, viewSize: kSize_Arrow);
             self.rightViewMode = .always;

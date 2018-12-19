@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension NSDate{
+public extension NSDate{
     
-    func hourInfoBetween(_ date: NSDate,_ type: Int) -> Double {
+    public func hourInfoBetween(_ date: NSDate,_ type: Int) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         switch type {
             case 1://分钟
@@ -28,25 +28,25 @@ extension NSDate{
         return diff;
     }
     
-    func daysInBetween(_ date: NSDate) -> Double {
+    public func daysInBetween(_ date: NSDate) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         diff = fabs(diff/86400)
         return diff
     }
     
-    func hoursInBetween(_ date: NSDate) -> Double {
+    public func hoursInBetween(_ date: NSDate) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         diff = fabs(diff/3600)
         return diff
     }
     
-    func minutesInBetween(_ date: NSDate) -> Double {
+    public func minutesInBetween(_ date: NSDate) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         diff = fabs(diff/60)
         return diff
     }
     
-    func secondsInBetween(_ date: NSDate) -> Double {
+    public func secondsInBetween(_ date: NSDate) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         diff = fabs(diff)
         return diff

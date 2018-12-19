@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension String{
+public extension String{
     
-    func valid() -> Bool! {
+    public func valid() -> Bool! {
         let array = ["","nil","null"];
         if array.contains(self){
             return false;
@@ -18,11 +18,11 @@ extension String{
         return true;
     }
     
-    func reverse() -> String {
+    public func reverse() -> String {
         return String(self.reversed())
     }
     
-    func dictValue() -> Dictionary<String, Any>!{
+    public func dictValue() -> Dictionary<String, Any>!{
         
         let jsonData:Data = self.data(using:.utf8)!;
         
@@ -33,7 +33,7 @@ extension String{
         return Dictionary();
     }
     
-    func arrayValue() -> Array<Any>!{
+    public func arrayValue() -> Array<Any>!{
         
         let jsonData:Data = self.data(using: .utf8)!
         let array = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
@@ -44,7 +44,7 @@ extension String{
     }
     
     
-    func jsonFileToJSONString() -> String {
+    public func jsonFileToJSONString() -> String {
         assert(self.contains(".geojson") == true);
         
         if self.contains(".geojson") == true {
@@ -64,14 +64,14 @@ extension String{
         return "";
     }
     
-    static func timeNow() -> String {
+    public static func timeNow() -> String {
         let fmt = DateFormatter.dateFormat(formatStr:kFormat_date);
         let dateStr = fmt.string(from: Date());
         return dateStr;
         
     }
     
-    func toTimeStamp() -> String {
+    public func toTimeStamp() -> String {
         let dateStr = self;
         
         var fmtStr = kFormat_date;

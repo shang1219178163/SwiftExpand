@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension UIApplication{
+public extension UIApplication{
     
-    static var appName: String {
+    public static var appName: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
 //            let name:String = infoDic!["CFBundleDisplayName"] as? String ?? infoDic!["CFBundleName"] as! String;
@@ -19,7 +19,7 @@ extension UIApplication{
         }
     }
     
-    static var appIcon: UIImage {
+    public static var appIcon: UIImage {
         get {
             let infoDic:AnyObject = Bundle.main.infoDictionary as AnyObject;
             let iconFiles:Array<Any> = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as! Array<Any>;
@@ -28,39 +28,39 @@ extension UIApplication{
         }
     }
     
-    static var appVer: String {
+    public static var appVer: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
             return infoDic!["CFBundleShortVersionString"] as! String;
         }
     }
     
-    static var appBuild: String {
+    public static var appBuild: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
             return infoDic!["CFBundleVersion"] as! String;
         }
     }
     
-    static var phoneSystemVer: String {
+    public static var phoneSystemVer: String {
         get {
             return UIDevice.current.systemVersion;
         }
     }
     
-    static var phoneSystemName: String {
+    public static var phoneSystemName: String {
         get {
             return UIDevice.current.systemName;
         }
     }
     
-    static var phoneName: String {
+    public static var phoneName: String {
         get {
             return UIDevice.current.name;
         }
     }
     
-    static var mainWindow: UIWindow {
+    public static var mainWindow: UIWindow {
         get {
             if let window = UIApplication.shared.keyWindow {
                 window.backgroundColor = UIColor.white
@@ -75,7 +75,7 @@ extension UIApplication{
         }
     }
     
-//    static var mainWindow: UIWindow {
+//    public static var mainWindow: UIWindow {
 //        get {
 //            let app = UIApplication.shared.delegate as! AppDelegate;
 //            if app.window != nil {
@@ -95,7 +95,7 @@ extension UIApplication{
 //        }
 //    }
     
-    static var rootController: UIViewController {
+    public static var rootController: UIViewController {
         get {
             return UIApplication.mainWindow.rootViewController!;
         }
@@ -104,7 +104,7 @@ extension UIApplication{
         }
     }
     
-    static var tabBarController: UITabBarController? {
+    public static var tabBarController: UITabBarController? {
         get {
             var tabBarVC = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UITabBarController;
             if tabBarVC == nil {
@@ -120,12 +120,12 @@ extension UIApplication{
     }
     
     //MARK: func
-    static func setupRootController(_ window:inout UIWindow,_ controller:AnyObject,_ isAdjust:Bool) -> Void {
+    public static func setupRootController(_ window:inout UIWindow,_ controller:AnyObject,_ isAdjust:Bool) -> Void {
         window = UIApplication.mainWindow;
         UIApplication.setupRootController(controller, isAdjust);
     }
     
-    static func setupRootController(_ controller:AnyObject,_ isAdjust:Bool) -> Void {
+    public static func setupRootController(_ controller:AnyObject,_ isAdjust:Bool) -> Void {
         var contr = controller;
         if controller is String {
             contr = UICtrFromString(controller as! String);
@@ -143,11 +143,11 @@ extension UIApplication{
         }
     }
     
-    static func setupRootController(_ controller:AnyObject) -> Void {
+    public static func setupRootController(_ controller:AnyObject) -> Void {
         return UIApplication.setupRootController(controller, true);
     }
     
-    static func setupAppearance() -> Void {
+    public static func setupAppearance() -> Void {
         self.setupAppearanceTabBar();
         self.setupAppearanceNavigationBar();
         
@@ -163,7 +163,7 @@ extension UIApplication{
         
     }
     
-    static func setupAppearanceNavigationBar() -> Void {
+    public static func setupAppearanceNavigationBar() -> Void {
         UINavigationBar.appearance().tintColor =  .white;//界面顶部透明
         UINavigationBar.appearance().barTintColor = .theme; //界面顶部透明
         //        UINavigationBar.appearance().barTintColor = .orange; //界面顶部透明
@@ -180,7 +180,7 @@ extension UIApplication{
         
     }
     
-    static func setupAppearanceTabBar() -> Void {
+    public static func setupAppearanceTabBar() -> Void {
         //         设置字体颜色
 //        let attDic_N = [NSAttributedString.Key.foregroundColor:.black];
 //        let attDic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme];
@@ -192,7 +192,7 @@ extension UIApplication{
 //        UITabBar.appearance().tintColor = .red;
     }
     
-    static func openURL(_ urlStr:String, _ tips:String) {
+    public static func openURL(_ urlStr:String, _ tips:String) {
         let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
         let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
         //        let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;

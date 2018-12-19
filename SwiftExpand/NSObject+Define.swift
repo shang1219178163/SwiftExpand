@@ -8,23 +8,23 @@
 
 import UIKit
 
-typealias SwiftBlock = (AnyObject,AnyObject,Int);
+public typealias SwiftBlock = (AnyObject,AnyObject,Int);
 
-typealias ObjClick = ((AnyObject?) ->()) // 定义数据类型(其实就是设置别名)
-typealias ViewClick = ((UITapGestureRecognizer?,UIView,NSInteger)->()) // 定义数据类型(其实就是设置别名)
-//typealias ViewClick = ((_ tap:UITapGestureRecognizer?, _ view:UIView, _ idx:NSInteger)->()) // 定义数据类型(其实就是设置别名)
+public typealias ObjClick = ((AnyObject?) ->()) // 定义数据类型(其实就是设置别名)
+public typealias ViewClick = ((UITapGestureRecognizer?,UIView,NSInteger)->()) // 定义数据类型(其实就是设置别名)
+//public typealias ViewClick = ((_ tap:UITapGestureRecognizer?, _ view:UIView, _ idx:NSInteger)->()) // 定义数据类型(其实就是设置别名)
 
 // MARK: - 关联属性的key
-struct RuntimeKey {
-//    static let objBlock = UnsafeRawPointer.init(bitPattern: "objBlock".hashValue)!;
-//    static let viewBlock = UnsafeRawPointer.init(bitPattern: "viewBlock".hashValue)!;
-    static let tap = UnsafeRawPointer.init(bitPattern: "tap".hashValue)!;
-    static let item = UnsafeRawPointer.init(bitPattern: "item".hashValue)!;
+public struct RuntimeKey {
+//    public static let objBlock = UnsafeRawPointer.init(bitPattern: "objBlock".hashValue)!;
+//    public static let viewBlock = UnsafeRawPointer.init(bitPattern: "viewBlock".hashValue)!;
+    public static let tap = UnsafeRawPointer.init(bitPattern: "tap".hashValue)!;
+    public static let item = UnsafeRawPointer.init(bitPattern: "item".hashValue)!;
 
 }
 
 //属性RuntimeKey获取方法
-func AssociationKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
+public func AssociationKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
     //    let key:UnsafeRawPointer = UnsafeRawPointer.init(bitPattern: NSStringFromSelector(aSelector).hashValue)!;
     let string = NSStringFromSelector(aSelector);
     let key:UnsafeRawPointer = UnsafeRawPointer.init(bitPattern: string.hashValue)!;

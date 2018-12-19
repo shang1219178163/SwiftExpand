@@ -9,12 +9,12 @@
 
 import UIKit
 
-typealias ButtonClick = ((_ sender:UIButton)->()) // 定义数据类型(其实就是设置别名)
+public typealias ButtonClick = ((_ sender:UIButton)->()) // 定义数据类型(其实就是设置别名)
 
-extension UIButton{
+public extension UIButton{
     
-//    private struct RuntimeKey {
-//        static let actionBlock = UnsafeRawPointer.init(bitPattern: "actionBlock".hashValue)
+//    private public struct RuntimeKey {
+//        public static let actionBlock = UnsafeRawPointer.init(bitPattern: "actionBlock".hashValue)
 //        /// ...其他Key声明
 //    }
     
@@ -28,14 +28,14 @@ extension UIButton{
 //        }
 //    }
 //    /// 点击回调
-//    @objc func tapped(btn:UIButton){
+//    @objc public func tapped(btn:UIButton){
 //        if self.actionBlock != nil {
 //            self.actionBlock!(btn);
 //        }
 //    }
 //
 //    /// 点击回调
-//    @objc func addActionBlock(action:@escaping ButtonClick){
+//    @objc public func addActionBlock(action:@escaping ButtonClick){
 //        self.actionBlock = action;
 //        if self.allTargets.count == 0 {
 //            self.addTarget(self, action:#selector(tapped(btn:)), for:.touchUpInside)
@@ -66,7 +66,7 @@ extension UIButton{
 //        self.frame = frame
 //    }
     
-   static func createBtnImg(rect:CGRect, image_N:String!, image_H:String?) -> UIButton {
+   public static func createBtnImg(rect:CGRect, image_N:String!, image_H:String?) -> UIButton {
         let btn = UIButton(type:.custom);
         btn.frame = rect;
         if UIImage(named:image_N) != nil {
@@ -82,7 +82,7 @@ extension UIButton{
         return btn;
     }
     
-    static func createBtnTitle(rect:CGRect, title:String!, font:AnyObject, type:NSInteger) -> UIButton! {
+    public static func createBtnTitle(rect:CGRect, title:String!, font:AnyObject, type:NSInteger) -> UIButton! {
         let btn = UIButton(type:.custom);
         btn.frame = rect;
 //        btn.titleLabel?.text = title;//无法显示title
@@ -121,7 +121,7 @@ extension UIButton{
         return btn;
     }
  
-    static func createBtn(rect:CGRect,title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger) -> UIButton {
+    public static func createBtn(rect:CGRect,title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger) -> UIButton {
         if image != nil && image is String {
             let btn = UIButton.createBtnImg(rect:rect, image_N: (image as! String), image_H: image as? String);
             return btn;
@@ -132,7 +132,7 @@ extension UIButton{
         return btn!;
     }
     
-    static func createBtn(rect:CGRect, title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger, action:@escaping (ViewClick)) -> UIButton? {
+    public static func createBtn(rect:CGRect, title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger, action:@escaping (ViewClick)) -> UIButton? {
         
         let btn = UIButton.createBtn(rect: rect,title: title, font:font, image:image, tag: tag, type: type);
         btn.addActionHandler { (tap, view, idx) in

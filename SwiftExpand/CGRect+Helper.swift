@@ -9,9 +9,9 @@
 
 import UIKit
 
-extension CGRect{
+public extension CGRect{
     
-//    var orignX: CGFloat {
+//    public var orignX: CGFloat {
 //        get {
 //            return self.origin.x;
 //        }
@@ -20,7 +20,7 @@ extension CGRect{
 //        }
 //    }
 //
-//    var orignY: CGFloat {
+//    public var orignY: CGFloat {
 //        get {
 //            return self.origin.y;
 //        }

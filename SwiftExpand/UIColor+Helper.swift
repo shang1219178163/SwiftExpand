@@ -9,9 +9,9 @@
 
 import UIKit
 
-extension UIColor{
+public extension UIColor{
     
-    static func UIColorFromHex(_ hex:String) -> UIColor {
+    public static func UIColorFromHex(_ hex:String) -> UIColor {
     
         var cString = hex.trimmingCharacters(in: CharacterSet.whitespaces).uppercased();
         if cString.hasPrefix("#") {
@@ -43,7 +43,7 @@ extension UIColor{
         return UIColor(red:CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(1.0));
     }
     
-   static func UIColorRandom() -> UIColor {
+   public static func UIColorRandom() -> UIColor {
         
         let r = arc4random_uniform(256);
         let g = arc4random_uniform(256);
@@ -53,21 +53,21 @@ extension UIColor{
     }
     
     //MARK: - -属性
-    static var random : UIColor {
+    public static var random : UIColor {
         get{
             return UIColorRandom();
             
         }
     }
     
-   static var theme : UIColor {
+   public static var theme : UIColor {
         get{
             return UIColorFromHex("#0082e0");
 
         }
     }
     
-    static func RGBA (_ r:CGFloat,_ g:CGFloat,_ b:CGFloat,_ a:CGFloat) -> UIColor{
+    public static func RGBA (_ r:CGFloat,_ g:CGFloat,_ b:CGFloat,_ a:CGFloat) -> UIColor{
         return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UINavigationController{
+public extension UINavigationController{
     
 //    class func initializeMethod() {
 //        // Make sure This isn't a subclass of UIViewController, So that It applies to all UIViewController childs
@@ -25,7 +25,7 @@ extension UINavigationController{
 //            
 //        }
 //    }
-    @objc func swz_pushViewController(_ viewController: UIViewController, animated: Bool) {
+    @objc public func swz_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //需要注入的代码写在此处
         //判断是否是根控制器
         if self.childViewControllers.count > 0 {

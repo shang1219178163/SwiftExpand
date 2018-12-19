@@ -11,20 +11,20 @@ import UIKit
 import Foundation
 
 
-let D_MINUTE = 60 ;
-let D_HOUR   = 3600 ;
-let D_DAY    = 86400 ;
-let D_WEEK   = 604800 ;
-let D_YEAR   = 31556926 ;
+public let D_MINUTE = 60 ;
+public let D_HOUR   = 3600 ;
+public let D_DAY    = 86400 ;
+public let D_WEEK   = 604800 ;
+public let D_YEAR   = 31556926 ;
 
-let kFormat_date = "yyyy-MM-dd HH:mm:ss";
-let kFormat_date_one = "yyyy-MM-dd";
-let kFormat_date_two = "yyyyMMdd";
+public let kFormat_date = "yyyy-MM-dd HH:mm:ss";
+public let kFormat_date_one = "yyyy-MM-dd";
+public let kFormat_date_two = "yyyyMMdd";
 
 
-extension DateFormatter{
+public extension DateFormatter{
     
-    static func dateFormat(formatStr:String) -> DateFormatter {
+    public static func dateFormat(formatStr:String) -> DateFormatter {
         
         let dic = Thread.current.threadDictionary;
         if dic.object(forKey: formatStr) != nil {
