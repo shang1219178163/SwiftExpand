@@ -9,7 +9,7 @@
 
 import UIKit
 
-extension CGRect{
+public extension CGRect{
     
 //    public var orignX: CGFloat {
 //        get {

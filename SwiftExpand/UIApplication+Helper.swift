@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIApplication{
+public extension UIApplication{
     
     public static var appName: String {
         get {

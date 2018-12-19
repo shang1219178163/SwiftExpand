@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension String{
+public extension String{
     
     public func valid() -> Bool! {
         let array = ["","nil","null"];

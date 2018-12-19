@@ -9,7 +9,7 @@
 
 import UIKit
 
-extension Array{
+public extension Array{
     
     public var random: Element? {
         if self.count == 0 {
@@ -74,7 +74,7 @@ extension Array{
     
 }
 
-extension NSArray{
+public extension NSArray{
 
     
     

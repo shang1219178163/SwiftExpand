@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension NSDate{
+public extension NSDate{
     
     public func hourInfoBetween(_ date: NSDate,_ type: Int) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow

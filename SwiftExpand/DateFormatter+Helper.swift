@@ -22,7 +22,7 @@ public let kFormat_date_one = "yyyy-MM-dd";
 public let kFormat_date_two = "yyyyMMdd";
 
 
-extension DateFormatter{
+public extension DateFormatter{
     
     public static func dateFormat(formatStr:String) -> DateFormatter {
         

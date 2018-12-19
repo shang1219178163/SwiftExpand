@@ -118,7 +118,7 @@ public func BNStringShortFromClass(_ cls:Swift.AnyClass) -> String {
     return className;
 }
 
-extension NSObject{
+public extension NSObject{
  
     public var block:SwiftBlock {
         set {

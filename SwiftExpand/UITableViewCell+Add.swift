@@ -9,7 +9,7 @@
 
 import UIKit
 
-extension UITableViewCell{
+public extension UITableViewCell{
     
     /// cell默认identifier
     public static var identifier: String {

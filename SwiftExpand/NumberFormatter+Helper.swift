@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NumberFormatter{
+public extension NumberFormatter{
     
     public static func numberFormat(identify:String) -> NumberFormatter {
         
