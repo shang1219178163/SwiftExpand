@@ -8,6 +8,8 @@
 
 import Foundation
 
+public let kNumFormat = "#,##0.00";
+
 public extension NumberFormatter{
     
     public static func numberFormat(identify:String) -> NumberFormatter {

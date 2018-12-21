@@ -47,6 +47,7 @@ public let kW_LayerBorder: CGFloat = 0.5;
 public let kWH_ArrowRight: CGFloat = 25.0;
 
 public let kSize_Arrow = CGSize(width: 25.0, height: 25.0);
+public let kSize_BtnSelected = CGSize(width: 35.0, height: 35.0);
 
 public let kTimerValue = 65;
 public let kRatio_IDCard: CGFloat = 1.58;
