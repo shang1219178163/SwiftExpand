@@ -132,7 +132,7 @@ public extension UIButton{
         return btn!;
     }
     
-    public static func createBtn(rect:CGRect, title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger, action:@escaping (ViewClick)) -> UIButton? {
+    public static func createBtn(rect:CGRect, title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger, action:@escaping (ViewClick)) -> UIButton {
         
         let btn = UIButton.createBtn(rect: rect,title: title, font:font, image:image, tag: tag, type: type);
         btn.addActionHandler { (tap, view, idx) in
