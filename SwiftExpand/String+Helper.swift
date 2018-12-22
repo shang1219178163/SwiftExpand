@@ -18,6 +18,19 @@ public extension String{
         return true;
     }
     
+    func intValue() -> Int {
+        return Int((self as NSString).intValue)
+    }
+
+    func floatValue() -> Float {
+        return (self as NSString).floatValue
+
+    }
+
+    func doubleValue() -> Double {
+        return (self as NSString).doubleValue
+    }
+    
     public func reverse() -> String {
         return String(self.reversed())
     }

@@ -9,6 +9,15 @@
 
 import UIKit
 
+
+// MARK: -kSet
+
+public let kSetNumber       =   "0123456789";
+public let kSetFloat        =   "0123456789.";
+public let kSetAlpha        =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+public let kSetAlpha_Num    =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+public let kSetAlpha_Float  =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.";
+
 // MARK: -tag
 
 public let kTAG_LABEL = 100;
@@ -142,6 +151,7 @@ public let kActionTitle_Update = "立即升级";
 public let kActionTitle_Collect = "收藏";
 public let kActionTitle_Recover = "恢复";
 
+public let kNIl_TEXT            =   "--";
 
 //MARK: -通用
 

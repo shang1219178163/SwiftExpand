@@ -31,5 +31,3 @@ public func AssociationKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointe
     let key:UnsafeRawPointer = UnsafeRawPointer.init(bitPattern: string.hashValue)!;
     return key;
 }
-
-

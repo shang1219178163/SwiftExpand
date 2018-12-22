@@ -25,7 +25,7 @@ public extension UIViewController{
         }
     }
     
-    public var tabView: UITableView {
+    public var tableView: UITableView {
         get {
             var table = objc_getAssociatedObject(self, AssociationKeyFromSelector(#function)) as? UITableView;
             if table == nil {
