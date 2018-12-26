@@ -13,7 +13,6 @@ public extension UIViewController{
     
     public var controllerName: String {
         get {
-
             var className:String = NStringShortFromClass(self.classForCoder);
             if className.contains("Controller") {
                 var range = className.range(of: "Controller");
@@ -26,7 +25,6 @@ public extension UIViewController{
             return className;
         }
     }
-    
     
     public func createBarItem(titile:String, imgName:AnyObject?, isLeft:Bool, isHidden:Bool, target:AnyObject, action:Selector) -> UIButton {
         
@@ -64,14 +62,14 @@ public extension UIViewController{
     }
     
     @objc private func handleActionItem(sender:UIBarButtonItem) -> Void {
-        let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ObjClick;
+        let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ObjBlock;
         if block != nil {
             block!(sender);
 
         }
     }
     
-    public func createBarItem(systemItem:UIBarButtonItem.SystemItem, isLeft:Bool, action:@escaping (ObjClick)) -> Void {
+    public func createBarItem(systemItem:UIBarButtonItem.SystemItem, isLeft:Bool, action:@escaping (ObjBlock)) -> Void {
 
         let item:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(handleActionItem(sender:)));
         item.systemType = systemItem;
@@ -85,11 +83,16 @@ public extension UIViewController{
 
     };
     
-     public func createBtnBarItem(title:String?, image:AnyObject?, tag:NSInteger, isLeft:Bool, isHidden:Bool, action:@escaping (ControlClick)) -> UIButton! {
+     public func createBtnBarItem(title:String?, image:String?, tag:NSInteger, isLeft:Bool, isHidden:Bool, action:@escaping (ControlBlock)) -> UIButton {
 
-        let size = image != nil && UIImage(named:image as! String) != nil ? CGSize(width: 40, height: 40) : CGSize(width: 32, height: 32);
+        var size = CGSize(width: 32, height: 32)
+        if image != nil {
+            if UIImage(named:image!) != nil {
+                size = CGSize(width: 40, height: 40)
+            }
+        }
         let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: size);
-        let btn = UIButton.createBtn(rect: rect, title: title, font: 16 as AnyObject, image: image, tag: tag, type: 0)
+        let btn = UIButton.createBtn(rect: rect, title: title, font: 16.0, image: image, tag: tag, type: 0, action: action)
         btn.tag = isLeft == true ? kTAG_BackItem : kTAG_RightItem;
         btn.isHidden = isHidden;
         
@@ -98,7 +101,6 @@ public extension UIViewController{
 //        btn.center = view.center;
 //        view.addSubview(btn);
         
-        btn.addActionHandler(action, for: UIControl.Event.touchUpInside)
         let item:UIBarButtonItem = UIBarButtonItem(customView: btn);
         if isLeft == true {
             navigationItem.leftBarButtonItem = item;

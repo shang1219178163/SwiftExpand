@@ -12,38 +12,7 @@ import UIKit
 public typealias ButtonClick = ((_ sender:UIButton)->()) // 定义数据类型(其实就是设置别名)
 
 public extension UIButton{
-    
-//    private public struct RuntimeKey {
-//        public static let actionBlock = UnsafeRawPointer.init(bitPattern: "actionBlock".hashValue)
-//        /// ...其他Key声明
-//    }
-    
-//    /// 运行时关联
-//    private var actionBlock: ButtonClick? {
-//        set {
-//            objc_setAssociatedObject(self, UIButton.RuntimeKey.actionBlock!, newValue, .OBJC_ASSOCIATION_COPY_NONATOMIC)
-//        }
-//        get {
-//            return  objc_getAssociatedObject(self, UIButton.RuntimeKey.actionBlock!) as? ButtonClick
-//        }
-//    }
-//    /// 点击回调
-//    @objc public func tapped(btn:UIButton){
-//        if self.actionBlock != nil {
-//            self.actionBlock!(btn);
-//        }
-//    }
-//
-//    /// 点击回调
-//    @objc public func addActionBlock(action:@escaping ButtonClick){
-//        self.actionBlock = action;
-//        if self.allTargets.count == 0 {
-//            self.addTarget(self, action:#selector(tapped(btn:)), for:.touchUpInside)
-//
-//        }
-//
-//    }
-//
+
 //    /// 快速创建
 //    convenience init(action:@escaping ButtonClick){
 //        self.init()
@@ -66,27 +35,25 @@ public extension UIButton{
 //        self.frame = frame
 //    }
     
-   public static func createBtnImg(rect:CGRect, image_N:String!, image_H:String?) -> UIButton {
+    
+    public static func createBtnImg(rect:CGRect, image_N:String!, image_H:String?) -> UIButton {
         let btn = UIButton(type:.custom);
         btn.frame = rect;
         if UIImage(named:image_N) != nil {
             btn.setImage(UIImage(named:image_N), for: .normal);
-            
         }
         
         if UIImage(named:image_H!) != nil {
             btn.setImage(UIImage(named:image_H!), for: .highlighted);
-            
         }
         btn.sizeToFit();
         return btn;
     }
     
-    public static func createBtnTitle(rect:CGRect, title:String!, font:AnyObject, type:NSInteger) -> UIButton! {
+    public static func createBtnTitle(rect:CGRect, title:String!, font:CGFloat, type:NSInteger) -> UIButton {
         let btn = UIButton(type:.custom);
         btn.frame = rect;
-        let font = font is NSInteger == false ? font as! UIFont : UIFont.systemFont(ofSize:CGFloat(font.floatValue));
-        btn.titleLabel?.font = font;
+        btn.titleLabel?.font = UIFont.systemFont(ofSize:font);
         btn.setTitle(title, for: .normal);
         btn.isExclusiveTouch = true;
         btn.adjustsImageWhenHighlighted = false;
@@ -124,41 +91,25 @@ public extension UIButton{
             
         default:
             btn.setTitle(title, for: .normal);
-            
+            btn.setTitleColor(UIColor.black, for: .normal)
         }
         return btn;
     }
     
-
-    public static func createBtn(rect:CGRect,title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger) -> UIButton {
-        if image != nil && image is String {
-            let btn = UIButton.createBtnImg(rect:rect, image_N: (image as! String), image_H: image as? String);
-            return btn;
+    public static func createBtn(rect:CGRect, title:String?, font:CGFloat, image:String?,tag:NSInteger, type:NSInteger) -> UIButton {
+        let btn = UIButton.createBtnTitle(rect: rect,title: title, font:font, type: type);
+        btn.tag = tag;
+        if let obj = image {
+            if UIImage(named:obj) != nil {
+                btn.setImage(UIImage(named:obj), for: .normal);
+            }
         }
-  
-        let btnTitle = title != nil ? title : "UIbutton";
-        let btn = UIButton.createBtnTitle(rect:rect, title: btnTitle, font:font as AnyObject, type:type);
-        return btn!
+        return btn;
     }
     
-    public static func createBtn(rect:CGRect, title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger, action:@escaping (ControlClick)) -> UIButton {
-        
-        let btn = UIButton.createBtn(rect: rect,title: title, font:font, image:image, tag: tag, type: type);
-        btn.tag = tag;
+    public static func createBtn(rect:CGRect, title:String?, font:CGFloat, image:String?,tag:NSInteger, type:NSInteger, action:@escaping (ControlBlock)) -> UIButton {
+        let btn = UIButton.createBtn(rect: rect, title: title, font: font, image:image, tag:tag, type: type);
         btn.addActionHandler(action, for: UIControl.Event.touchUpInside)
         return btn;
     }
-    
-//    public static func createBtn(rect:CGRect, title:String?, font:AnyObject, image:AnyObject?,tag:NSInteger, type:NSInteger, action:@escaping (ViewClick)) -> UIButton? {
-//        
-//        let btn = UIButton.createBtn(rect: rect,title: title, font:font, image:image, tag: tag, type: type);
-//        btn.addActionHandler { (tap, view, idx) in
-//            action(tap, view, idx);
-//        }
-//     
-//        return btn;
-//    }
-   
-   
-
 }
