@@ -54,7 +54,7 @@ public extension UIViewController{
         
         if isLeft == true {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: btn);
-        }else{
+        } else {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: btn);
 
         }
@@ -123,7 +123,7 @@ public extension UIViewController{
 //        if image != nil  {
 //            btn.setImage(image, for: .normal);
 //
-//        }else{
+//        } else {
 //            if titile.isEmpty == false{
 //                btn.setTitle(titile, for: .normal);
 //                if titile.count == 4{
@@ -139,7 +139,7 @@ public extension UIViewController{
 //
 //        if isLeft == true {
 //            self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: btn);
-//        }else{
+//        } else {
 //            self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: btn);
 //
 //        }
