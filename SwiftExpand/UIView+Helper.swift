@@ -319,8 +319,8 @@ public extension UIView{
             let sender = recognizer as! UIPanGestureRecognizer;
             let translate:CGPoint = sender.translation(in: sender.view?.superview)
             sender.view?.center = CGPoint(x: sender.view?.center.x ?? 0.0 + translate.x, y: sender.view?.center.y ?? 0.0 + translate.y)
-            DDLog(sender.view?.center)
-            
+            print(sender.view?.center as Any)
+
         case is UIPinchGestureRecognizer:
             let sender = recognizer as! UIPinchGestureRecognizer;
             let location = recognizer.location(in: sender.view?.superview)
