@@ -7,15 +7,15 @@
 
 import UIKit
 
-extension UIImageView{
+public extension UIImageView{
     
     ///MARK:默认渲染AlwaysTemplate方式
-    func renderTintColor(_ tintColor:UIColor) -> Void {
+    public func renderTintColor(_ tintColor:UIColor) -> Void {
         renderTintColor(tintColor, mode: .alwaysTemplate);
     }
     
     ///MARK:渲染
-    func renderTintColor(_ tintColor:UIColor, mode: UIImage.RenderingMode) -> Void {
+    public func renderTintColor(_ tintColor:UIColor, mode: UIImage.RenderingMode) -> Void {
         self.tintColor = tintColor
         self.image = self.image!.withRenderingMode(mode)
         //        self.image = self.image!.withRenderingMode( .alwaysTemplate)
