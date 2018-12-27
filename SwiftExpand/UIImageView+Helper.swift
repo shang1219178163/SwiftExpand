@@ -9,16 +9,19 @@ import UIKit
 
 extension UIImageView{
     
-    func renderTintColor(_ tintColor:UIColor, imgName:String, mode: UIImage.RenderingMode) -> Void {
-        self.image = UIImage(named: imgName)!;
-        renderTintColor(tintColor, mode: mode);
+    ///MARK:默认渲染AlwaysTemplate方式
+    func renderTintColor(_ tintColor:UIColor) -> Void {
+        renderTintColor(tintColor, mode: .alwaysTemplate);
     }
     
+    ///MARK:渲染
     func renderTintColor(_ tintColor:UIColor, mode: UIImage.RenderingMode) -> Void {
         self.tintColor = tintColor
-//        self.image = self.image!.withRenderingMode( .alwaysTemplate)
-        self.image = self.image!.withRenderingMode( mode)
+        self.image = self.image!.withRenderingMode(mode)
+        //        self.image = self.image!.withRenderingMode( .alwaysTemplate)
         
     }
 }
+
+
 
