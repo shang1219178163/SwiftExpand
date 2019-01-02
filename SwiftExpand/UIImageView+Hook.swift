@@ -26,7 +26,7 @@ public extension UIImageView{
         //需要注入的代码写在此处
         self.swz_tintColor(color)
         
-//        if self.classForCoder as? SwiftClassFromString("UITabBarSwappableImageView") {
+//        if self.classForCoder as? SwiftClassFromString(kUITabBarSwappableImageView) {
 //            return;
 //        }
         
