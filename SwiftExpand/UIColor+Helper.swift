@@ -15,7 +15,6 @@ public extension UIColor{
     public static var random : UIColor {
         get{
             return UIColor.randomColor();
-            
         }
     }
     
@@ -98,22 +97,6 @@ public extension UIColor{
         let g = arc4random_uniform(256);
         let b = arc4random_uniform(256);
         return UIColor(red:CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(1.0));
-    }
-    
-    public func UIColorRGBA(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat,_ a:CGFloat) -> UIColor{
-        return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
-    }
-    
-    public func UIColorHex(_ hex:String) -> UIColor {
-        return UIColor.hex(hex);
-    }
-    
-    public func UIColorRandom() -> UIColor {
-        return UIColor.randomColor();
-    }
-    
-    public func UIColorDim(_ white:CGFloat, _ a:CGFloat) -> UIColor{
-        return .init(white: white, alpha: a);
     }
     
 }
