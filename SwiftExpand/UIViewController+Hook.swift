@@ -22,7 +22,7 @@ public extension UIViewController{
                 //            let _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
                 let _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel0, replSel: repSel0);
                 
-                DDLog(UIViewController.self)
+//                DDLog(UIViewController.self)
                 
                 let oriSel = #selector(UIViewController.viewWillAppear(_:))
                 let repSel = #selector(UIViewController.swz_viewWillAppear(animated:))
