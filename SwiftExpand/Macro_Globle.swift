@@ -9,6 +9,10 @@
 
 import UIKit
 
+public let kUIButtonBarButton = "UIButtonBarButton";
+
+public let kUITabBarButton = "UITabBarButton";
+public let kUITabBarSwappableImageView = "UITabBarSwappableImageView";
 
 // MARK: -kSet
 
