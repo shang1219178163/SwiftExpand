@@ -103,7 +103,7 @@ public func UITarBarCtrFromList(_ list:Array<Any>) -> UITabBarController!{
     return tabBarController;
 }
 
-public func UIColorFromDim(_ white:CGFloat, _ a:CGFloat) -> UIColor{
+public func UIColorDim(_ white:CGFloat, _ a:CGFloat) -> UIColor{
     return .init(white: white, alpha: a);
 }
 
