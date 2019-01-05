@@ -21,6 +21,7 @@ public func kScaleWidth(_ width: CGFloat) -> CGFloat {
     return width * UIScreen.main.bounds.size.width / 320.0
 }
 
+//获取本地创建类
 public func SwiftClassFromString(_ name:String) -> AnyClass {
 //    let nameKey = "CFBundleName";
 //    这里也是坑，请不要翻译oc的代码，而是去NSBundle类里面看它的api
@@ -77,7 +78,7 @@ public func UINavListFromList(_ list:Array<Any>) -> Array<UINavigationController
             let controller:UIViewController = UICtrFromString(itemList.first!);
             controller.title = title;
             controller.tabBarItem.image = UIImage(named: img_N)?.withRenderingMode(.alwaysOriginal);
-            controller.tabBarItem.selectedImage = UIImage(named: img_H)?.withRenderingMode(.alwaysOriginal);
+            controller.tabBarItem.selectedImage = UIImage(named: img_H)?.withRenderingMode(.alwaysTemplate);
             controller.tabBarItem.badgeValue = badgeValue;
             if #available(iOS 10.0, *) {
                 controller.tabBarItem.badgeColor = badgeValue.isEmpty ? .clear:.red;
@@ -130,7 +131,7 @@ public func UIImageNamed(_ name: String, renderingMode: UIImageRenderingMode) ->
     return image
 }
 
-// 把颜色转成图片
+// 把颜色转成UIImage
 public func UIImageColor(_ color: UIColor) -> UIImage{
     let rect: CGRect = CGRect(x: 0, y: 0, width: 1.0, height: 1.0)
     UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
@@ -144,6 +145,12 @@ public func UIImageColor(_ color: UIColor) -> UIImage{
     return image!
 }
 
+public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
+    let data0 = UIImagePNGRepresentation(image0)
+    let data1 = UIImagePNGRepresentation(image1)
+    return data0 == data1
+}
+
 ///返回的类名不带明明空间
 public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
     let className:String = NSStringFromClass(cls);
@@ -154,6 +161,34 @@ public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
 //    return className;
     let list = className.components(separatedBy: ".");
     return list.last!;
+}
+
+public func AttributeDict(_ type:Int) -> [NSAttributedStringKey: Any]{
+    
+    var dic : [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor    :   UIColor.black,
+                                              NSAttributedStringKey.backgroundColor    :   UIColor.white,]
+    
+    switch type {
+    case 1:
+        dic = [NSAttributedString.Key.underlineStyle    :   NSUnderlineStyle.styleSingle.rawValue,
+               NSAttributedString.Key.underlineColor     :   UIColor.red,]
+    case 2:
+        dic = [NSAttributedString.Key.strikethroughStyle    :   NSUnderlineStyle.styleSingle.rawValue,
+               NSAttributedString.Key.strikethroughColor     :   UIColor.red,]
+    case 3:
+        dic = [NSAttributedString.Key.obliqueness    :   0.8,]
+    case 4:
+        dic = [NSAttributedString.Key.expansion    :   0.3,]
+        
+    case 5:
+        dic = [NSAttributedString.Key.writingDirection    :   3,]
+        
+    default:
+        break
+        
+    }
+    return dic;
+    
 }
 
 public extension NSObject{
