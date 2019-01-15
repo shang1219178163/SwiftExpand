@@ -484,7 +484,7 @@ public extension UIView{
         return backView;
     }
     
-    public func createSegmentRect(_ rect: CGRect, items: Array<Any>!, selectedIdx: Int, type: Int) -> UISegmentedControl {
+    public static func createSegmentRect(_ rect: CGRect, items: Array<Any>!, selectedIdx: Int, type: Int) -> UISegmentedControl {
         
         let view = UISegmentedControl(items: items)
         view.frame = rect
@@ -561,7 +561,7 @@ public extension UIView{
         return view;
     }
     
-    public func createSliderRect(_ rect: CGRect, value: Float, minValue: Float, maxValue: Float) -> UISlider {
+    public static func createSliderRect(_ rect: CGRect, value: Float, minValue: Float, maxValue: Float) -> UISlider {
         let view = UISlider(frame: rect)
         view.autoresizingMask = UIViewAutoresizing.flexibleWidth
         view.minimumValue = minValue
@@ -572,7 +572,7 @@ public extension UIView{
         return view;
     }
     
-    public func createSwitchRect(_ rect: CGRect, isOn: Bool) -> UISwitch {
+    public static func createSwitchRect(_ rect: CGRect, isOn: Bool) -> UISwitch {
         let view = UISwitch(frame: rect)
         view.autoresizingMask = UIViewAutoresizing.flexibleWidth
         view.isOn = isOn
