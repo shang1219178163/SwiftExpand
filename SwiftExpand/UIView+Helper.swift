@@ -105,8 +105,8 @@ public extension UIView{
             return layer.cornerRadius
         }
         set {
-            layer.masksToBounds = true
             layer.cornerRadius = newValue
+            layer.masksToBounds = true
         }
     }
    
@@ -484,10 +484,11 @@ public extension UIView{
         return backView;
     }
     
-    func createSegmentRect(_ rect: CGRect, items: Array<Any>!, selectedIdx: Int, type: Int) -> UISegmentedControl {
+    public func createSegmentRect(_ rect: CGRect, items: Array<Any>!, selectedIdx: Int, type: Int) -> UISegmentedControl {
         
         let view = UISegmentedControl(items: items)
         view.frame = rect
+        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
         view.selectedSegmentIndex = selectedIdx
         
         switch type {
@@ -560,7 +561,7 @@ public extension UIView{
         return view;
     }
     
-    func createSliderRect(_ rect: CGRect, value: Float, minValue: Float, maxValue: Float) -> UISlider {
+    public func createSliderRect(_ rect: CGRect, value: Float, minValue: Float, maxValue: Float) -> UISlider {
         let view = UISlider(frame: rect)
         view.autoresizingMask = UIViewAutoresizing.flexibleWidth
         view.minimumValue = minValue
@@ -568,16 +569,14 @@ public extension UIView{
         view.value = value;
         
         view.minimumTrackTintColor = UIColor.theme
-        view.maximumTrackTintColor = UIColor.white
-        view.thumbTintColor = UIColor.white
         return view;
     }
     
-    func createSwitchRect(_ rect: CGRect, isOn: Bool) -> UISwitch {
+    public func createSwitchRect(_ rect: CGRect, isOn: Bool) -> UISwitch {
         let view = UISwitch(frame: rect)
+        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
         view.isOn = isOn
         view.onTintColor = UIColor.theme
-        view.tintColor = UIColor.white
         return view
     }
 }

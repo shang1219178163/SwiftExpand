@@ -96,6 +96,8 @@ public extension UITableViewCell{
                 label!.textAlignment = .left;
                 label!.numberOfLines = 0;
                 label!.lineBreakMode = .byCharWrapping;
+                label!.isUserInteractionEnabled = true;
+
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), label, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
             }
@@ -115,6 +117,8 @@ public extension UITableViewCell{
                 label!.numberOfLines = 0;
                 label!.lineBreakMode = .byCharWrapping;
                 label!.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0);
+                label!.isUserInteractionEnabled = true;
+
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), label, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
@@ -134,6 +138,8 @@ public extension UITableViewCell{
                 label!.textAlignment = .left;
                 label!.numberOfLines = 0;
                 label!.lineBreakMode = .byCharWrapping;
+                label!.isUserInteractionEnabled = true;
+
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), label, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
@@ -174,7 +180,7 @@ public extension UITableViewCell{
                 tf!.autocorrectionType = .no;
                 tf!.clearButtonMode = .whileEditing;
                 tf!.backgroundColor = .white;
-                
+                tf!.returnKeyType = .done
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), tf, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }

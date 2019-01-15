@@ -20,8 +20,15 @@ public extension UIColor{
     
     public static var theme : UIColor {
         get{
+            var color = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIColor;
+            color = color ?? UIColor.orange
 //            return UIColor.hex("#0082e0");
-            return UIColor.orange;
+//            return UIColor.orange;
+            return color!;
+        }
+        set{
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
         }
     }
         
@@ -58,6 +65,19 @@ public extension UIColor{
     public static var excel : UIColor {
         get{
             return UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1.0);
+        }
+    }
+    
+    //MARK:  -项目定制
+    public static var textColorTitle : UIColor {
+        get{
+            return UIColor.hex("#333333");
+        }
+    }
+    
+    public static var textColorSub : UIColor {
+        get{
+            return UIColor.hex("#999999");
         }
     }
     

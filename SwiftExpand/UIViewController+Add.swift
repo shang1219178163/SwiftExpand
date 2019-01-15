@@ -11,6 +11,24 @@ import UIKit
 
 public extension UIViewController{
     
+    @objc public var obj: AnyObject? {
+        get {
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    @objc public var objOne: AnyObject? {
+        get {
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
     public var dataList: NSMutableArray {
         get {
             var list = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? NSMutableArray;
@@ -87,24 +105,6 @@ public extension UIViewController{
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return view!;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    
-    public var obj: AnyObject?{
-        get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    
-    public var objOne: AnyObject?{
-        get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

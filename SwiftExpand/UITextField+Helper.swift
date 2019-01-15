@@ -14,7 +14,6 @@ public extension UITextField{
 
     //    MARK: - -TextFieldRightView
     public func asoryView(_ isRight: Bool, unitName: String!, viewSize:CGSize) -> UIView! {
-        
         assert(unitName != nil && unitName.valid() == true);
         
         if unitName.contains("img") {
@@ -25,7 +24,7 @@ public extension UITextField{
             return imgView;
         }
        
-        let size = self.sizeWithText(text: unitName as AnyObject, font: self.font!, width: kScreenWidth);
+        let size = self.sizeWithText(unitName as AnyObject, font: UIFont.labelFontSize, width: kScreenWidth);
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width, height: viewSize.height));
         label.tag = kTAG_LABEL;
         label.text = unitName;
@@ -34,9 +33,7 @@ public extension UITextField{
         label.lineBreakMode = .byCharWrapping;
         label.numberOfLines = 0;
         label.backgroundColor = .clear;
-        
         return label;
-     
     }
     
     public func asoryView(_ isRight: Bool, unitName: String!) -> Void {
