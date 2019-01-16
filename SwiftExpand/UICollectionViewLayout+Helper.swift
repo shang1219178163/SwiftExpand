@@ -10,34 +10,100 @@ import UIKit
 
 public extension UICollectionViewLayout{
     
-    public static var layoutDefault: UICollectionViewLayout {
+    public var minimumLineSpacing: CGFloat {
         get {
-            var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
-            if layout == nil {
-                // 初始化
-                layout = UICollectionViewFlowLayout()
-                
-                let spacing: CGFloat = 5.0
-          
-                let itemW = (kScreenWidth - 5*spacing)/4.0
-                layout!.itemSize = CGSize(width: itemW, height: itemW)
-                layout!.minimumLineSpacing = spacing
-                layout!.minimumInteritemSpacing = spacing
-                //        layout.scrollDirection = .vertical
-                layout!.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-                // 设置分区头视图和尾视图宽高
-                layout!.headerReferenceSize = CGSize(width: kScreenWidth, height: 60)
-                layout!.footerReferenceSize = CGSize(width: kScreenWidth, height: 60)
-                
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
+            if let aValue = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGFloat {
+                return aValue
+            } else {
+                return 5.0
             }
-            return layout!
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
+    public var minimumInteritemSpacing: CGFloat {
+        get {
+            if let aValue = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGFloat {
+                return aValue
+            } else {
+                return 5.0
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+ 
     
+    public var itemSize: CGSize {
+        get {
+            if let aValue = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
+                return aValue
+            } else {
+                return CGSize.zero
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    public var headerReferenceSize: CGSize {
+        get {
+            if let aValue = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
+                return aValue
+            } else {
+                return CGSize.zero
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    public var footerReferenceSize: CGSize {
+        get {
+            if let aValue = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
+                return aValue
+            } else {
+                return CGSize.zero
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    public var sectionInset: UIEdgeInsets {
+        get {
+            if let aValue = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIEdgeInsets {
+                return aValue
+            } else {
+                return UIEdgeInsets.zero
+            }
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+   
+    /// 默认布局配置(自上而下,自左而右)
+    public static func create(_ itemSize: CGSize, spacing: CGFloat, headerSize: CGSize, footerSize: CGSize) -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout();
+        //item水平间距
+        layout.minimumLineSpacing = spacing;
+        //item垂直间距
+        layout.minimumInteritemSpacing = spacing;
+        //item的尺寸
+        layout.itemSize = itemSize;
+        //item的UIEdgeInsets
+        layout.sectionInset = UIEdgeInsetsMake(spacing, spacing, spacing, spacing);
+        //滑动方向,默认垂直
+        //sectionView 尺寸
+        layout.headerReferenceSize = headerSize;
+        layout.footerReferenceSize = footerSize;
+        return layout;
+    }
 }

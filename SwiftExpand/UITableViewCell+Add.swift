@@ -48,7 +48,6 @@ public extension UITableViewCell{
     public static func cellWithTableView(_ tableView:UITableView) -> UITableViewCell! {
 //        let identifier = NSStringFromClass(self.classForCoder());
         return cellWithTableView(tableView, identifier: identifier);
-
     }
         
     public var imgViewLeft: UIImageView {

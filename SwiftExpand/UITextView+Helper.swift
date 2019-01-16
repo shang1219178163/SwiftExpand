@@ -10,6 +10,27 @@
 import UIKit
 
 public extension UITextView{
+    public class func initializeMethod() {
+        if self == UIImageView.self {
+            let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
+            //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
+            DispatchQueue.once(token: onceToken) {
+                let oriSel0 = NSSelectorFromString("deinit")
+                let repSel0 = #selector(self.swz_deinit)
+                
+                let _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
+                
+            }
+        }
+    }
+    
+    @objc public func swz_deinit() -> Void {
+        //需要注入的代码写在此处
+        NotificationCenter.default.removeObserver(self)
+
+        self.swz_deinit()
+    
+    }
     
     public var placeHolderTextView: UITextView {
         get {

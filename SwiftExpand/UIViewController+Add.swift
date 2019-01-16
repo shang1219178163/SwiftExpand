@@ -79,18 +79,7 @@ public extension UIViewController{
             var collection = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionView;
             if collection == nil {
                 // 初始化
-                let layout = UICollectionViewFlowLayout()
-                let itemW = (kScreenWidth - 5*5.0)/4.0
-                layout.itemSize = CGSize(width: itemW, height: itemW)
-                layout.minimumLineSpacing = 5
-                layout.minimumInteritemSpacing = 5
-                //        layout.scrollDirection = .vertical
-                layout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-                // 设置分区头视图和尾视图宽高
-                layout.headerReferenceSize = CGSize(width: kScreenWidth, height: 60)
-                layout.footerReferenceSize = CGSize(width: kScreenWidth, height: 60)
-                
-                collection = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+                collection = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
                 collection!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
                 collection!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
                 collection!.backgroundColor = UIColor.background
