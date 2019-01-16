@@ -171,16 +171,16 @@ public let kActionTitle_Update: String = "立即升级";
 public let kActionTitle_Collect: String = "收藏";
 public let kActionTitle_Recover: String = "恢复";
 
-public let kNIl_TEXT: String =   "--";
-public let kSeparateStr: String =   ",";
-public let kAsterisk: String =   "*";
-public let kBlankHalf: String =   "  ";
-public let kBlankOne: String =   "    ";
-public let kBlankTwo: String =   "        ";
-public let kBlankFour: String =   "                ";
+public let kNIl_TEXT: String    = "--";
+public let kSeparateStr: String = ",";
+public let kAsterisk: String    = "*";
+public let kBlankHalf: String   = "  ";
+public let kBlankOne: String    = "    ";
+public let kBlankTwo: String    = "        ";
+public let kBlankFour: String   = "                ";
 
 //MARK: -通用
 
-public let kDes_week: String =   "星期一,星期二,星期三,星期四,星期五,星期六,星期天";
-public let kDes_month: String =   "正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月,九月, 十月, 冬月, 腊月";
-public let kDes_day: String =   "初一, 初二, 初三, 初四, 初五, 初六, 初七, 初八, 初九, 初十,十一, 十二, 十三, 十四, 十五, 十六, 十七, 十八, 十九, 二十, 廿一, 廿二, 廿三, 廿四, 廿五, 廿六, 廿七, 廿八, 廿九, 三十, 三十一";
+public let kDes_week: String    = "星期一,星期二,星期三,星期四,星期五,星期六,星期天";
+public let kDes_month: String   = "正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月,九月, 十月, 冬月, 腊月";
+public let kDes_day: String     = "初一, 初二, 初三, 初四, 初五, 初六, 初七, 初八, 初九, 初十,十一, 十二, 十三, 十四, 十五, 十六, 十七, 十八, 十九, 二十, 廿一, 廿二, 廿三, 廿四, 廿五, 廿六, 廿七, 廿八, 廿九, 三十, 三十一";

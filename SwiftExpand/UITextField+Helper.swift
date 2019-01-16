@@ -17,11 +17,11 @@ public extension UITextField{
         assert(unitName != nil && unitName.valid() == true);
         
         if unitName.contains("img") {
-            let imgView = UIImageView(frame: CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height));
-            imgView.image = UIImage(named: unitName);
-            imgView.contentMode = UIViewContentMode.scaleAspectFit;
-            imgView.tag = kTAG_IMGVIEW;
-            return imgView;
+            let view = UIImageView(frame: CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height));
+            view.image = UIImage(named: unitName);
+            view.contentMode = UIViewContentMode.scaleAspectFit;
+            view.tag = kTAG_IMGVIEW;
+            return view;
         }
        
         let size = self.sizeWithText(unitName as AnyObject, font: UIFont.labelFontSize, width: kScreenWidth);

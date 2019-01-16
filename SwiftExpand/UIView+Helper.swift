@@ -504,21 +504,16 @@ public extension UIView{
             view.setTitleTextAttributes(dic_N, for: .normal)
             view.setDividerImage(UIImageColor(UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default);
             
-            
         case 2:
             view.tintColor = UIColor.white
             view.backgroundColor = UIColor.white
       
-            let dic_N = [NSAttributedStringKey.foregroundColor: UIColor.theme,
-                         NSAttributedStringKey.foregroundColor: UIColor.white,
+            let dic_N = [NSAttributedStringKey.foregroundColor: UIColor.black,
                          NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
-                         
                          ]
             
-            let dic_H = [NSAttributedStringKey.foregroundColor: UIColor.white,
-                         NSAttributedStringKey.foregroundColor: UIColor.theme,
+            let dic_H = [NSAttributedStringKey.foregroundColor: UIColor.theme,
                          NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 18),
-                         
                          ]
             
             view.setTitleTextAttributes(dic_N, for: .normal)

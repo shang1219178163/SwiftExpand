@@ -208,15 +208,15 @@ public extension NSObject{
         }
     }
 
-    public var block:SwiftClosure {
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-        
-        get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! SwiftClosure;
-        }
-    }
+//    public var block:SwiftClosure {
+//        set {
+//            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//        }
+//        
+//        get {
+//            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! SwiftClosure;
+//        }
+//    }
     
     public func BNClassName(_ className:String) -> AnyClass {
         let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
