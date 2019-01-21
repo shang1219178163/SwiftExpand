@@ -52,6 +52,8 @@ public extension UIButton{
     
     public static func createBtnTitle(rect:CGRect, title:String!, font:CGFloat, type:NSInteger) -> UIButton {
         let btn = UIButton(type:.custom);
+        btn.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+        btn.imageView?.contentMode = .scaleAspectFit
         btn.frame = rect;
         btn.titleLabel?.font = UIFont.systemFont(ofSize:font);
         btn.setTitle(title, for: .normal);
