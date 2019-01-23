@@ -74,10 +74,10 @@ public let kSizeArrow: CGSize                   = CGSize(width: 25.0, height: 35
 public let kSizeSelected: CGSize                = CGSize(width: 35.0, height: 35.0);
 
 //public let kTimerValue                          = 65;
-public let kRatio_IDCard: CGFloat               = 1.58;
-public let kAnimDuration_Toast: TimeInterval    = 1.5;
-public let kAnimDuration_Drop: TimeInterval     = 0.5;
-public let kAnimDuration_Rotation: TimeInterval = 5.0;
+public let kRatioIDCard: CGFloat                = 1.58;
+public let kDurationToast: TimeInterval         = 1.5;
+public let kDurationDrop: TimeInterval          = 0.5;
+public let kDurationRotation: TimeInterval      = 5.0;
 
 public let kH_CellHeight: CGFloat               = 60.0;
 
