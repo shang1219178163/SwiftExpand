@@ -75,8 +75,10 @@ public let kSizeSelected: CGSize                = CGSize(width: 35.0, height: 35
 
 //public let kTimerValue                          = 65;
 public let kRatioIDCard: CGFloat                = 1.58;
-public let kDurationToast: TimeInterval         = 1.5;
+
+public let kDurationShow: TimeInterval          = 0.3;
 public let kDurationDrop: TimeInterval          = 0.5;
+public let kDurationToast: TimeInterval         = 1.5;
 public let kDurationRotation: TimeInterval      = 5.0;
 
 public let kH_CellHeight: CGFloat               = 60.0;
