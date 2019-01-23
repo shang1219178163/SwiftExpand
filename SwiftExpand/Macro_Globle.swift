@@ -70,8 +70,8 @@ public let kX_GAP: CGFloat                      = 15.0;
 public let kY_GAP: CGFloat                      = 10.0;
 public let kPadding: CGFloat                    = 8.0;
 
-public let kSize_Arrow: CGSize                  = CGSize(width : 25.0, height : 35.0);
-public let kSize_BtnSelected: CGSize            = CGSize(width : 35.0, height : 35.0);
+public let kSizeArrow: CGSize                   = CGSize(width: 25.0, height: 35.0);
+public let kSizeSelected: CGSize                = CGSize(width: 35.0, height: 35.0);
 
 //public let kTimerValue                          = 65;
 public let kRatio_IDCard: CGFloat               = 1.58;
@@ -106,6 +106,8 @@ public let kFZ_Fifth: CGFloat  =  10;
 
 public let kIMG_arrowRight: String      = "img_arrowRight_gray";
 public let kIMG_arrowDown: String       = "img_arrowDown_black";
+public let kIMG_arrowDown_white: String = "img_arrowDown_white";
+
 public let kIMG_arrowBack: String       = "img_arrowLeft_white";
 public let kIMG_arrowUp: String         = "img_arrowUp_blue";
 
