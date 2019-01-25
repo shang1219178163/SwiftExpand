@@ -110,6 +110,9 @@ public extension UIView{
         }
     }
    
+    //MARK: -funtions
+
+    /// 图层调试
     public func getViewLayer() -> () {
         let subviews = self.subviews;
         if subviews.count == 0 {
@@ -124,26 +127,30 @@ public extension UIView{
         }
     }
     
-    /// 每个View都有的识别字符
-//    public static var identifier: String {
-//        get {
-//            var str = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
-//            if str == nil {
-//                str = NStringShortFromClass(classForCoder());
-//                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), str, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//            }
-//            return str!;
-//        }
-//        set {
-//            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//        }
-//    }
-//    
-//    public class var identifier: String{
-//        return NSStringFromClass(self.classForCoder());
-//
-//    }
+    /// 移除所有子视图
+    public func removeAllSubViews(){
+        self.subviews.forEach { (view: UIView) in
+            view.removeFromSuperview()
+        }
+    }
+    
+    public func addCorners(_ corners: UIRectCorner, cornerRadii: CGSize, width: CGFloat, color: UIColor) -> CAShapeLayer {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: cornerRadii)
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = bounds
+        maskLayer.path = path.cgPath
+        maskLayer.borderWidth = width
+        maskLayer.borderColor = color.cgColor
+        layer.mask = maskLayer;
+        return maskLayer
+    }
+    
+    public func addCornerAll() -> CAShapeLayer {
+        let cornerRadii = CGSize(width: bounds.width*0.5, height: bounds.height*0.5)
+        return addCorners( .allCorners, cornerRadii: cornerRadii, width: 1.0, color: .white)
+    }
    
+    //MARK: -通用响应添加方法
     public func addActionHandler(action:@escaping (ViewClosure)) -> Void {
         if let sender = self as? UIButton {
             sender.addTarget(self, action:#selector(handleActionSender(sender:)), for:.touchUpInside);
@@ -156,10 +163,8 @@ public extension UIView{
         else {
 //            let recoginzer = objc_getAssociatedObject(self, RuntimeKey.tap);
             let recoginzer = objc_getAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!);
-
             if recoginzer == nil {
                 let recoginzer = UITapGestureRecognizer(target: self, action: #selector(handleActionTap(tap:)));
-                
                 self.isUserInteractionEnabled = true;
                 self.addGestureRecognizer(recoginzer);
                 
@@ -167,7 +172,6 @@ public extension UIView{
         }
 //        objc_setAssociatedObject(self, RuntimeKey.tap, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
         objc_setAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
-
     }
     
     /// 点击回调
@@ -196,6 +200,7 @@ public extension UIView{
     }
 
     
+    //MARK: -手势
     ///手势 - 轻点
     public func addGestureTap(_ action:@escaping (RecognizerClosure)) -> UITapGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
@@ -405,6 +410,7 @@ public extension UIView{
         }
     }
     
+    //MARK: -Cell
     public func getCell() -> UITableViewCell{
         var supView = self.superview
         while let view = supView as? UITableViewCell {
@@ -418,160 +424,5 @@ public extension UIView{
         return tableView.indexPathForRow(at: cell.center)!
     }
     
-    public func removeAllSubViews(){
-        self.subviews.forEach { (view: UIView) in
-            view.removeFromSuperview()
-        }
-    }
     
-    ///MARK: -view
-    public static func createView(rect:CGRect, list:Array<String>!, numberOfRow:Int, viewHeight:CGFloat, padding:CGFloat, type:Int, action:@escaping (UITapGestureRecognizer?,UIView,NSInteger)->()) -> UIView! {
-        
-        let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1;
-        
-        let backView = UIView(frame: CGRect(x: rect.minX, y: rect.minY, width: rect.width, height: CGFloat(rowCount)*viewHeight + CGFloat(rowCount - 1)*padding));
-        backView.backgroundColor = UIColor.green;
-        
-        let viewSize = CGSize(width: (backView.frame.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow), height: viewHeight);
-        for (i,value) in list.enumerated() {
-            
-            let x = (viewSize.width + padding) * CGFloat(i % numberOfRow);
-            let y = (viewSize.height + padding) * CGFloat(i / numberOfRow);
-            let rect = CGRect(x: x, y: y, width: viewSize.width, height: viewSize.height);
-            
-            var view: UIView;
-            switch type {
-            case 1:
-                let imgView = UIImageView(frame: rect);
-                imgView.isUserInteractionEnabled = true;
-                imgView.contentMode = .scaleAspectFit;
-                imgView.image = UIImage(named: value);
-                
-                view = imgView;
-                
-            case 2:
-                let label = UILabel(frame: rect);
-                label.text = value;
-                label.textAlignment = .center;
-                
-                label.numberOfLines = 0;
-                label.lineBreakMode = .byCharWrapping;
-                
-                view = label;
-                
-            default:
-                let button = UIButton(type: .custom);
-                button.frame = rect;
-                button.setTitle(value, for: .normal);
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 15);
-                button.titleLabel?.adjustsFontSizeToFitWidth = true;
-                button.titleLabel?.minimumScaleFactor = 1.0;
-                button.isExclusiveTouch = true;
-                
-                button.setTitleColor(UIColor.black, for: .normal);
-                button.backgroundColor = UIColor.white;
-                view = button;
-            }
-            view.tag = i;
-            
-            backView.addSubview(view);
-            
-            view.addActionHandler { (tap, itemView, idx) in
-                action(tap,itemView,idx);
-                
-            }
-        }
-        return backView;
-    }
-    
-    public static func createSegmentRect(_ rect: CGRect, items: Array<Any>!, selectedIdx: Int, type: Int) -> UISegmentedControl {
-        
-        let view = UISegmentedControl(items: items)
-        view.frame = rect
-        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
-        view.selectedSegmentIndex = selectedIdx
-        
-        switch type {
-        case 1:
-            view.tintColor = UIColor.theme
-            view.backgroundColor = UIColor.white
-            view.layer.borderWidth = 1.0
-            view.layer.borderColor = UIColor.white.cgColor
-            let dic_N = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
-            
-                        ]
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setDividerImage(UIImageColor(UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default);
-            
-        case 2:
-            view.tintColor = UIColor.white
-            view.backgroundColor = UIColor.white
-      
-            let dic_N = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
-                         ]
-            
-            let dic_H = [NSAttributedStringKey.foregroundColor: UIColor.theme,
-                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 18),
-                         ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
-            
-        case 3:
-            view.tintColor = UIColor.clear
-            view.backgroundColor = UIColor.line
-            
-            let dic_N = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
-                         
-                         ]
-            
-            let dic_H = [NSAttributedStringKey.foregroundColor: UIColor.theme,
-                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 18),
-                         
-                         ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
-            
-        default:
-            view.tintColor = UIColor.theme
-            view.backgroundColor = UIColor.white
-            
-            let dic_N = [
-                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
-                         
-                         ]
-            
-            let dic_H = [
-                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 18),
-                         
-                         ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
-        }
-        return view;
-    }
-    
-    public static func createSliderRect(_ rect: CGRect, value: Float, minValue: Float, maxValue: Float) -> UISlider {
-        let view = UISlider(frame: rect)
-        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
-        view.minimumValue = minValue
-        view.maximumValue = maxValue
-        view.value = value;
-        
-        view.minimumTrackTintColor = UIColor.theme
-        return view;
-    }
-    
-    public static func createSwitchRect(_ rect: CGRect, isOn: Bool) -> UISwitch {
-        let view = UISwitch(frame: rect)
-        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
-        view.isOn = isOn
-        view.onTintColor = UIColor.theme
-        return view
-    }
 }
