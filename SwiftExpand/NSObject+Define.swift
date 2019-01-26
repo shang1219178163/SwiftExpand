@@ -65,7 +65,7 @@ public func IsTimeStamp(_ obj: Any) -> Bool{
         }
     } else {
         if let value = obj as? Int {
-            if value < 10000000000 {
+            if value < Int(10000000000) {
                 return false
             }
         }
