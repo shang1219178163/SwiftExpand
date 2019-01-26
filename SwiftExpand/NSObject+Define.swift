@@ -58,14 +58,14 @@ public func CGRectMake(_ x: Int,_ y: Int,_ w: Int,_ h: Int) -> CGRect{
 
 
 public func IsTimeStamp(_ obj: Any) -> Bool{
-    assert(obj is String || obj is Int)
+    assert(obj is String || obj is Double)
     if let dateStr = obj as? String {
         if dateStr.count < 10 || dateStr.contains(" ") {
             return false
         }
     } else {
-        if let value = obj as? Int {
-            if value < Int(10000000000) {
+        if let value = obj as? Double {
+            if value < 10000000000 {
                 return false
             }
         }
