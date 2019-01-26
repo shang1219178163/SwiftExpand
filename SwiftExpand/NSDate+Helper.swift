@@ -36,25 +36,27 @@ public extension DateFormatter{
         return fmt;
     }
     
-    public static func format(_ date:Date, fmt:String) -> String {
+    //
+    public static func stringFromDate(_ date:Date, fmt:String) -> String {
         let formatter = DateFormatter.format(fmt);
         return formatter.string(from: date);
     }
     
-    public static func format(dateStr:String, fmt:String) -> Date? {
+    public static func dateFromString(_ dateStr:String, fmt:String) -> Date {
         let fmt = DateFormatter.format(fmt);
-        return fmt.date(from: dateStr);
+        return fmt.date(from: dateStr)!;
     }
     
-    public static func format(_ interval:TimeInterval, fmt:String) -> String? {
-        let timeInterval: TimeInterval = TimeInterval(interval)
-        let date = Date(timeIntervalSince1970: timeInterval)
-        return DateFormatter.format(date, fmt: fmt);
+    public static func stringFromInterval(_ interval:String, fmt:String) -> String {
+        let date = Date(timeIntervalSince1970: interval.doubleValue())
+        return DateFormatter.stringFromDate(date, fmt: fmt);
     }
     
-    public static func format(_ interval:String, fmt:String) -> String? {
-        return DateFormatter.format(interval.doubleValue(), fmt: fmt);
+    public static func IntervalFromDateStr(_ dateStr:String, fmt:String) -> String {
+        let date = DateFormatter.dateFromString(dateStr, fmt: fmt)
+        return "\(date.timeIntervalSince1970)";
     }
+    
 }
 
 
@@ -179,14 +181,14 @@ public extension Date{
     //MARK: - 日期的一些比较
     //是否是今天
     func isToday()->Bool {
-        let calendar = NSCalendar.current
+        let calendar = Calendar(identifier:Calendar.Identifier.gregorian)
         let com = calendar.dateComponents([.year,.month,.day], from: self)
         let comNow = calendar.dateComponents([.year,.month,.day], from: Date())
         return com.year == comNow.year && com.month == comNow.month && com.day == comNow.day
     }
     //是否是这个月
     func isThisMonth()->Bool {
-        let calendar = NSCalendar.current
+        let calendar = Calendar(identifier:Calendar.Identifier.gregorian)
         let com = calendar.dateComponents([.year,.month,.day], from: self)
         let comNow = calendar.dateComponents([.year,.month,.day], from: Date())
         return com.year == comNow.year && com.month == comNow.month
