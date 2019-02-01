@@ -44,18 +44,20 @@ public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
     return key;
 }
 
+/// 自定义CGRect
 public func CGRectMake(_ x: CGFloat,_ y: CGFloat,_ w: CGFloat,_ h: CGFloat) -> CGRect{
     return CGRect(x: x, y: y, width: w, height: h)
 }
 
-public func CGRectMake(_ x: Double,_ y: Double,_ w: Double,_ h: Double) -> CGRect{
-    return CGRect(x: x, y: y, width: w, height: h)
+/// 自定义CGPointMake
+public func CGPointMake(_ x: CGFloat,_ y: CGFloat) -> CGPoint {
+    return CGPoint(x: x, y: y)
 }
 
-public func CGRectMake(_ x: Int,_ y: Int,_ w: Int,_ h: Int) -> CGRect{
-    return CGRect(x: x, y: y, width: w, height: h)
+/// 自定义GGSizeMake
+public func GGSizeMake(_ w: CGFloat,_ h: CGFloat) -> CGSize {
+    return CGSize(width: w, height: h)
 }
-
 
 public func IsTimeStamp(_ obj: Any) -> Bool{
     assert(obj is String || obj is Double)
