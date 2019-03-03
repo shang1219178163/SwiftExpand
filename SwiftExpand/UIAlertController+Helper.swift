@@ -44,12 +44,12 @@ public extension UIAlertController{
         }
         UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
     }
-    
-    public static func createSheet(_ title: String?, itemDic: [String:[Any]]?, completion: ((UIAlertAction) -> Void)?) -> UIAlertController {
+        
+    public static func createSheet(_ title: String?, items: [String]?, completion: ((UIAlertAction) -> Void)?) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         
-        itemDic?.keys.forEach({ (title:String) in
-            let style: UIAlertActionStyle = title == kActionTitle_Cancell ? .destructive : .default
+        items?.forEach({ (title:String) in
+            let style: UIAlertActionStyle = title == kActionTitle_Cancell ? .cancel : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
                 alertController.dismiss(animated: true, completion: nil)
                 if completion != nil {
@@ -58,8 +58,8 @@ public extension UIAlertController{
             }))
         })
         
-        if itemDic?.keys.contains(kActionTitle_Cancell) == false || itemDic == nil {
-            alertController.addAction(UIAlertAction(title: kActionTitle_Cancell, style: .destructive, handler: { (action: UIAlertAction) in
+        if items?.contains(kActionTitle_Cancell) == false || items == nil {
+            alertController.addAction(UIAlertAction(title: kActionTitle_Cancell, style: .cancel, handler: { (action: UIAlertAction) in
                 alertController.dismiss(animated: true, completion: nil)
                 if completion != nil {
                     completion!(action)
@@ -69,10 +69,10 @@ public extension UIAlertController{
         return alertController
     }
     
-    public static func showSheet(_ title: String?, itemDic: [String:[Any]]?, completion: ((UIAlertAction) -> Void)?) -> Void {
-        let alertController = UIAlertController.createSheet(title, itemDic: itemDic, completion: completion)
+    public static func showSheet(_ title: String?, items: [String]?, completion: ((UIAlertAction) -> Void)?) -> Void {
+        let alertController = UIAlertController.createSheet(title, items: items, completion: completion)
         UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-
+        
     }
 
 }

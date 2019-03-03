@@ -47,6 +47,29 @@ public extension UIImage {
         return croppedImage
     }
     
+    
+    /// 保存UIImage对象到相册
+    public func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
+        let funcAbount = NSStringFromSelector(#function)
+        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
+        
+        UIImageWriteToSavedPhotosAlbum(self, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        self.runtimeKey = runtimeKey;
+        
+        let obj = objc_getAssociatedObject(self, self.runtimeKey)
+        if obj == nil {
+            objc_setAssociatedObject(self, self.runtimeKey, action, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        }
+    }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) -> Void {
+        let obj = objc_getAssociatedObject(self, image.runtimeKey) as? ((NSError?) -> Void)
+        if obj != nil {
+            obj!(error)
+        }
+    }
+    
+    
     public static func generateQRImage(QRCodeString: String, logo: UIImage?, size: CGSize = CGSize(width: 50, height: 50)) -> UIImage? {
         guard let data = QRCodeString.data(using: .utf8, allowLossyConversion: false) else {
             return nil
