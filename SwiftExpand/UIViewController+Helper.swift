@@ -114,7 +114,9 @@ public extension UIViewController{
     /// 导航栏返回按钮图片定制
     public func createBackItem(_ image: UIImage) -> UIButton {
         let btn = UIButton(type: .custom)
-        btn.setImage(image, for: .normal)
+        btn.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.imageView?.tintColor = UINavigationBar.appearance().tintColor ?? .red
+        
         btn.frame = CGRectMake(0, 0, 30, 40)
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0)
         
