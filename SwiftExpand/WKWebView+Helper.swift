@@ -3,7 +3,7 @@
 //  VehicleBonus
 //
 //  Created by Bin Shang on 2019/3/13.
-//  Copyright © 2019 Xi'an iRain IOT Technology Service CO., Ltd. . All rights reserved.
+//  Copyright © 2019 BN. All rights reserved.
 //
 
 import UIKit
