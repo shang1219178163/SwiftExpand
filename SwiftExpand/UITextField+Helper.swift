@@ -4,16 +4,16 @@
 //  UITextField+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/9/10.
+//  Created by Bin Shang on 2018/9/10.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension UITextField{
+extension UITextField{
 
     //    MARK: - -TextFieldRightView
-    public func asoryView(_ isRight: Bool, unitName: String!, viewSize:CGSize) -> UIView! {
+    @objc public func asoryView(_ isRight: Bool, unitName: String!, viewSize:CGSize) -> UIView! {
         assert(unitName != nil && unitName.valid() == true);
         
         if unitName.contains("img") {
@@ -36,7 +36,7 @@ public extension UITextField{
         return label;
     }
     
-    public func asoryView(_ isRight: Bool, unitName: String!) -> Void {
+    @objc public func asoryView(_ isRight: Bool, unitName: String!) -> Void {
         if isRight == true {
             self.rightView = asoryView(isRight, unitName: unitName, viewSize: kSizeArrow);
             self.rightViewMode = .always;

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UITableViewHeaderFooterView{
+extension UITableViewHeaderFooterView{
     
     /// cell-源方法生成,自定义identifier
     public static func viewWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewHeaderFooterView! {

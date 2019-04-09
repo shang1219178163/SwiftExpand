@@ -2,16 +2,16 @@
 //  UIViewController+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/5/16.
+//  Created by Bin Shang on 2018/5/16.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-public extension UIViewController{
+extension UIViewController{
     
-    public var controllerName: String {
+    @objc public var controllerName: String {
         get {
             var className:String = NStringShortFromClass(self.classForCoder);
             if className.contains("Controller") {
@@ -34,7 +34,7 @@ public extension UIViewController{
         }
     }
     
-    public func createBarItem(_ systemItem:UIBarButtonItem.SystemItem, isLeft:Bool, action:@escaping (ObjClosure)) -> Void {
+    @objc public func createBarItem(_ systemItem:UIBarButtonItem.SystemItem, isLeft:Bool, action:@escaping (ObjClosure)) -> Void {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -51,7 +51,7 @@ public extension UIViewController{
 
     }
     
-    public func createBtnBarItem(_ title:String?, image:String?, isLeft:Bool, isHidden:Bool, action:@escaping (ControlClosure)) -> UIButton {
+    @objc public func createBtnBarItem(_ title:String?, image:String?, isLeft:Bool, isHidden:Bool, action:@escaping (ControlClosure)) -> UIButton {
         var size = CGSize(width: 32, height: 32)
         if image != nil && UIImage(named:image!) != nil {
             size = CGSize(width: 40, height: 40)
@@ -101,7 +101,7 @@ public extension UIViewController{
         navigationController?.pushViewController(controller, animated: true);
     }
     
-    public func addControllerName(_ controllerName: String) -> Void {
+    @objc public func addControllerName(_ controllerName: String) -> Void {
         let controller = UICtrFromString(controllerName)
         assert(controller.isKind(of: UIViewController.classForCoder()))
 
@@ -110,9 +110,8 @@ public extension UIViewController{
         controller.didMove(toParentViewController: self)
     }
     
-    
     /// 导航栏返回按钮图片定制
-    public func createBackItem(_ image: UIImage) -> UIButton {
+    @objc public func createBackItem(_ image: UIImage) -> UIButton {
         let btn = UIButton(type: .custom)
         btn.frame = CGRectMake(0, 0, 30, 40)
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0)

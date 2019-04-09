@@ -4,7 +4,7 @@
 //  UICollectionView+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/8/16.
+//  Created by Bin Shang on 2018/8/16.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
@@ -12,9 +12,9 @@ import UIKit
 
 public let UICollectionElementKindSectionItem = "UICollectionElementKindSectionItem"
 
-public extension UICollectionView{
+extension UICollectionView{
     
-    public static var layoutDefault: UICollectionViewLayout {
+    @objc public static var layoutDefault: UICollectionViewLayout {
         get {
             var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
             if layout == nil {
@@ -36,7 +36,7 @@ public extension UICollectionView{
         }
     }
     
-    public var listClass: Array<String> {
+    @objc public var listClass: Array<String> {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Array<String>;
         }
@@ -46,7 +46,7 @@ public extension UICollectionView{
         }
     }
     
-    public var dictClass: Dictionary<String, Array<String>> {
+    @objc public var dictClass: Dictionary<String, Array<String>> {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Dictionary<String, Array<String>>;
         }
@@ -57,7 +57,7 @@ public extension UICollectionView{
     }
     
     ///headerView/FooterView注册
-    public func registerAll() {
+    @objc public func registerAll() {
         if dictClass.keys.count == 0 {
             return
         }
@@ -74,7 +74,7 @@ public extension UICollectionView{
     }
     
     ///cell注册
-    public func registerCell(_ listClass: Array<String>) {
+    @objc public func registerCell(_ listClass: Array<String>) {
         listClass.forEach { (className: String) in
             let obj:AnyClass = SwiftClassFromString(className)
             self.register(obj, forCellWithReuseIdentifier: className)
@@ -82,14 +82,14 @@ public extension UICollectionView{
         
     }
     
-    public func viewIdentifier(_ className: String, kind: String) -> String{
+    @objc public func viewIdentifier(_ className: String, kind: String) -> String{
         let extra = kind == UICollectionElementKindSectionHeader ? "Header" : "Footer";
         let identifier = className + extra;
         return identifier;
     }
     
     ///headerView/FooterView注册
-    public func registerReusable(_ listClass: Array<String>, kind: String) {
+    @objc public func registerReusable(_ listClass: Array<String>, kind: String) {
         listClass.forEach { (className: String) in
             let identifier = viewIdentifier(className, kind: kind)
             self.register(SwiftClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
@@ -97,7 +97,7 @@ public extension UICollectionView{
     }
     
     ///  默认布局配置(自上而下,自左而右)
-    public func create(_ itemHeight: CGFloat, spacing: CGFloat, headerHeight: CGFloat, footerHeight: CGFloat) -> UICollectionViewFlowLayout {
+    @objc public func create(_ itemHeight: CGFloat, spacing: CGFloat, headerHeight: CGFloat, footerHeight: CGFloat) -> UICollectionViewFlowLayout {
         let width = self.bounds.width;
         let itemSize = CGSize(width: (width - 5*spacing)/4.0,height: itemHeight);
         let headerSize = CGSize(width: width, height: headerHeight);

@@ -2,8 +2,8 @@
 //  BaseProtocol.swift
 //  ExtensionProtocol
 //
-//  Created by hsf on 2018/9/17.
-//  Copyright © 2018年 pgq. All rights reserved.
+//  Created by Bin Shang on 2018/9/17.
+//  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
@@ -26,7 +26,7 @@ public final class ExtensionBaseTypeAble<T>: BaseTypeAble {
 }
 
 /// 为协议实现默认方法
-public extension BaseTypeAble where WarpperType == UIColor{
+extension BaseTypeAble where WarpperType == UIColor{
     /// 获取红色
     public func red() -> CGFloat {
         var value: CGFloat = 0

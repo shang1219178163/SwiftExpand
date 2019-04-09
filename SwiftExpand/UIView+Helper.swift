@@ -2,15 +2,15 @@
 //  UIView+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/8/14.
+//  Created by Bin Shang on 2018/8/14.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension UIView{
+extension UIView{
     
-    public var x: CGFloat {
+    @objc public var x: CGFloat {
         get {
             return frame.origin.x
         }
@@ -19,7 +19,7 @@ public extension UIView{
         }
     }
     
-    public var y: CGFloat {
+    @objc public var y: CGFloat {
         get {
             return frame.origin.y
         }
@@ -28,7 +28,7 @@ public extension UIView{
         }
     }
     
-    public var width: CGFloat {
+    @objc public var width: CGFloat {
         get {
             return frame.width
         }
@@ -37,7 +37,7 @@ public extension UIView{
         }
     }
     
-    public var height: CGFloat {
+    @objc public var height: CGFloat {
         get {
             return frame.size.height
         }
@@ -46,7 +46,7 @@ public extension UIView{
         }
     }
     
-    public var size: CGSize  {
+    @objc public var size: CGSize  {
         get {
             return frame.size
         }
@@ -55,7 +55,7 @@ public extension UIView{
         }
     }
     
-    public var origin: CGPoint {
+    @objc public var origin: CGPoint {
         get {
             return frame.origin
         }

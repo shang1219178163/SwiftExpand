@@ -3,13 +3,14 @@
 //  SwiftExpand
 //
 //  Created by Bin Shang on 2019/3/29.
+//  Copyright © 2019 BN. All rights reserved.
 //
 import QuartzCore
 
-public extension CATransaction{
+extension CATransaction{
     
     /// [源]CATransaction动画
-    public static func animDuration(_ duration: CFTimeInterval, animations: (() -> Void)?, completionBlock: (() -> Void)?) -> Void {
+    @objc public static func animDuration(_ duration: CFTimeInterval, animations: (() -> Void)?, completionBlock: (() -> Void)?) -> Void {
 
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration)

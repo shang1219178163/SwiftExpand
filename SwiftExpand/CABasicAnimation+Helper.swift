@@ -3,6 +3,7 @@
 //  SwiftExpand
 //
 //  Created by Bin Shang on 2019/3/29.
+//  Copyright © 2019 BN. All rights reserved.
 //
 
 import QuartzCore
@@ -37,10 +38,10 @@ public let kFunctionNames = [
                             kCAMediaTimingFunctionDefault//默认
                             ];
 
-public extension CABasicAnimation{
+extension CABasicAnimation{
     
     /// [源]CABasicAnimation
-    public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fillMode:String, removedOnCompletion:Bool, functionName:String!) -> CABasicAnimation {
+    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fillMode:String, removedOnCompletion:Bool, functionName:String!) -> CABasicAnimation {
         
         let anim = CABasicAnimation(keyPath: keyPath)
         anim.duration = duration;
@@ -56,7 +57,7 @@ public extension CABasicAnimation{
     
     
     /// [便捷]CABasicAnimation
-    public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fromValue: Any, toValue:Any) -> CABasicAnimation {
+    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fromValue: Any, toValue:Any) -> CABasicAnimation {
         let anim = animKeyPath(keyPath, duration: duration, autoreverses: autoreverses, repeatCount: repeatCount, fillMode: kCAFillModeForwards, removedOnCompletion: false, functionName: kFunctionNames.first!);
         anim.fromValue = fromValue;
         anim.toValue = toValue;
@@ -64,7 +65,7 @@ public extension CABasicAnimation{
     }
     
     /// [一次性]CABasicAnimation
-    public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, fromValue: Any, toValue:Any) -> CABasicAnimation {
+    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, fromValue: Any, toValue:Any) -> CABasicAnimation {
         let anim = animKeyPath(keyPath, duration: duration, autoreverses: false, repeatCount: 1, fillMode: kCAFillModeForwards, removedOnCompletion: false, functionName: kFunctionNames.first!);
         anim.fromValue = fromValue;
         anim.toValue = toValue;

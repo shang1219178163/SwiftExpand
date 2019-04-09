@@ -3,6 +3,7 @@
 //  SwiftExpand
 //
 //  Created by Bin Shang on 2019/3/29.
+//  Copyright © 2019 BN. All rights reserved.
 //
 import QuartzCore
 
@@ -20,10 +21,10 @@ public let kSubTypeFuntionNames = [kCATransitionFromTop,
                                    kCATransitionFromBottom,
                                    kCATransitionFromRight];
 
-public extension CATransition{
+extension CATransition{
    
     /// [源]CATransition
-    public static func animDuration(_ duration: CFTimeInterval, functionName:String!, type: String, subType: String?) -> CATransition {
+    @objc public static func animDuration(_ duration: CFTimeInterval, functionName:String!, type: String, subType: String?) -> CATransition {
         
         let anim = CATransition()
         anim.duration = duration;

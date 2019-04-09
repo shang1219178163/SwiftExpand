@@ -3,14 +3,14 @@
 //  Sequence+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/9/17.
+//  Created by Bin Shang on 2018/9/17.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 import Foundation
 
-public extension Sequence{
+extension Sequence{
     
     public func all(matching predicate: (Element) -> Bool) -> Bool {
         // 对于一个条件，如果没有元素不满足它的话，那意味着所有元素都满足它：

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension Timer{
+extension Timer{
     
     
     /// 分类方法

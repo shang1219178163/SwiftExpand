@@ -3,13 +3,13 @@
 //  CGRect+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/9/7.
+//  Created by Bin Shang on 2018/9/7.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension CGRect{
+extension CGRect{
     
     /// 仿OC方法
     public static func make(_ x: CGFloat,_ y: CGFloat,_ w: CGFloat,_ h: CGFloat) -> CGRect{

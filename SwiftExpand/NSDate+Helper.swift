@@ -53,10 +53,10 @@ ss: 秒，2位
 S: 毫秒
 */
 
-public extension DateFormatter{
+extension DateFormatter{
     
     /// 获取DateFormatter
-    public static func format(_ formatStr:String) -> DateFormatter {
+    @objc public static func format(_ formatStr:String) -> DateFormatter {
         let dic = Thread.current.threadDictionary;
         if dic.object(forKey: formatStr) != nil {
             return dic.object(forKey: formatStr) as! DateFormatter;
@@ -73,46 +73,46 @@ public extension DateFormatter{
     }
     
     /// Date -> String
-    public static func stringFromDate(_ date:Date, fmt:String) -> String {
+    @objc public static func stringFromDate(_ date:Date, fmt:String) -> String {
         let formatter = DateFormatter.format(fmt);
         return formatter.string(from: date);
     }
     
     /// Date -> String(默认格式)
-    public static func stringFromDate(_ date:Date) -> String {
+    @objc public static func stringFromDate(_ date:Date) -> String {
         return DateFormatter.stringFromDate(date, fmt: kDateFormat);
     }
     
     /// String -> Date
-    public static func dateFromString(_ dateStr:String, fmt:String) -> Date {
+    @objc public static func dateFromString(_ dateStr:String, fmt:String) -> Date {
         let formatter = DateFormatter.format(fmt);
         return formatter.date(from: dateStr)!;
     }
     
     /// String -> Date(默认格式)
-    public static func dateFromString(_ dateStr:String) -> Date {
+    @objc public static func dateFromString(_ dateStr:String) -> Date {
         return DateFormatter.dateFromString(dateStr, fmt: kDateFormat);
     }
     
     /// 时间戳字符串 -> 日期字符串
-    public static func stringFromInterval(_ interval:String, fmt:String) -> String {
+    @objc public static func stringFromInterval(_ interval:String, fmt:String) -> String {
         let date = Date(timeIntervalSince1970: interval.doubleValue())
         return DateFormatter.stringFromDate(date, fmt: fmt);
     }
     
     /// 时间戳字符串 -> 日期字符串(默认格式)
-    public static func stringFromInterval(_ interval:String) -> String {
+    @objc public static func stringFromInterval(_ interval:String) -> String {
         return DateFormatter.stringFromInterval(interval, fmt: kDateFormat)
     }
     
     /// 日期字符串 -> 时间戳字符串
-    public static func IntervalFromDateStr(_ dateStr:String, fmt:String) -> String {
+    @objc public static func IntervalFromDateStr(_ dateStr:String, fmt:String) -> String {
         let date = DateFormatter.dateFromString(dateStr, fmt: fmt)
         return "\(date.timeIntervalSince1970)";
     }
     
     /// 日期字符串 -> 时间戳字符串(默认格式)
-    public static func IntervalFromDateStr(_ dateStr:String) -> String {
+    @objc public static func IntervalFromDateStr(_ dateStr:String) -> String {
         let date = DateFormatter.dateFromString(dateStr, fmt: kDateFormat)
         return "\(date.timeIntervalSince1970)";
     }
@@ -120,7 +120,7 @@ public extension DateFormatter{
 }
 
 
-public extension Date{
+extension Date{
     public static var calendar: Calendar = Calendar(identifier: .gregorian)
 
     public func string(formatStr:String) -> String{
@@ -192,13 +192,13 @@ public extension Date{
     //MARK: - 获取日期各种值
     
     /// 获取默认DateComponents[年月日]
-    static func dateComponents(_ aDate: Date) -> DateComponents {
+    public static func dateComponents(_ aDate: Date) -> DateComponents {
         let com = Date.calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: aDate)
         return com
     }
     
     /// 两个时间差的NSDateComponents
-    static func dateFrom(_ aDate: Date, anotherDate: Date) -> DateComponents {
+    public static func dateFrom(_ aDate: Date, anotherDate: Date) -> DateComponents {
         let com = Date.calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: aDate, to: anotherDate)
         return com
     }

@@ -7,9 +7,9 @@
 
 import UIKit
 
-public extension UIAlertAction{
+extension UIAlertAction{
     
-    public var tag: Int {
+    @objc public var tag: Int {
         get {
             if let aValue = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Int {
                 return aValue

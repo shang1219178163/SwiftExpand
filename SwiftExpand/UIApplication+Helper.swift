@@ -2,15 +2,15 @@
 //  UIApplication+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/8/24.
+//  Created by Bin Shang on 2018/8/24.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension UIApplication{
+extension UIApplication{
     
-    public static var appName: String {
+    @objc public static var appName: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
 //            let name:String = infoDic!["CFBundleDisplayName"] as? String ?? infoDic!["CFBundleName"] as! String;
@@ -19,7 +19,7 @@ public extension UIApplication{
         }
     }
     
-    public static var appIcon: UIImage {
+    @objc public static var appIcon: UIImage {
         get {
             let infoDic:AnyObject = Bundle.main.infoDictionary as AnyObject;
             let iconFiles:Array<Any> = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as! Array<Any>;
@@ -28,33 +28,33 @@ public extension UIApplication{
         }
     }
     
-    public static var appVer: String {
+    @objc public static var appVer: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
             return infoDic!["CFBundleShortVersionString"] as! String;
         }
     }
     
-    public static var appBuild: String {
+    @objc public static var appBuild: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
             return infoDic!["CFBundleVersion"] as! String;
         }
     }
     
-    public static var phoneSystemVer: String {
+    @objc public static var phoneSystemVer: String {
         get {
             return UIDevice.current.systemVersion;
         }
     }
     
-    public static var phoneSystemName: String {
+    @objc public static var phoneSystemName: String {
         get {
             return UIDevice.current.systemName;
         }
     }
     
-    public static var phoneName: String {
+    @objc public static var phoneName: String {
         get {
             return UIDevice.current.name;
         }
@@ -77,7 +77,7 @@ public extension UIApplication{
         }
     }
     
-//    public static var mainWindow: UIWindow {
+//    @objc public static var mainWindow: UIWindow {
 //        get {
 //            let app = UIApplication.shared.delegate as! AppDelegate;
 //            if app.window != nil {
@@ -97,7 +97,7 @@ public extension UIApplication{
 //        }
 //    }
     
-    public static var rootController: UIViewController {
+    @objc public static var rootController: UIViewController {
         get {
             return UIApplication.mainWindow.rootViewController!;
         }
@@ -106,7 +106,7 @@ public extension UIApplication{
         }
     }
     
-    public static var tabBarController: UITabBarController? {
+    @objc public static var tabBarController: UITabBarController? {
         get {
             var tabBarVC = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITabBarController;
             if tabBarVC == nil {
@@ -127,7 +127,7 @@ public extension UIApplication{
         UIApplication.setupRootController(controller, isAdjust);
     }
     
-    public static func setupRootController(_ controller:AnyObject,_ isAdjust:Bool) -> Void {
+    @objc public static func setupRootController(_ controller:AnyObject,_ isAdjust:Bool) -> Void {
         var contr = controller;
         if controller is String {
             contr = UICtrFromString(controller as! String);
@@ -145,50 +145,88 @@ public extension UIApplication{
         }
     }
     
-    public static func setupRootController(_ controller:AnyObject) -> Void {
+    @objc public static func setupRootController(_ controller:AnyObject) -> Void {
         return UIApplication.setupRootController(controller, true);
     }
     
-    public static func setupAppearance() -> Void {
-        setupAppearanceTabBar();
-        setupAppearanceNavigationBar();
+    ///默认风格是白色导航栏黑色标题
+    @objc public static func setupAppearanceDefault(_ isDefault: Bool) -> Void {
+        let barTintColor: UIColor = isDefault ? UIColor.white : UIColor.theme
+        setupAppearanceNavigationBar(barTintColor)
+        setupAppearanceScrollView()
+        setupAppearanceOthers();
+
+    }
+    
+    @objc public static func setupAppearanceScrollView() -> Void {
+        UITableViewCell.appearance().separatorInset = .zero;
+        UITableViewCell.appearance().selectionStyle = .none;
         
-        if iOSVer(version: 11) {
+        UIScrollView.appearance().keyboardDismissMode = .onDrag;
+        
+        if #available(iOS 11.0, *) {
             UITableView.appearance().estimatedRowHeight = 0.0;
             UITableView.appearance().estimatedSectionHeaderHeight = 0.0;
             UITableView.appearance().estimatedSectionFooterHeight = 0.0;
             
-//            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
-            UIScrollView.appearance().keyboardDismissMode = .onDrag;
+            UICollectionView.appearance().contentInsetAdjustmentBehavior = .never;
+            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
         }
+    }
+    
+    @objc public static func setupAppearanceOthers() -> Void {
         UIButton.appearance().isExclusiveTouch = false;
-        
-        UITabBar.appearance().tintColor = UIColor.theme
-        UITabBar.appearance().barTintColor = UIColor.white
 
+        UITabBar.appearance().tintColor = UIColor.theme;
+        UITabBar.appearance().barTintColor = UIColor.white;
+        UITabBar.appearance().isTranslucent = false;
+        
+        if #available(iOS 10.0, *) {
+            UITabBar.appearance().unselectedItemTintColor = UIColor.gray;
+        }
+        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5.0)
     }
     
-    public static func setupAppearanceNavigationBar() -> Void {
-        UINavigationBar.appearance().tintColor =  .white;
-        UINavigationBar.appearance().barTintColor = .theme;
-        //        UINavigationBar.appearance().barTintColor = .orange;
+    @objc public static func setupAppearanceNavigationBar(_ barTintColor: UIColor) -> Void {
+        let isDefault: Bool = UIColor.white.equalTo(barTintColor);
+        let tintColor = isDefault ? UIColor.black : UIColor.white;
         
-        let attDic = [NSAttributedString.Key.foregroundColor :   UIColor.white,
-                      NSAttributedString.Key.font    :   UIFont.boldSystemFont(ofSize:18)];
+        UINavigationBar.appearance().tintColor = tintColor;
+        UINavigationBar.appearance().barTintColor = barTintColor;
+        UINavigationBar.appearance().setBackgroundImage(UIImageColor(barTintColor), for: UIBarPosition.any, barMetrics: .default)
+        UINavigationBar.appearance().shadowImage = UIImageColor(barTintColor);
+        
+        let attDic = [NSAttributedString.Key.foregroundColor :   tintColor,
+//                      NSAttributedString.Key.font    :   UIFont.boldSystemFont(ofSize:18)
+                    ];
         UINavigationBar.appearance().titleTextAttributes = attDic;
-        
-        UINavigationBar.appearance().isTranslucent = true //界面顶部透明
-//        UINavigationBar.appearance().shadowImage =  UIImage.lkCreateImage(with:.clear)//阴影颜色
-//        UINavigationBar.appearance().setBackgroundImage(UIImage.lkCreateImage(with:.clear), for:UIBarMetrics.default)//背景颜色
-
-//        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset.init(horizontal: 0, vertical: -60), for: UIBarMetrics.default)//去掉返回图片后面的文
-        
-        let dicNomal = [NSAttributedStringKey.foregroundColor: UIColor.white,
-                        ]
-        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
+//
+//        let dicNomal = [NSAttributedStringKey.foregroundColor: UIColor.white,
+//        ]
+//        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
     }
     
-    public static func setupAppearanceTabBar() -> Void {
+//    @objc public static func setupAppearanceNavigationBar() -> Void {
+//        UINavigationBar.appearance().tintColor =  .white;
+//        UINavigationBar.appearance().barTintColor = .theme;
+//        //        UINavigationBar.appearance().barTintColor = .orange;
+//
+//        let attDic = [NSAttributedString.Key.foregroundColor :   UIColor.white,
+//                      NSAttributedString.Key.font    :   UIFont.boldSystemFont(ofSize:18)];
+//        UINavigationBar.appearance().titleTextAttributes = attDic;
+//
+//        UINavigationBar.appearance().isTranslucent = true //界面顶部透明
+////        UINavigationBar.appearance().shadowImage =  UIImage.lkCreateImage(with:.clear)//阴影颜色
+////        UINavigationBar.appearance().setBackgroundImage(UIImage.lkCreateImage(with:.clear), for:UIBarMetrics.default)//背景颜色
+//
+////        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset.init(horizontal: 0, vertical: -60), for: UIBarMetrics.default)//去掉返回图片后面的文
+//
+//        let dicNomal = [NSAttributedStringKey.foregroundColor: UIColor.white,
+//                        ]
+//        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
+//    }
+    
+    @objc public static func setupAppearanceTabBar() -> Void {
         //         设置字体颜色
 //        let attDic_N = [NSAttributedString.Key.foregroundColor:.black];
 //        let attDic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme];
@@ -200,7 +238,7 @@ public extension UIApplication{
 //        UITabBar.appearance().tintColor = .red;
     }
     
-    public static func openURL(_ urlStr:String, _ tips:String) {
+    @objc public static func openURL(_ urlStr:String, _ tips:String) {
         let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
         let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
         //        let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;

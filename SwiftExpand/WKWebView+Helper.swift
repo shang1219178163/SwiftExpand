@@ -7,12 +7,11 @@
 //
 
 import UIKit
-
 import WebKit
 
-public extension WKWebView{
+extension WKWebView{
     
-    public static var confiDefault: WKWebViewConfiguration {
+    @objc public static var confiDefault: WKWebViewConfiguration {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? WKWebViewConfiguration;
             if obj == nil {
@@ -35,7 +34,7 @@ public extension WKWebView{
     
     
     /// 自定义方法
-    public func addUserScript(_ source: String) -> Void {
+    @objc public func addUserScript(_ source: String) -> Void {
         let userScript = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         configuration.userContentController.addUserScript(userScript)
     }

@@ -3,13 +3,13 @@
 //  UITableViewCell+Add.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/8/29.
+//  Created by Bin Shang on 2018/8/29.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension UITableViewCell{
+extension UITableViewCell{
     
     /// cell默认identifier
     public static var identifier: String {

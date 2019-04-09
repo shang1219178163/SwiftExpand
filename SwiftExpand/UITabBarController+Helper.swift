@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Foundation
 
-public extension UITabBarController{
-    
-    func getSubviewsForName(_ name: String) -> [UIView] {
+extension UITabBarController{
+        
+    @objc public func getSubviewsForName(_ name: String) -> [UIView] {
         var marr: [UIView] = []
         tabBar.subviews.forEach { (view) in
             if view.isKind(of: SwiftClassFromString(name)) {
@@ -21,7 +22,7 @@ public extension UITabBarController{
     
     /// 用特定数据源刷新tabBar
     /// - Parameter list: 参照HomeViewController数据源
-    func reloadTabarItems(_ list: [[Any]]) -> Void {
+    @objc public func reloadTabarItems(_ list: [[Any]]) -> Void {
         
         for e in viewControllers!.enumerated(){
             let itemList = list[e.offset]

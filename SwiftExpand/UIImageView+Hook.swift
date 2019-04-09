@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension UIImageView{
+extension UIImageView{
     public class func initializeMethod() {
         if self == UIImageView.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";

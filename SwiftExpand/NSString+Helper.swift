@@ -2,13 +2,13 @@
 //  NSString+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/8/28.
+//  Created by Bin Shang on 2018/8/28.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension String{
+extension String{
     
     public func valid() -> Bool! {
         let array = ["","nil","null"];
@@ -152,7 +152,7 @@ public extension String{
         return (self as NSString).getAttringByPrefix(kAsterisk, content: self, isMust: isMust)
     }
     
-    func copyToPasteboard(_ showTips: Bool) -> Void {
+    public func copyToPasteboard(_ showTips: Bool) -> Void {
         UIPasteboard.general.string = self
         if showTips == true {
             let _ = UIAlertController.createAlert("提示", placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
@@ -174,7 +174,7 @@ extension NSString{
     }
     
     /// 字符串本身大于string
-    public func isCompare(_ string:NSString) -> Bool {
+    @objc public func isCompare(_ string:NSString) -> Bool {
         if self.isEqual(to: "") {
             return false
         }

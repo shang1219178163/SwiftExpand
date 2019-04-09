@@ -2,21 +2,21 @@
 //  NSDictionary+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/9/4.
+//  Created by Bin Shang on 2018/9/4.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
 
-public extension Dictionary{
+extension Dictionary{
     
 
 }
 
-public extension NSDictionary{
+extension NSDictionary{
     
-    public func toJsonString() -> String! {
+    @objc public func toJsonString() -> String! {
         return jsonValue();
     }
     

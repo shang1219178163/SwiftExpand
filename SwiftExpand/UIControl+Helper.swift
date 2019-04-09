@@ -10,7 +10,7 @@ import UIKit
 
 extension UIControl {
     
-    public func addActionHandler(_ action:@escaping (ControlClosure), for controlEvents: UIControl.Event) -> Void {
+    @objc public func addActionHandler(_ action:@escaping (ControlClosure), for controlEvents: UIControl.Event) -> Void {
         let funcAbount = NSStringFromSelector(#function) + ",\(controlEvents)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         

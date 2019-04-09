@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension UINavigationController{
+extension UINavigationController{
     
 //    public class func initializeMethod() {
 //        // Make sure This isn't a subclass of UIViewController, So that It applies to all UIViewController childs
@@ -27,18 +27,17 @@ public extension UINavigationController{
 //    }
     @objc public func swz_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //需要注入的代码写在此处
+//        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil);
+        viewController.view.backgroundColor = .white;
         //判断是否是根控制器
         if viewControllers.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
-        }
+            _ = viewController.createBackItem(UIImageNamed("icon_arowLeft_black")!)
 
-        //系统默认返回按钮
-//        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil);
-        _ = viewController.createBackItem(UIImageNamed("icon_arowLeft_black")!)
+        }
         
-        viewController.view.backgroundColor = .white;
         //push进入下一个控制器
-        self.swz_pushViewController(viewController, animated: animated);
+        swz_pushViewController(viewController, animated: animated);
         
     }
     

@@ -3,13 +3,13 @@
 //  NSArray+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/9/6.
+//  Created by Bin Shang on 2018/9/6.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension Array{
+extension Array{
     
     public var random: Element? {
         if self.count == 0 {

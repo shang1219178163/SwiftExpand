@@ -7,9 +7,9 @@
 
 import UIKit
 
-public extension UISegmentedControl{
+extension UISegmentedControl{
     
-    public var itemList: Array<String> {
+    @objc public var itemList: Array<String> {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Array<String>
         }

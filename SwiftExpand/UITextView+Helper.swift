@@ -9,8 +9,8 @@
 
 import UIKit
 
-public extension UITextView{
-    public class func initializeMethod() {
+extension UITextView{
+    @objc public class func initializeMethod() {
         if self == UIImageView.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
@@ -32,7 +32,7 @@ public extension UITextView{
     
     }
     
-    public var placeHolderTextView: UITextView {
+    @objc public var placeHolderTextView: UITextView {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if view == nil {

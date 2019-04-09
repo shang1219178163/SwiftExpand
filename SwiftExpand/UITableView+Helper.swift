@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension UITableView{
+extension UITableView{
     
     func reloadRowList(_ rowList: NSArray, section: Int, rowAnimation: UITableViewRowAnimation) -> Void {
         assert(section <= numberOfSections)

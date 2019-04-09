@@ -3,22 +3,22 @@
 //  UIColor+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/8/24.
+//  Created by Bin Shang on 2018/8/24.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension UIColor{
+extension UIColor{
     
     //MARK: - -属性
-    public static var random : UIColor {
+    @objc public static var random : UIColor {
         get{
             return UIColor.randomColor();
         }
     }
     
-    public static var theme : UIColor {
+    @objc public static var theme : UIColor {
         get{
             var color = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIColor;
             color = color ?? UIColorHexValue(0x0082e0)
@@ -29,62 +29,62 @@ public extension UIColor{
         }
     }
         
-    public static var background : UIColor {
+    @objc public static var background : UIColor {
         get{
             return UIColorHexValue(0xe9e9e9);
         }
     }
     
-    public static var line : UIColor {
+    @objc public static var line : UIColor {
         get{
             return UIColorHexValue(0xe0e0e0);
         }
     }
     
-    public static var btnN : UIColor {
+    @objc public static var btnN : UIColor {
         get{
             return UIColorHexValue(0xfea914);
         }
     }
     
-    public static var btnH : UIColor {
+    @objc public static var btnH : UIColor {
         get{
             return UIColorHexValue(0xf1a013);
         }
     }
     
-    public static var btnD : UIColor {
+    @objc public static var btnD : UIColor {
         get{
             return UIColorHexValue(0x999999);
         }
     }
     
-    public static var excel : UIColor {
+    @objc public static var excel : UIColor {
         get{
             return UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1.0);
         }
     }
     
     //MARK:  -项目定制
-    public static var textColorTitle : UIColor {
+    @objc public static var textColorTitle : UIColor {
         get{
             return UIColorHexValue(0x333333);
         }
     }
     
-    public static var textColorSub : UIColor {
+    @objc public static var textColorSub : UIColor {
         get{
             return UIColorHexValue(0x999999);
         }
     }
     
     //MARK: - -方法
-    public static func hex(_ hex:String) -> UIColor {
+    @objc public static func hex(_ hex:String) -> UIColor {
         return UIColor.hex(hex, a: 1.0);
     }
     
     /// [源]十六进制颜色字符串
-    public static func hex(_ hex: String, a: CGFloat) -> UIColor {
+    @objc public static func hex(_ hex: String, a: CGFloat) -> UIColor {
         var cString = hex.trimmingCharacters(in: CharacterSet.whitespaces).uppercased();
         if cString.hasPrefix("#") {
             let index = cString.index(cString.startIndex, offsetBy:1);
@@ -114,12 +114,31 @@ public extension UIColor{
         return UIColor(red:CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a);
     }
     
-    public static func randomColor() -> UIColor {
+    @objc public static func randomColor() -> UIColor {
         let r = arc4random_uniform(256);
         let g = arc4random_uniform(256);
         let b = arc4random_uniform(256);
         return UIColor(red:CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(1.0));
     }
     
+    
+    /// 两个颜色是否相等
+    @objc public func equalTo(_ c2: UIColor) -> Bool{
+        // some kind of weird rounding made the colors unequal so had to compare like this
+        let c1 = self;
+        var red:CGFloat = 0
+        var green:CGFloat  = 0
+        var blue:CGFloat = 0
+        var alpha:CGFloat  = 0
+        c1.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        var red2:CGFloat = 0
+        var green2:CGFloat  = 0
+        var blue2:CGFloat = 0
+        var alpha2:CGFloat  = 0
+        c2.getRed(&red2, green: &green2, blue: &blue2, alpha: &alpha2)
+        
+        return (Int(red*255) == Int(red*255) && Int(green*255) == Int(green2*255) && Int(blue*255) == Int(blue*255))
+    }
 }
 

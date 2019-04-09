@@ -3,13 +3,13 @@
 //  UIButton+Helper.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/8/17.
+//  Created by Bin Shang on 2018/8/17.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension UIButton{
+extension UIButton{
 
 //    /// 快速创建
 //    convenience init(action:@escaping ControlClosure){
@@ -33,7 +33,7 @@ public extension UIButton{
 //        self.frame = frame
 //    }
     
-    public func layoutButton(style: Int, imageTitleSpace: CGFloat) {
+    @objc public func layoutButton(style: Int, imageTitleSpace: CGFloat) {
         //得到imageView和titleLabel的宽高
         let imageWidth = self.imageView?.frame.size.width
         let imageHeight = self.imageView?.frame.size.height
@@ -82,7 +82,7 @@ public extension UIButton{
     
     
     /// UIButton不同状态下设置富文本标题
-    public func setContent(_ content: String, attDic: Dictionary<NSAttributedStringKey, Any>, for state: UIControl.State) -> NSMutableAttributedString{
+    @objc public func setContent(_ content: String, attDic: Dictionary<NSAttributedStringKey, Any>, for state: UIControl.State) -> NSMutableAttributedString{
         assert((self.titleLabel!.text?.contains(content))!)
         let attString = self.titleLabel!.setContent(content, attDic: attDic)
         setAttributedTitle(attString, for: state)

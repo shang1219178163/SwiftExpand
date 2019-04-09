@@ -7,7 +7,7 @@
 
 import Foundation
 
-public extension UIGestureRecognizer{
+extension UIGestureRecognizer{
     
     
 }

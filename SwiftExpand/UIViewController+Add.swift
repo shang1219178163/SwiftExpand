@@ -3,13 +3,13 @@
 //  UIViewController+Add.swift
 //  SwiftTemplet
 //
-//  Created by hsf on 2018/8/29.
+//  Created by Bin Shang on 2018/8/29.
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
 import UIKit
 
-public extension UIViewController{
+extension UIViewController{
     
     @objc public var obj: AnyObject? {
         get {
