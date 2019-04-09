@@ -19,12 +19,10 @@ extension Int{
     public var digits: Int {
         if (self == 0) {
             return 1
-        } else if(Int(fabs(Double(self))) <= LONG_MAX){
-            return Int(log10(fabs(Double(self)))) + 1
-        } else {
-            print("Out of bounds")
-            return -1;
         }
+//        if(Int(fabs(Double(self))) <= LONG_MAX){
+        return Int(log10(fabs(Double(self)))) + 1
+//        }
     }
     
     public var string: String {
@@ -45,7 +43,7 @@ extension Int{
     
 }
 
-public extension Double{
+extension Double{
     
     /// 保留n为小数
     public func roundedTo(_ n: Int) -> Double {
