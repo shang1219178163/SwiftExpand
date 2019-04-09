@@ -21,6 +21,7 @@ extension CAAnimationGroup{
         return anim;
     }
     
+    /// [简]CAAnimationGroup
     @objc public static func animDuration(_ animList: [CAAnimation], duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fillMode:String, removedOnCompletion:Bool) -> CAAnimationGroup {
         let anim = CAAnimationGroup.animDuration(duration, autoreverses: autoreverses, repeatCount: repeatCount, fillMode: fillMode, removedOnCompletion: removedOnCompletion);
         anim.animations = animList;
