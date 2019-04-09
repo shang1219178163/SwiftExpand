@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "SwiftExpand"
-    s.version      = "1.2.8.1"
+    s.version      = "1.2.8.2"
     s.summary      = "系统类功能扩展."
     s.description  = "主要通过分类实现"
 
@@ -19,4 +19,7 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '8.0'
     s.swift_version = "4.0"
     s.requires_arc = true
+    s.frameworks = 'UIKit', 'CoreFoundation', 'CoreText', 'CoreGraphics', 'CoreImage',
+      'CoreLocation','CoreTelephony', 'GLKit','QuartzCore', 'WebKit'
+
 end
