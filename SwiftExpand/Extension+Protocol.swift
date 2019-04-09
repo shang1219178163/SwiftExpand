@@ -47,14 +47,14 @@ extension BaseTypeAble where WarpperType == UIColor{
     }
 }
 
-public extension UIColor{
+extension UIColor{
     public var type: ExtensionBaseTypeAble<UIColor> {
         return ExtensionBaseTypeAble(self);
     }
     
 }
 
-public extension BaseTypeAble where WarpperType == Data{
+extension BaseTypeAble where WarpperType == Data{
     
     public func toUInt8() -> [UInt8] {
         var bytes = [UInt8](repeatElement(0, count: type.count));
@@ -74,7 +74,7 @@ public extension BaseTypeAble where WarpperType == Data{
     }
 }
 
-public extension Data{
+extension Data{
     public var type: ExtensionBaseTypeAble<Data> {
         return ExtensionBaseTypeAble(self);
     }

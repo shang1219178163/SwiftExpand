@@ -29,7 +29,7 @@ extension Sequence{
     
 }
 
-public extension Sequence where Element: Hashable{
+extension Sequence where Element: Hashable{
     
     public var frequencies: [Element: Int]{
         let frequencyPairs = self.map{($0,1)}
