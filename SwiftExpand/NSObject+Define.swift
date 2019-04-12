@@ -16,7 +16,7 @@ public typealias ViewClosure = ((UITapGestureRecognizer?, UIView, NSInteger) -> 
 public typealias ControlClosure = (UIControl) -> Void
 public typealias RecognizerClosure = (UIGestureRecognizer) -> Void
 
-public typealias CellForRowClosure = ((UITableView, IndexPath) -> UITableViewCell)
+public typealias CellForRowClosure = ((UITableView, IndexPath) -> UITableViewCell?)
 public typealias DidSelectRowClosure = ((UITableView, IndexPath) -> Void)
 
 // MARK: - 关联属性的key
