@@ -10,6 +10,7 @@
 import UIKit
 
 extension UITextView{
+    
     @objc public class func initializeMethod() {
         if self == UIImageView.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";

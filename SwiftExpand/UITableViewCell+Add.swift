@@ -10,9 +10,31 @@
 import UIKit
 
 extension UITableViewCell{
+    /// cell-源方法生成,自定义identifier
+    @objc public static func cellWithTableView(_ tableView:UITableView, identifier:String, style:UITableViewCell.CellStyle) -> UITableViewCell! {
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
+        if cell == nil {
+            cell = self.init(style: style, reuseIdentifier: identifier);
+        }
+     
+        cell!.selectionStyle = .none;
+        cell!.separatorInset = .zero;
+        cell!.layoutMargins = .zero;
+        return cell!;
+    }
+    
+    @objc public static func cellWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewCell! {
+        return cellWithTableView(tableView, identifier: identifier, style: .default);
+    }
+
+    /// cell-使用默认identifier生成
+    @objc public static func cellWithTableView(_ tableView:UITableView) -> UITableViewCell! {
+//        let identifier = NSStringFromClass(self.classForCoder());
+        return cellWithTableView(tableView, identifier: identifier);
+    }
     
     /// cell默认identifier
-    public static var identifier: String {
+    @objc public static var identifier: String {
         get {
             var str = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
             if str == nil {
@@ -25,32 +47,8 @@ extension UITableViewCell{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
-    /// cell-源方法生成,自定义identifier
-    public static func cellWithTableView(_ tableView:UITableView, identifier:String, style:UITableViewCell.CellStyle) -> UITableViewCell! {
-        var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
-        if cell == nil {
-            cell = self.init(style: style, reuseIdentifier: identifier);
-            
-        }
-     
-        cell!.selectionStyle = .none;
-        cell!.separatorInset = .zero;
-        cell!.layoutMargins = .zero;
-        return cell!;
-    }
-    
-    public static func cellWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewCell! {
-        return cellWithTableView(tableView, identifier: identifier, style: .default);
-    }
-
-    /// cell-使用默认identifier生成
-    public static func cellWithTableView(_ tableView:UITableView) -> UITableViewCell! {
-//        let identifier = NSStringFromClass(self.classForCoder());
-        return cellWithTableView(tableView, identifier: identifier);
-    }
         
-    public var imgViewLeft: UIImageView {
+    @objc public var imgViewLeft: UIImageView {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if view == nil {
@@ -69,7 +67,7 @@ extension UITableViewCell{
         }
     }
     
-    public var imgViewRight: UIImageView {
+    @objc public var imgViewRight: UIImageView {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if view == nil {
@@ -89,7 +87,7 @@ extension UITableViewCell{
         }
     }
     
-    public var labelLeft: UILabel {
+    @objc public var labelLeft: UILabel {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if view == nil {
@@ -110,7 +108,7 @@ extension UITableViewCell{
         }
     }
   
-    public var labelLeftSub: UILabel {
+    @objc public var labelLeftSub: UILabel {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if view == nil {
@@ -133,7 +131,7 @@ extension UITableViewCell{
     }
     
     
-    public var labelRight: UILabel {
+    @objc public var labelRight: UILabel {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if view == nil {
@@ -154,7 +152,7 @@ extension UITableViewCell{
         }
     }
     
-    public var btn: UIButton {
+    @objc public var btn: UIButton {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
             if view == nil {
@@ -174,7 +172,7 @@ extension UITableViewCell{
         }
     }
     
-    public var textfield: UITextField {
+    @objc public var textfield: UITextField {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if view == nil {
@@ -197,7 +195,7 @@ extension UITableViewCell{
         }
     }
     
-    public var textView: UITextView {
+    @objc public var textView: UITextView {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if view == nil {

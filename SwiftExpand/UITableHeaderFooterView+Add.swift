@@ -11,7 +11,7 @@ import UIKit
 extension UITableViewHeaderFooterView{
     
     /// cell-源方法生成,自定义identifier
-    public static func viewWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewHeaderFooterView! {
+    @objc public static func viewWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewHeaderFooterView! {
         var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if view == nil {
             view = self.init(reuseIdentifier: identifier)
@@ -24,13 +24,13 @@ extension UITableViewHeaderFooterView{
     }
     
     /// cell-使用默认identifier生成
-    public static func viewWithTableView(_ tableView:UITableView) -> UITableViewHeaderFooterView! {
+    @objc public static func viewWithTableView(_ tableView:UITableView) -> UITableViewHeaderFooterView! {
         let identifier = NSStringFromClass(self.classForCoder());
         return viewWithTableView(tableView, identifier: identifier);
         
     }
     
-    public var indicatorView: UIImageView {
+    @objc public var indicatorView: UIImageView {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if view == nil {
@@ -50,7 +50,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var imgViewLeft: UIImageView {
+    @objc public var imgViewLeft: UIImageView {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if view == nil {
@@ -70,7 +70,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var imgViewRight: UIImageView {
+    @objc public var imgViewRight: UIImageView {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if view == nil {
@@ -90,7 +90,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var labelLeft: UILabel {
+    @objc public var labelLeft: UILabel {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if view == nil {
@@ -109,7 +109,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var labelLeftSub: UILabel {
+    @objc public var labelLeftSub: UILabel {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if view == nil {
@@ -129,7 +129,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var labelRight: UILabel {
+    @objc public var labelRight: UILabel {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if view == nil {
@@ -148,7 +148,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var btn: UIButton {
+    @objc public var btn: UIButton {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
             if view == nil {
@@ -168,7 +168,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var textfield: UITextField {
+    @objc public var textfield: UITextField {
         get {
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if view == nil {
@@ -191,7 +191,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var isOpen: Bool {
+    @objc public var isOpen: Bool {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Bool {
                 return obj
@@ -204,7 +204,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    public var isCanOpen: Bool {
+    @objc public var isCanOpen: Bool {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Bool {
                 return obj
@@ -219,16 +219,16 @@ extension UITableViewHeaderFooterView{
 }
 
 public class BNFoldSectionModel: NSObject{
-    public var title = "标题"
-    public var titleSub = "子标题"
-    public var image = "图片名称"
-    public var isOpen = false
-    public var isCanOpen = false
-    public var headerHeight: CGFloat = 10.0
-    public var footerHeight: CGFloat = 0.01
-    public var headerColor: UIColor = .background
-    public var footerColor: UIColor = .background
+    @objc public var title = "标题"
+    @objc public var titleSub = "子标题"
+    @objc public var image = "图片名称"
+    @objc public var isOpen = false
+    @objc public var isCanOpen = false
+    @objc public var headerHeight: CGFloat = 10.0
+    @objc public var footerHeight: CGFloat = 0.01
+    @objc public var headerColor: UIColor = .background
+    @objc public var footerColor: UIColor = .background
 
-    public var dataList:[Any] = []
+    @objc public var dataList:[Any] = []
 
 }

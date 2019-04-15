@@ -47,7 +47,4 @@ extension UIScreen {
             return 49.0
         }
     }
-    
-  
-    
 }

@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 
 extension UITabBarController{
-        
+    /// 获取私有类视图
     @objc public func getSubviewsForName(_ name: String) -> [UIView] {
         var marr: [UIView] = []
         tabBar.subviews.forEach { (view) in

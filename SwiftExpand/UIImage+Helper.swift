@@ -47,7 +47,6 @@ extension UIImage {
         return croppedImage
     }
     
-    
     /// 保存UIImage对象到相册
     @objc public func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
         let funcAbount = NSStringFromSelector(#function)
@@ -105,10 +104,12 @@ extension UIImage {
         return UIGraphicsGetImageFromCurrentImageContext()
     }
   
+    /// 切圆角图片
     @objc public func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadi: CGFloat) -> UIImage? {
         return roundImage(byRoundingCorners: byRoundingCorners, cornerRadii: CGSize(width: cornerRadi, height: cornerRadi))
     }
     
+    /// 切圆角图片
     @objc public func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize) -> UIImage? {
         
         let imageRect = CGRect(origin: CGPoint.zero, size: size)

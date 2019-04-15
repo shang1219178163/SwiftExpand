@@ -20,16 +20,7 @@ extension NSObject{
         }
     }
 
-//    public var block:SwiftClosure {
-//        set {
-//            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//        }
-//        
-//        get {
-//            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! SwiftClosure;
-//        }
-//    }
-    
+    /// 带有命名空间的类名
     public func BNClassName(_ className:String) -> AnyClass {
         let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
         let cls : AnyClass = NSClassFromString(appName + "." + className)!;

@@ -67,6 +67,7 @@ extension String{
         return Array();
     }
     
+    /// 读取本地json文件
     public func jsonFileToJSONString() -> String {
         assert(self.contains(".geojson") == true);
         
@@ -97,6 +98,7 @@ extension String{
         
     }
     
+    /// 时间转时间戳
     public func toTimeStamp() -> String {
         let dateStr = self;
         
@@ -146,12 +148,13 @@ extension String{
         return strSelf.intValue() > string.intValue()
     }
     
-  
+    /// 字符串首位加*
     public func toAsterisk() -> NSAttributedString{
         let isMust = self.contains(kAsterisk)
         return (self as NSString).getAttringByPrefix(kAsterisk, content: self, isMust: isMust)
     }
     
+    /// 复制到剪切板
     public func copyToPasteboard(_ showTips: Bool) -> Void {
         UIPasteboard.general.string = self
         if showTips == true {

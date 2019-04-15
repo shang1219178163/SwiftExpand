@@ -31,11 +31,13 @@ extension NSObject{
         return true;
     }
     
+    /// 实例方法替换
     public static func swizzleMethodClass(_ origSel:Selector, replSel:Selector) -> Bool {
         let clz:AnyClass = classForCoder();
         return swizzleMethodInstance(clz, origSel: origSel, replSel: replSel);
     }
-   
+    
+    /// 类方法替换
     public func swizzleMethodInstance(_ origSel:Selector, replSel:Selector) -> Bool {
         let clz:AnyClass = classForCoder;
         return NSObject.swizzleMethodInstance(clz, origSel: origSel, replSel: replSel);

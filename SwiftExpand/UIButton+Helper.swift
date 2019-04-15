@@ -33,6 +33,7 @@ extension UIButton{
 //        self.frame = frame
 //    }
     
+    /// 图片上左下右配置
     @objc public func layoutButton(style: Int, imageTitleSpace: CGFloat) {
         //得到imageView和titleLabel的宽高
         let imageWidth = self.imageView?.frame.size.width
@@ -79,7 +80,6 @@ extension UIButton{
         self.imageEdgeInsets = imageEdgeInsets
         
     }
-    
     
     /// UIButton不同状态下设置富文本标题
     @objc public func setContent(_ content: String, attDic: Dictionary<NSAttributedStringKey, Any>, for state: UIControl.State) -> NSMutableAttributedString{

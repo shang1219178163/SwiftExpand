@@ -92,6 +92,41 @@ extension UIViewController{
         }
         return btn;
     }
+    
+    /// 创建导航栏按钮(标题或者图片名称)
+    @objc public func createBtnBarItem(_ obj: String, isLeft: Bool, action:@escaping (ViewClosure)) -> UIView {
+        var item: UIView? = nil;
+        if UIImage(named:obj) != nil{
+            item = UIView.createImgView(CGRectMake(0, 0, 40, 40), imgName: obj, tag: kTAG_IMGVIEW)
+
+        }
+        else {
+            item = UIView.createLabel(CGRectMake(0, 0, 72, 20), text: obj, font: 16, tag: 0, type: 1)
+            (item as! UILabel).textAlignment = .center;
+            (item as! UILabel).textColor = UINavigationBar.appearance().tintColor;
+        }
+        item!.tag = isLeft ? kTAG_BackItem : kTAG_RightItem;
+        
+        let containView = UIView(frame: CGRectMake(0, 0, 44, 44))
+        item!.center = containView.center;
+        containView.addSubview(item!)
+        
+        _ = containView.addGestureTap { (reco) in
+            if containView.isHidden == true {
+                return
+            }
+            action((reco as! UITapGestureRecognizer), (reco.view!.subviews.first)!, (reco.view?.subviews.first!.tag)!)
+        }
+
+        let barItem = UIBarButtonItem(customView: containView)
+        if isLeft == true {
+            navigationItem.leftBarButtonItem = barItem;
+        }
+        else{
+            navigationItem.rightBarButtonItem = barItem;
+        }
+        return containView;
+    }
 
     @objc public func goController(_ name: String!, obj: AnyObject?, objOne: AnyObject?) -> Void {
         assert(UICtrFromString(name).isKind(of: UIViewController.classForCoder()))

@@ -44,6 +44,7 @@ extension UIView {
         }
     }
     
+    /// 渐变色层
     @objc public var gradientLayer: CAGradientLayer {
         get {
             var layer = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CAGradientLayer;
@@ -58,7 +59,6 @@ extension UIView {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
     
     /// (与holderView配置方法)配套使用
     @objc public var holderView: UIView {
@@ -93,7 +93,6 @@ extension UIView {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
     
     /// 配置HolderView
     @objc public func holderView(_ title: String, image: String?) -> Void {

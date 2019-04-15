@@ -29,7 +29,7 @@ extension UIViewController{
         }
     }
     
-    public var dataList: NSMutableArray {
+    @objc public var dataList: NSMutableArray {
         get {
             var list = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? NSMutableArray;
             if list == nil {
@@ -43,7 +43,7 @@ extension UIViewController{
         }
     }
     
-    public var tableView: UITableView {
+    @objc public var tableView: UITableView {
         get {
             var table = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
             if table == nil {
@@ -75,7 +75,7 @@ extension UIViewController{
         }
     }
     
-    public var collectionView : UICollectionView {
+    @objc public var collectionView : UICollectionView {
         get {
             var collection = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionView;
             if collection == nil {

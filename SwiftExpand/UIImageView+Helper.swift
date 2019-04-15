@@ -18,7 +18,7 @@ extension UIImageView{
     @objc public func renderTintColor(_ tintColor:UIColor, mode: UIImage.RenderingMode) -> Void {
         self.tintColor = tintColor
         self.image = self.image!.withRenderingMode(mode)
-        //        self.image = self.image!.withRenderingMode( .alwaysTemplate)
+//        self.image = self.image!.withRenderingMode( .alwaysTemplate)
         
     }
     

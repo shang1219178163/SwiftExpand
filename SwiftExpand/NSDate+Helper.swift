@@ -8,10 +8,15 @@
 
 import UIKit
 
+/// 60s
 public let kDate_minute : Double = 60 ;
+/// 3600s
 public let kDate_hour : Double   = 3600 ;
+/// 86400
 public let kDate_day : Double    = 86400 ;
+/// 604800
 public let kDate_week : Double   = 604800 ;
+/// 31556926
 public let kDate_year : Double   = 31556926 ;
 
 

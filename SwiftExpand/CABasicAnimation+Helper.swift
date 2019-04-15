@@ -7,29 +7,39 @@
 //
 
 import QuartzCore
-
-public let kTransformMoveX           = "transform.translation.x";// x方向平移
-public let kTransformMoveY           = "transform.translation.y";// y方向平移
-
-public let kTransformScale           = "transform.scale";//比例转化
-public let kTransformScaleX          = "transform.scale.x";//宽的比例
-public let kTransformScaleY          = "transform.scale.y";//高的比例
+/// x方向平移
+public let kTransformMoveX           = "transform.translation.x";
+/// y方向平移
+public let kTransformMoveY           = "transform.translation.y";
+/// 比例转化
+public let kTransformScale           = "transform.scale";
+/// 宽的比例
+public let kTransformScaleX          = "transform.scale.x";
+/// 高的比例
+public let kTransformScaleY          = "transform.scale.y";
 
 public let kTransformRotationZ       = "transform.rotation.z";
 public let kTransformRotationX       = "transform.rotation.x";
 public let kTransformRotationY       = "transform.rotation.y";
-
-public let kTransformSizW            = "contentsRect.size.width";//横向拉伸缩放 (0.4)最好是0~1之间的
-public let kTransformPosition        = "position";//位置(中心点的改变) [NSValue valueWithCGPoint:CGPointMake(300, 300)];
-public let kTransformBounds          = "bounds";//大小，中心不变  [NSValue valueWithCGRect:CGRectMake(0, 0, 200, 200)];
-public let kTransformContents        = "contents";//内容,imageAnima.toValue = (id)[UIImage imageNamed:"to"].CGImage;
-public let kTransformOpacity         = "opacity";//透明度
-public let kTransformCornerRadius    = "cornerRadius";//圆角
-public let kTransformBackgroundColor = "backgroundColor";//背景
-
-public let kTransformPath            = "path";//
-public let kTransformStrokeEnd       = "strokeEnd";//背景
-
+/// 横向拉伸缩放 (0.4)最好是0~1之间的
+public let kTransformSizW            = "contentsRect.size.width";
+/// 位置(中心点的改变) [NSValue valueWithCGPoint:CGPointMake(300, 300)];
+public let kTransformPosition        = "position";
+/// 大小，中心不变  [NSValue valueWithCGRect:CGRectMake(0, 0, 200, 200)];
+public let kTransformBounds          = "bounds";
+/// 内容,imageAnima.toValue = (id)[UIImage imageNamed:"to"].CGImage;
+public let kTransformContents        = "contents";
+/// 透明度
+public let kTransformOpacity         = "opacity";
+/// 圆角
+public let kTransformCornerRadius    = "cornerRadius";
+/// 背景
+public let kTransformBackgroundColor = "backgroundColor";
+/// path
+public let kTransformPath            = "path";
+///背景
+public let kTransformStrokeEnd       = "strokeEnd";
+/// kCAMediaTimingFunction集合
 public let kFunctionNames = [
                             kCAMediaTimingFunctionLinear,//匀速
                             kCAMediaTimingFunctionEaseIn,//先慢
@@ -54,7 +64,6 @@ extension CABasicAnimation{
         anim.isCumulative = keyPath == kTransformRotationZ;
         return anim;
     }
-    
     
     /// [便捷]CABasicAnimation
     @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fromValue: Any, toValue:Any) -> CABasicAnimation {

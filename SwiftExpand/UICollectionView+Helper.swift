@@ -14,6 +14,7 @@ public let UICollectionElementKindSectionItem = "UICollectionElementKindSectionI
 
 extension UICollectionView{
     
+    /// UICollectionViewLayout默认布局
     @objc public static var layoutDefault: UICollectionViewLayout {
         get {
             var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;

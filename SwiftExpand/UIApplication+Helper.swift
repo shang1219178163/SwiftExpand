@@ -158,7 +158,13 @@ extension UIApplication{
 
     }
     
+    /// 配置UIScrollView默认值
     @objc public static func setupAppearanceScrollView() -> Void {
+        UITableView.appearance().separatorStyle = .singleLine;
+        UITableView.appearance().separatorInset = .zero;
+        UITableView.appearance().rowHeight = 60;
+        
+        UITableViewCell.appearance().layoutMargins = .zero;
         UITableViewCell.appearance().separatorInset = .zero;
         UITableViewCell.appearance().selectionStyle = .none;
         
@@ -187,6 +193,7 @@ extension UIApplication{
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5.0)
     }
     
+    /// 配置UINavigationBar默认值
     @objc public static func setupAppearanceNavigationBar(_ barTintColor: UIColor) -> Void {
         let isDefault: Bool = UIColor.white.equalTo(barTintColor);
         let tintColor = isDefault ? UIColor.black : UIColor.white;
@@ -205,26 +212,6 @@ extension UIApplication{
 //        ]
 //        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
     }
-    
-//    @objc public static func setupAppearanceNavigationBar() -> Void {
-//        UINavigationBar.appearance().tintColor =  .white;
-//        UINavigationBar.appearance().barTintColor = .theme;
-//        //        UINavigationBar.appearance().barTintColor = .orange;
-//
-//        let attDic = [NSAttributedString.Key.foregroundColor :   UIColor.white,
-//                      NSAttributedString.Key.font    :   UIFont.boldSystemFont(ofSize:18)];
-//        UINavigationBar.appearance().titleTextAttributes = attDic;
-//
-//        UINavigationBar.appearance().isTranslucent = true //界面顶部透明
-////        UINavigationBar.appearance().shadowImage =  UIImage.lkCreateImage(with:.clear)//阴影颜色
-////        UINavigationBar.appearance().setBackgroundImage(UIImage.lkCreateImage(with:.clear), for:UIBarMetrics.default)//背景颜色
-//
-////        UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset.init(horizontal: 0, vertical: -60), for: UIBarMetrics.default)//去掉返回图片后面的文
-//
-//        let dicNomal = [NSAttributedStringKey.foregroundColor: UIColor.white,
-//                        ]
-//        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
-//    }
     
     @objc public static func setupAppearanceTabBar() -> Void {
         //         设置字体颜色
