@@ -30,7 +30,7 @@ extension UICollectionReusableView{
     }
     
     ///获取UICollectionReusableView
-    @objc public static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String, indexPath: IndexPath) -> UICollectionReusableView{
+    @objc public static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
         
         let kindSuf = kind.components(separatedBy: "KindSection").last;
         let identifier = NStringShortFromClass(classForCoder()) + kindSuf!;

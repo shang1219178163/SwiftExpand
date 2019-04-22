@@ -64,11 +64,11 @@ public func GGSizeMake(_ w: CGFloat,_ h: CGFloat) -> CGSize {
     return CGSize(width: w, height: h)
 }
 
-public func NSStringFromIndexPath(_ indexPath:IndexPath) -> String {
+public func NSStringFromIndexPath(_ indexPath: IndexPath) -> String {
     return String(format: "{%d,%d}", indexPath.section, indexPath.row);
 }
 
-public func iOSVer(version:Float)->Bool{
+public func iOSVer(version: Float)->Bool{
     return (UIDevice.current.systemVersion as NSString).floatValue > version;
 }
 
@@ -144,7 +144,7 @@ public func UITabBarItemsFromList(_ list: [[String]]) -> [UITabBarItem] {
 }
 
 /// 获取UIViewController/UINavigationController数组
-public func UICtlrListFromList(_ list: [[String]], isNavController: Bool) -> [UIViewController] {
+public func UICtlrListFromList(_ list: [[String]], isNavController: Bool = false) -> [UIViewController] {
     let tabItems: [UITabBarItem] = UITabBarItemsFromList(list);
     let marr: NSMutableArray = [];
     for e in list.enumerated() {
@@ -175,31 +175,21 @@ public func UITarBarCtrFromList(_ list: [[String]]) -> UITabBarController {
 }
 
 /// 获取某种颜色Alpha下的色彩
-public func UIColorAlpha(_ color: UIColor,_ a:CGFloat) -> UIColor{
+public func UIColorAlpha(_ color: UIColor,_ a:CGFloat = 1.0) -> UIColor{
     return color.withAlphaComponent(a)
 }
 
-public func UIColorRGBA(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat,_ a:CGFloat) -> UIColor{
+public func UIColorRGBA(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat,_ a:CGFloat = 1.0) -> UIColor{
     return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
 }
 
 /// 16进制字符串
-public func UIColorHex(_ hex: String, _ a:CGFloat) -> UIColor {
+public func UIColorHex(_ hex: String, _ a:CGFloat = 1.0) -> UIColor {
     return UIColor.hex(hex, a: a);
 }
 
-/// 16进制字符串
-public func UIColorHex(_ hex: String) -> UIColor {
-    return UIColor.hex(hex);
-}
-
-/// 0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
-public func UIColorHexValue(_ hex:Int) -> UIColor {
-    return UIColorHexValue(hex, 1.0)
-}
-
 /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
-public func UIColorHexValue(_ hex:Int, _ a:CGFloat) -> UIColor {
+public func UIColorHexValue(_ hex:Int, _ a:CGFloat = 1.0) -> UIColor {
     return UIColor(red: CGFloat((hex & 0xFF0000) >> 16)/255.0, green: CGFloat((hex & 0xFF00) >> 8)/255.0, blue: CGFloat(hex & 0xFF)/255.0, alpha: a)
 }
 
@@ -207,7 +197,7 @@ public func UIColorRandom() -> UIColor {
     return UIColor.randomColor();
 }
 
-public func UIColorDim(_ white:CGFloat, _ a:CGFloat) -> UIColor{
+public func UIColorDim(_ white:CGFloat, _ a:CGFloat = 1.0) -> UIColor{
     return .init(white: white, alpha: a);
 }
 
@@ -224,7 +214,7 @@ public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode) -
 }
 
 // 把颜色转成UIImage
-public func UIImageColor(_ color: UIColor, size: CGSize) -> UIImage{
+public func UIImageColor(_ color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) -> UIImage{
     let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
     UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
     
@@ -236,12 +226,6 @@ public func UIImageColor(_ color: UIColor, size: CGSize) -> UIImage{
     UIGraphicsGetCurrentContext()
     return image!
 }
-
-// 把颜色转成UIImage
-public func UIImageColor(_ color: UIColor) -> UIImage{
-    return UIImageColor(color, size: CGSize(width: 1.0, height: 1.0))
-}
-
 
 public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
     let data0: Data = image0.pngData()!

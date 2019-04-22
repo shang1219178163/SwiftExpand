@@ -51,7 +51,7 @@ public let kFunctionNames = [
 extension CABasicAnimation{
     
     /// [源]CABasicAnimation
-    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fillMode:CAMediaTimingFillMode, removedOnCompletion:Bool, functionName:CAMediaTimingFunctionName!) -> CABasicAnimation {
+    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float, fillMode: CAMediaTimingFillMode = .forwards, removedOnCompletion: Bool = false, functionName: CAMediaTimingFunctionName!) -> CABasicAnimation {
         
         let anim = CABasicAnimation(keyPath: keyPath)
         anim.duration = duration;
@@ -66,18 +66,12 @@ extension CABasicAnimation{
     }
     
     /// [便捷]CABasicAnimation
-    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fromValue: Any, toValue:Any) -> CABasicAnimation {
-        let anim = animKeyPath(keyPath, duration: duration, autoreverses: autoreverses, repeatCount: repeatCount, fillMode: .forwards, removedOnCompletion: false, functionName: kFunctionNames.first!);
+    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, repeatCount: Float = 1, fromValue: Any, toValue:Any) -> CABasicAnimation {
+        let anim = animKeyPath(keyPath, duration: duration, repeatCount: repeatCount, functionName: kFunctionNames.first!);
         anim.fromValue = fromValue;
         anim.toValue = toValue;
         return anim;
     }
     
-    /// [一次性]CABasicAnimation
-    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, fromValue: Any, toValue:Any) -> CABasicAnimation {
-        let anim = animKeyPath(keyPath, duration: duration, autoreverses: false, repeatCount: 1, fillMode: .forwards, removedOnCompletion: false, functionName: kFunctionNames.first!);
-        anim.fromValue = fromValue;
-        anim.toValue = toValue;
-        return anim;
-    }
+ 
 }

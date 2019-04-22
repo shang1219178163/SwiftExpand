@@ -90,7 +90,7 @@ extension UIButton{
     }
     
     /// 验证码倒计时显示
-    @objc public static func timeValueChange(_ btn:UIButton, timeOut:Int) {
+    @objc public static func timeValueChange(_ btn:UIButton, timeOut:Int = 30) {
         
         var time = timeOut
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
