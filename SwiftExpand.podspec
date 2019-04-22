@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
     }
 
     s.ios.deployment_target = '8.0'
-    s.swift_version = "5.0"
+    s.swift_version = "4.0"
     s.requires_arc = true
     s.frameworks = 'UIKit', 'CoreFoundation', 'CoreText', 'CoreGraphics', 'CoreImage',
       'CoreLocation','CoreTelephony', 'GLKit','QuartzCore', 'WebKit'
