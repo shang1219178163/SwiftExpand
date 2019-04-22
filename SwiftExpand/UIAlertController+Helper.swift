@@ -21,7 +21,7 @@ extension UIAlertController{
         }
         
         actionTitles?.forEach({ (title:String) in
-            let style: UIAlertActionStyle = title == kActionTitle_Cancell ? .destructive : .default
+            let style: UIAlertAction.Style = title == kActionTitle_Cancell ? .destructive : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
                 if handler != nil {
                     handler!(action)
@@ -51,7 +51,7 @@ extension UIAlertController{
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         
         items?.forEach({ (title:String) in
-            let style: UIAlertActionStyle = title == kActionTitle_Cancell ? .cancel : .default
+            let style: UIAlertAction.Style = title == kActionTitle_Cancell ? .cancel : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
                 alertController.dismiss(animated: true, completion: nil)
                 if completion != nil {

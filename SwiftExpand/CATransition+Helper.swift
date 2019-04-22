@@ -23,22 +23,22 @@ public let kCATransitionCameraIrisHollowOpen  = "cameraIrisHollowOpen";
 /// 相机镜头关闭效果
 public let kCATransitionCameraIrisHollowClose = "cameraIrisHollowClose";
 /// 动画方向
-public let kSubTypeFuntionNames = [kCATransitionFromTop,
-                                   kCATransitionFromLeft,
-                                   kCATransitionFromBottom,
-                                   kCATransitionFromRight];
+public let kSubTypeFuntionNames = [CATransitionSubtype.fromTop,
+                                   CATransitionSubtype.fromLeft,
+                                   CATransitionSubtype.fromBottom,
+                                   CATransitionSubtype.fromRight];
 
 extension CATransition{
    
     /// [源]CATransition
-    @objc public static func animDuration(_ duration: CFTimeInterval, functionName:String!, type: String, subType: String?) -> CATransition {
+    public static func animDuration(_ duration: CFTimeInterval, functionName:CAMediaTimingFunctionName!, type: CATransitionType, subType: CATransitionSubtype?) -> CATransition {
         
         let anim = CATransition()
         anim.duration = duration;
        
         let name = kFunctionNames.contains(functionName) ? functionName : kFunctionNames.first;
         anim.timingFunction = CAMediaTimingFunction(name: name!);
-        anim.type = type as String
+        anim.type = type
         anim.subtype = subType
         return anim;
     }
