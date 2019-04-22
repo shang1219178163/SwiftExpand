@@ -256,10 +256,10 @@ public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
     return list.last!;
 }
 
-public func AttributeDict(_ type:Int) -> [NSAttributedStringKey: Any]{
+public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
     
-    var dic : [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor    :   UIColor.black,
-                                              NSAttributedStringKey.backgroundColor    :   UIColor.white,]
+    var dic : [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor    :   UIColor.black,
+                                              NSAttributedString.Key.backgroundColor    :   UIColor.white,]
     
     switch type {
     case 1:

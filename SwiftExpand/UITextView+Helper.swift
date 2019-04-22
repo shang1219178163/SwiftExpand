@@ -38,7 +38,7 @@ extension UITextView{
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if view == nil {
                 view = UITextView(frame: bounds);
-                view!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 view!.autocapitalizationType = .none;
                 view!.autocorrectionType = .no;
                 view!.backgroundColor = .clear;
