@@ -4,8 +4,7 @@
 //
 //  Created by Bin Shang on 2018/12/22.
 //
-
-import Foundation
+import UIKit
 
 extension UICollectionViewCell{
     
@@ -21,7 +20,7 @@ extension UICollectionViewCell{
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if view == nil {
                 view = UIImageView(frame: .zero);
-                view!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
                 view!.contentMode = .scaleAspectFit;
                 view!.isUserInteractionEnabled = true;
@@ -42,8 +41,7 @@ extension UICollectionViewCell{
             var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if view == nil {
                 view = UILabel(frame: .zero);
-                view!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
-
+                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue);
                 view!.numberOfLines = 0;
                 view!.lineBreakMode = .byCharWrapping;
                 view!.textAlignment = .center;

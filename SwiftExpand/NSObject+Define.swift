@@ -44,6 +44,11 @@ public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
     return key;
 }
 
+/// 自定义UIEdgeInsetsMake
+public func UIEdgeInsetsMake(_ top: CGFloat,_ left: CGFloat,_ bottom: CGFloat,_ right: CGFloat) -> UIEdgeInsets{
+    return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+}
+
 /// 自定义CGRect
 public func CGRectMake(_ x: CGFloat,_ y: CGFloat,_ w: CGFloat,_ h: CGFloat) -> CGRect{
     return CGRect(x: x, y: y, width: w, height: h)
@@ -59,11 +64,11 @@ public func GGSizeMake(_ w: CGFloat,_ h: CGFloat) -> CGSize {
     return CGSize(width: w, height: h)
 }
 
-public func NSStringFromIndexPath(_ indexPath:IndexPath) -> String {
+public func NSStringFromIndexPath(_ indexPath: IndexPath) -> String {
     return String(format: "{%d,%d}", indexPath.section, indexPath.row);
 }
 
-public func iOSVer(version:Float)->Bool{
+public func iOSVer(version: Float)->Bool{
     return (UIDevice.current.systemVersion as NSString).floatValue > version;
 }
 
@@ -130,7 +135,7 @@ public func UITabBarItemsFromList(_ list: [[String]]) -> [UITabBarItem] {
         }
         
         if tabBarItem.title == nil || tabBarItem.title == "" {
-            tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+            tabBarItem.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0)
         }
         
         marr.add(tabBarItem)
@@ -139,7 +144,7 @@ public func UITabBarItemsFromList(_ list: [[String]]) -> [UITabBarItem] {
 }
 
 /// 获取UIViewController/UINavigationController数组
-public func UICtlrListFromList(_ list: [[String]], isNavController: Bool) -> [UIViewController] {
+public func UICtlrListFromList(_ list: [[String]], isNavController: Bool = false) -> [UIViewController] {
     let tabItems: [UITabBarItem] = UITabBarItemsFromList(list);
     let marr: NSMutableArray = [];
     for e in list.enumerated() {
@@ -170,31 +175,21 @@ public func UITarBarCtrFromList(_ list: [[String]]) -> UITabBarController {
 }
 
 /// 获取某种颜色Alpha下的色彩
-public func UIColorAlpha(_ color: UIColor,_ a:CGFloat) -> UIColor{
+public func UIColorAlpha(_ color: UIColor,_ a:CGFloat = 1.0) -> UIColor{
     return color.withAlphaComponent(a)
 }
 
-public func UIColorRGBA(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat,_ a:CGFloat) -> UIColor{
+public func UIColorRGBA(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat,_ a:CGFloat = 1.0) -> UIColor{
     return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
 }
 
 /// 16进制字符串
-public func UIColorHex(_ hex: String, _ a:CGFloat) -> UIColor {
+public func UIColorHex(_ hex: String, _ a:CGFloat = 1.0) -> UIColor {
     return UIColor.hex(hex, a: a);
 }
 
-/// 16进制字符串
-public func UIColorHex(_ hex: String) -> UIColor {
-    return UIColor.hex(hex);
-}
-
-/// 0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
-public func UIColorHexValue(_ hex:Int) -> UIColor {
-    return UIColorHexValue(hex, 1.0)
-}
-
 /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
-public func UIColorHexValue(_ hex:Int, _ a:CGFloat) -> UIColor {
+public func UIColorHexValue(_ hex:Int, _ a:CGFloat = 1.0) -> UIColor {
     return UIColor(red: CGFloat((hex & 0xFF0000) >> 16)/255.0, green: CGFloat((hex & 0xFF00) >> 8)/255.0, blue: CGFloat(hex & 0xFF)/255.0, alpha: a)
 }
 
@@ -202,7 +197,7 @@ public func UIColorRandom() -> UIColor {
     return UIColor.randomColor();
 }
 
-public func UIColorDim(_ white:CGFloat, _ a:CGFloat) -> UIColor{
+public func UIColorDim(_ white:CGFloat, _ a:CGFloat = 1.0) -> UIColor{
     return .init(white: white, alpha: a);
 }
 
@@ -210,7 +205,7 @@ public func UIImageNamed(_ name: String) -> UIImage?{
     return UIImage(named: name);
 }
 
-public func UIImageNamed(_ name: String, renderingMode: UIImageRenderingMode) -> UIImage?{
+public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode) -> UIImage?{
     var image = UIImageNamed(name)
     if image != nil {
         image = image!.withRenderingMode(renderingMode)
@@ -219,7 +214,7 @@ public func UIImageNamed(_ name: String, renderingMode: UIImageRenderingMode) ->
 }
 
 // 把颜色转成UIImage
-public func UIImageColor(_ color: UIColor, size: CGSize) -> UIImage{
+public func UIImageColor(_ color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) -> UIImage{
     let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
     UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
     
@@ -232,15 +227,9 @@ public func UIImageColor(_ color: UIColor, size: CGSize) -> UIImage{
     return image!
 }
 
-// 把颜色转成UIImage
-public func UIImageColor(_ color: UIColor) -> UIImage{
-    return UIImageColor(color, size: CGSize(width: 1.0, height: 1.0))
-}
-
-
 public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
-    let data0 = UIImagePNGRepresentation(image0)
-    let data1 = UIImagePNGRepresentation(image1)
+    let data0: Data = image0.pngData()!
+    let data1: Data = image1.pngData()!
     return data0 == data1
 }
 
@@ -256,17 +245,17 @@ public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
     return list.last!;
 }
 
-public func AttributeDict(_ type:Int) -> [NSAttributedStringKey: Any]{
+public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
     
-    var dic : [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor    :   UIColor.black,
-                                              NSAttributedStringKey.backgroundColor    :   UIColor.white,]
+    var dic : [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor    :   UIColor.black,
+                                              NSAttributedString.Key.backgroundColor    :   UIColor.white,]
     
     switch type {
     case 1:
-        dic = [NSAttributedString.Key.underlineStyle    :   NSUnderlineStyle.styleSingle.rawValue,
+        dic = [NSAttributedString.Key.underlineStyle    :   NSUnderlineStyle.single.rawValue,
                NSAttributedString.Key.underlineColor     :   UIColor.red,]
     case 2:
-        dic = [NSAttributedString.Key.strikethroughStyle    :   NSUnderlineStyle.styleSingle.rawValue,
+        dic = [NSAttributedString.Key.strikethroughStyle    :   NSUnderlineStyle.single.rawValue,
                NSAttributedString.Key.strikethroughColor     :   UIColor.red,]
     case 3:
         dic = [NSAttributedString.Key.obliqueness    :   0.8,]

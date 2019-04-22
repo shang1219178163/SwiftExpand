@@ -82,7 +82,7 @@ extension UIButton{
     }
     
     /// UIButton不同状态下设置富文本标题
-    @objc public func setContent(_ content: String, attDic: Dictionary<NSAttributedStringKey, Any>, for state: UIControl.State) -> NSMutableAttributedString{
+    @objc public func setContent(_ content: String, attDic: Dictionary<NSAttributedString.Key, Any>, for state: UIControl.State) -> NSMutableAttributedString{
         assert((self.titleLabel!.text?.contains(content))!)
         let attString = self.titleLabel!.setContent(content, attDic: attDic)
         setAttributedTitle(attString, for: state)
@@ -90,7 +90,7 @@ extension UIButton{
     }
     
     /// 验证码倒计时显示
-    @objc public static func timeValueChange(_ btn:UIButton, timeOut:Int) {
+    @objc public static func timeValueChange(_ btn:UIButton, timeOut:Int = 30) {
         
         var time = timeOut
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())

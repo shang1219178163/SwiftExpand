@@ -208,7 +208,7 @@ extension UIApplication{
                     ];
         UINavigationBar.appearance().titleTextAttributes = attDic;
 //
-//        let dicNomal = [NSAttributedStringKey.foregroundColor: UIColor.white,
+//        let dicNomal = [NSAttributedString.Key.foregroundColor: UIColor.white,
 //        ]
 //        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
     }
