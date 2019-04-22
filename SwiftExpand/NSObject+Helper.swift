@@ -21,7 +21,7 @@ extension NSObject{
     }
 
     /// 带有命名空间的类名
-    public func BNClassName(_ className: String) -> AnyClass {
+    public func BNClassName(_ className:String) -> AnyClass {
         let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
         let cls : AnyClass = NSClassFromString(appName + "." + className)!;
         return cls;
@@ -33,8 +33,8 @@ extension NSObject{
         
         let attrString = NSMutableAttributedString(string: text)
         
-        let attDict = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                       NSAttributedString.Key.font:UIFont.systemFont(ofSize: 30),
+        let attDict = [NSAttributedStringKey.foregroundColor: UIColor.theme,
+                       NSAttributedStringKey.font:UIFont.systemFont(ofSize: 30),
                        ]
         attrString.addAttributes(attDict, range: nsRange)
         return attrString
@@ -56,14 +56,14 @@ extension NSObject{
     }
     
     /// 富文本特殊部分设置
-    @objc public func attrDict(_ font: CGFloat, textColor: UIColor) -> Dictionary<NSAttributedString.Key, Any> {
+    @objc public func attrDict(_ font:CGFloat, textColor:UIColor) -> Dictionary<NSAttributedString.Key, Any> {
         let dic = [NSAttributedString.Key.font:UIFont.systemFont(ofSize:font),
                    NSAttributedString.Key.foregroundColor: textColor];
         return dic;
     }
     
     /// 富文本整体设置
-    @objc public func attrParaDict(_ font: CGFloat, textColor: UIColor, alignment: NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
+    @objc public func attrParaDict(_ font:CGFloat, textColor:UIColor, alignment:NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
         let paraStyle = NSMutableParagraphStyle();
         paraStyle.lineBreakMode = .byCharWrapping;
         paraStyle.alignment = alignment;
@@ -74,7 +74,7 @@ extension NSObject{
     }
     
     ///  富文本只有同字体大小才能计算高度
-    @objc public func sizeWithText(_ text: String!, font: CGFloat, width: CGFloat) -> CGSize {
+    @objc public func sizeWithText(_ text:String!, font:CGFloat, width:CGFloat) -> CGSize {
         let attDic = self.attrParaDict(font, textColor: .black, alignment: .left);
         let options : NSStringDrawingOptions = NSStringDrawingOptions(rawValue: NSStringDrawingOptions.RawValue(UInt8(NSStringDrawingOptions.usesLineFragmentOrigin.rawValue) | UInt8(NSStringDrawingOptions.usesFontLeading.rawValue)))
         

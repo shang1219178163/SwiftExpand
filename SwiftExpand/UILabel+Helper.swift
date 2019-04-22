@@ -13,7 +13,7 @@ import UIKit
 
 extension UILabel{
     /// UILabel富文本设置
-    @objc public func setContent(_ content: String, attDic: Dictionary<NSAttributedString.Key, Any>) -> NSMutableAttributedString{
+    @objc public func setContent(_ content: String, attDic: Dictionary<NSAttributedStringKey, Any>) -> NSMutableAttributedString{
         assert((self.text?.contains(content))!)
         
         let text: NSString = self.text! as NSString

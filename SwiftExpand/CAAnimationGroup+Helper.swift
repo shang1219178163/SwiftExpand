@@ -11,7 +11,7 @@ import QuartzCore
 extension CAAnimationGroup{
     
     /// [源]CAAnimationGroup
-    @objc public static func animDuration(_ duration: CFTimeInterval, autoreverses:Bool = false, repeatCount:Float, fillMode:CAMediaTimingFillMode = .forwards, removedOnCompletion:Bool = false) -> CAAnimationGroup {
+    @objc public static func animDuration(_ duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fillMode:String, removedOnCompletion:Bool) -> CAAnimationGroup {
         
         let anim: CAAnimationGroup = CAAnimationGroup();
         anim.duration = duration;
@@ -23,10 +23,17 @@ extension CAAnimationGroup{
     }
     
     /// [简]CAAnimationGroup
-    @objc public static func animDuration(_ animList: [CAAnimation], duration: CFTimeInterval, repeatCount: Float) -> CAAnimationGroup {
-        let anim = CAAnimationGroup.animDuration(duration, repeatCount: repeatCount)
+    @objc public static func animDuration(_ animList: [CAAnimation], duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float, fillMode:String, removedOnCompletion:Bool) -> CAAnimationGroup {
+        let anim = CAAnimationGroup.animDuration(duration, autoreverses: autoreverses, repeatCount: repeatCount, fillMode: fillMode, removedOnCompletion: removedOnCompletion);
         anim.animations = animList;
         return anim;
     }
-  
+    
+    /// [便捷]CAAnimationGroup
+    @objc public static func animDuration(_ animList: [CAAnimation], duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float) -> CAAnimationGroup {
+        let anim = CAAnimationGroup.animDuration(duration, autoreverses: autoreverses, repeatCount: repeatCount, fillMode: kCAFillModeForwards, removedOnCompletion: false);
+        anim.animations = animList;
+        return anim;
+    }
+    
 }

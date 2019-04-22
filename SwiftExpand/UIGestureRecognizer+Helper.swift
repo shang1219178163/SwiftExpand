@@ -5,7 +5,7 @@
 //  Created by Bin Shang on 2018/12/23.
 //
 
-import UIKit
+import Foundation
 
 extension UIGestureRecognizer{
     

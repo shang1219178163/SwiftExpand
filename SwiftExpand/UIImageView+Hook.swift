@@ -33,7 +33,7 @@ extension UIImageView{
 //        }
         
         if self.image != nil {
-            if self.image?.renderingMode != UIImage.RenderingMode.alwaysTemplate {
+            if self.image?.renderingMode != UIImageRenderingMode.alwaysTemplate {
                 self.image = self.image!.withRenderingMode( .alwaysTemplate);
                 
             }

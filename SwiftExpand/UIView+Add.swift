@@ -111,7 +111,7 @@ extension UIView {
     /// [源]UITableView创建
     @objc public static func createTableView(_ rect: CGRect, style: UITableView.Style, rowHeight: CGFloat) -> UITableView{
         let table = UITableView(frame: rect, style: style);
-        table.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        table.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
         
         table.separatorStyle = .singleLine;
         table.separatorInset = .zero;
@@ -126,7 +126,7 @@ extension UIView {
     /// [源]UILabel创建
     @objc public static func createLabel(_ rect: CGRect, text: String?, font: CGFloat, tag: Int, type: Int) -> UILabel {
         let view = UILabel(frame: rect);
-        view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
         view.isUserInteractionEnabled = true;
         view.textAlignment = .left;
         
@@ -171,7 +171,7 @@ extension UIView {
     /// [源]UIImageView创建
     @objc public static func createImgView(_ rect: CGRect, imgName: String, tag: Int) -> UIImageView {
         let view = UIImageView(frame: rect);
-        view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
         view.isUserInteractionEnabled = true;
         view.contentMode = .scaleAspectFit;
         view.image = UIImage(named: imgName);
@@ -217,7 +217,7 @@ extension UIView {
     /// [源]UITextField创建
     @objc public static func createTextField(_ rect: CGRect, tag: Int) -> UITextField {
         let view = UITextField(frame: rect);
-        view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
         view.contentVerticalAlignment = .center;
         view.autocapitalizationType = .none;
         view.autocorrectionType = .no;
@@ -231,7 +231,7 @@ extension UIView {
     /// [源]UITextView创建
     @objc public static func createTextView(_ rect: CGRect, tag: Int) -> UITextView {
         let view = UITextView(frame: rect);
-        view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
         view.autocapitalizationType = .none;
         view.autocorrectionType = .no;
         view.backgroundColor = .white;
@@ -320,7 +320,7 @@ extension UIView {
     @objc public static func createSegment(_ rect: CGRect, items: Array<Any>!, selectedIdx: Int, type: Int) -> UISegmentedControl {
         let view = UISegmentedControl(items: items)
         view.frame = rect
-        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
         view.selectedSegmentIndex = selectedIdx
         
         switch type {
@@ -329,8 +329,8 @@ extension UIView {
             view.backgroundColor = UIColor.white
             view.layer.borderWidth = 1.0
             view.layer.borderColor = UIColor.white.cgColor
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 15),
+            let dic_N = [NSAttributedStringKey.foregroundColor: UIColor.black,
+                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
                          
                          ]
             view.setTitleTextAttributes(dic_N, for: .normal)
@@ -340,12 +340,12 @@ extension UIView {
             view.tintColor = UIColor.white
             view.backgroundColor = UIColor.white
             
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 15),
+            let dic_N = [NSAttributedStringKey.foregroundColor: UIColor.black,
+                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
                          ]
             
-            let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 18),
+            let dic_H = [NSAttributedStringKey.foregroundColor: UIColor.theme,
+                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 18),
                          ]
             
             view.setTitleTextAttributes(dic_N, for: .normal)
@@ -355,13 +355,13 @@ extension UIView {
             view.tintColor = UIColor.clear
             view.backgroundColor = UIColor.line
             
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 15),
+            let dic_N = [NSAttributedStringKey.foregroundColor: UIColor.black,
+                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
                          
                          ]
             
-            let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 18),
+            let dic_H = [NSAttributedStringKey.foregroundColor: UIColor.theme,
+                         NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 18),
                          
                          ]
             
@@ -373,12 +373,12 @@ extension UIView {
             view.backgroundColor = UIColor.white
             
             let dic_N = [
-                NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 15),
+                NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 15),
                 
                 ]
             
             let dic_H = [
-                NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 18),
+                NSAttributedStringKey.font :   UIFont.systemFont(ofSize: 18),
                 
                 ]
             
@@ -390,7 +390,7 @@ extension UIView {
     /// [源]UISlider创建
     @objc public static func createSlider(_ rect: CGRect, value: Float, minValue: Float, maxValue: Float) -> UISlider {
         let view = UISlider(frame: rect)
-        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
         view.minimumValue = minValue
         view.maximumValue = maxValue
         view.value = value;
@@ -401,7 +401,7 @@ extension UIView {
     /// [源]UISwitch创建
     @objc public static func createSwitch(_ rect: CGRect, isOn: Bool) -> UISwitch {
         let view = UISwitch(frame: rect)
-        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+        view.autoresizingMask = UIViewAutoresizing.flexibleWidth
         view.isOn = isOn
         view.onTintColor = UIColor.theme
         return view

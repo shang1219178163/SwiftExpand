@@ -84,7 +84,7 @@ extension UICollectionView{
     }
     
     @objc public func viewIdentifier(_ className: String, kind: String) -> String{
-        let extra = kind == UICollectionView.elementKindSectionHeader ? "Header" : "Footer";
+        let extra = kind == UICollectionElementKindSectionHeader ? "Header" : "Footer";
         let identifier = className + extra;
         return identifier;
     }
@@ -98,7 +98,7 @@ extension UICollectionView{
     }
     
     ///  默认布局配置(自上而下,自左而右)
-    @objc public func create(_ itemHeight: CGFloat, spacing: CGFloat = kPadding, headerHeight: CGFloat, footerHeight: CGFloat) -> UICollectionViewFlowLayout {
+    @objc public func create(_ itemHeight: CGFloat, spacing: CGFloat, headerHeight: CGFloat, footerHeight: CGFloat) -> UICollectionViewFlowLayout {
         let width = self.bounds.width;
         let itemSize = CGSize(width: (width - 5*spacing)/4.0,height: itemHeight);
         let headerSize = CGSize(width: width, height: headerHeight);
