@@ -140,9 +140,9 @@ extension UIViewController{
         let controller = UICtrFromString(controllerName)
         assert(controller.isKind(of: UIViewController.classForCoder()))
 
-        addChildViewController(controller)
+        addChild(controller)
         view.addSubview(controller.view)
-        controller.didMove(toParentViewController: self)
+        controller.didMove(toParent: self)
     }
     
     /// 导航栏返回按钮图片定制

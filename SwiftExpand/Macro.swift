@@ -207,7 +207,7 @@ public let kActionTitle_Update: String  = "立即升级";
 public let kActionTitle_Collect: String = "收藏";
 public let kActionTitle_Recover: String = "恢复";
 
-public let kNilTEXT: String    = "--";
+public let kNilText: String     = "--";
 public let kSeparateStr: String = ",";
 public let kAsterisk: String    = "*";
 public let kBlankHalf: String   = "  ";
@@ -246,7 +246,6 @@ public func DDLog(_ msgs: Any..., fileName: String = #file, methodName: String =
 //   - file: 文件名
 //   - function: 方法名
 //   - line: 行号
-
 //public func printLog(_ messages: Any..., file: String = #file, function: String = #function, line: Int = #line) {
 //    #if DEBUG
 //    let message = messages.compactMap{ "\($0)" }.joined(separator: "\n__")
