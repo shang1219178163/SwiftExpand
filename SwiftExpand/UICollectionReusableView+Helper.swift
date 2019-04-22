@@ -40,6 +40,10 @@ extension UICollectionReusableView{
         view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? UIColor.green : UIColor.yellow;
         return view;
     }
+    
+    @objc public static func dequeueCTVReusable(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView{
+        return dequeueCTVReusable(collectionView, kind: UICollectionElementKindSectionItem, indexPath: indexPath);
+    }
 
     @objc public var imageView: UIImageView {
         get {

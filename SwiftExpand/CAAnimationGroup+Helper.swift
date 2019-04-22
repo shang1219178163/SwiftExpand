@@ -28,5 +28,5 @@ extension CAAnimationGroup{
         anim.animations = animList;
         return anim;
     }
-    
+  
 }
