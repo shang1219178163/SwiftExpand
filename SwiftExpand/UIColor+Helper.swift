@@ -20,9 +20,9 @@ extension UIColor{
     
     @objc public static var theme : UIColor {
         get{
-            var color = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIColor;
-            color = color ?? UIColorHexValue(0x0082e0)
-            return color!;
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIColor;
+            obj = obj ?? UIColorHexValue(0x0082e0)
+            return obj!;
         }
         set{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

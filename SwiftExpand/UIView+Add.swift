@@ -14,14 +14,14 @@ extension UIView {
     
     @objc public var lineTop: UIView {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIView;
-            if view == nil {
-                view = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
-                view!.backgroundColor = .line
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIView;
+            if obj == nil {
+                obj = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
+                obj!.backgroundColor = .line
 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -30,14 +30,14 @@ extension UIView {
     
     @objc public var lineBottom: UIView {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIView;
-            if view == nil {
-                view = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: frame.height));
-                view!.backgroundColor = .line
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIView;
+            if obj == nil {
+                obj = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: frame.height));
+                obj!.backgroundColor = .line
                 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -47,13 +47,13 @@ extension UIView {
     /// 渐变色层
     @objc public var gradientLayer: CAGradientLayer {
         get {
-            var layer = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CAGradientLayer;
-            if layer == nil {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CAGradientLayer;
+            if obj == nil {
                 let colors = [UIColor.theme.withAlphaComponent(0.5).cgColor, UIColor.theme.withAlphaComponent(0.9).cgColor]
-                layer = CAGradientLayer.layerRect(.zero, colors: colors, start: CGPointMake(0, 0), end: CGPointMake(1.0, 0))
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), layer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                obj = CAGradientLayer.layerRect(.zero, colors: colors, start: CGPointMake(0, 0), end: CGPointMake(1.0, 0))
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
-            return layer!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
