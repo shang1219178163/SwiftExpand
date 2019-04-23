@@ -11,7 +11,7 @@ import UIKit
 extension UITableViewHeaderFooterView{
     
     /// cell-源方法生成,自定义identifier
-    @objc public static func viewWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewHeaderFooterView! {
+    @objc public static func viewWithTableView(_ tableView: UITableView, identifier: String = NSStringFromClass(classForCoder())) -> UITableViewHeaderFooterView! {
         var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if view == nil {
             view = self.init(reuseIdentifier: identifier)

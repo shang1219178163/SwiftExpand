@@ -84,7 +84,7 @@ extension UIColor{
     }
     
     /// [源]十六进制颜色字符串
-    @objc public static func hex(_ hex: String, a: CGFloat) -> UIColor {
+    @objc public static func hex(_ hex: String, a: CGFloat = 1.0) -> UIColor {
         var cString = hex.trimmingCharacters(in: CharacterSet.whitespaces).uppercased();
         if cString.hasPrefix("#") {
             let index = cString.index(cString.startIndex, offsetBy:1);

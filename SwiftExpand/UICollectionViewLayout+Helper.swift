@@ -90,7 +90,7 @@ extension UICollectionViewLayout{
     }
    
     /// 默认布局配置(自上而下,自左而右)
-    @objc public static func create(_ itemSize: CGSize, spacing: CGFloat, headerSize: CGSize, footerSize: CGSize) -> UICollectionViewFlowLayout {
+    @objc public static func create(_ itemSize: CGSize, spacing: CGFloat = kPadding, headerSize: CGSize, footerSize: CGSize) -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout();
         //item水平间距
         layout.minimumLineSpacing = spacing;
