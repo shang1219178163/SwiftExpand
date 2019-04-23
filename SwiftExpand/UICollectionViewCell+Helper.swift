@@ -5,7 +5,7 @@
 //  Created by Bin Shang on 2018/12/22.
 //
 
-import Foundation
+import UIKit
 
 extension UICollectionViewCell{
     
