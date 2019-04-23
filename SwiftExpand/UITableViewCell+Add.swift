@@ -11,7 +11,7 @@ import UIKit
 
 extension UITableViewCell{
     /// cell-源方法生成,自定义identifier
-    @objc public static func cellWithTableView(_ tableView:UITableView, identifier:String, style:UITableViewCell.CellStyle) -> UITableViewCell! {
+    @objc public static func cellWithTableView(_ tableView:UITableView, identifier:String, style:UITableViewCell.CellStyle = .default) -> UITableViewCell! {
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
         if cell == nil {
             cell = self.init(style: style, reuseIdentifier: identifier);
@@ -23,10 +23,6 @@ extension UITableViewCell{
         return cell!;
     }
     
-    @objc public static func cellWithTableView(_ tableView:UITableView, identifier:String) -> UITableViewCell! {
-        return cellWithTableView(tableView, identifier: identifier, style: .default);
-    }
-
     /// cell-使用默认identifier生成
     @objc public static func cellWithTableView(_ tableView:UITableView) -> UITableViewCell! {
 //        let identifier = NSStringFromClass(self.classForCoder());

@@ -13,7 +13,7 @@ extension Int{
     public var isOdd:Bool      {return (self % 2 != 0)}
     public var isPositive:Bool {return (self >= 0)}
     public var isNegative:Bool {return (self < 0)}
-    public var toDouble:Double {return Double(self)}
+    public var toDouble: Double {return Double(self)}
     public var toFloat:Float   {return Float(self)}
     
     public var digits: Int {

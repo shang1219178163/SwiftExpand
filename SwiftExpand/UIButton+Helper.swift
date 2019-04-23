@@ -34,7 +34,7 @@ extension UIButton{
 //    }
     
     /// 图片上左下右配置
-    @objc public func layoutButton(style: Int, imageTitleSpace: CGFloat) {
+    @objc public func layoutButton(style: Int, imageTitleSpace: CGFloat = kPadding) {
         //得到imageView和titleLabel的宽高
         let imageWidth = self.imageView?.frame.size.width
         let imageHeight = self.imageView?.frame.size.height
@@ -90,7 +90,7 @@ extension UIButton{
     }
     
     /// 验证码倒计时显示
-    @objc public static func timeValueChange(_ btn:UIButton, timeOut:Int) {
+    @objc public static func timeValueChange(_ btn:UIButton, timeOut:Int = 60) {
         
         var time = timeOut
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())

@@ -150,7 +150,7 @@ extension UIApplication{
     }
     
     ///默认风格是白色导航栏黑色标题
-    @objc public static func setupAppearanceDefault(_ isDefault: Bool) -> Void {
+    @objc public static func setupAppearanceDefault(_ isDefault: Bool = true) -> Void {
         let barTintColor: UIColor = isDefault ? UIColor.white : UIColor.theme
         setupAppearanceNavigationBar(barTintColor)
         setupAppearanceScrollView()

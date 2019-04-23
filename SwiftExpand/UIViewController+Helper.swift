@@ -34,7 +34,7 @@ extension UIViewController{
         }
     }
     
-    @objc public func createBarItem(_ systemItem:UIBarButtonItem.SystemItem, isLeft:Bool, action:@escaping (ObjClosure)) -> Void {
+    @objc public func createBarItem(_ systemItem:UIBarButtonItem.SystemItem, isLeft:Bool = false, action:@escaping (ObjClosure)) -> Void {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -51,7 +51,7 @@ extension UIViewController{
 
     }
     
-    @objc public func createBtnBarItem(_ title:String?, image:String?, isLeft:Bool, isHidden:Bool, action:@escaping (ControlClosure)) -> UIButton {
+    @objc public func createBtnBarItem(_ title:String?, image:String?, isLeft:Bool = false, isHidden:Bool = false, action:@escaping (ControlClosure)) -> UIButton {
         var size = CGSize(width: 32, height: 32)
         if image != nil && UIImage(named:image!) != nil {
             size = CGSize(width: 40, height: 40)
@@ -94,7 +94,7 @@ extension UIViewController{
     }
     
     /// 创建导航栏按钮(标题或者图片名称)
-    @objc public func createBtnBarItem(_ obj: String, isLeft: Bool, action:@escaping (ViewClosure)) -> UIView {
+    @objc public func createBtnBarItem(_ obj: String, isLeft: Bool = false, action:@escaping (ViewClosure)) -> UIView {
         var item: UIView? = nil;
         if UIImage(named:obj) != nil{
             item = UIView.createImgView(CGRectMake(0, 0, 40, 40), imgName: obj, tag: kTAG_IMGVIEW)
@@ -128,7 +128,7 @@ extension UIViewController{
         return containView;
     }
 
-    @objc public func goController(_ name: String!, obj: AnyObject?, objOne: AnyObject?) -> Void {
+    @objc public func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) -> Void {
         assert(UICtrFromString(name).isKind(of: UIViewController.classForCoder()))
         let controller = UICtrFromString(name)
         controller.obj = obj

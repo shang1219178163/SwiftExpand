@@ -74,7 +74,7 @@ extension NSObject{
     }
     
     ///  富文本只有同字体大小才能计算高度
-    @objc public func sizeWithText(_ text:String!, font:CGFloat, width:CGFloat) -> CGSize {
+    @objc public func sizeWithText(_ text:String!, font:CGFloat = 16.0, width:CGFloat) -> CGSize {
         let attDic = self.attrParaDict(font, textColor: .black, alignment: .left);
         let options : NSStringDrawingOptions = NSStringDrawingOptions(rawValue: NSStringDrawingOptions.RawValue(UInt8(NSStringDrawingOptions.usesLineFragmentOrigin.rawValue) | UInt8(NSStringDrawingOptions.usesFontLeading.rawValue)))
         
@@ -85,7 +85,7 @@ extension NSObject{
     }
     
     /// 密集小视图的尺寸布局
-    public func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat, itemHeight: inout CGFloat, padding: CGFloat) -> CGSize {
+    public func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat, itemHeight: inout CGFloat, padding: CGFloat = kPadding) -> CGSize {
         let rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1
         let tmp = CGFloat(numberOfRow) - 1.0
         let itemWith = (width - tmp*padding)/CGFloat(numberOfRow)
@@ -97,7 +97,7 @@ extension NSObject{
     
     
     /// [源]富文本
-    @objc public func getAttString(_ text: String!, textTaps: [String]!, font: CGFloat, tapFont: CGFloat, color: UIColor, tapColor: UIColor, alignment: NSTextAlignment) -> NSAttributedString {
+    @objc public func getAttString(_ text: String!, textTaps: [String]!, font: CGFloat = 16.0, tapFont: CGFloat = 16.0, color: UIColor = .black, tapColor: UIColor, alignment: NSTextAlignment = .left) -> NSAttributedString {
         let paraDic = attrParaDict(font, textColor: color, alignment: alignment)
         let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in
@@ -108,10 +108,6 @@ extension NSObject{
         return attString
     }
     
-    /// 富文本
-    @objc public func getAttString(_ text: String!, textTaps: [String]!, tapColor: UIColor) -> NSAttributedString {
-        return getAttString(text, textTaps: textTaps, font: 16.0, tapFont: 16.0, color: .black, tapColor: tapColor, alignment: .left)
-    }
     
     /// 标题前缀差异化显示
     public func  getAttringByPrefix(_ prefix: String!, content: String!, isMust: Bool) -> NSAttributedString {

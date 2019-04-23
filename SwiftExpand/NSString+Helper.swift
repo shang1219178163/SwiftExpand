@@ -123,7 +123,7 @@ extension String{
         let fmt = DateFormatter.format(fmtStr);
         let date = fmt.date(from: dateStr);
         
-        let intervl:Double = (date?.timeIntervalSince1970)!;
+        let intervl: Double = (date?.timeIntervalSince1970)!;
         let doubleInt = Int(intervl);
         let timeStamp = String(doubleInt);
         return timeStamp;
