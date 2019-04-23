@@ -23,7 +23,7 @@ extension UITextField{
             view.tag = kTAG_IMGVIEW;
             return view;
         }
-       
+        
         let size = sizeWithText(unitName, font: UIFont.labelFontSize, width: kScreenWidth);
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width, height: viewSize.height));
         label.tag = kTAG_LABEL;

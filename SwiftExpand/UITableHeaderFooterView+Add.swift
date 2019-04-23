@@ -15,7 +15,6 @@ extension UITableViewHeaderFooterView{
         var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if view == nil {
             view = self.init(reuseIdentifier: identifier)
-
         }
       
         view!.lineTop.isHidden = false
@@ -32,18 +31,18 @@ extension UITableViewHeaderFooterView{
     
     @objc public var indicatorView: UIImageView {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
-            if view == nil {
-                view = UIImageView(frame: .zero);
-                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
+            if obj == nil {
+                obj = UIImageView(frame: .zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 
-                view!.isUserInteractionEnabled = true;
-                view!.contentMode = .scaleAspectFit;
+                obj!.isUserInteractionEnabled = true;
+                obj!.contentMode = .scaleAspectFit;
                 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -52,18 +51,18 @@ extension UITableViewHeaderFooterView{
     
     @objc public var imgViewLeft: UIImageView {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
-            if view == nil {
-                view = UIImageView(frame: .zero);
-                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
+            if obj == nil {
+                obj = UIImageView(frame: .zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
-                view!.isUserInteractionEnabled = true;
-                view!.contentMode = .scaleAspectFit;
+                obj!.isUserInteractionEnabled = true;
+                obj!.contentMode = .scaleAspectFit;
                 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -72,18 +71,18 @@ extension UITableViewHeaderFooterView{
     
     @objc public var imgViewRight: UIImageView {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
-            if view == nil {
-                view = UIImageView(frame: .zero);
-                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-                view!.isUserInteractionEnabled = true;
-                view!.contentMode = .scaleAspectFit;
-                view!.image = UIImage(named: kIMG_arrowRight);
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
+            if obj == nil {
+                obj = UIImageView(frame: .zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.isUserInteractionEnabled = true;
+                obj!.contentMode = .scaleAspectFit;
+                obj!.image = UIImage(named: kIMG_arrowRight);
                 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -92,17 +91,17 @@ extension UITableViewHeaderFooterView{
     
     @objc public var labelLeft: UILabel {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
-            if view == nil {
-                view = UILabel(frame: .zero);
-                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-                view!.textAlignment = .left;
-                view!.numberOfLines = 0;
-                view!.lineBreakMode = .byCharWrapping;
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
+            if obj == nil {
+                obj = UILabel(frame: .zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.textAlignment = .left;
+                obj!.numberOfLines = 0;
+                obj!.lineBreakMode = .byCharWrapping;
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -111,18 +110,18 @@ extension UITableViewHeaderFooterView{
     
     @objc public var labelLeftSub: UILabel {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
-            if view == nil {
-                view = UILabel(frame: .zero);
-                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-                view!.textAlignment = .left;
-                view!.numberOfLines = 0;
-                view!.lineBreakMode = .byCharWrapping;
-                view!.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0);
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
+            if obj == nil {
+                obj = UILabel(frame: .zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.textAlignment = .left;
+                obj!.numberOfLines = 0;
+                obj!.lineBreakMode = .byCharWrapping;
+                obj!.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function)!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -131,17 +130,17 @@ extension UITableViewHeaderFooterView{
     
     @objc public var labelRight: UILabel {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
-            if view == nil {
-                view = UILabel(frame: .zero);
-                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-                view!.textAlignment = .left;
-                view!.numberOfLines = 0;
-                view!.lineBreakMode = .byCharWrapping;
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
+            if obj == nil {
+                obj = UILabel(frame: .zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.textAlignment = .left;
+                obj!.numberOfLines = 0;
+                obj!.lineBreakMode = .byCharWrapping;
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -150,18 +149,18 @@ extension UITableViewHeaderFooterView{
     
     @objc public var btn: UIButton {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
-            if view == nil {
-                view = UIButton(type: .custom);
-                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-                view!.titleLabel?.adjustsFontSizeToFitWidth = true;
-                view!.titleLabel?.minimumScaleFactor = 1.0;
-                view!.isExclusiveTouch = true;
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
+            if obj == nil {
+                obj = UIButton(type: .custom);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.titleLabel?.adjustsFontSizeToFitWidth = true;
+                obj!.titleLabel?.minimumScaleFactor = 1.0;
+                obj!.isExclusiveTouch = true;
                 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -170,21 +169,21 @@ extension UITableViewHeaderFooterView{
     
     @objc public var textfield: UITextField {
         get {
-            var view = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
-            if view == nil {
-                view = UITextField(frame: .zero);
-                view!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-                view!.textAlignment = .left;
-                view!.contentVerticalAlignment = .center;
-                view!.autocapitalizationType = .none;
-                view!.autocorrectionType = .no;
-                view!.clearButtonMode = .whileEditing;
-                view!.backgroundColor = .white;
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
+            if obj == nil {
+                obj = UITextField(frame: .zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.textAlignment = .left;
+                obj!.contentVerticalAlignment = .center;
+                obj!.autocapitalizationType = .none;
+                obj!.autocorrectionType = .no;
+                obj!.clearButtonMode = .whileEditing;
+                obj!.backgroundColor = .white;
                 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return view!;
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

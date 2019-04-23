@@ -62,15 +62,15 @@ extension UIApplication{
     
     @objc public static var mainWindow: UIWindow {
         get {
-            var window = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIWindow;
-            if window == nil {
-                window = UIWindow(frame: UIScreen.main.bounds)
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIWindow;
+            if obj == nil {
+                obj = UIWindow(frame: UIScreen.main.bounds)
                 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
-            window!.backgroundColor = UIColor.white
-            window!.makeKeyAndVisible()
-            return window!;
+            obj!.backgroundColor = UIColor.white
+            obj!.makeKeyAndVisible()
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -108,13 +108,13 @@ extension UIApplication{
     
     @objc public static var tabBarController: UITabBarController? {
         get {
-            var tabBarVC = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITabBarController;
-            if tabBarVC == nil {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITabBarController;
+            if obj == nil {
                 if UIApplication.mainWindow.rootViewController is UITabBarController {
-                    tabBarVC = (UIApplication.mainWindow.rootViewController as! UITabBarController);
+                    obj = (UIApplication.mainWindow.rootViewController as! UITabBarController);
                 }
             }
-            return tabBarVC;
+            return obj;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -150,7 +150,7 @@ extension UIApplication{
     }
     
     ///默认风格是白色导航栏黑色标题
-    @objc public static func setupAppearanceDefault(_ isDefault: Bool) -> Void {
+    @objc public static func setupAppearanceDefault(_ isDefault: Bool = true) -> Void {
         let barTintColor: UIColor = isDefault ? UIColor.white : UIColor.theme
         setupAppearanceNavigationBar(barTintColor)
         setupAppearanceScrollView()

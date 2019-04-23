@@ -17,12 +17,12 @@ extension UICollectionReusableView{
  
     @objc public static var identifier: String {
         get {
-            var str = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
-            if str == nil {
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), str, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
+            if obj == nil {
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
-            str = NStringShortFromClass(classForCoder());
-            return str!;
+            obj = NStringShortFromClass(classForCoder());
+            return obj!;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -41,9 +41,9 @@ extension UICollectionReusableView{
         return view;
     }
     
-    @objc public static func dequeueCTVReusable(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView{
-        return dequeueCTVReusable(collectionView, kind: UICollectionElementKindSectionItem, indexPath: indexPath);
-    }
+//    @objc public static func dequeueCTVReusable(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionReusableView{
+//        return dequeueCTVReusable(collectionView, kind: UICollectionElementKindSectionItem, indexPath: indexPath);
+//    }
 
     @objc public var imageView: UIImageView {
         get {

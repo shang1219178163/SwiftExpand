@@ -61,7 +61,7 @@ S: 毫秒
 extension DateFormatter{
     
     /// 获取DateFormatter
-    @objc public static func format(_ formatStr:String) -> DateFormatter {
+    @objc public static func format(_ formatStr:String = kDateFormat) -> DateFormatter {
         let dic = Thread.current.threadDictionary;
         if dic.object(forKey: formatStr) != nil {
             return dic.object(forKey: formatStr) as! DateFormatter;
@@ -78,47 +78,26 @@ extension DateFormatter{
     }
     
     /// Date -> String
-    @objc public static func stringFromDate(_ date:Date, fmt:String) -> String {
+    @objc public static func stringFromDate(_ date:Date, fmt:String = kDateFormat) -> String {
         let formatter = DateFormatter.format(fmt);
         return formatter.string(from: date);
     }
     
-    /// Date -> String(默认格式)
-    @objc public static func stringFromDate(_ date:Date) -> String {
-        return DateFormatter.stringFromDate(date, fmt: kDateFormat);
-    }
-    
     /// String -> Date
-    @objc public static func dateFromString(_ dateStr:String, fmt:String) -> Date {
+    @objc public static func dateFromString(_ dateStr:String, fmt:String = kDateFormat) -> Date {
         let formatter = DateFormatter.format(fmt);
         return formatter.date(from: dateStr)!;
     }
     
-    /// String -> Date(默认格式)
-    @objc public static func dateFromString(_ dateStr:String) -> Date {
-        return DateFormatter.dateFromString(dateStr, fmt: kDateFormat);
-    }
-    
     /// 时间戳字符串 -> 日期字符串
-    @objc public static func stringFromInterval(_ interval:String, fmt:String) -> String {
+    @objc public static func stringFromInterval(_ interval:String, fmt:String = kDateFormat) -> String {
         let date = Date(timeIntervalSince1970: interval.doubleValue())
         return DateFormatter.stringFromDate(date, fmt: fmt);
     }
-    
-    /// 时间戳字符串 -> 日期字符串(默认格式)
-    @objc public static func stringFromInterval(_ interval:String) -> String {
-        return DateFormatter.stringFromInterval(interval, fmt: kDateFormat)
-    }
-    
+
     /// 日期字符串 -> 时间戳字符串
-    @objc public static func IntervalFromDateStr(_ dateStr:String, fmt:String) -> String {
+    @objc public static func IntervalFromDateStr(_ dateStr:String, fmt:String = kDateFormat) -> String {
         let date = DateFormatter.dateFromString(dateStr, fmt: fmt)
-        return "\(date.timeIntervalSince1970)";
-    }
-    
-    /// 日期字符串 -> 时间戳字符串(默认格式)
-    @objc public static func IntervalFromDateStr(_ dateStr:String) -> String {
-        let date = DateFormatter.dateFromString(dateStr, fmt: kDateFormat)
         return "\(date.timeIntervalSince1970)";
     }
     
@@ -139,7 +118,7 @@ extension Date{
         return Date(timeIntervalSinceReferenceDate: aTimeInterval);
     }
     
-    public func dateBefore(_ interval: TimeInterval, fmt:String) -> String{
+    public func dateBefore(_ interval: TimeInterval, fmt:String = kDateFormat) -> String{
         let newDate = self.dateBefore(interval);
         return newDate.string(formatStr: fmt);
     }
@@ -160,7 +139,7 @@ extension Date{
         return info;
     }
     
-    public func hourInfoBetween(_ date: Date,_ type: Int) -> Double {
+    public func hourInfoBetween(_ date: Date,_ type: Int = 0) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         switch type {
             case 1://分钟
@@ -209,7 +188,7 @@ extension Date{
     }
     
     ///包含2个日期的年/月/日/时/分/秒数量
-    static func numDateFrom(_ aDate: Date, anotherDate: Date, type: Int) -> Int {
+    static func numDateFrom(_ aDate: Date, anotherDate: Date, type: Int = 0) -> Int {
         let comp = Date.dateComponents(aDate)
         let comp1 = Date.dateComponents(anotherDate)
 
@@ -278,7 +257,7 @@ extension Date{
     }
     //MARK: - 日期的一些比较
     /// 两个时间同年0;同月1;同日2;同时3;同分4;同秒5
-    public static func isSameFrom(_ aDate: Date, anotherDate: Date, type: Int) -> Bool {
+    public static func isSameFrom(_ aDate: Date, anotherDate: Date, type: Int = 0) -> Bool {
         let comp = Date.dateComponents(aDate)
         let comp1 = Date.dateComponents(anotherDate)
         

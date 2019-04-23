@@ -17,20 +17,20 @@ extension UICollectionView{
     /// UICollectionViewLayout默认布局
     @objc public static var layoutDefault: UICollectionViewLayout {
         get {
-            var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
-            if layout == nil {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
+            if obj == nil {
                 // 初始化
                 let width = UIScreen.main.bounds.width;
                 let spacing: CGFloat = 5.0
                 let itemSize = CGSize(width: (width - 5*spacing)/4.0,height: (width - 5*spacing)/4.0);
                 let headerSize = CGSize(width: width, height: 40);
                 let footerSize = CGSize(width: width, height: 20);
-                layout = UICollectionViewFlowLayout.create(itemSize, spacing: spacing, headerSize: headerSize, footerSize: footerSize)
+                obj = UICollectionViewFlowLayout.create(itemSize, spacing: spacing, headerSize: headerSize, footerSize: footerSize)
 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
             }
-            return layout!
+            return obj!
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

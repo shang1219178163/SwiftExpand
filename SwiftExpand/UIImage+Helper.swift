@@ -27,7 +27,7 @@ extension UIImage {
 //        self.init(cgImage: cgImage)
 //    }
     
-    @objc public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+    @objc public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
         color.setFill()
@@ -68,7 +68,7 @@ extension UIImage {
         }
     }
     
-    
+    /// 二维码
     @objc public static func generateQRImage(QRCodeString: String, logo: UIImage?, size: CGSize = CGSize(width: 50, height: 50)) -> UIImage? {
         guard let data = QRCodeString.data(using: .utf8, allowLossyConversion: false) else {
             return nil
@@ -105,12 +105,7 @@ extension UIImage {
     }
   
     /// 切圆角图片
-    @objc public func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadi: CGFloat) -> UIImage? {
-        return roundImage(byRoundingCorners: byRoundingCorners, cornerRadii: CGSize(width: cornerRadi, height: cornerRadi))
-    }
-    
-    /// 切圆角图片
-    @objc public func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize) -> UIImage? {
+    @objc public func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0)) -> UIImage? {
         
         let imageRect = CGRect(origin: CGPoint.zero, size: size)
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)

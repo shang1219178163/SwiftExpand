@@ -138,7 +138,7 @@ extension UIView{
         }
     }
     
-    @objc public func addCorners(_ corners: UIRectCorner, cornerRadii: CGSize, width: CGFloat, color: UIColor) -> CAShapeLayer {
+    @objc public func addCorners(_ corners: UIRectCorner = .allCorners, cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0), width: CGFloat, color: UIColor) -> CAShapeLayer {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: cornerRadii)
         let maskLayer = CAShapeLayer()
         maskLayer.frame = bounds
@@ -157,7 +157,7 @@ extension UIView{
     }
     
     /// [源]高性能圆角
-    @objc public func drawCorners(_ corners: UIRectCorner, radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> UIImage? {
+    @objc public func drawCorners(_ corners: UIRectCorner = .allCorners, radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         let ctx = UIGraphicsGetCurrentContext()
         

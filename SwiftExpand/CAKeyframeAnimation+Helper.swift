@@ -23,14 +23,14 @@ extension CAKeyframeAnimation{
     }
     
     /// CAKeyframeAnimation
-    @objc public static func animPath(_ pathRef:CGPath, duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float) -> CAKeyframeAnimation {
+    @objc public static func animPath(_ pathRef:CGPath, duration: CFTimeInterval, autoreverses:Bool = false, repeatCount:Float) -> CAKeyframeAnimation {
         let anim: CAKeyframeAnimation = CAKeyframeAnimation.animDuration(duration, repeatCount: repeatCount, functionName: .default)
         anim.path = pathRef;
         return anim;
     }
     
     /// CAKeyframeAnimation
-    @objc public static func animValues(_ values: [Any], duration: CFTimeInterval, autoreverses:Bool, repeatCount:Float) -> CAKeyframeAnimation {
+    @objc public static func animValues(_ values: [Any], duration: CFTimeInterval, autoreverses:Bool = false, repeatCount:Float) -> CAKeyframeAnimation {
         let anim: CAKeyframeAnimation = CAKeyframeAnimation.animDuration(duration, repeatCount: repeatCount, functionName: .default)
         anim.values = values;
         return anim;
