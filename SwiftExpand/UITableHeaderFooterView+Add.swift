@@ -11,7 +11,7 @@ import UIKit
 extension UITableViewHeaderFooterView{
     
     /// cell-源方法生成,自定义identifier
-    @objc public static func viewWithTableView(_ tableView: UITableView, identifier: String = NSStringFromClass(classForCoder())) -> UITableViewHeaderFooterView! {
+    @objc public static func viewWithTableView(_ tableView: UITableView, identifier: String) -> UITableViewHeaderFooterView! {
         var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if view == nil {
             view = self.init(reuseIdentifier: identifier)
@@ -23,11 +23,26 @@ extension UITableViewHeaderFooterView{
     }
     
     /// cell-使用默认identifier生成
-//    @objc public static func viewWithTableView(_ tableView: UITableView) -> UITableViewHeaderFooterView! {
+    @objc public static func viewWithTableView(_ tableView: UITableView) -> UITableViewHeaderFooterView! {
 //        let identifier = NSStringFromClass(self.classForCoder());
-//        return viewWithTableView(tableView, identifier: identifier);
-//        
-//    }
+        return viewWithTableView(tableView, identifier: identifier);
+        
+    }
+    
+    /// cell默认identifier
+    @objc public static var identifier: String {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
+            if obj == nil {
+                obj = NStringShortFromClass(classForCoder());
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
     
     @objc public var indicatorView: UIImageView {
         get {
