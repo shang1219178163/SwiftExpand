@@ -8,6 +8,13 @@
 
 import UIKit
 
+/// UIAlertController标题富文本key
+public let kAlertCtlrTitle = "attributedTitle"
+/// UIAlertController信息富文本key
+public let kAlertCtlrMessage = "attributedMessage"
+/// UIAlertController按钮颜色key
+public let kAlertActionColor = "titleTextColor"
+
 extension UIAlertController{
     /// 创建系统提示框
     @objc public static func createAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]?, handler: ((UIAlertAction) -> Void)?) -> UIAlertController {
@@ -32,7 +39,7 @@ extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc public static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]?, handler: ((UIAlertAction) -> Void)?) -> Void {
+    @objc public static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]?, handler: ((UIAlertAction) -> Void)?) -> UIAlertController {
         
         let alertController = UIAlertController.createAlert(title, placeholders: placeholders, msg: msg, actionTitles: actionTitles, handler: handler)
         if actionTitles == nil {
@@ -41,9 +48,9 @@ extension UIAlertController{
                     alertController.dismiss(animated: true, completion: nil)
                 })
             })
-            return
         }
         UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+        return alertController
     }
     
     /// 创建系统sheetView
@@ -72,10 +79,34 @@ extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc public static func showSheet(_ title: String?, items: [String]? = nil, completion: ((UIAlertAction) -> Void)?) -> Void {
+    @objc public static func showSheet(_ title: String?, items: [String]? = nil, completion: ((UIAlertAction) -> Void)?) -> UIAlertController {
         let alertController = UIAlertController.createSheet(title, items: items, completion: completion)
         UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-        
+        return alertController
     }
 
+    /// 设置标题颜色
+    @objc public func setTitleColor(_ color: UIColor) -> Void {
+        guard let title = title else {
+            return;
+        }
+        let attrTitle = NSMutableAttributedString(string: title)
+        attrTitle.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: NSRange(location: 0, length: title.count))
+        setValue(attrTitle, forKey: kAlertCtlrTitle)
+    }
+    
+    /// 设置Message文本换行,对齐方式
+    @objc public func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> Void {
+        guard let message = message else {
+            return;
+        }
+        let paraStyle = NSMutableParagraphStyle()
+        paraStyle.lineBreakMode = .byCharWrapping;
+        paraStyle.alignment = .left;
+        
+        let attrMsg = NSMutableAttributedString(string: message)
+        attrMsg.addAttributes([NSAttributedString.Key.paragraphStyle: paraStyle], range: NSRange(location: 0, length: message.count))
+        setValue(attrMsg, forKey: kAlertCtlrMessage)
+    }
+    
 }

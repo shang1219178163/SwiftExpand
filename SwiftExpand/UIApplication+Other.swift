@@ -68,13 +68,18 @@ extension UIApplication{
             print(dicInfo);
             
             DispatchQueue.main.async {
-                UIAlertController.showAlert("新版本V\(appStoreVersion)", msg: releaseNotes as! String, actionTitles: [kActionTitle_Update, kActionTitle_Cancell], handler: { (action: UIAlertAction) in
+                let alertController = UIAlertController.showAlert("新版本V\(appStoreVersion)", msg: releaseNotes as! String, actionTitles: [kActionTitle_Update, kActionTitle_Cancell], handler: { (action: UIAlertAction) in
                     isUpdate = action.title == kActionTitle_Update
                     if isUpdate == true {
                         //去升级
                         
                     }
                 })
+                                
+                let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
+                alertController.setTitleColor(UIColor.red)
+                alertController.setMessageParaStyle(paraStyle)
+                alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
             }
         }
         dataTask.resume()
