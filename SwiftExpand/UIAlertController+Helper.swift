@@ -91,7 +91,7 @@ extension UIAlertController{
             return;
         }
         let attrTitle = NSMutableAttributedString(string: title)
-        attrTitle.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: NSRange(location: 0, length: title.count))
+        attrTitle.addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSRange(location: 0, length: title.count))
         setValue(attrTitle, forKey: kAlertCtlrTitle)
     }
     

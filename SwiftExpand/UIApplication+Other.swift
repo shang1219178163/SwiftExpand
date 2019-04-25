@@ -75,11 +75,12 @@ extension UIApplication{
                         
                     }
                 })
-                                
+                
+                //富文本效果
                 let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
-                alertController.setTitleColor(UIColor.red)
+                alertController.setTitleColor(UIColor.theme)
                 alertController.setMessageParaStyle(paraStyle)
-                alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
+//                alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
             }
         }
         dataTask.resume()
