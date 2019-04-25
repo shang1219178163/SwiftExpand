@@ -99,7 +99,7 @@ extension UICollectionViewLayout{
         //item的尺寸
         layout.itemSize = itemSize;
         //item的UIEdgeInsets
-        layout.sectionInset = UIEdgeInsetsMake(spacing, spacing, spacing, spacing);
+        layout.sectionInset = UIEdgeInsetMake(spacing, spacing, spacing, spacing);
         //滑动方向,默认垂直
         //sectionView 尺寸
         layout.headerReferenceSize = headerSize;

@@ -45,7 +45,7 @@ public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
 }
 
 /// 自定义UIEdgeInsets
-public func UIEdgeInsetsMake(_ top: CGFloat,_ left: CGFloat,_ bottom: CGFloat,_ right: CGFloat) -> UIEdgeInsets{
+public func UIEdgeInsetMake(_ top: CGFloat,_ left: CGFloat,_ bottom: CGFloat,_ right: CGFloat) -> UIEdgeInsets{
     return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
 }
 
