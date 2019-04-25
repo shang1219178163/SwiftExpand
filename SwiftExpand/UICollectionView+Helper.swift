@@ -84,7 +84,7 @@ extension UICollectionView{
     }
     
     @objc public func viewIdentifier(_ className: String, kind: String) -> String{
-        let extra = kind == UICollectionElementKindSectionHeader ? "Header" : "Footer";
+        let extra = kind == UICollectionView.elementKindSectionHeader ? "Header" : "Footer";
         let identifier = className + extra;
         return identifier;
     }

@@ -21,7 +21,7 @@ extension UICollectionViewCell{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
                 obj!.contentMode = .scaleAspectFit;
                 obj!.isUserInteractionEnabled = true;
@@ -42,7 +42,7 @@ extension UICollectionViewCell{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;

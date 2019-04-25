@@ -44,6 +44,11 @@ public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
     return key;
 }
 
+/// 自定义UIEdgeInsets
+public func UIEdgeInsetsMake(_ top: CGFloat,_ left: CGFloat,_ bottom: CGFloat,_ right: CGFloat) -> UIEdgeInsets{
+    return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+}
+
 /// 自定义CGRect
 public func CGRectMake(_ x: CGFloat,_ y: CGFloat,_ w: CGFloat,_ h: CGFloat) -> CGRect{
     return CGRect(x: x, y: y, width: w, height: h)
@@ -205,7 +210,7 @@ public func UIImageNamed(_ name: String) -> UIImage?{
     return UIImage(named: name);
 }
 
-public func UIImageNamed(_ name: String, renderingMode: UIImageRenderingMode) -> UIImage?{
+public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode) -> UIImage?{
     var image = UIImageNamed(name)
     if image != nil {
         image = image!.withRenderingMode(renderingMode)
@@ -234,8 +239,8 @@ public func UIImageColor(_ color: UIColor) -> UIImage{
 
 
 public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
-    let data0 = UIImagePNGRepresentation(image0)
-    let data1 = UIImagePNGRepresentation(image1)
+    let data0: Data = image0.pngData()!
+    let data1: Data = image1.pngData()!
     return data0 == data1
 }
 
@@ -251,17 +256,17 @@ public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
     return list.last!;
 }
 
-public func AttributeDict(_ type:Int) -> [NSAttributedStringKey: Any]{
+public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
     
-    var dic : [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor    :   UIColor.black,
-                                              NSAttributedStringKey.backgroundColor    :   UIColor.white,]
+    var dic : [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor    :   UIColor.black,
+                                              NSAttributedString.Key.backgroundColor    :   UIColor.white,]
     
     switch type {
     case 1:
-        dic = [NSAttributedString.Key.underlineStyle    :   NSUnderlineStyle.styleSingle.rawValue,
+        dic = [NSAttributedString.Key.underlineStyle    :   NSUnderlineStyle.single.rawValue,
                NSAttributedString.Key.underlineColor     :   UIColor.red,]
     case 2:
-        dic = [NSAttributedString.Key.strikethroughStyle    :   NSUnderlineStyle.styleSingle.rawValue,
+        dic = [NSAttributedString.Key.strikethroughStyle    :   NSUnderlineStyle.single.rawValue,
                NSAttributedString.Key.strikethroughColor     :   UIColor.red,]
     case 3:
         dic = [NSAttributedString.Key.obliqueness    :   0.8,]

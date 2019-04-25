@@ -113,7 +113,7 @@ extension UIView{
     //MARK: -funtions
 
     @objc public func autoresizeMask() -> Void {
-        self.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+        self.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
     }
     /// 图层调试
     @objc public func getViewLayer() -> () {
@@ -322,7 +322,7 @@ extension UIView{
     }
     
     ///手势 - 清扫
-    @objc public func addGestureSwip(_ action:@escaping (RecognizerClosure), for direction: UISwipeGestureRecognizerDirection) -> UISwipeGestureRecognizer {
+    @objc public func addGestureSwip(_ action:@escaping (RecognizerClosure), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(direction)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         

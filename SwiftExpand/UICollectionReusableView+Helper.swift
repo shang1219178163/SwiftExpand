@@ -30,14 +30,14 @@ extension UICollectionReusableView{
     }
     
     ///获取UICollectionReusableView
-    @objc public static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionElementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
+    @objc public static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
         
         let kindSuf = kind.components(separatedBy: "KindSection").last;
         let identifier = NStringShortFromClass(classForCoder()) + kindSuf!;
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
         view.textLabel.text = kindSuf! + "\(indexPath.section)";
         
-        view.backgroundColor = kind == UICollectionElementKindSectionHeader ? UIColor.green : UIColor.yellow;
+        view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? UIColor.green : UIColor.yellow;
         return view;
     }
 
@@ -46,7 +46,7 @@ extension UICollectionReusableView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
@@ -67,7 +67,7 @@ extension UICollectionReusableView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
@@ -89,7 +89,7 @@ extension UICollectionReusableView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
                 obj!.numberOfLines = 2;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -111,7 +111,7 @@ extension UICollectionReusableView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
                 obj!.numberOfLines = 1;
                 obj!.adjustsFontSizeToFitWidth = true

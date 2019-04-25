@@ -35,7 +35,7 @@ extension UITableViewHeaderFooterView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
@@ -55,7 +55,7 @@ extension UITableViewHeaderFooterView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
@@ -75,7 +75,7 @@ extension UITableViewHeaderFooterView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
                 obj!.image = UIImage(named: kIMG_arrowRight);
@@ -95,7 +95,7 @@ extension UITableViewHeaderFooterView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -114,7 +114,7 @@ extension UITableViewHeaderFooterView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -134,7 +134,7 @@ extension UITableViewHeaderFooterView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -153,7 +153,7 @@ extension UITableViewHeaderFooterView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
             if obj == nil {
                 obj = UIButton(type: .custom);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.titleLabel?.adjustsFontSizeToFitWidth = true;
                 obj!.titleLabel?.minimumScaleFactor = 1.0;
                 obj!.isExclusiveTouch = true;
@@ -173,7 +173,7 @@ extension UITableViewHeaderFooterView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if obj == nil {
                 obj = UITextField(frame: .zero);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.contentVerticalAlignment = .center;
                 obj!.autocapitalizationType = .none;

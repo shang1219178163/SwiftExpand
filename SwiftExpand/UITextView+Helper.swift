@@ -38,7 +38,7 @@ extension UITextView{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if obj == nil {
                 obj = UITextView(frame: bounds);
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.autocapitalizationType = .none;
                 obj!.autocorrectionType = .no;
                 obj!.backgroundColor = .clear;
@@ -47,8 +47,8 @@ extension UITextView{
                 obj!.font = self.font
                 self.addSubview(obj!)
                 
-                NotificationCenter.default.addObserver(self, selector: #selector(textViewDidBeginEditing(_:)), name: NSNotification.Name.UITextViewTextDidBeginEditing, object: nil)
-                NotificationCenter.default.addObserver(self, selector: #selector(textViewDidEndEditing(_:)), name: NSNotification.Name.UITextViewTextDidEndEditing, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(textViewDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 

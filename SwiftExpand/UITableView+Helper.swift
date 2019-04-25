@@ -9,7 +9,7 @@ import UIKit
 
 extension UITableView{
     
-    func reloadRowList(_ rowList: NSArray, section: Int, rowAnimation: UITableViewRowAnimation = .fade) -> Void {
+    func reloadRowList(_ rowList: NSArray, section: Int, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
         assert(section <= numberOfSections)
         let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
         assert(rowMax < numberOfRows(inSection: section))
@@ -26,7 +26,7 @@ extension UITableView{
         endUpdates()
     }
     
-    func insertRowList(_ rowList: NSArray, section: NSInteger, rowAnimation: UITableViewRowAnimation = .fade) -> Void {
+    func insertRowList(_ rowList: NSArray, section: NSInteger, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
         var marr: [IndexPath] = []
         for e in rowList.enumerated() {
             if let row = e.element as? NSNumber {
@@ -39,7 +39,7 @@ extension UITableView{
         endUpdates()
     }
     
-    func deleteRowList(_ rowList: NSArray, section: NSInteger, rowAnimation: UITableViewRowAnimation = .fade) -> Void {
+    func deleteRowList(_ rowList: NSArray, section: NSInteger, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
         assert(section <= numberOfSections)
         let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
         assert(rowMax < numberOfRows(inSection: section))

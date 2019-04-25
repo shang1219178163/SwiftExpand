@@ -50,7 +50,7 @@ extension UIViewController{
                 obj = UIView.createTableView(view.bounds, style: .grouped, rowHeight: 60);
 //                obj?.frame = view.bounds
 //                obj = UITableView(frame:view.bounds, style:.grouped);
-//                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+//                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
 //
 //                obj!.separatorStyle = .singleLine;
 //                obj!.separatorInset = .zero;
@@ -81,7 +81,7 @@ extension UIViewController{
             if obj == nil {
                 // 初始化
                 obj = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
-                obj!.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.flexibleWidth.rawValue | UIViewAutoresizing.flexibleHeight.rawValue)
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
                 obj!.backgroundColor = UIColor.background
 

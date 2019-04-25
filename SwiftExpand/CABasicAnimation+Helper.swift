@@ -41,17 +41,17 @@ public let kTransformPath            = "path";
 public let kTransformStrokeEnd       = "strokeEnd";
 /// kCAMediaTimingFunction集合
 public let kFunctionNames = [
-                            kCAMediaTimingFunctionLinear,//匀速
-                            kCAMediaTimingFunctionEaseIn,//先慢
-                            kCAMediaTimingFunctionEaseOut,//后慢
-                            kCAMediaTimingFunctionEaseInEaseOut,//先慢 后慢 中间快
-                            kCAMediaTimingFunctionDefault//默认
+                            CAMediaTimingFunctionName.linear,//匀速
+                            CAMediaTimingFunctionName.easeIn,//先慢
+                            CAMediaTimingFunctionName.easeOut,//后慢
+                            CAMediaTimingFunctionName.easeInEaseOut,//先慢 后慢 中间快
+                            CAMediaTimingFunctionName.default//默认
                             ];
 
 extension CABasicAnimation{
     
     /// [源]CABasicAnimation
-    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses: Bool = false, repeatCount:Float, fillMode:String = kCAFillModeForwards, removedOnCompletion:Bool = false, functionName:String!) -> CABasicAnimation {
+    @objc public static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses: Bool = false, repeatCount:Float, fillMode:CAMediaTimingFillMode = CAMediaTimingFillMode.forwards, removedOnCompletion:Bool = false, functionName: CAMediaTimingFunctionName = .linear) -> CABasicAnimation {
         
         let anim = CABasicAnimation(keyPath: keyPath)
         anim.duration = duration;

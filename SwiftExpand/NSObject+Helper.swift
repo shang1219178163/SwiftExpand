@@ -33,8 +33,8 @@ extension NSObject{
         
         let attrString = NSMutableAttributedString(string: text)
         
-        let attDict = [NSAttributedStringKey.foregroundColor: UIColor.theme,
-                       NSAttributedStringKey.font:UIFont.systemFont(ofSize: 30),
+        let attDict = [NSAttributedString.Key.foregroundColor: UIColor.theme,
+                       NSAttributedString.Key.font:UIFont.systemFont(ofSize: 30),
                        ]
         attrString.addAttributes(attDict, range: nsRange)
         return attrString

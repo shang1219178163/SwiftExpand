@@ -11,7 +11,7 @@ import QuartzCore
 extension CAAnimationGroup{
     
     /// [源]CAAnimationGroup
-    @objc public static func animDuration(_ duration: CFTimeInterval, autoreverses: Bool = false, repeatCount:Float, fillMode:String = kCAFillModeForwards, removedOnCompletion:Bool = false) -> CAAnimationGroup {
+    @objc public static func animDuration(_ duration: CFTimeInterval, autoreverses: Bool = false, repeatCount:Float, fillMode:CAMediaTimingFillMode = CAMediaTimingFillMode.forwards, removedOnCompletion:Bool = false) -> CAAnimationGroup {
         
         let anim: CAAnimationGroup = CAAnimationGroup();
         anim.duration = duration;
