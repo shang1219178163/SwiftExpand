@@ -108,7 +108,7 @@ extension String{
             
         }
         else if dateStr.contains("-") && !dateStr.contains(":") {
-            fmtStr = kDateFormat_one;
+            fmtStr = kDateFormat_day;
             
         }
         else if !dateStr.contains("-") && !dateStr.contains(":") {

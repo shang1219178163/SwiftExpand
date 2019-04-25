@@ -315,7 +315,7 @@ public func TimeStampFromObj(_ obj: Any) -> String{
         if dateStr.contains("-") && dateStr.contains(":") {
             fmt = kDateFormat;
         } else if dateStr.contains("-") && !dateStr.contains(":") {
-            fmt = kDateFormat_one
+            fmt = kDateFormat_day
             
         } else if !dateStr.contains("-") && !dateStr.contains(":") {
             fmt = kDateFormat_two

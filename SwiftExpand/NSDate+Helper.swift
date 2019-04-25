@@ -41,25 +41,28 @@ public let kDate_year : Double   = 31556926 ;
 
 
 /// yyyy-MM-dd HH:mm:ss(默认)
-public let kDateFormat       = "yyyy-MM-dd HH:mm:ss";
-/// yyyy-MM-dd
-public let kDateFormat_one   = "yyyy-MM-dd";
-/// yyyyMMdd
-public let kDateFormat_two   = "yyyyMMdd";
+public let kDateFormat             = "yyyy-MM-dd HH:mm:ss";
 /// yyyy-MM
-public let kDateFormat_three = "yyyy-MM";
+public let kDateFormat_month       = "yyyy-MM";
+/// yyyy-MM-dd
+public let kDateFormat_day         = "yyyy-MM-dd";
+/// yyyy-MM-dd HH
+public let kDateFormat_hour        = "yyyy-MM-dd HH";
+/// yyyy-MM-dd HH:mm
+public let kDateFormat_minute      = "yyyy-MM-dd HH:mm";
 /// yyyy-MM-dd HH:mm:ss eee
-public let kDateFormat_four  = "yyyy-MM-dd HH:mm:ss eee";
-/// yyyy年MM月
-public let kDateFormat_five  = "";
-/// yyyy年M月
-public let kDateFormat_six   = "yyyy年MM月";
-/// yyyy年MM月dd日
-public let kDateFormat_seven = "yyyy年MM月dd日";
+public let kDateFormat_millisecond = "yyyy-MM-dd HH:mm:ss eee";
 /// yyyy-MM-dd 00:00:00
-public let kDateFormat_start = "yyyy-MM-dd 00:00:00";
+public let kDateFormat_start       = "yyyy-MM-dd 00:00:00";
 /// yyyy-MM-dd 23:59:59
-public let kDateFormat_end   = "yyyy-MM-dd 23:59:59";
+public let kDateFormat_end         = "yyyy-MM-dd 23:59:59";
+
+/// yyyy年M月
+public let kDateFormat_month_ch    = "yyyy年MM月";
+/// yyyy年MM月dd日
+public let kDateFormat_day_ch      = "yyyy年MM月dd日";
+/// yyyyMMdd
+public let kDateFormat_two         = "yyyyMMdd";
 
 
 extension DateFormatter{
