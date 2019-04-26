@@ -225,12 +225,23 @@ extension UIApplication{
 //        UITabBar.appearance().tintColor = .red;
     }
     
-    @objc public static func openURL(_ urlStr:String, _ tips:String) {
-        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
-        let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
-        //        let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
+    /// http/https请求链接
+    func isNormalURL(_ url: NSURL) -> Bool {
+        guard let scheme = url.scheme else {
+            fatalError("url.scheme不能为nil")
+        }
         
-        let url:NSURL? = NSURL(string:str);
+        let schemes = ["http", "https"]
+        return schemes.contains(scheme)
+    }
+    
+    /// 打开网络链接
+    @objc public static func openURL(_ urlStr:String) {
+//        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
+//        let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
+//        let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
+        
+        let url:NSURL? = NSURL(string:urlStr);
         if UIApplication.shared.canOpenURL(url! as URL) {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)

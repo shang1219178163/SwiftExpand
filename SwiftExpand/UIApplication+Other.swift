@@ -36,10 +36,24 @@ extension UIApplication{
         }
     }
     
+    /// app商店链接
+    public static func appUrlWithID(_ appStoreID: String) -> String {
+        let appStoreUrl = "itms-apps://itunes.apple.com/app/id\(appStoreID)?mt=8"
+        return appStoreUrl
+    }
+    
+    /// app详情链接
+    public static func appDetailUrlWithID(_ appStoreID: String) -> String {
+        let detailUrl = "http://itunes.apple.com/cn/lookup?id=\(appStoreID)"
+        return detailUrl
+    }
+    
+    /// 版本升级
     public static func checkVersion(_ appStoreID: String) -> Bool {
         var isUpdate = false;
         
-        let path = "http://itunes.apple.com/cn/lookup?id=\(appStoreID)"
+//        let path = "http://itunes.apple.com/cn/lookup?id=\(appStoreID)"
+        let path =  UIApplication.appDetailUrlWithID(appStoreID)
         let request = URLRequest(url:NSURL(string: path)! as URL, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 6)
         let dataTask = URLSession.shared.dataTask(with: request) { (data, respone, error) in
             guard let data = data, let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) else {
@@ -62,24 +76,26 @@ extension UIApplication{
                 fatalError("dicInfo错误")
             }
             
-            let appStoreVersion = dicInfo["version"] ?? "";
             let releaseNotes = dicInfo["releaseNotes"] ?? "";
-            print(dicInfo);
-            
-            DispatchQueue.main.async {
-                let alertController = UIAlertController.showAlert("新版本V\(appStoreVersion)", msg: releaseNotes as! String, actionTitles: [kActionTitle_Update, kActionTitle_Cancell], handler: { (action: UIAlertAction) in
-                    isUpdate = action.title == kActionTitle_Update
-                    if isUpdate == true {
-                        //去升级
+//            print(dicInfo);
+            if let appStoreVer = dicInfo["version"] as? String {
+                isUpdate = appStoreVer.compare(UIApplication.appVer, options: .numeric, range: nil, locale: nil) == .orderedDescending
+                if isUpdate == true {
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController.showAlert("新版本 v\(appStoreVer)", msg: releaseNotes as! String, actionTitles: [kActionTitle_Update, kActionTitle_Cancell], handler: { (action: UIAlertAction) in
+                            if action.title == kActionTitle_Update {
+                                //去升级
+                                UIApplication.openURL(UIApplication.appUrlWithID(appStoreID))
+                            }
+                        })
                         
+                        //富文本效果
+                        let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
+                        alertController.setTitleColor(UIColor.theme)
+                        alertController.setMessageParaStyle(paraStyle)
+//                        alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
                     }
-                })
-                
-                //富文本效果
-                let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
-                alertController.setTitleColor(UIColor.theme)
-                alertController.setMessageParaStyle(paraStyle)
-//                alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
+                }
             }
         }
         dataTask.resume()
