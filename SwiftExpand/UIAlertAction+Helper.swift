@@ -22,5 +22,10 @@ extension UIAlertAction{
         }
     }
     
+    /// 设置Message文本换行,对齐方式
+    @objc public func setTitleColor(_ color: UIColor) -> Void {
+        setValue(color, forKey: kAlertActionColor);
+
+    }
     
 }

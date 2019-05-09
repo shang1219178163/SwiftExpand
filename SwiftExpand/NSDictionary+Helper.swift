@@ -11,14 +11,16 @@ import UIKit
 
 extension Dictionary{
     
-
+    public func jsonValue() -> String! {
+        return (self as NSDictionary).jsonValue()
+    }
 }
 
 extension NSDictionary{
     
-    @objc public func toJsonString() -> String! {
-        return jsonValue();
-    }
+//    @objc public func toJsonString() -> String! {
+//        return jsonValue();
+//    }
     
     
     

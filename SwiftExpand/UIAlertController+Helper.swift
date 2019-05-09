@@ -17,7 +17,7 @@ public let kAlertActionColor = "titleTextColor"
 
 extension UIAlertController{
     /// 创建系统提示框
-    @objc public static func createAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]?, handler: ((UIAlertAction) -> Void)?) -> UIAlertController {
+    @objc public static func createAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = nil, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
        
         placeholders?.forEach { (placeholder: String) in
@@ -39,7 +39,7 @@ extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc public static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]?, handler: ((UIAlertAction) -> Void)?) -> UIAlertController {
+    @objc public static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = nil, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
         
         let alertController = UIAlertController.createAlert(title, placeholders: placeholders, msg: msg, actionTitles: actionTitles, handler: handler)
         if actionTitles == nil {
@@ -54,7 +54,7 @@ extension UIAlertController{
     }
     
     /// 创建系统sheetView
-    @objc public static func createSheet(_ title: String?, items: [String]? = nil, completion: ((UIAlertAction) -> Void)?) -> UIAlertController {
+    @objc public static func createSheet(_ title: String?, items: [String]? = nil, completion: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         
         items?.forEach({ (title:String) in
@@ -79,7 +79,7 @@ extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc public static func showSheet(_ title: String?, items: [String]? = nil, completion: ((UIAlertAction) -> Void)?) -> UIAlertController {
+    @objc public static func showSheet(_ title: String?, items: [String]? = nil, completion: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController.createSheet(title, items: items, completion: completion)
         UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
         return alertController
@@ -90,6 +90,7 @@ extension UIAlertController{
         guard let title = title else {
             return;
         }
+        
         let attrTitle = NSMutableAttributedString(string: title)
         attrTitle.addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSRange(location: 0, length: title.count))
         setValue(attrTitle, forKey: kAlertCtlrTitle)
@@ -100,10 +101,7 @@ extension UIAlertController{
         guard let message = message else {
             return;
         }
-        let paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineBreakMode = .byCharWrapping;
-        paraStyle.alignment = .left;
-        
+
         let attrMsg = NSMutableAttributedString(string: message)
         attrMsg.addAttributes([NSAttributedString.Key.paragraphStyle: paraStyle], range: NSRange(location: 0, length: message.count))
         setValue(attrMsg, forKey: kAlertCtlrMessage)

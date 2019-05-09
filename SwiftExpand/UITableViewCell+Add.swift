@@ -48,7 +48,7 @@ extension UITableViewCell{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
-                obj = UIImageView(frame: .zero);
+                obj = UIImageView(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
@@ -67,7 +67,7 @@ extension UITableViewCell{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
-                obj = UIImageView(frame: .zero);
+                obj = UIImageView(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
@@ -87,7 +87,7 @@ extension UITableViewCell{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
-                obj = UILabel(frame: .zero);
+                obj = UILabel(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
@@ -108,7 +108,7 @@ extension UITableViewCell{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
-                obj = UILabel(frame: .zero);
+                obj = UILabel(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
@@ -131,7 +131,7 @@ extension UITableViewCell{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
-                obj = UILabel(frame: .zero);
+                obj = UILabel(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
@@ -172,7 +172,7 @@ extension UITableViewCell{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if obj == nil {
-                obj = UITextField(frame: .zero);
+                obj = UITextField(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.contentVerticalAlignment = .center;
@@ -195,7 +195,7 @@ extension UITableViewCell{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if obj == nil {
-                obj = UITextView(frame: .zero);
+                obj = UITextView(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.textAlignment = .left;
                 obj!.autocapitalizationType = .none;

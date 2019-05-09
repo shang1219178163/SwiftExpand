@@ -123,24 +123,94 @@ extension NSObject{
         if JSONSerialization.isValidJSONObject(self) == false {
             return "";
         }
-        let data: Data! = try? JSONSerialization.data(withJSONObject: self, options: []);
-        let jsonString:String! = String(data: data, encoding: .utf8);
-        let string:String! = jsonString.removingPercentEncoding!;
-        return string;
+     
+        do {
+            let data: Data! = try JSONSerialization.data(withJSONObject: self, options: []);
+            let jsonString: String! = String(data: data, encoding: .utf8);
+            let string: String! = jsonString.removingPercentEncoding!;
+            return string;
+        } catch {
+            print(error)
+
+        }
+        return "";
     }
     
-//    //MARK: 转json(备用)
-//    public static func jsonValue(_ obj:AnyObject!) -> String! {
-//        if JSONSerialization.isValidJSONObject(obj) == false {
-//            return "";
-//        }
-//        let data: Data! = try? JSONSerialization.data(withJSONObject: obj, options: []);
-//        let JSONString:String! = String(data: data, encoding: .utf8);
-//        let string = JSONString.removingPercentEncoding!;
-//
-//        return string;
-//
-//    }
+    /// NSObject->NSData
+    @objc public func jsonData() -> NSData? {
+        var data: NSData?
+        
+        switch self {
+        case is NSData:
+            data = (self as! NSData);
+            
+        case is NSString:
+            data = (self as! NSString).data(using: String.Encoding.utf8.rawValue) as NSData?;
+            
+        case is UIImage:
+            
+            data = (self as! UIImage).jpegData(compressionQuality: 1.0) as NSData?;
+        case is NSDictionary:
+            fallthrough
+        case is NSArray:
+            data = try? JSONSerialization.data(withJSONObject: self, options: []) as NSData?;
+            
+        default:
+            break;
+        }
+        return data;
+    }
+    
+    /// NSObject->NSString
+    @objc public func jsonString() -> String {
+        guard let data = self.jsonData() else {
+            return "";
+        }
+        let jsonString: String = String(data: data as Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) ?? ""
+        return jsonString;
+    }
+    
+    /// NSString/NSData->NSObject/NSDiction/NSArray
+    @objc public func objValue() -> NSObject? {
+        assert(self.isKind(of: NSString.classForCoder()) || self.isKind(of: NSData.classForCoder()) || self.isKind(of: NSDictionary.classForCoder()) || self.isKind(of: NSArray.classForCoder()))
+        
+        if self.isKind(of: NSDictionary.classForCoder()) || self.isKind(of: NSArray.classForCoder()) {
+            return self;
+        }
+        
+        if let str = self as? NSString {
+            do {
+                let data = str.data(using: String.Encoding.utf8.rawValue)
+                let obj: NSObject = try JSONSerialization.data(withJSONObject: data as Any, options: []) as NSObject;
+                return obj;
+                
+            } catch {
+                print(error)
+            }
+           
+        } else if let data = self as? NSData {
+            do {
+                let obj: NSObject = try JSONSerialization.data(withJSONObject: data as Any, options: []) as NSObject;
+                return obj;
+                
+            } catch {
+                print(error)
+            }
+        }
+        return nil;
+    }
+    
+    /// NSString/NSData->NSDictionary
+    @objc public func dictValue() -> Dictionary<String, Any>? {
+        guard let dic = self.objValue() as? Dictionary<String, Any> else { return nil }
+        return dic as Dictionary<String, Any>;
+    }
+    
+    /// NSString/NSData->NSArray
+    @objc public func arrayValue() -> [AnyObject]?{
+        guard let arr = self.objValue() as? [AnyObject] else { return nil }
+        return arr as [AnyObject];
+    }
     
      //MARK:数据解析通用化封装
 //   public static func modelWithJSONFile(_ fileName:String) -> AnyObject? {

@@ -31,7 +31,7 @@ public let kNumIdentify_exponentSymbol = "指数符号";
 //MARK: -NumberFormatter
 extension NumberFormatter{
     
-    @objc public static func identify(_ identify:String = kNumIdentify) -> NumberFormatter {
+    @objc public static func identify(_ identify: String = kNumIdentify) -> NumberFormatter {
         
         let dic = Thread.current.threadDictionary;
         if dic.object(forKey: identify) != nil {
@@ -44,7 +44,7 @@ extension NumberFormatter{
         return fmt;
     }
     
-    @objc public static func format(_ identify:String, format: String = kNumFormat) -> NumberFormatter {
+    @objc public static func format(_ identify: String, format: String = kNumFormat) -> NumberFormatter {
         let fmt = NumberFormatter.identify(identify);
         fmt.positiveFormat = format;
         fmt.numberStyle = .none;
@@ -52,7 +52,7 @@ extension NumberFormatter{
     }
     
     /// number为NSNumber/String
-    @objc public static func numStyle(_ numberStyle:NumberFormatter.Style, number: Any) -> String? {
+    @objc public static func numStyle(_ numberStyle: NumberFormatter.Style, number: Any) -> String? {
         if let obj = number as? NSNumber {
             return NumberFormatter.localizedString(from: obj, number: numberStyle);
         }

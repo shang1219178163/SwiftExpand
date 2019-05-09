@@ -190,7 +190,7 @@ extension UIView{
     }
    
     //MARK: -通用响应添加方法
-    @objc public func addActionHandler(action:@escaping (ViewClosure)) -> Void {
+    @objc public func addActionHandler(action: @escaping (ViewClosure)) -> Void {
         if let sender = self as? UIButton {
             sender.addTarget(self, action:#selector(handleActionSender(sender:)), for:.touchUpInside);
             
@@ -241,7 +241,7 @@ extension UIView{
     
     //MARK: -手势
     ///手势 - 轻点
-    @objc public func addGestureTap(_ action:@escaping (RecognizerClosure)) -> UITapGestureRecognizer {
+    @objc public func addGestureTap(_ action: @escaping (RecognizerClosure)) -> UITapGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -262,7 +262,7 @@ extension UIView{
     }
   
     ///手势 - 长按
-    @objc public func addGestureLongPress(_ action:@escaping (RecognizerClosure), for minimumPressDuration:TimeInterval) -> UILongPressGestureRecognizer {
+    @objc public func addGestureLongPress(_ action: @escaping (RecognizerClosure), for minimumPressDuration:TimeInterval) -> UILongPressGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(minimumPressDuration)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -282,7 +282,7 @@ extension UIView{
     }
     
     ///手势 - 拖拽
-    @objc public func addGesturePan(_ action:@escaping (RecognizerClosure)) -> UIPanGestureRecognizer {
+    @objc public func addGesturePan(_ action: @escaping (RecognizerClosure)) -> UIPanGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -303,7 +303,7 @@ extension UIView{
     }
     
     ///手势 - 屏幕边缘
-    @objc public func addGestureEdgPan(_ action:@escaping (RecognizerClosure), for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
+    @objc public func addGestureEdgPan(_ action: @escaping (RecognizerClosure), for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(edgs)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -322,7 +322,7 @@ extension UIView{
     }
     
     ///手势 - 清扫
-    @objc public func addGestureSwip(_ action:@escaping (RecognizerClosure), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
+    @objc public func addGestureSwip(_ action: @escaping (RecognizerClosure), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(direction)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -342,7 +342,7 @@ extension UIView{
     }
     
     ///手势 - 捏合
-    @objc public func addGesturePinch(_ action:@escaping (RecognizerClosure)) -> UIPinchGestureRecognizer {
+    @objc public func addGesturePinch(_ action: @escaping (RecognizerClosure)) -> UIPinchGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -361,7 +361,7 @@ extension UIView{
     }
     
     ///手势 - 旋转
-    @objc public func addGestureRotation(_ action:@escaping (RecognizerClosure)) -> UIRotationGestureRecognizer {
+    @objc public func addGestureRotation(_ action: @escaping (RecognizerClosure)) -> UIRotationGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         

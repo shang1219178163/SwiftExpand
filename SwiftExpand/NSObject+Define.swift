@@ -45,22 +45,22 @@ public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
 }
 
 /// 自定义UIEdgeInsets
-public func UIEdgeInsetMake(_ top: CGFloat,_ left: CGFloat,_ bottom: CGFloat,_ right: CGFloat) -> UIEdgeInsets{
+public func UIEdgeInsetMake(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> UIEdgeInsets{
     return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
 }
 
 /// 自定义CGRect
-public func CGRectMake(_ x: CGFloat,_ y: CGFloat,_ w: CGFloat,_ h: CGFloat) -> CGRect{
+public func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ w: CGFloat, _ h: CGFloat) -> CGRect{
     return CGRect(x: x, y: y, width: w, height: h)
 }
 
 /// 自定义CGPointMake
-public func CGPointMake(_ x: CGFloat,_ y: CGFloat) -> CGPoint {
+public func CGPointMake(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
     return CGPoint(x: x, y: y)
 }
 
 /// 自定义GGSizeMake
-public func GGSizeMake(_ w: CGFloat,_ h: CGFloat) -> CGSize {
+public func GGSizeMake(_ w: CGFloat, _ h: CGFloat) -> CGSize {
     return CGSize(width: w, height: h)
 }
 
@@ -77,7 +77,7 @@ public func kScaleWidth(_ width: CGFloat) -> CGFloat {
 }
 
 //获取本地创建类
-public func SwiftClassFromString(_ name:String) -> AnyClass {
+public func SwiftClassFromString(_ name: String) -> AnyClass {
     //    let nameKey = "CFBundleName";
     //    这里也是坑，请不要翻译oc的代码，而是去NSBundle类里面看它的api
     //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as? String;
@@ -86,7 +86,7 @@ public func SwiftClassFromString(_ name:String) -> AnyClass {
     return cls;
 }
 
-public func UICtrFromString(_ vcName:String) -> UIViewController {
+public func UICtrFromString(_ vcName: String) -> UIViewController {
     // 动态获取命名空间
     //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
     //字符串转类
@@ -175,16 +175,16 @@ public func UITarBarCtrFromList(_ list: [[String]]) -> UITabBarController {
 }
 
 /// 获取某种颜色Alpha下的色彩
-public func UIColorAlpha(_ color: UIColor,_ a:CGFloat = 1.0) -> UIColor{
+public func UIColorAlpha(_ color: UIColor, _ a: CGFloat = 1.0) -> UIColor{
     return color.withAlphaComponent(a)
 }
 
-public func UIColorRGBA(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat,_ a:CGFloat = 1.0) -> UIColor{
+public func UIColorRGBA(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
     return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
 }
 
 /// 16进制字符串
-public func UIColorHex(_ hex: String, _ a:CGFloat = 1.0) -> UIColor {
+public func UIColorHex(_ hex: String, _ a: CGFloat = 1.0) -> UIColor {
     return UIColor.hex(hex, a: a);
 }
 
@@ -194,7 +194,7 @@ public func UIColorHex(_ hex: String) -> UIColor {
 }
 
 /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
-public func UIColorHexValue(_ hex:Int, _ a:CGFloat = 1.0) -> UIColor {
+public func UIColorHexValue(_ hex:Int, _ a: CGFloat = 1.0) -> UIColor {
     return UIColor(red: CGFloat((hex & 0xFF0000) >> 16)/255.0, green: CGFloat((hex & 0xFF00) >> 8)/255.0, blue: CGFloat(hex & 0xFF)/255.0, alpha: a)
 }
 
@@ -202,7 +202,7 @@ public func UIColorRandom() -> UIColor {
     return UIColor.randomColor();
 }
 
-public func UIColorDim(_ white:CGFloat, _ a:CGFloat = 1.0) -> UIColor{
+public func UIColorDim(_ white: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
     return .init(white: white, alpha: a);
 }
 
@@ -246,7 +246,7 @@ public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
 
 ///返回的类名不带明明空间
 public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
-    let className:String = NSStringFromClass(cls);
+    let className: String = NSStringFromClass(cls);
     //    if className.contains(".") {
     //        let rangePoint = className.range(of: ".");
     //        className = String(className[rangePoint!.upperBound...]);
@@ -326,5 +326,30 @@ public func TimeStampFromObj(_ obj: Any) -> String{
         return DateFormatter.IntervalFromDateStr(dateStr, fmt: fmt)
     }
     return ""
+}
+
+/// data -> NSObject
+public func ObjFromData(_ data: Data, options opt: JSONSerialization.ReadingOptions = []) -> Any? {
+    do {
+        let obj: NSObject = try JSONSerialization.data(withJSONObject: data as Any, options: []) as NSObject;
+        return obj;
+        
+    } catch {
+        print(error)
+    }
+    return nil;
+}
+
+/// string -> NSObject
+public func ObjFromString(_ string: String, options opt: JSONSerialization.ReadingOptions = []) -> Any? {
+    let data: Data = string.data(using: .utf8)!
+    let obj = ObjFromData(data)
+    return obj;
+}
+
+/// NSObject -> string
+public func JSONStringFromObj(_ obj: Any, options opt: JSONSerialization.WritingOptions = []) -> String? {
+    let string: String = (obj as! NSObject).jsonString()
+    return string;
 }
 

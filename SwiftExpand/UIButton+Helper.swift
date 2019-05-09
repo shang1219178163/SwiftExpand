@@ -46,8 +46,8 @@ extension UIButton{
         labelHeight = self.titleLabel?.intrinsicContentSize.height
         
         //初始化imageEdgeInsets和labelEdgeInsets
-        var imageEdgeInsets = UIEdgeInsets.zero
-        var labelEdgeInsets = UIEdgeInsets.zero
+        var imageEdgeInsets: UIEdgeInsets = .zero
+        var labelEdgeInsets: UIEdgeInsets = .zero
         
         //根据style和space得到imageEdgeInsets和labelEdgeInsets的值
         switch style {

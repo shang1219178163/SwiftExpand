@@ -53,20 +53,6 @@ extension String{
         return from ..< to
     }
     
-    public func dictValue() -> Dictionary<String, Any>!{
-        return ((self as NSString).objcValue() as! Dictionary<String, Any>)
-    }
-    
-    public func arrayValue() -> Array<Any>!{
-        
-        let jsonData:Data = self.data(using: .utf8)!
-        let array = try? JSONSerialization.jsonObject(with: jsonData, options: .mutableContainers)
-        if array != nil {
-            return (array as! Array);
-        }
-        return Array();
-    }
-    
     /// 读取本地json文件
     public func jsonFileToJSONString() -> String {
         assert(self.contains(".geojson") == true);
@@ -158,23 +144,13 @@ extension String{
     public func copyToPasteboard(_ showTips: Bool) -> Void {
         UIPasteboard.general.string = self
         if showTips == true {
-            let _ = UIAlertController.createAlert("提示", placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
+            let _ = UIAlertController.showAlert("提示", placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
         }
     }
 
 }
 
 extension NSString{
-    
-    /// 字符串转AnyObject
-     @objc public func objcValue() -> AnyObject?{
-        let jsonData = self.data(using: String.Encoding.utf8.rawValue, allowLossyConversion: true)
-        let obj:Any? = try? JSONSerialization.jsonObject(with: jsonData!, options: .allowFragments)
-        if obj != nil {
-            return obj! as AnyObject;
-        }
-        return self;
-    }
     
     /// 字符串本身大于string
     @objc public func isCompare(_ string:NSString) -> Bool {

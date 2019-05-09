@@ -68,7 +68,7 @@ public let kDateFormat_two         = "yyyyMMdd";
 extension DateFormatter{
     
     /// 获取DateFormatter(默认格式)
-    @objc public static func format(_ formatStr:String = kDateFormat) -> DateFormatter {
+    @objc public static func format(_ formatStr: String = kDateFormat) -> DateFormatter {
         let dic = Thread.current.threadDictionary;
         if dic.object(forKey: formatStr) != nil {
             return dic.object(forKey: formatStr) as! DateFormatter;
@@ -85,25 +85,25 @@ extension DateFormatter{
     }
     
     /// Date -> String
-    @objc public static func stringFromDate(_ date:Date, fmt:String = kDateFormat) -> String {
+    @objc public static func stringFromDate(_ date:Date, fmt: String = kDateFormat) -> String {
         let formatter = DateFormatter.format(fmt);
         return formatter.string(from: date);
     }
     
     /// String -> Date
-    @objc public static func dateFromString(_ dateStr:String, fmt:String = kDateFormat) -> Date {
+    @objc public static func dateFromString(_ dateStr:String, fmt: String = kDateFormat) -> Date {
         let formatter = DateFormatter.format(fmt);
         return formatter.date(from: dateStr)!;
     }
     
     /// 时间戳字符串 -> 日期字符串
-    @objc public static func stringFromInterval(_ interval:String, fmt:String = kDateFormat) -> String {
+    @objc public static func stringFromInterval(_ interval:String, fmt: String = kDateFormat) -> String {
         let date = Date(timeIntervalSince1970: interval.doubleValue())
         return DateFormatter.stringFromDate(date, fmt: fmt);
     }
 
     /// 日期字符串 -> 时间戳字符串
-    @objc public static func IntervalFromDateStr(_ dateStr:String, fmt:String = kDateFormat) -> String {
+    @objc public static func IntervalFromDateStr(_ dateStr:String, fmt: String = kDateFormat) -> String {
         let date = DateFormatter.dateFromString(dateStr, fmt: fmt)
         return "\(date.timeIntervalSince1970)";
     }
@@ -114,7 +114,7 @@ extension DateFormatter{
 extension Date{
     public static var calendar: Calendar = Calendar(identifier: .gregorian)
 
-    public func string(formatStr:String) -> String{
+    public func string(formatStr: String) -> String{
         let formatter = DateFormatter.format(formatStr);
         let dateStr = formatter.string(from: self as Date);
         return dateStr;
@@ -125,7 +125,7 @@ extension Date{
         return Date(timeIntervalSinceReferenceDate: aTimeInterval);
     }
     
-    public func dateBefore(_ interval: TimeInterval, fmt:String = kDateFormat) -> String{
+    public func dateBefore(_ interval: TimeInterval, fmt: String = kDateFormat) -> String{
         let newDate = self.dateBefore(interval);
         return newDate.string(formatStr: fmt);
     }

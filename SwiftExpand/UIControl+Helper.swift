@@ -10,7 +10,7 @@ import UIKit
 
 extension UIControl {
     /// 添加响应方式
-    @objc public func addActionHandler(_ action:@escaping (ControlClosure), for controlEvents: UIControl.Event = .touchUpInside) -> Void {
+    @objc public func addActionHandler(_ action: @escaping (ControlClosure), for controlEvents: UIControl.Event = UIControl.Event.touchUpInside) -> Void {
         let funcAbount = NSStringFromSelector(#function) + ",\(controlEvents)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -20,7 +20,7 @@ extension UIControl {
     }
     
     /// 点击回调
-    @objc private func handleActionSender(_ sender:UIControl) -> Void {
+    @objc private func handleActionSender(_ sender: UIControl) -> Void {
         let block = objc_getAssociatedObject(self, self.runtimeKey) as? ControlClosure;
         if block != nil {
             block!(sender);

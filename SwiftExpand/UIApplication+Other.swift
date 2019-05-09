@@ -57,23 +57,28 @@ extension UIApplication{
         let request = URLRequest(url:NSURL(string: path)! as URL, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 6)
         let dataTask = URLSession.shared.dataTask(with: request) { (data, respone, error) in
             guard let data = data, let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) else {
-                fatalError("字典不能为空")
+                print("字典不能为空")
+                return
             }
             
             guard let dic = json as? Dictionary<String, Any> else {
-                fatalError("数据格式错误")
+                print("数据格式错误")
+                return
             }
             
             guard (dic["resultCount"] as! NSNumber).intValue == 1 else {
-                fatalError("resultCount错误")
+                print("resultCount错误")
+                return
             }
             
             guard let list = dic["results"] as? NSArray else {
-                fatalError("dicInfo错误")
+                print("dicInfo错误")
+                return
             }
             
             guard let dicInfo = list[0] as? Dictionary<String, Any> else {
-                fatalError("dicInfo错误")
+                print("dicInfo错误")
+                return
             }
             
             let releaseNotes = dicInfo["releaseNotes"] ?? "";
