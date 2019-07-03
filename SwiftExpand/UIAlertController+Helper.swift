@@ -17,7 +17,7 @@ public let kAlertActionColor = "titleTextColor"
 
 extension UIAlertController{
     /// 创建系统提示框
-    @objc public static func createAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = nil, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    @objc public static func createAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
        
         placeholders?.forEach { (placeholder: String) in
@@ -31,7 +31,7 @@ extension UIAlertController{
             let style: UIAlertAction.Style = title == kActionTitle_Cancell ? .destructive : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
                 if handler != nil {
-                    handler!(action)
+                    handler!(alertController, action)
                 }
             }))
         })
@@ -39,7 +39,7 @@ extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc public static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = nil, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    @objc public static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         
         let alertController = UIAlertController.createAlert(title, placeholders: placeholders, msg: msg, actionTitles: actionTitles, handler: handler)
         if actionTitles == nil {
@@ -54,15 +54,15 @@ extension UIAlertController{
     }
     
     /// 创建系统sheetView
-    @objc public static func createSheet(_ title: String?, items: [String]? = nil, completion: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    @objc public static func createSheet(_ title: String?, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         
         items?.forEach({ (title:String) in
             let style: UIAlertAction.Style = title == kActionTitle_Cancell ? .cancel : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
                 alertController.dismiss(animated: true, completion: nil)
-                if completion != nil {
-                    completion!(action)
+                if handler != nil {
+                    handler!(alertController, action)
                 }
             }))
         })
@@ -70,8 +70,8 @@ extension UIAlertController{
         if items?.contains(kActionTitle_Cancell) == false || items == nil {
             alertController.addAction(UIAlertAction(title: kActionTitle_Cancell, style: .cancel, handler: { (action: UIAlertAction) in
                 alertController.dismiss(animated: true, completion: nil)
-                if completion != nil {
-                    completion!(action)
+                if handler != nil {
+                    handler!(alertController, action)
                 }
             }))
         }
@@ -79,8 +79,8 @@ extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc public static func showSheet(_ title: String?, items: [String]? = nil, completion: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
-        let alertController = UIAlertController.createSheet(title, items: items, completion: completion)
+    @objc public static func showSheet(_ title: String?, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        let alertController = UIAlertController.createSheet(title, items: items, handler: handler)
         UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
         return alertController
     }

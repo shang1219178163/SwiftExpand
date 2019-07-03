@@ -10,6 +10,12 @@ import UserNotifications
 
 extension UIApplication{
 
+    /// 网络状态是否可用
+    @objc public static func reachable() -> Bool {
+        let data = NSData(contentsOf: URL(string: "https://www.baidu.com/")!)
+        return (data != nil)
+    }
+    
     /**
      注册APNs远程推送
      */
@@ -87,7 +93,7 @@ extension UIApplication{
                 isUpdate = appStoreVer.compare(UIApplication.appVer, options: .numeric, range: nil, locale: nil) == .orderedDescending
                 if isUpdate == true {
                     DispatchQueue.main.async {
-                        let alertController = UIAlertController.showAlert("新版本 v\(appStoreVer)", msg: releaseNotes as! String, actionTitles: [kActionTitle_Update, kActionTitle_Cancell], handler: { (action: UIAlertAction) in
+                        let alertController = UIAlertController.showAlert("新版本 v\(appStoreVer)", msg: releaseNotes as! String, actionTitles: [kActionTitle_Update, kActionTitle_Cancell], handler: { (controller: UIAlertController, action: UIAlertAction) in
                             if action.title == kActionTitle_Update {
                                 //去升级
                                 UIApplication.openURL(UIApplication.appUrlWithID(appStoreID))
@@ -106,5 +112,7 @@ extension UIApplication{
         dataTask.resume()
         return isUpdate;
     }
+
+   
 
 }
