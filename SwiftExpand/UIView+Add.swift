@@ -124,15 +124,12 @@ extension UIView {
         return table
     }
     /// [源]UILabel创建
-    @objc public static func createLabel(_ rect: CGRect = CGRect.zero, text: String? = nil, font: CGFloat = 16, tag: Int, type: Int = 0) -> UILabel {
+    @objc public static func createLabel(_ rect: CGRect = CGRect.zero, type: Int = 0) -> UILabel {
         let view = UILabel(frame: rect);
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         view.isUserInteractionEnabled = true;
         view.textAlignment = .left;
-        
-        view.text = text;
-        view.font = UIFont.systemFont(ofSize: font);
-        view.tag = tag;
+        view.font = UIFont.systemFont(ofSize: 16);
         
         switch type {
         case 1:
@@ -169,30 +166,31 @@ extension UIView {
         return view;
     }
     /// [源]UIImageView创建
-    @objc public static func createImgView(_ rect: CGRect = CGRect.zero, imgName: String, tag: Int) -> UIImageView {
+    @objc public static func createImgView(_ rect: CGRect = CGRect.zero, imgName: String) -> UIImageView {
         let view = UIImageView(frame: rect);
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         view.isUserInteractionEnabled = true;
         view.contentMode = .scaleAspectFit;
         view.image = UIImage(named: imgName);
-        view.tag = tag;
         
         return view
     }
     /// [源]UIButton创建
-    @objc public static func createBtn(_ rect: CGRect = CGRect.zero, title: String?, font: CGFloat = 16, imgName: String?, tag: Int, type: Int = 0) -> UIButton {
+    @objc public static func createBtn(_ rect: CGRect = CGRect.zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
         let view = UIButton(type: .custom);
         view.titleLabel?.font = UIFont.systemFont(ofSize:16);
         view.titleLabel?.adjustsFontSizeToFitWidth = true;
         view.titleLabel?.minimumScaleFactor = 1.0;
-        view.titleLabel?.font = UIFont.systemFont(ofSize: font);
         view.imageView?.contentMode = .scaleAspectFit
         view.isExclusiveTouch = true;
         view.adjustsImageWhenHighlighted = false;
 
         view.frame = rect;
         view.setTitle(title, for: .normal)
-        view.tag = tag;
+        if imgName != nil && UIImageNamed(imgName!) != nil {
+            view.setImage(UIImageNamed(imgName!), for: .normal)
+        }
+        
         switch type {
         case 1://白色字体,主题色背景
             view.setTitleColor( .white, for: .normal)
@@ -215,21 +213,21 @@ extension UIView {
         return view
     }
     /// [源]UITextField创建
-    @objc public static func createTextField(_ rect: CGRect = CGRect.zero, tag: Int) -> UITextField {
+    @objc public static func createTextField(_ rect: CGRect = CGRect.zero) -> UITextField {
         let view = UITextField(frame: rect);
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.borderStyle = .roundedRect;
         view.contentVerticalAlignment = .center;
+        view.clearButtonMode = .whileEditing;
         view.autocapitalizationType = .none;
         view.autocorrectionType = .no;
-        view.clearButtonMode = .whileEditing;
         view.backgroundColor = .white;
         view.returnKeyType = .done
         view.textAlignment = .left;
-        view.tag = tag
         return view
     }
     /// [源]UITextView创建
-    @objc public static func createTextView(_ rect: CGRect = CGRect.zero, tag: Int) -> UITextView {
+    @objc public static func createTextView(_ rect: CGRect = CGRect.zero) -> UITextView {
         let view = UITextView(frame: rect);
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         view.autocapitalizationType = .none;
@@ -240,7 +238,6 @@ extension UIView {
         view.layer.borderColor = UIColor.line.cgColor;
         
         view.textAlignment = .left;
-        view.tag = tag
         return view
     }
     
@@ -262,7 +259,7 @@ extension UIView {
     }
     
     /// [源]GroupView创建
-    @objc public static func createGroupView(_ rect: CGRect = CGRect.zero, list: Array<String>!, numberOfRow: Int, padding: CGFloat, type: Int, action:@escaping (UITapGestureRecognizer?,UIView,NSInteger)->()) -> UIView {
+    @objc public static func createGroupView(_ rect: CGRect = CGRect.zero, list: Array<String>!, numberOfRow: Int = 4, padding: CGFloat = kPadding, type: Int = 0, action:@escaping (UITapGestureRecognizer?,UIView,NSInteger)->()) -> UIView {
         
         let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1;
         let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)

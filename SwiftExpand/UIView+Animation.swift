@@ -26,7 +26,7 @@ extension UIView{
         layer.add(rotationAnim, forKey: key);
     }
     
-    @objc public func animRotation(isClockwise:Bool, duration: Double, repeatCount: Float, key: String?) {
+    @objc public func animRotation(isClockwise: Bool, duration: Double, repeatCount: Float, key: String?) {
         let fromValue = isClockwise == true ? 0 : Double.pi * 2;
         let toValue = isClockwise == true ? Double.pi * 2 : 0;
         animRotation(fromValue: fromValue, toValue: toValue, duration: duration, repeatCount: repeatCount, key: key);

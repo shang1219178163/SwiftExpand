@@ -13,7 +13,7 @@ import UIKit
 extension UITextField{
 
     ///  RightView
-    @objc public func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize) -> UIView! {
+    @objc public func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView! {
         assert(unitName != nil && unitName.valid() == true);
         
         if unitName.contains("img") {

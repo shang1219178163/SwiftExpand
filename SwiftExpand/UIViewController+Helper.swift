@@ -58,7 +58,8 @@ extension UIViewController{
         }
         
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height);
-        let btn = UIView.createBtn(rect, title: title, font: 16, imgName: image, tag: kTAG_BTN, type: 3)
+        let btn: UIButton = UIView.createBtn(rect, title: title, imgName: image, type: 3)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.tag = isLeft == true ? kTAG_BackItem : kTAG_RightItem;
         btn.isHidden = isHidden;
         btn.sizeToFit();
@@ -97,11 +98,12 @@ extension UIViewController{
     @objc public func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
         var item: UIView? = nil;
         if UIImage(named:obj) != nil{
-            item = UIView.createImgView(CGRectMake(0, 0, 40, 40), imgName: obj, tag: kTAG_IMGVIEW)
+            item = UIView.createImgView(CGRectMake(0, 0, 40, 40), imgName: obj)
 
         }
         else {
-            item = UIView.createLabel(CGRectMake(0, 0, 72, 20), text: obj, font: 16, tag: 0, type: 1)
+            item = UIView.createLabel(CGRectMake(0, 0, 72, 20), type: 1)
+            (item as! UILabel).text = obj;
             (item as! UILabel).textAlignment = .center;
             (item as! UILabel).textColor = UINavigationBar.appearance().tintColor;
         }

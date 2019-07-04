@@ -98,7 +98,7 @@ extension UICollectionView{
     }
     
     ///  默认布局配置(自上而下,自左而右)
-    @objc public func create(_ itemHeight: CGFloat, spacing: CGFloat = kPadding, headerHeight: CGFloat, footerHeight: CGFloat) -> UICollectionViewFlowLayout {
+    @objc public func create(_ itemHeight: CGFloat, spacing: CGFloat = kPadding, headerHeight: CGFloat = 30, footerHeight: CGFloat = 30) -> UICollectionViewFlowLayout {
         let width = self.bounds.width;
         let itemSize = CGSize(width: (width - 5*spacing)/4.0,height: itemHeight);
         let headerSize = CGSize(width: width, height: headerHeight);

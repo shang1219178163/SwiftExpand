@@ -192,7 +192,7 @@ extension UIApplication{
         UIApplication.setupRootController(controller, isAdjust);
     }
     
-    @objc public static func setupRootController(_ controller: AnyObject,_ isAdjust: Bool) -> Void {
+    @objc public static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool) -> Void {
         var contr = controller;
         if controller is String {
             contr = UICtrFromString(controller as! String);
@@ -256,6 +256,7 @@ extension UIApplication{
             UITabBar.appearance().unselectedItemTintColor = UIColor.gray;
         }
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5.0)
+        
     }
     
     /// 配置UINavigationBar默认值
