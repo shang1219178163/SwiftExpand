@@ -21,7 +21,6 @@ extension WKWebView{
                 obj!.preferences = WKPreferences();
                 obj!.preferences.javaScriptCanOpenWindowsAutomatically = false;
                 obj!.preferences.javaScriptEnabled = true;
-                obj!.preferences.minimumFontSize = 17;
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
@@ -39,4 +38,9 @@ extension WKWebView{
         configuration.userContentController.addUserScript(userScript)
     }
 
+    /// 字体改变
+    @objc public static func javaScriptFromTextSizeRatio(_ ratio: CGFloat) -> String {
+        let result = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(ratio)%'"
+        return result
+    }
 }

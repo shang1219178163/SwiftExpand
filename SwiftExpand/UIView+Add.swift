@@ -206,6 +206,10 @@ extension UIView {
             view.setBackgroundImage(UIImageNamed(imgName!), for: .normal)
             view.setBackgroundImage(UIImageColor( .lightGray), for: .disabled)
             
+        case 5://主题色字体,边框
+            view.setTitleColor( .theme, for: .normal);
+            view.layer.borderColor = UIColor.theme.cgColor;
+            
         default://黑色字体,白色背景
             view.setTitleColor( .black, for: .normal)
             
@@ -238,6 +242,16 @@ extension UIView {
         view.layer.borderColor = UIColor.line.cgColor;
         
         view.textAlignment = .left;
+        return view
+    }
+    
+    /// 展示性质UITextView创建
+    @objc public static func createShowTextView(_ rect: CGRect = .zero) -> UITextView {
+        let view = UITextView.createTextView(rect);
+        view.contentOffset = CGPoint(x: 0, y: 8)
+        view.isEditable = false;
+        view.dataDetectorTypes = .all;
+        
         return view
     }
     

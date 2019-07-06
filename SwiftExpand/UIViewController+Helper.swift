@@ -26,6 +26,16 @@ extension UIViewController{
         }
     }
     
+    /// 重置布局
+    @objc func setupExtendedLayout() -> Void {
+        edgesForExtendedLayout = [];
+        if #available(iOS 11.0, *) {
+            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false;
+        }
+    }
+    
     @objc private func handleActionItem(_ sender: UIBarButtonItem) -> Void {
         let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ObjClosure;
         if block != nil {
