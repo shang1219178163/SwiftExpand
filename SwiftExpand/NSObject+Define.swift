@@ -68,7 +68,7 @@ public func NSStringFromIndexPath(_ indexPath:IndexPath) -> String {
     return String(format: "{%d,%d}", indexPath.section, indexPath.row);
 }
 
-public func iOSVer(version:Float)->Bool{
+public func iOSVer(_ version:Float)->Bool{
     return (UIDevice.current.systemVersion as NSString).floatValue > version;
 }
 
@@ -330,8 +330,11 @@ public func TimeStampFromObj(_ obj: Any) -> String{
 
 /// data -> NSObject
 public func ObjFromData(_ data: Data, options opt: JSONSerialization.ReadingOptions = []) -> Any? {
+    if JSONSerialization.isValidJSONObject(data) {
+        return nil;
+    }
     do {
-        let obj: NSObject = try JSONSerialization.data(withJSONObject: data as Any, options: []) as NSObject;
+        let obj: NSObject = try JSONSerialization.jsonObject(with: data, options: []) as! NSObject
         return obj;
         
     } catch {
