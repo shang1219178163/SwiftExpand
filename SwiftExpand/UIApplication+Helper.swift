@@ -13,8 +13,8 @@ extension UIApplication{
     @objc public static var appName: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
-//            let name:String = infoDic!["CFBundleDisplayName"] as? String ?? infoDic!["CFBundleName"] as! String;
-            let name:String = infoDic![kCFBundleNameKey as String] != nil ? infoDic![kCFBundleNameKey as String] as! String : infoDic![kCFBundleExecutableKey as String] as! String;
+//            let name: String = infoDic!["CFBundleDisplayName"] as? String ?? infoDic!["CFBundleName"] as! String;
+            let name: String = infoDic![kCFBundleNameKey as String] != nil ? infoDic![kCFBundleNameKey as String] as! String : infoDic![kCFBundleExecutableKey as String] as! String;
             return name;
         }
     }
@@ -23,7 +23,7 @@ extension UIApplication{
         get {
             let infoDic: AnyObject = Bundle.main.infoDictionary as AnyObject;
             let iconFiles:Array<Any> = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as! Array<Any>;
-            let imgName:String = iconFiles.last as! String;
+            let imgName: String = iconFiles.last as! String;
             return  UIImage(named: imgName)!;
         }
     }
@@ -302,10 +302,10 @@ extension UIApplication{
     }
     
     /// 打开网络链接
-    @objc public static func openURL(_ urlStr:String) {
+    @objc public static func openURL(_ urlStr: String) {
 //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
-//        let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
-//        let str:String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
+//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
+//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
         
         let url:NSURL? = NSURL(string:urlStr);
         if UIApplication.shared.canOpenURL(url! as URL) {

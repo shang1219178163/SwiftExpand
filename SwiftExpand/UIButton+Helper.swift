@@ -20,7 +20,7 @@ extension UIButton{
 //    }
 //
 //    /// 快速创建按钮 setImage: 图片名 frame:frame action:点击事件的回调
-//    convenience init(setImage:String, frame:CGRect, action: @escaping ControlClosure){
+//    convenience init(setImage: String, frame:CGRect, action: @escaping ControlClosure){
 ////        self.init()
 //        self.init(action: action);
 //

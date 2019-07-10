@@ -64,7 +64,7 @@ public func GGSizeMake(_ w: CGFloat, _ h: CGFloat) -> CGSize {
     return CGSize(width: w, height: h)
 }
 
-public func NSStringFromIndexPath(_ indexPath:IndexPath) -> String {
+public func NSStringFromIndexPath(_ indexPath: IndexPath) -> String {
     return String(format: "{%d,%d}", indexPath.section, indexPath.row);
 }
 
@@ -102,7 +102,7 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
     return controller;
 }
 
-public func UINavCtrFromObj(_ obj:AnyObject) -> UINavigationController?{
+public func UINavCtrFromObj(_ obj: AnyObject) -> UINavigationController?{
     if obj is UINavigationController {
         return obj as? UINavigationController;
         

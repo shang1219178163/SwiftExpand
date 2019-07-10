@@ -24,7 +24,7 @@ extension UITableViewHeaderFooterView{
     }
     
     /// cell-使用默认identifier生成
-    @objc public static func viewWithTableView(_ tableView:UITableView) -> UITableViewHeaderFooterView! {
+    @objc public static func viewWithTableView(_ tableView: UITableView) -> UITableViewHeaderFooterView! {
         let identifier = NSStringFromClass(self.classForCoder());
         return viewWithTableView(tableView, identifier: identifier);
         

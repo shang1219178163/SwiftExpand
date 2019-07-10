@@ -117,12 +117,12 @@ extension String{
     
     
     /// 字符串本身大于string
-    public func isCompareMore(_ string:String) -> Bool {
+    public func isCompareMore(_ string: String) -> Bool {
         return self.compare(string, options: .numeric, range: nil, locale: nil) == .orderedDescending
     }
     
     /// 字符串本身大于string
-    public func isCompare(_ string:String) -> Bool {
+    public func isCompare(_ string: String) -> Bool {
         if self == "" {
             return false
         }
@@ -147,13 +147,75 @@ extension String{
             let _ = UIAlertController.showAlert("提示", placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
         }
     }
+    
+    subscript (i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
+    }
+    subscript (bounds: CountableRange<Int>) -> Substring {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return self[start ..< end]
+    }
+    subscript (bounds: CountableClosedRange<Int>) -> Substring {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return self[start ... end]
+    }
+    subscript (bounds: CountablePartialRangeFrom<Int>) -> Substring {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(endIndex, offsetBy: -1)
+        return self[start ... end]
+    }
+    subscript (bounds: PartialRangeThrough<Int>) -> Substring {
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return self[startIndex ... end]
+    }
+    subscript (bounds: PartialRangeUpTo<Int>) -> Substring {
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return self[startIndex ..< end]
+    }
 
 }
 
+extension Substring {
+    subscript (i: Int) -> Character {
+        return self[index(startIndex, offsetBy: i)]
+    }
+    subscript (bounds: CountableRange<Int>) -> Substring {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return self[start ..< end]
+    }
+    subscript (bounds: CountableClosedRange<Int>) -> Substring {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return self[start ... end]
+    }
+    subscript (bounds: CountablePartialRangeFrom<Int>) -> Substring {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(endIndex, offsetBy: -1)
+        return self[start ... end]
+    }
+    subscript (bounds: PartialRangeThrough<Int>) -> Substring {
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return self[startIndex ... end]
+    }
+    subscript (bounds: PartialRangeUpTo<Int>) -> Substring {
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return self[startIndex ..< end]
+    }
+}
+
+
 extension NSString{
     
+    /// 获取子字符串
+    @objc public func substring(loc: Int, len: Int) -> String {
+        return self.substring(with: NSRange(location: loc, length: len))
+    }
+    
     /// 字符串本身大于string
-    @objc public func isCompare(_ string:NSString) -> Bool {
+    @objc public func isCompare(_ string: NSString) -> Bool {
         if self.isEqual(to: "") {
             return false
         }

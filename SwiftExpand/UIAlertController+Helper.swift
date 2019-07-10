@@ -48,8 +48,10 @@ extension UIAlertController{
                     alertController.dismiss(animated: true, completion: nil)
                 })
             })
+        } else {
+            UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+
         }
-        UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
         return alertController
     }
     

@@ -262,7 +262,7 @@ extension UIView{
     }
   
     ///手势 - 长按
-    @objc public func addGestureLongPress(_ action: @escaping (RecognizerClosure), for minimumPressDuration:TimeInterval) -> UILongPressGestureRecognizer {
+    @objc public func addGestureLongPress(_ action: @escaping (RecognizerClosure), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(minimumPressDuration)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -458,7 +458,7 @@ extension UIView{
         return supView as! UITableViewCell;
     }
     
-    @objc public func getCellIndexPath(_ tableView:UITableView) -> IndexPath{
+    @objc public func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
         let cell = self.getCell();
         return tableView.indexPathForRow(at: cell.center)!
     }

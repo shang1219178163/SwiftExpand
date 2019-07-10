@@ -78,38 +78,93 @@ extension DateFormatter{
         fmt.dateFormat = formatStr;
         fmt.locale = .current;
         fmt.locale = Locale(identifier: "zh_CN");
-
-        fmt.timeZone = NSTimeZone.local;
+        fmt.timeZone = formatStr.contains("GMT") ? TimeZone(identifier: "GMT") : TimeZone.current;
+        
         dic.setObject(fmt, forKey: formatStr as NSCopying)
         return fmt;
     }
     
     /// Date -> String
-    @objc public static func stringFromDate(_ date:Date, fmt: String = kDateFormat) -> String {
+    @objc public static func stringFromDate(_ date: Date, fmt: String = kDateFormat) -> String {
         let formatter = DateFormatter.format(fmt);
         return formatter.string(from: date);
     }
     
     /// String -> Date
-    @objc public static func dateFromString(_ dateStr:String, fmt: String = kDateFormat) -> Date {
+    @objc public static func dateFromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
         let formatter = DateFormatter.format(fmt);
         return formatter.date(from: dateStr)!;
     }
     
     /// 时间戳字符串 -> 日期字符串
-    @objc public static func stringFromInterval(_ interval:String, fmt: String = kDateFormat) -> String {
+    @objc public static func stringFromInterval(_ interval: String, fmt: String = kDateFormat) -> String {
         let date = Date(timeIntervalSince1970: interval.doubleValue())
         return DateFormatter.stringFromDate(date, fmt: fmt);
     }
 
     /// 日期字符串 -> 时间戳字符串
-    @objc public static func IntervalFromDateStr(_ dateStr:String, fmt: String = kDateFormat) -> String {
+    @objc public static func IntervalFromDateStr(_ dateStr: String, fmt: String = kDateFormat) -> String {
         let date = DateFormatter.dateFromString(dateStr, fmt: fmt)
         return "\(date.timeIntervalSince1970)";
     }
     
-}
+    /// 日期字符串和fmt是同种格式
+    @objc public static func isSameFormat(_ dateStr: String, fmt: String = kDateFormat) -> Bool {
+        
+        if dateStr.count == fmt.count {
+            let str: NSString = dateStr as NSString
+            let format: NSString = fmt as NSString
 
+            if str.length >= 17 {
+                let char4 = str.substring(with: NSRange(location: 4, length: 1))
+                let char7 = str.substring(with: NSRange(location: 7, length: 1))
+                let char13 = str.substring(with: NSRange(location: 13, length: 1))
+                let char16 = str.substring(with: NSRange(location: 16, length: 1))
+              
+                let format4 = format.substring(with: NSRange(location: 4, length: 1))
+                let format7 = format.substring(with: NSRange(location: 7, length: 1))
+                let format13 = format.substring(with: NSRange(location: 13, length: 1))
+                let format16 = format.substring(with: NSRange(location: 16, length: 1))
+                
+                let isSame = (char4 == format4 && char7 == format7 && char13 == format13 && char16 == format16)
+                return isSame;
+            }
+            
+            if str.length >= 14 {
+                let char4 = str.substring(with: NSRange(location: 4, length: 1))
+                let char7 = str.substring(with: NSRange(location: 7, length: 1))
+                let char13 = str.substring(with: NSRange(location: 13, length: 1))
+                
+                let format4 = format.substring(with: NSRange(location: 4, length: 1))
+                let format7 = format.substring(with: NSRange(location: 7, length: 1))
+                let format13 = format.substring(with: NSRange(location: 13, length: 1))
+                
+                let isSame = (char4 == format4  && char7 == format7 && char13 == format13)
+                return isSame;
+            }
+           
+            if str.length >= 8 {
+                let char4 = str.substring(with: NSRange(location: 4, length: 1))
+                let char7 = str.substring(with: NSRange(location: 7, length: 1))
+               
+                let format4 = format.substring(with: NSRange(location: 4, length: 1))
+                let format7 = format.substring(with: NSRange(location: 7, length: 1))
+                
+                let isSame = (char4 == format4  && char7 == format7)
+                return isSame;
+            } else if str.length >= 5 {
+                let char4 = str.substring(with: NSRange(location: 4, length: 1))
+                
+                let format4 = format.substring(with: NSRange(location: 4, length: 1))
+                
+                let isSame = (char4 == format4)
+                return isSame;
+            }
+        }
+        return false
+    }
+    
+}
 
 extension Date{
     public static var calendar: Calendar = Calendar(identifier: .gregorian)
