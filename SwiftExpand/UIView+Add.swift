@@ -341,7 +341,7 @@ extension UIView {
             view.layer.borderWidth = 1.0
             view.layer.borderColor = UIColor.white.cgColor
             let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 15),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
                          
                          ]
             view.setTitleTextAttributes(dic_N, for: .normal)
@@ -352,11 +352,11 @@ extension UIView {
             view.backgroundColor = UIColor.white
             
             let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 15),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
                          ]
             
             let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 18),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
                          ]
             
             view.setTitleTextAttributes(dic_N, for: .normal)
@@ -367,12 +367,12 @@ extension UIView {
             view.backgroundColor = UIColor.line
             
             let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 15),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
                          
                          ]
             
             let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 18),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
                          
                          ]
             
@@ -384,12 +384,12 @@ extension UIView {
             view.backgroundColor = UIColor.white
             
             let dic_N = [
-                NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 15),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
                 
                 ]
             
             let dic_H = [
-                NSAttributedString.Key.font :   UIFont.systemFont(ofSize: 18),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
                 
                 ]
             

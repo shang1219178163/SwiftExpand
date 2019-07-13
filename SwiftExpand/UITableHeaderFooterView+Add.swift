@@ -229,6 +229,7 @@ public class BNFoldSectionModel: NSObject{
     @objc public var headerColor: UIColor = .background
     @objc public var footerColor: UIColor = .background
 
-    @objc public var dataList:[Any] = []
-
+    @objc public var dataList: [Any] = []
+//    @objc public var dataList: NSMutableArray = []
+    @objc public var cellList: NSMutableArray = []
 }
