@@ -28,54 +28,54 @@ extension NSObject{
     }
     
     /// nsRange范围子字符串差异华显示
-    @objc public func attString(_ text: String!, nsRange: NSRange) -> NSAttributedString! {
-        assert(text.count > (nsRange.location + nsRange.length))
-        
-        let attrString = NSMutableAttributedString(string: text)
-        
-        let attDict = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                       NSAttributedString.Key.font:UIFont.systemFont(ofSize: 30),
-                       ]
-        attrString.addAttributes(attDict, range: nsRange)
-        return attrString
-    }
-    
-    /// 特定范围子字符串差异华显示
-    @objc public func attString(_ text: String!, offsetStart: Int, offsetEnd: Int) -> NSAttributedString! {
-        let nsRange = NSRange(location: offsetStart, length: (text.count - offsetStart - offsetEnd))
-        let attrString = attString(text, nsRange: nsRange)
-        return attrString
-    }
-    
-    /// 字符串差异华显示
-    @objc public func attString(_ text: String!, textSub: String) -> NSAttributedString! {
-        let range = text.range(of: textSub)
-        let nsRange = text.nsRange(from: range!)
-        let attrString = attString(text, nsRange: nsRange)
-        return attrString
-    }
-    
-    /// 富文本特殊部分设置
-    @objc public func attrDict(_ font: CGFloat, textColor: UIColor) -> Dictionary<NSAttributedString.Key, Any> {
-        let dic = [NSAttributedString.Key.font:UIFont.systemFont(ofSize:font),
-                   NSAttributedString.Key.foregroundColor: textColor];
-        return dic;
-    }
-    
-    /// 富文本整体设置
-    @objc public func attrParaDict(_ font: CGFloat, textColor: UIColor, alignment: NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
-        let paraStyle = NSMutableParagraphStyle();
-        paraStyle.lineBreakMode = .byCharWrapping;
-        paraStyle.alignment = alignment;
-        
-        let mdic = NSMutableDictionary(dictionary: self.attrDict(font, textColor: textColor));
-        mdic.setObject(paraStyle, forKey:kCTParagraphStyleAttributeName as! NSCopying);
-        return mdic.copy() as! Dictionary<NSAttributedString.Key, Any>;
-    }
+//    @objc public func attString(_ text: String!, nsRange: NSRange) -> NSAttributedString! {
+//        assert(text.count > (nsRange.location + nsRange.length))
+//
+//        let attrString = NSMutableAttributedString(string: text)
+//
+//        let attDict = [NSAttributedString.Key.foregroundColor: UIColor.theme,
+//                       NSAttributedString.Key.font:UIFont.systemFont(ofSize: 30),
+//                       ]
+//        attrString.addAttributes(attDict, range: nsRange)
+//        return attrString
+//    }
+//
+//    /// 特定范围子字符串差异华显示
+//    @objc public func attString(_ text: String!, offsetStart: Int, offsetEnd: Int) -> NSAttributedString! {
+//        let nsRange = NSRange(location: offsetStart, length: (text.count - offsetStart - offsetEnd))
+//        let attrString = attString(text, nsRange: nsRange)
+//        return attrString
+//    }
+//
+//    /// 字符串差异华显示
+//    @objc public func attString(_ text: String!, textSub: String) -> NSAttributedString! {
+//        let range = text.range(of: textSub)
+//        let nsRange = text.nsRange(from: range!)
+//        let attrString = attString(text, nsRange: nsRange)
+//        return attrString
+//    }
+//
+//    /// 富文本特殊部分设置
+//    @objc public func attrDict(_ font: CGFloat, textColor: UIColor) -> Dictionary<NSAttributedString.Key, Any> {
+//        let dic = [NSAttributedString.Key.font:UIFont.systemFont(ofSize:font),
+//                   NSAttributedString.Key.foregroundColor: textColor];
+//        return dic;
+//    }
+//
+//    /// 富文本整体设置
+//    @objc public func attrParaDict(_ font: CGFloat, textColor: UIColor, alignment: NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
+//        let paraStyle = NSMutableParagraphStyle();
+//        paraStyle.lineBreakMode = .byCharWrapping;
+//        paraStyle.alignment = alignment;
+//
+//        let mdic = NSMutableDictionary(dictionary: self.attrDict(font, textColor: textColor));
+//        mdic.setObject(paraStyle, forKey:kCTParagraphStyleAttributeName as! NSCopying);
+//        return mdic.copy() as! Dictionary<NSAttributedString.Key, Any>;
+//    }
     
     ///  富文本只有同字体大小才能计算高度
     @objc public func sizeWithText(_ text: String!, font: CGFloat, width: CGFloat) -> CGSize {
-        let attDic = self.attrParaDict(font, textColor: .black, alignment: .left);
+        let attDic = NSAttributedString.paraDict(font, textColor: .black, alignment: .left);
         let options : NSStringDrawingOptions = NSStringDrawingOptions(rawValue: NSStringDrawingOptions.RawValue(UInt8(NSStringDrawingOptions.usesLineFragmentOrigin.rawValue) | UInt8(NSStringDrawingOptions.usesFontLeading.rawValue)))
         
         var size = text.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options , attributes: attDic, context: nil).size;
@@ -95,25 +95,23 @@ extension NSObject{
         return size
     }
     
-    
-    /// [源]富文本
-    @objc public func getAttString(_ text: String!, textTaps: [String]!, font: CGFloat = 16.0, tapFont: CGFloat = 16.0, color: UIColor = .black, tapColor: UIColor, alignment: NSTextAlignment = .left) -> NSAttributedString {
-        let paraDic = attrParaDict(font, textColor: color, alignment: alignment)
-        let attString = NSMutableAttributedString(string: text, attributes: paraDic)
-        textTaps.forEach { ( textTap: String) in
-            let nsRange = (text as NSString).range(of: textTap)
-            let attDic = self.attrDict(font, textColor: tapColor)
-            attString.addAttributes(attDic, range: nsRange)
-        }
-        return attString
-    }
-    
-    
+//    /// [源]富文本
+//    @objc public func getAttString(_ text: String!, textTaps: [String]!, font: CGFloat = 16.0, tapFont: CGFloat = 16.0, color: UIColor = .black, tapColor: UIColor, alignment: NSTextAlignment = .left) -> NSAttributedString {
+//        let paraDic = attrParaDict(font, textColor: color, alignment: alignment)
+//        let attString = NSMutableAttributedString(string: text, attributes: paraDic)
+//        textTaps.forEach { ( textTap: String) in
+//            let nsRange = (text as NSString).range(of: textTap)
+//            let attDic = self.attrDict(font, textColor: tapColor)
+//            attString.addAttributes(attDic, range: nsRange)
+//        }
+//        return attString
+//    }
+//
     /// 标题前缀差异化显示
-    public func  getAttringByPrefix(_ prefix: String!, content: String!, isMust: Bool) -> NSAttributedString {
+    @objc public func getAttringByPrefix(_ prefix: String!, content: String!, isMust: Bool) -> NSAttributedString {
         let string = content.hasPrefix(prefix) == true ? content : prefix + content
         let colorMust = isMust == true ? UIColor.red : UIColor.clear
-        let attString = getAttString(string, textTaps: [prefix], font: 15, tapFont: 15, color: .black, tapColor: colorMust, alignment: .left)
+        let attString = NSAttributedString.attString(string, textTaps: [prefix], font: 15, tapFont: 15, color: .black, tapColor: colorMust, alignment: .left)
         return attString
     }
     

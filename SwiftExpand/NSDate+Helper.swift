@@ -175,26 +175,15 @@ extension Date{
         return dateStr;
     }
     
-    /// 多少时间之后
-    public func dateAfter(_ interval: TimeInterval) -> Date{
-        let date: Date = addingTimeInterval(interval)
-        return date;
-    }
-    
-    /// 多少天之后
-    public func dateAfter(_ days: Int) -> Date{
+    /// 现在时间上添加天数(负数:之前时间, 正数: 将来时间)
+    public func addingDays(_ days: Int) -> Date{
         let date: Date = addingTimeInterval(TimeInterval(days*24*3600))
         return date;
     }
     
-    /// 多少时间之前
-    public func dateBefore(_ interval: TimeInterval) -> Date{
-        return dateAfter(-interval);
-    }
-    
     /// 多少天之前
-    public func dateBefore(_ interval: TimeInterval, fmt: String = kDateFormat) -> String{
-        let newDate = dateAfter(-interval);
+    public func dateBefore(_ days: Int, fmt: String = kDateFormat) -> String{
+        let newDate = addingDays(-days);
         return newDate.string(formatStr: fmt);
     }
     
