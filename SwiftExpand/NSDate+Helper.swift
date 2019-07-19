@@ -176,13 +176,19 @@ extension Date{
     }
     
     /// 现在时间上添加天数(负数:之前时间, 正数: 将来时间)
+    public func addingDays(_ days: Int, hour: Int, minute: Int, second: Int) -> Date{
+        let date: Date = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
+        return date;
+    }
+    
+    /// 现在时间上添加天数(负数:之前时间, 正数: 将来时间)
     public func addingDays(_ days: Int) -> Date{
         let date: Date = addingTimeInterval(TimeInterval(days*24*3600))
         return date;
     }
     
     /// 多少天之前
-    public func dateBefore(_ days: Int, fmt: String = kDateFormat) -> String{
+    public func addingDays(_ days: Int, fmt: String = kDateFormat) -> String{
         let newDate = addingDays(-days);
         return newDate.string(formatStr: fmt);
     }
@@ -366,4 +372,13 @@ extension Date{
     }
     
     
+}
+
+
+extension NSDate{
+    /// 现在时间上添加天数(负数:之前时间, 正数: 将来时间)
+    @objc public func adding(_ days: Int, hour: Int, minute: Int, second: Int) -> NSDate{
+        let date: NSDate = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
+        return date;
+    }
 }
