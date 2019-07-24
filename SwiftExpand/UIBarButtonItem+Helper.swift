@@ -18,6 +18,13 @@ extension UIBarButtonItem{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
+    
+    /// 按钮是否显示
+    @objc func setHidden(_ hidden: Bool) -> Void {
+        self.isEnabled = !hidden;
+        self.tintColor = !hidden ? UIColor.theme : UIColor.clear;
+    }
+
     //待优化
 //    @objc public static func create(title: String?, image: AnyObject?, tag: NSInteger, action:@escaping (ControlClick)) -> UIBarButtonItem? {
 //        let font = UIFont.systemFont(ofSize: UIFont.buttonFontSize - 1.0)
