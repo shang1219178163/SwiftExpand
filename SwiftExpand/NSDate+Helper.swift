@@ -175,15 +175,17 @@ extension Date{
         return dateStr;
     }
     
-    /// 现在时间上添加天数(负数:之前时间, 正数: 将来时间)
+    /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间)
     public func addingDays(_ days: Int, hour: Int, minute: Int, second: Int) -> Date{
-        let date: Date = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
+//        let date: Date = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
+        let date: Date = (self as NSDate).adding(days, hour: hour, minute: minute, second: second) as Date;
         return date;
     }
     
-    /// 现在时间上添加天数(负数:之前时间, 正数: 将来时间)
-    public func addingDays(_ days: Int) -> Date{
-        let date: Date = addingTimeInterval(TimeInterval(days*24*3600))
+    /// 多少天之后的时间(负数:之前时间, 正数: 将来时间)
+    public func addingDays(_ days: Int) -> Date {
+//        let date: Date = addingTimeInterval(TimeInterval(days*24*3600))
+        let date: Date = (self as NSDate).addingDays(days) as Date;
         return date;
     }
     
@@ -376,9 +378,15 @@ extension Date{
 
 
 extension NSDate{
-    /// 现在时间上添加天数(负数:之前时间, 正数: 将来时间)
-    @objc public func adding(_ days: Int, hour: Int, minute: Int, second: Int) -> NSDate{
+    /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间)
+    @objc public func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> NSDate{
         let date: NSDate = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
+        return date;
+    }
+    
+    /// 现在时间上添加天数(负数:之前时间, 正数: 将来时间)
+    @objc public func addingDays(_ days: Int) -> NSDate {
+        let date = adding(days)
         return date;
     }
 }
