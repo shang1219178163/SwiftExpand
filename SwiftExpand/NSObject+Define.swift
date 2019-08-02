@@ -323,7 +323,7 @@ public func TimeStampFromObj(_ obj: Any) -> String{
         } else {
             print("时间格式不对\(dateStr)")
         }
-        return DateFormatter.IntervalFromDateStr(dateStr, fmt: fmt)
+        return DateFormatter.intervalFromDateStr(dateStr, fmt: fmt)
     }
     return ""
 }
