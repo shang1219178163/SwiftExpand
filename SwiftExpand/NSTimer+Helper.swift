@@ -35,4 +35,18 @@ extension Timer{
     public func pause(_ isPause: Bool) -> Void {
         Timer.pause(self, isPause: isPause)
     }
+    
+    @objc public static func createGCDTimer(_ Interval: TimeInterval, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
+        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
+        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
+        codeTimer.setEventHandler {
+            if repeats == false {
+                codeTimer.cancel()
+            }
+            DispatchQueue.main.async(execute: action)
+        }
+        
+        codeTimer.resume()
+        return codeTimer;
+    }
 }

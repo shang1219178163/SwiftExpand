@@ -90,9 +90,14 @@ extension UIButton{
     }
     
     /// 验证码倒计时显示
-    @objc public static func timeValueChange(_ btn:UIButton, timeOut:Int = 60) {
+    @objc public func GCDTimerStart(_ interval: Int = 60) {
+        UIButton.GCDTimerStart(self, interval)
+    }
+    
+    /// 验证码倒计时显示
+    @objc public static func GCDTimerStart(_ btn: UIButton!, _ interval: Int = 60) {
         
-        var time = timeOut
+        var time = interval
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
         codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))  //此处方法与Swift 3.0 不同
         codeTimer.setEventHandler {
@@ -105,7 +110,7 @@ extension UIButton{
                 }
                 codeTimer.cancel()
                 btn.isEnabled = true
-                btn.setTitle("重新发送", for: .normal)
+                btn.setTitle("发送验证码", for: .normal)
             }
         }
         

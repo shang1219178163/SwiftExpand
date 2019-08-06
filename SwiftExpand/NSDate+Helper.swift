@@ -169,12 +169,17 @@ extension DateFormatter{
 extension NSDate{
     @objc public static var calendar: Calendar = Calendar(identifier: .gregorian)
 
-    /// 转化为日期时间字符串
+    /// NSDate转化为日期时间字符串
     @objc public func toString(_ fmt: String = kDateFormat) -> NSString {
         let dateStr = DateFormatter.stringFromDate(self as Date, fmt: fmt);
         return dateStr as NSString;
     }
-    
+    /// 字符串时间戳转NSDate
+    @objc public static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> NSDate {
+        let date: NSDate = DateFormatter.dateFromString(dateStr, fmt: fmt) as NSDate;
+        return date;
+    }
+
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> NSDate
     @objc public func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> NSDate{
         let date: NSDate = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
@@ -370,11 +375,14 @@ extension NSDate{
 
 
 extension Date{
-
+    /// Date转化为日期时间字符串
     public func toString(_ fmt: String = kDateFormat) -> String {
         return (self as NSDate).toString(fmt) as String;
     }
-    
+    /// 字符串时间戳转Date
+    public static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
+        return NSDate.fromString(dateStr, fmt: fmt) as Date;
+    }
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间)
     public func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date{
         return (self as NSDate).adding(days, hour: hour, minute: minute, second: second) as Date

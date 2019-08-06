@@ -356,3 +356,7 @@ public func JSONStringFromObj(_ obj: Any, options opt: JSONSerialization.Writing
     return string;
 }
 
+/// 两个Int(+-*/)
+public func resultByOpt(_ num1: Int, _ num2: Int, result: (Int, Int) -> Int) -> Int {
+    return result(num1, num2);
+}
