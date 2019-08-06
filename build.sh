@@ -96,10 +96,3 @@ else
     echo_red "文件不存在：$fileNameAll"
 fi 
  
-
-# if [ -f "$fileNameAll" ]
-# then
-#     echo "$fileNameAll found."
-# else
-#     echo "$fileNameAll not found."
-# fi
