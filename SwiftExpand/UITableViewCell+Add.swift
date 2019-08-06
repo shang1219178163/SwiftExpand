@@ -89,6 +89,7 @@ extension UITableViewCell{
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.font = UIFont.systemFont(ofSize: 15);
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -110,6 +111,7 @@ extension UITableViewCell{
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.font = UIFont.systemFont(ofSize: 15);
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -133,6 +135,7 @@ extension UITableViewCell{
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.font = UIFont.systemFont(ofSize: 15);
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -154,6 +157,7 @@ extension UITableViewCell{
             if obj == nil {
                 obj = UIButton(type: .custom);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.titleLabel?.font = UIFont.systemFont(ofSize: 15);
                 obj!.titleLabel?.adjustsFontSizeToFitWidth = true;
                 obj!.titleLabel?.minimumScaleFactor = 1.0;
                 obj!.isExclusiveTouch = true;
@@ -174,6 +178,7 @@ extension UITableViewCell{
             if obj == nil {
                 obj = UITextField(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.font = UIFont.systemFont(ofSize: 15);
                 obj!.textAlignment = .left;
                 obj!.contentVerticalAlignment = .center;
                 obj!.autocapitalizationType = .none;
@@ -197,6 +202,7 @@ extension UITableViewCell{
             if obj == nil {
                 obj = UITextView(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.font = UIFont.systemFont(ofSize: 15);
                 obj!.textAlignment = .left;
                 obj!.autocapitalizationType = .none;
                 obj!.autocorrectionType = .no;
