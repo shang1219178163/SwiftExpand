@@ -74,7 +74,6 @@ testLogColor(){
 # done
 
 filepath=$(cd "$(dirname "$0")"; pwd)
-echo_blue ${filepath}
 echo_blue "文件目录: ${filepath}"
 
 fileName=${filepath##*/}
