@@ -93,9 +93,8 @@ then
     gitUpdatePod ${fileNameAll};
 
 else
-    echo_bred "--- 文件不存在：${fileNameAll} ---"
+    echo "--- 文件不存在：${fileNameAll} ---"
 fi 
-
  
 
 
