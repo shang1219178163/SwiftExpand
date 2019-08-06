@@ -83,18 +83,24 @@ fileName=${filepath##*/}
 fileNameAll="${fileName}.podspec"
 echo_blue "查找文件: ${fileNameAll}"
 
-result=$(echo ${fileNameAll} | grep ".podspec")
-if [[ "$result" != "" ]]
+# result=$(echo ${fileNameAll} | grep ".podspec")
+# if [[ "$result" != "" ]]
+if [ -f "$fileNameAll" ]
 then
     # echo_green "--- 存在：${fileNameAll} ---"
     echo_green "--- date: $(datetime) ---"
 #    testLogColor;
 
-    gitUpdatePod ${fileNameAll};
+    gitUpdatePod $fileNameAll;
 
 else
-    echo "--- 文件不存在：${fileNameAll} ---"
+    echo "--- 文件不存在：$fileNameAll ---"
 fi 
  
 
-
+# if [ -f "$fileNameAll" ]
+# then
+#     echo "$fileNameAll found."
+# else
+#     echo "$fileNameAll not found."
+# fi
