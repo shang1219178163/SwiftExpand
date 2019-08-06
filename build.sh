@@ -74,12 +74,12 @@ testLogColor(){
 # done
 
 filepath=$(cd "$(dirname "$0")"; pwd)
-echo ${filepath}
+echo_blue ${filepath}
 fileName=${filepath##*/}
-echo "fileName_${fileName}"
+# echo_blue "fileName_${fileName}"
 
 fileNameAll="${fileName}.podspec"
-echo "fileNameAll_${fileNameAll}"
+echo_blue "--- 查找文件: ${fileNameAll} ---"
 
 result=$(echo ${fileNameAll} | grep ".podspec")
 if [[ "$result" != "" ]]
@@ -91,7 +91,7 @@ then
     gitUpdatePod ${fileNameAll};
 
 else
-    echo_bred "--- 不存在：${fileNameAll} ---"
+    echo_bred "--- 文件不存在：${fileNameAll} ---"
 fi 
 
  
