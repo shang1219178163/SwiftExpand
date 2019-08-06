@@ -104,12 +104,12 @@ extension UIButton{
             
             time -= 1
             DispatchQueue.main.async {
+                btn.isEnabled = time <= 0;
                 if time > 0 {
                     btn.setTitle("剩余\(time)s", for: .normal)
                     return;
                 }
                 codeTimer.cancel()
-                btn.isEnabled = true
                 btn.setTitle("发送验证码", for: .normal)
             }
         }

@@ -209,7 +209,8 @@ extension UIView {
         case 5://主题色字体,边框
             view.setTitleColor( .theme, for: .normal);
             view.layer.borderColor = UIColor.theme.cgColor;
-            
+            view.layer.borderWidth = kW_LayerBorder;
+
         default://黑色字体,白色背景
             view.setTitleColor( .black, for: .normal)
             
