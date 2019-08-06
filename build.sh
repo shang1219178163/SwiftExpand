@@ -81,7 +81,7 @@ fileName=${filepath##*/}
 # echo_blue "fileName_${fileName}"
 
 fileNameAll="${fileName}.podspec"
-echo_blue "--- 查找文件: ${fileNameAll} ---"
+echo_blue "查找文件: ${fileNameAll}"
 
 result=$(echo ${fileNameAll} | grep ".podspec")
 if [[ "$result" != "" ]]
