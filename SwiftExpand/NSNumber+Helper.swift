@@ -31,8 +31,21 @@ public let kNumIdentify_exponentSymbol = "指数符号";
 //MARK: -NumberFormatter
 extension NumberFormatter{
     
+    @objc static var styleDic: [String: Any] {
+        get{
+            let dic: [String: Any] = [
+                kNumIdentify: NumberFormatter.Style.none,
+                kNumIdentify_decimal: NumberFormatter.Style.decimal,
+                kNumIdentify_percent: NumberFormatter.Style.percent,
+                kNumIdentify_currency: NumberFormatter.Style.currency,
+                kNumIdentify_scientific: NumberFormatter.Style.scientific,
+            ];
+            return dic
+        }
+    }
+
+    /// 根据定义的关键字生成/获取对应的NumberFormatter,避免多次创建
     @objc public static func identify(_ identify: String = kNumIdentify) -> NumberFormatter {
-        
         let dic = Thread.current.threadDictionary;
         if dic.object(forKey: identify) != nil {
             return dic.object(forKey: identify) as! NumberFormatter;
@@ -40,14 +53,30 @@ extension NumberFormatter{
         
         let fmt = NumberFormatter();
         fmt.locale = .current;
+        fmt.minimumFractionDigits = 2
+        fmt.maximumFractionDigits = 2
+        fmt.roundingMode = .up
+        fmt.numberStyle = .none
+        if styleDic.keys.contains(identify) {
+            fmt.numberStyle = styleDic[identify] as! NumberFormatter.Style
+        }
+        
         dic.setObject(fmt, forKey: identify as NSCopying)
         return fmt;
     }
+
+    /// 保留小数,默认四舍五入
+    @objc public static func fractionDigits(obj: Any?, min: Int = 2, max: Int = 2, roundingMode: NumberFormatter.RoundingMode = .up) -> String {
+        let formatter = NumberFormatter.identify() ;
+        formatter.minimumFractionDigits = min
+        formatter.maximumFractionDigits = max
+        formatter.roundingMode = roundingMode
+        return formatter.string(for: obj) ?? ""
+    }
     
-    @objc public static func format(_ identify: String, format: String = kNumFormat) -> NumberFormatter {
-        let fmt = NumberFormatter.identify(identify);
+    @objc public static func positiveFormat(_ format: String = kNumFormat) -> NumberFormatter {
+        let fmt = NumberFormatter.identify();
         fmt.positiveFormat = format;
-        fmt.numberStyle = .none;
         return fmt;
     }
     
@@ -67,15 +96,24 @@ extension NumberFormatter{
         }
         return ""
     }
+   
 }
 
 //MARK: -Number
 extension NSNumber{
     
-//    @objc public func string() -> String{
-//        return "\(self.classForCoder)"    
-//    }
+    var decNumer: NSDecimalNumber {
+        get{
+            return NSDecimalNumber(decimal: self.decimalValue)
+        }
+    }
     
+    /// 获取对应的字符串
+    @objc public func to_string(_ max: Int = 2) -> String{
+        let result = NumberFormatter.fractionDigits(obj: self, min: 2, max: max, roundingMode: .up)
+        return result
+    }
+  
 }
 
 
