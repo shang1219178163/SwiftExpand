@@ -26,6 +26,13 @@ extension UIViewController{
         }
     }
     
+    /// 是否正在展示
+    @objc var isCurrentVC: Bool {
+        get{
+            return self.isViewLoaded == true && (self.view!.window != nil)
+        }
+    }
+    
     /// 重置布局
     @objc func setupExtendedLayout() -> Void {
         edgesForExtendedLayout = [];

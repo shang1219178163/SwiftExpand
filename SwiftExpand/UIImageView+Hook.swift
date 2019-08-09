@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIImageView{
-    public class func initializeMethod() {
+    @objc public class func initializeMethod() {
         if self == UIImageView.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果

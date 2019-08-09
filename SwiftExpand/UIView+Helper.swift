@@ -111,6 +111,24 @@ extension UIView{
     }
    
     //MARK: -funtions
+    /// text是否有效
+    @objc public func validText() -> Bool {
+        assert(isKind(of: UITextView.classForCoder())
+            || isKind(of: UITextField.classForCoder())
+            || isKind(of: UILabel.classForCoder()))
+        
+        var value = self.value(forKey: "text") as? String
+        if value == nil {
+            return false;
+        }
+        value = value!.replacingOccurrences(of: " ", with: "")
+        
+        let textNulls = ["", "nil", "null",  "NULL"];
+        if textNulls.contains(value!) {
+            return false
+        }
+        return true;
+    }
 
     @objc public func autoresizeMask() -> Void {
         self.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)

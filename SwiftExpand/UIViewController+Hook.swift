@@ -10,7 +10,7 @@ import UIKit
 
 extension UIViewController{
     
-    public class func initializeMethod() {
+    @objc public class func initializeMethod() {
         // Make sure This isn't a subclass of UIViewController, So that It applies to all UIViewController childs
 //        return;
         if self == UIViewController.self {

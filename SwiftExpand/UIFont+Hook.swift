@@ -6,10 +6,19 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
+let kPingFang           = "PingFang SC";
+let kPingFangMedium     = "PingFangSC-Medium";
+let kPingFangSemibold   = "PingFangSC-Semibold";
+let kPingFangLight      = "PingFangSC-Light";
+let kPingFangUltralight = "PingFangSC-Ultralight";
+let kPingFangRegular    = "PingFangSC-Regular";
+let kPingFangThin       = "PingFangSC-Thin";
+
+
 import UIKit
 
 extension UIFont{
-    public class func initializeMethod() {
+    @objc public class func initializeMethod() {
         if self == UIFont.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
@@ -24,7 +33,7 @@ extension UIFont{
     }
     
     @objc public class func swz_systemFont(ofSize fontSize: CGFloat) -> UIFont{        
-        return UIFont(name: "PingFangSC-Light", size: fontSize)!
+        return UIFont(name: kPingFangRegular, size: fontSize)!
     }
 
 }
