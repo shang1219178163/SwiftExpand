@@ -59,15 +59,15 @@ extension String{
     }
     
     /// 大于version
-    func isNewer(version: String) -> Bool {
+    public func isNewer(version: String) -> Bool {
         return (self as NSString).isNewer(version:version)
     }
     /// 等于version
-    func isSame(version: String) -> Bool {
+    public func isSame(version: String) -> Bool {
         return (self as NSString).isSame(version:version)
     }
     /// 小于version
-    func isOlder(version: String) -> Bool {
+    public func isOlder(version: String) -> Bool {
         return (self as NSString).isOlder(version:version)
     }
     
@@ -160,32 +160,55 @@ extension NSString{
         return strSelf.integerValue > string.integerValue;
     }
     
-    /// 读取本地json文件
-    @objc public func jsonFileToJSONString() -> String {
-        return (self as NSString).jsonFileToJSONString();
-    }
-    
     /// 大于version
     @objc func isNewer(version: String) -> Bool {
-        return (self as NSString).isNewer(version:version)
+        return compare(version, options: .numeric) == .orderedDescending
     }
     /// 等于version
     @objc func isSame(version: String) -> Bool {
-        return (self as NSString).isSame(version:version)
+        return compare(version, options: .numeric) == .orderedSame
     }
     /// 小于version
     @objc func isOlder(version: String) -> Bool {
-        return (self as NSString).isOlder(version:version)
+        return compare(version, options: .numeric) == .orderedAscending
     }
     
     /// 字符串首位加*
     @objc public func toAsterisk() -> NSAttributedString{
-        return (self as NSString).toAsterisk()
+        let isMust = self.contains(kAsterisk)
+        return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, isMust: isMust)
+    }
+    
+    /// 读取本地json文件
+    @objc public func jsonFileToJSONString() -> String {
+        assert(self.contains(".geojson") == true);
+        
+        if self.contains(".geojson") == true {
+            let array: Array = self.components(separatedBy: ".");
+            let path = Bundle.main.path(forResource: array.first, ofType: array.last);
+            if path == nil {
+                return "";
+            }
+            if let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path!)) {
+                
+                if let jsonObj = try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions(rawValue: 0)) {
+                    let jsonString = ((jsonObj as! NSDictionary).jsonValue()!).removingPercentEncoding!;
+                    print(jsonString);
+                    return jsonString;
+                }
+                return "";
+            }
+            return "";
+        }
+        return "";
     }
     
     /// 复制到剪切板
     @objc public func copyToPasteboard(_ showTips: Bool) -> Void {
-        (self as NSString).copyToPasteboard(showTips)
+        UIPasteboard.general.string = self as String
+        if showTips == true {
+            let _ = UIAlertController.showAlert("提示", placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
+        }
     }
     
     /// isEnd 为真,秒追加为:59,为假 :00
