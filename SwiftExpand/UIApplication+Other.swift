@@ -55,7 +55,7 @@ extension UIApplication{
     }
     
     /// 版本升级
-    public static func checkVersion(_ appStoreID: String) -> Bool {
+    @objc public static func updateVersion(appStoreID: String, isForce: Bool = false) -> Bool {
         var isUpdate = false;
         
 //        let path = "http://itunes.apple.com/cn/lookup?id=\(appStoreID)"
@@ -88,12 +88,13 @@ extension UIApplication{
             }
             
             let releaseNotes = dicInfo["releaseNotes"] ?? "";
-//            print(dicInfo);
+            //            print(dicInfo);
             if let appStoreVer = dicInfo["version"] as? String {
                 isUpdate = appStoreVer.compare(UIApplication.appVer, options: .numeric, range: nil, locale: nil) == .orderedDescending
                 if isUpdate == true {
                     DispatchQueue.main.async {
-                        let alertController = UIAlertController.showAlert("新版本 v\(appStoreVer)", msg: releaseNotes as! String, actionTitles: [kActionTitle_Update, kActionTitle_Cancell], handler: { (controller: UIAlertController, action: UIAlertAction) in
+                        let titles = isForce == false ? [kActionTitle_Update, kActionTitle_Cancell] : [kActionTitle_Update];
+                        let alertController = UIAlertController.createAlert("新版本 v\(appStoreVer)", msg: "\n\(releaseNotes)", actionTitles: titles, handler: { (controller: UIAlertController, action: UIAlertAction) in
                             if action.title == kActionTitle_Update {
                                 //去升级
                                 UIApplication.openURL(UIApplication.appUrlWithID(appStoreID))
@@ -104,7 +105,9 @@ extension UIApplication{
                         let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
                         alertController.setTitleColor(UIColor.theme)
                         alertController.setMessageParaStyle(paraStyle)
-//                        alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
+                        //                        alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
+                        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+                        
                     }
                 }
             }

@@ -55,97 +55,30 @@ extension String{
     
     /// 读取本地json文件
     public func jsonFileToJSONString() -> String {
-        assert(self.contains(".geojson") == true);
-        
-        if self.contains(".geojson") == true {
-            let array: Array = self.components(separatedBy: ".");
-            let path = Bundle.main.path(forResource: array.first, ofType: array.last);
-            if path == nil {
-                return "";
-            }
-            if let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path!)) {
-                
-                if let jsonObj = try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions(rawValue: 0)) {
-                    let jsonString = ((jsonObj as! NSDictionary).jsonValue()!).removingPercentEncoding!;
-                    print(jsonString);
-                    return jsonString;
-                }
-                return "";
-            }
-            return "";
-        }
-        return "";
+        return (self as NSString).jsonFileToJSONString();
     }
     
-    public static func timeNow() -> String {
-        let fmt = DateFormatter.format(kDateFormat)
-        let dateStr = fmt.string(from: Date());
-        return dateStr;
-        
+    /// 大于version
+    func isNewer(version: String) -> Bool {
+        return (self as NSString).isNewer(version:version)
     }
-    
-    /// 时间转时间戳
-    public func toTimeStamp() -> String {
-        let dateStr = self;
-        
-        var fmtStr = kDateFormat;
-        if dateStr.contains("-") && dateStr.contains(":") {
-            fmtStr = kDateFormat;
-            
-        }
-        else if dateStr.contains("-") && !dateStr.contains(":") {
-            fmtStr = kDateFormat_day;
-            
-        }
-        else if !dateStr.contains("-") && !dateStr.contains(":") {
-            fmtStr = kDateFormat_two;
-            
-        }
-        else{
-            DDLog("<\(dateStr)>时间格式不对");
-            
-        }
-        
-        let fmt = DateFormatter.format(fmtStr);
-        let date = fmt.date(from: dateStr);
-        
-        let intervl: Double = (date?.timeIntervalSince1970)!;
-        let doubleInt = Int(intervl);
-        let timeStamp = String(doubleInt);
-        return timeStamp;
+    /// 等于version
+    func isSame(version: String) -> Bool {
+        return (self as NSString).isSame(version:version)
     }
-    
-    
-    /// 字符串本身大于string
-    public func isCompareMore(_ string: String) -> Bool {
-        return self.compare(string, options: .numeric, range: nil, locale: nil) == .orderedDescending
-    }
-    
-    /// 字符串本身大于string
-    public func isCompare(_ string: String) -> Bool {
-        if self == "" {
-            return false
-        }
-        
-        var strSelf = self
-        if strSelf.contains(".") {
-            strSelf = strSelf.replacingOccurrences(of: ".", with: "")
-        }
-        return strSelf.intValue() > string.intValue()
+    /// 小于version
+    func isOlder(version: String) -> Bool {
+        return (self as NSString).isOlder(version:version)
     }
     
     /// 字符串首位加*
     public func toAsterisk() -> NSAttributedString{
-        let isMust = self.contains(kAsterisk)
-        return (self as NSString).getAttringByPrefix(kAsterisk, content: self, isMust: isMust)
+        return (self as NSString).toAsterisk()
     }
     
     /// 复制到剪切板
     public func copyToPasteboard(_ showTips: Bool) -> Void {
-        UIPasteboard.general.string = self
-        if showTips == true {
-            let _ = UIAlertController.showAlert("提示", placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
-        }
+        (self as NSString).copyToPasteboard(showTips)
     }
     
     subscript (i: Int) -> Character {
@@ -225,5 +158,50 @@ extension NSString{
             strSelf = strSelf.replacingOccurrences(of: ".", with: "") as NSString
         }
         return strSelf.integerValue > string.integerValue;
+    }
+    
+    /// 读取本地json文件
+    @objc public func jsonFileToJSONString() -> String {
+        return (self as NSString).jsonFileToJSONString();
+    }
+    
+    /// 大于version
+    @objc func isNewer(version: String) -> Bool {
+        return (self as NSString).isNewer(version:version)
+    }
+    /// 等于version
+    @objc func isSame(version: String) -> Bool {
+        return (self as NSString).isSame(version:version)
+    }
+    /// 小于version
+    @objc func isOlder(version: String) -> Bool {
+        return (self as NSString).isOlder(version:version)
+    }
+    
+    /// 字符串首位加*
+    @objc public func toAsterisk() -> NSAttributedString{
+        return (self as NSString).toAsterisk()
+    }
+    
+    /// 复制到剪切板
+    @objc public func copyToPasteboard(_ showTips: Bool) -> Void {
+        (self as NSString).copyToPasteboard(showTips)
+    }
+    
+    /// isEnd 为真,秒追加为:59,为假 :00
+    @objc public static func dateTime(_ time: NSString, isEnd: Bool) -> NSString {
+        var tmp: NSString = time;
+        let sufix = isEnd == true ? ":59" : ":00";
+        switch time.length {
+        case 16:
+            tmp = time.appending(sufix) as NSString
+            
+        case 19:
+            tmp = time.replacingCharacters(in: NSRange(location: time.length - sufix.count, length: sufix.count), with: sufix) as NSString
+            
+        default:
+            break
+        }
+        return tmp;
     }
 }

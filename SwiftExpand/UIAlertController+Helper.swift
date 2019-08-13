@@ -105,7 +105,9 @@ extension UIAlertController{
         }
 
         let attrMsg = NSMutableAttributedString(string: message)
-        attrMsg.addAttributes([NSAttributedString.Key.paragraphStyle: paraStyle], range: NSRange(location: 0, length: message.count))
+        let attDic = [NSAttributedString.Key.paragraphStyle: paraStyle,
+                      NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13),]
+        attrMsg.addAttributes(attDic, range: NSRange(location: 0, length: message.count))
         setValue(attrMsg, forKey: kAlertCtlrMessage)
     }
     
