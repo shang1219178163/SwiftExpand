@@ -56,8 +56,8 @@ extension UIAlertController{
     }
     
     /// 创建系统sheetView
-    @objc public static func createSheet(_ title: String?, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
-        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+    @objc public static func createSheet(_ title: String?, msg: String? = nil, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .actionSheet)
         
         items?.forEach({ (title:String) in
             let style: UIAlertAction.Style = title == kActionTitle_Cancell ? .cancel : .default
@@ -81,8 +81,8 @@ extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc public static func showSheet(_ title: String?, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
-        let alertController = UIAlertController.createSheet(title, items: items, handler: handler)
+    @objc public static func showSheet(_ title: String?, msg: String? = nil, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        let alertController = UIAlertController.createSheet(title, msg:msg, items: items, handler: handler)
         UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
         return alertController
     }
