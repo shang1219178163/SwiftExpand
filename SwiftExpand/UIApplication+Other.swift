@@ -7,7 +7,16 @@
 
 import UIKit
 import UserNotifications
+import Photos
+import AVFoundation
+import Speech
+import MediaPlayer
+import CoreBluetooth
+import CoreLocation
+import EventKit
+import Contacts
 
+@available(iOS 9.3, *)
 extension UIApplication{
 
     /// 网络状态是否可用
@@ -15,12 +24,146 @@ extension UIApplication{
         let data = NSData(contentsOf: URL(string: "https://www.baidu.com/")!)
         return (data != nil)
     }
+    /// 消息推送是否可用
+    @objc public static func hasRightOfPush() -> Bool {
+        let notOpen = UIApplication.shared.currentUserNotificationSettings?.types == UIUserNotificationType(rawValue: 0)
+        return !notOpen;
+    }
+    /// 用户相册是否可用
+    @objc public static func hasRightOfPhotoLibrary() -> Bool {
+        var isHasRight = false;
+        
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status {
+            case .authorized:
+                isHasRight = true;
+          
+            default:
+                isHasRight = false;
+            }
+        }
+        return isHasRight;
+    }
+    
+    @available(iOS 9.3, *)
+    /// 媒体库是否可用
+    @objc public static func hasRightOfMediaLibrary() -> Bool {
+        var isHasRight = false;
+        
+        MPMediaLibrary.requestAuthorization { (status) in
+            switch status {
+            case .authorized:
+                isHasRight = true;
+                
+            default:
+                isHasRight = false;
+            }
+        }
+        return isHasRight;
+    }
+    /// 是否有音视频捕捉权限
+    @objc public static func hasRightOfAVCapture(_ mediaType: AVMediaType = AVMediaType.video) -> Bool {
+        var isHasRight = false;
+
+//        let device = AVCaptureDevice.devices(for: mediaType)
+        let status = AVCaptureDevice.authorizationStatus(for: mediaType);
+        switch status {
+        case .authorized:
+            isHasRight = true;
+            
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: mediaType) { (granted) in
+                isHasRight = granted;
+            }
+            
+        default:
+            isHasRight = false;
+        }
+        return isHasRight;
+    }
+    /// 是否已经打开蓝牙捕捉
+    @objc public static func hasOpenOfBluetooth() -> Bool {
+        var isHasRight = false;
+        let centralManager = CBCentralManager();
+        switch centralManager.state {
+        case .poweredOn:
+            isHasRight = true;
+            
+        default:
+            isHasRight = false;
+        }
+        return isHasRight;
+    }
+    
+    /// 媒体库是否可用
+    @available(iOS 10.0, *)
+    @objc public static func hasRightOfSpeechRecognizer() -> Bool {
+        var isHasRight = false;
+        
+        SFSpeechRecognizer.requestAuthorization { (status) in
+            switch status {
+            case .authorized:
+                isHasRight = true;
+                
+            default:
+                isHasRight = false;
+            }
+        }
+        return isHasRight;
+    }
+    
+    /// 日历是否可用
+    @available(iOS 10.0, *)
+    @objc public static func hasRightOfEventStore(_ entityType: EKEntityType = EKEntityType.reminder) -> Bool {
+        var isHasRight = false;
+        
+        let store = EKEventStore()
+        store.requestAccess(to: entityType) { (granted, error) in
+            if granted == true {
+                isHasRight = granted;
+
+            } else {
+                let status = EKEventStore.authorizationStatus(for: .event);
+                switch status {
+                case .authorized:
+                    isHasRight = true;
+                    
+                default:
+                    isHasRight = false;
+                }
+            }
+        }
+        return isHasRight;
+    }
+    
+    /// 通讯录是否可用
+    @available(iOS 10.0, *)
+    @objc public static func hasRightOfContactStore(_ entityType: CNEntityType = CNEntityType.contacts) -> Bool {
+        var isHasRight = false;
+        
+        let store = CNContactStore()
+        store.requestAccess(for: entityType) { (granted, error) in
+            if granted == true {
+                isHasRight = granted;
+                
+            } else {
+                let status = EKEventStore.authorizationStatus(for: .event);
+                switch status {
+                case .authorized:
+                    isHasRight = true;
+                    
+                default:
+                    isHasRight = false;
+                }
+            }
+        }
+        return isHasRight;
+    }
     
     /**
      注册APNs远程推送
      */
-    public static func registerAPNsWithDelegate(_ delegate: Any) -> Void {
-        
+    @objc public static func registerAPNsWithDelegate(_ delegate: Any) -> Void {
         if #available(iOS 10.0, *) {
             let options = UNAuthorizationOptions(rawValue : UNAuthorizationOptions.alert.rawValue | UNAuthorizationOptions.badge.rawValue | UNAuthorizationOptions.sound.rawValue)
             let center = UNUserNotificationCenter.current()
@@ -42,14 +185,42 @@ extension UIApplication{
         }
     }
     
+    @available(iOS 10.0, *)
+    func addLocalUserNoti(trigger: AnyObject, content: UNMutableNotificationContent, identifier: String, notiCategories: AnyObject, repeats: Bool = true, handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) -> Void {
+        
+        var notiTrigger: UNNotificationTrigger?
+        if let date = trigger as? NSDate {
+            var interval = date.timeIntervalSince1970 - NSDate().timeIntervalSince1970;
+            interval = interval < 0 ? 1 : interval;
+            
+            notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: repeats)
+        } else if let components = trigger as? DateComponents {
+            notiTrigger = UNCalendarNotificationTrigger(dateMatching: components as DateComponents, repeats: repeats)
+            
+        } else if let region = trigger as? CLCircularRegion {
+            notiTrigger = UNLocationNotificationTrigger(region: region, repeats: repeats)
+            
+        }
+        
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: notiTrigger)
+        let center = UNUserNotificationCenter.current()
+        
+        center.add(request) { (error) in
+            if error == nil {
+                return;
+            }
+            DDLog("推送已添加成功");
+        }
+    }
+    
     /// app商店链接
-    public static func appUrlWithID(_ appStoreID: String) -> String {
+    @objc public static func appUrlWithID(_ appStoreID: String) -> String {
         let appStoreUrl = "itms-apps://itunes.apple.com/app/id\(appStoreID)?mt=8"
         return appStoreUrl
     }
     
     /// app详情链接
-    public static func appDetailUrlWithID(_ appStoreID: String) -> String {
+    @objc public static func appDetailUrlWithID(_ appStoreID: String) -> String {
         let detailUrl = "http://itunes.apple.com/cn/lookup?id=\(appStoreID)"
         return detailUrl
     }
