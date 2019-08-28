@@ -9,9 +9,9 @@
 import UIKit
 import WebKit
 
-extension WKWebView{
+public extension WKWebView{
     /// WKWebViewConfiguration默认配置
-    @objc public static var confiDefault: WKWebViewConfiguration {
+    @objc static var confiDefault: WKWebViewConfiguration {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? WKWebViewConfiguration;
             if obj == nil {
@@ -33,13 +33,13 @@ extension WKWebView{
     
     
     /// JS注入
-    @objc public func addUserScript(_ source: String) -> Void {
+    @objc func addUserScript(_ source: String) -> Void {
         let userScript = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         configuration.userContentController.addUserScript(userScript)
     }
 
     /// 字体改变
-    @objc public static func javaScriptFromTextSizeRatio(_ ratio: CGFloat) -> String {
+    @objc static func javaScriptFromTextSizeRatio(_ ratio: CGFloat) -> String {
         let result = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(ratio)%'"
         return result
     }

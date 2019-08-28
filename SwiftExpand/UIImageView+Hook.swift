@@ -7,8 +7,8 @@
 
 import UIKit
 
-extension UIImageView{
-    @objc public class func initializeMethod() {
+public extension UIImageView{
+    @objc class func initializeMethod() {
         if self == UIImageView.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
@@ -22,7 +22,7 @@ extension UIImageView{
         }
     }
     
-    @objc public func swz_tintColor(_ color: UIColor!) -> Void {
+    @objc private func swz_tintColor(_ color: UIColor!) -> Void {
         //需要注入的代码写在此处
         self.swz_tintColor(color)
         

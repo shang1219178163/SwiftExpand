@@ -7,10 +7,10 @@
 
 import UIKit
 
-extension UISegmentedControl{
+public extension UISegmentedControl{
     
     /// 控件items
-    @objc public var itemList: Array<String> {
+    @objc var itemList: Array<String> {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Array<String>
         }
@@ -30,39 +30,9 @@ extension UISegmentedControl{
         removeAllSegments()
         for e in itemList.enumerated() {
             insertSegment(withTitle: e.element, at: e.offset, animated: false)
-
         }
         
         selectedSegmentIndex = 0
     }
-//    /// 配置新item数组
-//    private func p_handleSegmentItems(_ itemList: Array<String>) -> Void{
-//        if itemList.count == 0 {
-//            return
-//        }
-//
-//        if itemList.count <= numberOfSegments {
-//            for e in itemList.enumerated() {
-//                if e.offset < itemList.count {
-//                    setTitle(e.element, forSegmentAt: e.offset)
-//
-//                } else {
-//                    removeSegment(at: e.offset, animated: false)
-//
-//                }
-//            }
-//        } else {
-//            for e in itemList.enumerated() {
-//                if e.offset < numberOfSegments {
-//                    setTitle(e.element, forSegmentAt: e.offset)
-//
-//                } else {
-//                    insertSegment(withTitle: e.element, at: e.offset, animated: false)
-//
-//                }
-//            }
-//        }
-//        selectedSegmentIndex = 0
-//    }
     
 }

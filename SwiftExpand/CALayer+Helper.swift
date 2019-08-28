@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension CALayer{
+public extension CALayer{
     
-    @objc public static func create(_ rect: CGRect, contents: Any?) -> CALayer {
+    @objc static func create(_ rect: CGRect, contents: Any?) -> CALayer {
         let layer = CALayer()
         layer.frame = rect
         layer.contents = contents

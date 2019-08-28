@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension UIApplication{
+public extension UIApplication{
     
-    @objc public static var appName: String {
+    @objc static var appName: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
 //            let name: String = infoDic!["CFBundleDisplayName"] as? String ?? infoDic!["CFBundleName"] as! String;
@@ -19,7 +19,7 @@ extension UIApplication{
         }
     }
     
-    @objc public static var appIcon: UIImage {
+    @objc static var appIcon: UIImage {
         get {
             let infoDic: AnyObject = Bundle.main.infoDictionary as AnyObject;
             let iconFiles:Array<Any> = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as! Array<Any>;
@@ -28,46 +28,46 @@ extension UIApplication{
         }
     }
     
-    @objc public static var appVer: String {
+    @objc static var appVer: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
             return infoDic!["CFBundleShortVersionString"] as! String;
         }
     }
     
-    @objc public static var appBuild: String {
+    @objc static var appBuild: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
             return infoDic!["CFBundleVersion"] as! String;
         }
     }
     
-    @objc public static var phoneSystemVer: String {
+    @objc static var phoneSystemVer: String {
         get {
             return UIDevice.current.systemVersion;
         }
     }
     
-    @objc public static var phoneSystemName: String {
+    @objc static var phoneSystemName: String {
         get {
             return UIDevice.current.systemName;
         }
     }
     
-    @objc public static var phoneName: String {
+    @objc static var phoneName: String {
         get {
             return UIDevice.current.name;
         }
     }
     
-    public static var iphoneType: String {
+    @objc static var iphoneType: String {
         get {
             return UIApplication.getIphoneType();
         }
     }
     
     /// 获取手机型号
-    public static func getIphoneType() ->String {
+    @objc static func getIphoneType() ->String {
         var systemInfo = utsname()
         uname(&systemInfo)
         
@@ -125,7 +125,7 @@ extension UIApplication{
         }
     }
     
-    @objc public static var mainWindow: UIWindow {
+    @objc static var mainWindow: UIWindow {
         get {
             var window = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIWindow;
             if window == nil {
@@ -142,7 +142,7 @@ extension UIApplication{
         }
     }
     
-//    @objc public static var mainWindow: UIWindow {
+//    @objc static var mainWindow: UIWindow {
 //        get {
 //            let app = UIApplication.shared.delegate as! AppDelegate;
 //            if app.window != nil {
@@ -162,7 +162,7 @@ extension UIApplication{
 //        }
 //    }
     
-    @objc public static var rootController: UIViewController {
+    @objc static var rootController: UIViewController {
         get {
             return UIApplication.mainWindow.rootViewController!;
         }
@@ -171,7 +171,7 @@ extension UIApplication{
         }
     }
     
-    @objc public static var tabBarController: UITabBarController? {
+    @objc static var tabBarController: UITabBarController? {
         get {
             var tabBarVC = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITabBarController;
             if tabBarVC == nil {
@@ -187,12 +187,12 @@ extension UIApplication{
     }
     
     //MARK: func
-    public static func setupRootController(_ window:inout UIWindow,_ controller: AnyObject,_ isAdjust: Bool) -> Void {
+    static func setupRootController(_ window:inout UIWindow,_ controller: AnyObject,_ isAdjust: Bool) -> Void {
         window = UIApplication.mainWindow;
         UIApplication.setupRootController(controller, isAdjust);
     }
     
-    @objc public static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool) -> Void {
+    @objc static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool) -> Void {
         var contr = controller;
         if controller is String {
             contr = UICtrFromString(controller as! String);
@@ -210,12 +210,12 @@ extension UIApplication{
         }
     }
     
-    @objc public static func setupRootController(_ controller: AnyObject) -> Void {
+    @objc static func setupRootController(_ controller: AnyObject) -> Void {
         return UIApplication.setupRootController(controller, true);
     }
     
     ///默认风格是白色导航栏黑色标题
-    @objc public static func setupAppearanceDefault(_ isDefault: Bool = true) -> Void {
+    @objc static func setupAppearanceDefault(_ isDefault: Bool = true) -> Void {
         let barTintColor: UIColor = isDefault ? UIColor.white : UIColor.theme
         setupAppearanceNavigationBar(barTintColor)
         setupAppearanceScrollView()
@@ -224,7 +224,7 @@ extension UIApplication{
     }
     
     /// 配置UIScrollView默认值
-    @objc public static func setupAppearanceScrollView() -> Void {
+    @objc static func setupAppearanceScrollView() -> Void {
         UITableView.appearance().separatorStyle = .singleLine;
         UITableView.appearance().separatorInset = .zero;
         UITableView.appearance().rowHeight = 60;
@@ -245,7 +245,7 @@ extension UIApplication{
         }
     }
     
-    @objc public static func setupAppearanceOthers() -> Void {
+    @objc static func setupAppearanceOthers() -> Void {
         UIButton.appearance().isExclusiveTouch = false;
 
         UITabBar.appearance().tintColor = UIColor.theme;
@@ -260,7 +260,7 @@ extension UIApplication{
     }
     
     /// 配置UINavigationBar默认值
-    @objc public static func setupAppearanceNavigationBar(_ barTintColor: UIColor) -> Void {
+    @objc static func setupAppearanceNavigationBar(_ barTintColor: UIColor) -> Void {
         let isDefault: Bool = UIColor.white.equalTo(barTintColor);
         let tintColor = isDefault ? UIColor.black : UIColor.white;
         
@@ -279,7 +279,7 @@ extension UIApplication{
 //        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
     }
     
-    @objc public static func setupAppearanceTabBar() -> Void {
+    @objc static func setupAppearanceTabBar() -> Void {
         //         设置字体颜色
 //        let attDic_N = [NSAttributedString.Key.foregroundColor: UIColor.black];
 //        let attDic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme];
@@ -302,7 +302,7 @@ extension UIApplication{
     }
     
     /// 打开网络链接
-    @objc public static func openURL(_ urlStr: String) {
+    @objc static func openURL(_ urlStr: String) {
 //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
 //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
 //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;

@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-extension UIViewController{
+public extension UIViewController{
     
-    @objc public var controllerName: String {
+    @objc var controllerName: String {
         get {
             var className: String = NStringShortFromClass(self.classForCoder);
             if className.contains("Controller") {
@@ -51,7 +51,7 @@ extension UIViewController{
         }
     }
     
-    @objc public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) -> Void {
+    @objc func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) -> Void {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -68,7 +68,7 @@ extension UIViewController{
 
     }
     
-    @objc public func createBtnBarItem(_ title: String?, image: String?, isLeft: Bool = false, isHidden: Bool = false, action: @escaping (ControlClosure)) -> UIButton {
+    @objc func createBtnBarItem(_ title: String?, image: String?, isLeft: Bool = false, isHidden: Bool = false, action: @escaping (ControlClosure)) -> UIButton {
         var size = CGSize(width: 32, height: 32)
         if image != nil && UIImage(named:image!) != nil {
             size = CGSize(width: 40, height: 40)
@@ -112,7 +112,7 @@ extension UIViewController{
     }
     
     /// 创建导航栏按钮(标题或者图片名称)
-    @objc public func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
+    @objc func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
         var item: UIView? = nil;
         if UIImage(named:obj) != nil{
             item = UIView.createImgView(CGRectMake(0, 0, 40, 40), imgName: obj)
@@ -147,7 +147,7 @@ extension UIViewController{
         return containView;
     }
 
-    @objc public func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) -> Void {
+    @objc func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) -> Void {
         assert(UICtrFromString(name).isKind(of: UIViewController.classForCoder()))
         let controller = UICtrFromString(name)
         controller.obj = obj
@@ -155,7 +155,7 @@ extension UIViewController{
         navigationController?.pushViewController(controller, animated: true);
     }
     
-    @objc public func addControllerName(_ controllerName: String) -> Void {
+    @objc func addControllerName(_ controllerName: String) -> Void {
         let controller = UICtrFromString(controllerName)
         assert(controller.isKind(of: UIViewController.classForCoder()))
 
@@ -165,7 +165,7 @@ extension UIViewController{
     }
     
     /// 导航栏返回按钮图片定制
-    @objc public func createBackItem(_ image: UIImage) -> UIButton {
+    @objc func createBackItem(_ image: UIImage) -> UIButton {
         let btn = UIButton(type: .custom)
         btn.frame = CGRectMake(0, 0, 30, 40)
         btn.imageEdgeInsets = UIEdgeInsetMake(0, -20, 0, 0)

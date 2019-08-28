@@ -28,10 +28,10 @@ public let kSubTypeFuntionNames = [CATransitionSubtype.fromTop,
                                    CATransitionSubtype.fromBottom,
                                    CATransitionSubtype.fromRight];
 
-extension CATransition{
+public extension CATransition{
    
     /// [源]CATransition
-    public static func animDuration(_ duration: CFTimeInterval, functionName:CAMediaTimingFunctionName = CAMediaTimingFunctionName.linear, type: CATransitionType, subType: CATransitionSubtype? = nil) -> CATransition {
+    @objc static func animDuration(_ duration: CFTimeInterval, functionName:CAMediaTimingFunctionName = CAMediaTimingFunctionName.linear, type: CATransitionType, subType: CATransitionSubtype? = nil) -> CATransition {
 
         let anim = CATransition()
         anim.duration = duration;

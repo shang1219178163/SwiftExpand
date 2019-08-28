@@ -7,9 +7,9 @@
 
 import UIKit
 
-extension UIAlertAction{
+public extension UIAlertAction{
     
-    @objc public var tag: Int {
+    @objc var tag: Int {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Int {
                 return obj
@@ -23,7 +23,7 @@ extension UIAlertAction{
     }
     
     /// 设置Message文本换行,对齐方式
-    @objc public func setTitleColor(_ color: UIColor) -> Void {
+    @objc func setTitleColor(_ color: UIColor) -> Void {
         setValue(color, forKey: kAlertActionColor);
 
     }

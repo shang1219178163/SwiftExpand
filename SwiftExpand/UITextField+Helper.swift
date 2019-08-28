@@ -10,10 +10,10 @@
 
 import UIKit
 
-extension UITextField{
+public extension UITextField{
 
     ///  RightView
-    @objc public func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView! {
+    @objc func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView! {
         assert(unitName != nil && unitName.valid() == true);
         
         if unitName.contains("img") {
@@ -36,7 +36,7 @@ extension UITextField{
         return label;
     }
     
-    @objc public func asoryView(_ isRight: Bool, unitName: String!) -> Void {
+    @objc func asoryView(_ isRight: Bool, unitName: String!) -> Void {
         if isRight == true {
             self.rightView = asoryView(isRight, unitName: unitName, viewSize: kSizeArrow);
             self.rightViewMode = .always;

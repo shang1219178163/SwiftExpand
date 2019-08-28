@@ -9,9 +9,9 @@
 
 import UIKit
 
-extension Array{
+public extension Array{
     
-    public var random: Element? {
+    var random: Element? {
         if self.count == 0 {
             return nil;
         }
@@ -19,11 +19,11 @@ extension Array{
         return self[idx];
     }
     //弃用
-    public func randomElement() -> Element? {
+    func randomElement() -> Element? {
         return self.random;
     }
     
-    public var shuffle: Array! {
+    var shuffle: Array! {
         if self.count == 0 {
             return self;
         }
@@ -38,22 +38,22 @@ extension Array{
     }
 
     //弃用
-    public func shuffled() -> Array {
+    func shuffled() -> Array {
         return self.shuffle;
     }
     
-    public func subarray(_ range: NSRange) -> Array {
+    func subarray(_ range: NSRange) -> Array {
         return self.subarray(range.location, range.length)
 //        assert(range.location < self.count);
 //        return Array(self[range.location...range.length]);
     }
     
-    public func subarray(_ loc: Int, _ len: Int) -> Array {
+    func subarray(_ loc: Int, _ len: Int) -> Array {
         assert(loc < self.count);
         return Array(self[loc...len]);
     }
 
-    public static func itemPrefix(prefix: String, count: Int, type: Int) -> Array! {
+    static func itemPrefix(prefix: String, count: Int, type: Int) -> Array! {
         var marr:[Any] = [];
         for i in 0...count {
             let item = String(format: "%@%d", prefix,i);
@@ -70,14 +70,14 @@ extension Array{
     }
     
     ///添加多个相同元素到数组
-    public mutating func appendSame(_ item: Element, count: Int) -> Void {
+    mutating func appendSame(_ item: Element, count: Int) -> Void {
         for _ in self.enumerated() {
             append(item)
         }
     }
     
     ///添加多个相同元素到数组
-    public static func appendSame(_ item: AnyObject, count: Int) -> [AnyObject] {
+    static func appendSame(_ item: AnyObject, count: Int) -> [AnyObject] {
         var list: [AnyObject] = []
         for _ in 0..<count {
             list.append(item)
@@ -86,7 +86,7 @@ extension Array{
     }
     
     ///模型(继承于NSObject)query对应属性为@objc声明的字符串
-    public func filterModelList(_ list: [AnyObject]!, querys: [String]) -> [[String]] {
+    func filterModelList(_ list: [AnyObject]!, querys: [String]) -> [[String]] {
         var listArr: [[String]]?
         for e in list.enumerated() {
             var itemList:[String]?
@@ -100,7 +100,7 @@ extension Array{
     }
     
     ///模型(继承于NSObject)query对应属性为@objc声明的字符串
-    public func filterModelList(_ list: [AnyObject], query: String) -> [String] {
+    func filterModelList(_ list: [AnyObject], query: String) -> [String] {
         var itemList:[String] = []
         list.forEach { (obj:AnyObject) in
             

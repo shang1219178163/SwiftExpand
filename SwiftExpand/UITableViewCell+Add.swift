@@ -9,9 +9,9 @@
 
 import UIKit
 
-extension UITableViewCell{
+public extension UITableViewCell{
     /// cell-源方法生成,自定义identifier
-    @objc public static func cellWithTableView(_ tableView: UITableView, identifier: String, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
+    @objc static func cellWithTableView(_ tableView: UITableView, identifier: String, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
         if cell == nil {
             cell = self.init(style: style, reuseIdentifier: identifier);
@@ -24,13 +24,13 @@ extension UITableViewCell{
     }
     
     /// cell-使用默认identifier生成
-    @objc public static func cellWithTableView(_ tableView: UITableView) -> UITableViewCell! {
+    @objc static func cellWithTableView(_ tableView: UITableView) -> UITableViewCell! {
 //        let identifier = NSStringFromClass(self.classForCoder());
         return cellWithTableView(tableView, identifier: identifier);
     }
     
     /// cell默认identifier
-    @objc public static var identifier: String {
+    @objc static var identifier: String {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
             if obj == nil {
@@ -44,7 +44,7 @@ extension UITableViewCell{
         }
     }
         
-    @objc public var imgViewLeft: UIImageView {
+    @objc var imgViewLeft: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -63,7 +63,7 @@ extension UITableViewCell{
         }
     }
     
-    @objc public var imgViewRight: UIImageView {
+    @objc var imgViewRight: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -83,7 +83,7 @@ extension UITableViewCell{
         }
     }
     
-    @objc public var labelLeft: UILabel {
+    @objc var labelLeft: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -105,7 +105,7 @@ extension UITableViewCell{
         }
     }
   
-    @objc public var labelLeftSub: UILabel {
+    @objc var labelLeftSub: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -129,7 +129,7 @@ extension UITableViewCell{
     }
     
     
-    @objc public var labelRight: UILabel {
+    @objc var labelRight: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -151,7 +151,7 @@ extension UITableViewCell{
         }
     }
     
-    @objc public var btn: UIButton {
+    @objc var btn: UIButton {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
             if obj == nil {
@@ -172,7 +172,7 @@ extension UITableViewCell{
         }
     }
     
-    @objc public var textfield: UITextField {
+    @objc var textfield: UITextField {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if obj == nil {
@@ -196,7 +196,7 @@ extension UITableViewCell{
         }
     }
     
-    @objc public var textView: UITextView {
+    @objc var textView: UITextView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if obj == nil {

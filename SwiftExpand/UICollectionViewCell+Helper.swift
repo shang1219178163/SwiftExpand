@@ -7,16 +7,16 @@
 
 import UIKit
 
-extension UICollectionViewCell{
+public extension UICollectionViewCell{
     
     ///获取UICollectionViewCell
-    @objc public static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
+    @objc static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
         let identifier = NStringShortFromClass(classForCoder());
         let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         return view
     }
     
-    @objc public var imgView: UIImageView {
+    @objc var imgView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -37,7 +37,7 @@ extension UICollectionViewCell{
         }
     }
 
-    @objc public var label: UILabel {
+    @objc var label: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {

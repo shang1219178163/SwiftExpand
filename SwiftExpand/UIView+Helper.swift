@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension UIView{
+public extension UIView{
     
-    @objc public var x: CGFloat {
+    @objc var x: CGFloat {
         get {
             return frame.origin.x
         }
@@ -19,7 +19,7 @@ extension UIView{
         }
     }
     
-    @objc public var y: CGFloat {
+    @objc var y: CGFloat {
         get {
             return frame.origin.y
         }
@@ -28,7 +28,7 @@ extension UIView{
         }
     }
     
-    @objc public var width: CGFloat {
+    @objc var width: CGFloat {
         get {
             return frame.width
         }
@@ -37,7 +37,7 @@ extension UIView{
         }
     }
     
-    @objc public var height: CGFloat {
+    @objc var height: CGFloat {
         get {
             return frame.size.height
         }
@@ -46,7 +46,7 @@ extension UIView{
         }
     }
     
-    @objc public var size: CGSize  {
+    @objc var size: CGSize  {
         get {
             return frame.size
         }
@@ -55,7 +55,7 @@ extension UIView{
         }
     }
     
-    @objc public var origin: CGPoint {
+    @objc var origin: CGPoint {
         get {
             return frame.origin
         }
@@ -64,43 +64,43 @@ extension UIView{
         }
     }
     
-    @objc public var minX: CGFloat {
+    @objc var minX: CGFloat {
         get {
             return frame.minX
         }
     }
     
-    @objc public var minY: CGFloat {
+    @objc var minY: CGFloat {
         get {
             return frame.minY
         }
     }
     
-    @objc public var midX: CGFloat {
+    @objc var midX: CGFloat {
         get {
             return frame.midX
         }
     }
     
-    @objc public var midY: CGFloat {
+    @objc var midY: CGFloat {
         get {
             return frame.midY
         }
     }
     
-    @objc public var maxX: CGFloat {
+    @objc var maxX: CGFloat {
         get {
             return frame.maxX
         }
     }
     
-    @objc public var maxY: CGFloat {
+    @objc var maxY: CGFloat {
         get {
             return frame.maxY
         }
     }
     
-    @objc public var cornerRadius: CGFloat {
+    @objc var cornerRadius: CGFloat {
         get {
             return layer.cornerRadius
         }
@@ -112,7 +112,7 @@ extension UIView{
    
     //MARK: -funtions
     /// text是否有效
-    @objc public func validText() -> Bool {
+    @objc func validText() -> Bool {
         assert(isKind(of: UITextView.classForCoder())
             || isKind(of: UITextField.classForCoder())
             || isKind(of: UILabel.classForCoder()))
@@ -130,11 +130,11 @@ extension UIView{
         return true;
     }
 
-    @objc public func autoresizeMask() -> Void {
+    @objc func autoresizeMask() -> Void {
         self.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
     }
     /// 图层调试
-    @objc public func getViewLayer() -> () {
+    @objc func getViewLayer() -> () {
         let subviews = self.subviews;
         if subviews.count == 0 {
             return;
@@ -149,13 +149,13 @@ extension UIView{
     }
     
     /// 移除所有子视图
-    @objc public func removeAllSubViews(){
+    @objc func removeAllSubViews(){
         self.subviews.forEach { (view: UIView) in
             view.removeFromSuperview()
         }
     }
     
-    @objc public func addCorners(_ corners: UIRectCorner, cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0), width: CGFloat, color: UIColor) -> CAShapeLayer {
+    @objc func addCorners(_ corners: UIRectCorner, cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0), width: CGFloat, color: UIColor) -> CAShapeLayer {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: cornerRadii)
         let maskLayer = CAShapeLayer()
         maskLayer.frame = bounds
@@ -167,14 +167,14 @@ extension UIView{
     }
     
     /// 高性能圆角
-    @objc public func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> Void {
+    @objc func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> Void {
         let image = drawCorners( .allCorners, radius: radius, width: width, color: color, bgColor: bgColor)
         let imgView = UIImageView(image: image)
         self.insertSubview(imgView, at: 0)
     }
     
     /// [源]高性能圆角
-    @objc public func drawCorners(_ corners: UIRectCorner, radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> UIImage? {
+    @objc func drawCorners(_ corners: UIRectCorner, radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         let ctx = UIGraphicsGetCurrentContext()
         
@@ -202,13 +202,13 @@ extension UIView{
         return image
     }
     
-    @objc public func addCornerAll() -> CAShapeLayer {
+    @objc func addCornerAll() -> CAShapeLayer {
         let cornerRadii = CGSize(width: bounds.width*0.5, height: bounds.height*0.5)
         return addCorners( .allCorners, cornerRadii: cornerRadii, width: 1.0, color: .white)
     }
    
     //MARK: -通用响应添加方法
-    @objc public func addActionHandler(action: @escaping (ViewClosure)) -> Void {
+    @objc func addActionHandler(action: @escaping (ViewClosure)) -> Void {
         if let sender = self as? UIButton {
             sender.addTarget(self, action:#selector(handleActionSender(sender:)), for:.touchUpInside);
             
@@ -259,7 +259,7 @@ extension UIView{
     
     //MARK: -手势
     ///手势 - 轻点
-    @objc public func addGestureTap(_ action: @escaping (RecognizerClosure)) -> UITapGestureRecognizer {
+    @objc func addGestureTap(_ action: @escaping (RecognizerClosure)) -> UITapGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -280,7 +280,7 @@ extension UIView{
     }
   
     ///手势 - 长按
-    @objc public func addGestureLongPress(_ action: @escaping (RecognizerClosure), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
+    @objc func addGestureLongPress(_ action: @escaping (RecognizerClosure), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(minimumPressDuration)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -300,7 +300,7 @@ extension UIView{
     }
     
     ///手势 - 拖拽
-    @objc public func addGesturePan(_ action: @escaping (RecognizerClosure)) -> UIPanGestureRecognizer {
+    @objc func addGesturePan(_ action: @escaping (RecognizerClosure)) -> UIPanGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -321,7 +321,7 @@ extension UIView{
     }
     
     ///手势 - 屏幕边缘
-    @objc public func addGestureEdgPan(_ action: @escaping (RecognizerClosure), for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
+    @objc func addGestureEdgPan(_ action: @escaping (RecognizerClosure), for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(edgs)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -340,7 +340,7 @@ extension UIView{
     }
     
     ///手势 - 清扫
-    @objc public func addGestureSwip(_ action: @escaping (RecognizerClosure), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
+    @objc func addGestureSwip(_ action: @escaping (RecognizerClosure), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(direction)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -360,7 +360,7 @@ extension UIView{
     }
     
     ///手势 - 捏合
-    @objc public func addGesturePinch(_ action: @escaping (RecognizerClosure)) -> UIPinchGestureRecognizer {
+    @objc func addGesturePinch(_ action: @escaping (RecognizerClosure)) -> UIPinchGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -379,7 +379,7 @@ extension UIView{
     }
     
     ///手势 - 旋转
-    @objc public func addGestureRotation(_ action: @escaping (RecognizerClosure)) -> UIRotationGestureRecognizer {
+    @objc func addGestureRotation(_ action: @escaping (RecognizerClosure)) -> UIRotationGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -468,7 +468,7 @@ extension UIView{
     }
     
     //MARK: -Cell
-    @objc public func getCell() -> UITableViewCell{
+    @objc func getCell() -> UITableViewCell{
         var supView = self.superview
         while let view = supView as? UITableViewCell {
             supView = view.superview
@@ -476,12 +476,12 @@ extension UIView{
         return supView as! UITableViewCell;
     }
     
-    @objc public func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
+    @objc func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
         let cell = self.getCell();
         return tableView.indexPathForRow(at: cell.center)!
     }
     
-    @objc public func convertToImage() -> UIImage{
+    @objc func convertToImage() -> UIImage{
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
         let ctx = UIGraphicsGetCurrentContext()
         self.layer.render(in: ctx!)
@@ -490,7 +490,7 @@ extension UIView{
     }
         
     /// 保存图像到相册
-    @objc public func imageToSavedPhotosAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
+    @objc func imageToSavedPhotosAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
         var image: UIImage = self.convertToImage();
         if let imgView = self as? UIImageView {
             if imgView.image != nil {

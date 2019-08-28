@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension UIViewController{
+public extension UIViewController{
     
-    @objc public class func initializeMethod() {
+    @objc class func initializeMethod() {
         // Make sure This isn't a subclass of UIViewController, So that It applies to all UIViewController childs
 //        return;
         if self == UIViewController.self {
@@ -49,7 +49,7 @@ extension UIViewController{
         }
     }
     
-    @objc public func swz_viewDidLoad(animated: Bool) {
+    @objc internal func swz_viewDidLoad(animated: Bool) {
         //需要注入的代码写在此处
 //        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
         edgesForExtendedLayout = [];
@@ -65,21 +65,21 @@ extension UIViewController{
 
     }
     
-    @objc public func swz_viewWillAppear(animated: Bool) {
+    @objc private func swz_viewWillAppear(animated: Bool) {
         //需要注入的代码写在此处
         self.swz_viewWillAppear(animated: animated)
         
 //        self.eventGather(isBegin: true);
     }
     
-    @objc public func swz_viewWillDisappear(animated: Bool) {
+    @objc private func swz_viewWillDisappear(animated: Bool) {
         //需要注入的代码写在此处
         self.swz_viewWillDisappear(animated: animated)
         
 //        self.eventGather(isBegin: false);
     }
     
-    @objc public func eventGather(isBegin: Bool) -> Void {
+    @objc private func eventGather(isBegin: Bool) -> Void {
         let className = NSStringFromClass(classForCoder);
         //设置不允许发送数据的Controller
         let filters = ["UINavigationController","UITabBarController","UICompatibilityInputViewController","UIInputWindowController","UIAlertController"];

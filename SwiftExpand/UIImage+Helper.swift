@@ -9,8 +9,8 @@
 import UIKit
 
 //MARK - UIImage
-extension UIImage {
-//    @objc public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+public extension UIImage {
+//    @objc convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
 //        UIGraphicsBeginImageContextWithOptions(size, true, UIScreen.main.scale)
 //        defer {
 //            UIGraphicsEndImageContext()
@@ -27,7 +27,7 @@ extension UIImage {
 //        self.init(cgImage: cgImage)
 //    }
     
-    @objc public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+    @objc convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
         let rect = CGRect(origin: CGPoint.zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
         color.setFill()
@@ -39,7 +39,7 @@ extension UIImage {
         self.init(cgImage: cgImage)
     }
     
-    @objc public func croppedImage(bound : CGRect) -> UIImage {
+    @objc func croppedImage(bound : CGRect) -> UIImage {
         let scaledBounds = CGRect(x:bound.origin.x * self.scale, y:bound.origin.y * self.scale, width:bound.size.width * self.scale, height:bound.size.height * self.scale)
         let imageRef = cgImage?.cropping(to:scaledBounds)
         let croppedImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: .up)
@@ -48,7 +48,7 @@ extension UIImage {
     }
     
     /// 保存UIImage对象到相册
-    @objc public func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
+    @objc func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -69,7 +69,7 @@ extension UIImage {
     }
     
     /// 二维码
-    @objc public static func generateQRImage(QRCodeString: String, logo: UIImage?, size: CGSize = CGSize(width: 50, height: 50)) -> UIImage? {
+    @objc static func generateQRImage(QRCodeString: String, logo: UIImage?, size: CGSize = CGSize(width: 50, height: 50)) -> UIImage? {
         guard let data = QRCodeString.data(using: .utf8, allowLossyConversion: false) else {
             return nil
         }
@@ -105,7 +105,7 @@ extension UIImage {
     }
     
     /// 切圆角图片
-    @objc public func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize) -> UIImage? {
+    @objc func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize) -> UIImage? {
         
         let imageRect = CGRect(origin: CGPoint.zero, size: size)
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
@@ -127,7 +127,7 @@ extension UIImage {
     }
     
     /// 根据最大尺寸限制压缩图片
-    @objc public static func compressData(_ image: UIImage, limit: Int = 1024*2) -> Data {
+    @objc static func compressData(_ image: UIImage, limit: Int = 1024*2) -> Data {
         var compression: CGFloat = 1.0;
         let maxCompression: CGFloat = 0.1;
         
@@ -140,7 +140,7 @@ extension UIImage {
     }
     
     /// 获取图片data的类型
-    @objc public static func contentType(_ imageData: NSData) -> String {
+    @objc static func contentType(_ imageData: NSData) -> String {
         var type: String = "jpg";
         
         var c: UInt8?

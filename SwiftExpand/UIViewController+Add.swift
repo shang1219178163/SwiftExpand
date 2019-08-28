@@ -9,9 +9,9 @@
 
 import UIKit
 
-extension UIViewController{
+public extension UIViewController{
     
-    @objc public var obj: AnyObject? {
+    @objc var obj: AnyObject? {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
         }
@@ -20,7 +20,7 @@ extension UIViewController{
         }
     }
     
-    @objc public var objOne: AnyObject? {
+    @objc var objOne: AnyObject? {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
         }
@@ -29,7 +29,7 @@ extension UIViewController{
         }
     }
     
-    @objc public var dataList: NSMutableArray {
+    @objc var dataList: NSMutableArray {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? NSMutableArray;
             if obj == nil {
@@ -43,7 +43,7 @@ extension UIViewController{
         }
     }
     
-    @objc public var tableView: UITableView {
+    @objc var tbView: UITableView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
             if obj == nil {
@@ -75,7 +75,7 @@ extension UIViewController{
         }
     }
     
-    @objc public var collectionView : UICollectionView {
+    @objc var ctView : UICollectionView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionView;
             if obj == nil {

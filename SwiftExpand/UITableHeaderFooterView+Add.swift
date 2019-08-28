@@ -8,10 +8,10 @@
 
 import UIKit
 
-extension UITableViewHeaderFooterView{
+public extension UITableViewHeaderFooterView{
     
     /// cell-源方法生成,自定义identifier
-    @objc public static func viewWithTableView(_ tableView: UITableView, identifier: String = NSStringFromClass(classForCoder())) -> UITableViewHeaderFooterView! {
+    @objc static func viewWithTableView(_ tableView: UITableView, identifier: String = NSStringFromClass(classForCoder())) -> UITableViewHeaderFooterView! {
         var obj = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if obj == nil {
             obj = self.init(reuseIdentifier: identifier)
@@ -24,13 +24,13 @@ extension UITableViewHeaderFooterView{
     }
     
     /// cell-使用默认identifier生成
-    @objc public static func viewWithTableView(_ tableView: UITableView) -> UITableViewHeaderFooterView! {
+    @objc static func viewWithTableView(_ tableView: UITableView) -> UITableViewHeaderFooterView! {
         let identifier = NSStringFromClass(self.classForCoder());
         return viewWithTableView(tableView, identifier: identifier);
         
     }
     
-    @objc public var indicatorView: UIImageView {
+    @objc var indicatorView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -50,7 +50,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var imgViewLeft: UIImageView {
+    @objc var imgViewLeft: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -70,7 +70,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var imgViewRight: UIImageView {
+    @objc var imgViewRight: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -90,7 +90,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var labelLeft: UILabel {
+    @objc var labelLeft: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -109,7 +109,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var labelLeftSub: UILabel {
+    @objc var labelLeftSub: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -129,7 +129,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var labelRight: UILabel {
+    @objc var labelRight: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -148,7 +148,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var btn: UIButton {
+    @objc var btn: UIButton {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
             if obj == nil {
@@ -168,7 +168,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var textfield: UITextField {
+    @objc var textfield: UITextField {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if obj == nil {
@@ -191,7 +191,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var isOpen: Bool {
+    @objc var isOpen: Bool {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Bool {
                 return obj
@@ -204,7 +204,7 @@ extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc public var isCanOpen: Bool {
+    @objc var isCanOpen: Bool {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Bool {
                 return obj

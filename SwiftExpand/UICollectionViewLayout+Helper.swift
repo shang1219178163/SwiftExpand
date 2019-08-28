@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension UICollectionViewLayout{
+public extension UICollectionViewLayout{
     
-    @objc public var minimumLineSpacing: CGFloat {
+    @objc var minimumLineSpacing: CGFloat {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGFloat {
                 return obj
@@ -23,7 +23,7 @@ extension UICollectionViewLayout{
         }
     }
     
-    @objc public var minimumInteritemSpacing: CGFloat {
+    @objc var minimumInteritemSpacing: CGFloat {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGFloat {
                 return obj
@@ -37,7 +37,7 @@ extension UICollectionViewLayout{
     }
  
     
-    @objc public var itemSize: CGSize {
+    @objc var itemSize: CGSize {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
                 return obj
@@ -50,7 +50,7 @@ extension UICollectionViewLayout{
         }
     }
     
-    @objc public var headerReferenceSize: CGSize {
+    @objc var headerReferenceSize: CGSize {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
                 return obj
@@ -63,7 +63,7 @@ extension UICollectionViewLayout{
         }
     }
     
-    @objc public var footerReferenceSize: CGSize {
+    @objc var footerReferenceSize: CGSize {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
                 return obj
@@ -76,7 +76,7 @@ extension UICollectionViewLayout{
         }
     }
     
-    @objc public var sectionInset: UIEdgeInsets {
+    @objc var sectionInset: UIEdgeInsets {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIEdgeInsets {
                 return obj
@@ -90,7 +90,7 @@ extension UICollectionViewLayout{
     }
    
     /// 默认布局配置(自上而下,自左而右)
-    @objc public static func create(_ itemSize: CGSize, spacing: CGFloat = kPadding, headerSize: CGSize, footerSize: CGSize) -> UICollectionViewFlowLayout {
+    @objc static func create(_ itemSize: CGSize, spacing: CGFloat = kPadding, headerSize: CGSize, footerSize: CGSize) -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout();
         //item水平间距
         layout.minimumLineSpacing = spacing;

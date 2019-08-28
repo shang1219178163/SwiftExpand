@@ -8,10 +8,10 @@
 
 import QuartzCore
 
-extension CAAnimationGroup{
+public extension CAAnimationGroup{
     
     /// [源]CAAnimationGroup
-    @objc public static func animDuration(_ duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float, fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards, removedOnCompletion: Bool = false) -> CAAnimationGroup {
+    @objc static func animDuration(_ duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float, fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards, removedOnCompletion: Bool = false) -> CAAnimationGroup {
         
         let anim: CAAnimationGroup = CAAnimationGroup();
         anim.duration = duration;
@@ -23,7 +23,7 @@ extension CAAnimationGroup{
     }
     
     /// [简]CAAnimationGroup
-    @objc public static func animDuration(_ animList: [CAAnimation], duration: CFTimeInterval, repeatCount: Float) -> CAAnimationGroup {
+    @objc static func animDuration(_ animList: [CAAnimation], duration: CFTimeInterval, repeatCount: Float) -> CAAnimationGroup {
         let anim = CAAnimationGroup.animDuration(duration, repeatCount: repeatCount)
         anim.animations = animList;
         return anim;

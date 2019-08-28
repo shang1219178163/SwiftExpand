@@ -10,9 +10,9 @@ import UIKit
 
 //private let onceToken = "Method Swizzling";
 
-extension NSObject{
+public extension NSObject{
     
-    public static func swizzleMethodInstance(_ clz: AnyClass, origSel: Selector, replSel: Selector) -> Bool {
+    @objc static func swizzleMethodInstance(_ clz: AnyClass, origSel: Selector, replSel: Selector) -> Bool {
         
         let oriMethod = class_getInstanceMethod(clz, origSel);
         let repMethod = class_getInstanceMethod(clz, replSel);
@@ -32,13 +32,13 @@ extension NSObject{
     }
     
     /// 实例方法替换
-    public static func swizzleMethodClass(_ origSel: Selector, replSel: Selector) -> Bool {
+    @objc static func swizzleMethodClass(_ origSel: Selector, replSel: Selector) -> Bool {
         let clz:AnyClass = classForCoder();
         return swizzleMethodInstance(clz, origSel: origSel, replSel: replSel);
     }
     
     /// 类方法替换
-    public func swizzleMethodInstance(_ origSel: Selector, replSel: Selector) -> Bool {
+    @objc func swizzleMethodInstance(_ origSel: Selector, replSel: Selector) -> Bool {
         let clz:AnyClass = classForCoder;
         return NSObject.swizzleMethodInstance(clz, origSel: origSel, replSel: replSel);
     }

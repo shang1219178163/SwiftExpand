@@ -13,9 +13,9 @@
 
 import UIKit
 
-extension UICollectionReusableView{
+public extension UICollectionReusableView{
  
-    @objc public static var identifier: String {
+    @objc static var identifier: String {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
             if obj == nil {
@@ -30,7 +30,7 @@ extension UICollectionReusableView{
     }
     
     ///获取UICollectionReusableView
-    @objc public static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
+    @objc static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
         
         let kindSuf = kind.components(separatedBy: "KindSection").last;
         let identifier = NStringShortFromClass(classForCoder()) + kindSuf!;
@@ -41,7 +41,7 @@ extension UICollectionReusableView{
         return view;
     }
 
-    @objc public var imageView: UIImageView {
+    @objc var imageView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -62,7 +62,7 @@ extension UICollectionReusableView{
         }
     }
     
-    @objc public var imageViewRight: UIImageView {
+    @objc var imageViewRight: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -84,7 +84,7 @@ extension UICollectionReusableView{
         }
     }
     
-    @objc public var textLabel: UILabel {
+    @objc var textLabel: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -106,7 +106,7 @@ extension UICollectionReusableView{
         }
     }
     
-    @objc public var textLabelRight: UILabel {
+    @objc var textLabelRight: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {

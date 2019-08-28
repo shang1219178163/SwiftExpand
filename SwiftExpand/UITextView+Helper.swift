@@ -9,9 +9,9 @@
 
 import UIKit
 
-extension UITextView{
+public extension UITextView{
     
-    @objc public class func initializeMethod() {
+    @objc class func initializeMethod() {
         if self == UIImageView.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
@@ -25,7 +25,7 @@ extension UITextView{
         }
     }
     
-    @objc public func swz_deinit() -> Void {
+    @objc func swz_deinit() -> Void {
         //需要注入的代码写在此处
         NotificationCenter.default.removeObserver(self)
 
@@ -33,7 +33,7 @@ extension UITextView{
     
     }
     
-    @objc public var placeHolderTextView: UITextView {
+    @objc var placeHolderTextView: UITextView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if obj == nil {

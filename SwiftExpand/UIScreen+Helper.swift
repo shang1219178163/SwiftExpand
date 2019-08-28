@@ -10,39 +10,39 @@
 import UIKit
 
 
-extension UIScreen {
+public extension UIScreen {
     
-    @objc public static var width: CGFloat {
+    @objc static var width: CGFloat {
         get {
             return UIScreen.main.bounds.size.width
         }
     }
     
-    @objc public static var height: CGFloat {
+    @objc static var height: CGFloat {
         get {
             return UIScreen.main.bounds.size.height
         }
     }
     
-    @objc public static var statusBarHeight: CGFloat {
+    @objc static var statusBarHeight: CGFloat {
         get {
             return 20.0
         }
     }
     
-    @objc public static var navBarHeight: CGFloat {
+    @objc static var navBarHeight: CGFloat {
         get {
             return 44.0
         }
     }
     
-    @objc public static var barHeight: CGFloat {
+    @objc static var barHeight: CGFloat {
         get {
             return (UIScreen.statusBarHeight + UIScreen.navBarHeight)
         }
     }
     
-    @objc public static var tabBarHeight: CGFloat {
+    @objc static var tabBarHeight: CGFloat {
         get {
             return 49.0
         }
