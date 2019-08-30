@@ -213,18 +213,12 @@ public extension NSString{
     
     /// isEnd 为真,秒追加为:59,为假 :00
     @objc static func dateTime(_ time: NSString, isEnd: Bool) -> NSString {
-        var tmp: NSString = time;
-        let sufix = isEnd == true ? ":59" : ":00";
-        switch time.length {
-        case 16:
-            tmp = time.appending(sufix) as NSString
-            
-        case 19:
-            tmp = time.replacingCharacters(in: NSRange(location: time.length - sufix.count, length: sufix.count), with: sufix) as NSString
-            
-        default:
-            break
+        if time.length < 10 {
+            return time;
         }
+        let sufix = isEnd == true ? " 23:59:59" : " 00:00:00";
+        var tmp: NSString = time.substring(to: 10) as NSString;
+        tmp = tmp.appending(sufix) as NSString
         return tmp;
     }
 }

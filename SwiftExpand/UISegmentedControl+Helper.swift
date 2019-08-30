@@ -31,7 +31,6 @@ public extension UISegmentedControl{
         for e in itemList.enumerated() {
             insertSegment(withTitle: e.element, at: e.offset, animated: false)
         }
-        
         selectedSegmentIndex = 0
     }
     

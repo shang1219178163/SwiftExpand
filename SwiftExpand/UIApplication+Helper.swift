@@ -141,27 +141,7 @@ public extension UIApplication{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
-//    @objc static var mainWindow: UIWindow {
-//        get {
-//            let app = UIApplication.shared.delegate as! AppDelegate;
-//            if app.window != nil {
-//                app.window!.backgroundColor = .white;
-//                app.window!.makeKeyAndVisible();
-//                return app.window!;
-//            }
-//            app.window = UIWindow.init(frame: UIScreen.main.bounds);
-//            app.window?.backgroundColor = .white;
-//            app.window?.makeKeyAndVisible();
-//            return app.window!;
-//        }
-//        set {
-//            let app = UIApplication.shared.delegate as! AppDelegate;
-//            app.window = newValue;
-//
-//        }
-//    }
-    
+        
     @objc static var rootController: UIViewController {
         get {
             return UIApplication.mainWindow.rootViewController!;

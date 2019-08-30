@@ -74,7 +74,7 @@ public extension NSObject{
 //    }
     
     ///  富文本只有同字体大小才能计算高度
-    @objc func sizeWithText(_ text: String!, font: CGFloat, width: CGFloat) -> CGSize {
+    @objc func sizeWithText(_ text: String!, font: CGFloat = 15, width: CGFloat) -> CGSize {
         let attDic = NSAttributedString.paraDict(font, textColor: .black, alignment: .left);
         let options : NSStringDrawingOptions = NSStringDrawingOptions(rawValue: NSStringDrawingOptions.RawValue(UInt8(NSStringDrawingOptions.usesLineFragmentOrigin.rawValue) | UInt8(NSStringDrawingOptions.usesFontLeading.rawValue)))
         
@@ -85,11 +85,11 @@ public extension NSObject{
     }
     
     /// 密集小视图的尺寸布局
-    public func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat, itemHeight: inout CGFloat, padding: CGFloat = kPadding) -> CGSize {
+    @objc func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat = UIScreen.width, itemHeight: CGFloat = 60, padding: CGFloat = kPadding) -> CGSize {
         let rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1
-        let tmp = CGFloat(numberOfRow) - 1.0
-        let itemWith = (width - tmp*padding)/CGFloat(numberOfRow)
-        itemHeight = itemHeight <= 0.0 ? itemWith : itemHeight
+//        let tmp = CGFloat(numberOfRow) - 1.0
+//        let itemWith = (width - tmp*padding)/CGFloat(numberOfRow)
+//        let tmpHeight = itemHeight <= 0.0 ? itemWith : itemHeight;
         let height = CGFloat(rowCount) * itemHeight + CGFloat(rowCount) - 1.0 * padding
         let size = CGSize(width: width, height: height)
         return size
@@ -108,7 +108,7 @@ public extension NSObject{
 //    }
 //
     /// 标题前缀差异化显示
-    @objc func getAttringByPrefix(_ prefix: String!, content: String!, isMust: Bool) -> NSAttributedString {
+    @objc func getAttringByPrefix(_ prefix: String!, content: String!, isMust: Bool = false) -> NSAttributedString {
         let string = content.hasPrefix(prefix) == true ? content : prefix + content
         let colorMust = isMust == true ? UIColor.red : UIColor.clear
         let attString = NSAttributedString.attString(string, textTaps: [prefix], font: 15, tapFont: 15, color: .black, tapColor: colorMust, alignment: .left)

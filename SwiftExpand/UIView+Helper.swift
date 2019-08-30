@@ -27,8 +27,26 @@ public extension UIView{
             frame.origin = CGPoint(x:frame.origin.x, y:newValue)
         }
     }
+    // 混编和masonry冲突
+    var width: CGFloat {
+        get {
+            return frame.width
+        }
+        set {
+            frame.size.width = newValue
+        }
+    }
+    // 混编和masonry冲突
+    var height: CGFloat {
+        get {
+            return frame.size.height
+        }
+        set {
+            frame.size.height = newValue
+        }
+    }
     
-    @objc var width: CGFloat {
+    @objc var sizeWidth: CGFloat {
         get {
             return frame.width
         }
@@ -37,7 +55,7 @@ public extension UIView{
         }
     }
     
-    @objc var height: CGFloat {
+    @objc var sizeHeight: CGFloat {
         get {
             return frame.size.height
         }
@@ -155,7 +173,7 @@ public extension UIView{
         }
     }
     
-    @objc func addCorners(_ corners: UIRectCorner, cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0), width: CGFloat, color: UIColor) -> CAShapeLayer {
+    @objc func addCorners(_ corners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0), width: CGFloat, color: UIColor) -> CAShapeLayer {
         let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: cornerRadii)
         let maskLayer = CAShapeLayer()
         maskLayer.frame = bounds
@@ -174,7 +192,7 @@ public extension UIView{
     }
     
     /// [源]高性能圆角
-    @objc func drawCorners(_ corners: UIRectCorner, radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> UIImage? {
+    @objc func drawCorners(_ corners: UIRectCorner = UIRectCorner.allCorners, radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
         let ctx = UIGraphicsGetCurrentContext()
         

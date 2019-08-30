@@ -35,7 +35,6 @@ public extension UICollectionViewLayout{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
- 
     
     @objc var itemSize: CGSize {
         get {

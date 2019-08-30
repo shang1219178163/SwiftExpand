@@ -10,7 +10,7 @@ import UIKit
 
 public extension CAGradientLayer{
     
-    @objc static func layerRect(_ rect: CGRect, colors: [Any], start: CGPoint, end: CGPoint) -> CAGradientLayer {
+    @objc static func layerRect(_ rect: CGRect = .zero, colors: [Any], start: CGPoint, end: CGPoint) -> CAGradientLayer {
         let layer = CAGradientLayer()
         layer.frame = rect
         layer.colors = colors

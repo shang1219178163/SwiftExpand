@@ -9,7 +9,7 @@ import UIKit
 
 public extension UITableView{
     
-    @objc func reloadRowList(_ rowList: NSArray, section: Int, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
+    @objc func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
         assert(section <= numberOfSections)
         let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
         assert(rowMax < numberOfRows(inSection: section))
@@ -26,7 +26,7 @@ public extension UITableView{
         endUpdates()
     }
     
-    @objc func insertRowList(_ rowList: NSArray, section: NSInteger, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
+    @objc func insertRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
         var marr: [IndexPath] = []
         for e in rowList.enumerated() {
             if let row = e.element as? NSNumber {
@@ -39,7 +39,7 @@ public extension UITableView{
         endUpdates()
     }
     
-    @objc func deleteRowList(_ rowList: NSArray, section: NSInteger, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
+    @objc func deleteRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
         assert(section <= numberOfSections)
         let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
         assert(rowMax < numberOfRows(inSection: section))

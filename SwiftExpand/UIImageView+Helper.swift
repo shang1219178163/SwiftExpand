@@ -23,7 +23,7 @@ public extension UIImageView{
     }
     
     ///MARK:翻转图像
-    @objc func transformImage(_ duration: TimeInterval) -> Void {
+    @objc func transformImage(_ duration: TimeInterval = 1.5) -> Void {
         UIView.animate(withDuration: duration, animations: {
             self.transform = self.transform.isIdentity == true ? self.transform.rotated(by: CGFloat(Double.pi)) : CGAffineTransform.identity;
         })

@@ -25,7 +25,7 @@ public extension UITextView{
         }
     }
     
-    @objc func swz_deinit() -> Void {
+    @objc private func swz_deinit() -> Void {
         //需要注入的代码写在此处
         NotificationCenter.default.removeObserver(self)
 

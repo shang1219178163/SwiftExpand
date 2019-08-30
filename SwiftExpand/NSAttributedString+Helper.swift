@@ -10,7 +10,7 @@ import UIKit
 public extension NSAttributedString{
     
     /// 富文本特殊部分设置
-    @objc static func attrDict(_ font: CGFloat, textColor: UIColor) -> Dictionary<NSAttributedString.Key, Any> {
+    @objc static func attrDict(_ font: CGFloat = 15, textColor: UIColor) -> Dictionary<NSAttributedString.Key, Any> {
         let dic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize:font),
                    NSAttributedString.Key.foregroundColor: textColor,
                    NSAttributedString.Key.backgroundColor: UIColor.clear,
@@ -19,7 +19,7 @@ public extension NSAttributedString{
     }
     
     /// 富文本整体设置
-    @objc static func paraDict(_ font: CGFloat, textColor: UIColor, alignment: NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
+    @objc static func paraDict(_ font: CGFloat = 15, textColor: UIColor, alignment: NSTextAlignment = .left) -> Dictionary<NSAttributedString.Key, Any> {
         let paraStyle = NSMutableParagraphStyle();
         paraStyle.lineBreakMode = .byCharWrapping;
         paraStyle.alignment = alignment;
@@ -30,7 +30,7 @@ public extension NSAttributedString{
     }
     
     /// [源]富文本
-    @objc static func attString(_ text: String!, textTaps: [String]!, font: CGFloat = 16.0, tapFont: CGFloat = 16.0, color: UIColor = .black, tapColor: UIColor, alignment: NSTextAlignment = .left) -> NSAttributedString {
+    @objc static func attString(_ text: String!, textTaps: [String]!, font: CGFloat = 15, tapFont: CGFloat = 15, color: UIColor = .black, tapColor: UIColor, alignment: NSTextAlignment = .left) -> NSAttributedString {
         let paraDic = paraDict(font, textColor: color, alignment: alignment)
         let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in

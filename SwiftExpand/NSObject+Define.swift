@@ -213,7 +213,7 @@ public func UIImageNamed(_ name: String) -> UIImage?{
     return UIImage(named: name);
 }
 
-public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode) -> UIImage?{
+public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
     var image = UIImageNamed(name)
     if image != nil {
         image = image!.withRenderingMode(renderingMode)
@@ -222,7 +222,7 @@ public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode) -
 }
 
 // 把颜色转成UIImage
-public func UIImageColor(_ color: UIColor, size: CGSize) -> UIImage{
+public func UIImageColor(_ color: UIColor, size: CGSize = CGSize(width: 0, height: 0)) -> UIImage{
     let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
     UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
     

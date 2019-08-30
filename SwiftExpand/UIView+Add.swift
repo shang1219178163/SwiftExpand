@@ -411,7 +411,7 @@ public extension UIView {
         return view;
     }
     /// [源]UISwitch创建
-    @objc static func createSwitch(_ rect: CGRect = CGRect.zero, isOn: Bool) -> UISwitch {
+    @objc static func createSwitch(_ rect: CGRect = CGRect.zero, isOn: Bool = true) -> UISwitch {
         let view = UISwitch(frame: rect)
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         view.isOn = isOn
