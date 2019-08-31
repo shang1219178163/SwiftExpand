@@ -1,5 +1,3 @@
-
-
 //
 //  UICollectionView+Helper.swift
 //  SwiftTemplet
@@ -10,9 +8,58 @@
 
 import UIKit
 
-public let UICollectionElementKindSectionItem = "UICollectionElementKindSectionItem"
-
 public extension UICollectionView{
+    
+    @objc static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
+    
+    /// 泛型复用register cell - Type: "类名.self" (备用默认值 T.self)
+    final func register<T: UICollectionViewCell>(cellType: T.Type, forCellWithReuseIdentifier identifier: String = String(describing: T.self)){
+        self.register(cellType.self, forCellWithReuseIdentifier: identifier)
+    }
+    
+    /// 泛型复用register supplementaryView - Type: "类名.self" (备用默认值 T.self)
+    final func register<T: UICollectionReusableView>(supplementaryViewType: T.Type, ofKind elementKind: String = UICollectionView.elementKindSectionHeader){
+        guard elementKind.contains("KindSection") else {
+            return;
+        }
+        let kindSuf = elementKind.components(separatedBy: "KindSection").last;
+        let identifier = String(describing: T.self) + kindSuf!;
+        self.register(supplementaryViewType.self, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
+    }
+    
+    /// 泛型复用cell - cellType: "类名.self" (备用默认值 T.self)
+    final func dequeueReusableCell<T: UICollectionViewCell>(for cellType: T.Type, identifier: String = String(describing: T.self), indexPath: IndexPath) -> T{
+        let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        return cell as! T;
+    }
+    
+    /// 泛型复用cell - aClass: "类名()"
+    final func dequeueReusableCell<T: UICollectionViewCell>(for aClass: T, identifier: String = String(describing: T.self), indexPath: IndexPath) -> T{
+        return dequeueReusableCell(for: T.self, identifier: identifier, indexPath: indexPath)
+    }
+    
+    /// 泛型复用SupplementaryView - cellType: "类名.self" (备用默认值 T.self)
+    final func dequeueReusableSupplementaryView<T: UICollectionReusableView>(for cellType: T.Type, kind: String, indexPath: IndexPath) -> T{
+        let kindSuf = kind.components(separatedBy: "KindSection").last;
+        let identifier = String(describing: T.self) + kindSuf!;
+        let view = self.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
+        view.textLabel.text = kindSuf! + "\(indexPath.section)";
+        
+        view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? UIColor.green : UIColor.yellow;
+        return view as! T;
+    }
+    
+    /// 泛型复用SupplementaryView - aClass: "类名()"
+    final func dequeueReusableSupplementaryView<T: UICollectionReusableView>(for aClass: T, kind: String, indexPath: IndexPath) -> T{
+        return dequeueReusableSupplementaryView(for: T.self, kind: kind, indexPath: indexPath)
+    }
+    
+    /// 通用方法cell
+    @objc static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
+        let identifier = NStringShortFromClass(classForCoder());
+        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        return view;
+    }
     
     /// UICollectionViewLayout默认布局
     @objc static var layoutDefault: UICollectionViewLayout {
@@ -43,7 +90,7 @@ public extension UICollectionView{
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            registerCell(newValue)
+            registerCTVCell(newValue)
         }
     }
     
@@ -53,47 +100,46 @@ public extension UICollectionView{
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
+            registerCTVAll();
         }
     }
     
-    ///headerView/FooterView注册
-    @objc func registerAll() {
+    /// dictClass注册
+    @objc func registerCTVAll() {
         if dictClass.keys.count == 0 {
             return
         }
         dictClass.forEach { (arg0) in
 //            DDLog(arg0)
             let (key, value) = arg0
-            if key == UICollectionElementKindSectionItem {
-                registerCell(value)
+            if key == UICollectionView.elementKindSectionItem {
+                registerCTVCell(value)
             }else {
-                registerReusable(value, kind: key)
+                registerCTVReusable(value, kind: key)
             }
-            
         }
     }
     
-    ///cell注册
-    @objc func registerCell(_ listClass: Array<String>) {
+    /// cell注册
+    @objc func registerCTVCell(_ listClass: Array<String>) {
         listClass.forEach { (className: String) in
             let obj:AnyClass = SwiftClassFromString(className)
-            self.register(obj, forCellWithReuseIdentifier: className)
+            register(obj, forCellWithReuseIdentifier: className)
         }
-        
     }
     
-    @objc func viewIdentifier(_ className: String, kind: String) -> String{
+    /// 获取 UICollectionViewElementKindSection 标志
+    @objc func sectionReuseIdentifier(_ className: String, kind: String = UICollectionView.elementKindSectionHeader) -> String{
         let extra = kind == UICollectionView.elementKindSectionHeader ? "Header" : "Footer";
         let identifier = className + extra;
         return identifier;
     }
     
-    ///headerView/FooterView注册
-    @objc func registerReusable(_ listClass: Array<String>, kind: String) {
+    /// headerView/FooterView注册
+    @objc func registerCTVReusable(_ listClass: Array<String>, kind: String = UICollectionView.elementKindSectionHeader) {
         listClass.forEach { (className: String) in
-            let identifier = viewIdentifier(className, kind: kind)
-            self.register(SwiftClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
+            let identifier = sectionReuseIdentifier(className, kind: kind)
+            register(SwiftClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         }
     }
     

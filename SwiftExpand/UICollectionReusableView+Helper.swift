@@ -19,9 +19,9 @@ public extension UICollectionReusableView{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
             if obj == nil {
+                obj = NStringShortFromClass(classForCoder());
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
-            obj = NStringShortFromClass(classForCoder());
             return obj!;
         }
         set {

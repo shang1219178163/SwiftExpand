@@ -13,7 +13,7 @@ public extension UICollectionViewCell{
     @objc static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
         let identifier = NStringShortFromClass(classForCoder());
         let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        return view
+        return view;
     }
     
     @objc var imgView: UIImageView {
@@ -25,7 +25,7 @@ public extension UICollectionViewCell{
 
                 obj!.contentMode = .scaleAspectFit;
                 obj!.isUserInteractionEnabled = true;
-                obj!.image = UIImage(named: kIMG_arrowRight);
+//                obj!.image = UIImage(named: kIMG_arrowRight);
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
@@ -47,7 +47,7 @@ public extension UICollectionViewCell{
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
                 obj!.textAlignment = .center;
-                obj!.backgroundColor = UIColor.random
+//                obj!.backgroundColor = UIColor.random
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 

@@ -15,7 +15,6 @@ public extension UITableViewHeaderFooterView{
         var obj = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if obj == nil {
             obj = self.init(reuseIdentifier: identifier)
-
         }
       
         obj!.lineTop.isHidden = false
