@@ -13,7 +13,7 @@ public extension UIViewController{
     
     @objc var controllerName: String {
         get {
-            var className: String = NStringShortFromClass(self.classForCoder);
+            var className: String = NNStringFromClass(self.classForCoder);
             if className.contains("Controller") {
                 var range = className.range(of: "Controller");
                 if className.contains("ViewController") {

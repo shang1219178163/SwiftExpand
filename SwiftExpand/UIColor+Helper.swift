@@ -28,7 +28,7 @@ public extension UIColor{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-        
+    /// 通用背景色
     @objc static var background: UIColor {
         get{
             return UIColorHexValue(0xe9e9e9);

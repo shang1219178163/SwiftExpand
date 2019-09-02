@@ -15,25 +15,11 @@ import UIKit
 
 public extension UICollectionReusableView{
  
-    @objc static var identifier: String {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
-            if obj == nil {
-                obj = NStringShortFromClass(classForCoder());
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return obj!;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    
     ///获取UICollectionReusableView
     @objc static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
         
         let kindSuf = kind.components(separatedBy: "KindSection").last;
-        let identifier = NStringShortFromClass(classForCoder()) + kindSuf!;
+        let identifier = self.identifier + kindSuf!;
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
         view.textLabel.text = kindSuf! + "\(indexPath.section)";
         

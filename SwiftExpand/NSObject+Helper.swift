@@ -20,8 +20,23 @@ public extension NSObject{
         }
     }
 
+    /// 类的字符串名称
+    @objc static var identifier: String {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
+            if obj == nil {
+                obj = String(describing: self);// return "\(type(of: self))"
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
     /// 带有命名空间的类名
-    func BNClassName(_ className: String) -> AnyClass {
+    func NNClassFromName(_ className: String) -> AnyClass {
         let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
         let cls : AnyClass = NSClassFromString(appName + "." + className)!;
         return cls;

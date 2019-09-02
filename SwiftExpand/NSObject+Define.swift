@@ -247,17 +247,22 @@ public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
     return data0 == data1
 }
 
-///返回的类名不带明明空间
-public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
-    let className: String = NSStringFromClass(cls);
-    //    if className.contains(".") {
-    //        let rangePoint = className.range(of: ".");
-    //        className = String(className[rangePoint!.upperBound...]);
-    //    }
-    //    return className;
-    let list = className.components(separatedBy: ".");
-    return list.last!;
+///返回类名字符串
+public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
+    return String(describing: cls);// return "\(type(of: self))";
 }
+
+///返回的类名不带明明空间
+//public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
+//    let className: String = NSStringFromClass(cls);
+//    //    if className.contains(".") {
+//    //        let rangePoint = className.range(of: ".");
+//    //        className = String(className[rangePoint!.upperBound...]);
+//    //    }
+//    //    return className;
+//    let list = className.components(separatedBy: ".");
+//    return list.last!;
+//}
 
 public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
     

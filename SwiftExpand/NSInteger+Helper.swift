@@ -9,12 +9,12 @@
 import UIKit
 
 public extension Int{
-    var isEven: Bool     {return (self % 2 == 0)}
-    var isOdd: Bool      {return (self % 2 != 0)}
-    var isPositive: Bool {return (self >= 0)}
-    var isNegative: Bool {return (self < 0)}
-    var toDouble: Double {return Double(self)}
-    var toFloat: Float   {return Float(self)}
+    var isEven: Bool     {  return (self % 2 == 0)  }
+    var isOdd: Bool      {  return (self % 2 != 0)  }
+    var isPositive: Bool {  return (self > 0)   }
+    var isNegative: Bool {  return (self < 0)   }
+    var toDouble: Double {  return Double(self) }
+    var toFloat: Float   {  return Float(self)  }
     
     var digits: Int {
         if (self == 0) {

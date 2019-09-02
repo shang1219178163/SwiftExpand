@@ -33,23 +33,6 @@ public extension UITableViewCell{
         return cellWithTableView(tableView, identifier: identifier);
     }
     
- 
-    
-    /// cell默认identifier
-    @objc static var identifier: String {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
-            if obj == nil {
-                obj = NStringShortFromClass(classForCoder());
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return obj!;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-        
     @objc var imgViewLeft: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;

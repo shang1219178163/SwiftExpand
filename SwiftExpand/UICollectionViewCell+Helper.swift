@@ -11,7 +11,7 @@ public extension UICollectionViewCell{
     
     ///获取UICollectionViewCell
     @objc static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
-        let identifier = NStringShortFromClass(classForCoder());
+        let identifier = self.identifier;
         let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         return view;
     }

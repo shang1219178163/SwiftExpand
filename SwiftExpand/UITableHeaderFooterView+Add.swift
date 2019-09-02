@@ -217,7 +217,7 @@ public extension UITableViewHeaderFooterView{
     }
 }
 
-public class BNFoldSectionModel: NSObject{
+public class NNFoldSectionModel: NSObject{
     @objc public var title = "标题"
     @objc public var titleSub = "子标题"
     @objc public var image = "图片名称"
