@@ -48,7 +48,7 @@ public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
 }
 
 /// 自定义UIEdgeInsets
-public func UIEdgeInsetMake(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> UIEdgeInsets{
+public func UIEdgeInsetsMake(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> UIEdgeInsets{
     return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
 }
 
@@ -68,7 +68,7 @@ public func GGSizeMake(_ w: CGFloat, _ h: CGFloat) -> CGSize {
 }
 
 public func NSStringFromIndexPath(_ indexPath: IndexPath) -> String {
-    return String(format: "{%d,%d}", indexPath.section, indexPath.row);
+    return String(format: "{%d, %d}", indexPath.section, indexPath.row);
 }
 
 public func iOSVer(_ version:Float)->Bool{
@@ -129,8 +129,10 @@ public func UITabBarItemsFromList(_ list: [[String]]) -> [UITabBarItem] {
         let img_N: String = itemList.count > 2 ? itemList[2] : "";
         let img_H: String = itemList.count > 3 ? itemList[3] : "";
         let badgeValue: String = itemList.count > 4 ? itemList[4] : "";
-        
-        let tabBarItem: UITabBarItem = UITabBarItem(title: title, image: UIImageNamed(img_N), selectedImage: UIImageNamed(img_H));
+        //
+        let imageN = UIImage(named: img_N)?.withRenderingMode(.alwaysOriginal);
+        let imageH = UIImage(named: img_H)?.withRenderingMode(.alwaysTemplate);
+        let tabBarItem: UITabBarItem = UITabBarItem(title: title, image: imageN, selectedImage: imageH);
         tabBarItem.badgeValue = badgeValue;
         
         if #available(iOS 10.0, *) {
@@ -266,23 +268,23 @@ public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
 
 public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
     
-    var dic : [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor    :   UIColor.black,
-                                              NSAttributedString.Key.backgroundColor    :   UIColor.white,]
+    var dic : [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor:  UIColor.black,
+                                              NSAttributedString.Key.backgroundColor:   UIColor.white,]
     
     switch type {
     case 1:
-        dic = [NSAttributedString.Key.underlineStyle    :   NSUnderlineStyle.single.rawValue,
-               NSAttributedString.Key.underlineColor     :   UIColor.red,]
+        dic = [NSAttributedString.Key.underlineStyle:   NSUnderlineStyle.single.rawValue,
+               NSAttributedString.Key.underlineColor:   UIColor.red,]
     case 2:
-        dic = [NSAttributedString.Key.strikethroughStyle    :   NSUnderlineStyle.single.rawValue,
-               NSAttributedString.Key.strikethroughColor     :   UIColor.red,]
+        dic = [NSAttributedString.Key.strikethroughStyle:   NSUnderlineStyle.single.rawValue,
+               NSAttributedString.Key.strikethroughColor:   UIColor.red,]
     case 3:
-        dic = [NSAttributedString.Key.obliqueness    :   0.8,]
+        dic = [NSAttributedString.Key.obliqueness:   0.8,]
     case 4:
-        dic = [NSAttributedString.Key.expansion    :   0.3,]
+        dic = [NSAttributedString.Key.expansion:   0.3,]
         
     case 5:
-        dic = [NSAttributedString.Key.writingDirection    :   3,]
+        dic = [NSAttributedString.Key.writingDirection:   3,]
         
     default:
         break
@@ -342,7 +344,7 @@ public func ObjFromData(_ data: Data, options opt: JSONSerialization.ReadingOpti
         return nil;
     }
     do {
-        let obj: NSObject = try JSONSerialization.jsonObject(with: data, options: []) as! NSObject
+        let obj: NSObject = try JSONSerialization.jsonObject(with: data, options: opt) as! NSObject
         return obj;
         
     } catch {

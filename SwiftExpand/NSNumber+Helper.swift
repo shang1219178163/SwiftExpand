@@ -53,6 +53,7 @@ public extension NumberFormatter{
         
         let fmt = NumberFormatter();
         fmt.locale = .current;
+        fmt.minimumIntegerDigits = 1
         fmt.minimumFractionDigits = 2
         fmt.maximumFractionDigits = 2
         fmt.roundingMode = .up

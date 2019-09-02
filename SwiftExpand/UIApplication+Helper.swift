@@ -14,8 +14,12 @@ public extension UIApplication{
         get {
             let infoDic = Bundle.main.infoDictionary;
 //            let name: String = infoDic!["CFBundleDisplayName"] as? String ?? infoDic!["CFBundleName"] as! String;
-            let name: String = infoDic![kCFBundleNameKey as String] != nil ? infoDic![kCFBundleNameKey as String] as! String : infoDic![kCFBundleExecutableKey as String] as! String;
-            return name;
+//            let name: String = infoDic![kCFBundleNameKey as String] != nil ? infoDic![kCFBundleNameKey as String] as! String : infoDic![kCFBundleExecutableKey as String] as! String;
+            if let name = infoDic![kCFBundleNameKey as String] {
+                return name as! String;
+            }
+            return infoDic![kCFBundleExecutableKey as String] as! String;
+//            return name;
         }
     }
     
