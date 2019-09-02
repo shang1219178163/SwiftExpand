@@ -191,7 +191,7 @@ public extension NSString{
             }
             if let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path!)) {
                 
-                if let jsonObj = try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions(rawValue: 0)) {
+                if let jsonObj = try? JSONSerialization.jsonObject(with: jsonData, options: []) {
                     let jsonString = ((jsonObj as! NSDictionary).jsonValue()!).removingPercentEncoding!;
                     print(jsonString);
                     return jsonString;

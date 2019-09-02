@@ -10,7 +10,7 @@
 import UIKit
 
 public extension NSObject{
-    
+    /// 动态属性关联key
     var runtimeKey: UnsafeRawPointer {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! UnsafeRawPointer
@@ -25,7 +25,7 @@ public extension NSObject{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
             if obj == nil {
-                obj = String(describing: self);// return "\(type(of: self))"
+                obj = String(describing: self);// return "\(type(of: self))" //NSStringFromClass(self.classForCoder())
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;

@@ -10,8 +10,9 @@ import UIKit
 
 public extension UITableViewHeaderFooterView{
     
-    /// cell-源方法生成,自定义identifier
-    @objc static func viewWithTableView(_ tableView: UITableView, identifier: String = NSStringFromClass(classForCoder())) -> UITableViewHeaderFooterView! {
+    //NSStringFromClass(classForCoder())
+    /// UITableViewHeaderFooterView -源方法生成,自定义identifier
+    @objc static func viewWithTableView(_ tableView: UITableView, identifier: String = identifier) -> UITableViewHeaderFooterView! {
         var obj = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if obj == nil {
             obj = self.init(reuseIdentifier: identifier)
@@ -22,20 +23,12 @@ public extension UITableViewHeaderFooterView{
         return obj!;
     }
     
-    /// cell-使用默认identifier生成
-    @objc static func viewWithTableView(_ tableView: UITableView) -> UITableViewHeaderFooterView! {
-        let identifier = NSStringFromClass(self.classForCoder());
-        return viewWithTableView(tableView, identifier: identifier);
-        
-    }
-    
     @objc var indicatorView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: .zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-                
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
                 
@@ -55,7 +48,6 @@ public extension UITableViewHeaderFooterView{
             if obj == nil {
                 obj = UIImageView(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
                 

@@ -14,9 +14,8 @@ public extension UICollectionViewLayout{
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGFloat {
                 return obj
-            } else {
-                return 5.0
             }
+            return 5.0
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -27,9 +26,8 @@ public extension UICollectionViewLayout{
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGFloat {
                 return obj
-            } else {
-                return 5.0
             }
+            return 5.0
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -40,9 +38,8 @@ public extension UICollectionViewLayout{
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
                 return obj
-            } else {
-                return CGSize.zero
             }
+            return CGSize.zero
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -53,9 +50,8 @@ public extension UICollectionViewLayout{
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
                 return obj
-            } else {
-                return CGSize.zero
             }
+            return CGSize.zero
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -66,9 +62,8 @@ public extension UICollectionViewLayout{
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
                 return obj
-            } else {
-                return CGSize.zero
             }
+            return CGSize.zero
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -79,9 +74,8 @@ public extension UICollectionViewLayout{
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIEdgeInsets {
                 return obj
-            } else {
-                return UIEdgeInsets.zero
             }
+            return UIEdgeInsets.zero
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

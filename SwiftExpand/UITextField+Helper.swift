@@ -33,19 +33,16 @@ public extension UITextField{
         label.lineBreakMode = .byCharWrapping;
         label.numberOfLines = 0;
         label.backgroundColor = .clear;
+        
+        if isRight == true {
+            self.rightView = label;
+            self.rightViewMode = .always;
+            
+        } else {
+            self.leftView = label;
+            self.leftViewMode = .always;
+        }
         return label;
     }
-    
-    @objc func asoryView(_ isRight: Bool, unitName: String!) -> Void {
-        if isRight == true {
-            self.rightView = asoryView(isRight, unitName: unitName, viewSize: kSizeArrow);
-            self.rightViewMode = .always;
 
-        }
-        else{
-            self.leftView = asoryView(isRight, unitName: unitName, viewSize: kSizeArrow);
-            self.leftViewMode = .always;
-
-        }
-    }
 }

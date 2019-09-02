@@ -13,8 +13,6 @@ public extension UIApplication{
     @objc static var appName: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
-//            let name: String = infoDic!["CFBundleDisplayName"] as? String ?? infoDic!["CFBundleName"] as! String;
-//            let name: String = infoDic![kCFBundleNameKey as String] != nil ? infoDic![kCFBundleNameKey as String] as! String : infoDic![kCFBundleExecutableKey as String] as! String;
             if let name = infoDic![kCFBundleNameKey as String] {
                 return name as! String;
             }
@@ -28,7 +26,7 @@ public extension UIApplication{
             let infoDic: AnyObject = Bundle.main.infoDictionary as AnyObject;
             let iconFiles:Array<Any> = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as! Array<Any>;
             let imgName: String = iconFiles.last as! String;
-            return  UIImage(named: imgName)!;
+            return UIImage(named: imgName)!;
         }
     }
     
@@ -134,7 +132,6 @@ public extension UIApplication{
             var window = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIWindow;
             if window == nil {
                 window = UIWindow(frame: UIScreen.main.bounds)
-                
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             window!.backgroundColor = UIColor.white
@@ -171,7 +168,7 @@ public extension UIApplication{
     }
     
     //MARK: func
-    static func setupRootController(_ window:inout UIWindow,_ controller: AnyObject,_ isAdjust: Bool) -> Void {
+    static func setupRootController(_ window:inout UIWindow, _ controller: AnyObject, _ isAdjust: Bool) -> Void {
         window = UIApplication.mainWindow;
         UIApplication.setupRootController(controller, isAdjust);
     }

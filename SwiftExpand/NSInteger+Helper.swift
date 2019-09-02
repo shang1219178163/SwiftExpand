@@ -11,10 +11,20 @@ import UIKit
 public extension Int{
     var isEven: Bool     {  return (self % 2 == 0)  }
     var isOdd: Bool      {  return (self % 2 != 0)  }
+    /// 大于0
     var isPositive: Bool {  return (self > 0)   }
+    /// 小于0
     var isNegative: Bool {  return (self < 0)   }
+    /// 转为Double类型
     var toDouble: Double {  return Double(self) }
+    /// 转为Float类型
     var toFloat: Float   {  return Float(self)  }
+    /// 转为CGFloat类型
+    var toCGFloat: CGFloat   {  return CGFloat(self)  }
+    /// 转为String类型
+    var toString: String { return NSNumber(integerLiteral: self).stringValue; }
+    /// 转为NSNumber类型
+    var toNumber: NSNumber { return NSNumber(integerLiteral: self); }
     
     var digits: Int {
         if (self == 0) {
@@ -24,26 +34,14 @@ public extension Int{
         return Int(log10(fabs(Double(self)))) + 1
 //        }
     }
-    
-    var string: String {
-        get {
-            return NSNumber(integerLiteral: self).stringValue;
-        }
-    }
-
-    var number: NSNumber {
-        get {
-            return NSNumber(integerLiteral: self);
-        }
-    }
-    
-//    func number() -> NSNumber {
-//        return NSNumber(integerLiteral: self)
-//    }
-    
 }
 
 public extension Double{
+    
+    /// 转为String类型
+    var toString: String { return NSNumber(floatLiteral: self).stringValue; }
+    /// 转为NSNumber类型
+    var toNSNumber: NSNumber { return NSNumber(floatLiteral: self); }
     
     /// 保留n为小数
     func roundedTo(_ n: Int) -> Double {
@@ -57,15 +55,6 @@ public extension Double{
         return (format.number(from: format.string(for: self )! )) as! Double
     }
     
-    var string: String {
-        get {
-            return NSNumber(floatLiteral: self).stringValue;
-        }
-    }
-    
-    func number() -> NSNumber {
-        return NSNumber(floatLiteral: Double(self))
-    }
-    
+   
 }
 

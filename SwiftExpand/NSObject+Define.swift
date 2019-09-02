@@ -67,11 +67,11 @@ public func GGSizeMake(_ w: CGFloat, _ h: CGFloat) -> CGSize {
     return CGSize(width: w, height: h)
 }
 
-public func NSStringFromIndexPath(_ indexPath: IndexPath) -> String {
+public func NSStringFromIndexPath(_ indexPath: IndexPath = IndexPath(row: 0, section: 0)) -> String {
     return String(format: "{%d, %d}", indexPath.section, indexPath.row);
 }
 
-public func iOSVer(_ version:Float)->Bool{
+public func iOSVer(_ version: Float) -> Bool{
     return (UIDevice.current.systemVersion as NSString).floatValue > version;
 }
 
@@ -251,6 +251,7 @@ public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
 
 ///返回类名字符串
 public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
+//    NSStringFromClass(cls)
     return String(describing: cls);// return "\(type(of: self))";
 }
 

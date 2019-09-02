@@ -11,7 +11,7 @@ import UIKit
 public extension Timer{
     
     /// 分类方法
-    @objc static func scheduled(_ Interval: TimeInterval, repeats: Bool = true, action: @escaping((Timer) -> Void)) -> Timer {
+    @objc static func scheduled(_ Interval: TimeInterval = 60, repeats: Bool = true, action: @escaping((Timer) -> Void)) -> Timer {
         return scheduledTimer(timeInterval: Interval, target: self, selector: #selector(handleInvoke(_:)), userInfo: action, repeats: repeats)
     }
     
@@ -35,7 +35,7 @@ public extension Timer{
         Timer.pause(self, isPause: isPause)
     }
     
-    @objc static func createGCDTimer(_ Interval: TimeInterval, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
+    @objc static func createGCDTimer(_ interval: TimeInterval = 60, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
         codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
         codeTimer.setEventHandler {

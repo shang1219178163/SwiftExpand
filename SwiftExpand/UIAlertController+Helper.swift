@@ -17,7 +17,7 @@ public let kAlertActionColor = "titleTextColor"
 
 public extension UIAlertController{
     /// 创建系统提示框
-    @objc static func createAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    @objc static func createAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
        
         placeholders?.forEach { (placeholder: String) in
@@ -39,7 +39,7 @@ public extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    @objc static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         
         let alertController = UIAlertController.createAlert(title, placeholders: placeholders, msg: msg, actionTitles: actionTitles, handler: handler)
         if actionTitles == nil {
@@ -88,7 +88,7 @@ public extension UIAlertController{
     }
 
     /// 设置标题颜色
-    @objc func setTitleColor(_ color: UIColor) -> Void {
+    @objc func setTitleColor(_ color: UIColor = UIColor.theme) -> Void {
         guard let title = title else {
             return;
         }

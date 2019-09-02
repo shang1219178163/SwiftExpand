@@ -257,7 +257,7 @@ public extension UIView {
     }
     
     /// [源]HeaderView,footerView
-    @objc static func createSectionView(_ tableView: UITableView, text: String?, textAlignment: NSTextAlignment = .left, height: CGFloat) -> UIView{
+    @objc static func createSectionView(_ tableView: UITableView, text: String?, textAlignment: NSTextAlignment = .left, height: CGFloat = 30) -> UIView{
         let sectionView = UIView()
         if text == nil {
             return sectionView
@@ -274,7 +274,7 @@ public extension UIView {
     }
     
     /// [源]GroupView创建
-    @objc static func createGroupView(_ rect: CGRect = CGRect.zero, list: Array<String>!, numberOfRow: Int = 4, padding: CGFloat = kPadding, type: Int = 0, action:@escaping (UITapGestureRecognizer?,UIView,NSInteger)->()) -> UIView {
+    @objc static func createGroupView(_ rect: CGRect = CGRect.zero, list: Array<String>!, numberOfRow: Int = 4, padding: CGFloat = kPadding, type: Int = 0, action:@escaping (UITapGestureRecognizer?, UIView, NSInteger)->()) -> UIView {
         
         let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1;
         let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
@@ -329,7 +329,7 @@ public extension UIView {
         return backView;
     }
     /// [源]UISegmentControl创建
-    @objc static func createSegment(_ rect: CGRect = CGRect.zero, items: Array<Any>!, selectedIdx: Int, type: Int = 0) -> UISegmentedControl {
+    @objc static func createSegment(_ rect: CGRect = CGRect.zero, items: Array<Any>!, selectedIdx: Int = 0, type: Int = 0) -> UISegmentedControl {
         let view = UISegmentedControl(items: items)
         view.frame = rect
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
@@ -400,7 +400,7 @@ public extension UIView {
         return view;
     }
     /// [源]UISlider创建
-    @objc static func createSlider(_ rect: CGRect = CGRect.zero, value: Float, minValue: Float, maxValue: Float) -> UISlider {
+    @objc static func createSlider(_ rect: CGRect = CGRect.zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
         let view = UISlider(frame: rect)
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         view.minimumValue = minValue

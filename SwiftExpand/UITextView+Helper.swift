@@ -28,9 +28,7 @@ public extension UITextView{
     @objc private func swz_deinit() -> Void {
         //需要注入的代码写在此处
         NotificationCenter.default.removeObserver(self)
-
         self.swz_deinit()
-    
     }
     
     @objc var placeHolderTextView: UITextView {
@@ -60,11 +58,11 @@ public extension UITextView{
         }
     }
     
-    @objc func textViewDidBeginEditing(_ noti: Notification) -> Void {
+    @objc private func textViewDidBeginEditing(_ noti: Notification) -> Void {
         placeHolderTextView.isHidden = true
     }
     
-    @objc func textViewDidEndEditing(_ noti: Notification) -> Void {
+    @objc private func textViewDidEndEditing(_ noti: Notification) -> Void {
         placeHolderTextView.isHidden = false
 
     }

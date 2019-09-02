@@ -10,7 +10,7 @@
 import UIKit
 
 public extension UIViewController{
-    
+    /// 关联obj任意对象
     @objc var obj: AnyObject? {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
@@ -19,7 +19,7 @@ public extension UIViewController{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
+    /// 关联obj任意对象
     @objc var objOne: AnyObject? {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
@@ -28,7 +28,7 @@ public extension UIViewController{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
+    /// 关联NSMutableArray 数据容器
     @objc var dataList: NSMutableArray {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? NSMutableArray;
@@ -42,7 +42,7 @@ public extension UIViewController{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
+    /// 关联UITableView视图对象
     @objc var tbView: UITableView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
@@ -74,7 +74,7 @@ public extension UIViewController{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
+    /// 关联UICollectionView视图对象
     @objc var ctView : UICollectionView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionView;

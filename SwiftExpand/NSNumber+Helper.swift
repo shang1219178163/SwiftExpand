@@ -82,7 +82,7 @@ public extension NumberFormatter{
     }
     
     /// number为NSNumber/String
-    @objc static func numStyle(_ numberStyle: NumberFormatter.Style, number: Any) -> String? {
+    @objc static func numStyle(_ numberStyle: NumberFormatter.Style = .none, number: Any) -> String? {
         if let obj = number as? NSNumber {
             return NumberFormatter.localizedString(from: obj, number: numberStyle);
         }

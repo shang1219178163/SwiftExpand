@@ -56,33 +56,28 @@ public extension UIViewController{
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         } else {
-            // Fallback on earlier versions
             automaticallyAdjustsScrollViewInsets = false;
-            
         }
-
         self.swz_viewDidLoad(animated: animated)
-
     }
     
     @objc private func swz_viewWillAppear(animated: Bool) {
         //需要注入的代码写在此处
         self.swz_viewWillAppear(animated: animated)
-        
 //        self.eventGather(isBegin: true);
     }
     
     @objc private func swz_viewWillDisappear(animated: Bool) {
         //需要注入的代码写在此处
         self.swz_viewWillDisappear(animated: animated)
-        
 //        self.eventGather(isBegin: false);
     }
     
-    @objc private func eventGather(isBegin: Bool) -> Void {
+    @objc private func eventGather(isBegin: Bool = true) -> Void {
         let className = NSStringFromClass(classForCoder);
         //设置不允许发送数据的Controller
-        let filters = ["UINavigationController","UITabBarController","UICompatibilityInputViewController","UIInputWindowController","UIAlertController"];
+        let filters = ["UINavigationController", "UITabBarController", "UICompatibilityInputViewController",
+                       "UIInputWindowController", "UIAlertController"];
         if filters.contains(className) {
             return ;
         }
