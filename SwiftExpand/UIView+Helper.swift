@@ -250,7 +250,7 @@ public extension UIView{
     }
     
     /// 点击回调
-    @objc private func handleActionTap(tap:UITapGestureRecognizer) -> Void {
+    @objc private func handleActionTap(tap: UITapGestureRecognizer) -> Void {
 //       let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
         let block = objc_getAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!) as? ViewClosure;
 
@@ -259,7 +259,7 @@ public extension UIView{
         }
     }
     
-    @objc private func handleActionSender(sender:UIControl) -> Void {
+    @objc private func handleActionSender(sender: UIControl) -> Void {
         let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
         if let sender = self as? UISegmentedControl {
             if block != nil {

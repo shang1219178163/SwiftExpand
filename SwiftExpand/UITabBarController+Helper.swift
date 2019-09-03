@@ -27,8 +27,8 @@ public extension UITabBarController{
         for e in viewControllers!.enumerated(){
             let itemList = list[e.offset]
             let title = itemList[itemList.count - 4] as! String
-            let img = UIImage(named: itemList[itemList.count - 3] as! String)
-            let imgH = UIImage(named: itemList[itemList.count - 2] as! String)
+            let img = UIImage(named: itemList[itemList.count - 3] as! String)?.withRenderingMode(.alwaysOriginal)
+            let imgH = UIImage(named: itemList[itemList.count - 2] as! String)?.withRenderingMode(.alwaysTemplate)
             e.element.tabBarItem = UITabBarItem(title: title, image: img, selectedImage: imgH)
         }
     }
