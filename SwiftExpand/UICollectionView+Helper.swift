@@ -67,16 +67,8 @@ public extension UICollectionView{
             var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
             if layout == nil {
                 // 初始化
-//                let width = UIScreen.main.bounds.width;
-//                let spacing: CGFloat = 5.0
-//                let itemSize = CGSize(width: (width - 5*spacing)/4.0,height: (width - 5*spacing)/4.0);
-//                let headerSize = CGSize(width: width, height: 30);
-//                let footerSize = CGSize(width: width, height: 30);
-//                layout = UICollectionViewFlowLayout.create(itemSize, spacing: spacing, headerSize: headerSize, footerSize: footerSize)
-                layout = UICollectionViewFlowLayout.create(<#T##itemSize: CGSize##CGSize#>, headerSize: <#T##CGSize#>, footerSize: <#T##CGSize#>)
-
+                layout = UICollectionViewLayout.createFlowLayout()
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
             }
             return layout!
         }
@@ -143,19 +135,6 @@ public extension UICollectionView{
             register(SwiftClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         }
     }
-    
-//    ///  默认布局配置(自上而下,自左而右)
-//    @objc func create(_ rowNum: Int = 4, spacing: CGFloat = kPadding, headerHeight: CGFloat = 30, footerHeight: CGFloat = 30) -> UICollectionViewFlowLayout {
-//        
-//        let itemWidth = (bounds.width - (rowNum.toCGFloat + 1)*spacing)/rowNum.toCGFloat;
-//        let itemHeight = itemWidth/kRatioIDCard;
-//        let itemSize = CGSize(width: itemWidth, height: itemHeight);
-//        let headerSize = CGSize(width: bounds.width, height: headerHeight);
-//        let footerSize = CGSize(width: bounds.width, height: footerHeight);
-//        let layout = UICollectionViewFlowLayout.create(itemSize, spacing: spacing, headerSize: headerSize, footerSize: footerSize);
-//        return layout;
-//    }
-
     
 }
 
