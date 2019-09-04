@@ -10,6 +10,7 @@ import UIKit
 
 public extension UICollectionViewLayout{
     
+    /// 仿 flowLayout
     @objc var minimumLineSpacing: CGFloat {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGFloat {
@@ -22,6 +23,7 @@ public extension UICollectionViewLayout{
         }
     }
     
+    /// 仿 flowLayout
     @objc var minimumInteritemSpacing: CGFloat {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGFloat {
@@ -34,6 +36,7 @@ public extension UICollectionViewLayout{
         }
     }
     
+    /// 仿 flowLayout
     @objc var itemSize: CGSize {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
@@ -46,6 +49,7 @@ public extension UICollectionViewLayout{
         }
     }
     
+    /// 仿 flowLayout
     @objc var headerReferenceSize: CGSize {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
@@ -58,6 +62,7 @@ public extension UICollectionViewLayout{
         }
     }
     
+    /// 仿 flowLayout
     @objc var footerReferenceSize: CGSize {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CGSize {
@@ -70,6 +75,7 @@ public extension UICollectionViewLayout{
         }
     }
     
+    /// 仿 flowLayout
     @objc var sectionInset: UIEdgeInsets {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIEdgeInsets {
@@ -92,11 +98,12 @@ public extension UICollectionViewLayout{
         //item的尺寸
         layout.itemSize = itemSize;
         //item的UIEdgeInsets
-        layout.sectionInset = UIEdgeInsetsMake(spacing, spacing, spacing, spacing);
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0);
         //滑动方向,默认垂直
         //sectionView 尺寸
         layout.headerReferenceSize = headerSize;
         layout.footerReferenceSize = footerSize;
         return layout;
     }
+    
 }
