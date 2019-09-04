@@ -1,2 +1,2 @@
 # SwiftExpand
-Swift的SDK功能拓展
+Swift SDK功能拓展
