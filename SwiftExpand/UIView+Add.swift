@@ -95,7 +95,7 @@ public extension UIView {
     }
     
     /// 配置HolderView
-    @objc func holderView(_ title: String, image: String?) -> Void {
+    @objc func holderView(_ title: String = "暂无数据", image: String?) -> Void {
         let imgView: UIImageView = holderView.viewWithTag(kTAG_IMGVIEW) as! UIImageView
         let label: UILabel = holderView.viewWithTag(kTAG_LABEL) as! UILabel
         label.text = title

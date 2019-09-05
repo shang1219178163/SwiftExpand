@@ -79,10 +79,6 @@ public extension UIColor{
     }
     
     //MARK: - -方法
-    @objc static func hex(_ hex: String) -> UIColor {
-        return UIColor.hex(hex, a: 1.0);
-    }
-    
     /// [源]十六进制颜色字符串
     @objc static func hex(_ hex: String, a: CGFloat = 1.0) -> UIColor {
         var cString = hex.trimmingCharacters(in: CharacterSet.whitespaces).uppercased();

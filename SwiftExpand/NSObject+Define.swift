@@ -48,22 +48,22 @@ public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
 }
 
 /// 自定义UIEdgeInsets
-public func UIEdgeInsetsMake(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> UIEdgeInsets{
+public func UIEdgeInsetsMake(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> UIEdgeInsets{
     return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
 }
 
 /// 自定义CGRect
-public func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ w: CGFloat, _ h: CGFloat) -> CGRect{
+public func CGRectMake(_ x: CGFloat = 0, _ y: CGFloat = 0, _ w: CGFloat = 0, _ h: CGFloat = 0) -> CGRect{
     return CGRect(x: x, y: y, width: w, height: h)
 }
 
 /// 自定义CGPointMake
-public func CGPointMake(_ x: CGFloat, _ y: CGFloat) -> CGPoint {
+public func CGPointMake(_ x: CGFloat = 0, _ y: CGFloat = 0) -> CGPoint {
     return CGPoint(x: x, y: y)
 }
 
 /// 自定义GGSizeMake
-public func GGSizeMake(_ w: CGFloat, _ h: CGFloat) -> CGSize {
+public func GGSizeMake(_ w: CGFloat = 0, _ h: CGFloat = 0) -> CGSize {
     return CGSize(width: w, height: h)
 }
 
@@ -193,13 +193,8 @@ public func UIColorHex(_ hex: String, _ a: CGFloat = 1.0) -> UIColor {
     return UIColor.hex(hex, a: a);
 }
 
-/// 16进制字符串
-public func UIColorHex(_ hex: String) -> UIColor {
-    return UIColor.hex(hex);
-}
-
 /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
-public func UIColorHexValue(_ hex:Int, _ a: CGFloat = 1.0) -> UIColor {
+public func UIColorHexValue(_ hex: Int, _ a: CGFloat = 1.0) -> UIColor {
     return UIColor(red: CGFloat((hex & 0xFF0000) >> 16)/255.0, green: CGFloat((hex & 0xFF00) >> 8)/255.0, blue: CGFloat(hex & 0xFF)/255.0, alpha: a)
 }
 
@@ -211,12 +206,8 @@ public func UIColorDim(_ white: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
     return .init(white: white, alpha: a);
 }
 
-public func UIImageNamed(_ name: String) -> UIImage?{
-    return UIImage(named: name);
-}
-
 public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
-    var image = UIImageNamed(name)
+    var image = UIImage(named: name);
     if image != nil {
         image = image!.withRenderingMode(renderingMode)
     }
@@ -224,7 +215,7 @@ public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode = 
 }
 
 // 把颜色转成UIImage
-public func UIImageColor(_ color: UIColor, size: CGSize = CGSize(width: 0, height: 0)) -> UIImage{
+public func UIImageColor(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage{
     let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
     UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
     
@@ -237,12 +228,6 @@ public func UIImageColor(_ color: UIColor, size: CGSize = CGSize(width: 0, heigh
     return image!
 }
 
-// 把颜色转成UIImage
-public func UIImageColor(_ color: UIColor) -> UIImage{
-    return UIImageColor(color, size: CGSize(width: 1.0, height: 1.0))
-}
-
-
 public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
     let data0: Data = image0.pngData()!
     let data1: Data = image1.pngData()!
@@ -251,12 +236,6 @@ public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
 
 ///返回类名字符串
 public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
-//    NSStringFromClass(cls)
-    return String(describing: cls);// return "\(type(of: self))";
-}
-
-///返回的类名不带明明空间
-//public func NStringShortFromClass(_ cls:Swift.AnyClass) -> String {
 //    let className: String = NSStringFromClass(cls);
 //    //    if className.contains(".") {
 //    //        let rangePoint = className.range(of: ".");
@@ -265,7 +244,8 @@ public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
 //    //    return className;
 //    let list = className.components(separatedBy: ".");
 //    return list.last!;
-//}
+    return String(describing: cls);// return "\(type(of: self))";
+}
 
 public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
     
@@ -292,51 +272,6 @@ public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
         
     }
     return dic;
-}
-
-public func IsTimeStamp(_ obj: Any) -> Bool{
-    assert(obj is String || obj is Double)
-    if let dateStr = obj as? String {
-        if dateStr.count < 10 || dateStr.contains(" ") {
-            return false
-        }
-    } else {
-        if let value = obj as? Double {
-            if value < 10000000000 {
-                return false
-            }
-        }
-    }
-    return true
-}
-
-public func TimeStampFromObj(_ obj: Any) -> String{
-    assert(obj is String || obj is Int || obj is Date)
-    
-    if let date = obj as? Date {
-        return "\(date.timeIntervalSince1970)"
-    }
-    
-    if let value = obj as? Int {
-        return "\(value)"
-    }
-    
-    var fmt = kDateFormat;
-    if let dateStr = obj as? String {
-        if dateStr.contains("-") && dateStr.contains(":") {
-            fmt = kDateFormat;
-        } else if dateStr.contains("-") && !dateStr.contains(":") {
-            fmt = kDateFormat_day
-            
-        } else if !dateStr.contains("-") && !dateStr.contains(":") {
-            fmt = kDateFormat_two
-            
-        } else {
-            print("时间格式不对\(dateStr)")
-        }
-        return DateFormatter.intervalFromDateStr(dateStr, fmt: fmt)
-    }
-    return ""
 }
 
 /// data -> NSObject
@@ -366,9 +301,6 @@ public func JSONStringFromObj(_ obj: Any, options opt: JSONSerialization.Writing
     let string: String = (obj as! NSObject).jsonString()
     return string;
 }
-
-/// 四射五入
-
 
 ///// 两个Int(+-*/)
 //public func resultByOpt(_ num1: Int, _ num2: Int, result: (Int, Int) -> Int) -> Int {

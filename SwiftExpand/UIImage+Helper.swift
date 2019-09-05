@@ -105,7 +105,7 @@ public extension UIImage {
     }
     
     /// 切圆角图片
-    @objc func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize) -> UIImage? {
+    @objc func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize = CGSize(width: 5, height: 5)) -> UIImage? {
         
         let imageRect = CGRect(origin: CGPoint.zero, size: size)
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)

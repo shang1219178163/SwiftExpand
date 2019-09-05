@@ -22,7 +22,7 @@ public extension UIAlertAction{
         }
     }
     
-    /// 设置Message文本换行,对齐方式
+    /// 设置UIAlertController按钮颜色
     @objc func setTitleColor(_ color: UIColor = UIColor.theme) -> Void {
         setValue(color, forKey: kAlertActionColor);
 

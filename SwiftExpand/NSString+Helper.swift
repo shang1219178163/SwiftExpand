@@ -221,4 +221,14 @@ public extension NSString{
         tmp = tmp.appending(sufix) as NSString
         return tmp;
     }
+    
+    /// 判断是否时间戳字符串
+    @objc func isTimeStamp() -> Bool{
+        if self.contains(" ") || self.contains("-") || self.contains(":") {
+            return false;
+        }
+        return true
+    }
+    
+    
 }

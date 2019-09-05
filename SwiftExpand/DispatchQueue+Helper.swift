@@ -23,7 +23,7 @@ public extension DispatchQueue{
         _onceTracker.append(token);
         block();
     }
-    
+    /// 延迟 delay 秒 执行
     func after(_ delay: TimeInterval, execute closure: @escaping () -> Void) {
         asyncAfter(deadline: .now() + delay, execute: closure)
     }
