@@ -227,8 +227,68 @@ public extension NSString{
         if self.contains(" ") || self.contains("-") || self.contains(":") {
             return false;
         }
+        
+        if self.isPureInteger() == false || self.doubleValue < NSDate().timeIntervalSince1970 {
+            return false;
+        }
         return true
     }
+    /// 整形判断
+    @objc func isPureInteger() -> Bool{
+        let scan = Scanner(string: self as String);
+        var val: Int = 0;
+        return (scan.scanInt(&val) && scan.isAtEnd);
+    }
+    /// 浮点形判断
+    @objc func isPureFloat() -> Bool{
+        let scan = Scanner(string: self as String);
+        var val: Float = 0.0;
+        return (scan.scanFloat(&val) && scan.isAtEnd);
+    }
     
+    /// (短时间)yyyy-MM-dd
+    @objc func toDateShort() -> String{
+        assert(self.length >= 10);
+        return self.substring(to: 10);
+    }
+    
+    /// 起始时间( 00:00:00时间戳)
+    @objc func toTimestampShort() -> String{
+        assert(self.length >= 10);
+        
+        let tmp = self.substring(to: 10) + " 00:00:00";
+        let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormat_start)
+        return result;
+    }
+    
+    /// 截止时间( 23:59:59时间戳)
+    @objc func toTimestampFull() -> String{
+        assert(self.length >= 10);
+        
+        let tmp = self.substring(to: 10) + " 23:59:59";
+        let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormat_end)
+        return result;
+    }
+    /// 过滤特殊字符集
+    @objc func filter(_ string: String) -> String{
+        assert(self.length > 0);
+        let chartSet = NSCharacterSet(charactersIn: string).inverted;
+        let result = self.addingPercentEncoding(withAllowedCharacters: chartSet)
+        return result!;
+    }
+    
+    /// 删除首尾空白字符
+    @objc func deleteWhiteSpaceBeginEnd(_ string: String) -> String{
+        assert(self.length > 0);
+        let chartSet = NSCharacterSet.whitespacesAndNewlines;
+        let result = self.trimmingCharacters(in: chartSet)
+        return result;
+    }
+    /// 取代索引处字符
+    @objc func replacingCharacter(_ index: Int) -> String{
+        assert(self.length > 0);
+        let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: self as String)
+        return result;
+    }
     
 }
