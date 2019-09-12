@@ -10,41 +10,41 @@ import UIKit
 
 public extension UIView{
     
-    @objc var x: CGFloat {
-        get {
-            return frame.origin.x
-        }
-        set {
-            frame.origin = CGPoint(x:newValue, y:frame.origin.y)
-        }
-    }
-    
-    @objc var y: CGFloat {
-        get {
-            return frame.origin.y
-        }
-        set {
-            frame.origin = CGPoint(x:frame.origin.x, y:newValue)
-        }
-    }
-    // 混编和masonry冲突
-    var width: CGFloat {
-        get {
-            return frame.width
-        }
-        set {
-            frame.size.width = newValue
-        }
-    }
-    // 混编和masonry冲突
-    var height: CGFloat {
-        get {
-            return frame.size.height
-        }
-        set {
-            frame.size.height = newValue
-        }
-    }
+//    @objc var x: CGFloat {
+//        get {
+//            return frame.origin.x
+//        }
+//        set {
+//            frame.origin = CGPoint(x:newValue, y:frame.origin.y)
+//        }
+//    }
+//
+//    @objc var y: CGFloat {
+//        get {
+//            return frame.origin.y
+//        }
+//        set {
+//            frame.origin = CGPoint(x:frame.origin.x, y:newValue)
+//        }
+//    }
+//    // 混编和masonry冲突
+//    var width: CGFloat {
+//        get {
+//            return frame.width
+//        }
+//        set {
+//            frame.size.width = newValue
+//        }
+//    }
+//    // 混编和masonry冲突
+//    var height: CGFloat {
+//        get {
+//            return frame.size.height
+//        }
+//        set {
+//            frame.size.height = newValue
+//        }
+//    }
     
     @objc var sizeWidth: CGFloat {
         get {
@@ -70,6 +70,24 @@ public extension UIView{
         }
         set{
             frame.size = newValue
+        }
+    }
+    
+    @objc var originX: CGFloat {
+        get {
+            return frame.origin.x
+        }
+        set {
+            frame.origin.x = newValue
+        }
+    }
+    
+    @objc var originY: CGFloat {
+        get {
+            return frame.origin.y
+        }
+        set {
+            frame.origin.y = newValue
         }
     }
     

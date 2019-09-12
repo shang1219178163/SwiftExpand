@@ -100,7 +100,7 @@ public extension UIView {
         let label: UILabel = holderView.viewWithTag(kTAG_LABEL) as! UILabel
         label.text = title
         if image == nil {
-            label.center = CGPointMake(holderView.center.x, holderView.height*0.35)
+            label.center = CGPointMake(holderView.center.x, holderView.sizeHeight*0.35)
 
         } else {
             imgView.image = UIImageNamed(image!)
@@ -262,7 +262,7 @@ public extension UIView {
         if text == nil {
             return sectionView
         }
-        let view = UILabel(frame: CGRect(x: kX_GAP, y: 0, width: tableView.width - kX_GAP*2, height: height));
+        let view = UILabel(frame: CGRect(x: kX_GAP, y: 0, width: tableView.sizeWidth - kX_GAP*2, height: height));
         view.isUserInteractionEnabled = true;
         view.lineBreakMode = .byTruncatingTail;
         view.adjustsFontSizeToFitWidth = true;

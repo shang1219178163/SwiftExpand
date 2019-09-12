@@ -82,9 +82,10 @@ public extension UIViewController{
                 // 初始化
                 obj = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
-                obj!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
+                obj!.isPagingEnabled = true;
                 obj!.backgroundColor = UIColor.background
 
+                obj!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
                 if self.conforms(to: UICollectionViewDelegate.self) {
                     obj!.delegate = (self as! UICollectionViewDelegate)
                 }

@@ -283,12 +283,20 @@ public extension UIApplication{
     }
     
     /// 打开网络链接
-    @objc static func openURL(_ urlStr: String) {
+    @objc static func openURL(_ urlStr: String, isUrl: Bool = true) {
 //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
 //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
 //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
+        var tmp = urlStr;
+        if isUrl == true && !urlStr.hasPrefix("http") {
+            tmp = "http://" + urlStr;
+        }
         
-        let url:NSURL? = NSURL(string:urlStr);
+        if isUrl == false && !urlStr.hasPrefix("tel") {
+            tmp = "tel://" + urlStr;
+        }
+        
+        let url: NSURL? = NSURL(string:tmp);
         if UIApplication.shared.canOpenURL(url! as URL) {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)

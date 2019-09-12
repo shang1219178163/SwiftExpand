@@ -15,8 +15,8 @@ import CoreBluetooth
 import CoreLocation
 import EventKit
 import Contacts
+import StoreKit
 
-//@available(iOS 9.3, *)
 public extension UIApplication{
 
     /// 网络状态是否可用
@@ -287,6 +287,18 @@ public extension UIApplication{
         return isUpdate;
     }
 
-   
-
+    /// 应用下载其他应用
+    @objc static func jumpAppStore(_ appID: String, controller: UIViewController) -> Void {
+        let productVC = SKStoreProductViewController();
+        productVC.delegate = (controller as! SKStoreProductViewControllerDelegate);
+        
+        let params = [SKStoreProductParameterITunesItemIdentifier: appID]
+        productVC.loadProduct(withParameters: params) { (result, error) in
+            if result == true {
+                controller.present(productVC, animated: true, completion: nil);
+            } else {
+                DDLog("打开商店失败!!!");
+            }
+        }
+    }
 }

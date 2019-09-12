@@ -100,7 +100,7 @@ public extension NSObject{
     }
     
     /// 密集小视图的尺寸布局
-    @objc func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat = UIScreen.width, itemHeight: CGFloat = 60, padding: CGFloat = kPadding) -> CGSize {
+    @objc func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat = UIScreen.sizeWidth, itemHeight: CGFloat = 60, padding: CGFloat = kPadding) -> CGSize {
         let rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1
 //        let tmp = CGFloat(numberOfRow) - 1.0
 //        let itemWith = (width - tmp*padding)/CGFloat(numberOfRow)
