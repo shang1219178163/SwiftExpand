@@ -47,7 +47,7 @@ public extension UIViewController{
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
             if obj == nil {
-                obj = UIView.createTableView(view.bounds, style: .grouped, rowHeight: 60);
+                obj = UIView.createTableView(view.bounds, style: .plain, rowHeight: 70);
 //                obj?.frame = view.bounds
 //                obj = UITableView(frame:view.bounds, style:.grouped);
 //                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)

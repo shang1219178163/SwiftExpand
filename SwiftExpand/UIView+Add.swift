@@ -129,7 +129,7 @@ public extension UIView {
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         view.isUserInteractionEnabled = true;
         view.textAlignment = .left;
-        view.font = UIFont.systemFont(ofSize: 16);
+        view.font = UIFont.systemFont(ofSize: 15);
         
         switch type {
         case 1:
@@ -229,6 +229,8 @@ public extension UIView {
         view.backgroundColor = .white;
         view.returnKeyType = .done
         view.textAlignment = .left;
+        view.font = UIFont.systemFont(ofSize: 15)
+
         return view
     }
     /// [源]UITextView创建
@@ -243,6 +245,8 @@ public extension UIView {
         view.layer.borderColor = UIColor.line.cgColor;
         
         view.textAlignment = .left;
+        view.font = UIFont.systemFont(ofSize: 15)
+
         return view
     }
     
@@ -268,7 +272,8 @@ public extension UIView {
         view.adjustsFontSizeToFitWidth = true;
         view.text = text;
         view.textAlignment = textAlignment
-        
+        view.font = UIFont.systemFont(ofSize: 15)
+
         sectionView.addSubview(view)
         return sectionView
     }
@@ -303,7 +308,8 @@ public extension UIView {
                 
                 label.numberOfLines = 0;
                 label.lineBreakMode = .byCharWrapping;
-                
+                label.font = UIFont.systemFont(ofSize: 15)
+
                 view = label;
                 
             default:

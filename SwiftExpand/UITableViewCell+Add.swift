@@ -117,7 +117,6 @@ public extension UITableViewCell{
         }
     }
     
-    
     @objc var labelRight: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
@@ -137,6 +136,29 @@ public extension UITableViewCell{
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    @objc var labelRightSub: UILabel {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
+            if obj == nil {
+                obj = UILabel(frame: CGRect.zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.font = UIFont.systemFont(ofSize: 15);
+                obj!.textAlignment = .left;
+                obj!.numberOfLines = 0;
+                obj!.lineBreakMode = .byCharWrapping;
+                obj!.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0);
+                obj!.isUserInteractionEnabled = true;
+                
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function)!, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     

@@ -79,6 +79,19 @@ public func kScaleWidth(_ width: CGFloat) -> CGFloat {
     return width * UIScreen.main.bounds.size.width / 320.0
 }
 
+///返回类名字符串
+public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
+    //    let className: String = NSStringFromClass(cls);
+    //    //    if className.contains(".") {
+    //    //        let rangePoint = className.range(of: ".");
+    //    //        className = String(className[rangePoint!.upperBound...]);
+    //    //    }
+    //    //    return className;
+    //    let list = className.components(separatedBy: ".");
+    //    return list.last!;
+    return String(describing: cls);// return "\(type(of: self))";
+}
+
 //获取本地创建类
 public func SwiftClassFromString(_ name: String) -> AnyClass {
     //    let nameKey = "CFBundleName";
@@ -232,19 +245,6 @@ public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
     let data0: Data = image0.pngData()!
     let data1: Data = image1.pngData()!
     return data0 == data1
-}
-
-///返回类名字符串
-public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
-//    let className: String = NSStringFromClass(cls);
-//    //    if className.contains(".") {
-//    //        let rangePoint = className.range(of: ".");
-//    //        className = String(className[rangePoint!.upperBound...]);
-//    //    }
-//    //    return className;
-//    let list = className.components(separatedBy: ".");
-//    return list.last!;
-    return String(describing: cls);// return "\(type(of: self))";
 }
 
 public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{

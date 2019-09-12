@@ -13,11 +13,20 @@ public extension UIApplication{
     @objc static var appName: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
-            if let name = infoDic![kCFBundleNameKey as String] {
+            if let name = infoDic!["CFBundleDisplayName"] {
                 return name as! String;
             }
             return infoDic![kCFBundleExecutableKey as String] as! String;
-//            return name;
+        }
+    }
+    
+    @objc static var bundleName: String {
+        get {
+            let infoDic = Bundle.main.infoDictionary;
+            if let name = infoDic!["CFBundleName"] {
+                return name as! String;
+            }
+            return infoDic!["CFBundleExecutable"] as! String;
         }
     }
     
