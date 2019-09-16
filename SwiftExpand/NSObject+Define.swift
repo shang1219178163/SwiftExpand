@@ -97,7 +97,7 @@ public func SwiftClassFromString(_ name: String) -> AnyClass {
     //    let nameKey = "CFBundleName";
     //    这里也是坑，请不要翻译oc的代码，而是去NSBundle类里面看它的api
     //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as? String;
-    let nameSpace  = UIApplication.appName;
+    let nameSpace  = UIApplication.appBundleName;
     let cls : AnyClass = NSClassFromString(nameSpace + "." + name)!;
     return cls;
 }

@@ -20,7 +20,7 @@ public extension UIApplication{
         }
     }
     
-    @objc static var bundleName: String {
+    @objc static var appBundleName: String {
         get {
             let infoDic = Bundle.main.infoDictionary;
             return infoDic!["CFBundleExecutable"] as! String;
