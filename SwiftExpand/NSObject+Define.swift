@@ -249,27 +249,29 @@ public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
 
 public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
     
-    var dic : [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor:  UIColor.black,
-                                              NSAttributedString.Key.backgroundColor:   UIColor.white,]
+    var dic: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor:  UIColor.theme,
+                                              NSAttributedString.Key.backgroundColor:  UIColor.white,]
     
     switch type {
     case 1:
-        dic = [NSAttributedString.Key.underlineStyle:   NSUnderlineStyle.single.rawValue,
-               NSAttributedString.Key.underlineColor:   UIColor.red,]
+        dic[NSAttributedString.Key.underlineStyle] = NSUnderlineStyle.single.rawValue;
+        dic[NSAttributedString.Key.underlineColor] = UIColor.theme;
+        
     case 2:
-        dic = [NSAttributedString.Key.strikethroughStyle:   NSUnderlineStyle.single.rawValue,
-               NSAttributedString.Key.strikethroughColor:   UIColor.red,]
+        dic[NSAttributedString.Key.strikethroughStyle] = NSUnderlineStyle.single.rawValue;
+        dic[NSAttributedString.Key.strikethroughColor] = UIColor.red;
+        
     case 3:
-        dic = [NSAttributedString.Key.obliqueness:   0.8,]
+        dic[NSAttributedString.Key.obliqueness] = 0.8;
+        
     case 4:
-        dic = [NSAttributedString.Key.expansion:   0.3,]
+        dic[NSAttributedString.Key.expansion] = 0.3;
         
     case 5:
-        dic = [NSAttributedString.Key.writingDirection:   3,]
+        dic[NSAttributedString.Key.writingDirection] = 3;
         
     default:
         break
-        
     }
     return dic;
 }

@@ -17,7 +17,7 @@ public let kAlertActionColor = "titleTextColor"
 
 public extension UIAlertController{
     /// 创建系统提示框
-    @objc static func createAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    @objc static func createAlert(_ title: String?, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
        
         placeholders?.forEach { (placeholder: String) in
@@ -39,17 +39,19 @@ public extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc static func showAlert(_ title: String, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    @objc static func showAlert(_ title: String?, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         
+        let rootVC = UIApplication.shared.delegate?.window??.rootViewController
+
         let alertController = UIAlertController.createAlert(title, placeholders: placeholders, msg: msg, actionTitles: actionTitles, handler: handler)
         if actionTitles == nil {
-            UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: {
+            rootVC?.present(alertController, animated: true, completion: {
                 DispatchQueue.main.after(TimeInterval(kDurationToast), execute: {
                     alertController.dismiss(animated: true, completion: nil)
                 })
             })
         } else {
-            UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+            rootVC?.present(alertController, animated: true, completion: nil)
 
         }
         return alertController
@@ -82,8 +84,10 @@ public extension UIAlertController{
     
     /// 展示提示框
     @objc static func showSheet(_ title: String?, msg: String? = nil, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        let rootVC = UIApplication.shared.delegate?.window??.rootViewController
+
         let alertController = UIAlertController.createSheet(title, msg:msg, items: items, handler: handler)
-        UIApplication.mainWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+        rootVC?.present(alertController, animated: true, completion: nil)
         return alertController
     }
 

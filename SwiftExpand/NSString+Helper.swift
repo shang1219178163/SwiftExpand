@@ -81,6 +81,54 @@ public extension String{
         (self as NSString).copyToPasteboard(showTips)
     }
     
+    /// 字符串开始到第index
+    func substringTo(_ index: Int) -> String {
+        guard index < self.count else {
+            assertionFailure("index beyound the length of the string")
+            return ""
+        }
+        
+        let theIndex = self.index(self.startIndex, offsetBy: index)
+        return String(self[startIndex...theIndex])
+    }
+    
+    /// 从第index个开始到结尾的字符
+    func substringFrom(_ index: Int) -> String {
+        guard index < self.count else {
+            assertionFailure("index beyound the length of the string")
+            return ""
+        }
+        
+        guard index >= 0 else {
+            assertionFailure("index can't be lower than 0")
+            return ""
+        }
+        
+        let theIndex = self.index(self.endIndex, offsetBy: index - self.count)
+        return String(self[theIndex..<endIndex])
+    }
+    
+    /// 某个闭区间内的字符
+    ///
+    /// - Parameter range: 闭区间，例如：1...6
+    /// - Returns: 子字符串
+    func substringInRange(_ range: CountableClosedRange<Int>) -> String {
+        
+        guard range.lowerBound >= 0 else {
+            assertionFailure("lowerBound of the Range can't be lower than 0")
+            return ""
+        }
+        
+        guard range.upperBound < self.count else {
+            assertionFailure("upperBound of the Range beyound the length of the string")
+            return ""
+        }
+        let start = self.index(self.startIndex, offsetBy: range.lowerBound)
+        let end = self.index(self.startIndex, offsetBy: range.upperBound + 1)
+        
+        return String(self[start..<end])
+    }
+    
     subscript (i: Int) -> Character {
         return self[index(startIndex, offsetBy: i)]
     }
@@ -207,7 +255,7 @@ public extension NSString{
     @objc func copyToPasteboard(_ showTips: Bool) -> Void {
         UIPasteboard.general.string = self as String
         if showTips == true {
-            let _ = UIAlertController.showAlert("提示", placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
+            let _ = UIAlertController.showAlert(nil, placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
         }
     }
     

@@ -136,16 +136,6 @@ public extension UIView{
         }
     }
     
-    @objc var cornerRadius: CGFloat {
-        get {
-            return layer.cornerRadius
-        }
-        set {
-            layer.cornerRadius = newValue
-            layer.masksToBounds = true
-        }
-    }
-   
     //MARK: -funtions
     /// text是否有效
     @objc func validText() -> Bool {
@@ -538,5 +528,16 @@ public extension UIView{
             action(error)
         }
     }
-    
+    /// 获取父视图的 UIScrollView
+    @objc func supScrollView() -> UIScrollView? {
+        var supView = self.superview
+        while supView?.isKind(of: UIScrollView.classForCoder()) == false {
+            supView = supView?.superview;
+        }
+        
+        if supView?.isKind(of: UIWindow.classForCoder()) == true {
+            return nil
+        }
+        return (supView as! UIScrollView)
+    }
 }

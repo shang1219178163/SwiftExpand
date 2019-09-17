@@ -68,7 +68,8 @@ public extension UIViewController{
 
     }
     
-    @objc func createBtnBarItem(_ title: String?, image: String?, isLeft: Bool = false, isHidden: Bool = false, action: @escaping (ControlClosure)) -> UIButton {
+    /// 创建导航栏按钮(UIButton)
+    @objc func createBtnBarItem(_ title: String?, image: String? = nil, isLeft: Bool = false, isHidden: Bool = false, action: (ControlClosure)? = nil) -> UIButton {
         var size = CGSize(width: 32, height: 32)
         if image != nil && UIImage(named:image!) != nil {
             size = CGSize(width: 40, height: 40)
@@ -80,11 +81,6 @@ public extension UIViewController{
         btn.tag = isLeft == true ? kTAG_BackItem : kTAG_RightItem;
         btn.isHidden = isHidden;
         btn.sizeToFit();
-
-        //        let view = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 44));
-        //        view.isHidden = isHidden;
-        //        btn.center = view.center;
-        //        view.addSubview(btn);
         
         if image != nil && UIImage(named:image!) != nil {
             btn.setImage(UIImage(named:image!), for: .normal);
@@ -100,7 +96,9 @@ public extension UIViewController{
             }
         }
         
-        btn.addActionHandler(action, for: .touchUpInside)
+        if action != nil {
+            btn.addActionHandler(action!, for: .touchUpInside)
+        }
         let item:UIBarButtonItem = UIBarButtonItem(customView: btn);
         if isLeft == true {
             navigationItem.leftBarButtonItem = item;

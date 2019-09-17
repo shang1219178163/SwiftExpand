@@ -192,21 +192,54 @@ public extension NSDate{
         return DateFormatter.stringFromDate(newDate as Date, fmt: fmt);
     }
     
-    /// 多少天之前
-    @objc func agoInfo() -> String {
+    /// 多少时间之前(00:00:00:00/00天00时00分00秒)
+    @objc func agoInfo(_ type: Int = 0, length: Int = 8) -> String {
         var interval = Date().timeIntervalSinceNow - self.timeIntervalSinceNow
         
-        var info = "\(Int(interval/kDate_day))" + "天"
-        interval = interval.truncatingRemainder(dividingBy: kDate_day);
-        
-        info += "\(Int(interval/kDate_hour))" + "小时"
-        interval = interval.truncatingRemainder(dividingBy: kDate_hour);
-        
-        info += "\(Int(interval/kDate_minute))" + "分钟"
-        interval = interval.truncatingRemainder(dividingBy: kDate_minute);
-        
-        info += "\(Int(interval))" + "秒之前"
-        return info;
+        var info = ""
+        switch type {
+        case 1:
+            
+            if interval/kDate_day < 10 {
+                info += "0\(Int(interval/kDate_day))" + ":"
+            } else {
+                info += "\(Int(interval/kDate_day))" + ":"
+            }
+            interval = interval.truncatingRemainder(dividingBy: kDate_day);
+            
+            if interval/kDate_hour < 10 {
+                info += "0\(Int(interval/kDate_hour))" + ":"
+            } else {
+                info += "\(Int(interval/kDate_hour))" + ":"
+            }
+            interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+            
+            if interval/kDate_minute < 10 {
+                info += "0\(Int(interval/kDate_minute))" + ":"
+            } else {
+                info += "\(Int(interval/kDate_minute))" + ":"
+            }
+            interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+            
+            if interval < 10 {
+                info += "0\(Int(interval))"
+            } else {
+                info += "\(Int(interval))"
+            }
+            
+        default:
+            info = "\(Int(interval/kDate_day))" + "天"
+            interval = interval.truncatingRemainder(dividingBy: kDate_day);
+            
+            info += "\(Int(interval/kDate_hour))" + "时"
+            interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+            
+            info += "\(Int(interval/kDate_minute))" + "分"
+            interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+            
+            info += "\(Int(interval))" + "秒"
+        }
+        return info.substringFrom(info.count - length);
     }
     
     @objc func hourInfoBetween(_ date: NSDate,_ type: Int = 0) -> Double {
