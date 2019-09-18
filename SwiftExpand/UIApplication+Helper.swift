@@ -290,20 +290,26 @@ public extension UIApplication{
     
     /// 打开网络链接
     @objc static func openURL(_ urlStr: String, isUrl: Bool = true) {
-//        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
-//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
-//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
-        var tmp = urlStr;
-        if isUrl == true && !urlStr.hasPrefix("http") {
-            tmp = "http://" + urlStr;
+        if isUrl == true {
+            let _ = UIApplication.openURLStr(urlStr, prefix: "http://")
+        } else {
+            let _ = UIApplication.openURLStr(urlStr, prefix: "tel://")
         }
-        
-        if isUrl == false && !urlStr.hasPrefix("tel") {
-            tmp = "tel://" + urlStr;
+    }
+    
+    /// 打开网络链接(prefix为 http://或 tel:// )
+    @objc static func openURLStr(_ urlStr: String, prefix: String) -> Bool {
+        //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
+        //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
+        //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
+        var tmp = urlStr;
+        if urlStr.hasPrefix(prefix) == false {
+            tmp = prefix + urlStr;
         }
         
         let url: NSURL? = NSURL(string:tmp);
-        if UIApplication.shared.canOpenURL(url! as URL) {
+        let canOpenUrl = UIApplication.shared.canOpenURL(url! as URL)
+        if canOpenUrl == true {
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
             } else {
@@ -314,5 +320,24 @@ public extension UIApplication{
             print("链接无法打开!!!\n%@",url as Any);
             
         }
+        return canOpenUrl;
     }
+    
+    /// 远程推送deviceToken处理
+    @objc static func deviceTokenString(_ deviceToken: NSData) -> String{
+        var deviceTokenString = String()
+        if #available(iOS 13.0, *) {
+            let bytes = [UInt8](deviceToken)
+            for item in bytes {
+                deviceTokenString += String(format:"%02x", item&0x000000FF)
+            }
+        } else {
+            deviceTokenString = deviceToken.description.trimmingCharacters(in: CharacterSet(charactersIn: "<> "))
+        }
+#if DEBUG
+        print("deviceToken：\(deviceTokenString)");
+#endif
+        return deviceTokenString;
+    }
+    
 }

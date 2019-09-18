@@ -278,6 +278,11 @@ public extension UIView {
         return sectionView
     }
     
+     /// 获取密集子视图的总高度
+    @objc static func UIGroupViewHeight(_ count: Int = 9, numberOfRow: Int = 4, padding: CGFloat = 12, itemHeight: CGFloat = 40) -> CGFloat {
+        let rowCount = count % numberOfRow == 0 ? count/numberOfRow : count/numberOfRow + 1;
+        return rowCount.toCGFloat * itemHeight + (rowCount - 1).toCGFloat * padding;
+    }
     /// [源]GroupView创建
     @objc static func createGroupView(_ rect: CGRect = CGRect.zero, list: Array<String>!, numberOfRow: Int = 4, padding: CGFloat = kPadding, type: Int = 0, action:@escaping (UITapGestureRecognizer?, UIView, NSInteger)->()) -> UIView {
         
