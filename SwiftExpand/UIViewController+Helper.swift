@@ -165,6 +165,7 @@ public extension UIViewController{
     /// 导航栏返回按钮图片定制
     @objc func createBackItem(_ image: UIImage) -> UIButton {
         let btn = UIButton(type: .custom)
+        btn.adjustsImageWhenHighlighted = false;
         btn.frame = CGRectMake(0, 0, 30, 40)
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0)
         
