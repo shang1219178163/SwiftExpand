@@ -340,4 +340,23 @@ public extension UIApplication{
         return deviceTokenString;
     }
     
+    /// block内任务后台执行(block为空可填入AppDelegate.m方法 applicationDidEnterBackground中)
+    @objc static func didEnterBackground(_ block: (()->Void)? = nil) -> Void{
+        let application: UIApplication = UIApplication.shared;
+        var bgTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0);
+        //如果要后台运行
+        bgTask = application.beginBackgroundTask(expirationHandler: {
+            if bgTask != UIBackgroundTaskIdentifier.invalid {
+                application.endBackgroundTask(bgTask)
+                bgTask = UIBackgroundTaskIdentifier.invalid
+            }
+        });
+        
+        if block != nil {
+            block!();
+            application.endBackgroundTask(bgTask)
+        }
+        bgTask = UIBackgroundTaskIdentifier.invalid
+    }
+    
 }

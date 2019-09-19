@@ -35,7 +35,7 @@ public extension NSAttributedString{
         let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in
             let nsRange = (text as NSString).range(of: textTap)
-            let attDic = attrDict(font, textColor: tapColor)
+            let attDic = attrDict(tapFont, textColor: tapColor)
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString

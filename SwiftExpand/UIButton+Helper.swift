@@ -90,31 +90,30 @@ public extension UIButton{
     }
     
     /// 验证码倒计时显示
-    @objc func GCDTimerStart(_ interval: Int = 60) {
-        UIButton.GCDTimerStart(self, interval)
-    }
+//    @objc func GCDTimerStart(_ interval: Int = 60) {
+////        UIButton.GCDTimerStart(self, interval)
+//        UIView.GCDTimerStart(self.titleLabel, interval);
+//    }
     
     /// 验证码倒计时显示
-    @objc static func GCDTimerStart(_ btn: UIButton!, _ interval: Int = 60) {
-        
-        var time = interval
-        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
-        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))  //此处方法与Swift 3.0 不同
-        codeTimer.setEventHandler {
-            
-            time -= 1
-            DispatchQueue.main.async {
-                btn.isEnabled = time <= 0;
-                if time > 0 {
-                    btn.setTitle("剩余\(time)s", for: .normal)
-                    return;
-                }
-                codeTimer.cancel()
-                btn.setTitle("发送验证码", for: .normal)
-            }
-        }
-        
-        codeTimer.resume()
+//    @objc static func GCDTimerStart(_ btn: UIButton!, _ interval: Int = 60) {
+//        var time = interval
+//        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
+//        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))  //此处方法与Swift 3.0 不同
+//        codeTimer.setEventHandler {
+//
+//            time -= 1
+//            DispatchQueue.main.async {
+//                btn.isEnabled = time <= 0;
+//                if time > 0 {
+//                    btn.setTitle("剩余\(time)s", for: .normal)
+//                    return;
+//                }
+//                codeTimer.cancel()
+//                btn.setTitle("发送验证码", for: .normal)
+//            }
+//        }
+//        codeTimer.resume()
 //        codeTimer.activate()
-    }
+//    }
 }

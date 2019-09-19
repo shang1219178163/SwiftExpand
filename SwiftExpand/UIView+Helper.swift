@@ -234,7 +234,7 @@ public extension UIView{
     }
    
     //MARK: -通用响应添加方法
-    @objc func addActionHandler(action: @escaping (ViewClosure)) -> Void {
+    @objc func addActionClosure(_ action: @escaping (ViewClosure)) -> Void {
         if let sender = self as? UIButton {
             sender.addTarget(self, action:#selector(handleActionSender(sender:)), for:.touchUpInside);
             
@@ -540,4 +540,49 @@ public extension UIView{
         }
         return (supView as! UIScrollView)
     }
+    
+    /// 验证码倒计时显示
+    @objc static func GCDTimerStart(_ lab: UILabel!, _ interval: Int = 60) {
+        var time = interval
+        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
+        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))  //此处方法与Swift 3.0 不同
+        codeTimer.setEventHandler {
+            
+            time -= 1
+            DispatchQueue.main.async {
+                lab.isEnabled = time <= 0;
+                if time > 0 {
+                    lab.text = "剩余\(time)s";
+                    return;
+                }
+                codeTimer.cancel()
+                lab.text = "发送验证码";
+            }
+        }
+        codeTimer.resume()
+//        codeTimer.activate()
+    }
+//    /// 计时显示
+//    @objc static func GCDTimerAdd(_ lab: UILabel!, _ length: Int = 5, date: NSDate = NSDate(), step: Int = 1) -> DispatchSourceTimer{
+//
+//        var time = 0;
+//        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
+//        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
+//        codeTimer.setEventHandler {
+//            
+//            time += step;
+//            DispatchQueue.main.async {
+//                lab.isEnabled = time <= 0;
+//                if time > 0 {
+//                    lab.text = "\(date.agoInfo(1, length: lab.text!.count))"
+//                    return;
+//                }
+//                codeTimer.cancel()
+//                lab.text = "00:00:00".substringFrom(8-length)
+//            }
+//        }
+//        codeTimer.resume()
+////        codeTimer.activate()
+//        return codeTimer;
+//    }
 }

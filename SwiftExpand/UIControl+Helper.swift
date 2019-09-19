@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIControl {
-    /// 添加响应方式
+    /// UIControl 添加回调方式
     @objc func addActionHandler(_ action: @escaping (ControlClosure), for controlEvents: UIControl.Event = UIControl.Event.touchUpInside) -> Void {
         let funcAbount = NSStringFromSelector(#function) + ",\(controlEvents)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
