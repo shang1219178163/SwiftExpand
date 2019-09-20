@@ -358,5 +358,21 @@ public extension UIApplication{
         }
         bgTask = UIBackgroundTaskIdentifier.invalid
     }
-    
+    /// 配置app图标(传 nil 恢复默认)
+    @objc static func setAppIcon(name: String?) {
+        UIViewController.initializeMethod()
+        //判断是否支持替换图标, false: 不支持
+        if #available(iOS 10.3, *) {
+            //判断是否支持替换图标, false: 不支持
+            guard UIApplication.shared.supportsAlternateIcons else { return }
+            
+            //如果支持, 替换icon
+            UIApplication.shared.setAlternateIconName(name) { (error) in
+                //点击弹框的确认按钮后的回调
+                if error != nil {
+                    print(error ?? "更换icon发生错误")
+                }
+            }
+        }
+    }
 }

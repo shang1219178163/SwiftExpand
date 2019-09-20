@@ -34,14 +34,7 @@ public extension NSObject{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
-    /// 带有命名空间的类名
-    func NNClassFromName(_ className: String) -> AnyClass {
-        let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
-        let cls : AnyClass = NSClassFromString(appName + "." + className)!;
-        return cls;
-    }
-    
+
     /// nsRange范围子字符串差异华显示
 //    @objc func attString(_ text: String!, nsRange: NSRange) -> NSAttributedString! {
 //        assert(text.count > (nsRange.location + nsRange.length))

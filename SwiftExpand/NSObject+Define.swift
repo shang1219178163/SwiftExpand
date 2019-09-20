@@ -81,33 +81,26 @@ public func kScaleWidth(_ width: CGFloat) -> CGFloat {
 
 ///返回类名字符串
 public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
-    //    let className: String = NSStringFromClass(cls);
-    //    //    if className.contains(".") {
-    //    //        let rangePoint = className.range(of: ".");
-    //    //        className = String(className[rangePoint!.upperBound...]);
-    //    //    }
-    //    //    return className;
-    //    let list = className.components(separatedBy: ".");
-    //    return list.last!;
+//    let className: String = NSStringFromClass(cls);
+//    //    if className.contains(".") {
+//    //        let rangePoint = className.range(of: ".");
+//    //        className = String(className[rangePoint!.upperBound...]);
+//    //    }
+//    //    return className;
+//    let list = className.components(separatedBy: ".");
+//    return list.last!;
     return String(describing: cls);// return "\(type(of: self))";
 }
 
 //获取本地创建类
 public func SwiftClassFromString(_ name: String) -> AnyClass {
-    //    let nameKey = "CFBundleName";
-    //    这里也是坑，请不要翻译oc的代码，而是去NSBundle类里面看它的api
-    //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as? String;
     let nameSpace  = UIApplication.appBundleName;
     let cls : AnyClass = NSClassFromString(nameSpace + "." + name)!;
     return cls;
 }
 
+/// 获取本地 UIViewController 文件
 public func UICtrFromString(_ vcName: String) -> UIViewController {
-    // 动态获取命名空间
-    //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as! String;
-    //字符串转类
-    //    let cls: AnyClass? = NSClassFromString(appName + "." + vcName);
-    
     let cls:AnyClass = SwiftClassFromString(vcName);
     // 通过类创建对象， 不能用cls.init(),有的类可能没有init方法
     // 需将cls转换为制定类型
@@ -122,10 +115,10 @@ public func UINavCtrFromObj(_ obj: AnyObject) -> UINavigationController?{
     if obj is UINavigationController {
         return obj as? UINavigationController;
         
-    }else if obj is String {
+    } else if obj is String {
         return UINavigationController(rootViewController: UICtrFromString(obj as! String));
         
-    }else if obj is UIViewController {
+    } else if obj is UIViewController {
         return UINavigationController(rootViewController: obj as! UIViewController);
         
     }
@@ -210,7 +203,7 @@ public func UIColorHex(_ hex: String, _ a: CGFloat = 1.0) -> UIColor {
 public func UIColorHexValue(_ hex: Int, _ a: CGFloat = 1.0) -> UIColor {
     return UIColor(red: CGFloat((hex & 0xFF0000) >> 16)/255.0, green: CGFloat((hex & 0xFF00) >> 8)/255.0, blue: CGFloat(hex & 0xFF)/255.0, alpha: a)
 }
-
+/// 随机颜色
 public func UIColorRandom() -> UIColor {
     return UIColor.randomColor();
 }
@@ -218,7 +211,7 @@ public func UIColorRandom() -> UIColor {
 public func UIColorDim(_ white: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
     return .init(white: white, alpha: a);
 }
-
+/// UIImage快捷方法
 public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
     var image = UIImage(named: name);
     if image != nil {
@@ -240,15 +233,14 @@ public func UIImageColor(_ color: UIColor, size: CGSize = CGSize(width: 1, heigh
     UIGraphicsGetCurrentContext()
     return image!
 }
-
+/// UIImage 相等判断
 public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
     let data0: Data = image0.pngData()!
     let data1: Data = image1.pngData()!
     return data0 == data1
 }
-
-public func AttributeDict(_ type:Int) -> [NSAttributedString.Key: Any]{
-    
+/// 富文本配置字典
+public func AttributeDict(_ type: Int) -> [NSAttributedString.Key: Any]{
     var dic: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor:  UIColor.theme,
                                               NSAttributedString.Key.backgroundColor:  UIColor.white,]
     

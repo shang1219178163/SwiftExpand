@@ -156,10 +156,44 @@ public extension UIViewController{
     @objc func addControllerName(_ controllerName: String) -> Void {
         let controller = UICtrFromString(controllerName)
         assert(controller.isKind(of: UIViewController.classForCoder()))
-
+        addControllerVC(controller)
+    }
+    
+    /// 添加子控制器(对应方法 removeControllerVC)
+    @objc func addControllerVC(_ controller: UIViewController) -> Void {
+        assert(controller.isKind(of: UIViewController.classForCoder()))
+        
         addChild(controller)
         view.addSubview(controller.view)
+        controller.view.frame = self.view.bounds;
         controller.didMove(toParent: self)
+    }
+    
+    /// 移除添加的子控制器(对应方法 addControllerVC)
+    @objc func removeControllerVC(_ controller: UIViewController) -> Void {
+        assert(controller.isKind(of: UIViewController.classForCoder()))
+        
+        controller.willMove(toParent: nil)
+        controller.view.removeFromSuperview()
+        controller.removeFromParent();
+    }
+    
+    /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
+    @objc func transitionTo(VC: UIViewController) -> Void {
+        self.beginAppearanceTransition(false, animated: true)  //调用self的 viewWillDisappear:
+        VC.beginAppearanceTransition(true, animated: true)  //调用VC的 viewWillAppear:
+        self.endAppearanceTransition(); //调用self的viewDidDisappear:
+        VC.endAppearanceTransition(); //调用VC的viewDidAppear:
+        /*
+         isAppearing 设置为 true : 触发 viewWillAppear:;
+         isAppearing 设置为 false : 触发 viewWillDisappear:;
+         endAppearanceTransition方法会基于我们传入的isAppearing来调用viewDidAppear:以及viewDidDisappear:方法
+         */
+    }
+    /// 手动调用 viewWillAppear,viewDidDisappear 或 viewWillDisappear,viewDidDisappear
+    @objc func beginAppearance(_ isAppearing: Bool, animated: Bool){
+        self.beginAppearanceTransition(isAppearing, animated: animated);
+        self.endAppearanceTransition();
     }
     
     /// 导航栏返回按钮图片定制
