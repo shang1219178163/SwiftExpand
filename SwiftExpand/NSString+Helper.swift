@@ -70,7 +70,10 @@ public extension String{
     func isOlder(version: String) -> Bool {
         return (self as NSString).isOlder(version:version)
     }
-    
+    /// 汉字转为拼音
+    func transformToPinyin() -> String {
+       return (self as NSString).transformToPinyin();
+    }
     /// 字符串首位加*
     func toAsterisk() -> NSAttributedString{
         return (self as NSString).toAsterisk()
@@ -219,6 +222,18 @@ public extension NSString{
     /// 小于version
     @objc func isOlder(version: String) -> Bool {
         return compare(version, options: .numeric) == .orderedAscending
+    }
+    
+    /// 转为拼音
+    @objc func transformToPinyin() -> String {
+        let chinese: String = self as String;
+        let mutableStr = NSMutableString(string: chinese) as CFMutableString
+        let canTransform: Bool = CFStringTransform(mutableStr, nil, kCFStringTransformToLatin, false) &&
+            CFStringTransform(mutableStr, nil, kCFStringTransformStripCombiningMarks, false);
+        if canTransform == true {
+            return mutableStr as String
+        }
+        return ""
     }
     
     /// 字符串首位加*
