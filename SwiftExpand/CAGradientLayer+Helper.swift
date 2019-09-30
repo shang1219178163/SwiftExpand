@@ -8,9 +8,9 @@
 
 import UIKit
 
-public extension CAGradientLayer{
+@objc public extension CAGradientLayer{
     
-    @objc static func layerRect(_ rect: CGRect = .zero, colors: [Any], start: CGPoint, end: CGPoint) -> CAGradientLayer {
+    static func layerRect(_ rect: CGRect = .zero, colors: [Any], start: CGPoint, end: CGPoint) -> CAGradientLayer {
         let layer = CAGradientLayer()
         layer.frame = rect
         layer.colors = colors
@@ -20,21 +20,21 @@ public extension CAGradientLayer{
         return layer
     }
     
-    @objc static func gradientColor(_ from: UIColor, to: UIColor) -> [Any] {
+    static func gradientColor(_ from: UIColor, to: UIColor) -> [Any] {
        return [from.cgColor, to.cgColor]
     }
     
     /// 十六进制字符串
-    @objc static func gradientColorHex(_ from: String, fromAlpha: CGFloat, to: String, toAlpha: CGFloat = 1.0) -> [Any] {
+    static func gradientColorHex(_ from: String, fromAlpha: CGFloat, to: String, toAlpha: CGFloat = 1.0) -> [Any] {
         return [UIColorHex(from, fromAlpha).cgColor, UIColorHex(to, toAlpha).cgColor]
     }
     
     /// 0x开头的十六进制数字
-    @objc static func gradientColorHexValue(_ from: Int, fromAlpha: CGFloat, to: Int, toAlpha: CGFloat = 1.0) -> [Any] {
+    static func gradientColorHexValue(_ from: Int, fromAlpha: CGFloat, to: Int, toAlpha: CGFloat = 1.0) -> [Any] {
         return [UIColorHexValue(from, fromAlpha).cgColor, UIColorHexValue(to, toAlpha).cgColor]
     }
     
-    @objc static var defaultColors: [Any] {
+    static var defaultColors: [Any] {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? [Any];
             if obj == nil {

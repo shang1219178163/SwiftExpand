@@ -8,9 +8,9 @@
 import UIKit
 import Foundation
 
-public extension UITabBarController{
+@objc public extension UITabBarController{
     /// 获取私有类视图
-    @objc func getSubviewsForName(_ name: String) -> [UIView] {
+    func getSubviewsForName(_ name: String) -> [UIView] {
         var marr: [UIView] = []
         tabBar.subviews.forEach { (view) in
             if view.isKind(of: SwiftClassFromString(name)) {
@@ -22,7 +22,7 @@ public extension UITabBarController{
     
     /// 用特定数据源刷新tabBar
     /// - Parameter list: 参照HomeViewController数据源
-    @objc func reloadTabarItems(_ list: [[Any]]) -> Void {
+    func reloadTabarItems(_ list: [[Any]]) -> Void {
         
         for e in viewControllers!.enumerated(){
             let itemList = list[e.offset]

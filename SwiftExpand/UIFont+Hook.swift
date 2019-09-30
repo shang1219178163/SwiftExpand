@@ -17,8 +17,9 @@ let kPingFangThin       = "PingFangSC-Thin";
 
 import UIKit
 
-public extension UIFont{
-    @objc class func initializeMethod() {
+@objc public extension UIFont{
+    override class func initializeMethod() {
+        super.initializeMethod();
         if self == UIFont.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
@@ -32,7 +33,7 @@ public extension UIFont{
         }
     }
     
-    @objc private class func swz_systemFont(ofSize fontSize: CGFloat) -> UIFont{
+    private class func swz_systemFont(ofSize fontSize: CGFloat) -> UIFont{
         return UIFont(name: kPingFangRegular, size: fontSize)!
     }
 

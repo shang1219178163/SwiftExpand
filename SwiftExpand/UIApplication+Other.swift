@@ -17,20 +17,20 @@ import EventKit
 import Contacts
 import StoreKit
 
-public extension UIApplication{
+@objc public extension UIApplication{
 
     /// 网络状态是否可用
-    @objc static func reachable() -> Bool {
+    static func reachable() -> Bool {
         let data = NSData(contentsOf: URL(string: "https://www.baidu.com/")!)
         return (data != nil)
     }
     /// 消息推送是否可用
-    @objc static func hasRightOfPush() -> Bool {
+    static func hasRightOfPush() -> Bool {
         let notOpen = UIApplication.shared.currentUserNotificationSettings?.types == UIUserNotificationType(rawValue: 0)
         return !notOpen;
     }
     /// 用户相册是否可用
-    @objc static func hasRightOfPhotoLibrary() -> Bool {
+    static func hasRightOfPhotoLibrary() -> Bool {
         var isHasRight = false;
         
         PHPhotoLibrary.requestAuthorization { (status) in
@@ -47,7 +47,7 @@ public extension UIApplication{
     
     @available(iOS 9.3, *)
     /// 媒体库是否可用
-    @objc static func hasRightOfMediaLibrary() -> Bool {
+    static func hasRightOfMediaLibrary() -> Bool {
         var isHasRight = false;
         
         MPMediaLibrary.requestAuthorization { (status) in
@@ -62,7 +62,7 @@ public extension UIApplication{
         return isHasRight;
     }
     /// 是否有音视频捕捉权限
-    @objc static func hasRightOfAVCapture(_ mediaType: AVMediaType = AVMediaType.video) -> Bool {
+    static func hasRightOfAVCapture(_ mediaType: AVMediaType = AVMediaType.video) -> Bool {
         var isHasRight = false;
 
 //        let device = AVCaptureDevice.devices(for: mediaType)
@@ -82,7 +82,7 @@ public extension UIApplication{
         return isHasRight;
     }
     /// 是否已经打开蓝牙捕捉
-    @objc static func hasOpenOfBluetooth() -> Bool {
+    static func hasOpenOfBluetooth() -> Bool {
         var isHasRight = false;
         let centralManager = CBCentralManager();
         switch centralManager.state {
@@ -97,7 +97,7 @@ public extension UIApplication{
     
     /// 媒体库是否可用
     @available(iOS 10.0, *)
-    @objc static func hasRightOfSpeechRecognizer() -> Bool {
+    static func hasRightOfSpeechRecognizer() -> Bool {
         var isHasRight = false;
         
         SFSpeechRecognizer.requestAuthorization { (status) in
@@ -114,7 +114,7 @@ public extension UIApplication{
     
     /// 日历是否可用
     @available(iOS 10.0, *)
-    @objc static func hasRightOfEventStore(_ entityType: EKEntityType = EKEntityType.reminder) -> Bool {
+    static func hasRightOfEventStore(_ entityType: EKEntityType = EKEntityType.reminder) -> Bool {
         var isHasRight = false;
         
         let store = EKEventStore()
@@ -138,7 +138,7 @@ public extension UIApplication{
     
     /// 通讯录是否可用
     @available(iOS 10.0, *)
-    @objc static func hasRightOfContactStore(_ entityType: CNEntityType = CNEntityType.contacts) -> Bool {
+    static func hasRightOfContactStore(_ entityType: CNEntityType = CNEntityType.contacts) -> Bool {
         var isHasRight = false;
         
         let store = CNContactStore()
@@ -163,7 +163,7 @@ public extension UIApplication{
     /**
      注册APNs远程推送
      */
-    @objc static func registerAPNsWithDelegate(_ delegate: Any) -> Void {
+    static func registerAPNsWithDelegate(_ delegate: Any) -> Void {
         if #available(iOS 10.0, *) {
             let options = UNAuthorizationOptions(rawValue : UNAuthorizationOptions.alert.rawValue | UNAuthorizationOptions.badge.rawValue | UNAuthorizationOptions.sound.rawValue)
             let center = UNUserNotificationCenter.current()
@@ -186,7 +186,12 @@ public extension UIApplication{
     }
     
     @available(iOS 10.0, *)
-    func addLocalUserNoti(trigger: AnyObject, content: UNMutableNotificationContent, identifier: String, notiCategories: AnyObject, repeats: Bool = true, handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) -> Void {
+    func addLocalUserNoti(trigger: AnyObject,
+                          content: UNMutableNotificationContent,
+                          identifier: String,
+                          notiCategories: AnyObject,
+                          repeats: Bool = true,
+                          handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) -> Void {
         
         var notiTrigger: UNNotificationTrigger?
         if let date = trigger as? NSDate {
@@ -214,19 +219,19 @@ public extension UIApplication{
     }
     
     /// app商店链接
-    @objc static func appUrlWithID(_ appStoreID: String) -> String {
+    static func appUrlWithID(_ appStoreID: String) -> String {
         let appStoreUrl = "itms-apps://itunes.apple.com/app/id\(appStoreID)?mt=8"
         return appStoreUrl
     }
     
     /// app详情链接
-    @objc static func appDetailUrlWithID(_ appStoreID: String) -> String {
+    static func appDetailUrlWithID(_ appStoreID: String) -> String {
         let detailUrl = "http://itunes.apple.com/cn/lookup?id=\(appStoreID)"
         return detailUrl
     }
     
     /// 版本升级
-    @objc static func updateVersion(appStoreID: String, isForce: Bool = false) -> Bool {
+    static func updateVersion(appStoreID: String, isForce: Bool = false) -> Bool {
         var isUpdate = false;
         
 //        let path = "http://itunes.apple.com/cn/lookup?id=\(appStoreID)"
@@ -288,7 +293,7 @@ public extension UIApplication{
     }
 
     /// 应用下载其他应用
-    @objc static func jumpAppStore(_ appID: String, controller: UIViewController) -> Void {
+    static func jumpAppStore(_ appID: String, controller: UIViewController) -> Void {
         let productVC = SKStoreProductViewController();
         productVC.delegate = (controller as! SKStoreProductViewControllerDelegate);
         

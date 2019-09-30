@@ -9,16 +9,14 @@
 
 import UIKit
 
-public extension UIColor{
+@objc public extension UIColor{
     
     //MARK: - -属性
-    @objc static var random: UIColor {
-        get{
-            return UIColor.randomColor();
-        }
+    static var random: UIColor {
+        return UIColor.randomColor();
     }
     
-    @objc static var theme: UIColor {
+    static var theme: UIColor {
         get{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIColor;
             obj = obj ?? UIColorHexValue(0x0082e0)
@@ -29,58 +27,57 @@ public extension UIColor{
         }
     }
     /// 通用背景色
-    @objc static var background: UIColor {
-        get{
-            return UIColorHexValue(0xe9e9e9);
-        }
+    static var background: UIColor {
+        return UIColorHexValue(0xe9e9e9);
     }
     
-    @objc static var line: UIColor {
-        get{
-            return UIColorHexValue(0xe0e0e0);
-        }
+    static var line: UIColor {
+        return UIColorHexValue(0xe0e0e0);
     }
     
-    @objc static var btnN: UIColor {
-        get{
-            return UIColorHexValue(0xfea914);
-        }
+    static var btnN: UIColor {
+        return UIColorHexValue(0xfea914);
     }
     
-    @objc static var btnH: UIColor {
-        get{
-            return UIColorHexValue(0xf1a013);
-        }
+    static var btnH: UIColor {
+        return UIColorHexValue(0xf1a013);
     }
     
-    @objc static var btnD: UIColor {
-        get{
-            return UIColorHexValue(0x999999);
-        }
+    static var btnD: UIColor {
+        return UIColorHexValue(0x999999);
     }
     
-    @objc static var excel: UIColor {
-        get{
-            return UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1.0);
-        }
+    static var excel: UIColor {
+        return UIColor(red: 238/255.0, green: 238/255.0, blue: 238/255.0, alpha: 1.0);
+    }
+    /// 青蓝
+    static var lightBlue: UIColor {
+        return UIColorHexValue(0x29B5FE);
+    }
+    /// 亮橙
+    static var lightOrange: UIColor {
+        return UIColorHexValue(0xFFBB50);
+    }
+    /// 浅绿
+    static var lightGreen: UIColor {
+        return UIColorHexValue(0x1AC756);
     }
     
-    //MARK:  -项目定制
-    @objc static var textColorTitle: UIColor {
-        get{
-            return UIColorHexValue(0x333333);
-        }
+    static var textColor3: UIColor {
+        return UIColorHexValue(0x333333);
     }
     
-    @objc static var textColorSub: UIColor {
-        get{
-            return UIColorHexValue(0x999999);
-        }
+    static var textColor6: UIColor {
+        return UIColorHexValue(0x666666);
+    }
+    
+    static var textColor9: UIColor {
+        return UIColorHexValue(0x999999);
     }
     
     //MARK: - -方法
     /// [源]十六进制颜色字符串
-    @objc static func hex(_ hex: String, a: CGFloat = 1.0) -> UIColor {
+    static func hex(_ hex: String, a: CGFloat = 1.0) -> UIColor {
         var cString = hex.trimmingCharacters(in: CharacterSet.whitespaces).uppercased();
         if cString.hasPrefix("#") {
             let index = cString.index(cString.startIndex, offsetBy:1);
@@ -110,7 +107,7 @@ public extension UIColor{
         return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a);
     }
     
-    @objc static func randomColor() -> UIColor {
+    static func randomColor() -> UIColor {
         let r = arc4random_uniform(256);
         let g = arc4random_uniform(256);
         let b = arc4random_uniform(256);
@@ -118,7 +115,7 @@ public extension UIColor{
     }
     
     /// 两个颜色是否相等
-    @objc func equalTo(_ c2: UIColor) -> Bool{
+    func equalTo(_ c2: UIColor) -> Bool{
         // some kind of weird rounding made the colors unequal so had to compare like this
         let c1 = self;
         var red: CGFloat = 0

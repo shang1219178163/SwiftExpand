@@ -7,16 +7,16 @@
 
 import UIKit
 
-public extension UICollectionViewCell{
+@objc public extension UICollectionViewCell{
     
     ///获取UICollectionViewCell
-    @objc static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
+    static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
         let identifier = self.identifier;
         let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         return view;
     }
     
-    @objc var imgView: UIImageView {
+    var imgView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -37,7 +37,7 @@ public extension UICollectionViewCell{
         }
     }
 
-    @objc var label: UILabel {
+    var label: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -51,6 +51,29 @@ public extension UICollectionViewCell{
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    var labelSub: UILabel {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
+            if obj == nil {
+                obj = UILabel(frame: CGRect.zero);
+                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                
+                obj!.font = UIFont.systemFont(ofSize: 13)
+                obj!.numberOfLines = 0;
+                obj!.lineBreakMode = .byCharWrapping;
+                obj!.textAlignment = .center;
+                //                obj!.backgroundColor = UIColor.random
+                
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                
             }
             return obj!;
         }

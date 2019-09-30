@@ -14,9 +14,13 @@ public extension Dictionary{
     func jsonValue() -> String! {
         return (self as NSDictionary).jsonValue()
     }
+    
+    func jsonString() -> String! {
+        return (self as NSObject).jsonString()
+    }
 }
 
-public extension NSDictionary{
+@objc public extension NSDictionary{
     
 //    @objc func toJsonString() -> String! {
 //        return jsonValue();

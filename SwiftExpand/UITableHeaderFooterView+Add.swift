@@ -8,11 +8,11 @@
 
 import UIKit
 
-public extension UITableViewHeaderFooterView{
+@objc public extension UITableViewHeaderFooterView{
     
     //NSStringFromClass(classForCoder())
     /// UITableViewHeaderFooterView -源方法生成,自定义identifier
-    @objc static func viewWithTableView(_ tableView: UITableView, identifier: String = identifier) -> UITableViewHeaderFooterView! {
+    static func viewWithTableView(_ tableView: UITableView, identifier: String = identifier) -> UITableViewHeaderFooterView! {
         var obj = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if obj == nil {
             obj = self.init(reuseIdentifier: identifier)
@@ -23,7 +23,7 @@ public extension UITableViewHeaderFooterView{
         return obj!;
     }
     
-    @objc var indicatorView: UIImageView {
+    var indicatorView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -42,7 +42,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var imgViewLeft: UIImageView {
+    var imgViewLeft: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -61,7 +61,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var imgViewRight: UIImageView {
+    var imgViewRight: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -81,7 +81,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var labelLeft: UILabel {
+    var labelLeft: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -100,7 +100,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var labelLeftSub: UILabel {
+    var labelLeftSub: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -120,7 +120,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var labelRight: UILabel {
+    var labelRight: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -139,7 +139,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var btn: UIButton {
+    var btn: UIButton {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
             if obj == nil {
@@ -159,7 +159,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var textfield: UITextField {
+    var textfield: UITextField {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if obj == nil {
@@ -182,7 +182,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var isOpen: Bool {
+    var isOpen: Bool {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Bool {
                 return obj
@@ -195,7 +195,7 @@ public extension UITableViewHeaderFooterView{
         }
     }
     
-    @objc var isCanOpen: Bool {
+    var isCanOpen: Bool {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Bool {
                 return obj
@@ -209,18 +209,18 @@ public extension UITableViewHeaderFooterView{
     }
 }
 
-public class NNFoldSectionModel: NSObject{
-    @objc public var title = "标题"
-    @objc public var titleSub = "子标题"
-    @objc public var image = "图片名称"
-    @objc public var isOpen = false
-    @objc public var isCanOpen = false
-    @objc public var headerHeight: CGFloat = 10.0
-    @objc public var footerHeight: CGFloat = 0.01
-    @objc public var headerColor: UIColor = .background
-    @objc public var footerColor: UIColor = .background
+@objc public class NNFoldSectionModel: NSObject{
+    public var title = "标题"
+    public var titleSub = "子标题"
+    public var image = "图片名称"
+    public var isOpen = false
+    public var isCanOpen = false
+    public var headerHeight: CGFloat = 10.0
+    public var footerHeight: CGFloat = 0.01
+    public var headerColor: UIColor = .background
+    public var footerColor: UIColor = .background
 
-    @objc public var dataList: [Any] = []
-//    @objc public var dataList: NSMutableArray = []
-    @objc public var cellList: NSMutableArray = []
+    public var dataList: [Any] = []
+//    public var dataList: NSMutableArray = []
+    public var cellList: NSMutableArray = []
 }

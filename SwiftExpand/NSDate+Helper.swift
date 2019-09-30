@@ -65,10 +65,10 @@ public let kDateFormat_day_ch      = "yyyy年MM月dd日";
 public let kDateFormat_two         = "yyyyMMdd";
 
 
-public extension DateFormatter{
+@objc public extension DateFormatter{
     
     /// 获取DateFormatter(默认格式)
-    @objc static func format(_ formatStr: String = kDateFormat) -> DateFormatter {
+    static func format(_ formatStr: String = kDateFormat) -> DateFormatter {
         let dic = Thread.current.threadDictionary;
         if dic.object(forKey: formatStr) != nil {
             return dic.object(forKey: formatStr) as! DateFormatter;
@@ -85,31 +85,31 @@ public extension DateFormatter{
     }
     
     /// Date -> String
-    @objc static func stringFromDate(_ date: Date, fmt: String = kDateFormat) -> String {
+    static func stringFromDate(_ date: Date, fmt: String = kDateFormat) -> String {
         let formatter = DateFormatter.format(fmt);
         return formatter.string(from: date);
     }
     
     /// String -> Date
-    @objc static func dateFromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
+    static func dateFromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
         let formatter = DateFormatter.format(fmt);
         return formatter.date(from: dateStr)!;
     }
     
     /// 时间戳字符串 -> 日期字符串
-    @objc static func stringFromInterval(_ interval: String, fmt: String = kDateFormat) -> String {
-        let date = Date(timeIntervalSince1970: interval.doubleValue())
+    static func stringFromInterval(_ interval: String, fmt: String = kDateFormat) -> String {
+        let date = Date(timeIntervalSince1970: interval.doubleValue)
         return DateFormatter.stringFromDate(date, fmt: fmt);
     }
 
     /// 日期字符串 -> 时间戳字符串
-    @objc static func intervalFromDateStr(_ dateStr: String, fmt: String = kDateFormat) -> String {
+    static func intervalFromDateStr(_ dateStr: String, fmt: String = kDateFormat) -> String {
         let date = DateFormatter.dateFromString(dateStr, fmt: fmt)
         return "\(date.timeIntervalSince1970)";
     }
     
     /// 日期字符串和fmt是同种格式
-    @objc static func isSameFormat(_ dateStr: String, fmt: String = kDateFormat) -> Bool {
+    static func isSameFormat(_ dateStr: String, fmt: String = kDateFormat) -> Bool {
         
         if dateStr.count == fmt.count {
             let str: NSString = dateStr as NSString
@@ -166,34 +166,76 @@ public extension DateFormatter{
     
 }
 
-public extension NSDate{
-    @objc static var calendar: Calendar = Calendar(identifier: .gregorian)
+@objc public extension NSDate{
+    //MARK: 年
+    var year: Int {
+        return NSDate.dateComponents(self).year!
+    }
+    //MARK: 月
+    var month: Int {
+        return NSDate.dateComponents(self).month!
+    }
+    //MARK: 日
+    var day: Int {
+        return NSDate.dateComponents(self).day!;
+    }
+    
+    //MARK: 当月天数
+    var countOfDaysInMonth: Int {
+        let calendar = NSDate.calendar
+        let range = (calendar as NSCalendar?)?.range(of: .day, in: .month, for: self as Date)
+        return range!.length
+    }
+    //MARK: 当月第一天是星期几
+    var firstWeekDay: Int {
+        //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
+        var comp: DateComponents = NSDate.dateComponents(self)
+        comp.day = 1
+        
+        let firstWeekDay = NSDate.weekDay(comp)
+        return firstWeekDay
+    }
+    
+    //是否是今天
+    var isToday: Bool {
+        return NSDate.isSameFrom(self, anotherDate: NSDate(), type: 2)
+    }
+    //是否是当月
+    var isThisMonth: Bool {
+        return NSDate.isSameFrom(self, anotherDate: NSDate(), type: 1)
+    }
+    //是否是今年
+    var isThisYear: Bool {
+        return NSDate.isSameFrom(self, anotherDate: NSDate(), type: 0)
+    }
+    
+    static var calendar: Calendar = Calendar(identifier: .gregorian)
 
     /// NSDate转化为日期时间字符串
-    @objc func toString(_ fmt: String = kDateFormat) -> NSString {
+    func toString(_ fmt: String = kDateFormat) -> NSString {
         let dateStr = DateFormatter.stringFromDate(self as Date, fmt: fmt);
         return dateStr as NSString;
     }
     /// 字符串时间戳转NSDate
-    @objc static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> NSDate {
+    static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> NSDate {
         let date: NSDate = DateFormatter.dateFromString(dateStr, fmt: fmt) as NSDate;
         return date;
     }
 
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> NSDate
-    @objc func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> NSDate{
+    func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> NSDate{
         let date: NSDate = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
         return date;
     }
     
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> String
-    @objc func addingDaysDes(_ days: Int, fmt: String = kDateFormat) -> String{
+    func addingDaysDes(_ days: Int, fmt: String = kDateFormat) -> String{
         let newDate = adding(days);
         return DateFormatter.stringFromDate(newDate as Date, fmt: fmt);
     }
     
     /// 多少时间之前(00:00:00:00/00天00时00分00秒)
-    @objc func agoInfo(_ type: Int = 0, length: Int = 8) -> String {
+    func agoInfo(_ type: Int = 0, length: Int = 8) -> String {
         var interval = Date().timeIntervalSinceNow - self.timeIntervalSinceNow
         
         var info = ""
@@ -242,7 +284,7 @@ public extension NSDate{
         return info.substringFrom(info.count - length);
     }
     
-    @objc func hourInfoBetween(_ date: NSDate,_ type: Int = 0) -> Double {
+    func hourInfoBetween(_ date: NSDate,_ type: Int = 0) -> Double {
         var diff = self.timeIntervalSinceNow - date.timeIntervalSinceNow
         switch type {
         case 1://分钟
@@ -260,32 +302,32 @@ public extension NSDate{
         return diff;
     }
     
-    @objc func daysInBetween(_ date: NSDate) -> Double {
+    func daysInBetween(_ date: NSDate) -> Double {
         return hourInfoBetween(date, 3)
     }
     
-    @objc func hoursInBetween(_ date: NSDate) -> Double {
+    func hoursInBetween(_ date: NSDate) -> Double {
         return hourInfoBetween(date, 2)
     }
     
-    @objc func minutesInBetween(_ date: NSDate) -> Double {
+    func minutesInBetween(_ date: NSDate) -> Double {
         return hourInfoBetween(date, 1)
     }
     
-    @objc func secondsInBetween(_ date: NSDate) -> Double {
+    func secondsInBetween(_ date: NSDate) -> Double {
         return hourInfoBetween(date, 0)
     }
     
     //MARK: - 获取日期各种值
     
     /// 获取默认DateComponents[年月日]
-    @objc static func dateComponents(_ aDate: NSDate) -> DateComponents {
+    static func dateComponents(_ aDate: NSDate) -> DateComponents {
         let com = NSDate.calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: aDate as Date)
         return com
     }
     
     /// 两个时间差的NSDateComponents
-    @objc static func dateFrom(_ aDate: NSDate, anotherDate: NSDate) -> DateComponents {
+    static func dateFrom(_ aDate: NSDate, anotherDate: NSDate) -> DateComponents {
         let com = NSDate.calendar.dateComponents([.year, .month, .day, .hour, .minute, .second], from: aDate as Date, to: anotherDate as Date)
         return com
     }
@@ -318,49 +360,16 @@ public extension NSDate{
         return number
     }
     
-    //MARK: 年
-    @objc func year() ->Int {
-        return NSDate.dateComponents(self).year!
-    }
-    //MARK: 月
-    @objc func month() ->Int {
-        return NSDate.dateComponents(self).month!
-    }
-    //MARK: 日
-    @objc func day() ->Int {
-        return NSDate.dateComponents(self).day!;
-    }
-    
     //MARK: 一周的第几天
-    @objc static func weekDay(_ comp: DateComponents) ->Int{
+    static func weekDay(_ comp: DateComponents) ->Int{
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
         let newDate = NSDate.calendar.date(from: comp)
         let weekDay = NSDate.calendar.component(.weekday, from: newDate!)
         return weekDay
     }
     
-    //MARK: 当月天数
-    @objc func countOfDaysInMonth() ->Int {
-        let calendar = NSDate.calendar
-        let range = (calendar as NSCalendar?)?.range(of: .day, in: .month, for: self as Date)
-        return range!.length
-        //        let range = Date.calendar.range(of: .day, in: .month, for: aDate);
-        //        return range!.upperBound - range!.lowerBound
-    }
-    //MARK: 当月第一天是星期几
-    @objc func firstWeekDay() ->Int {
-        //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-        var comp: DateComponents = NSDate.dateComponents(self)
-        comp.day = 1
-        
-        let firstWeekDay = NSDate.weekDay(comp)
-        return firstWeekDay
-        //        let firstWeekDay = Date.calendar.ordinality(of: .weekday, in: .weekOfMonth, for: self)
-        //        return firstWeekDay! - 1
-    }
-    //MARK: - 日期的一些比较
     /// 两个时间同年0;同月1;同日2;同时3;同分4;同秒5
-    @objc static func isSameFrom(_ aDate: NSDate, anotherDate: NSDate, type: Int = 0) -> Bool {
+    static func isSameFrom(_ aDate: NSDate, anotherDate: NSDate, type: Int = 0) -> Bool {
         let comp = NSDate.dateComponents(aDate)
         let comp1 = NSDate.dateComponents(anotherDate)
         
@@ -386,28 +395,49 @@ public extension NSDate{
         }
         return isSame
     }
-    //是否是今天
-    @objc func isToday() ->Bool {
-        return NSDate.isSameFrom(self, anotherDate: NSDate(), type: 2)
-    }
-    //是否是这个月
-    @objc func isThisMonth() ->Bool {
-        return NSDate.isSameFrom(self, anotherDate: NSDate(), type: 1)
-    }
-    
-    @objc func isThisYear() ->Bool {
-        return NSDate.isSameFrom(self, anotherDate: NSDate(), type: 0)
-    }
-    
+}
+
+public extension NSDate{
     /// DateComponents(年月日时分秒)
     static func components(_ year: Int?, month: Int?, day: Int?, hour: Int?, minute: Int?, second: Int?) ->DateComponents{
         return DateComponents(calendar: NSDate.calendar, timeZone: nil, era: nil, year: year, month: month, day: day, hour: hour, minute: minute, second: second, nanosecond: nil, weekday: nil, weekdayOrdinal: nil, quarter: nil, weekOfMonth: nil, weekOfYear: nil, yearForWeekOfYear: nil)
     }
-    
 }
 
-
 public extension Date{
+    //MARK: 年
+    var year: Int {
+        return NSDate.dateComponents(self as NSDate).year!
+    }
+    //MARK: 月
+    var month: Int {
+        return NSDate.dateComponents(self as NSDate).month!
+    }
+    //MARK: 日
+    var day: Int {
+        return NSDate.dateComponents(self as NSDate).day!;
+    }
+    //MARK: 当月天数
+    var countOfDaysInMonth: Int {
+        return (self as NSDate).countOfDaysInMonth
+    }
+    //MARK: 当月第一天是星期几
+    var firstWeekDay: Int {
+        return (self as NSDate).firstWeekDay
+    }
+    //是否是今天
+    var isToday: Bool {
+        return Date.isSameFrom(self, anotherDate: Date(), type: 2)
+    }
+    //是否是这个月
+    var isThisMonth: Bool {
+        return Date.isSameFrom(self, anotherDate: Date(), type: 1)
+    }
+    
+    var isThisYear: Bool {
+        return Date.isSameFrom(self, anotherDate: Date(), type: 0)
+    }
+    
     /// Date转化为日期时间字符串
     func toString(_ fmt: String = kDateFormat) -> String {
         return (self as NSDate).toString(fmt) as String;
@@ -451,7 +481,6 @@ public extension Date{
     }
 
     //MARK: - 获取日期各种值
-
     /// 获取默认DateComponents[年月日]
     static func dateComponents(_ aDate: Date) -> DateComponents {
         return NSDate.dateComponents(aDate as NSDate);
@@ -467,56 +496,21 @@ public extension Date{
         return NSDate.numDateFrom(aDate as NSDate, anotherDate: anotherDate as NSDate, type: type)
     }
 
-    //MARK: 年
-    func year() ->Int {
-        return NSDate.dateComponents(self as NSDate).year!
-    }
-    //MARK: 月
-    func month() ->Int {
-        return NSDate.dateComponents(self as NSDate).month!
-    }
-    //MARK: 日
-    func day() ->Int {
-        return NSDate.dateComponents(self as NSDate).day!;
-    }
-
     //MARK: 一周的第几天
     static func weekDay(_ comp: DateComponents) ->Int{
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
         return NSDate.weekDay(comp);
-    }
-
-    //MARK: 当月天数
-    func countOfDaysInMonth() ->Int {
-        return (self as NSDate).countOfDaysInMonth()
-    }
-    //MARK: 当月第一天是星期几
-    func firstWeekDay() ->Int {
-        return (self as NSDate).firstWeekDay()
     }
     //MARK: - 日期的一些比较
     /// 两个时间同年0;同月1;同日2;同时3;同分4;同秒5
     static func isSameFrom(_ aDate: Date, anotherDate: Date, type: Int = 0) -> Bool {
         return NSDate.isSameFrom(aDate as NSDate, anotherDate: anotherDate as NSDate, type: type)
     }
-    //是否是今天
-    func isToday() ->Bool {
-        return Date.isSameFrom(self, anotherDate: Date(), type: 2)
-    }
-    //是否是这个月
-    func isThisMonth() ->Bool {
-        return Date.isSameFrom(self, anotherDate: Date(), type: 1)
-    }
-
-    func isThisYear() ->Bool {
-        return Date.isSameFrom(self, anotherDate: Date(), type: 0)
-    }
-
+    
     /// DateComponents(年月日时分秒)
     static func components(_ year: Int?, month: Int?, day: Int?, hour: Int?, minute: Int?, second: Int?) ->DateComponents{
         return NSDate.components(year, month: month, day: day, hour: hour, minute: minute, second: second);
     }
-    
     
 }
 

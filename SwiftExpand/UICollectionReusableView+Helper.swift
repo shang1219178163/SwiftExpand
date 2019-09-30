@@ -13,10 +13,10 @@
 
 import UIKit
 
-public extension UICollectionReusableView{
+@objc public extension UICollectionReusableView{
  
     ///获取UICollectionReusableView
-    @objc static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
+    static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
         
         let kindSuf = kind.components(separatedBy: "KindSection").last;
         let identifier = self.identifier + kindSuf!;
@@ -27,7 +27,7 @@ public extension UICollectionReusableView{
         return view;
     }
 
-    @objc var imageView: UIImageView {
+    var imageView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -48,7 +48,7 @@ public extension UICollectionReusableView{
         }
     }
     
-    @objc var imageViewRight: UIImageView {
+    var imageViewRight: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -70,7 +70,7 @@ public extension UICollectionReusableView{
         }
     }
     
-    @objc var textLabel: UILabel {
+    var textLabel: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -92,7 +92,7 @@ public extension UICollectionReusableView{
         }
     }
     
-    @objc var textLabelRight: UILabel {
+    var textLabelRight: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {

@@ -10,9 +10,9 @@
 import UIKit
 
 
-public extension UIView {
+@objc public extension UIView {
     
-    @objc var lineTop: UIView {
+    var lineTop: UIView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIView;
             if obj == nil {
@@ -28,7 +28,7 @@ public extension UIView {
         }
     }
     
-    @objc var lineBottom: UIView {
+    var lineBottom: UIView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIView;
             if obj == nil {
@@ -45,7 +45,7 @@ public extension UIView {
     }
     
     /// 渐变色层
-    @objc var gradientLayer: CAGradientLayer {
+    var gradientLayer: CAGradientLayer {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? CAGradientLayer;
             if obj == nil {
@@ -61,7 +61,7 @@ public extension UIView {
     }
     
     /// (与holderView配置方法)配套使用
-    @objc var holderView: UIView {
+    var holderView: UIView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIView;
             if obj == nil {
@@ -95,7 +95,7 @@ public extension UIView {
     }
     
     /// 配置HolderView
-    @objc func holderView(_ title: String = "暂无数据", image: String?) -> Void {
+    func holderView(_ title: String = "暂无数据", image: String?) -> Void {
         let imgView: UIImageView = holderView.viewWithTag(kTAG_IMGVIEW) as! UIImageView
         let label: UILabel = holderView.viewWithTag(kTAG_LABEL) as! UILabel
         label.text = title
@@ -109,7 +109,7 @@ public extension UIView {
     }
     
     /// 增加虚线边框
-    @objc func addLineDashLayer(color: UIColor = UIColor.red,
+    func addLineDashLayer(color: UIColor = UIColor.red,
                                     width: CGFloat = 1,
                                     dashPattern: [NSNumber] = [NSNumber(floatLiteral: 4), NSNumber(floatLiteral: 5)],
                                     cornerRadius: CGFloat = 0,
@@ -138,7 +138,7 @@ public extension UIView {
     }
     
     /// 线条位置
-    @objc func rectWithLine(type: Int = 0, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CGRect {
+    func rectWithLine(type: Int = 0, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CGRect {
         var rect = CGRect.zero;
         switch type {
         case 1://左边框
@@ -160,7 +160,7 @@ public extension UIView {
         return rect;
     }
     /// 创建CALayer 线条
-    @objc func createLayer(type: Int = 0, color: UIColor = UIColor.line, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CALayer {
+    func createLayer(type: Int = 0, color: UIColor = UIColor.line, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CALayer {
         let linView = CALayer()
         linView.backgroundColor = color.cgColor;
         linView.frame = self.rectWithLine(type: type, width: width, paddingScale: paddingScale);
@@ -168,7 +168,7 @@ public extension UIView {
     }
     
     /// [源]UITableView创建
-    @objc static func createTableView(_ rect: CGRect = CGRect.zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> UITableView{
+    static func createTableView(_ rect: CGRect = CGRect.zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> UITableView{
         let table = UITableView(frame: rect, style: style);
         table.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         
@@ -183,7 +183,7 @@ public extension UIView {
         return table
     }
     /// [源]UILabel创建
-    @objc static func createLabel(_ rect: CGRect = CGRect.zero, type: Int = 0) -> UILabel {
+    static func createLabel(_ rect: CGRect = CGRect.zero, type: Int = 0) -> UILabel {
         let view = UILabel(frame: rect);
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         view.isUserInteractionEnabled = true;
@@ -225,7 +225,7 @@ public extension UIView {
         return view;
     }
     /// [源]UIImageView创建
-    @objc static func createImgView(_ rect: CGRect = CGRect.zero, imgName: String) -> UIImageView {
+    static func createImgView(_ rect: CGRect = CGRect.zero, imgName: String) -> UIImageView {
         let view = UIImageView(frame: rect);
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         view.isUserInteractionEnabled = true;
@@ -235,7 +235,7 @@ public extension UIView {
         return view
     }
     /// [源]UIButton创建
-    @objc static func createBtn(_ rect: CGRect = CGRect.zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
+    static func createBtn(_ rect: CGRect = CGRect.zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
         let view = UIButton(type: .custom);
         view.titleLabel?.font = UIFont.systemFont(ofSize:16);
         view.titleLabel?.adjustsFontSizeToFitWidth = true;
@@ -277,7 +277,7 @@ public extension UIView {
         return view
     }
     /// [源]UITextField创建
-    @objc static func createTextField(_ rect: CGRect = CGRect.zero) -> UITextField {
+    static func createTextField(_ rect: CGRect = CGRect.zero) -> UITextField {
         let view = UITextField(frame: rect);
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         view.borderStyle = .roundedRect;
@@ -293,7 +293,7 @@ public extension UIView {
         return view
     }
     /// [源]UITextView创建
-    @objc static func createTextView(_ rect: CGRect = CGRect.zero) -> UITextView {
+    static func createTextView(_ rect: CGRect = CGRect.zero) -> UITextView {
         let view = UITextView(frame: rect);
         view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
         view.autocapitalizationType = .none;
@@ -310,7 +310,7 @@ public extension UIView {
     }
     
     /// 展示性质UITextView创建
-    @objc static func createShowTextView(_ rect: CGRect = .zero) -> UITextView {
+    static func createShowTextView(_ rect: CGRect = .zero) -> UITextView {
         let view = UITextView.createTextView(rect);
         view.contentOffset = CGPoint(x: 0, y: 8)
         view.isEditable = false;
@@ -320,7 +320,7 @@ public extension UIView {
     }
     
     /// [源]HeaderView,footerView
-    @objc static func createSectionView(_ tableView: UITableView, text: String?, textAlignment: NSTextAlignment = .left, height: CGFloat = 30) -> UIView{
+    static func createSectionView(_ tableView: UITableView, text: String?, textAlignment: NSTextAlignment = .left, height: CGFloat = 30) -> UIView{
         let sectionView = UIView()
         if text == nil {
             return sectionView
@@ -338,12 +338,17 @@ public extension UIView {
     }
     
      /// 获取密集子视图的总高度
-    @objc static func UIGroupViewHeight(_ count: Int = 9, numberOfRow: Int = 4, padding: CGFloat = 12, itemHeight: CGFloat = 40) -> CGFloat {
+    static func UIGroupViewHeight(_ count: Int = 9, numberOfRow: Int = 4, padding: CGFloat = 12, itemHeight: CGFloat = 40) -> CGFloat {
         let rowCount = count % numberOfRow == 0 ? count/numberOfRow : count/numberOfRow + 1;
         return rowCount.toCGFloat * itemHeight + (rowCount - 1).toCGFloat * padding;
     }
     /// [源]GroupView创建
-    @objc static func createGroupView(_ rect: CGRect = CGRect.zero, list: Array<String>!, numberOfRow: Int = 4, padding: CGFloat = kPadding, type: Int = 0, action:@escaping (UITapGestureRecognizer?, UIView, NSInteger)->()) -> UIView {
+    static func createGroupView(_ rect: CGRect = CGRect.zero,
+                                      list: Array<String>!,
+                                      numberOfRow: Int = 4,
+                                      padding: CGFloat = kPadding,
+                                      type: Int = 0,
+                                      action:@escaping (UITapGestureRecognizer?, UIView, NSInteger)->()) -> UIView {
         
         let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1;
         let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
@@ -399,7 +404,7 @@ public extension UIView {
         return backView;
     }
     /// [源]UISegmentControl创建
-    @objc static func createSegment(_ rect: CGRect = CGRect.zero, items: Array<Any>!, selectedIdx: Int = 0, type: Int = 0) -> UISegmentedControl {
+    static func createSegment(_ rect: CGRect = CGRect.zero, items: Array<Any>!, selectedIdx: Int = 0, type: Int = 0) -> UISegmentedControl {
         let view = UISegmentedControl(items: items)
         view.frame = rect
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
@@ -470,7 +475,7 @@ public extension UIView {
         return view;
     }
     /// [源]UISlider创建
-    @objc static func createSlider(_ rect: CGRect = CGRect.zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
+    static func createSlider(_ rect: CGRect = CGRect.zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
         let view = UISlider(frame: rect)
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         view.minimumValue = minValue
@@ -481,12 +486,26 @@ public extension UIView {
         return view;
     }
     /// [源]UISwitch创建
-    @objc static func createSwitch(_ rect: CGRect = CGRect.zero, isOn: Bool = true) -> UISwitch {
+    static func createSwitch(_ rect: CGRect = CGRect.zero, isOn: Bool = true) -> UISwitch {
         let view = UISwitch(frame: rect)
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         view.isOn = isOn
         view.onTintColor = UIColor.theme
         return view
     }
- 
+    /// [源]UISwitch创建
+    static func createPageControl(_ rect: CGRect = CGRect.zero, numberOfPages: Int, currentPage: Int = 0) -> UIPageControl {
+        let pageControl: UIPageControl = {
+            let control: UIPageControl = UIPageControl(frame: rect);
+            control.currentPageIndicatorTintColor = UIColor.theme;
+            control.pageIndicatorTintColor = UIColor.lightGray;
+            control.isUserInteractionEnabled = true;
+            control.hidesForSinglePage = true;
+            control.currentPage = 0;
+            control.numberOfPages = numberOfPages;
+            
+            return control;
+        }();
+        return pageControl;
+    }
 }

@@ -7,10 +7,10 @@
 
 import UIKit
 
-public extension UISegmentedControl{
+@objc public extension UISegmentedControl{
     
     /// 控件items
-    @objc var itemList: Array<String> {
+    var itemList: Array<String> {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Array<String>
         }

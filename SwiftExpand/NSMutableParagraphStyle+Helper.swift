@@ -8,9 +8,11 @@
 
 import UIKit
 
-public extension NSMutableParagraphStyle{
+@objc public extension NSMutableParagraphStyle{
      /// 创建NSMutableParagraphStyle
-     @objc static func create(_ lineBreakMode: NSLineBreakMode = .byCharWrapping, alignment: NSTextAlignment = .left, lineSpacing: CGFloat = 5.0) -> NSMutableParagraphStyle {
+     static func create(_ lineBreakMode: NSLineBreakMode = .byCharWrapping,
+                                    alignment: NSTextAlignment = .left,
+                                  lineSpacing: CGFloat = 5.0) -> NSMutableParagraphStyle {
         let paraStyle = NSMutableParagraphStyle()
         paraStyle.lineBreakMode = lineBreakMode;
         paraStyle.alignment = alignment;

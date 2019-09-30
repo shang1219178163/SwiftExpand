@@ -9,8 +9,8 @@
 import UIKit
 
 //MARK - UIImage
-public extension UIImage {
-//    @objc convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+@objc public extension UIImage {
+//    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
 //        UIGraphicsBeginImageContextWithOptions(size, true, UIScreen.main.scale)
 //        defer {
 //            UIGraphicsEndImageContext()
@@ -27,7 +27,7 @@ public extension UIImage {
 //        self.init(cgImage: cgImage)
 //    }
     
-    @objc convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
         let rect = CGRect(origin: CGPoint.zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
         color.setFill()
@@ -39,7 +39,7 @@ public extension UIImage {
         self.init(cgImage: cgImage)
     }
     
-    @objc func croppedImage(bound : CGRect) -> UIImage {
+    func croppedImage(bound : CGRect) -> UIImage {
         let scaledBounds = CGRect(x:bound.origin.x * self.scale, y:bound.origin.y * self.scale, width:bound.size.width * self.scale, height:bound.size.height * self.scale)
         let imageRef = cgImage?.cropping(to:scaledBounds)
         let croppedImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: .up)
@@ -48,7 +48,7 @@ public extension UIImage {
     }
     
     /// 保存UIImage对象到相册
-    @objc func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
+    func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -61,7 +61,7 @@ public extension UIImage {
         }
     }
     
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) -> Void {
+    func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) -> Void {
         let obj = objc_getAssociatedObject(self, image.runtimeKey) as? ((NSError?) -> Void)
         if obj != nil {
             obj!(error)
@@ -69,7 +69,7 @@ public extension UIImage {
     }
     
     /// 二维码
-    @objc static func generateQRImage(QRCodeString: String, logo: UIImage?, size: CGSize = CGSize(width: 50, height: 50)) -> UIImage? {
+    static func generateQRImage(QRCodeString: String, logo: UIImage?, size: CGSize = CGSize(width: 50, height: 50)) -> UIImage? {
         guard let data = QRCodeString.data(using: .utf8, allowLossyConversion: false) else {
             return nil
         }
@@ -105,7 +105,7 @@ public extension UIImage {
     }
     
     /// 切圆角图片
-    @objc func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize = CGSize(width: 5, height: 5)) -> UIImage? {
+    func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize = CGSize(width: 5, height: 5)) -> UIImage? {
         
         let imageRect = CGRect(origin: CGPoint.zero, size: size)
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
@@ -127,7 +127,7 @@ public extension UIImage {
     }
     
     /// 根据最大尺寸限制压缩图片
-    @objc static func compressData(_ image: UIImage, limit: Int = 1024*2) -> Data {
+    static func compressData(_ image: UIImage, limit: Int = 1024*2) -> Data {
         var compression: CGFloat = 1.0;
         let maxCompression: CGFloat = 0.1;
         
@@ -140,7 +140,7 @@ public extension UIImage {
     }
     
     /// 获取图片data的类型
-    @objc static func contentType(_ imageData: NSData) -> String {
+    static func contentType(_ imageData: NSData) -> String {
         var type: String = "jpg";
         
         var c: UInt8?

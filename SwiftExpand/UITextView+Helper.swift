@@ -9,9 +9,11 @@
 
 import UIKit
 
-public extension UITextView{
+@objc public extension UITextView{
     
-    @objc class func initializeMethod() {
+    override class func initializeMethod() {
+        super.initializeMethod();
+        
         if self == UIImageView.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
@@ -25,13 +27,13 @@ public extension UITextView{
         }
     }
     
-    @objc private func swz_deinit() -> Void {
+    private func swz_deinit() -> Void {
         //需要注入的代码写在此处
         NotificationCenter.default.removeObserver(self)
         self.swz_deinit()
     }
     
-    @objc var placeHolderTextView: UITextView {
+    var placeHolderTextView: UITextView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if obj == nil {
@@ -58,11 +60,11 @@ public extension UITextView{
         }
     }
     
-    @objc private func textViewDidBeginEditing(_ noti: Notification) -> Void {
+    private func textViewDidBeginEditing(_ noti: Notification) -> Void {
         placeHolderTextView.isHidden = true
     }
     
-    @objc private func textViewDidEndEditing(_ noti: Notification) -> Void {
+    private func textViewDidEndEditing(_ noti: Notification) -> Void {
         placeHolderTextView.isHidden = false
 
     }

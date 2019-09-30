@@ -8,9 +8,13 @@
 
 import UIKit
 
-public extension UIView{
+@objc public extension UIView{
     
-    @objc func animRotation(fromValue: Double = 0, toValue: Double = Double.pi * 2, duration: Double = Double(kDurationRotation), repeatCount: Float = MAXFLOAT, key: String? = nil) {
+    func animRotation(fromValue: Double = 0,
+                            toValue: Double = Double.pi * 2,
+                            duration: Double = Double(kDurationRotation),
+                            repeatCount: Float = MAXFLOAT,
+                            key: String? = nil) {
         // 1.创建动画
         let anim = CABasicAnimation(keyPath: "transform.rotation.z")
         
@@ -25,14 +29,17 @@ public extension UIView{
         layer.add(anim, forKey: key);
     }
     
-    @objc func animRotation(isClockwise: Bool = true, duration: Double = Double(kDurationRotation), repeatCount: Float = MAXFLOAT, key: String? = nil) {
+    func animRotation(isClockwise: Bool = true,
+                            duration: Double = Double(kDurationRotation),
+                            repeatCount: Float = MAXFLOAT,
+                            key: String? = nil) {
         let fromValue = isClockwise == true ? 0 : Double.pi * 2;
         let toValue = isClockwise == true ? Double.pi * 2 : 0;
         animRotation(fromValue: fromValue, toValue: toValue, duration: duration, repeatCount: repeatCount, key: key);
     }
     
     ///MARK:循环旋转图像(默认180°)
-    @objc func transformRotationCycle(_ duration: TimeInterval = 0.35, angle: CGFloat = CGFloat(Double.pi)) -> Void {
+    func transformRotationCycle(_ duration: TimeInterval = 0.35, angle: CGFloat = CGFloat(Double.pi)) -> Void {
         UIView.animate(withDuration: duration, animations: {
             self.transform = self.transform.isIdentity == true ? self.transform.rotated(by: angle) : CGAffineTransform.identity;
         })

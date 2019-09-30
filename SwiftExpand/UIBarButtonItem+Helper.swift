@@ -8,9 +8,9 @@
 
 import UIKit
 
-public extension UIBarButtonItem{
+@objc public extension UIBarButtonItem{
     
-   @objc var systemType: UIBarButtonItem.SystemItem {
+   var systemType: UIBarButtonItem.SystemItem {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! UIBarButtonItem.SystemItem;
         }
@@ -20,13 +20,13 @@ public extension UIBarButtonItem{
     }
     
     /// 按钮是否显示
-    @objc func setHidden(_ hidden: Bool) -> Void {
+    func setHidden(_ hidden: Bool) -> Void {
         self.isEnabled = !hidden;
         self.tintColor = !hidden ? UIColor.theme : UIColor.clear;
     }
 
     //待优化
-//    @objc static func create(title: String?, image: AnyObject?, tag: NSInteger, action:@escaping (ControlClick)) -> UIBarButtonItem? {
+//    static func create(title: String?, image: AnyObject?, tag: NSInteger, action:@escaping (ControlClick)) -> UIBarButtonItem? {
 //        let font = UIFont.systemFont(ofSize: UIFont.buttonFontSize - 1.0)
 //        let btn = UIView.createBtn(.zero, title: title, imgeName: image, tag: tag, type: 0,  action:action)
 //        let barItem = UIBarButtonItem(customView: btn!)

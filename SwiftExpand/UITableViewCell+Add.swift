@@ -9,13 +9,13 @@
 
 import UIKit
 
-public extension UITableViewCell{
+@objc public extension UITableViewCell{
     /// cell-源方法生成,自定义identifier
-    @objc static func cellWithTableView(_ tableView: UITableView, identifier: String = identifier, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
+    static func cellWithTableView(_ tableView: UITableView, identifier: String = identifier, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
         return dequeueCell(tableView, identifier: identifier, style: style);
     }
     /// [源] cell-方法生成,自定义identifier
-    @objc static func dequeueCell(_ tableView: UITableView, identifier: String = identifier, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
+    static func dequeueCell(_ tableView: UITableView, identifier: String = identifier, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
         if cell == nil {
             cell = self.init(style: style, reuseIdentifier: identifier);
@@ -28,12 +28,12 @@ public extension UITableViewCell{
     }
     
     /// cell-使用默认identifier生成
-    @objc static func cellWithTableView(_ tableView: UITableView) -> UITableViewCell! {
+    static func cellWithTableView(_ tableView: UITableView) -> UITableViewCell! {
 //        let identifier = NSStringFromClass(self.classForCoder());
         return cellWithTableView(tableView, identifier: identifier);
     }
     
-    @objc var imgViewLeft: UIImageView {
+    var imgViewLeft: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -52,7 +52,7 @@ public extension UITableViewCell{
         }
     }
     
-    @objc var imgViewRight: UIImageView {
+    var imgViewRight: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -72,7 +72,7 @@ public extension UITableViewCell{
         }
     }
     
-    @objc var labelLeft: UILabel {
+    var labelLeft: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -94,7 +94,7 @@ public extension UITableViewCell{
         }
     }
   
-    @objc var labelLeftSub: UILabel {
+    var labelLeftSub: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -117,7 +117,7 @@ public extension UITableViewCell{
         }
     }
     
-    @objc var labelRight: UILabel {
+    var labelRight: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -139,7 +139,7 @@ public extension UITableViewCell{
         }
     }
     
-    @objc var labelRightSub: UILabel {
+    var labelRightSub: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -162,7 +162,7 @@ public extension UITableViewCell{
         }
     }
     
-    @objc var btn: UIButton {
+    var btn: UIButton {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
             if obj == nil {
@@ -183,7 +183,7 @@ public extension UITableViewCell{
         }
     }
     
-    @objc var textfield: UITextField {
+    var textfield: UITextField {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if obj == nil {
@@ -207,7 +207,7 @@ public extension UITableViewCell{
         }
     }
     
-    @objc var textView: UITextView {
+    var textView: UITextView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if obj == nil {

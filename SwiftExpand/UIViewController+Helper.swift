@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-public extension UIViewController{
+@objc public extension UIViewController{
     
-    @objc var controllerName: String {
+    var controllerName: String {
         get {
             var className: String = NNStringFromClass(self.classForCoder);
             if className.contains("Controller") {
@@ -27,14 +27,14 @@ public extension UIViewController{
     }
     
     /// 是否正在展示
-    @objc var isCurrentVC: Bool {
+    var isCurrentVC: Bool {
         get{
             return self.isViewLoaded == true && (self.view!.window != nil)
         }
     }
     
     /// 重置布局
-    @objc func setupExtendedLayout() -> Void {
+    func setupExtendedLayout() -> Void {
         edgesForExtendedLayout = [];
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
@@ -43,7 +43,7 @@ public extension UIViewController{
         }
     }
     
-    @objc private func handleActionItem(_ sender: UIBarButtonItem) -> Void {
+    private func handleActionItem(_ sender: UIBarButtonItem) -> Void {
         let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ObjClosure;
         if block != nil {
             block!(sender);
@@ -51,7 +51,7 @@ public extension UIViewController{
         }
     }
     
-    @objc func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) -> Void {
+    func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) -> Void {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -69,7 +69,7 @@ public extension UIViewController{
     }
     
     /// 创建导航栏按钮(UIButton)
-    @objc func createBtnBarItem(_ title: String?, image: String? = nil, isLeft: Bool = false, isHidden: Bool = false, action: (ControlClosure)? = nil) -> UIButton {
+    func createBtnBarItem(_ title: String?, image: String? = nil, isLeft: Bool = false, isHidden: Bool = false, action: (ControlClosure)? = nil) -> UIButton {
         var size = CGSize(width: 32, height: 32)
         if image != nil && UIImage(named:image!) != nil {
             size = CGSize(width: 40, height: 40)
@@ -110,7 +110,7 @@ public extension UIViewController{
     }
     
     /// 创建导航栏按钮(标题或者图片名称)
-    @objc func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
+    func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
         var item: UIView? = nil;
         if UIImage(named:obj) != nil{
             item = UIView.createImgView(CGRectMake(0, 0, 40, 40), imgName: obj)
@@ -145,7 +145,7 @@ public extension UIViewController{
         return containView;
     }
 
-    @objc func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) -> Void {
+    func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) -> Void {
         assert(UICtrFromString(name).isKind(of: UIViewController.classForCoder()))
         let controller = UICtrFromString(name)
         controller.obj = obj
@@ -153,14 +153,14 @@ public extension UIViewController{
         navigationController?.pushViewController(controller, animated: true);
     }
     
-    @objc func addControllerName(_ controllerName: String) -> Void {
+    func addControllerName(_ controllerName: String) -> Void {
         let controller = UICtrFromString(controllerName)
         assert(controller.isKind(of: UIViewController.classForCoder()))
         addControllerVC(controller)
     }
     
     /// 添加子控制器(对应方法 removeControllerVC)
-    @objc func addControllerVC(_ controller: UIViewController) -> Void {
+    func addControllerVC(_ controller: UIViewController) -> Void {
         assert(controller.isKind(of: UIViewController.classForCoder()))
         
         addChild(controller)
@@ -170,7 +170,7 @@ public extension UIViewController{
     }
     
     /// 移除添加的子控制器(对应方法 addControllerVC)
-    @objc func removeControllerVC(_ controller: UIViewController) -> Void {
+    func removeControllerVC(_ controller: UIViewController) -> Void {
         assert(controller.isKind(of: UIViewController.classForCoder()))
         
         controller.willMove(toParent: nil)
@@ -179,7 +179,7 @@ public extension UIViewController{
     }
     
     /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
-    @objc func transitionTo(VC: UIViewController) -> Void {
+    func transitionTo(VC: UIViewController) -> Void {
         self.beginAppearanceTransition(false, animated: true)  //调用self的 viewWillDisappear:
         VC.beginAppearanceTransition(true, animated: true)  //调用VC的 viewWillAppear:
         self.endAppearanceTransition(); //调用self的viewDidDisappear:
@@ -191,13 +191,13 @@ public extension UIViewController{
          */
     }
     /// 手动调用 viewWillAppear,viewDidDisappear 或 viewWillDisappear,viewDidDisappear
-    @objc func beginAppearance(_ isAppearing: Bool, animated: Bool){
+    func beginAppearance(_ isAppearing: Bool, animated: Bool){
         self.beginAppearanceTransition(isAppearing, animated: animated);
         self.endAppearanceTransition();
     }
     
     /// 导航栏返回按钮图片定制
-    @objc func createBackItem(_ image: UIImage) -> UIButton {
+    func createBackItem(_ image: UIImage) -> UIButton {
         let btn = UIButton(type: .custom)
         btn.adjustsImageWhenHighlighted = false;
         btn.frame = CGRectMake(0, 0, 30, 40)

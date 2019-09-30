@@ -7,10 +7,15 @@
 //
 import QuartzCore
 
-public extension CAKeyframeAnimation{
+@objc public extension CAKeyframeAnimation{
     
     /// [源]CAKeyframeAnimation
-    @objc static func animDuration(_ duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float, fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards, removedOnCompletion:Bool = false, functionName: CAMediaTimingFunctionName) -> CAKeyframeAnimation {
+    static func animDuration(_ duration: CFTimeInterval,
+                                   autoreverses: Bool = false,
+                                   repeatCount: Float,
+                                   fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards,
+                                   removedOnCompletion:Bool = false,
+                                   functionName: CAMediaTimingFunctionName) -> CAKeyframeAnimation {
         let anim: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: kTransformPosition);
         anim.duration = duration;
         anim.repeatCount = repeatCount;
@@ -23,14 +28,14 @@ public extension CAKeyframeAnimation{
     }
     
     /// CAKeyframeAnimation
-    @objc static func animPath(_ pathRef:CGPath, duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float) -> CAKeyframeAnimation {
+    static func animPath(_ pathRef:CGPath, duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float) -> CAKeyframeAnimation {
         let anim: CAKeyframeAnimation = CAKeyframeAnimation.animDuration(duration, repeatCount: repeatCount, functionName: .default)
         anim.path = pathRef;
         return anim;
     }
     
     /// CAKeyframeAnimation
-    @objc static func animValues(_ values: [Any], duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float) -> CAKeyframeAnimation {
+    static func animValues(_ values: [Any], duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float) -> CAKeyframeAnimation {
         let anim: CAKeyframeAnimation = CAKeyframeAnimation.animDuration(duration, repeatCount: repeatCount, functionName: .default)
         anim.values = values;
         return anim;

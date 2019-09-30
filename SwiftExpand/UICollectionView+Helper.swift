@@ -8,9 +8,96 @@
 
 import UIKit
 
-public extension UICollectionView{
+@objc public extension UICollectionView{
     
-    @objc static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
+    static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
+    
+    /// 通用方法cell
+    static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
+        let identifier = self.identifier;
+        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        return view;
+    }
+    
+    /// UICollectionViewLayout默认布局
+    static var layoutDefault: UICollectionViewLayout {
+        get {
+            var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
+            if layout == nil {
+                // 初始化
+                layout = UICollectionViewLayout.createFlowLayout()
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            return layout!
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    var listClass: Array<String> {
+        get {
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Array<String>;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            registerCTVCell(newValue)
+        }
+    }
+    
+    var dictClass: Dictionary<String, Array<String>> {
+        get {
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Dictionary<String, Array<String>>;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            registerCTVAll();
+        }
+    }
+    
+    /// dictClass注册
+    func registerCTVAll() {
+        if dictClass.keys.count == 0 {
+            return
+        }
+        dictClass.forEach { (arg0) in
+//            DDLog(arg0)
+            let (key, value) = arg0
+            if key == UICollectionView.elementKindSectionItem {
+                registerCTVCell(value)
+            }else {
+                registerCTVReusable(value, kind: key)
+            }
+        }
+    }
+    
+    /// cell注册
+    func registerCTVCell(_ listClass: Array<String>) {
+        listClass.forEach { (className: String) in
+            let obj:AnyClass = SwiftClassFromString(className)
+            register(obj, forCellWithReuseIdentifier: className)
+        }
+    }
+    
+    /// 获取 UICollectionViewElementKindSection 标志
+    func sectionReuseIdentifier(_ className: String, kind: String = UICollectionView.elementKindSectionHeader) -> String{
+        let extra = kind == UICollectionView.elementKindSectionHeader ? "Header" : "Footer";
+        let identifier = className + extra;
+        return identifier;
+    }
+    
+    /// headerView/FooterView注册
+    func registerCTVReusable(_ listClass: Array<String>, kind: String = UICollectionView.elementKindSectionHeader) {
+        listClass.forEach { (className: String) in
+            let identifier = sectionReuseIdentifier(className, kind: kind)
+            register(SwiftClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
+        }
+    }
+    
+}
+
+
+public extension UICollectionView{
     
     /// 泛型复用register cell - Type: "类名.self" (备用默认值 T.self)
     final func register<T: UICollectionViewCell>(cellType: T.Type, forCellWithReuseIdentifier identifier: String = String(describing: T.self)){
@@ -52,88 +139,6 @@ public extension UICollectionView{
     /// 泛型复用SupplementaryView - aClass: "类名()"
     final func dequeueReusableSupplementaryView<T: UICollectionReusableView>(for aClass: T, kind: String, indexPath: IndexPath) -> T{
         return dequeueReusableSupplementaryView(for: T.self, kind: kind, indexPath: indexPath)
-    }
-    
-    /// 通用方法cell
-    @objc static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
-        let identifier = self.identifier;
-        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        return view;
-    }
-    
-    /// UICollectionViewLayout默认布局
-    @objc static var layoutDefault: UICollectionViewLayout {
-        get {
-            var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
-            if layout == nil {
-                // 初始化
-                layout = UICollectionViewLayout.createFlowLayout()
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return layout!
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    
-    @objc var listClass: Array<String> {
-        get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Array<String>;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            registerCTVCell(newValue)
-        }
-    }
-    
-    @objc var dictClass: Dictionary<String, Array<String>> {
-        get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Dictionary<String, Array<String>>;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            registerCTVAll();
-        }
-    }
-    
-    /// dictClass注册
-    @objc func registerCTVAll() {
-        if dictClass.keys.count == 0 {
-            return
-        }
-        dictClass.forEach { (arg0) in
-//            DDLog(arg0)
-            let (key, value) = arg0
-            if key == UICollectionView.elementKindSectionItem {
-                registerCTVCell(value)
-            }else {
-                registerCTVReusable(value, kind: key)
-            }
-        }
-    }
-    
-    /// cell注册
-    @objc func registerCTVCell(_ listClass: Array<String>) {
-        listClass.forEach { (className: String) in
-            let obj:AnyClass = SwiftClassFromString(className)
-            register(obj, forCellWithReuseIdentifier: className)
-        }
-    }
-    
-    /// 获取 UICollectionViewElementKindSection 标志
-    @objc func sectionReuseIdentifier(_ className: String, kind: String = UICollectionView.elementKindSectionHeader) -> String{
-        let extra = kind == UICollectionView.elementKindSectionHeader ? "Header" : "Footer";
-        let identifier = className + extra;
-        return identifier;
-    }
-    
-    /// headerView/FooterView注册
-    @objc func registerCTVReusable(_ listClass: Array<String>, kind: String = UICollectionView.elementKindSectionHeader) {
-        listClass.forEach { (className: String) in
-            let identifier = sectionReuseIdentifier(className, kind: kind)
-            register(SwiftClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
-        }
     }
     
 }

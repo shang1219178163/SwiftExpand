@@ -8,11 +8,11 @@
 
 import UIKit
 
-public extension UIViewController{
+@objc public extension UIViewController{
     
-    @objc class func initializeMethod() {
-        // Make sure This isn't a subclass of UIViewController, So that It applies to all UIViewController childs
-//        return;
+    override class func initializeMethod() {
+        super.initializeMethod();
+        
         if self == UIViewController.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
@@ -52,7 +52,7 @@ public extension UIViewController{
         }
     }
     
-    @objc internal func swz_viewDidLoad(animated: Bool) {
+    internal func swz_viewDidLoad(animated: Bool) {
         //需要注入的代码写在此处
 //        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
         edgesForExtendedLayout = [];
@@ -64,19 +64,19 @@ public extension UIViewController{
         self.swz_viewDidLoad(animated: animated)
     }
     
-    @objc private func swz_viewWillAppear(animated: Bool) {
+    private func swz_viewWillAppear(animated: Bool) {
         //需要注入的代码写在此处
         self.swz_viewWillAppear(animated: animated)
 //        self.eventGather(isBegin: true);
     }
     
-    @objc private func swz_viewWillDisappear(animated: Bool) {
+    private func swz_viewWillDisappear(animated: Bool) {
         //需要注入的代码写在此处
         self.swz_viewWillDisappear(animated: animated)
 //        self.eventGather(isBegin: false);
     }
     
-    @objc private func hook_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Swift.Void)? = nil) {
+    private func hook_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         //判断是否是alert弹窗
         if viewControllerToPresent.isKind(of: UIAlertController.self) {
             #if DEBUG
@@ -98,7 +98,7 @@ public extension UIViewController{
     }
     
     // MARK: -funtions
-    @objc private func eventGather(isBegin: Bool = true) -> Void {
+    private func eventGather(isBegin: Bool = true) -> Void {
         let className = NSStringFromClass(classForCoder);
         //设置不允许发送数据的Controller
         let filters = ["UINavigationController", "UITabBarController", "UICompatibilityInputViewController",
@@ -116,7 +116,7 @@ public extension UIViewController{
         }
     }
     
-    @objc private func changeAppIconAction(){
+    private func changeAppIconAction(){
         print("替换成功")
 
     }

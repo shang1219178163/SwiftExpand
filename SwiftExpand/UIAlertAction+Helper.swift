@@ -7,9 +7,9 @@
 
 import UIKit
 
-public extension UIAlertAction{
+@objc public extension UIAlertAction{
     
-    @objc var tag: Int {
+    var tag: Int {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Int {
                 return obj
@@ -23,7 +23,7 @@ public extension UIAlertAction{
     }
     
     /// 设置UIAlertController按钮颜色
-    @objc func setTitleColor(_ color: UIColor = UIColor.theme) -> Void {
+    func setTitleColor(_ color: UIColor = UIColor.theme) -> Void {
         setValue(color, forKey: kAlertActionColor);
 
     }

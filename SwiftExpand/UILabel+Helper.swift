@@ -11,9 +11,9 @@
 
 import UIKit
 
-public extension UILabel{
+@objc public extension UILabel{
     /// UILabel富文本设置
-    @objc func setContent(_ content: String, attDic: Dictionary<NSAttributedString.Key, Any>) -> NSMutableAttributedString{
+    func setContent(_ content: String, attDic: Dictionary<NSAttributedString.Key, Any>) -> NSMutableAttributedString{
         assert((self.text?.contains(content))!)
         
         let text: NSString = self.text! as NSString

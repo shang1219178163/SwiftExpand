@@ -15,9 +15,13 @@ public let kAlertCtlrMessage = "attributedMessage"
 /// UIAlertController按钮颜色key
 public let kAlertActionColor = "titleTextColor"
 
-public extension UIAlertController{
+@objc public extension UIAlertController{
     /// 创建系统提示框
-    @objc static func createAlert(_ title: String?, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    static func createAlert(_ title: String?,
+                                  placeholders: [String]? = nil,
+                                  msg: String,
+                                  actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure],
+                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
        
         placeholders?.forEach { (placeholder: String) in
@@ -39,7 +43,11 @@ public extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc static func showAlert(_ title: String?, placeholders: [String]? = nil, msg: String, actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    static func showAlert(_ title: String?,
+                                placeholders: [String]? = nil,
+                                msg: String,
+                                actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure],
+                                handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         
         let rootVC = UIApplication.shared.delegate?.window??.rootViewController
 
@@ -58,7 +66,10 @@ public extension UIAlertController{
     }
     
     /// 创建系统sheetView
-    @objc static func createSheet(_ title: String?, msg: String? = nil, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    static func createSheet(_ title: String?,
+                                  msg: String? = nil,
+                                  items: [String]? = nil,
+                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .actionSheet)
         
         items?.forEach({ (title:String) in
@@ -83,7 +94,10 @@ public extension UIAlertController{
     }
     
     /// 展示提示框
-    @objc static func showSheet(_ title: String?, msg: String? = nil, items: [String]? = nil, handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+    static func showSheet(_ title: String?,
+                                msg: String? = nil,
+                                items: [String]? = nil,
+                                handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let rootVC = UIApplication.shared.delegate?.window??.rootViewController
 
         let alertController = UIAlertController.createSheet(title, msg:msg, items: items, handler: handler)
@@ -92,7 +106,7 @@ public extension UIAlertController{
     }
 
     /// 设置标题颜色
-    @objc func setTitleColor(_ color: UIColor = UIColor.theme) -> Void {
+    func setTitleColor(_ color: UIColor = UIColor.theme) -> Void {
         guard let title = title else {
             return;
         }
@@ -103,7 +117,7 @@ public extension UIAlertController{
     }
     
     /// 设置Message文本换行,对齐方式
-    @objc func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> Void {
+    func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> Void {
         guard let message = message else {
             return;
         }

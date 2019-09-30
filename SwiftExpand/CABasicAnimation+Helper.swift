@@ -48,10 +48,16 @@ public let kFunctionNames = [
                             CAMediaTimingFunctionName.default//默认
                             ];
 
-public extension CABasicAnimation{
+@objc public extension CABasicAnimation{
     
     /// [源]CABasicAnimation
-    @objc static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float, fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards, removedOnCompletion: Bool = false, functionName: CAMediaTimingFunctionName = .linear) -> CABasicAnimation {
+    static func animKeyPath(_ keyPath: String,
+                                  duration: CFTimeInterval,
+                                  autoreverses: Bool = false,
+                                  repeatCount: Float,
+                                  fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards,
+                                  removedOnCompletion: Bool = false,
+                                  functionName: CAMediaTimingFunctionName = .linear) -> CABasicAnimation {
         
         let anim = CABasicAnimation(keyPath: keyPath)
         anim.duration = duration;
@@ -66,7 +72,12 @@ public extension CABasicAnimation{
     }
     
     /// [便捷]CABasicAnimation
-    @objc static func animKeyPath(_ keyPath: String, duration: CFTimeInterval, autoreverses: Bool = false, repeatCount: Float, fromValue: Any, toValue: Any) -> CABasicAnimation {
+    static func animKeyPath(_ keyPath: String,
+                                  duration: CFTimeInterval,
+                                  autoreverses: Bool = false,
+                                  repeatCount: Float,
+                                  fromValue: Any,
+                                  toValue: Any) -> CABasicAnimation {
         let anim = animKeyPath(keyPath, duration: duration, repeatCount: repeatCount, functionName: kFunctionNames.first!);
         anim.fromValue = fromValue;
         anim.toValue = toValue;

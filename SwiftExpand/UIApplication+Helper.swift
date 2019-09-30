@@ -8,74 +8,56 @@
 
 import UIKit
 
-public extension UIApplication{
+@objc public extension UIApplication{
     
-    @objc static var appName: String {
-        get {
-            let infoDic = Bundle.main.infoDictionary;
-            if let name = infoDic!["CFBundleDisplayName"] {
-                return name as! String;
-            }
-            return infoDic![kCFBundleExecutableKey as String] as! String;
+    static var appName: String {
+        let infoDic = Bundle.main.infoDictionary;
+        if let name = infoDic!["CFBundleDisplayName"] {
+            return name as! String;
         }
+        return infoDic![kCFBundleExecutableKey as String] as! String;
     }
     
-    @objc static var appBundleName: String {
-        get {
-            let infoDic = Bundle.main.infoDictionary;
-            return infoDic!["CFBundleExecutable"] as! String;
-        }
+    static var appBundleName: String {
+        let infoDic = Bundle.main.infoDictionary;
+        return infoDic!["CFBundleExecutable"] as! String;
     }
     
-    @objc static var appIcon: UIImage {
-        get {
-            let infoDic: AnyObject = Bundle.main.infoDictionary as AnyObject;
-            let iconFiles:Array<Any> = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as! Array<Any>;
-            let imgName: String = iconFiles.last as! String;
-            return UIImage(named: imgName)!;
-        }
+    static var appIcon: UIImage {
+        let infoDic: AnyObject = Bundle.main.infoDictionary as AnyObject;
+        let iconFiles:Array<Any> = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as! Array<Any>;
+        let imgName: String = iconFiles.last as! String;
+        return UIImage(named: imgName)!;
     }
     
-    @objc static var appVer: String {
-        get {
-            let infoDic = Bundle.main.infoDictionary;
-            return infoDic!["CFBundleShortVersionString"] as! String;
-        }
+    static var appVer: String {
+        let infoDic = Bundle.main.infoDictionary;
+        return infoDic!["CFBundleShortVersionString"] as! String;
     }
     
-    @objc static var appBuild: String {
-        get {
-            let infoDic = Bundle.main.infoDictionary;
-            return infoDic!["CFBundleVersion"] as! String;
-        }
+    static var appBuild: String {
+        let infoDic = Bundle.main.infoDictionary;
+        return infoDic!["CFBundleVersion"] as! String;
     }
     
-    @objc static var phoneSystemVer: String {
-        get {
-            return UIDevice.current.systemVersion;
-        }
+    static var phoneSystemVer: String {
+        return UIDevice.current.systemVersion;
     }
     
-    @objc static var phoneSystemName: String {
-        get {
-            return UIDevice.current.systemName;
-        }
+    static var phoneSystemName: String {
+        return UIDevice.current.systemName;
     }
     
-    @objc static var phoneName: String {
-        get {
-            return UIDevice.current.name;
-        }
+    static var phoneName: String {
+        return UIDevice.current.name;
     }
     
-    @objc static var iphoneType: String {
-        get {
-            return UIApplication.getIphoneType();
-        }
+    static var iphoneType: String {
+        return UIApplication.getIphoneType();
     }
     
     /// 获取手机型号
-    @objc static func getIphoneType() ->String {
+    static func getIphoneType() ->String {
         var systemInfo = utsname()
         uname(&systemInfo)
         
@@ -133,7 +115,7 @@ public extension UIApplication{
         }
     }
     
-    @objc static var mainWindow: UIWindow {
+    static var mainWindow: UIWindow {
         get {
             var window = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIWindow;
             if window == nil {
@@ -149,7 +131,7 @@ public extension UIApplication{
         }
     }
         
-    @objc static var rootController: UIViewController {
+    static var rootController: UIViewController {
         get {
             return UIApplication.mainWindow.rootViewController!;
         }
@@ -158,7 +140,7 @@ public extension UIApplication{
         }
     }
     
-    @objc static var tabBarController: UITabBarController? {
+    static var tabBarController: UITabBarController? {
         get {
             var tabBarVC = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITabBarController;
             if tabBarVC == nil {
@@ -174,12 +156,11 @@ public extension UIApplication{
     }
     
     //MARK: func
-    static func setupRootController(_ window:inout UIWindow, _ controller: AnyObject, _ isAdjust: Bool) -> Void {
-        window = UIApplication.mainWindow;
+    static func setupRootController(_ window: UIWindow = UIApplication.mainWindow, _ controller: AnyObject, _ isAdjust: Bool) -> Void {
         UIApplication.setupRootController(controller, isAdjust);
     }
     
-    @objc static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool) -> Void {
+    static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool) -> Void {
         var contr = controller;
         if controller is String {
             contr = UICtrFromString(controller as! String);
@@ -197,12 +178,12 @@ public extension UIApplication{
         }
     }
     
-    @objc static func setupRootController(_ controller: AnyObject) -> Void {
+    static func setupRootController(_ controller: AnyObject) -> Void {
         return UIApplication.setupRootController(controller, true);
     }
     
     ///默认风格是白色导航栏黑色标题
-    @objc static func setupAppearanceDefault(_ isDefault: Bool = true) -> Void {
+    static func setupAppearanceDefault(_ isDefault: Bool = true) -> Void {
         let barTintColor: UIColor = isDefault ? UIColor.white : UIColor.theme
         setupAppearanceNavigationBar(barTintColor)
         setupAppearanceScrollView()
@@ -211,7 +192,7 @@ public extension UIApplication{
     }
     
     /// 配置UIScrollView默认值
-    @objc static func setupAppearanceScrollView() -> Void {
+    static func setupAppearanceScrollView() -> Void {
         UITableView.appearance().separatorStyle = .singleLine;
         UITableView.appearance().separatorInset = .zero;
         UITableView.appearance().rowHeight = 60;
@@ -232,7 +213,7 @@ public extension UIApplication{
         }
     }
     
-    @objc static func setupAppearanceOthers() -> Void {
+    static func setupAppearanceOthers() -> Void {
         UIButton.appearance().isExclusiveTouch = false;
 
         UITabBar.appearance().tintColor = UIColor.theme;
@@ -247,7 +228,7 @@ public extension UIApplication{
     }
     
     /// 配置UINavigationBar默认值
-    @objc static func setupAppearanceNavigationBar(_ barTintColor: UIColor) -> Void {
+    static func setupAppearanceNavigationBar(_ barTintColor: UIColor) -> Void {
         let isDefault: Bool = UIColor.white.equalTo(barTintColor);
         let tintColor = isDefault ? UIColor.black : UIColor.white;
         
@@ -266,7 +247,7 @@ public extension UIApplication{
 //        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
     }
     
-    @objc static func setupAppearanceTabBar() -> Void {
+    static func setupAppearanceTabBar() -> Void {
         //         设置字体颜色
 //        let attDic_N = [NSAttributedString.Key.foregroundColor: UIColor.black];
 //        let attDic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme];
@@ -289,7 +270,7 @@ public extension UIApplication{
     }
     
     /// 打开网络链接
-    @objc static func openURL(_ urlStr: String, isUrl: Bool = true) {
+    static func openURL(_ urlStr: String, isUrl: Bool = true) {
         if isUrl == true {
             let _ = UIApplication.openURLStr(urlStr, prefix: "http://")
         } else {
@@ -298,7 +279,7 @@ public extension UIApplication{
     }
     
     /// 打开网络链接(prefix为 http://或 tel:// )
-    @objc static func openURLStr(_ urlStr: String, prefix: String) -> Bool {
+    static func openURLStr(_ urlStr: String, prefix: String) -> Bool {
         //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
         //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
         //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
@@ -324,7 +305,7 @@ public extension UIApplication{
     }
     
     /// 远程推送deviceToken处理
-    @objc static func deviceTokenString(_ deviceToken: NSData) -> String{
+    static func deviceTokenString(_ deviceToken: NSData) -> String{
         var deviceTokenString = String()
         if #available(iOS 13.0, *) {
             let bytes = [UInt8](deviceToken)
@@ -341,7 +322,7 @@ public extension UIApplication{
     }
     
     /// block内任务后台执行(block为空可填入AppDelegate.m方法 applicationDidEnterBackground中)
-    @objc static func didEnterBackground(_ block: (()->Void)? = nil) -> Void{
+    static func didEnterBackground(_ block: (()->Void)? = nil) -> Void{
         let application: UIApplication = UIApplication.shared;
         var bgTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0);
         //如果要后台运行
@@ -359,7 +340,7 @@ public extension UIApplication{
         bgTask = UIBackgroundTaskIdentifier.invalid
     }
     /// 配置app图标(传 nil 恢复默认)
-    @objc static func setAppIcon(name: String?) {
+    static func setAppIcon(name: String?) {
         UIViewController.initializeMethod()
         //判断是否支持替换图标, false: 不支持
         if #available(iOS 10.3, *) {

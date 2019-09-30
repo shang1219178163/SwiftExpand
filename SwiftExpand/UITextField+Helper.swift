@@ -10,11 +10,11 @@
 
 import UIKit
 
-public extension UITextField{
+@objc public extension UITextField{
 
     ///  RightView
-    @objc func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView! {
-        assert(unitName != nil && unitName.valid() == true);
+    func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView! {
+        assert(unitName != nil && unitName.isValid == true);
         
         if unitName.contains("img") {
             let view = UIImageView(frame: CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height));
@@ -44,5 +44,12 @@ public extension UITextField{
         }
         return label;
     }
-
+    
+    /// 返回当前文本框字符串(func textField(_ textField: shouldChangeCharactersIn:, replacementString:) -> Bool 中调用)
+    func currentString(replacementString string: String) -> String {
+        if self.text?.count == 1 {
+            return "";
+        }
+        return string != "" ? self.text! + string : self.text!.substringTo(self.text!.count - 2);
+    }
 }

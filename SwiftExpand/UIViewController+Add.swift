@@ -9,9 +9,9 @@
 
 import UIKit
 
-public extension UIViewController{
+@objc public extension UIViewController{
     /// 关联obj任意对象
-    @objc var obj: AnyObject? {
+    var obj: AnyObject? {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
         }
@@ -20,7 +20,7 @@ public extension UIViewController{
         }
     }
     /// 关联obj任意对象
-    @objc var objOne: AnyObject? {
+    var objOne: AnyObject? {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as AnyObject;
         }
@@ -29,7 +29,7 @@ public extension UIViewController{
         }
     }
     /// 关联NSMutableArray 数据容器
-    @objc var dataList: NSMutableArray {
+    var dataList: NSMutableArray {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? NSMutableArray;
             if obj == nil {
@@ -43,7 +43,7 @@ public extension UIViewController{
         }
     }
     /// 关联UITableView视图对象
-    @objc var tbView: UITableView {
+    var tbView: UITableView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
             if obj == nil {
@@ -75,7 +75,7 @@ public extension UIViewController{
         }
     }
     /// 关联UICollectionView视图对象
-    @objc var ctView : UICollectionView {
+    var ctView : UICollectionView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionView;
             if obj == nil {
@@ -101,5 +101,25 @@ public extension UIViewController{
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-
+    
+    /// 关联tipLab
+    var tipLab : UILabel {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
+            if obj == nil {
+                // 初始化
+                obj = UILabel()
+                obj!.text = "暂无数据"
+                obj!.textColor = UIColor.gray;
+                obj!.sizeToFit();
+                obj!.center = self.view.center;
+                
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
 }

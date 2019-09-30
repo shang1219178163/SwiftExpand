@@ -9,8 +9,10 @@
 
 import UIKit
 
-public extension UIButton{
-    @objc class func initializeMethod() {
+@objc public extension UIButton{
+    override class func initializeMethod() {
+        super.initializeMethod();
+        
         if self == UIButton.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
@@ -28,7 +30,7 @@ public extension UIButton{
         }
     }
     
-    @objc private func swz_setBackgroundImage(_ image: UIImage?, for state: UIControl.State){
+    private func swz_setBackgroundImage(_ image: UIImage?, for state: UIControl.State){
         //需要注入的代码写在此处
         swz_setBackgroundImage(image, for: state);
         if image != nil {
@@ -36,7 +38,7 @@ public extension UIButton{
         }
     }
     
-    @objc private func swz_setImage(_ image: UIImage?, for state: UIControl.State){
+    private func swz_setImage(_ image: UIImage?, for state: UIControl.State){
         //需要注入的代码写在此处
         swz_setImage(image, for: state);
         if image != nil {

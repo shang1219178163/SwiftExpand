@@ -7,33 +7,40 @@
 //
 
 import UIKit
+import CommonCrypto
 
 public extension String{
-    
-    func valid() -> Bool! {
-        let array = ["","nil","null"];
-        if array.contains(self){
-            return false;
+    /// md5字符串
+    var md5: String {
+        let data = Data(self.utf8)
+        let hash = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) -> [UInt8] in
+            var hash = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+            CC_MD5(bytes.baseAddress, CC_LONG(data.count), &hash)
+            return hash
         }
-        return true;
+        return hash.map { String(format: "%02x", $0) }.joined()
     }
-    
-    func intValue() -> Int {
+    /// 是否是"","nil","null"
+    var isValid: Bool {
+        return !["","nil","null"].contains(self);
+    }
+    /// Int
+    var intValue: Int {
         return Int((self as NSString).intValue)
     }
-
-    func floatValue() -> Float {
+    /// Float
+    var floatValue: Float {
         return (self as NSString).floatValue
     }
-    
-    func cgFloatValue() -> CGFloat {
-        return CGFloat(self.floatValue())
+    /// CGFloat
+    var cgFloatValue: CGFloat {
+        return CGFloat(self.floatValue)
     }
-
-    func doubleValue() -> Double {
+    /// Double
+    var doubleValue: Double {
         return (self as NSString).doubleValue
     }
-    
+    // MARK: -funtions
     func reverse() -> String {
         return String(self.reversed())
     }
@@ -191,15 +198,17 @@ public extension Substring {
 }
 
 
-public extension NSString{
-    
+@objc public extension NSString{
+    var md5: String {
+        return (self as String).md5
+    }
     /// 获取子字符串
-    @objc func substring(loc: Int, len: Int) -> String {
+    func substring(loc: Int, len: Int) -> String {
         return self.substring(with: NSRange(location: loc, length: len))
     }
     
     /// 字符串本身大于string
-    @objc func isCompare(_ string: NSString) -> Bool {
+    func isCompare(_ string: NSString) -> Bool {
         if self.isEqual(to: "") {
             return false
         }
@@ -212,20 +221,20 @@ public extension NSString{
     }
     
     /// 大于version
-    @objc func isNewer(version: String) -> Bool {
+    func isNewer(version: String) -> Bool {
         return compare(version, options: .numeric) == .orderedDescending
     }
     /// 等于version
-    @objc func isSame(version: String) -> Bool {
+    func isSame(version: String) -> Bool {
         return compare(version, options: .numeric) == .orderedSame
     }
     /// 小于version
-    @objc func isOlder(version: String) -> Bool {
+    func isOlder(version: String) -> Bool {
         return compare(version, options: .numeric) == .orderedAscending
     }
     
     /// 转为拼音
-    @objc func transformToPinyin() -> String {
+    func transformToPinyin() -> String {
         let chinese: String = self as String;
         let mutableStr = NSMutableString(string: chinese) as CFMutableString
         let canTransform: Bool = CFStringTransform(mutableStr, nil, kCFStringTransformToLatin, false) &&
@@ -237,13 +246,13 @@ public extension NSString{
     }
     
     /// 字符串首位加*
-    @objc func toAsterisk() -> NSAttributedString{
+    func toAsterisk() -> NSAttributedString{
         let isMust = self.contains(kAsterisk)
         return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, isMust: isMust)
     }
     
     /// 读取本地json文件
-    @objc func jsonFileToJSONString() -> String {
+    func jsonFileToJSONString() -> String {
         assert(self.contains(".geojson") == true);
         
         if self.contains(".geojson") == true {
@@ -267,7 +276,7 @@ public extension NSString{
     }
     
     /// 复制到剪切板
-    @objc func copyToPasteboard(_ showTips: Bool) -> Void {
+    func copyToPasteboard(_ showTips: Bool) -> Void {
         UIPasteboard.general.string = self as String
         if showTips == true {
             let _ = UIAlertController.showAlert(nil, placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
@@ -275,7 +284,7 @@ public extension NSString{
     }
     
     /// isEnd 为真,秒追加为:59,为假 :00
-    @objc static func dateTime(_ time: NSString, isEnd: Bool) -> NSString {
+    static func dateTime(_ time: NSString, isEnd: Bool) -> NSString {
         if time.length < 10 {
             return time;
         }
@@ -286,7 +295,7 @@ public extension NSString{
     }
     
     /// 判断是否时间戳字符串
-    @objc func isTimeStamp() -> Bool{
+    func isTimeStamp() -> Bool{
         if self.contains(" ") || self.contains("-") || self.contains(":") {
             return false;
         }
@@ -297,26 +306,26 @@ public extension NSString{
         return true
     }
     /// 整形判断
-    @objc func isPureInteger() -> Bool{
+    func isPureInteger() -> Bool{
         let scan = Scanner(string: self as String);
         var val: Int = 0;
         return (scan.scanInt(&val) && scan.isAtEnd);
     }
     /// 浮点形判断
-    @objc func isPureFloat() -> Bool{
+    func isPureFloat() -> Bool{
         let scan = Scanner(string: self as String);
         var val: Float = 0.0;
         return (scan.scanFloat(&val) && scan.isAtEnd);
     }
     
     /// (短时间)yyyy-MM-dd
-    @objc func toDateShort() -> String{
+    func toDateShort() -> String{
         assert(self.length >= 10);
         return self.substring(to: 10);
     }
     
     /// 起始时间( 00:00:00时间戳)
-    @objc func toTimestampShort() -> String{
+    func toTimestampShort() -> String{
         assert(self.length >= 10);
         
         let tmp = self.substring(to: 10) + " 00:00:00";
@@ -325,7 +334,7 @@ public extension NSString{
     }
     
     /// 截止时间( 23:59:59时间戳)
-    @objc func toTimestampFull() -> String{
+    func toTimestampFull() -> String{
         assert(self.length >= 10);
         
         let tmp = self.substring(to: 10) + " 23:59:59";
@@ -333,7 +342,7 @@ public extension NSString{
         return result;
     }
     /// 过滤特殊字符集
-    @objc func filter(_ string: String) -> String{
+    func filter(_ string: String) -> String{
         assert(self.length > 0);
         let chartSet = NSCharacterSet(charactersIn: string).inverted;
         let result = self.addingPercentEncoding(withAllowedCharacters: chartSet)
@@ -341,14 +350,14 @@ public extension NSString{
     }
     
     /// 删除首尾空白字符
-    @objc func deleteWhiteSpaceBeginEnd(_ string: String) -> String{
+    func deleteWhiteSpaceBeginEnd(_ string: String) -> String{
         assert(self.length > 0);
         let chartSet = NSCharacterSet.whitespacesAndNewlines;
         let result = self.trimmingCharacters(in: chartSet)
         return result;
     }
     /// 取代索引处字符
-    @objc func replacingCharacter(_ index: Int) -> String{
+    func replacingCharacter(_ index: Int) -> String{
         assert(self.length > 0);
         let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: self as String)
         return result;

@@ -7,6 +7,61 @@
 
 import UIKit
 
+@objc public extension UITableView{
+    func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
+        assert(section <= numberOfSections)
+        let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
+        assert(rowMax < numberOfRows(inSection: section))
+        
+        var marr: [IndexPath] = []
+        for e in rowList.enumerated() {
+            if let row = e.element as? NSNumber {
+                marr.append(IndexPath(row: row.intValue , section: section))
+
+            }
+        }
+        beginUpdates()
+        reloadRows(at: marr, with: rowAnimation)
+        endUpdates()
+    }
+    
+    func insertRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
+        var marr: [IndexPath] = []
+        for e in rowList.enumerated() {
+            if let row = e.element as? NSNumber {
+                marr.append(IndexPath(row: row.intValue , section: section))
+                
+            }
+        }
+        beginUpdates()
+        insertRows(at: marr, with: rowAnimation)
+        endUpdates()
+    }
+    
+    func deleteRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
+        assert(section <= numberOfSections)
+        let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
+        assert(rowMax < numberOfRows(inSection: section))
+        
+        if rowList.count == numberOfRows(inSection: section) && numberOfSections != 1 {
+            beginUpdates()
+            deleteSections(NSIndexSet(index: section) as IndexSet, with: rowAnimation)
+            endUpdates()
+        } else {
+            var marr: [IndexPath] = []
+            for e in rowList.enumerated() {
+                if let row = e.element as? NSNumber {
+                    marr.append(IndexPath(row: row.intValue , section: section))
+                    
+                }
+            }
+            beginUpdates()
+            deleteRows(at: marr, with: rowAnimation)
+            endUpdates()
+        }
+    }
+}
+
 public extension UITableView{
     
     /// 泛型复用cell - cellType: "类名.self" (备用默认值 T.self)
@@ -42,59 +97,5 @@ public extension UITableView{
     final func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(for aClass: T, identifier: String = String(describing: T.self)) -> T{
         return dequeueReusableHeaderFooterView(for: T.self, identifier: identifier)
     }
-    
-    @objc func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
-        assert(section <= numberOfSections)
-        let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
-        assert(rowMax < numberOfRows(inSection: section))
-        
-        var marr: [IndexPath] = []
-        for e in rowList.enumerated() {
-            if let row = e.element as? NSNumber {
-                marr.append(IndexPath(row: row.intValue , section: section))
-
-            }
-        }
-        beginUpdates()
-        reloadRows(at: marr, with: rowAnimation)
-        endUpdates()
-    }
-    
-    @objc func insertRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
-        var marr: [IndexPath] = []
-        for e in rowList.enumerated() {
-            if let row = e.element as? NSNumber {
-                marr.append(IndexPath(row: row.intValue , section: section))
-                
-            }
-        }
-        beginUpdates()
-        insertRows(at: marr, with: rowAnimation)
-        endUpdates()
-    }
-    
-    @objc func deleteRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) -> Void {
-        assert(section <= numberOfSections)
-        let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
-        assert(rowMax < numberOfRows(inSection: section))
-        
-        if rowList.count == numberOfRows(inSection: section) && numberOfSections != 1 {
-            beginUpdates()
-            deleteSections(NSIndexSet(index: section) as IndexSet, with: rowAnimation)
-            endUpdates()
-        } else {
-            var marr: [IndexPath] = []
-            for e in rowList.enumerated() {
-                if let row = e.element as? NSNumber {
-                    marr.append(IndexPath(row: row.intValue , section: section))
-                    
-                }
-            }
-            beginUpdates()
-            deleteRows(at: marr, with: rowAnimation)
-            endUpdates()
-        }
-    }
-    
     
 }

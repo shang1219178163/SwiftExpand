@@ -22,6 +22,8 @@ public typealias DidSelectRowClosure = ((UITableView, IndexPath) -> Void)
 public typealias CellForItemClosure = ((UICollectionView, IndexPath) -> UICollectionViewCell?)
 public typealias DidSelectItemClosure = ((UICollectionView, IndexPath) -> Void)
 
+public typealias ScrollViewDidScrollClosure = ((UIScrollView) -> Void)
+
 // MARK: - 关联属性的key
 public struct RuntimeKey {
     public static let tap = UnsafeRawPointer(bitPattern: "tap".hashValue)!;
@@ -142,7 +144,7 @@ public func UITabBarItemsFromList(_ list: [[String]]) -> [UITabBarItem] {
         tabBarItem.badgeValue = badgeValue;
         
         if #available(iOS 10.0, *) {
-            tabBarItem.badgeColor = badgeValue.intValue() <= 0 ? UIColor.clear : UIColor.red;
+            tabBarItem.badgeColor = badgeValue.intValue <= 0 ? UIColor.clear : UIColor.red;
         }
         
         if tabBarItem.title == nil || tabBarItem.title == "" {

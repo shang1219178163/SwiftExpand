@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension UIGestureRecognizer{
+@objc public extension UIGestureRecognizer{
     
     
 }

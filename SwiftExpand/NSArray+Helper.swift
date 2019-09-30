@@ -11,7 +11,6 @@ import UIKit
 
 public extension Array{
     
-
     func subarray(_ range: NSRange) -> Array {
         return self.subarray(range.location, range.length)
     }
@@ -81,10 +80,10 @@ public extension Array{
  
 }
 
-public extension NSArray{
+@objc public extension NSArray{
 
     /// 快速生成一个数组(step代表步长)
-    @objc static func range(_ start: Int = 0, _ end: Int, _ step: Int = 1) -> [Int] {
+    static func range(_ start: Int = 0, _ end: Int, _ step: Int = 1) -> [Int] {
         assert(start < end);
         
         var list: [Int] = [];

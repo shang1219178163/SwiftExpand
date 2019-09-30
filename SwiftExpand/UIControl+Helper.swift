@@ -8,9 +8,9 @@
 
 import UIKit
 
-public extension UIControl {
+@objc public extension UIControl {
     /// UIControl 添加回调方式
-    @objc func addActionHandler(_ action: @escaping (ControlClosure), for controlEvents: UIControl.Event = UIControl.Event.touchUpInside) -> Void {
+    func addActionHandler(_ action: @escaping (ControlClosure), for controlEvents: UIControl.Event = UIControl.Event.touchUpInside) -> Void {
         let funcAbount = NSStringFromSelector(#function) + ",\(controlEvents)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -20,7 +20,7 @@ public extension UIControl {
     }
     
     /// 点击回调
-    @objc private func handleActionSender(_ sender: UIControl) -> Void {
+    private func handleActionSender(_ sender: UIControl) -> Void {
         let block = objc_getAssociatedObject(self, self.runtimeKey) as? ControlClosure;
         if block != nil {
             block!(sender);

@@ -9,7 +9,7 @@
 
 import UIKit
 
-public extension NSObject{
+@objc public extension NSObject{
     /// 动态属性关联key
     var runtimeKey: UnsafeRawPointer {
         get {
@@ -21,7 +21,7 @@ public extension NSObject{
     }
 
     /// 类的字符串名称
-    @objc static var identifier: String {
+    static var identifier: String {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
             if obj == nil {
@@ -36,7 +36,7 @@ public extension NSObject{
     }
 
     /// nsRange范围子字符串差异华显示
-//    @objc func attString(_ text: String!, nsRange: NSRange) -> NSAttributedString! {
+//    func attString(_ text: String!, nsRange: NSRange) -> NSAttributedString! {
 //        assert(text.count > (nsRange.location + nsRange.length))
 //
 //        let attrString = NSMutableAttributedString(string: text)
@@ -49,14 +49,14 @@ public extension NSObject{
 //    }
 //
 //    /// 特定范围子字符串差异华显示
-//    @objc func attString(_ text: String!, offsetStart: Int, offsetEnd: Int) -> NSAttributedString! {
+//    func attString(_ text: String!, offsetStart: Int, offsetEnd: Int) -> NSAttributedString! {
 //        let nsRange = NSRange(location: offsetStart, length: (text.count - offsetStart - offsetEnd))
 //        let attrString = attString(text, nsRange: nsRange)
 //        return attrString
 //    }
 //
 //    /// 字符串差异华显示
-//    @objc func attString(_ text: String!, textSub: String) -> NSAttributedString! {
+//    func attString(_ text: String!, textSub: String) -> NSAttributedString! {
 //        let range = text.range(of: textSub)
 //        let nsRange = text.nsRange(from: range!)
 //        let attrString = attString(text, nsRange: nsRange)
@@ -64,14 +64,14 @@ public extension NSObject{
 //    }
 //
 //    /// 富文本特殊部分设置
-//    @objc func attrDict(_ font: CGFloat, textColor: UIColor) -> Dictionary<NSAttributedString.Key, Any> {
+//    func attrDict(_ font: CGFloat, textColor: UIColor) -> Dictionary<NSAttributedString.Key, Any> {
 //        let dic = [NSAttributedString.Key.font:UIFont.systemFont(ofSize:font),
 //                   NSAttributedString.Key.foregroundColor: textColor];
 //        return dic;
 //    }
 //
 //    /// 富文本整体设置
-//    @objc func attrParaDict(_ font: CGFloat, textColor: UIColor, alignment: NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
+//    func attrParaDict(_ font: CGFloat, textColor: UIColor, alignment: NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
 //        let paraStyle = NSMutableParagraphStyle();
 //        paraStyle.lineBreakMode = .byCharWrapping;
 //        paraStyle.alignment = alignment;
@@ -82,7 +82,7 @@ public extension NSObject{
 //    }
     
     ///  富文本只有同字体大小才能计算高度
-    @objc func sizeWithText(_ text: String!, font: CGFloat = 15, width: CGFloat) -> CGSize {
+    func sizeWithText(_ text: String!, font: CGFloat = 15, width: CGFloat) -> CGSize {
         let attDic = NSAttributedString.paraDict(font, textColor: .black, alignment: .left);
         let options : NSStringDrawingOptions = NSStringDrawingOptions(rawValue: NSStringDrawingOptions.RawValue(UInt8(NSStringDrawingOptions.usesLineFragmentOrigin.rawValue) | UInt8(NSStringDrawingOptions.usesFontLeading.rawValue)))
         
@@ -93,7 +93,7 @@ public extension NSObject{
     }
     
     /// 密集小视图的尺寸布局
-    @objc func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat = UIScreen.sizeWidth, itemHeight: CGFloat = 60, padding: CGFloat = kPadding) -> CGSize {
+    func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat = UIScreen.sizeWidth, itemHeight: CGFloat = 60, padding: CGFloat = kPadding) -> CGSize {
         let rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1
 //        let tmp = CGFloat(numberOfRow) - 1.0
 //        let itemWith = (width - tmp*padding)/CGFloat(numberOfRow)
@@ -104,7 +104,7 @@ public extension NSObject{
     }
     
 //    /// [源]富文本
-//    @objc func getAttString(_ text: String!, textTaps: [String]!, font: CGFloat = 16.0, tapFont: CGFloat = 16.0, color: UIColor = .black, tapColor: UIColor, alignment: NSTextAlignment = .left) -> NSAttributedString {
+//    func getAttString(_ text: String!, textTaps: [String]!, font: CGFloat = 16.0, tapFont: CGFloat = 16.0, color: UIColor = .black, tapColor: UIColor, alignment: NSTextAlignment = .left) -> NSAttributedString {
 //        let paraDic = attrParaDict(font, textColor: color, alignment: alignment)
 //        let attString = NSMutableAttributedString(string: text, attributes: paraDic)
 //        textTaps.forEach { ( textTap: String) in
@@ -116,7 +116,7 @@ public extension NSObject{
 //    }
 //
     /// 标题前缀差异化显示
-    @objc func getAttringByPrefix(_ prefix: String!, content: String!, isMust: Bool = false) -> NSAttributedString {
+    func getAttringByPrefix(_ prefix: String!, content: String!, isMust: Bool = false) -> NSAttributedString {
         let string = content.hasPrefix(prefix) == true ? content : prefix + content
         let colorMust = isMust == true ? UIColor.red : UIColor.clear
         let attString = NSAttributedString.attString(string, textTaps: [prefix], font: 15, tapFont: 15, color: .black, tapColor: colorMust, alignment: .left)
@@ -124,7 +124,7 @@ public extension NSObject{
     }
     
     ///MARK: NSObject转json字符串
-    @objc func jsonValue() -> String! {
+    func jsonValue() -> String! {
         
         if JSONSerialization.isValidJSONObject(self) == false {
             return "";
@@ -133,8 +133,8 @@ public extension NSObject{
         do {
             let data: Data! = try JSONSerialization.data(withJSONObject: self, options: []);
             let jsonString: String! = String(data: data, encoding: .utf8);
-            let string: String! = jsonString.removingPercentEncoding!;
-            return string;
+//            let string: String! = jsonString.removingPercentEncoding ?? "";
+            return jsonString;
         } catch {
             print(error)
 
@@ -143,7 +143,7 @@ public extension NSObject{
     }
     
     /// NSObject->NSData
-    @objc func jsonData() -> NSData? {
+    func jsonData() -> NSData? {
         var data: NSData?
         
         switch self {
@@ -168,16 +168,16 @@ public extension NSObject{
     }
     
     /// NSObject->NSString
-    @objc func jsonString() -> String {
+    func jsonString() -> String {
         guard let data = self.jsonData() else {
             return "";
         }
-        let jsonString: String = String(data: data as Data, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) ?? ""
+        let jsonString: String = String(data: data as Data, encoding: .utf8) ?? ""
         return jsonString;
     }
     
     /// NSString/NSData->NSObject/NSDiction/NSArray
-    @objc func objValue() -> NSObject? {
+    func objValue() -> NSObject? {
         assert(self.isKind(of: NSString.classForCoder()) || self.isKind(of: NSData.classForCoder()) || self.isKind(of: NSDictionary.classForCoder()) || self.isKind(of: NSArray.classForCoder()))
         
         if self.isKind(of: NSDictionary.classForCoder()) || self.isKind(of: NSArray.classForCoder()) {
@@ -207,15 +207,36 @@ public extension NSObject{
     }
     
     /// NSString/NSData->NSDictionary
-    @objc func dictValue() -> Dictionary<String, Any>? {
+    func dictValue() -> Dictionary<String, Any>? {
         guard let dic = self.objValue() as? Dictionary<String, Any> else { return nil }
         return dic as Dictionary<String, Any>;
     }
     
     /// NSString/NSData->NSArray
-    @objc func arrayValue() -> [AnyObject]?{
+    func arrayValue() -> [AnyObject]?{
         guard let arr = self.objValue() as? [AnyObject] else { return nil }
         return arr as [AnyObject];
+    }
+    
+    /// 返回key对应的值
+    func valueText(forKey key: String, defalut: String = "--") -> String{
+        if key == "" {
+            return "";
+        }
+        if let result = self.value(forKey: key) {
+            return "\(result)" != "" ? "\(result)" : defalut;
+        }
+        return defalut;
+    }
+    /// 返回key对应的值
+    func valueText(forKeyPath keyPath: String, defalut: String = "--") -> String{
+        if keyPath == "" {
+            return "";
+        }
+        if let result = self.value(forKeyPath: keyPath) {
+            return "\(result)" != "" ? "\(result)" : defalut;
+        }
+        return defalut;
     }
     
      //MARK:数据解析通用化封装

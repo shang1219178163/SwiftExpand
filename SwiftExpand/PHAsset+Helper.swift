@@ -9,20 +9,20 @@
 import UIKit
 import Photos
 
-public extension PHAsset{
+@objc public extension PHAsset{
     
     /// 请求UIImage
-    @objc func requestImage(_ resultHandler: @escaping (UIImage?, [AnyHashable : Any]?) -> Void) -> Void {
+    func requestImage(_ resultHandler: @escaping (UIImage?, [AnyHashable : Any]?) -> Void) -> Void {
         let options = PHImageRequestOptions.defaultOptions()
         PHImageManager.default().requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: options, resultHandler: resultHandler)
     }
     
 }
 
-public extension PHImageRequestOptions{
+@objc public extension PHImageRequestOptions{
     
     /// 默认参数
-    @objc static func defaultOptions() -> PHImageRequestOptions {
+    static func defaultOptions() -> PHImageRequestOptions {
         let options = PHImageRequestOptions()
         options.deliveryMode = .highQualityFormat
         options.isNetworkAccessAllowed = true

@@ -7,10 +7,10 @@
 //
 import QuartzCore
 
-public extension CATransaction{
+@objc public extension CATransaction{
     
     /// [源]CATransaction动画
-    @objc static func animDuration(_ duration: CFTimeInterval, animations: (() -> Void)?, completionBlock: (() -> Void)?) -> Void {
+    static func animDuration(_ duration: CFTimeInterval, animations: (() -> Void)?, completionBlock: (() -> Void)?) -> Void {
 
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration)

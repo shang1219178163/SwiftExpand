@@ -8,34 +8,34 @@
 
 import UIKit
 
-public extension Timer{
+@objc public extension Timer{
     
     /// 分类方法
-    @objc static func scheduled(_ Interval: TimeInterval = 60, repeats: Bool = true, action: @escaping((Timer) -> Void)) -> Timer {
+    static func scheduled(_ Interval: TimeInterval = 60, repeats: Bool = true, action: @escaping((Timer) -> Void)) -> Timer {
         return scheduledTimer(timeInterval: Interval, target: self, selector: #selector(handleInvoke(_:)), userInfo: action, repeats: repeats)
     }
     
-    @objc private static func handleInvoke(_ timer: Timer) -> Void {
+    private static func handleInvoke(_ timer: Timer) -> Void {
         if let action = timer.userInfo as? ((Timer) -> Void) {
             action(timer)
         }
     }
     
-    static func stopTimer(_ timer:inout Timer) -> Void {
+    static func stopTimer(_ timer: Timer) -> Void {
         timer.invalidate()
     }
     
-    @objc static func pause(_ timer: Timer, isPause: Bool) -> Void {
+    static func pause(_ timer: Timer, isPause: Bool) -> Void {
         //    暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
         //    继续：触发时间设置在现在/获取，这样定时器自动进入马上进入工作状态.
         timer.fireDate = isPause == true ? NSDate.distantPast : NSDate.distantFuture;
     }
     
-    @objc func pause(_ isPause: Bool) -> Void {
+    func pause(_ isPause: Bool) -> Void {
         Timer.pause(self, isPause: isPause)
     }
     
-    @objc static func createGCDTimer(_ interval: TimeInterval = 60, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
+    static func createGCDTimer(_ interval: TimeInterval = 60, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
         codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
         codeTimer.setEventHandler {
