@@ -19,7 +19,7 @@ import UIKit
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
             DispatchQueue.once(token: onceToken) {
                 let oriSel0 = NSSelectorFromString("deinit")
-                let repSel0 = #selector(self.swz_deinit)
+                let repSel0 = #selector(self.hook_deinit)
                 
                 let _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
                 
@@ -27,10 +27,10 @@ import UIKit
         }
     }
     
-    private func swz_deinit() -> Void {
+    private func hook_deinit() -> Void {
         //需要注入的代码写在此处
         NotificationCenter.default.removeObserver(self)
-        self.swz_deinit()
+        self.hook_deinit()
     }
     
     var placeHolderTextView: UITextView {

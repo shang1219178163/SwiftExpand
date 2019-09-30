@@ -50,31 +50,31 @@ import UIKit
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(self.setValue(_:forUndefinedKey:))
-                let repSel = #selector(self.swz_setValue(_:forUndefinedKey:))
+                let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
                 let _ = swizzleMethodInstance(NSObject.self, origSel: oriSel, replSel: repSel);
                 
                 let oriSel0 = #selector(self.value(forUndefinedKey:))
-                let repSel0 = #selector(self.swz_value(forUndefinedKey:))
+                let repSel0 = #selector(self.hook_value(forUndefinedKey:))
                 let _ = swizzleMethodInstance(NSObject.self, origSel: oriSel0, replSel: repSel0);
                 
                 let oriSel1 = #selector(self.setNilValueForKey(_:))
-                let repSel1 = #selector(self.swz_setNilValueForKey(_:))
+                let repSel1 = #selector(self.hook_setNilValueForKey(_:))
                 let _ = swizzleMethodInstance(NSObject.self, origSel: oriSel1, replSel: repSel1);
             }
         }
     }
     
-    private func swz_setValue(_ value: Any?, forUndefinedKey key: String){
+    private func hook_setValue(_ value: Any?, forUndefinedKey key: String){
         print("setValue: forUndefinedKey:, 未知键Key: \(key)");
         
     }
     
-    private func swz_value(forUndefinedKey key: String) -> Any?{
+    private func hook_value(forUndefinedKey key: String) -> Any?{
         print("valueForUndefinedKey:, 未知键: \(key)");
         return nil;
     }
     
-    private func swz_setNilValueForKey(_ key: String){
+    private func hook_setNilValueForKey(_ key: String){
         print("Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil");
         return;//给一个非指针对象(如NSInteger)赋值 nil, 直接忽略
     }

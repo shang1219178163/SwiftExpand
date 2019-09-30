@@ -18,20 +18,20 @@ import UIKit
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(UIViewController.viewDidLoad)
-                let repSel = #selector(UIViewController.swz_viewDidLoad)
+                let repSel = #selector(UIViewController.hook_viewDidLoad)
                 //            let _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
                 let _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel, replSel: repSel);
                 
 //                DDLog(UIViewController.self)
                 
                 let oriSel1 = #selector(UIViewController.viewWillAppear(_:))
-                let repSel1 = #selector(UIViewController.swz_viewWillAppear(animated:))
+                let repSel1 = #selector(UIViewController.hook_viewWillAppear(animated:))
                 //            let _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
                 let _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel1, replSel: repSel1);
                 
                 
                 let oriSel2 = #selector(UIViewController.viewWillDisappear(_:))
-                let repSel2 = #selector(UIViewController.swz_viewWillDisappear(animated:))
+                let repSel2 = #selector(UIViewController.hook_viewWillDisappear(animated:))
                 let _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel2, replSel: repSel2);
                 
                 let oriSelPresent = #selector(UIViewController.present(_:animated:completion:))
@@ -44,7 +44,7 @@ import UIKit
             //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(UINavigationController.pushViewController(_:animated:));
-                let repSel = #selector(UINavigationController.swz_pushViewController(_:animated:));
+                let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:));
 //                let _ = UINavigationController.swizzleMethodInstance(oriSel, replSel: repSel);
                 let _ = swizzleMethodInstance(UINavigationController.self, origSel:oriSel , replSel: repSel);
 
@@ -52,7 +52,7 @@ import UIKit
         }
     }
     
-    internal func swz_viewDidLoad(animated: Bool) {
+    internal func hook_viewDidLoad(animated: Bool) {
         //需要注入的代码写在此处
 //        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
         edgesForExtendedLayout = [];
@@ -61,18 +61,18 @@ import UIKit
         } else {
             automaticallyAdjustsScrollViewInsets = false;
         }
-        self.swz_viewDidLoad(animated: animated)
+        self.hook_viewDidLoad(animated: animated)
     }
     
-    private func swz_viewWillAppear(animated: Bool) {
+    private func hook_viewWillAppear(animated: Bool) {
         //需要注入的代码写在此处
-        self.swz_viewWillAppear(animated: animated)
+        self.hook_viewWillAppear(animated: animated)
 //        self.eventGather(isBegin: true);
     }
     
-    private func swz_viewWillDisappear(animated: Bool) {
+    private func hook_viewWillDisappear(animated: Bool) {
         //需要注入的代码写在此处
-        self.swz_viewWillDisappear(animated: animated)
+        self.hook_viewWillDisappear(animated: animated)
 //        self.eventGather(isBegin: false);
     }
     

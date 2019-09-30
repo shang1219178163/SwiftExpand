@@ -10,7 +10,7 @@ import UIKit
 
 @objc public extension UINavigationController{
     
-    internal func swz_pushViewController(_ viewController: UIViewController, animated: Bool) {
+    internal func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //需要注入的代码写在此处
 //        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil);
         viewController.view.backgroundColor = .white;
@@ -21,7 +21,7 @@ import UIKit
         }
         
         //push进入下一个控制器
-        swz_pushViewController(viewController, animated: animated);
+        hook_pushViewController(viewController, animated: animated);
         
     }
     
