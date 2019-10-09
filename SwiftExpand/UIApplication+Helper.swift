@@ -259,6 +259,23 @@ import UIKit
 //        UITabBar.appearance().tintColor = .red;
     }
     
+    @available(iOS 9.0, *)
+    static func setupAppearanceSearchbarCancellButton() {
+        let shandow: NSShadow = {
+            let shadow = NSShadow();
+            shadow.shadowColor = UIColor.darkGray;
+            shadow.shadowOffset = CGSize(width: 0, height: -1);
+            return shadow;
+        }();
+        
+        let dic: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor:  UIColor.white,
+                                                  NSAttributedString.Key.font:  UIFont.systemFont(ofSize: 13),
+                                                  NSAttributedString.Key.shadow:  shandow,
+        ]
+        UIBarButtonItem.appearance().setTitleTextAttributes(dic, for: .normal)
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
+    }
+    
     /// http/https请求链接
     func isNormalURL(_ url: NSURL) -> Bool {
         guard let scheme = url.scheme else {

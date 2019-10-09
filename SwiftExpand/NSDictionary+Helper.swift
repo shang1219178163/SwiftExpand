@@ -22,7 +22,7 @@ public extension Dictionary{
 
 @objc public extension NSDictionary{
     
-//    @objc func toJsonString() -> String! {
+//    func toJsonString() -> String! {
 //        return jsonValue();
 //    }
     

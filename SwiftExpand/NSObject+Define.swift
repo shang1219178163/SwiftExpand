@@ -69,6 +69,11 @@ public func GGSizeMake(_ w: CGFloat = 0, _ h: CGFloat = 0) -> CGSize {
     return CGSize(width: w, height: h)
 }
 
+/// 自定义GGSizeMake
+public func UIOffsetMake(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> UIOffset {
+    return UIOffset(horizontal: horizontal, vertical: vertical)
+}
+
 public func NSStringFromIndexPath(_ indexPath: IndexPath = IndexPath(row: 0, section: 0)) -> String {
     return String(format: "{%d, %d}", indexPath.section, indexPath.row);
 }

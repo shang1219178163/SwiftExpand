@@ -10,6 +10,7 @@ import UIKit
 
 @objc public extension UIView{
     
+//    // 混编和masonry冲突
 //    var x: CGFloat {
 //        get {
 //            return frame.origin.x
@@ -18,7 +19,7 @@ import UIKit
 //            frame.origin = CGPoint(x:newValue, y:frame.origin.y)
 //        }
 //    }
-//
+//    // 混编和masonry冲突
 //    var y: CGFloat {
 //        get {
 //            return frame.origin.y
@@ -101,39 +102,27 @@ import UIKit
     }
     
     var minX: CGFloat {
-        get {
-            return frame.minX
-        }
+        return frame.minX
     }
     
     var minY: CGFloat {
-        get {
-            return frame.minY
-        }
+        return frame.minY
     }
     
     var midX: CGFloat {
-        get {
-            return frame.midX
-        }
+        return frame.midX
     }
     
     var midY: CGFloat {
-        get {
-            return frame.midY
-        }
+        return frame.midY
     }
     
     var maxX: CGFloat {
-        get {
-            return frame.maxX
-        }
+        return frame.maxX
     }
     
     var maxY: CGFloat {
-        get {
-            return frame.maxY
-        }
+        return frame.maxY
     }
     
     //MARK: -funtions
@@ -172,6 +161,25 @@ import UIKit
 
             subview.getViewLayer();
         }
+    }
+    
+    /// 寻找子视图
+    func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
+        for e in self.subviews.enumerated() {
+            if e.element.isKind(of: type) {
+                return e.element;
+            }
+        }
+        
+        if resursion == true {
+            for e in self.subviews.enumerated() {
+                let tmpView = e.element.findSubview(type: type, resursion: resursion)
+                if tmpView != nil {
+                    return tmpView;
+                }
+            }
+        }
+        return nil;
     }
     
     /// 移除所有子视图
