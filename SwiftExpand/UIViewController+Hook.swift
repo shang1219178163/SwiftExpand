@@ -98,7 +98,7 @@ import UIKit
     }
     
     // MARK: -funtions
-    private func eventGather(isBegin: Bool = true) -> Void {
+    private func eventGather(isBegin: Bool = true) {
         let className = NSStringFromClass(classForCoder);
         //设置不允许发送数据的Controller
         let filters = ["UINavigationController", "UITabBarController", "UICompatibilityInputViewController",

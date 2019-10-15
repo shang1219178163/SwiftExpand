@@ -32,7 +32,8 @@ import UIKit
     }
     
     static var line: UIColor {
-        return UIColorHexValue(0xe0e0e0);
+//        return UIColorHexValue(0xe0e0e0);
+        return UIColorHexValue(0xBCBAC0);
     }
     
     static var btnN: UIColor {

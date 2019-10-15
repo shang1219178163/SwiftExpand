@@ -22,7 +22,7 @@ import Foundation
     
     /// 用特定数据源刷新tabBar
     /// - Parameter list: 参照HomeViewController数据源
-    func reloadTabarItems(_ list: [[Any]]) -> Void {
+    func reloadTabarItems(_ list: [[Any]]) {
         
         for e in viewControllers!.enumerated(){
             let itemList = list[e.offset]

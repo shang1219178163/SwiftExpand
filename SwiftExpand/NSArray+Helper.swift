@@ -37,7 +37,7 @@ public extension Array{
     }
     
     ///添加多个相同元素到数组
-    mutating func appendSame(_ item: Element, count: Int) -> Void {
+    mutating func appendSame(_ item: Element, count: Int) {
         for _ in self.enumerated() {
             append(item)
         }

@@ -106,7 +106,7 @@ public let kAlertActionColor = "titleTextColor"
     }
 
     /// 设置标题颜色
-    func setTitleColor(_ color: UIColor = UIColor.theme) -> Void {
+    func setTitleColor(_ color: UIColor = UIColor.theme) {
         guard let title = title else {
             return;
         }
@@ -117,7 +117,7 @@ public let kAlertActionColor = "titleTextColor"
     }
     
     /// 设置Message文本换行,对齐方式
-    func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> Void {
+    func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) {
         guard let message = message else {
             return;
         }

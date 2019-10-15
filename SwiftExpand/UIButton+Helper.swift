@@ -34,7 +34,7 @@ import UIKit
 //    }
     
     /// 图片上左下右配置
-    func layoutButton(style: Int, imageTitleSpace: CGFloat = kPadding) {
+    func layoutButton(style: Int, imageTitleSpace: CGFloat = 5) {
         //得到imageView和titleLabel的宽高
         let imageWidth = self.imageView?.frame.size.width
         let imageHeight = self.imageView?.frame.size.height
@@ -79,6 +79,22 @@ import UIKit
         self.titleEdgeInsets = labelEdgeInsets
         self.imageEdgeInsets = imageEdgeInsets
         
+    }
+    
+    func layoutBtnImage(_ direction: Int = 3){
+        sizeToFit()
+        
+        switch direction {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            titleEdgeInsets = UIEdgeInsetsMake(0, -imageView!.bounds.width, 0, imageView!.bounds.width)
+            imageEdgeInsets = UIEdgeInsetsMake(0, titleLabel!.bounds.width+5.0, 0, -titleLabel!.bounds.width-5.0)
+        default:
+            break;
+        }
     }
     
     /// UIButton不同状态下设置富文本标题

@@ -55,6 +55,76 @@ public extension Double{
         return (format.number(from: format.string(for: self )! )) as! Double
     }
     
-   
+    /// durationInfo
+    func durationInfo(_ type: Int = 0, showAll: Bool = true) -> String {
+        var interval = self
+        
+        var info = ""
+        switch type {
+        case 1:
+            
+            if Int(interval/kDate_day) < 10 {
+                info += "0\(Int(interval/kDate_day))" + ":"
+            } else {
+                info += "\(Int(interval/kDate_day))" + ":"
+            }
+            interval = interval.truncatingRemainder(dividingBy: kDate_day);
+            
+            if Int(interval/kDate_hour) < 10 {
+                info += "0\(Int(interval/kDate_hour))" + ":"
+            } else {
+                info += "\(Int(interval/kDate_hour))" + ":"
+            }
+            interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+            
+            if Int(interval/kDate_minute) < 10 {
+                info += "0\(Int(interval/kDate_minute))" + ":"
+            } else {
+                info += "\(Int(interval/kDate_minute))" + ":"
+            }
+            interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+            
+            if interval < 10 {
+                info += "0\(Int(interval))"
+            } else {
+                info += "\(Int(interval))"
+            }
+            
+        default:
+            
+            if showAll == true {
+                info = "\(Int(interval/kDate_day))" + "天"
+                interval = interval.truncatingRemainder(dividingBy: kDate_day);
+                
+                info += "\(Int(interval/kDate_hour))" + "时"
+                interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+                
+                info += "\(Int(interval/kDate_minute))" + "分"
+                interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+                
+                info += "\(Int(interval))" + "秒"
+            } else {
+                
+                if Int(interval/kDate_day) > 0 {
+                    info = "\(Int(interval/kDate_day))" + "天"
+                }
+                interval = interval.truncatingRemainder(dividingBy: kDate_day);
+                
+                if Int(interval/kDate_hour) > 0 {
+                    info += "\(Int(interval/kDate_hour))" + "时"
+                }
+                interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+                
+                if Int(interval/kDate_minute) > 0 {
+                    info += "\(Int(interval/kDate_minute))" + "分"
+                }
+                interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+                info += "\(Int(interval))" + "秒"
+            }
+        }
+        return info;
+    }
 }
+
+
 

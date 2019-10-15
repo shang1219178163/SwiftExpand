@@ -12,7 +12,7 @@ import Photos
 @objc public extension PHAsset{
     
     /// 请求UIImage
-    func requestImage(_ resultHandler: @escaping (UIImage?, [AnyHashable : Any]?) -> Void) -> Void {
+    func requestImage(_ resultHandler: @escaping (UIImage?, [AnyHashable : Any]?) -> Void) {
         let options = PHImageRequestOptions.defaultOptions()
         PHImageManager.default().requestImage(for: self, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: options, resultHandler: resultHandler)
     }

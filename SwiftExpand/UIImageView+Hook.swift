@@ -23,7 +23,7 @@ import UIKit
         }
     }
     
-    private func hook_tintColor(_ color: UIColor!) -> Void {
+    private func hook_tintColor(_ color: UIColor!) {
         //需要注入的代码写在此处
         self.hook_tintColor(color)
         

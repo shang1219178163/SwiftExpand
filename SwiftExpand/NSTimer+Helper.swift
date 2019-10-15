@@ -15,23 +15,23 @@ import UIKit
         return scheduledTimer(timeInterval: Interval, target: self, selector: #selector(handleInvoke(_:)), userInfo: action, repeats: repeats)
     }
     
-    private static func handleInvoke(_ timer: Timer) -> Void {
+    private static func handleInvoke(_ timer: Timer) {
         if let action = timer.userInfo as? ((Timer) -> Void) {
             action(timer)
         }
     }
     
-    static func stopTimer(_ timer: Timer) -> Void {
+    static func stopTimer(_ timer: Timer) {
         timer.invalidate()
     }
     
-    static func pause(_ timer: Timer, isPause: Bool) -> Void {
+    static func pause(_ timer: Timer, isPause: Bool) {
         //    暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
         //    继续：触发时间设置在现在/获取，这样定时器自动进入马上进入工作状态.
         timer.fireDate = isPause == true ? NSDate.distantPast : NSDate.distantFuture;
     }
     
-    func pause(_ isPause: Bool) -> Void {
+    func pause(_ isPause: Bool) {
         Timer.pause(self, isPause: isPause)
     }
     

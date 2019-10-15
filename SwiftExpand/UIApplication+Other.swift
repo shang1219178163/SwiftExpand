@@ -163,7 +163,7 @@ import StoreKit
     /**
      注册APNs远程推送
      */
-    static func registerAPNsWithDelegate(_ delegate: Any) -> Void {
+    static func registerAPNsWithDelegate(_ delegate: Any) {
         if #available(iOS 10.0, *) {
             let options = UNAuthorizationOptions(rawValue : UNAuthorizationOptions.alert.rawValue | UNAuthorizationOptions.badge.rawValue | UNAuthorizationOptions.sound.rawValue)
             let center = UNUserNotificationCenter.current()
@@ -191,7 +191,7 @@ import StoreKit
                           identifier: String,
                           notiCategories: AnyObject,
                           repeats: Bool = true,
-                          handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) -> Void {
+                          handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
         
         var notiTrigger: UNNotificationTrigger?
         if let date = trigger as? NSDate {
@@ -293,7 +293,7 @@ import StoreKit
     }
 
     /// 应用下载其他应用
-    static func jumpAppStore(_ appID: String, controller: UIViewController) -> Void {
+    static func jumpAppStore(_ appID: String, controller: UIViewController) {
         let productVC = SKStoreProductViewController();
         productVC.delegate = (controller as! SKStoreProductViewControllerDelegate);
         

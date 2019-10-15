@@ -156,11 +156,11 @@ import UIKit
     }
     
     //MARK: func
-    static func setupRootController(_ window: UIWindow = UIApplication.mainWindow, _ controller: AnyObject, _ isAdjust: Bool) -> Void {
+    static func setupRootController(_ window: UIWindow = UIApplication.mainWindow, _ controller: AnyObject, _ isAdjust: Bool) {
         UIApplication.setupRootController(controller, isAdjust);
     }
     
-    static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool) -> Void {
+    static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool) {
         var contr = controller;
         if controller is String {
             contr = UICtrFromString(controller as! String);
@@ -178,12 +178,12 @@ import UIKit
         }
     }
     
-    static func setupRootController(_ controller: AnyObject) -> Void {
+    static func setupRootController(_ controller: AnyObject) {
         return UIApplication.setupRootController(controller, true);
     }
     
     ///默认风格是白色导航栏黑色标题
-    static func setupAppearanceDefault(_ isDefault: Bool = true) -> Void {
+    static func setupAppearanceDefault(_ isDefault: Bool = true) {
         let barTintColor: UIColor = isDefault ? UIColor.white : UIColor.theme
         setupAppearanceNavigationBar(barTintColor)
         setupAppearanceScrollView()
@@ -192,7 +192,7 @@ import UIKit
     }
     
     /// 配置UIScrollView默认值
-    static func setupAppearanceScrollView() -> Void {
+    static func setupAppearanceScrollView() {
         UITableView.appearance().separatorStyle = .singleLine;
         UITableView.appearance().separatorInset = .zero;
         UITableView.appearance().rowHeight = 60;
@@ -213,7 +213,7 @@ import UIKit
         }
     }
     
-    static func setupAppearanceOthers() -> Void {
+    static func setupAppearanceOthers() {
         UIButton.appearance().isExclusiveTouch = false;
 
         UITabBar.appearance().tintColor = UIColor.theme;
@@ -228,7 +228,7 @@ import UIKit
     }
     
     /// 配置UINavigationBar默认值
-    static func setupAppearanceNavigationBar(_ barTintColor: UIColor) -> Void {
+    static func setupAppearanceNavigationBar(_ barTintColor: UIColor) {
         let isDefault: Bool = UIColor.white.equalTo(barTintColor);
         let tintColor = isDefault ? UIColor.black : UIColor.white;
         
@@ -247,7 +247,7 @@ import UIKit
 //        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
     }
     
-    static func setupAppearanceTabBar() -> Void {
+    static func setupAppearanceTabBar() {
         //         设置字体颜色
 //        let attDic_N = [NSAttributedString.Key.foregroundColor: UIColor.black];
 //        let attDic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme];
@@ -339,7 +339,7 @@ import UIKit
     }
     
     /// block内任务后台执行(block为空可填入AppDelegate.m方法 applicationDidEnterBackground中)
-    static func didEnterBackground(_ block: (()->Void)? = nil) -> Void{
+    static func didEnterBackground(_ block: (()->Void)? = nil) {
         let application: UIApplication = UIApplication.shared;
         var bgTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0);
         //如果要后台运行

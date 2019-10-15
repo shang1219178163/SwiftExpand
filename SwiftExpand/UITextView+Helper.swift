@@ -60,11 +60,11 @@ import UIKit
         }
     }
     
-    private func textViewDidBeginEditing(_ noti: Notification) -> Void {
+    private func textViewDidBeginEditing(_ noti: Notification) {
         placeHolderTextView.isHidden = true
     }
     
-    private func textViewDidEndEditing(_ noti: Notification) -> Void {
+    private func textViewDidEndEditing(_ noti: Notification) {
         placeHolderTextView.isHidden = false
 
     }

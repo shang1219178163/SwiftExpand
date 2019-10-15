@@ -48,7 +48,7 @@ import UIKit
     }
     
     /// 保存UIImage对象到相册
-    func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
+    func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -61,7 +61,7 @@ import UIKit
         }
     }
     
-    func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) -> Void {
+    func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) {
         let obj = objc_getAssociatedObject(self, image.runtimeKey) as? ((NSError?) -> Void)
         if obj != nil {
             obj!(error)

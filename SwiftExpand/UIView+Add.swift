@@ -95,7 +95,7 @@ import UIKit
     }
     
     /// 配置HolderView
-    func holderView(_ title: String = "暂无数据", image: String?) -> Void {
+    func holderView(_ title: String = "暂无数据", image: String?) {
         let imgView: UIImageView = holderView.viewWithTag(kTAG_IMGVIEW) as! UIImageView
         let label: UILabel = holderView.viewWithTag(kTAG_LABEL) as! UILabel
         label.text = title
@@ -271,6 +271,9 @@ import UIKit
             view.layer.borderColor = UIColor.theme.cgColor;
             view.layer.borderWidth = kW_LayerBorder;
 
+        case 6://主题色字体,无边框
+            view.setTitleColor( .theme, for: .normal);
+            
         default://黑色字体,白色背景
             view.setTitleColor( .black, for: .normal)
             

@@ -124,7 +124,7 @@ import UIKit
                 obj = UILabel(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.font = UIFont.systemFont(ofSize: 15);
-                obj!.textAlignment = .left;
+                obj!.textAlignment = .right;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
                 obj!.isUserInteractionEnabled = true;
@@ -146,7 +146,7 @@ import UIKit
                 obj = UILabel(frame: CGRect.zero);
                 obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
                 obj!.font = UIFont.systemFont(ofSize: 15);
-                obj!.textAlignment = .left;
+                obj!.textAlignment = .right;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
                 obj!.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0);

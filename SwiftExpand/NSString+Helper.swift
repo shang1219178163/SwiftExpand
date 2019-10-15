@@ -40,10 +40,16 @@ public extension String{
     var doubleValue: Double {
         return (self as NSString).doubleValue
     }
-    // MARK: -funtions
-    func reverse() -> String {
+    /// 为空返回默认值"--"
+    var valueText: String {
+        return self != "" ? self : "--"
+    }
+    /// d字符串翻转
+    var reverse: String {
         return String(self.reversed())
     }
+    // MARK: -funtions
+
     /// range转换为NSRange
     func nsRange(from range: Range<String.Index>) -> NSRange {
         return NSRange(range, in: self)
@@ -87,7 +93,7 @@ public extension String{
     }
     
     /// 复制到剪切板
-    func copyToPasteboard(_ showTips: Bool) -> Void {
+    func copyToPasteboard(_ showTips: Bool) {
         (self as NSString).copyToPasteboard(showTips)
     }
     
@@ -276,7 +282,7 @@ public extension Substring {
     }
     
     /// 复制到剪切板
-    func copyToPasteboard(_ showTips: Bool) -> Void {
+    func copyToPasteboard(_ showTips: Bool) {
         UIPasteboard.general.string = self as String
         if showTips == true {
             let _ = UIAlertController.showAlert(nil, placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)

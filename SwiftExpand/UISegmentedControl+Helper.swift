@@ -22,7 +22,7 @@ import UIKit
     }
     
     /// 配置新item数组
-    private func p_handleSegmentItems(_ itemList: Array<String>) -> Void{
+    private func p_handleSegmentItems(_ itemList: Array<String>) {
         if itemList.count == 0 {
             return
         }

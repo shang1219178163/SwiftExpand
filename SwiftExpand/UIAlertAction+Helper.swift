@@ -23,7 +23,7 @@ import UIKit
     }
     
     /// 设置UIAlertController按钮颜色
-    func setTitleColor(_ color: UIColor = UIColor.theme) -> Void {
+    func setTitleColor(_ color: UIColor = UIColor.theme) {
         setValue(color, forKey: kAlertActionColor);
 
     }

@@ -34,7 +34,7 @@ import UIKit
     }
     
     /// 重置布局
-    func setupExtendedLayout() -> Void {
+    func setupExtendedLayout() {
         edgesForExtendedLayout = [];
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
@@ -43,7 +43,7 @@ import UIKit
         }
     }
     
-    private func handleActionItem(_ sender: UIBarButtonItem) -> Void {
+    private func handleActionItem(_ sender: UIBarButtonItem) {
         let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ObjClosure;
         if block != nil {
             block!(sender);
@@ -51,7 +51,7 @@ import UIKit
         }
     }
     
-    func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) -> Void {
+    func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
@@ -145,7 +145,7 @@ import UIKit
         return containView;
     }
 
-    func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) -> Void {
+    func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) {
         assert(UICtrFromString(name).isKind(of: UIViewController.classForCoder()))
         let controller = UICtrFromString(name)
         controller.obj = obj
@@ -153,14 +153,14 @@ import UIKit
         navigationController?.pushViewController(controller, animated: true);
     }
     
-    func addControllerName(_ controllerName: String) -> Void {
+    func addControllerName(_ controllerName: String) {
         let controller = UICtrFromString(controllerName)
         assert(controller.isKind(of: UIViewController.classForCoder()))
         addControllerVC(controller)
     }
     
     /// 添加子控制器(对应方法 removeControllerVC)
-    func addControllerVC(_ controller: UIViewController) -> Void {
+    func addControllerVC(_ controller: UIViewController) {
         assert(controller.isKind(of: UIViewController.classForCoder()))
         
         addChild(controller)
@@ -170,7 +170,7 @@ import UIKit
     }
     
     /// 移除添加的子控制器(对应方法 addControllerVC)
-    func removeControllerVC(_ controller: UIViewController) -> Void {
+    func removeControllerVC(_ controller: UIViewController) {
         assert(controller.isKind(of: UIViewController.classForCoder()))
         
         controller.willMove(toParent: nil)
@@ -179,7 +179,7 @@ import UIKit
     }
     
     /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
-    func transitionTo(VC: UIViewController) -> Void {
+    func transitionTo(VC: UIViewController) {
         self.beginAppearanceTransition(false, animated: true)  //调用self的 viewWillDisappear:
         VC.beginAppearanceTransition(true, animated: true)  //调用VC的 viewWillAppear:
         self.endAppearanceTransition(); //调用self的viewDidDisappear:

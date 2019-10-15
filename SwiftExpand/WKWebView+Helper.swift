@@ -33,7 +33,7 @@ import WebKit
     
     
     /// JS注入
-    func addUserScript(_ source: String) -> Void {
+    func addUserScript(_ source: String) {
         let userScript = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         configuration.userContentController.addUserScript(userScript)
     }

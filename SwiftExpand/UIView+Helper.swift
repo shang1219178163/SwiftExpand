@@ -145,7 +145,7 @@ import UIKit
         return true;
     }
 
-    func autoresizeMask() -> Void {
+    func autoresizeMask() {
         self.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
     }
     /// 图层调试
@@ -204,7 +204,7 @@ import UIKit
     }
     
     /// 高性能圆角
-    func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) -> Void {
+    func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) {
         let image = drawCorners( .allCorners, radius: radius, width: width, color: color, bgColor: bgColor)
         let imgView = UIImageView(image: image)
         self.insertSubview(imgView, at: 0)
@@ -249,7 +249,7 @@ import UIKit
     }
    
     //MARK: -通用响应添加方法
-    func addActionClosure(_ action: @escaping (ViewClosure)) -> Void {
+    func addActionClosure(_ action: @escaping (ViewClosure)) {
         if let sender = self as? UIButton {
             sender.addTarget(self, action:#selector(handleActionSender(sender:)), for:.touchUpInside);
             
@@ -273,7 +273,7 @@ import UIKit
     }
     
     /// 点击回调
-    private func handleActionTap(tap: UITapGestureRecognizer) -> Void {
+    private func handleActionTap(tap: UITapGestureRecognizer) {
 //       let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
         let block = objc_getAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!) as? ViewClosure;
 
@@ -282,7 +282,7 @@ import UIKit
         }
     }
     
-    private func handleActionSender(sender: UIControl) -> Void {
+    private func handleActionSender(sender: UIControl) {
         let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
         if let sender = self as? UISegmentedControl {
             if block != nil {
@@ -438,7 +438,7 @@ import UIKit
         return obj!
     }
     
-    private func handleActionGesture(_ recognizer: UIGestureRecognizer) -> Void{
+    private func handleActionGesture(_ recognizer: UIGestureRecognizer) {
     
         let block = objc_getAssociatedObject(self, recognizer.runtimeKey) as? RecognizerClosure;
 //        DDLog(recognizer.funcName,block)
@@ -531,7 +531,7 @@ import UIKit
     }
         
     /// 保存图像到相册
-    func imageToSavedPhotosAlbum(_ action: @escaping((NSError?) -> Void)) -> Void{
+    func imageToSavedPhotosAlbum(_ action: @escaping((NSError?) -> Void)) {
         var image: UIImage = self.convertToImage();
         if let imgView = self as? UIImageView {
             if imgView.image != nil {
