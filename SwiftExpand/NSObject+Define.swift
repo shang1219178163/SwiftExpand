@@ -246,6 +246,18 @@ public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
     let data1: Data = image1.pngData()!
     return data0 == data1
 }
+/// 地址字符串(hostname + port)
+public func UrlAddress(_ hostname: String, port: String) ->String {
+    var webUrl: String = hostname;
+    if !hostname.contains("http://") {
+        webUrl = "http://" + hostname;
+    }
+    if port != "" {
+        webUrl = webUrl + ":\(port)";
+    }
+    return webUrl;
+}
+
 /// 富文本配置字典
 public func AttributeDict(_ type: Int) -> [NSAttributedString.Key: Any]{
     var dic: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor:  UIColor.theme,
