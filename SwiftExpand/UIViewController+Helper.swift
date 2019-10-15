@@ -33,6 +33,33 @@ import UIKit
         }
     }
     
+    /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
+    func createSearchVC(_ resultsController: UIViewController) -> UISearchController {
+        definesPresentationContext = true;
+        
+        let searchVC = UISearchController(searchResultsController: resultsController)
+        if resultsController.conforms(to: UISearchResultsUpdating.self) {
+            searchVC.searchResultsUpdater = resultsController as? UISearchResultsUpdating;
+        }
+        
+        searchVC.dimsBackgroundDuringPresentation = true;
+        //        searchVC.hidesNavigationBarDuringPresentation = true;
+        if #available(iOS 9.1, *) {
+            searchVC.obscuresBackgroundDuringPresentation = true;
+        }
+        
+        searchVC.searchBar.barStyle = .default;
+        //        searchVC.searchBar.barTintColor = UIColor.theme;
+        
+        searchVC.searchBar.isTranslucent = false;
+        searchVC.searchBar.setValue("取消", forKey: "_cancelButtonText")
+        searchVC.searchBar.placeholder = "搜索";
+        
+        //        searchVC.searchBar.delegate = self;
+        //        searchVC.delegate = self;
+        return searchVC;
+    }
+    
     /// 重置布局
     func setupExtendedLayout() {
         edgesForExtendedLayout = [];
