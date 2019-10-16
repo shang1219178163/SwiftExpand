@@ -516,15 +516,16 @@ import UIKit
     static func createSearchBarRect(_ rect: CGRect) -> UISearchBar {
         let searchBar = UISearchBar(frame: rect)
         
-        searchBar.layer.cornerRadius = rect.height*0.5;
-        searchBar.layer.masksToBounds = true;
+        //设置背景色
+//        searchBar.backgroundColor = UIColor.black.withAlphaComponent(0.1);
+//        searchBar.layer.cornerRadius = rect.height*0.5;
+//        searchBar.layer.masksToBounds = true;
         //设置背景图是为了去掉上下黑线
         searchBar.backgroundImage = UIImage();
         //searchBar.backgroundImage = [UIImage imageNamed:@"sexBankgroundImage"];
         // 设置SearchBar的主题颜色
         //searchBar.barTintColor = [UIColor colorWithRed:111 green:212 blue:163 alpha:1];
-        //设置背景色
-        searchBar.backgroundColor = UIColor.black.withAlphaComponent(0.1);
+
         
         searchBar.barStyle = .default;
         searchBar.keyboardType = .namePhonePad;
