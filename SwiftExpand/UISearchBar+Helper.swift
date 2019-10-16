@@ -9,7 +9,7 @@ import UIKit
 
 @objc public extension UISearchBar{
     
-    var textfield: UITextField? {
+    var textField: UITextField? {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if obj == nil {

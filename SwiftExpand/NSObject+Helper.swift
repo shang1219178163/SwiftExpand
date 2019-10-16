@@ -177,31 +177,20 @@ import UIKit
     }
     
     /// NSString/NSData->NSObject/NSDiction/NSArray
-    func objValue() -> NSObject? {
+    func objValue() -> Any? {
         assert(self.isKind(of: NSString.classForCoder()) || self.isKind(of: NSData.classForCoder()) || self.isKind(of: NSDictionary.classForCoder()) || self.isKind(of: NSArray.classForCoder()))
         
         if self.isKind(of: NSDictionary.classForCoder()) || self.isKind(of: NSArray.classForCoder()) {
             return self;
         }
         
-        if let str = self as? NSString {
-            do {
-                let data = str.data(using: String.Encoding.utf8.rawValue)
-                let obj: NSObject = try JSONSerialization.data(withJSONObject: data as Any, options: []) as NSObject;
+        do {
+            if let data = self.jsonData() {
+                let obj = try JSONSerialization.jsonObject(with: data as Data, options: []);
                 return obj;
-                
-            } catch {
-                print(error)
             }
-           
-        } else if let data = self as? NSData {
-            do {
-                let obj: NSObject = try JSONSerialization.data(withJSONObject: data as Any, options: []) as NSObject;
-                return obj;
-                
-            } catch {
-                print(error)
-            }
+        } catch {
+            print(error)
         }
         return nil;
     }

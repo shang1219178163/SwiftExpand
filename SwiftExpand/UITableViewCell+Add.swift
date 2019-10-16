@@ -12,20 +12,28 @@ import UIKit
 @objc public extension UITableViewCell{
     /// cell-源方法生成,自定义identifier
     static func cellWithTableView(_ tableView: UITableView, identifier: String = identifier, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
-        return dequeueCell(tableView, identifier: identifier, style: style);
-    }
-    /// [源] cell-方法生成,自定义identifier
-    static func dequeueCell(_ tableView: UITableView, identifier: String = identifier, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
         if cell == nil {
             cell = self.init(style: style, reuseIdentifier: identifier);
         }
-        
+
         cell!.selectionStyle = .none;
         cell!.separatorInset = .zero;
         cell!.layoutMargins = .zero;
         return cell!;
     }
+    /// [源] cell-方法生成,自定义identifier
+//    static func dequeueCell(_ tableView: UITableView, identifier: String = identifier, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
+//        var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
+//        if cell == nil {
+//            cell = self.init(style: style, reuseIdentifier: identifier);
+//        }
+//        
+//        cell!.selectionStyle = .none;
+//        cell!.separatorInset = .zero;
+//        cell!.layoutMargins = .zero;
+//        return cell!;
+//    }
     
     /// cell-使用默认identifier生成
     static func cellWithTableView(_ tableView: UITableView) -> UITableViewCell! {

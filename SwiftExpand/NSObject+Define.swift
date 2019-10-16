@@ -311,8 +311,12 @@ public func ObjFromString(_ string: String, options opt: JSONSerialization.Readi
 
 /// NSObject -> string
 public func JSONStringFromObj(_ obj: Any, options opt: JSONSerialization.WritingOptions = []) -> String? {
-    let string: String = (obj as! NSObject).jsonString()
-    return string;
+    let obj = try? JSONSerialization.data(withJSONObject: obj, options: opt);
+    if let data = obj {
+        let string: String = (data as NSData).jsonString()
+        return string;
+    }
+    return nil;
 }
 
 ///// 两个Int(+-*/)

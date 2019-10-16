@@ -532,7 +532,7 @@ import UIKit
         //没有背影，透明样式
         // 修改cancel
         searchBar.setValue("取消", forKey: "cancelButtonText")
-        searchBar.showsCancelButton = true;
+//        searchBar.showsCancelButton = true;
         //    searchBar.showsSearchResultsButton = true;
         //5. 设置搜索Icon
         //    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
@@ -540,12 +540,13 @@ import UIKit
         // 删除按钮往右移一点
         searchBar.setPositionAdjustment(UIOffset(horizontal: 8, vertical: 0), for: .clear)
         
-        guard let textField: UITextField = (searchBar.findSubview(type: UITextField.self, resursion: true) as? UITextField) else { return searchBar; }
-        textField.backgroundColor = UIColor.clear
-        textField.tintColor = UIColor.gray;
-        textField.textColor = UIColor.white;
-        textField.font = UIFont.systemFont(ofSize: 13)
-        
+//        guard let textField: UITextField = (searchBar.findSubview(type: UITextField.self, resursion: true) as? UITextField) else { return searchBar; }
+//        textField.backgroundColor = UIColor.clear
+//        textField.tintColor = UIColor.gray;
+//        textField.textColor = UIColor.white;
+//        textField.font = UIFont.systemFont(ofSize: 13)
+        searchBar.textField?.tintColor = UIColor.gray;
+        searchBar.textField?.font = UIFont.systemFont(ofSize: 13)
         return searchBar;
     }
 }

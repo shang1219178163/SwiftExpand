@@ -260,7 +260,7 @@ import UIKit
     }
     
     @available(iOS 9.0, *)
-    static func setupAppearanceSearchbarCancellButton() {
+    static func setupAppearanceSearchbarCancellButton(_ textColor: UIColor = UIColor.theme) {
         let shandow: NSShadow = {
             let shadow = NSShadow();
             shadow.shadowColor = UIColor.darkGray;
@@ -268,7 +268,7 @@ import UIKit
             return shadow;
         }();
         
-        let dic: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor:  UIColor.white,
+        let dic: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor:  textColor,
                                                   NSAttributedString.Key.font:  UIFont.systemFont(ofSize: 13),
                                                   NSAttributedString.Key.shadow:  shandow,
         ]

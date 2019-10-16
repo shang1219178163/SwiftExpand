@@ -48,6 +48,15 @@ public extension String{
     var reverse: String {
         return String(self.reversed())
     }
+    /// 字符串->数组/字典
+    var objValue: Any? {
+        if let data: Data = self.data(using: .utf8) {
+            if let json = try? JSONSerialization.jsonObject(with: data, options: []) {
+                return json
+            }
+        }
+        return nil;
+    }
     // MARK: -funtions
 
     /// range转换为NSRange
