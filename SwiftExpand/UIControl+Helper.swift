@@ -15,12 +15,12 @@ import UIKit
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
         self.runtimeKey = runtimeKey
-        addTarget(self, action:#selector(p_handleActionSender(_:)), for:controlEvents);
+        addTarget(self, action:#selector(p_handleActionControl(_:)), for:controlEvents);
         objc_setAssociatedObject(self, runtimeKey, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     /// 点击回调
-    private func p_handleActionSender(_ sender: UIControl) {
+    private func p_handleActionControl(_ sender: UIControl) {
         let block = objc_getAssociatedObject(self, self.runtimeKey) as? ControlClosure;
         if block != nil {
             block!(sender);
