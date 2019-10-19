@@ -8,9 +8,9 @@
 
 import UIKit
 
-@objc public extension UIViewController{
+@objc extension UIViewController{
     
-    override class func initializeMethod() {
+    override public class func initializeMethod() {
         super.initializeMethod();
         
         if self == UIViewController.self {
@@ -19,24 +19,24 @@ import UIKit
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(UIViewController.viewDidLoad)
                 let repSel = #selector(UIViewController.hook_viewDidLoad)
-                //            let _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
-                let _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel, replSel: repSel);
+                //            _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
+                _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel, replSel: repSel);
                 
 //                DDLog(UIViewController.self)
                 
                 let oriSel1 = #selector(UIViewController.viewWillAppear(_:))
                 let repSel1 = #selector(UIViewController.hook_viewWillAppear(animated:))
-                //            let _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
-                let _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel1, replSel: repSel1);
+                //            _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
+                _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel1, replSel: repSel1);
                 
                 
                 let oriSel2 = #selector(UIViewController.viewWillDisappear(_:))
                 let repSel2 = #selector(UIViewController.hook_viewWillDisappear(animated:))
-                let _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel2, replSel: repSel2);
+                _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel2, replSel: repSel2);
                 
                 let oriSelPresent = #selector(UIViewController.present(_:animated:completion:))
                 let repSelPresent = #selector(UIViewController.hook_present(_:animated:completion:))
-                let _ = swizzleMethodInstance(UIViewController.self, origSel: oriSelPresent, replSel: repSelPresent);
+                _ = swizzleMethodInstance(UIViewController.self, origSel: oriSelPresent, replSel: repSelPresent);
                 
             }
         } else if self == UINavigationController.self {
@@ -45,14 +45,14 @@ import UIKit
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(UINavigationController.pushViewController(_:animated:));
                 let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:));
-//                let _ = UINavigationController.swizzleMethodInstance(oriSel, replSel: repSel);
-                let _ = swizzleMethodInstance(UINavigationController.self, origSel:oriSel , replSel: repSel);
+//                _ = UINavigationController.swizzleMethodInstance(oriSel, replSel: repSel);
+                _ = swizzleMethodInstance(UINavigationController.self, origSel:oriSel , replSel: repSel);
 
             }
         }
     }
     
-    internal func hook_viewDidLoad(animated: Bool) {
+    private func hook_viewDidLoad(animated: Bool) {
         //需要注入的代码写在此处
 //        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
         edgesForExtendedLayout = [];

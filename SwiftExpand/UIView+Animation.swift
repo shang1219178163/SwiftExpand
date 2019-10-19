@@ -14,7 +14,7 @@ import UIKit
                             toValue: Double = Double.pi * 2,
                             duration: Double = Double(kDurationRotation),
                             repeatCount: Float = MAXFLOAT,
-                            key: String? = nil) {
+                            key: String?) {
         // 1.创建动画
         let anim = CABasicAnimation(keyPath: "transform.rotation.z")
         

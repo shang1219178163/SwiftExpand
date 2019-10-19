@@ -10,7 +10,7 @@ import UIKit
 
 @objc public extension UINavigationController{
     
-    internal func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
+    func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //需要注入的代码写在此处
 //        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil);
         viewController.view.backgroundColor = .white;

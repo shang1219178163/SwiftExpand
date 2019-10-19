@@ -8,6 +8,7 @@
 import UIKit
 
 @objc public extension UITableView{
+    /// 刷新行数组
     func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) {
         assert(section <= numberOfSections)
         let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int
@@ -24,7 +25,7 @@ import UIKit
         reloadRows(at: marr, with: rowAnimation)
         endUpdates()
     }
-    
+    /// 插入行数组
     func insertRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) {
         var marr: [IndexPath] = []
         for e in rowList.enumerated() {
@@ -37,7 +38,7 @@ import UIKit
         insertRows(at: marr, with: rowAnimation)
         endUpdates()
     }
-    
+    /// 删除行数组
     func deleteRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) {
         assert(section <= numberOfSections)
         let rowMax = rowList.value(forKeyPath: kArr_max_inter) as! Int

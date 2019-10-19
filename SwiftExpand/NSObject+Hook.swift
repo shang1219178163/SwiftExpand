@@ -51,15 +51,15 @@ import UIKit
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(self.setValue(_:forUndefinedKey:))
                 let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
-                let _ = swizzleMethodInstance(NSObject.self, origSel: oriSel, replSel: repSel);
+                _ = swizzleMethodInstance(NSObject.self, origSel: oriSel, replSel: repSel);
                 
                 let oriSel0 = #selector(self.value(forUndefinedKey:))
                 let repSel0 = #selector(self.hook_value(forUndefinedKey:))
-                let _ = swizzleMethodInstance(NSObject.self, origSel: oriSel0, replSel: repSel0);
+                _ = swizzleMethodInstance(NSObject.self, origSel: oriSel0, replSel: repSel0);
                 
                 let oriSel1 = #selector(self.setNilValueForKey(_:))
                 let repSel1 = #selector(self.hook_setNilValueForKey(_:))
-                let _ = swizzleMethodInstance(NSObject.self, origSel: oriSel1, replSel: repSel1);
+                _ = swizzleMethodInstance(NSObject.self, origSel: oriSel1, replSel: repSel1);
             }
         }
     }

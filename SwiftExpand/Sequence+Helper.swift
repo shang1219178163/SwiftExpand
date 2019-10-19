@@ -31,11 +31,10 @@ public extension Sequence{
 
 public extension Sequence where Element: Hashable{
     
-    var frequencies: [Element: Int]{
-        let frequencyPairs = self.map{($0,1)}
-        return Dictionary(frequencyPairs,uniquingKeysWith:+);
-        
-    }
+//    var frequencies: [Element: Int]{
+//        let frequencyPairs = self.map{($0,1)}
+//        return Dictionary(frequencyPairs,uniquingKeysWith:+);
+//    }
     
 }
 

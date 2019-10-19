@@ -21,15 +21,23 @@ import UIKit
     }
     
     var cancellBtn: UIButton? {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
-            if obj == nil {
-                obj = self.findSubview(type: (NSClassFromString("UINavigationButton") as! UIResponder.Type).self, resursion: true) as? UIButton
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return obj;
+        if let btn = self.findSubview(type: (NSClassFromString("UINavigationButton") as! UIResponder.Type).self, resursion: true) as? UIButton {
+            return btn;
         }
+        return nil;
     }
+    
+//    var cancellBtn: UIButton? {
+//        get {
+//            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
+//            if obj == nil {
+//                obj = self.findSubview(type: (NSClassFromString("UINavigationButton") as! UIResponder.Type).self, resursion: true) as? UIButton
+//                obj?.setTitle("取消", for: .normal)
+//                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//            }
+//            return obj;
+//        }
+//    }
     
 //    var textField: UITextField? {
 //        guard let textField: UITextField = (self.findSubview(type: UITextField.self, resursion: true) as? UITextField) else { return nil}

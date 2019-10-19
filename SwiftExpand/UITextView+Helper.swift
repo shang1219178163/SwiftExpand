@@ -9,9 +9,9 @@
 
 import UIKit
 
-@objc public extension UITextView{
+@objc extension UITextView{
     
-    override class func initializeMethod() {
+    override public class func initializeMethod() {
         super.initializeMethod();
         
         if self == UIImageView.self {
@@ -21,7 +21,7 @@ import UIKit
                 let oriSel0 = NSSelectorFromString("deinit")
                 let repSel0 = #selector(self.hook_deinit)
                 
-                let _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
+                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
                 
             }
         }
@@ -33,12 +33,12 @@ import UIKit
         self.hook_deinit()
     }
     
-    var placeHolderTextView: UITextView {
+    public var placeHolderTextView: UITextView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextView;
             if obj == nil {
                 obj = UITextView(frame: bounds);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.autocapitalizationType = .none;
                 obj!.autocorrectionType = .no;
                 obj!.backgroundColor = .clear;
@@ -47,8 +47,8 @@ import UIKit
                 obj!.font = self.font
                 self.addSubview(obj!)
                 
-                NotificationCenter.default.addObserver(self, selector: #selector(textViewDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
-                NotificationCenter.default.addObserver(self, selector: #selector(textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
+                NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 
@@ -60,11 +60,11 @@ import UIKit
         }
     }
     
-    private func textViewDidBeginEditing(_ noti: Notification) {
+    private func p_textViewDidBeginEditing(_ noti: Notification) {
         placeHolderTextView.isHidden = true
     }
     
-    private func textViewDidEndEditing(_ noti: Notification) {
+    private func p_textViewDidEndEditing(_ noti: Notification) {
         placeHolderTextView.isHidden = false
 
     }

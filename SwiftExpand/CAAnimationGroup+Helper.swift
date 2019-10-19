@@ -14,7 +14,7 @@ import QuartzCore
     static func animDuration(_ duration: CFTimeInterval,
                                    autoreverses: Bool = false,
                                    repeatCount: Float,
-                                   fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards,
+                                   fillMode: CAMediaTimingFillMode = .forwards,
                                    removedOnCompletion: Bool = false) -> CAAnimationGroup {
         
         let anim: CAAnimationGroup = CAAnimationGroup();

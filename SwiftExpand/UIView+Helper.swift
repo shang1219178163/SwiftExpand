@@ -8,10 +8,10 @@
 
 import UIKit
 
-@objc public extension UIView{
+@objc extension UIView{
     
 //    // 混编和masonry冲突
-//    var x: CGFloat {
+//    public var x: CGFloat {
 //        get {
 //            return frame.origin.x
 //        }
@@ -20,7 +20,7 @@ import UIKit
 //        }
 //    }
 //    // 混编和masonry冲突
-//    var y: CGFloat {
+//    public var y: CGFloat {
 //        get {
 //            return frame.origin.y
 //        }
@@ -29,7 +29,7 @@ import UIKit
 //        }
 //    }
 //    // 混编和masonry冲突
-//    var width: CGFloat {
+//    public var width: CGFloat {
 //        get {
 //            return frame.width
 //        }
@@ -38,7 +38,7 @@ import UIKit
 //        }
 //    }
 //    // 混编和masonry冲突
-//    var height: CGFloat {
+//    public var height: CGFloat {
 //        get {
 //            return frame.size.height
 //        }
@@ -47,7 +47,7 @@ import UIKit
 //        }
 //    }
     
-    var sizeWidth: CGFloat {
+    public var sizeWidth: CGFloat {
         get {
             return frame.width
         }
@@ -56,7 +56,7 @@ import UIKit
         }
     }
     
-    var sizeHeight: CGFloat {
+    public var sizeHeight: CGFloat {
         get {
             return frame.size.height
         }
@@ -65,7 +65,7 @@ import UIKit
         }
     }
     
-    var size: CGSize  {
+    public var size: CGSize  {
         get {
             return frame.size
         }
@@ -74,7 +74,7 @@ import UIKit
         }
     }
     
-    var originX: CGFloat {
+    public var originX: CGFloat {
         get {
             return frame.origin.x
         }
@@ -83,7 +83,7 @@ import UIKit
         }
     }
     
-    var originY: CGFloat {
+    public var originY: CGFloat {
         get {
             return frame.origin.y
         }
@@ -92,7 +92,7 @@ import UIKit
         }
     }
     
-    var origin: CGPoint {
+    public var origin: CGPoint {
         get {
             return frame.origin
         }
@@ -101,33 +101,33 @@ import UIKit
         }
     }
     
-    var minX: CGFloat {
+    public var minX: CGFloat {
         return frame.minX
     }
     
-    var minY: CGFloat {
+    public var minY: CGFloat {
         return frame.minY
     }
     
-    var midX: CGFloat {
+    public var midX: CGFloat {
         return frame.midX
     }
     
-    var midY: CGFloat {
+    public var midY: CGFloat {
         return frame.midY
     }
     
-    var maxX: CGFloat {
+    public var maxX: CGFloat {
         return frame.maxX
     }
     
-    var maxY: CGFloat {
+    public var maxY: CGFloat {
         return frame.maxY
     }
     
     //MARK: -funtions
     /// text是否有效
-    func validText() -> Bool {
+    public func validText() -> Bool {
         assert(isKind(of: UITextView.classForCoder())
             || isKind(of: UITextField.classForCoder())
             || isKind(of: UILabel.classForCoder()))
@@ -145,11 +145,11 @@ import UIKit
         return true;
     }
 
-    func autoresizeMask() {
-        self.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+    public func autoresizeMask() {
+        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     /// 图层调试
-    func getViewLayer() -> () {
+    public func getViewLayer() -> () {
         let subviews = self.subviews;
         if subviews.count == 0 {
             return;
@@ -164,7 +164,7 @@ import UIKit
     }
     
     /// 寻找子视图
-    func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
+    public func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
         for e in self.subviews.enumerated() {
             if e.element.isKind(of: type) {
                 return e.element;
@@ -183,13 +183,13 @@ import UIKit
     }
     
     /// 移除所有子视图
-    func removeAllSubViews(){
-        self.subviews.forEach { (view: UIView) in
+    public func removeAllSubViews(){
+        subviews.forEach { (view: UIView) in
             view.removeFromSuperview()
         }
     }
     
-    func addCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
+    public func addCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
                           cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0),
                           width: CGFloat = 1,
                           color: UIColor = UIColor.gray) -> CAShapeLayer {
@@ -204,14 +204,14 @@ import UIKit
     }
     
     /// 高性能圆角
-    func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) {
+    public func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) {
         let image = drawCorners( .allCorners, radius: radius, width: width, color: color, bgColor: bgColor)
         let imgView = UIImageView(image: image)
-        self.insertSubview(imgView, at: 0)
+        insertSubview(imgView, at: 0)
     }
     
     /// [源]高性能圆角
-    func drawCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
+    public func drawCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
                            radius: CGFloat,
                            width: CGFloat,
                            color: UIColor,
@@ -243,26 +243,25 @@ import UIKit
         return image
     }
     
-    func addCornerAll() -> CAShapeLayer {
+    public func addCornerAll() -> CAShapeLayer {
         let cornerRadii = CGSize(width: bounds.width*0.5, height: bounds.height*0.5)
         return addCorners( .allCorners, cornerRadii: cornerRadii, width: 1.0, color: .white)
     }
    
     //MARK: -通用响应添加方法
-    func addActionClosure(_ action: @escaping (ViewClosure)) {
+    public func addActionClosure(_ action: @escaping (ViewClosure)) {
         if let sender = self as? UIButton {
-            sender.addTarget(self, action:#selector(handleActionSender(sender:)), for:.touchUpInside);
+            sender.addTarget(self, action:#selector(p_handleActionSender(_:)), for:.touchUpInside);
             
         }
         else if let sender = self as? UIControl {
-            sender.addTarget(self, action:#selector(handleActionSender(sender:)), for:.valueChanged);
+            sender.addTarget(self, action:#selector(p_handleActionSender(_:)), for:.valueChanged);
 
-        }
-        else {
+        } else {
 //            let recoginzer = objc_getAssociatedObject(self, RuntimeKey.tap);
             var obj = objc_getAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!);
             if obj == nil {
-                obj = UITapGestureRecognizer(target: self, action: #selector(handleActionTap(tap:)));
+                obj = UITapGestureRecognizer(target: self, action: #selector(p_handleActionTap(_:)));
                 isUserInteractionEnabled = true;
                 addGestureRecognizer(obj! as! UIGestureRecognizer);
                 
@@ -273,40 +272,37 @@ import UIKit
     }
     
     /// 点击回调
-    private func handleActionTap(tap: UITapGestureRecognizer) {
+    private func p_handleActionTap(_ tap: UITapGestureRecognizer) {
 //       let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
         let block = objc_getAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!) as? ViewClosure;
-
         if block != nil{
             block!(tap, tap.view!, tap.view!.tag);
         }
     }
     
-    private func handleActionSender(sender: UIControl) {
+    private func p_handleActionSender(_ sender: UIControl) {
         let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
         if let sender = self as? UISegmentedControl {
             if block != nil {
                 block!(nil, sender, sender.selectedSegmentIndex);
             }
             
-        }
-        else{
+        } else {
             if block != nil {
                 block!(nil, sender, sender.tag);
             }
         }
     }
-
     
     //MARK: -手势
     ///手势 - 轻点
-    func addGestureTap(_ action: @escaping (RecognizerClosure)) -> UITapGestureRecognizer {
+    public func addGestureTap(_ action: @escaping (RecognizerClosure)) -> UITapGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
         var obj = objc_getAssociatedObject(self, runtimeKey) as? UITapGestureRecognizer
         if obj == nil {
-            obj = UITapGestureRecognizer(target: self, action: #selector(handleActionGesture(_:)))
+            obj = UITapGestureRecognizer(target: self, action: #selector(p_handleActionGesture(_:)))
             obj!.numberOfTapsRequired = 1  //轻点次数
             obj!.numberOfTouchesRequired = 1  //手指个数
             
@@ -321,13 +317,13 @@ import UIKit
     }
   
     ///手势 - 长按
-    func addGestureLongPress(_ action: @escaping (RecognizerClosure), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
+    public func addGestureLongPress(_ action: @escaping (RecognizerClosure), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(minimumPressDuration)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
         var obj = objc_getAssociatedObject(self, runtimeKey) as? UILongPressGestureRecognizer
         if obj == nil {
-            obj = UILongPressGestureRecognizer(target: self, action: #selector(handleActionGesture(_:)))
+            obj = UILongPressGestureRecognizer(target: self, action: #selector(p_handleActionGesture(_:)))
             obj!.minimumPressDuration = minimumPressDuration;
             
             isUserInteractionEnabled = true
@@ -341,13 +337,13 @@ import UIKit
     }
     
     ///手势 - 拖拽
-    func addGesturePan(_ action: @escaping (RecognizerClosure)) -> UIPanGestureRecognizer {
+    public func addGesturePan(_ action: @escaping (RecognizerClosure)) -> UIPanGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
         var obj = objc_getAssociatedObject(self, runtimeKey) as? UIPanGestureRecognizer
         if obj == nil {
-            obj = UIPanGestureRecognizer(target: self, action: #selector(handleActionGesture(_:)))
+            obj = UIPanGestureRecognizer(target: self, action: #selector(p_handleActionGesture(_:)))
             //最大最小的手势触摸次数
             obj!.minimumNumberOfTouches = 1
             obj!.maximumNumberOfTouches = 3
@@ -362,13 +358,13 @@ import UIKit
     }
     
     ///手势 - 屏幕边缘
-    func addGestureEdgPan(_ action: @escaping (RecognizerClosure), for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
+    public func addGestureEdgPan(_ action: @escaping (RecognizerClosure), for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(edgs)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
         var obj = objc_getAssociatedObject(self, runtimeKey) as? UIScreenEdgePanGestureRecognizer
         if obj == nil {
-            obj = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleActionGesture(_:)))
+            obj = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(p_handleActionGesture(_:)))
             obj!.edges = edgs
             isUserInteractionEnabled = true
             isMultipleTouchEnabled = true
@@ -381,13 +377,13 @@ import UIKit
     }
     
     ///手势 - 清扫
-    func addGestureSwip(_ action: @escaping (RecognizerClosure), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
+    public func addGestureSwip(_ action: @escaping (RecognizerClosure), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function) + ",\(direction)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
         var obj = objc_getAssociatedObject(self, runtimeKey) as? UISwipeGestureRecognizer
         if obj == nil {
-            obj = UISwipeGestureRecognizer(target: self, action: #selector(handleActionGesture(_:)))
+            obj = UISwipeGestureRecognizer(target: self, action: #selector(p_handleActionGesture(_:)))
             obj!.direction = direction
             
             isUserInteractionEnabled = true
@@ -401,13 +397,13 @@ import UIKit
     }
     
     ///手势 - 捏合
-    func addGesturePinch(_ action: @escaping (RecognizerClosure)) -> UIPinchGestureRecognizer {
+    public func addGesturePinch(_ action: @escaping (RecognizerClosure)) -> UIPinchGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
         var obj = objc_getAssociatedObject(self, runtimeKey) as? UIPinchGestureRecognizer
         if obj == nil {
-            obj = UIPinchGestureRecognizer(target: self, action: #selector(handleActionGesture(_:)))
+            obj = UIPinchGestureRecognizer(target: self, action: #selector(p_handleActionGesture(_:)))
             
             isUserInteractionEnabled = true
             isMultipleTouchEnabled = true
@@ -420,13 +416,13 @@ import UIKit
     }
     
     ///手势 - 旋转
-    func addGestureRotation(_ action: @escaping (RecognizerClosure)) -> UIRotationGestureRecognizer {
+    public func addGestureRotation(_ action: @escaping (RecognizerClosure)) -> UIRotationGestureRecognizer {
         let funcAbount = NSStringFromSelector(#function)
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
         var obj = objc_getAssociatedObject(self, runtimeKey) as? UIRotationGestureRecognizer
         if obj == nil {
-            obj = UIRotationGestureRecognizer(target: self, action: #selector(handleActionGesture(_:)))
+            obj = UIRotationGestureRecognizer(target: self, action: #selector(p_handleActionGesture(_:)))
             
             isUserInteractionEnabled = true
             isMultipleTouchEnabled = true
@@ -438,7 +434,7 @@ import UIKit
         return obj!
     }
     
-    private func handleActionGesture(_ recognizer: UIGestureRecognizer) {
+    private func p_handleActionGesture(_ recognizer: UIGestureRecognizer) {
     
         let block = objc_getAssociatedObject(self, recognizer.runtimeKey) as? RecognizerClosure;
 //        DDLog(recognizer.funcName,block)
@@ -509,20 +505,20 @@ import UIKit
     }
     
     //MARK: -Cell
-    func getCell() -> UITableViewCell{
-        var supView = self.superview
+    public func getCell() -> UITableViewCell{
+        var supView = superview
         while let view = supView as? UITableViewCell {
             supView = view.superview
         }
         return supView as! UITableViewCell;
     }
     
-    func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
+    public func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
         let cell = self.getCell();
         return tableView.indexPathForRow(at: cell.center)!
     }
     
-    func convertToImage() -> UIImage{
+    public func convertToImage() -> UIImage{
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
         let ctx = UIGraphicsGetCurrentContext()
         self.layer.render(in: ctx!)
@@ -531,7 +527,7 @@ import UIKit
     }
         
     /// 保存图像到相册
-    func imageToSavedPhotosAlbum(_ action: @escaping((NSError?) -> Void)) {
+    public func imageToSavedPhotosAlbum(_ action: @escaping((NSError?) -> Void)) {
         var image: UIImage = self.convertToImage();
         if let imgView = self as? UIImageView {
             if imgView.image != nil {
@@ -544,7 +540,7 @@ import UIKit
         }
     }
     /// 获取父视图的 UIScrollView
-    func supScrollView() -> UIScrollView? {
+    public func supScrollView() -> UIScrollView? {
         var supView = self.superview
         while supView?.isKind(of: UIScrollView.classForCoder()) == false {
             supView = supView?.superview;
@@ -557,7 +553,7 @@ import UIKit
     }
     
     /// 验证码倒计时显示
-    static func GCDTimerStart(_ lab: UILabel!, _ interval: Int = 60) {
+    public static func GCDTimerStart(_ lab: UILabel!, _ interval: Int = 60) {
         var time = interval
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
         codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))  //此处方法与Swift 3.0 不同
@@ -578,7 +574,7 @@ import UIKit
 //        codeTimer.activate()
     }
 //    /// 计时显示
-//    static func GCDTimerAdd(_ lab: UILabel!, _ length: Int = 5, date: NSDate = NSDate(), step: Int = 1) -> DispatchSourceTimer{
+//    public static func GCDTimerAdd(_ lab: UILabel!, _ length: Int = 5, date: NSDate = NSDate(), step: Int = 1) -> DispatchSourceTimer{
 //
 //        var time = 0;
 //        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())

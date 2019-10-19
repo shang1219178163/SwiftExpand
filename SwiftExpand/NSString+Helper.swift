@@ -294,7 +294,7 @@ public extension Substring {
     func copyToPasteboard(_ showTips: Bool) {
         UIPasteboard.general.string = self as String
         if showTips == true {
-            let _ = UIAlertController.showAlert(nil, placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
+            _ = UIAlertController.showAlert(nil, placeholders: nil, msg: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
         }
     }
     
@@ -311,7 +311,7 @@ public extension Substring {
     
     /// 判断是否时间戳字符串
     func isTimeStamp() -> Bool{
-        if self.contains(" ") || self.contains("-") || self.contains(":") {
+        if [" ", "-", ":"].contains(self) {
             return false;
         }
         

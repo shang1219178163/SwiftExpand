@@ -32,7 +32,7 @@ import UIKit
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIView;
             if obj == nil {
-                obj = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: frame.height));
+                obj = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: kH_LINE_VIEW));
                 obj!.backgroundColor = .line
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -168,9 +168,9 @@ import UIKit
     }
     
     /// [源]UITableView创建
-    static func createTableView(_ rect: CGRect = CGRect.zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> UITableView{
+    static func createTableView(_ rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> UITableView{
         let table = UITableView(frame: rect, style: style);
-        table.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        table.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         table.separatorStyle = .singleLine;
         table.separatorInset = .zero;
@@ -180,13 +180,12 @@ import UIKit
         table.keyboardDismissMode = .onDrag
         table.backgroundColor = UIColor.background;
 //        table.tableFooterView = UIView();
-
         return table
     }
     /// [源]UILabel创建
-    static func createLabel(_ rect: CGRect = CGRect.zero, type: Int = 0) -> UILabel {
+    static func createLabel(_ rect: CGRect = .zero, type: Int = 0) -> UILabel {
         let view = UILabel(frame: rect);
-        view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.isUserInteractionEnabled = true;
         view.textAlignment = .left;
         view.font = UIFont.systemFont(ofSize: 15);
@@ -226,9 +225,9 @@ import UIKit
         return view;
     }
     /// [源]UIImageView创建
-    static func createImgView(_ rect: CGRect = CGRect.zero, imgName: String) -> UIImageView {
+    static func createImgView(_ rect: CGRect = .zero, imgName: String) -> UIImageView {
         let view = UIImageView(frame: rect);
-        view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.isUserInteractionEnabled = true;
         view.contentMode = .scaleAspectFit;
         view.image = UIImage(named: imgName);
@@ -236,7 +235,7 @@ import UIKit
         return view
     }
     /// [源]UIButton创建
-    static func createBtn(_ rect: CGRect = CGRect.zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
+    static func createBtn(_ rect: CGRect = .zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
         let view = UIButton(type: .custom);
         view.titleLabel?.font = UIFont.systemFont(ofSize:16);
         view.titleLabel?.adjustsFontSizeToFitWidth = true;
@@ -281,9 +280,9 @@ import UIKit
         return view
     }
     /// [源]UITextField创建
-    static func createTextField(_ rect: CGRect = CGRect.zero) -> UITextField {
+    static func createTextField(_ rect: CGRect = .zero) -> UITextField {
         let view = UITextField(frame: rect);
-        view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.borderStyle = .roundedRect;
         view.contentVerticalAlignment = .center;
         view.clearButtonMode = .whileEditing;
@@ -297,9 +296,9 @@ import UIKit
         return view
     }
     /// [源]UITextView创建
-    static func createTextView(_ rect: CGRect = CGRect.zero) -> UITextView {
+    static func createTextView(_ rect: CGRect = .zero) -> UITextView {
         let view = UITextView(frame: rect);
-        view.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.autocapitalizationType = .none;
         view.autocorrectionType = .no;
         view.backgroundColor = .white;
@@ -347,7 +346,7 @@ import UIKit
         return rowCount.toCGFloat * itemHeight + (rowCount - 1).toCGFloat * padding;
     }
     /// [源]GroupView创建
-    static func createGroupView(_ rect: CGRect = CGRect.zero,
+    static func createGroupView(_ rect: CGRect = .zero,
                                       list: Array<String>!,
                                       numberOfRow: Int = 4,
                                       padding: CGFloat = kPadding,
@@ -408,7 +407,7 @@ import UIKit
         return backView;
     }
     /// [源]UISegmentControl创建
-    static func createSegment(_ rect: CGRect = CGRect.zero, items: Array<Any>!, selectedIdx: Int = 0, type: Int = 0) -> UISegmentedControl {
+    static func createSegment(_ rect: CGRect = .zero, items: Array<Any>!, selectedIdx: Int = 0, type: Int = 0) -> UISegmentedControl {
         let view = UISegmentedControl(items: items)
         view.frame = rect
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
@@ -479,7 +478,7 @@ import UIKit
         return view;
     }
     /// [源]UISlider创建
-    static func createSlider(_ rect: CGRect = CGRect.zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
+    static func createSlider(_ rect: CGRect = .zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
         let view = UISlider(frame: rect)
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         view.minimumValue = minValue
@@ -490,7 +489,7 @@ import UIKit
         return view;
     }
     /// [源]UISwitch创建
-    static func createSwitch(_ rect: CGRect = CGRect.zero, isOn: Bool = true) -> UISwitch {
+    static func createSwitch(_ rect: CGRect = .zero, isOn: Bool = true) -> UISwitch {
         let view = UISwitch(frame: rect)
         view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
         view.isOn = isOn
@@ -498,7 +497,7 @@ import UIKit
         return view
     }
     /// [源]UIPageControl创建
-    static func createPageControl(_ rect: CGRect = CGRect.zero, numberOfPages: Int, currentPage: Int = 0) -> UIPageControl {
+    static func createPageControl(_ rect: CGRect = .zero, numberOfPages: Int, currentPage: Int = 0) -> UIPageControl {
         let pageControl: UIPageControl = {
             let control: UIPageControl = UIPageControl(frame: rect);
             control.currentPageIndicatorTintColor = UIColor.theme;
@@ -532,7 +531,7 @@ import UIKit
         //searchBar.searchBarStyle = UISearchBarStyleMinimal;
         //没有背影，透明样式
         // 修改cancel
-        searchBar.setValue("取消", forKey: "cancelButtonText")
+//        searchBar.setValue("取消", forKey: "cancelButtonText")
 //        searchBar.showsCancelButton = true;
         //    searchBar.showsSearchResultsButton = true;
         //5. 设置搜索Icon

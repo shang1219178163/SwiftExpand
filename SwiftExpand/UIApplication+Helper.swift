@@ -156,11 +156,11 @@ import UIKit
     }
     
     //MARK: func
-    static func setupRootController(_ window: UIWindow = UIApplication.mainWindow, _ controller: AnyObject, _ isAdjust: Bool) {
+    static func setupRootController(_ window: UIWindow = UIApplication.mainWindow, _ controller: AnyObject, _ isAdjust: Bool = true) {
         UIApplication.setupRootController(controller, isAdjust);
     }
     
-    static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool) {
+    static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool = true) {
         var contr = controller;
         if controller is String {
             contr = UICtrFromString(controller as! String);
@@ -176,10 +176,6 @@ import UIKit
         } else {
             UIApplication.rootController = UINavigationController(rootViewController: contr as! UIViewController);
         }
-    }
-    
-    static func setupRootController(_ controller: AnyObject) {
-        return UIApplication.setupRootController(controller, true);
     }
     
     ///默认风格是白色导航栏黑色标题
@@ -260,7 +256,7 @@ import UIKit
     }
     
     @available(iOS 9.0, *)
-    static func setupAppearanceSearchbarCancellButton(_ textColor: UIColor = UIColor.theme) {
+    static func setupAppearanceSearchbarCancellButton(_ textColor: UIColor = .theme) {
         let shandow: NSShadow = {
             let shadow = NSShadow();
             shadow.shadowColor = UIColor.darkGray;
@@ -273,6 +269,9 @@ import UIKit
                                                   NSAttributedString.Key.shadow:  shandow,
         ]
         UIBarButtonItem.appearance().setTitleTextAttributes(dic, for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes(dic, for: .highlighted)
+        UIBarButtonItem.appearance().setTitleTextAttributes(dic, for: .selected)
+
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self])
     }
     
@@ -289,14 +288,14 @@ import UIKit
     /// 打开网络链接
     static func openURL(_ urlStr: String, isUrl: Bool = true) {
         if isUrl == true {
-            let _ = UIApplication.openURLStr(urlStr, prefix: "http://")
+            _ = UIApplication.openURLStr(urlStr, prefix: "http://")
         } else {
-            let _ = UIApplication.openURLStr(urlStr, prefix: "tel://")
+            _ = UIApplication.openURLStr(urlStr, prefix: "tel://")
         }
     }
     
     /// 打开网络链接(prefix为 http://或 tel:// )
-    static func openURLStr(_ urlStr: String, prefix: String) -> Bool {
+    static func openURLStr(_ urlStr: String, prefix: String = "http://") -> Bool {
         //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
         //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
         //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
@@ -312,11 +311,9 @@ import UIKit
                 UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
             } else {
                 UIApplication.shared.openURL(url! as URL);
-                
             }
         } else {
             print("链接无法打开!!!\n%@",url as Any);
-            
         }
         return canOpenUrl;
     }
@@ -329,6 +326,7 @@ import UIKit
             for item in bytes {
                 deviceTokenString += String(format:"%02x", item&0x000000FF)
             }
+            
         } else {
             deviceTokenString = deviceToken.description.trimmingCharacters(in: CharacterSet(charactersIn: "<> "))
         }

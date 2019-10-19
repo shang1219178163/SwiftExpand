@@ -32,7 +32,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
@@ -53,7 +53,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
@@ -75,7 +75,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
                 obj!.numberOfLines = 2;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -97,7 +97,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
                 obj!.numberOfLines = 1;
                 obj!.adjustsFontSizeToFitWidth = true

@@ -53,23 +53,47 @@ import UIKit
         switch style {
         case 0:
             //上 左 下 右
-            imageEdgeInsets = UIEdgeInsets(top: -labelHeight-imageTitleSpace/2, left: 0, bottom: 0, right: -labelWidth)
-            labelEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth!, bottom: -imageHeight!-imageTitleSpace/2, right: 0)
+            imageEdgeInsets = UIEdgeInsets(top: -labelHeight - imageTitleSpace/2,
+                                           left: 0,
+                                           bottom: 0,
+                                           right: -labelWidth)
+            labelEdgeInsets = UIEdgeInsets(top: 0,
+                                           left: -imageWidth!,
+                                           bottom: -imageHeight! - imageTitleSpace/2,
+                                           right: 0)
             break;
             
         case 1:
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: -imageTitleSpace/2, bottom: 0, right: imageTitleSpace)
-            labelEdgeInsets = UIEdgeInsets(top: 0, left: imageTitleSpace/2, bottom: 0, right: -imageTitleSpace/2)
+            imageEdgeInsets = UIEdgeInsets(top: 0,
+                                           left: -imageTitleSpace/2,
+                                           bottom: 0,
+                                           right: imageTitleSpace)
+            labelEdgeInsets = UIEdgeInsets(top: 0,
+                                           left: imageTitleSpace/2,
+                                           bottom: 0,
+                                           right: -imageTitleSpace/2)
             break;
             
         case 2:
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: -labelHeight!-imageTitleSpace/2, right: -labelWidth)
-            labelEdgeInsets = UIEdgeInsets(top: -imageHeight!-imageTitleSpace/2, left: -imageWidth!, bottom: 0, right: 0)
+            imageEdgeInsets = UIEdgeInsets(top: 0,
+                                           left: 0,
+                                           bottom: -labelHeight! - imageTitleSpace/2,
+                                           right: -labelWidth)
+            labelEdgeInsets = UIEdgeInsets(top: -imageHeight! - imageTitleSpace/2,
+                                           left: -imageWidth!,
+                                           bottom: 0,
+                                           right: 0)
             break;
             
         case 3:
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: labelWidth+imageTitleSpace/2, bottom: 0, right: -labelWidth-imageTitleSpace/2)
-            labelEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth!-imageTitleSpace/2, bottom: 0, right: imageWidth!+imageTitleSpace/2)
+            imageEdgeInsets = UIEdgeInsets(top: 0,
+                                           left: labelWidth + imageTitleSpace/2,
+                                           bottom: 0,
+                                           right: -labelWidth - imageTitleSpace/2)
+            labelEdgeInsets = UIEdgeInsets(top: 0,
+                                           left: -imageWidth! - imageTitleSpace/2,
+                                           bottom: 0,
+                                           right: imageWidth! + imageTitleSpace/2)
             break;
             
         default:
@@ -78,7 +102,6 @@ import UIKit
         
         self.titleEdgeInsets = labelEdgeInsets
         self.imageEdgeInsets = imageEdgeInsets
-        
     }
     
     func layoutBtnImage(_ direction: Int = 3){
@@ -91,7 +114,7 @@ import UIKit
             break;
         case 3:
             titleEdgeInsets = UIEdgeInsetsMake(0, -imageView!.bounds.width, 0, imageView!.bounds.width)
-            imageEdgeInsets = UIEdgeInsetsMake(0, titleLabel!.bounds.width+5.0, 0, -titleLabel!.bounds.width-5.0)
+            imageEdgeInsets = UIEdgeInsetsMake(0, titleLabel!.bounds.width + 5.0, 0, -titleLabel!.bounds.width - 5.0)
         default:
             break;
         }

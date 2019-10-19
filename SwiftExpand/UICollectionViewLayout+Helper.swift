@@ -93,7 +93,7 @@ import UIKit
                                    spacing: CGFloat = kPadding,
                                    headerSize: CGSize,
                                    footerSize: CGSize,
-                                   sectionInset: UIEdgeInsets = UIEdgeInsets.zero) -> UICollectionViewLayout {
+                                   sectionInset: UIEdgeInsets = .zero) -> UICollectionViewLayout {
         let layout = UICollectionViewLayout();
         //item水平间距
         layout.minimumLineSpacing = spacing;

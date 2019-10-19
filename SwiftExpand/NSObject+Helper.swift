@@ -35,56 +35,58 @@ import UIKit
         }
     }
 
-    /// nsRange范围子字符串差异华显示
-//    func attString(_ text: String!, nsRange: NSRange) -> NSAttributedString! {
-//        assert(text.count > (nsRange.location + nsRange.length))
-//
-//        let attrString = NSMutableAttributedString(string: text)
-//
-//        let attDict = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-//                       NSAttributedString.Key.font:UIFont.systemFont(ofSize: 30),
-//                       ]
-//        attrString.addAttributes(attDict, range: nsRange)
-//        return attrString
-//    }
-//
-//    /// 特定范围子字符串差异华显示
-//    func attString(_ text: String!, offsetStart: Int, offsetEnd: Int) -> NSAttributedString! {
-//        let nsRange = NSRange(location: offsetStart, length: (text.count - offsetStart - offsetEnd))
-//        let attrString = attString(text, nsRange: nsRange)
-//        return attrString
-//    }
-//
-//    /// 字符串差异华显示
-//    func attString(_ text: String!, textSub: String) -> NSAttributedString! {
-//        let range = text.range(of: textSub)
-//        let nsRange = text.nsRange(from: range!)
-//        let attrString = attString(text, nsRange: nsRange)
-//        return attrString
-//    }
-//
-//    /// 富文本特殊部分设置
-//    func attrDict(_ font: CGFloat, textColor: UIColor) -> Dictionary<NSAttributedString.Key, Any> {
-//        let dic = [NSAttributedString.Key.font:UIFont.systemFont(ofSize:font),
-//                   NSAttributedString.Key.foregroundColor: textColor];
-//        return dic;
-//    }
-//
-//    /// 富文本整体设置
-//    func attrParaDict(_ font: CGFloat, textColor: UIColor, alignment: NSTextAlignment) -> Dictionary<NSAttributedString.Key, Any> {
-//        let paraStyle = NSMutableParagraphStyle();
-//        paraStyle.lineBreakMode = .byCharWrapping;
-//        paraStyle.alignment = alignment;
-//
-//        let mdic = NSMutableDictionary(dictionary: self.attrDict(font, textColor: textColor));
-//        mdic.setObject(paraStyle, forKey:kCTParagraphStyleAttributeName as! NSCopying);
-//        return mdic.copy() as! Dictionary<NSAttributedString.Key, Any>;
-//    }
+    /// 模型自动编码
+    func se_encode(with aCoder: NSCoder) {
+        var count: UInt32 = 0
+        if let ivar = class_copyIvarList(self.classForCoder, &count) {
+            for i in 0..<Int(count) {
+                let iv = ivar[i]
+                //获取成员变量的名称 -> c语言字符串
+                if let cName = ivar_getName(iv) {
+                    //转换成String字符串
+                    guard let strName = String(cString: cName, encoding: String.Encoding.utf8) else{
+                        //继续下一次遍历
+                        continue
+                    }
+                    //利用kvc 取值
+                    let value = self.value(forKey: strName)
+                    aCoder.encode(value, forKey: strName)
+                }
+            }
+            // 释放c语言对象
+            free(ivar)
+        }
+    }
+    
+    /// 模型自动解码
+    func se_decode(with aDecoder: NSCoder) {
+        //        super.init()
+        var count: UInt32 = 0
+        if let ivar = class_copyIvarList(self.classForCoder, &count) {
+            for i in 0..<Int(count) {
+                let iv = ivar[i]
+                //获取成员变量的名称 -》 c语言字符串
+                if let cName = ivar_getName(iv) {
+                    //转换成String字符串
+                    guard let strName = String(cString: cName, encoding: String.Encoding.utf8) else{
+                        //继续下一次遍历
+                        continue
+                    }
+                    //进行解档取值
+                    let value = aDecoder.decodeObject(forKey: strName)
+                    //利用kvc给属性赋值
+                    setValue(value, forKeyPath: strName)
+                }
+            }
+            // 释放c语言对象
+            free(ivar)
+        }
+    }
     
     ///  富文本只有同字体大小才能计算高度
-    func sizeWithText(_ text: String!, font: CGFloat = 15, width: CGFloat) -> CGSize {
+    func sizeWithText(_ text: String = "", font: CGFloat = 15, width: CGFloat) -> CGSize {
         let attDic = NSAttributedString.paraDict(font, textColor: .black, alignment: .left);
-        let options : NSStringDrawingOptions = NSStringDrawingOptions(rawValue: NSStringDrawingOptions.RawValue(UInt8(NSStringDrawingOptions.usesLineFragmentOrigin.rawValue) | UInt8(NSStringDrawingOptions.usesFontLeading.rawValue)))
+        let options : NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
         
         var size = text.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options , attributes: attDic, context: nil).size;
         size.width = ceil(size.width);
@@ -103,18 +105,6 @@ import UIKit
         return size
     }
     
-//    /// [源]富文本
-//    func getAttString(_ text: String!, textTaps: [String]!, font: CGFloat = 16.0, tapFont: CGFloat = 16.0, color: UIColor = .black, tapColor: UIColor, alignment: NSTextAlignment = .left) -> NSAttributedString {
-//        let paraDic = attrParaDict(font, textColor: color, alignment: alignment)
-//        let attString = NSMutableAttributedString(string: text, attributes: paraDic)
-//        textTaps.forEach { ( textTap: String) in
-//            let nsRange = (text as NSString).range(of: textTap)
-//            let attDic = self.attrDict(font, textColor: tapColor)
-//            attString.addAttributes(attDic, range: nsRange)
-//        }
-//        return attString
-//    }
-//
     /// 标题前缀差异化显示
     func getAttringByPrefix(_ prefix: String!, content: String!, isMust: Bool = false) -> NSAttributedString {
         let string = content.hasPrefix(prefix) == true ? content : prefix + content
@@ -125,7 +115,6 @@ import UIKit
     
     ///MARK: NSObject转json字符串
     func jsonValue() -> String! {
-        
         if JSONSerialization.isValidJSONObject(self) == false {
             return "";
         }

@@ -21,8 +21,8 @@ import UIKit
     
     /// 按钮是否显示
     func setHidden(_ hidden: Bool) {
-        self.isEnabled = !hidden;
-        self.tintColor = !hidden ? UIColor.theme : UIColor.clear;
+        isEnabled = !hidden;
+        tintColor = !hidden ? UIColor.theme : UIColor.clear;
     }
 
     //待优化

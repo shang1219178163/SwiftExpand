@@ -32,8 +32,8 @@ public let kSubTypeFuntionNames = [CATransitionSubtype.fromTop,
    
     /// [源]CATransition
     static func animDuration(_ duration: CFTimeInterval,
-                                   functionName: CAMediaTimingFunctionName = CAMediaTimingFunctionName.linear,
-                                   type: CATransitionType,
+                                   functionName: CAMediaTimingFunctionName = .linear,
+                                   type: CATransitionType = .fade,
                                    subType: CATransitionSubtype? = nil) -> CATransition {
 
         let anim = CATransition()

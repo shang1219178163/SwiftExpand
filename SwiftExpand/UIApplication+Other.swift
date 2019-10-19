@@ -62,7 +62,7 @@ import StoreKit
         return isHasRight;
     }
     /// 是否有音视频捕捉权限
-    static func hasRightOfAVCapture(_ mediaType: AVMediaType = AVMediaType.video) -> Bool {
+    static func hasRightOfAVCapture(_ mediaType: AVMediaType = .video) -> Bool {
         var isHasRight = false;
 
 //        let device = AVCaptureDevice.devices(for: mediaType)
@@ -114,7 +114,7 @@ import StoreKit
     
     /// 日历是否可用
     @available(iOS 10.0, *)
-    static func hasRightOfEventStore(_ entityType: EKEntityType = EKEntityType.reminder) -> Bool {
+    static func hasRightOfEventStore(_ entityType: EKEntityType = .reminder) -> Bool {
         var isHasRight = false;
         
         let store = EKEventStore()
@@ -138,7 +138,7 @@ import StoreKit
     
     /// 通讯录是否可用
     @available(iOS 10.0, *)
-    static func hasRightOfContactStore(_ entityType: CNEntityType = CNEntityType.contacts) -> Bool {
+    static func hasRightOfContactStore(_ entityType: CNEntityType = .contacts) -> Bool {
         var isHasRight = false;
         
         let store = CNContactStore()

@@ -34,18 +34,18 @@ public struct RuntimeKey {
 
 public func RuntimeKeyFromParams(_ obj: NSObject!, funcAbount: String!) -> UnsafeRawPointer! {
     let unique = "\(obj.hashValue)," + funcAbount
-    let key:UnsafeRawPointer = UnsafeRawPointer(bitPattern: unique.hashValue)!
+    let key: UnsafeRawPointer = UnsafeRawPointer(bitPattern: unique.hashValue)!
     return key;
 }
 
 public func RuntimeKeyFromString(_ obj: String) -> UnsafeRawPointer! {
-    let key:UnsafeRawPointer = UnsafeRawPointer(bitPattern: obj.hashValue)!
+    let key: UnsafeRawPointer = UnsafeRawPointer(bitPattern: obj.hashValue)!
     return key;
 }
 
 public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
     let aSelectorName = NSStringFromSelector(aSelector);
-    let key:UnsafeRawPointer = RuntimeKeyFromString(aSelectorName)
+    let key: UnsafeRawPointer = RuntimeKeyFromString(aSelectorName)
     return key;
 }
 
@@ -102,7 +102,7 @@ public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
 //获取本地创建类
 public func SwiftClassFromString(_ name: String) -> AnyClass {
     let nameSpace  = UIApplication.appBundleName;
-    let cls : AnyClass = NSClassFromString(nameSpace + "." + name)!;
+    let cls: AnyClass = NSClassFromString(nameSpace + "." + name)!;
     return cls;
 }
 
@@ -220,10 +220,7 @@ public func UIColorDim(_ white: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
 }
 /// UIImage快捷方法
 public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
-    var image = UIImage(named: name);
-    if image != nil {
-        image = image!.withRenderingMode(renderingMode)
-    }
+    let image = UIImage(named: name)?.withRenderingMode(renderingMode)
     return image
 }
 
@@ -312,8 +309,8 @@ public func ObjFromString(_ string: String, options opt: JSONSerialization.Readi
 /// NSObject -> string
 public func JSONStringFromObj(_ obj: Any, options opt: JSONSerialization.WritingOptions = []) -> String? {
     let obj = try? JSONSerialization.data(withJSONObject: obj, options: opt);
-    if let data = obj {
-        let string: String = (data as NSData).jsonString()
+    if let obj = obj {
+        let string: String = (obj as NSData).jsonString()
         return string;
     }
     return nil;

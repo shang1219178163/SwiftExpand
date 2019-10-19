@@ -13,7 +13,7 @@ import QuartzCore
     static func animDuration(_ duration: CFTimeInterval,
                                    autoreverses: Bool = false,
                                    repeatCount: Float,
-                                   fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards,
+                                   fillMode: CAMediaTimingFillMode = .forwards,
                                    removedOnCompletion:Bool = false,
                                    functionName: CAMediaTimingFunctionName) -> CAKeyframeAnimation {
         let anim: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: kTransformPosition);

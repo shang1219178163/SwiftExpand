@@ -106,7 +106,7 @@ public let kAlertActionColor = "titleTextColor"
     }
 
     /// 设置标题颜色
-    func setTitleColor(_ color: UIColor = UIColor.theme) {
+    func setTitleColor(_ color: UIColor = .theme) {
         guard let title = title else {
             return;
         }

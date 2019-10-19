@@ -20,8 +20,8 @@ import UIKit
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
-                obj = UIImageView(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj = UIImageView(frame: .zero);
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
                 obj!.contentMode = .scaleAspectFit;
                 obj!.isUserInteractionEnabled = true;
@@ -41,8 +41,8 @@ import UIKit
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
-                obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj = UILabel(frame: .zero);
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -64,7 +64,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 
                 obj!.font = UIFont.systemFont(ofSize: 13)
                 obj!.numberOfLines = 0;

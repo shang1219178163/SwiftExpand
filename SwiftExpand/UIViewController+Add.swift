@@ -50,7 +50,7 @@ import UIKit
                 obj = UIView.createTableView(view.bounds, style: .plain, rowHeight: 70);
 //                obj?.frame = view.bounds
 //                obj = UITableView(frame:view.bounds, style:.grouped);
-//                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+//                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 //
 //                obj!.separatorStyle = .singleLine;
 //                obj!.separatorInset = .zero;
@@ -81,7 +81,7 @@ import UIKit
             if obj == nil {
                 // 初始化
                 obj = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.isPagingEnabled = true;
                 obj!.backgroundColor = UIColor.background
 

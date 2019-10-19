@@ -7,8 +7,8 @@
 
 import UIKit
 
-@objc public extension UIImageView{
-    override class func initializeMethod() {
+@objc extension UIImageView{
+    override public class func initializeMethod() {
         super.initializeMethod();
         if self == UIImageView.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
@@ -17,7 +17,7 @@ import UIKit
                 let oriSel0 = #selector(setter: self.tintColor)
                 let repSel0 = #selector(self.hook_tintColor(_:))
                 
-                let _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
+                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
                 
             }
         }

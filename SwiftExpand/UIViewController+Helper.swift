@@ -9,32 +9,28 @@
 import Foundation
 import UIKit
 
-@objc public extension UIViewController{
+@objc extension UIViewController{
     
-    var controllerName: String {
-        get {
-            var className: String = NNStringFromClass(self.classForCoder);
-            if className.contains("Controller") {
-                var range = className.range(of: "Controller");
-                if className.contains("ViewController") {
-                    range = className.range(of: "ViewController");
-                    
-                }
-                className = String(className[..<range!.lowerBound]);
+    public var controllerName: String {
+        var className: String = NNStringFromClass(self.classForCoder);
+        if className.contains("Controller") {
+            var range = className.range(of: "Controller");
+            if className.contains("ViewController") {
+                range = className.range(of: "ViewController");
+                
             }
-            return className;
+            className = String(className[..<range!.lowerBound]);
         }
+        return className;
     }
     
     /// 是否正在展示
-    var isCurrentVC: Bool {
-        get{
-            return self.isViewLoaded == true && (self.view!.window != nil)
-        }
+    public var isCurrentVC: Bool {
+        return isViewLoaded == true && (view!.window != nil)
     }
     
     /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
-    func createSearchVC(_ resultsController: UIViewController) -> UISearchController {
+    public func createSearchVC(_ resultsController: UIViewController) -> UISearchController {
         definesPresentationContext = true;
         
         let searchVC = UISearchController(searchResultsController: resultsController)
@@ -43,25 +39,25 @@ import UIKit
         }
         
         searchVC.dimsBackgroundDuringPresentation = true;
-        //        searchVC.hidesNavigationBarDuringPresentation = true;
+//        searchVC.hidesNavigationBarDuringPresentation = true;
         if #available(iOS 9.1, *) {
             searchVC.obscuresBackgroundDuringPresentation = true;
         }
         
         searchVC.searchBar.barStyle = .default;
-        //        searchVC.searchBar.barTintColor = UIColor.theme;
+//        searchVC.searchBar.barTintColor = UIColor.theme;
         
         searchVC.searchBar.isTranslucent = false;
-        searchVC.searchBar.setValue("取消", forKey: "_cancelButtonText")
+//        searchVC.searchBar.setValue("取消", forKey: "_cancelButtonText")
         searchVC.searchBar.placeholder = "搜索";
         
-        //        searchVC.searchBar.delegate = self;
-        //        searchVC.delegate = self;
+//        searchVC.searchBar.delegate = self;
+//        searchVC.delegate = self;
         return searchVC;
     }
     
     /// 重置布局
-    func setupExtendedLayout() {
+    public func setupExtendedLayout() {
         edgesForExtendedLayout = [];
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
@@ -70,24 +66,22 @@ import UIKit
         }
     }
     
-    private func handleActionItem(_ sender: UIBarButtonItem) {
+    private func p_handleActionItem(_ sender: UIBarButtonItem) {
         let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ObjClosure;
         if block != nil {
             block!(sender);
-
         }
     }
     
-    func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) {
+    public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
         
-        let item:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(handleActionItem(_:)));
+        let item:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(p_handleActionItem(_:)));
         item.systemType = systemItem;
         if isLeft == true {
             navigationItem.leftBarButtonItem = item;
-        }
-        else{
+        } else {
             navigationItem.rightBarButtonItem = item;
         }
         item.runtimeKey = runtimeKey
@@ -96,7 +90,7 @@ import UIKit
     }
     
     /// 创建导航栏按钮(UIButton)
-    func createBtnBarItem(_ title: String?, image: String? = nil, isLeft: Bool = false, isHidden: Bool = false, action: (ControlClosure)? = nil) -> UIButton {
+    public func createBtnBarItem(_ title: String?, image: String? = nil, isLeft: Bool = false, isHidden: Bool = false, action: (ControlClosure)? = nil) -> UIButton {
         var size = CGSize(width: 32, height: 32)
         if image != nil && UIImage(named:image!) != nil {
             size = CGSize(width: 40, height: 40)
@@ -111,14 +105,12 @@ import UIKit
         
         if image != nil && UIImage(named:image!) != nil {
             btn.setImage(UIImage(named:image!), for: .normal);
-        }
-        else{
+        } else {
             if title!.isEmpty == false{
                 btn.setTitle(title, for: .normal);
                 if title!.count == 4{
                     btn.titleLabel?.adjustsFontSizeToFitWidth = true;
                     btn.titleLabel?.minimumScaleFactor = 1;
-                    
                 }
             }
         }
@@ -129,21 +121,19 @@ import UIKit
         let item:UIBarButtonItem = UIBarButtonItem(customView: btn);
         if isLeft == true {
             navigationItem.leftBarButtonItem = item;
-        }
-        else{
+        } else {
             navigationItem.rightBarButtonItem = item;
         }
         return btn;
     }
     
     /// 创建导航栏按钮(标题或者图片名称)
-    func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
+    public func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
         var item: UIView? = nil;
         if UIImage(named:obj) != nil{
             item = UIView.createImgView(CGRectMake(0, 0, 40, 40), imgName: obj)
 
-        }
-        else {
+        } else {
             item = UIView.createLabel(CGRectMake(0, 0, 72, 20), type: 1)
             (item as! UILabel).text = obj;
             (item as! UILabel).textAlignment = .center;
@@ -165,14 +155,13 @@ import UIKit
         let barItem = UIBarButtonItem(customView: containView)
         if isLeft == true {
             navigationItem.leftBarButtonItem = barItem;
-        }
-        else{
+        } else {
             navigationItem.rightBarButtonItem = barItem;
         }
         return containView;
     }
 
-    func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) {
+    public func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) {
         assert(UICtrFromString(name).isKind(of: UIViewController.classForCoder()))
         let controller = UICtrFromString(name)
         controller.obj = obj
@@ -180,14 +169,14 @@ import UIKit
         navigationController?.pushViewController(controller, animated: true);
     }
     
-    func addControllerName(_ controllerName: String) {
+    public func addControllerName(_ controllerName: String) {
         let controller = UICtrFromString(controllerName)
         assert(controller.isKind(of: UIViewController.classForCoder()))
         addControllerVC(controller)
     }
     
     /// 添加子控制器(对应方法 removeControllerVC)
-    func addControllerVC(_ controller: UIViewController) {
+    public func addControllerVC(_ controller: UIViewController) {
         assert(controller.isKind(of: UIViewController.classForCoder()))
         
         addChild(controller)
@@ -197,7 +186,7 @@ import UIKit
     }
     
     /// 移除添加的子控制器(对应方法 addControllerVC)
-    func removeControllerVC(_ controller: UIViewController) {
+    public func removeControllerVC(_ controller: UIViewController) {
         assert(controller.isKind(of: UIViewController.classForCoder()))
         
         controller.willMove(toParent: nil)
@@ -206,10 +195,10 @@ import UIKit
     }
     
     /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
-    func transitionTo(VC: UIViewController) {
-        self.beginAppearanceTransition(false, animated: true)  //调用self的 viewWillDisappear:
+    public func transitionTo(VC: UIViewController) {
+        beginAppearanceTransition(false, animated: true)  //调用self的 viewWillDisappear:
         VC.beginAppearanceTransition(true, animated: true)  //调用VC的 viewWillAppear:
-        self.endAppearanceTransition(); //调用self的viewDidDisappear:
+        endAppearanceTransition(); //调用self的viewDidDisappear:
         VC.endAppearanceTransition(); //调用VC的viewDidAppear:
         /*
          isAppearing 设置为 true : 触发 viewWillAppear:;
@@ -218,13 +207,13 @@ import UIKit
          */
     }
     /// 手动调用 viewWillAppear,viewDidDisappear 或 viewWillDisappear,viewDidDisappear
-    func beginAppearance(_ isAppearing: Bool, animated: Bool){
-        self.beginAppearanceTransition(isAppearing, animated: animated);
-        self.endAppearanceTransition();
+    public func beginAppearance(_ isAppearing: Bool, animated: Bool){
+        beginAppearanceTransition(isAppearing, animated: animated);
+        endAppearanceTransition();
     }
     
     /// 导航栏返回按钮图片定制
-    func createBackItem(_ image: UIImage) -> UIButton {
+    public func createBackItem(_ image: UIImage) -> UIButton {
         let btn = UIButton(type: .custom)
         btn.adjustsImageWhenHighlighted = false;
         btn.frame = CGRectMake(0, 0, 30, 40)

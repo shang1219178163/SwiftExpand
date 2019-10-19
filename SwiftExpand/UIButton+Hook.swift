@@ -9,8 +9,8 @@
 
 import UIKit
 
-@objc public extension UIButton{
-    override class func initializeMethod() {
+@objc extension UIButton{
+    override public class func initializeMethod() {
         super.initializeMethod();
         
         if self == UIButton.self {
@@ -20,12 +20,12 @@ import UIKit
                 let oriSel0 = #selector(setBackgroundImage(_:for:))
                 let repSel0 = #selector(hook_setBackgroundImage(_:for:))
                 
-                let _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
+                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
                 
                 let oriSel1 = #selector(setImage(_:for:))
                 let repSel1 = #selector(hook_setImage(_:for:))
                 
-                let _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel1, replSel: repSel1);
+                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel1, replSel: repSel1);
             }
         }
     }

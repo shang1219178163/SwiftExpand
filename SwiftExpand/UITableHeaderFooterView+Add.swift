@@ -28,7 +28,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: .zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
                 
@@ -47,7 +47,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
                 
@@ -66,7 +66,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
                 obj = UIImageView(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
                 obj!.image = UIImage(named: kIMG_arrowRight);
@@ -86,7 +86,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -105,7 +105,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -125,7 +125,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
                 obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.textAlignment = .left;
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
@@ -144,7 +144,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
             if obj == nil {
                 obj = UIButton(type: .custom);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.titleLabel?.adjustsFontSizeToFitWidth = true;
                 obj!.titleLabel?.minimumScaleFactor = 1.0;
                 obj!.isExclusiveTouch = true;
@@ -164,7 +164,7 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
             if obj == nil {
                 obj = UITextField(frame: .zero);
-                obj!.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleWidth.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue)
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
                 obj!.textAlignment = .left;
                 obj!.contentVerticalAlignment = .center;
                 obj!.autocapitalizationType = .none;
@@ -186,9 +186,8 @@ import UIKit
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Bool {
                 return obj
-            } else {
-                return false
             }
+            return false
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -199,9 +198,8 @@ import UIKit
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Bool {
                 return obj
-            } else {
-                return false
             }
+            return false
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)

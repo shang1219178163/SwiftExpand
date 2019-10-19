@@ -13,9 +13,8 @@ import UIKit
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Int {
                 return obj
-            } else {
-                return 1
             }
+            return 1
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -23,7 +22,7 @@ import UIKit
     }
     
     /// 设置UIAlertController按钮颜色
-    func setTitleColor(_ color: UIColor = UIColor.theme) {
+    func setTitleColor(_ color: UIColor = .theme) {
         setValue(color, forKey: kAlertActionColor);
 
     }

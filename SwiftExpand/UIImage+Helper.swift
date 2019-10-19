@@ -39,7 +39,7 @@ import UIKit
         self.init(cgImage: cgImage)
     }
     
-    func croppedImage(bound : CGRect) -> UIImage {
+    func croppedImage(bound: CGRect) -> UIImage {
         let scaledBounds = CGRect(x:bound.origin.x * self.scale, y:bound.origin.y * self.scale, width:bound.size.width * self.scale, height:bound.size.height * self.scale)
         let imageRef = cgImage?.cropping(to:scaledBounds)
         let croppedImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: .up)
@@ -105,7 +105,7 @@ import UIKit
     }
     
     /// 切圆角图片
-    func roundImage(byRoundingCorners: UIRectCorner = UIRectCorner.allCorners, cornerRadii: CGSize = CGSize(width: 5, height: 5)) -> UIImage? {
+    func roundImage(byRoundingCorners: UIRectCorner = .allCorners, cornerRadii: CGSize = CGSize(width: 5, height: 5)) -> UIImage? {
         
         let imageRect = CGRect(origin: CGPoint.zero, size: size)
         UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)

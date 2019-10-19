@@ -17,8 +17,8 @@ let kPingFangThin       = "PingFangSC-Thin";
 
 import UIKit
 
-@objc public extension UIFont{
-    override class func initializeMethod() {
+@objc extension UIFont{
+    override public class func initializeMethod() {
         super.initializeMethod();
         if self == UIFont.self {
             let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
@@ -27,7 +27,7 @@ import UIKit
                 let oriSel0 = #selector(systemFont(ofSize:))
                 let repSel0 = #selector(hook_systemFont(ofSize:))
                 
-                let _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
+                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
                 
             }
         }

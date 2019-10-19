@@ -55,7 +55,7 @@ public let kFunctionNames = [
                                   duration: CFTimeInterval,
                                   autoreverses: Bool = false,
                                   repeatCount: Float,
-                                  fillMode: CAMediaTimingFillMode = CAMediaTimingFillMode.forwards,
+                                  fillMode: CAMediaTimingFillMode = .forwards,
                                   removedOnCompletion: Bool = false,
                                   functionName: CAMediaTimingFunctionName = .linear) -> CABasicAnimation {
         
