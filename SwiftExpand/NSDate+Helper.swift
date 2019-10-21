@@ -179,6 +179,18 @@ public let kDateFormat_two         = "yyyyMMdd";
     var day: Int {
         return NSDate.dateComponents(self).day!;
     }
+    //MARK: 时
+    var hour: Int {
+        return NSDate.dateComponents(self).hour!;
+    }
+    //MARK: 分
+    var minute: Int {
+       return NSDate.dateComponents(self).minute!;
+    }
+    //MARK: 秒
+    var second: Int {
+    return NSDate.dateComponents(self).second!;
+    }
     
     //MARK: 当月天数
     var countOfDaysInMonth: Int {
@@ -407,15 +419,27 @@ public extension NSDate{
 public extension Date{
     //MARK: 年
     var year: Int {
-        return NSDate.dateComponents(self as NSDate).year!
+       return (self as NSDate).year
     }
     //MARK: 月
     var month: Int {
-        return NSDate.dateComponents(self as NSDate).month!
+       return (self as NSDate).month
     }
     //MARK: 日
     var day: Int {
-        return NSDate.dateComponents(self as NSDate).day!;
+       return (self as NSDate).day;
+    }
+    //MARK: 时
+    var hour: Int {
+       return (self as NSDate).hour;
+    }
+    //MARK: 分
+    var minute: Int {
+       return (self as NSDate).minute;
+    }
+    //MARK: 秒
+    var second: Int {
+       return (self as NSDate).second;
     }
     //MARK: 当月天数
     var countOfDaysInMonth: Int {

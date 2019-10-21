@@ -28,7 +28,7 @@ import UIKit
     public static func pause(_ timer: Timer, isPause: Bool) {
         //    暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
         //    继续：触发时间设置在现在/获取，这样定时器自动进入马上进入工作状态.
-        timer.fireDate = isPause == true ? NSDate.distantPast : NSDate.distantFuture;
+        timer.fireDate = isPause == true ? NSDate.distantFuture : Date();
     }
     
     public func pause(_ isPause: Bool) {
