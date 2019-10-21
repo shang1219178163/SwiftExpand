@@ -27,7 +27,7 @@ import UIKit
         }
     }
     
-    private func hook_deinit() -> Void {
+    private func hook_deinit() {
         //需要注入的代码写在此处
         NotificationCenter.default.removeObserver(self)
         self.hook_deinit()

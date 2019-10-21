@@ -61,6 +61,21 @@ import UIKit
             endUpdates()
         }
     }
+    /// 自定义标题显示
+    func sectionView(viewForSection section: Int, title: String?, isHeader: Bool) -> UIView?{
+       let sectionView = UIView()
+       if title == nil {
+           return sectionView
+       }
+       let label = UILabel(frame: CGRect(x: kX_GAP, y: 0, width: frame.width - kX_GAP*2, height: rowHeight));
+       label.backgroundColor = isHeader ? .green : .yellow;
+       
+       label.text = title
+       label.numberOfLines = isHeader ? 1 : 0
+       label.textColor = isHeader ? UIColor.black : UIColor.red
+       sectionView.addSubview(label)
+       return sectionView
+    }
 }
 
 public extension UITableView{

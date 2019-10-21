@@ -113,7 +113,7 @@ import UIKit
                                     width: CGFloat = 1,
                                     dashPattern: [NSNumber] = [NSNumber(floatLiteral: 4), NSNumber(floatLiteral: 5)],
                                     cornerRadius: CGFloat = 0,
-                                    size: CGSize = CGSize.zero) -> Void {
+                                    size: CGSize = CGSize.zero) {
         let view: UIView = self;
         assert(CGRect.zero.equalTo(view.bounds) == true && CGSize.zero.equalTo(size));
 

@@ -39,7 +39,7 @@ import UIKit
     }
     
     ///MARK:循环旋转图像(默认180°)
-    func transformRotationCycle(_ duration: TimeInterval = 0.35, angle: CGFloat = CGFloat(Double.pi)) -> Void {
+    func transformRotationCycle(_ duration: TimeInterval = 0.35, angle: CGFloat = CGFloat(Double.pi)) {
         UIView.animate(withDuration: duration, animations: {
             self.transform = self.transform.isIdentity == true ? self.transform.rotated(by: angle) : CGAffineTransform.identity;
         })
