@@ -82,7 +82,11 @@ import UIKit
             free(ivar)
         }
     }
-    
+    /// 字典转模型
+    convenience init(dic: Dictionary<String, Any>) {
+        self.init();
+        self.setValuesForKeys(dic)
+    }
     ///  富文本只有同字体大小才能计算高度
     func sizeWithText(_ text: String = "", font: CGFloat = 15, width: CGFloat) -> CGSize {
         let attDic = NSAttributedString.paraDict(font, textColor: .black, alignment: .left);

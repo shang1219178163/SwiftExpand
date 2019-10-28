@@ -60,6 +60,10 @@ import UIKit
                 let oriSel1 = #selector(self.setNilValueForKey(_:))
                 let repSel1 = #selector(self.hook_setNilValueForKey(_:))
                 _ = swizzleMethodInstance(NSObject.self, origSel: oriSel1, replSel: repSel1);
+                
+                let oriSel2 = #selector(self.setValuesForKeys(_:))
+                let repSel2 = #selector(self.hook_setValuesForKeys(_:))
+                _ = swizzleMethodInstance(NSObject.self, origSel: oriSel2, replSel: repSel2);
             }
         }
     }
@@ -79,4 +83,14 @@ import UIKit
         return;//给一个非指针对象(如NSInteger)赋值 nil, 直接忽略
     }
     
+    private func hook_setValuesForKeys(_ keyedValues: [String : Any]) {
+        for (key, value) in keyedValues {
+//            DDLog(key, value);
+            if value is Int || value is CGFloat || value is Double {
+                self.setValue("\(value)", forKey: key)
+            } else {
+                self.setValue(value, forKey: key)
+            }
+        }
+    }
 }

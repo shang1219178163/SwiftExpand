@@ -88,15 +88,17 @@ public func kScaleWidth(_ width: CGFloat) -> CGFloat {
 
 ///返回类名字符串
 public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
-//    let className: String = NSStringFromClass(cls);
-//    //    if className.contains(".") {
-//    //        let rangePoint = className.range(of: ".");
-//    //        className = String(className[rangePoint!.upperBound...]);
-//    //    }
-//    //    return className;
-//    let list = className.components(separatedBy: ".");
-//    return list.last!;
     return String(describing: cls);// return "\(type(of: self))";
+}
+
+//获取本地创建类
+public func NNClassFromString(_ name: String, hasNameSpace: Bool = true) -> AnyClass {
+    //    let nameKey = "CFBundleName";
+    //    这里也是坑，请不要翻译oc的代码，而是去NSBundle类里面看它的api
+    //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as? String;
+    let nameSpace = hasNameSpace ? UIApplication.appBundleName : "";
+    let cls: AnyClass = NSClassFromString(nameSpace + "." + name)!;
+    return cls;
 }
 
 //获取本地创建类
@@ -107,12 +109,11 @@ public func SwiftClassFromString(_ name: String) -> AnyClass {
 }
 
 /// 获取本地 UIViewController 文件
-public func UICtrFromString(_ vcName: String) -> UIViewController {
-    let cls:AnyClass = SwiftClassFromString(vcName);
+public func UICtrFromString(_ vcName: String, hasNameSpace: Bool = true) -> UIViewController {
+    let cls: AnyClass = NNClassFromString(vcName, hasNameSpace: hasNameSpace);
     // 通过类创建对象， 不能用cls.init(),有的类可能没有init方法
     // 需将cls转换为制定类型
     let vcCls = cls as! UIViewController.Type;
-    
     // 创建对象
     let controller:UIViewController = vcCls.init();
     return controller;
