@@ -48,17 +48,6 @@ import UIKit
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
             if obj == nil {
                 obj = UIView.createTableView(view.bounds, style: .plain, rowHeight: 70);
-//                obj?.frame = view.bounds
-//                obj = UITableView(frame:view.bounds, style:.grouped);
-//                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//
-//                obj!.separatorStyle = .singleLine;
-//                obj!.separatorInset = .zero;
-//                obj!.rowHeight = 60;
-//                obj!.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self));
-//                obj!.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier);
-//                obj!.keyboardDismissMode = .onDrag
-//                obj!.backgroundColor = UIColor.background;
                 if self.conforms(to: UITableViewDataSource.self) {
                     obj!.dataSource = self as? UITableViewDataSource;
                 }
@@ -74,6 +63,28 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
+    /// 关联UITableView视图对象
+    var tbViewGrouped: UITableView {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
+            if obj == nil {
+                obj = UIView.createTableView(view.bounds, style: .grouped, rowHeight: 70);
+                if self.conforms(to: UITableViewDataSource.self) {
+                    obj!.dataSource = self as? UITableViewDataSource;
+                }
+                if self.conforms(to: UITableViewDelegate.self) {
+                    obj!.delegate = self as? UITableViewDelegate;
+                }
+
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
     /// 关联UICollectionView视图对象
     var ctView : UICollectionView {
         get {

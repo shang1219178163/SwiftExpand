@@ -175,11 +175,13 @@ import UIKit
         table.separatorStyle = .singleLine;
         table.separatorInset = .zero;
         table.rowHeight = rowHeight;
-        //        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self));
+//        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self));
         table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier);
         table.keyboardDismissMode = .onDrag
         table.backgroundColor = UIColor.background;
+//        table.tableHeaderView = UIView();
 //        table.tableFooterView = UIView();
+
         return table
     }
     /// [源]UILabel创建
