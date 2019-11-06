@@ -549,6 +549,8 @@ import UIKit
 //        textField.font = UIFont.systemFont(ofSize: 13)
         searchBar.textField?.tintColor = UIColor.gray;
         searchBar.textField?.font = UIFont.systemFont(ofSize: 13)
+        searchBar.textField?.borderStyle = .none;
+
         return searchBar;
     }
 }

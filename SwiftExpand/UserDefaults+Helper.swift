@@ -32,7 +32,7 @@ public extension UserDefaults{
         self.standard.setValue(data, forKey: defaultName)
     }
     /// 解包模型
-    static func unarcObject(forkey defaultName: String) -> Any? {
+    static func arcObject(forkey defaultName: String) -> Any? {
         guard let value = self.standard.object(forKey: defaultName) as? Data else { return nil}
         return NSKeyedUnarchiver.unarchiveObject(with: value);
     }

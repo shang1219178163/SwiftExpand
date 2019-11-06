@@ -30,10 +30,10 @@ import UIKit
     static var background: UIColor {
         return UIColorHexValue(0xe9e9e9);
     }
-    
+    /// 线条默认颜色(同cell分割线颜色)
     static var line: UIColor {
 //        return UIColorHexValue(0xe0e0e0);
-        return UIColorHexValue(0xBCBAC0);
+        return UIColorHexValue(0xe4e4e4);
     }
     
     static var btnN: UIColor {

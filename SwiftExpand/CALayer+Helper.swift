@@ -19,5 +19,14 @@ import UIKit
         layer.shouldRasterize = true
         return layer
     }
-    
+    /// 控制器切换渐变动画
+    func addAnimationFade(_ duration: CFTimeInterval = 0.15, functionName: CAMediaTimingFunctionName = .easeIn) {
+        
+        let anim = CATransition()
+        anim.duration = duration;
+        anim.timingFunction = CAMediaTimingFunction(name: functionName);
+        anim.type = .fade
+        anim.isRemovedOnCompletion = true;
+        self.add(anim, forKey: "change_view_controller")
+    }
 }

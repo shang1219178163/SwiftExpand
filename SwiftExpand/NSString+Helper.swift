@@ -180,7 +180,6 @@ public extension String{
         let end = index(startIndex, offsetBy: bounds.upperBound)
         return self[startIndex ..< end]
     }
-
 }
 
 public extension Substring {
@@ -356,6 +355,7 @@ public extension Substring {
         let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormat_end)
         return result;
     }
+    
     /// 过滤特殊字符集
     func filter(_ string: String) -> String{
         assert(self.length > 0);
@@ -364,13 +364,20 @@ public extension Substring {
         return result!;
     }
     
+    /// 通过集合字符的字母分割字符串
+    func componentsSeparatedByCharactersInString(_ aString: String) -> [String]{
+        let result = (self as NSString).components(separatedBy: CharacterSet(charactersIn: aString))
+        return result;
+    }
+    
     /// 删除首尾空白字符
-    func deleteWhiteSpaceBeginEnd(_ string: String) -> String{
+    func deleteWhiteSpaceBeginEnd() -> String{
         assert(self.length > 0);
         let chartSet = NSCharacterSet.whitespacesAndNewlines;
         let result = self.trimmingCharacters(in: chartSet)
         return result;
     }
+    
     /// 取代索引处字符
     func replacingCharacter(_ index: Int) -> String{
         assert(self.length > 0);
