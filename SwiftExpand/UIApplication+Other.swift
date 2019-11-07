@@ -18,7 +18,21 @@ import Contacts
 import StoreKit
 
 @objc public extension UIApplication{
-
+    /// 全局token
+    static var token: String {
+        get {
+            return UserDefaults.standard.string(forKey: "token") ?? ""
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "token")
+        }
+    }
+    
+    /// 是否已经登录
+    static var isLoggedIn: Bool {
+        return UIApplication.token.count > 0;
+    }
+    
     /// 网络状态是否可用
     static func reachable() -> Bool {
         let data = NSData(contentsOf: URL(string: "https://www.baidu.com/")!)

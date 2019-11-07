@@ -18,11 +18,11 @@ import UIKit
         if viewControllers.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
             _ = viewController.createBackItem(UIImageNamed("icon_arowLeft_black")!)
+            DDLog(viewController.navigationItem.leftBarButtonItem)
+
         }
-        
         //push进入下一个控制器
         hook_pushViewController(viewController, animated: animated);
-        
     }
     
 }

@@ -25,13 +25,24 @@ import UIKit
         tintColor = !hidden ? UIColor.theme : UIColor.clear;
     }
 
-    //待优化
-//    static func create(title: String?, image: AnyObject?, tag: NSInteger, action:@escaping (ControlClick)) -> UIBarButtonItem? {
-//        let font = UIFont.systemFont(ofSize: UIFont.buttonFontSize - 1.0)
-//        let btn = UIView.createBtn(.zero, title: title, imgeName: image, tag: tag, type: 0,  action:action)
-//        let barItem = UIBarButtonItem(customView: btn!)
-//        barItem.tag = tag
-//        return barItem
-//    }
+    /// 创建 UIBarButtonItem
+    static func create(_ obj: String, style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem{
+        if let image = UIImage(named: obj) {
+            return UIBarButtonItem(image: image, style: style, target: target, action: action)
+        }
+        return UIBarButtonItem(title: obj, style: style, target: target, action: action);
+    }
+    
+    /// UIBarButtonItem 回调
+    func addAction(_ closure: @escaping (UIBarButtonItem) -> Void) {
+        objc_setAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!, closure, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        target = self;
+        action = #selector(p_invoke);
+    }
+    
+    private func p_invoke() {
+        let closure = objc_getAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!) as! ((UIBarButtonItem) -> Void)
+        closure(self);
+    }
 
 }

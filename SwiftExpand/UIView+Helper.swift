@@ -264,7 +264,6 @@ import UIKit
                 obj = UITapGestureRecognizer(target: self, action: #selector(p_handleActionTap(_:)));
                 isUserInteractionEnabled = true;
                 addGestureRecognizer(obj! as! UIGestureRecognizer);
-                
             }
         }
 //        objc_setAssociatedObject(self, RuntimeKey.tap, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
