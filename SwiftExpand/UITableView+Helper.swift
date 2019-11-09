@@ -8,6 +8,24 @@
 import UIKit
 
 @objc public extension UITableView{
+    /// [源]UITableView创建
+    static func create(_ rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> UITableView{
+        let table = UITableView(frame: rect, style: style);
+        table.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        table.separatorStyle = .singleLine;
+        table.separatorInset = .zero;
+        table.rowHeight = rowHeight;
+//        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self));
+        table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier);
+        table.keyboardDismissMode = .onDrag
+        table.backgroundColor = UIColor.background;
+//        table.tableHeaderView = UIView();
+//        table.tableFooterView = UIView();
+
+        return table
+    }
+    
     /// 刷新行数组
     func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) {
         assert(section <= numberOfSections)

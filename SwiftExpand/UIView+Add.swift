@@ -137,192 +137,192 @@ import UIKit
         view.layer.addSublayer(shapeLayer);
     }
     
-    /// 线条位置
-    func rectWithLine(type: Int = 0, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CGRect {
-        var rect = CGRect.zero;
-        switch type {
-        case 1://左边框
-            let paddingY = bounds.height*paddingScale;
-            rect = CGRectMake(0, paddingY, bounds.width, bounds.height - paddingY*2)
-            
-        case 2://下边框
-            let paddingX = bounds.width*paddingScale;
-            rect = CGRectMake(paddingX, bounds.height - width, bounds.width - paddingX*2, width)
-            
-        case 3://右边框
-            let paddingY = bounds.height*paddingScale;
-            rect = CGRectMake(bounds.width - width, paddingY, bounds.width, bounds.height - paddingY*2)
-            
-        default: //上边框
-            let paddingX = bounds.width*paddingScale;
-            rect = CGRectMake(paddingX, 0, bounds.width - paddingX*2, width)
-        }
-        return rect;
-    }
-    /// 创建CALayer 线条
-    func createLayer(type: Int = 0, color: UIColor = UIColor.line, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CALayer {
-        let linView = CALayer()
-        linView.backgroundColor = color.cgColor;
-        linView.frame = self.rectWithLine(type: type, width: width, paddingScale: paddingScale);
-        return linView;
-    }
+//    /// 线条位置
+//    func rectWithLine(type: Int = 0, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CGRect {
+//        var rect = CGRect.zero;
+//        switch type {
+//        case 1://左边框
+//            let paddingY = bounds.height*paddingScale;
+//            rect = CGRectMake(0, paddingY, bounds.width, bounds.height - paddingY*2)
+//            
+//        case 2://下边框
+//            let paddingX = bounds.width*paddingScale;
+//            rect = CGRectMake(paddingX, bounds.height - width, bounds.width - paddingX*2, width)
+//            
+//        case 3://右边框
+//            let paddingY = bounds.height*paddingScale;
+//            rect = CGRectMake(bounds.width - width, paddingY, bounds.width, bounds.height - paddingY*2)
+//            
+//        default: //上边框
+//            let paddingX = bounds.width*paddingScale;
+//            rect = CGRectMake(paddingX, 0, bounds.width - paddingX*2, width)
+//        }
+//        return rect;
+//    }
+//    /// 创建CALayer 线条
+//    func createLayer(type: Int = 0, color: UIColor = UIColor.line, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CALayer {
+//        let linView = CALayer()
+//        linView.backgroundColor = color.cgColor;
+//        linView.frame = self.rectWithLine(type: type, width: width, paddingScale: paddingScale);
+//        return linView;
+//    }
     
-    /// [源]UITableView创建
-    static func createTableView(_ rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> UITableView{
-        let table = UITableView(frame: rect, style: style);
-        table.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-        table.separatorStyle = .singleLine;
-        table.separatorInset = .zero;
-        table.rowHeight = rowHeight;
-//        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self));
-        table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier);
-        table.keyboardDismissMode = .onDrag
-        table.backgroundColor = UIColor.background;
-//        table.tableHeaderView = UIView();
-//        table.tableFooterView = UIView();
-
-        return table
-    }
-    /// [源]UILabel创建
-    static func createLabel(_ rect: CGRect = .zero, type: Int = 0) -> UILabel {
-        let view = UILabel(frame: rect);
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.isUserInteractionEnabled = true;
-        view.textAlignment = .left;
-        view.font = UIFont.systemFont(ofSize: 15);
-        
-        switch type {
-        case 1:
-            view.numberOfLines = 1;
-            view.lineBreakMode = .byTruncatingTail;
-            
-        case 2:
-            view.numberOfLines = 1;
-            view.lineBreakMode = .byTruncatingTail;
-            view.adjustsFontSizeToFitWidth = true;
-            
-        case 3:
-            view.numberOfLines = 1;
-            view.lineBreakMode = .byTruncatingTail;
-            
-            view.layer.borderColor = view.textColor.cgColor;
-            view.layer.borderWidth = 1.0;
-            view.layer.masksToBounds = true;
-            view.layer.cornerRadius = rect.width*0.5;
-            
-        case 4:
-            view.numberOfLines = 1;
-            view.lineBreakMode = .byTruncatingTail;
-            
-            view.layer.borderColor = view.textColor.cgColor;
-            view.layer.borderWidth = 1.0;
-            view.layer.masksToBounds = true;
-            view.layer.cornerRadius = 3;
-            
-        default:
-            view.numberOfLines = 0;
-            view.lineBreakMode = .byCharWrapping;
-        }
-        return view;
-    }
-    /// [源]UIImageView创建
-    static func createImgView(_ rect: CGRect = .zero, imgName: String) -> UIImageView {
-        let view = UIImageView(frame: rect);
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.isUserInteractionEnabled = true;
-        view.contentMode = .scaleAspectFit;
-        view.image = UIImage(named: imgName);
-        
-        return view
-    }
-    /// [源]UIButton创建
-    static func createBtn(_ rect: CGRect = .zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
-        let view = UIButton(type: .custom);
-        view.titleLabel?.font = UIFont.systemFont(ofSize:16);
-        view.titleLabel?.adjustsFontSizeToFitWidth = true;
-        view.titleLabel?.minimumScaleFactor = 1.0;
-        view.imageView?.contentMode = .scaleAspectFit
-        view.isExclusiveTouch = true;
-        view.adjustsImageWhenHighlighted = false;
-
-        view.frame = rect;
-        view.setTitle(title, for: .normal)
-        if imgName != nil && UIImageNamed(imgName!) != nil {
-            view.setImage(UIImageNamed(imgName!), for: .normal)
-        }
-        
-        switch type {
-        case 1://白色字体,主题色背景
-            view.setTitleColor( .white, for: .normal)
-            view.backgroundColor = .theme
-            
-        case 2:
-            view.setTitleColor( .red, for: .normal);
-
-        case 3://导航栏专用
-            view.setTitleColor( .white, for: .normal);
-
-        case 4://地图定位按钮一类
-            view.setBackgroundImage(UIImageNamed(imgName!), for: .normal)
-            view.setBackgroundImage(UIImageColor( .lightGray), for: .disabled)
-            
-        case 5://主题色字体,边框
-            view.setTitleColor( .theme, for: .normal);
-            view.layer.borderColor = UIColor.theme.cgColor;
-            view.layer.borderWidth = kW_LayerBorder;
-
-        case 6://主题色字体,无边框
-            view.setTitleColor( .theme, for: .normal);
-            
-        default://黑色字体,白色背景
-            view.setTitleColor( .black, for: .normal)
-            
-        }
-        return view
-    }
-    /// [源]UITextField创建
-    static func createTextField(_ rect: CGRect = .zero) -> UITextField {
-        let view = UITextField(frame: rect);
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.borderStyle = .roundedRect;
-        view.contentVerticalAlignment = .center;
-        view.clearButtonMode = .whileEditing;
-        view.autocapitalizationType = .none;
-        view.autocorrectionType = .no;
-        view.backgroundColor = .white;
-        view.returnKeyType = .done
-        view.textAlignment = .left;
-        view.font = UIFont.systemFont(ofSize: 15)
-
-        return view
-    }
-    /// [源]UITextView创建
-    static func createTextView(_ rect: CGRect = .zero) -> UITextView {
-        let view = UITextView(frame: rect);
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.autocapitalizationType = .none;
-        view.autocorrectionType = .no;
-        view.backgroundColor = .white;
-        
-        view.layer.borderWidth = 0.5;
-        view.layer.borderColor = UIColor.line.cgColor;
-        
-        view.textAlignment = .left;
-        view.font = UIFont.systemFont(ofSize: 15)
-
-        return view
-    }
-    
-    /// 展示性质UITextView创建
-    static func createShowTextView(_ rect: CGRect = .zero) -> UITextView {
-        let view = UITextView.createTextView(rect);
-        view.contentOffset = CGPoint(x: 0, y: 8)
-        view.isEditable = false;
-        view.dataDetectorTypes = .all;
-        
-        return view
-    }
+//    /// [源]UITableView创建
+//    static func createTableView(_ rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> UITableView{
+//        let table = UITableView(frame: rect, style: style);
+//        table.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//
+//        table.separatorStyle = .singleLine;
+//        table.separatorInset = .zero;
+//        table.rowHeight = rowHeight;
+////        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self));
+//        table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier);
+//        table.keyboardDismissMode = .onDrag
+//        table.backgroundColor = UIColor.background;
+////        table.tableHeaderView = UIView();
+////        table.tableFooterView = UIView();
+//
+//        return table
+//    }
+//    /// [源]UILabel创建
+//    static func createLabel(_ rect: CGRect = .zero, type: Int = 0) -> UILabel {
+//        let view = UILabel(frame: rect);
+//        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.isUserInteractionEnabled = true;
+//        view.textAlignment = .left;
+//        view.font = UIFont.systemFont(ofSize: 15);
+//
+//        switch type {
+//        case 1:
+//            view.numberOfLines = 1;
+//            view.lineBreakMode = .byTruncatingTail;
+//
+//        case 2:
+//            view.numberOfLines = 1;
+//            view.lineBreakMode = .byTruncatingTail;
+//            view.adjustsFontSizeToFitWidth = true;
+//
+//        case 3:
+//            view.numberOfLines = 1;
+//            view.lineBreakMode = .byTruncatingTail;
+//
+//            view.layer.borderColor = view.textColor.cgColor;
+//            view.layer.borderWidth = 1.0;
+//            view.layer.masksToBounds = true;
+//            view.layer.cornerRadius = rect.width*0.5;
+//
+//        case 4:
+//            view.numberOfLines = 1;
+//            view.lineBreakMode = .byTruncatingTail;
+//
+//            view.layer.borderColor = view.textColor.cgColor;
+//            view.layer.borderWidth = 1.0;
+//            view.layer.masksToBounds = true;
+//            view.layer.cornerRadius = 3;
+//
+//        default:
+//            view.numberOfLines = 0;
+//            view.lineBreakMode = .byCharWrapping;
+//        }
+//        return view;
+//    }
+//    /// [源]UIImageView创建
+//    static func createImgView(_ rect: CGRect = .zero, imgName: String) -> UIImageView {
+//        let view = UIImageView(frame: rect);
+//        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.isUserInteractionEnabled = true;
+//        view.contentMode = .scaleAspectFit;
+//        view.image = UIImage(named: imgName);
+//
+//        return view
+//    }
+//    /// [源]UIButton创建
+//    static func createBtn(_ rect: CGRect = .zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
+//        let view = UIButton(type: .custom);
+//        view.titleLabel?.font = UIFont.systemFont(ofSize:16);
+//        view.titleLabel?.adjustsFontSizeToFitWidth = true;
+//        view.titleLabel?.minimumScaleFactor = 1.0;
+//        view.imageView?.contentMode = .scaleAspectFit
+//        view.isExclusiveTouch = true;
+//        view.adjustsImageWhenHighlighted = false;
+//
+//        view.frame = rect;
+//        view.setTitle(title, for: .normal)
+//        if imgName != nil && UIImageNamed(imgName!) != nil {
+//            view.setImage(UIImageNamed(imgName!), for: .normal)
+//        }
+//
+//        switch type {
+//        case 1://白色字体,主题色背景
+//            view.setTitleColor( .white, for: .normal)
+//            view.backgroundColor = .theme
+//
+//        case 2:
+//            view.setTitleColor( .red, for: .normal);
+//
+//        case 3://导航栏专用
+//            view.setTitleColor( .white, for: .normal);
+//
+//        case 4://地图定位按钮一类
+//            view.setBackgroundImage(UIImageNamed(imgName!), for: .normal)
+//            view.setBackgroundImage(UIImageColor( .lightGray), for: .disabled)
+//
+//        case 5://主题色字体,边框
+//            view.setTitleColor( .theme, for: .normal);
+//            view.layer.borderColor = UIColor.theme.cgColor;
+//            view.layer.borderWidth = kW_LayerBorder;
+//
+//        case 6://主题色字体,无边框
+//            view.setTitleColor( .theme, for: .normal);
+//
+//        default://黑色字体,白色背景
+//            view.setTitleColor( .black, for: .normal)
+//
+//        }
+//        return view
+//    }
+//    /// [源]UITextField创建
+//    static func createTextField(_ rect: CGRect = .zero) -> UITextField {
+//        let view = UITextField(frame: rect);
+//        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.borderStyle = .roundedRect;
+//        view.contentVerticalAlignment = .center;
+//        view.clearButtonMode = .whileEditing;
+//        view.autocapitalizationType = .none;
+//        view.autocorrectionType = .no;
+//        view.backgroundColor = .white;
+//        view.returnKeyType = .done
+//        view.textAlignment = .left;
+//        view.font = UIFont.systemFont(ofSize: 15)
+//
+//        return view
+//    }
+//    /// [源]UITextView创建
+//    static func createTextView(_ rect: CGRect = .zero) -> UITextView {
+//        let view = UITextView(frame: rect);
+//        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.autocapitalizationType = .none;
+//        view.autocorrectionType = .no;
+//        view.backgroundColor = .white;
+//
+//        view.layer.borderWidth = 0.5;
+//        view.layer.borderColor = UIColor.line.cgColor;
+//
+//        view.textAlignment = .left;
+//        view.font = UIFont.systemFont(ofSize: 15)
+//
+//        return view
+//    }
+//
+//    /// 展示性质UITextView创建
+//    static func createShowTextView(_ rect: CGRect = .zero) -> UITextView {
+//        let view = UITextView.createTextView(rect);
+//        view.contentOffset = CGPoint(x: 0, y: 8)
+//        view.isEditable = false;
+//        view.dataDetectorTypes = .all;
+//
+//        return view
+//    }
     
     /// [源]HeaderView,footerView
     static func createSectionView(_ tableView: UITableView, text: String?, textAlignment: NSTextAlignment = .left, height: CGFloat = 30) -> UIView{
@@ -408,149 +408,149 @@ import UIKit
         }
         return backView;
     }
-    /// [源]UISegmentControl创建
-    static func createSegment(_ rect: CGRect = .zero, items: Array<Any>!, selectedIdx: Int = 0, type: Int = 0) -> UISegmentedControl {
-        let view = UISegmentedControl(items: items)
-        view.frame = rect
-        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
-        view.selectedSegmentIndex = selectedIdx
-        
-        switch type {
-        case 1:
-            view.tintColor = UIColor.theme
-            view.backgroundColor = UIColor.white
-            view.layer.borderWidth = 1.0
-            view.layer.borderColor = UIColor.white.cgColor
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
-                         
-                         ]
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setDividerImage(UIImageColor(UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default);
-            
-        case 2:
-            view.tintColor = UIColor.white
-            view.backgroundColor = UIColor.white
-            
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
-                         ]
-            
-            let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
-                         ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
-            
-        case 3:
-            view.tintColor = UIColor.clear
-            view.backgroundColor = UIColor.line
-            
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
-                         
-                         ]
-            
-            let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
-                         
-                         ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
-            
-        default:
-            view.tintColor = UIColor.theme
-            view.backgroundColor = UIColor.white
-            
-            let dic_N = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
-                
-                ]
-            
-            let dic_H = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
-                
-                ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
-        }
-        return view;
-    }
-    /// [源]UISlider创建
-    static func createSlider(_ rect: CGRect = .zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
-        let view = UISlider(frame: rect)
-        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
-        view.minimumValue = minValue
-        view.maximumValue = maxValue
-        view.value = value;
-        
-        view.minimumTrackTintColor = UIColor.theme
-        return view;
-    }
-    /// [源]UISwitch创建
-    static func createSwitch(_ rect: CGRect = .zero, isOn: Bool = true) -> UISwitch {
-        let view = UISwitch(frame: rect)
-        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
-        view.isOn = isOn
-        view.onTintColor = UIColor.theme
-        return view
-    }
-    /// [源]UIPageControl创建
-    static func createPageControl(_ rect: CGRect = .zero, numberOfPages: Int, currentPage: Int = 0) -> UIPageControl {
-        let pageControl: UIPageControl = {
-            let control: UIPageControl = UIPageControl(frame: rect);
-            control.currentPageIndicatorTintColor = UIColor.theme;
-            control.pageIndicatorTintColor = UIColor.lightGray;
-            control.isUserInteractionEnabled = true;
-            control.hidesForSinglePage = true;
-            control.currentPage = 0;
-            control.numberOfPages = numberOfPages;
-            
-            return control;
-        }();
-        return pageControl;
-    }
-    /// [源]UISearchBar创建
-    static func createSearchBarRect(_ rect: CGRect) -> UISearchBar {
-        let searchBar = UISearchBar(frame: rect)
-        
-        //设置背景色
-//        searchBar.backgroundColor = UIColor.black.withAlphaComponent(0.1);
-//        searchBar.layer.cornerRadius = rect.height*0.5;
-//        searchBar.layer.masksToBounds = true;
-        //设置背景图是为了去掉上下黑线
-        searchBar.backgroundImage = UIImage();
-        //searchBar.backgroundImage = [UIImage imageNamed:@"sexBankgroundImage"];
-        // 设置SearchBar的主题颜色
-        //searchBar.barTintColor = [UIColor colorWithRed:111 green:212 blue:163 alpha:1];
-
-        
-        searchBar.barStyle = .default;
-        searchBar.keyboardType = .namePhonePad;
-        //searchBar.searchBarStyle = UISearchBarStyleMinimal;
-        //没有背影，透明样式
-        // 修改cancel
-//        searchBar.setValue("取消", forKey: "cancelButtonText")
-//        searchBar.showsCancelButton = true;
-        //    searchBar.showsSearchResultsButton = true;
-        //5. 设置搜索Icon
-        //    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-        searchBar.setPositionAdjustment(UIOffset(horizontal: -8, vertical: 1), for: .search)
-        // 删除按钮往右移一点
-        searchBar.setPositionAdjustment(UIOffset(horizontal: 8, vertical: 0), for: .clear)
-        
-//        guard let textField: UITextField = (searchBar.findSubview(type: UITextField.self, resursion: true) as? UITextField) else { return searchBar; }
-//        textField.backgroundColor = UIColor.clear
-//        textField.tintColor = UIColor.gray;
-//        textField.textColor = UIColor.white;
-//        textField.font = UIFont.systemFont(ofSize: 13)
-        searchBar.textField?.tintColor = UIColor.gray;
-        searchBar.textField?.font = UIFont.systemFont(ofSize: 13)
-        searchBar.textField?.borderStyle = .none;
-
-        return searchBar;
-    }
+//    /// [源]UISegmentControl创建
+//    static func createSegment(_ rect: CGRect = .zero, items: Array<Any>!, selectedIdx: Int = 0, type: Int = 0) -> UISegmentedControl {
+//        let view = UISegmentedControl(items: items)
+//        view.frame = rect
+//        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+//        view.selectedSegmentIndex = selectedIdx
+//
+//        switch type {
+//        case 1:
+//            view.tintColor = UIColor.theme
+//            view.backgroundColor = UIColor.white
+//            view.layer.borderWidth = 1.0
+//            view.layer.borderColor = UIColor.white.cgColor
+//            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
+//                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+//
+//                         ]
+//            view.setTitleTextAttributes(dic_N, for: .normal)
+//            view.setDividerImage(UIImageColor(UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default);
+//
+//        case 2:
+//            view.tintColor = UIColor.white
+//            view.backgroundColor = UIColor.white
+//
+//            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
+//                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+//                         ]
+//
+//            let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
+//                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+//                         ]
+//
+//            view.setTitleTextAttributes(dic_N, for: .normal)
+//            view.setTitleTextAttributes(dic_H, for: .selected)
+//
+//        case 3:
+//            view.tintColor = UIColor.clear
+//            view.backgroundColor = UIColor.line
+//
+//            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
+//                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+//
+//                         ]
+//
+//            let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
+//                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+//
+//                         ]
+//
+//            view.setTitleTextAttributes(dic_N, for: .normal)
+//            view.setTitleTextAttributes(dic_H, for: .selected)
+//
+//        default:
+//            view.tintColor = UIColor.theme
+//            view.backgroundColor = UIColor.white
+//
+//            let dic_N = [
+//                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+//
+//                ]
+//
+//            let dic_H = [
+//                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+//
+//                ]
+//
+//            view.setTitleTextAttributes(dic_N, for: .normal)
+//            view.setTitleTextAttributes(dic_H, for: .selected)
+//        }
+//        return view;
+//    }
+//    /// [源]UISlider创建
+//    static func createSlider(_ rect: CGRect = .zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
+//        let view = UISlider(frame: rect)
+//        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+//        view.minimumValue = minValue
+//        view.maximumValue = maxValue
+//        view.value = value;
+//
+//        view.minimumTrackTintColor = UIColor.theme
+//        return view;
+//    }
+//    /// [源]UISwitch创建
+//    static func createSwitch(_ rect: CGRect = .zero, isOn: Bool = true) -> UISwitch {
+//        let view = UISwitch(frame: rect)
+//        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+//        view.isOn = isOn
+//        view.onTintColor = UIColor.theme
+//        return view
+//    }
+//    /// [源]UIPageControl创建
+//    static func createPageControl(_ rect: CGRect = .zero, numberOfPages: Int, currentPage: Int = 0) -> UIPageControl {
+//        let pageControl: UIPageControl = {
+//            let control: UIPageControl = UIPageControl(frame: rect);
+//            control.currentPageIndicatorTintColor = UIColor.theme;
+//            control.pageIndicatorTintColor = UIColor.lightGray;
+//            control.isUserInteractionEnabled = true;
+//            control.hidesForSinglePage = true;
+//            control.currentPage = 0;
+//            control.numberOfPages = numberOfPages;
+//
+//            return control;
+//        }();
+//        return pageControl;
+//    }
+//    /// [源]UISearchBar创建
+//    static func createSearchBarRect(_ rect: CGRect) -> UISearchBar {
+//        let searchBar = UISearchBar(frame: rect)
+//
+//        //设置背景色
+////        searchBar.backgroundColor = UIColor.black.withAlphaComponent(0.1);
+////        searchBar.layer.cornerRadius = rect.height*0.5;
+////        searchBar.layer.masksToBounds = true;
+//        //设置背景图是为了去掉上下黑线
+//        searchBar.backgroundImage = UIImage();
+//        //searchBar.backgroundImage = [UIImage imageNamed:@"sexBankgroundImage"];
+//        // 设置SearchBar的主题颜色
+//        //searchBar.barTintColor = [UIColor colorWithRed:111 green:212 blue:163 alpha:1];
+//
+//
+//        searchBar.barStyle = .default;
+//        searchBar.keyboardType = .namePhonePad;
+//        //searchBar.searchBarStyle = UISearchBarStyleMinimal;
+//        //没有背影，透明样式
+//        // 修改cancel
+////        searchBar.setValue("取消", forKey: "cancelButtonText")
+////        searchBar.showsCancelButton = true;
+//        //    searchBar.showsSearchResultsButton = true;
+//        //5. 设置搜索Icon
+//        //    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+//        searchBar.setPositionAdjustment(UIOffset(horizontal: -8, vertical: 1), for: .search)
+//        // 删除按钮往右移一点
+//        searchBar.setPositionAdjustment(UIOffset(horizontal: 8, vertical: 0), for: .clear)
+//
+////        guard let textField: UITextField = (searchBar.findSubview(type: UITextField.self, resursion: true) as? UITextField) else { return searchBar; }
+////        textField.backgroundColor = UIColor.clear
+////        textField.tintColor = UIColor.gray;
+////        textField.textColor = UIColor.white;
+////        textField.font = UIFont.systemFont(ofSize: 13)
+//        searchBar.textField?.tintColor = UIColor.gray;
+//        searchBar.textField?.font = UIFont.systemFont(ofSize: 13)
+//        searchBar.textField?.borderStyle = .none;
+//
+//        return searchBar;
+//    }
 }

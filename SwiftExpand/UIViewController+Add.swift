@@ -47,7 +47,7 @@ import UIKit
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
             if obj == nil {
-                obj = UIView.createTableView(view.bounds, style: .plain, rowHeight: 70);
+                obj = UITableView.create(view.bounds, style: .plain, rowHeight: 70);
                 if self.conforms(to: UITableViewDataSource.self) {
                     obj!.dataSource = self as? UITableViewDataSource;
                 }
@@ -68,7 +68,7 @@ import UIKit
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITableView;
             if obj == nil {
-                obj = UIView.createTableView(view.bounds, style: .grouped, rowHeight: 70);
+                obj = UITableView.create(view.bounds, style: .grouped, rowHeight: 70);
                 if self.conforms(to: UITableViewDataSource.self) {
                     obj!.dataSource = self as? UITableViewDataSource;
                 }

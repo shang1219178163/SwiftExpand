@@ -32,7 +32,51 @@ import UIKit
 //
 //        self.frame = frame
 //    }
-    
+    /// [源]UIButton创建
+    static func create(_ rect: CGRect = .zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
+        let view = UIButton(type: .custom);
+        view.titleLabel?.font = UIFont.systemFont(ofSize:16);
+        view.titleLabel?.adjustsFontSizeToFitWidth = true;
+        view.titleLabel?.minimumScaleFactor = 1.0;
+        view.imageView?.contentMode = .scaleAspectFit
+        view.isExclusiveTouch = true;
+        view.adjustsImageWhenHighlighted = false;
+
+        view.frame = rect;
+        view.setTitle(title, for: .normal)
+        if imgName != nil && UIImageNamed(imgName!) != nil {
+            view.setImage(UIImageNamed(imgName!), for: .normal)
+        }
+        
+        switch type {
+        case 1://白色字体,主题色背景
+            view.setTitleColor( .white, for: .normal)
+            view.backgroundColor = .theme
+            
+        case 2:
+            view.setTitleColor( .red, for: .normal);
+
+        case 3://导航栏专用
+            view.setTitleColor( .white, for: .normal);
+
+        case 4://地图定位按钮一类
+            view.setBackgroundImage(UIImageNamed(imgName!), for: .normal)
+            view.setBackgroundImage(UIImageColor( .lightGray), for: .disabled)
+            
+        case 5://主题色字体,边框
+            view.setTitleColor( .theme, for: .normal);
+            view.layer.borderColor = UIColor.theme.cgColor;
+            view.layer.borderWidth = kW_LayerBorder;
+
+        case 6://主题色字体,无边框
+            view.setTitleColor( .theme, for: .normal);
+            
+        default://黑色字体,白色背景
+            view.setTitleColor( .black, for: .normal)
+            
+        }
+        return view
+    }
     /// 图片上左下右配置
     func layoutButton(style: Int, imageTitleSpace: CGFloat = 5) {
         //得到imageView和titleLabel的宽高

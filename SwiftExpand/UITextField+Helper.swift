@@ -11,7 +11,21 @@
 import UIKit
 
 @objc public extension UITextField{
-
+    /// [源]UITextField创建
+    static func create(_ rect: CGRect = .zero) -> UITextField {
+        let view = UITextField(frame: rect);
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.borderStyle = .roundedRect;
+        view.contentVerticalAlignment = .center;
+        view.clearButtonMode = .whileEditing;
+        view.autocapitalizationType = .none;
+        view.autocorrectionType = .no;
+        view.backgroundColor = .white;
+        view.returnKeyType = .done
+        view.textAlignment = .left;
+        view.font = UIFont.systemFont(ofSize: 15)
+        return view
+    }
     ///  RightView
     func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView! {
         assert(unitName != nil && unitName.isValid == true);
