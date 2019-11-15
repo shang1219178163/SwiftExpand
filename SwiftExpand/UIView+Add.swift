@@ -34,7 +34,8 @@ import UIKit
             if obj == nil {
                 obj = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: kH_LINE_VIEW));
                 obj!.backgroundColor = .line
-                
+                addSubview(obj!)
+
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;
@@ -347,13 +348,9 @@ import UIKit
         let rowCount = count % numberOfRow == 0 ? count/numberOfRow : count/numberOfRow + 1;
         return rowCount.toCGFloat * itemHeight + (rowCount - 1).toCGFloat * padding;
     }
+    
     /// [源]GroupView创建
-    static func createGroupView(_ rect: CGRect = .zero,
-                                      list: Array<String>!,
-                                      numberOfRow: Int = 4,
-                                      padding: CGFloat = kPadding,
-                                      type: Int = 0,
-                                      action:@escaping (UITapGestureRecognizer?, UIView, NSInteger)->()) -> UIView {
+    static func createGroupView(_ rect: CGRect = CGRect.zero, list: [String]!, numberOfRow: Int = 4, padding: CGFloat = kPadding, type: Int = 0, action: ((UITapGestureRecognizer?, UIView, NSInteger)->Void)? = nil) -> UIView {
         
         let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1;
         let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
@@ -382,8 +379,7 @@ import UIKit
                 
                 label.numberOfLines = 0;
                 label.lineBreakMode = .byCharWrapping;
-                label.font = UIFont.systemFont(ofSize: 15)
-
+                
                 view = label;
                 
             default:
@@ -400,19 +396,59 @@ import UIKit
                 view = button;
             }
             view.tag = i;
-            view.addActionClosure { (tap, itemView, idx) in
-                action(tap,itemView,idx);
+    
+            if action != nil {
+                view.addActionClosure(action!)
             }
             
             backView.addSubview(view);
         }
         return backView;
     }
+    
+    /// 创建 UIButton 集群
+    static func createGroupBtnView(_ rect: CGRect = .zero, list: [String]!, numberOfRow: Int = 4, padding: CGFloat = kPadding, type: Int = 0, action: (ControlClosure)? = nil) -> UIView {
+        
+        let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1;
+        let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
+        let itemHeight = (rect.height - CGFloat(rowCount - 1)*padding)/CGFloat(rowCount)
+        
+        let backView = UIView(frame: rect);
+        for (i,value) in list.enumerated() {
+            let x = CGFloat(i % numberOfRow) * (itemWidth + padding);
+            let y = CGFloat(i / numberOfRow) * (itemHeight + padding);
+            let rect = CGRect(x: x, y: y, width: itemWidth, height: itemHeight);
+            
+            let button: UIButton = {
+                let button = UIButton(type: .custom);
+                button.frame = rect;
+                button.setTitle(value, for: .normal);
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 15);
+                button.titleLabel?.adjustsFontSizeToFitWidth = true;
+                button.titleLabel?.minimumScaleFactor = 1.0;
+                button.isExclusiveTouch = true;
+                
+                button.setTitleColor(UIColor.black, for: .normal);
+                button.backgroundColor = UIColor.white;
+                button.tag = i;
+                
+                return button;
+            }()
+    
+            if action != nil {
+                button.addActionHandler(action!)
+            }
+            backView.addSubview(button);
+            backView.addSubview(backView.lineTop)
+        }
+        return backView;
+    }
+    
 //    /// [源]UISegmentControl创建
 //    static func createSegment(_ rect: CGRect = .zero, items: Array<Any>!, selectedIdx: Int = 0, type: Int = 0) -> UISegmentedControl {
 //        let view = UISegmentedControl(items: items)
 //        view.frame = rect
-//        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+//        view.autoresizingMask = .flexibleWidth
 //        view.selectedSegmentIndex = selectedIdx
 //
 //        switch type {
@@ -482,7 +518,7 @@ import UIKit
 //    /// [源]UISlider创建
 //    static func createSlider(_ rect: CGRect = .zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
 //        let view = UISlider(frame: rect)
-//        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+//        view.autoresizingMask = .flexibleWidth
 //        view.minimumValue = minValue
 //        view.maximumValue = maxValue
 //        view.value = value;
@@ -493,7 +529,7 @@ import UIKit
 //    /// [源]UISwitch创建
 //    static func createSwitch(_ rect: CGRect = .zero, isOn: Bool = true) -> UISwitch {
 //        let view = UISwitch(frame: rect)
-//        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+//        view.autoresizingMask = .flexibleWidth
 //        view.isOn = isOn
 //        view.onTintColor = UIColor.theme
 //        return view

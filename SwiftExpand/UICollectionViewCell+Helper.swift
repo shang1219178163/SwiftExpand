@@ -81,4 +81,28 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
+    
+    var btn: UIButton {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
+            if obj == nil {
+                obj = {
+                    let btn = UIButton(type: .custom);
+                    btn.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                    btn.titleLabel?.font = UIFont.systemFont(ofSize: 15);
+                    btn.titleLabel?.adjustsFontSizeToFitWidth = true;
+                    btn.titleLabel?.minimumScaleFactor = 1.0;
+                    btn.isExclusiveTouch = true;
+                    btn.setTitleColor(.textColor3, for: .normal)
+                    btn.setTitleColor(.theme, for: .selected)
+                    return btn
+                }()
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
 }

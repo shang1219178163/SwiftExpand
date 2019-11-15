@@ -10,8 +10,8 @@ import UIKit
 
 @objc public extension CALayer{
     /// [源]创建 CALayer
-    static func create(_ rect: CGRect = .zero, contents: Any?) -> CALayer {
-        let layer = CALayer()
+    static func create(_ rect: CGRect = .zero, contents: Any?) -> Self {
+        let layer = self.init()
         layer.frame = rect
         layer.contents = contents
         layer.contentsScale = UIScreen.main.scale

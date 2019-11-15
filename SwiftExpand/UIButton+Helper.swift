@@ -33,8 +33,8 @@ import UIKit
 //        self.frame = frame
 //    }
     /// [源]UIButton创建
-    static func create(_ rect: CGRect = .zero, title: String?, imgName: String?, type: Int = 0) -> UIButton {
-        let view = UIButton(type: .custom);
+    static func create(_ rect: CGRect = .zero, title: String?, imgName: String?, type: Int = 0) -> Self {
+        let view = self.init(type: .custom);
         view.titleLabel?.font = UIFont.systemFont(ofSize:16);
         view.titleLabel?.adjustsFontSizeToFitWidth = true;
         view.titleLabel?.minimumScaleFactor = 1.0;
@@ -44,9 +44,9 @@ import UIKit
 
         view.frame = rect;
         view.setTitle(title, for: .normal)
-        if imgName != nil && UIImageNamed(imgName!) != nil {
-            view.setImage(UIImageNamed(imgName!), for: .normal)
-        }
+//        if imgName != nil && UIImageNamed(imgName!) != nil {
+//            view.setImage(UIImageNamed(imgName!), for: .normal)
+//        }
         
         switch type {
         case 1://白色字体,主题色背景
@@ -60,8 +60,10 @@ import UIKit
             view.setTitleColor( .white, for: .normal);
 
         case 4://地图定位按钮一类
-            view.setBackgroundImage(UIImageNamed(imgName!), for: .normal)
-            view.setBackgroundImage(UIImageColor( .lightGray), for: .disabled)
+//            view.setBackgroundImage(UIImageNamed(imgName!), for: .normal)
+//            view.setBackgroundImage(UIImageColor( .lightGray), for: .disabled)
+            view.setImage(UIImageNamed(imgName!), for: .normal)
+            view.setImage(UIImageColor(.lightGray), for: .disabled)
             
         case 5://主题色字体,边框
             view.setTitleColor( .theme, for: .normal);

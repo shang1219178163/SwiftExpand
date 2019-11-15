@@ -35,9 +35,9 @@ import UIKit
         }
     }
     
-    var listClass: Array<String> {
+    var listClass: [String] {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Array<String>;
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! [String];
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -45,9 +45,9 @@ import UIKit
         }
     }
     
-    var dictClass: Dictionary<String, Array<String>> {
+    var dictClass: Dictionary<String, [String]> {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Dictionary<String, Array<String>>;
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Dictionary<String, [String]>;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -72,7 +72,7 @@ import UIKit
     }
     
     /// cell注册
-    func registerCTVCell(_ listClass: Array<String>) {
+    func registerCTVCell(_ listClass: [String]) {
         listClass.forEach { (className: String) in
             let obj:AnyClass = SwiftClassFromString(className)
             register(obj, forCellWithReuseIdentifier: className)
@@ -87,7 +87,7 @@ import UIKit
     }
     
     /// headerView/FooterView注册
-    func registerCTVReusable(_ listClass: Array<String>, kind: String = UICollectionView.elementKindSectionHeader) {
+    func registerCTVReusable(_ listClass: [String], kind: String = UICollectionView.elementKindSectionHeader) {
         listClass.forEach { (className: String) in
             let identifier = sectionReuseIdentifier(className, kind: kind)
             register(SwiftClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)

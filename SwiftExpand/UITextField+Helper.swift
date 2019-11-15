@@ -12,10 +12,10 @@ import UIKit
 
 @objc public extension UITextField{
     /// [源]UITextField创建
-    static func create(_ rect: CGRect = .zero) -> UITextField {
-        let view = UITextField(frame: rect);
+    static func create(_ rect: CGRect = .zero) -> Self {
+        let view = self.init(frame: rect);
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.borderStyle = .roundedRect;
+        view.borderStyle = .none;
         view.contentVerticalAlignment = .center;
         view.clearButtonMode = .whileEditing;
         view.autocapitalizationType = .none;

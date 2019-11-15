@@ -10,9 +10,9 @@ import UIKit
 @objc public extension UISlider{
 
     /// [源]UISlider创建
-    static func create(_ rect: CGRect = .zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> UISlider {
-        let view = UISlider(frame: rect)
-        view.autoresizingMask = UIView.AutoresizingMask.flexibleWidth
+    static func create(_ rect: CGRect = .zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> Self {
+        let view = self.init(frame: rect)
+        view.autoresizingMask = .flexibleWidth
         view.minimumValue = minValue
         view.maximumValue = maxValue
         view.value = value;

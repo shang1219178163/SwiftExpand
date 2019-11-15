@@ -195,7 +195,7 @@ public let kMsg_LocationFailed       = "定位失败,请稍后再试";
 public let kMsg_IDCardFailed         = "身份证识别失败,请稍后再试";
 public let kMsg_IDCardSuccess        = "身份证识别成功";
 
-
+public let kActionTitle_Default = "重置";
 public let kActionTitle_Know    = "知道了";
 public let kActionTitle_Sure    = "确定";
 public let kActionTitle_Cancell = "取消";

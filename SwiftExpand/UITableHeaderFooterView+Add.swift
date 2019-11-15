@@ -18,8 +18,8 @@ import UIKit
             obj = self.init(reuseIdentifier: identifier)
         }
       
-        obj!.lineTop.isHidden = false
-        obj!.lineBottom.isHidden = false
+        obj!.contentView.lineTop.isHidden = false
+        obj!.contentView.lineBottom.isHidden = false
         return obj!;
     }
     
@@ -207,7 +207,7 @@ import UIKit
     }
 }
 
-@objc public class NNFoldSectionModel: NSObject{
+@objcMembers public class NNFoldSectionModel: NSObject{
     public var title = "标题"
     public var titleSub = "子标题"
     public var image = "图片名称"
@@ -217,6 +217,7 @@ import UIKit
     public var footerHeight: CGFloat = 0.01
     public var headerColor: UIColor = .background
     public var footerColor: UIColor = .background
+    public var sectionModel: AnyObject?
 
     public var dataList: [Any] = []
 //    public var dataList: NSMutableArray = []

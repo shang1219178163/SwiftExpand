@@ -11,8 +11,8 @@ import UIKit
 
 @objc extension UITextView{
     /// [源]UITextView创建
-    static func create(_ rect: CGRect = .zero) -> UITextView {
-        let view = UITextView(frame: rect);
+    static func create(_ rect: CGRect = .zero) -> Self {
+        let view = self.init(frame: rect);
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.autocapitalizationType = .none;
         view.autocorrectionType = .no;

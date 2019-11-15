@@ -52,7 +52,10 @@ import UIKit
             return frame.width
         }
         set {
-            frame.size.width = newValue
+//            frame.size.width = newValue
+            var rectTmp = frame;
+            rectTmp.size.width = newValue;
+            frame = rectTmp;
         }
     }
     
@@ -61,7 +64,10 @@ import UIKit
             return frame.size.height
         }
         set {
-            frame.size.height = newValue
+//            frame.size.height = newValue
+            var rectTmp = frame;
+            rectTmp.size.height = newValue;
+            frame = rectTmp;
         }
     }
     
@@ -70,7 +76,10 @@ import UIKit
             return frame.size
         }
         set{
-            frame.size = newValue
+//            frame.size = newValue
+            var rectTmp = frame;
+            rectTmp.size = newValue;
+            frame = rectTmp;
         }
     }
     
@@ -79,7 +88,10 @@ import UIKit
             return frame.origin.x
         }
         set {
-            frame.origin.x = newValue
+//            frame.origin.x = newValue
+            var rectTmp = frame;
+            rectTmp.origin.x = newValue;
+            frame = rectTmp;
         }
     }
     
@@ -88,7 +100,10 @@ import UIKit
             return frame.origin.y
         }
         set {
-            frame.origin.y = newValue
+//            frame.origin.y = newValue
+            var rectTmp = frame;
+            rectTmp.origin.y = newValue;
+            frame = rectTmp;
         }
     }
     
@@ -97,7 +112,10 @@ import UIKit
             return frame.origin
         }
         set {
-            frame.origin = newValue
+//            frame.origin = newValue
+            var rectTmp = frame;
+            rectTmp.origin = newValue;
+            frame = rectTmp;
         }
     }
     

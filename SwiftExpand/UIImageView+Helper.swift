@@ -9,8 +9,8 @@ import UIKit
 
 @objc public extension UIImageView{
     /// [源]UIImageView创建
-    static func create(_ rect: CGRect = .zero, imgName: String) -> UIImageView {
-        let view = UIImageView(frame: rect);
+    static func create(_ rect: CGRect = .zero, imgName: String) -> Self {
+        let view = self.init(frame: rect);
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.isUserInteractionEnabled = true;
         view.contentMode = .scaleAspectFit;

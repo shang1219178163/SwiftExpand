@@ -103,6 +103,9 @@ public func NNClassFromString(_ name: String, hasNameSpace: Bool = true) -> AnyC
 
 //获取本地创建类
 public func SwiftClassFromString(_ name: String) -> AnyClass {
+    if name.contains(".") {
+        return NSClassFromString(name)!;
+    }
     let nameSpace  = UIApplication.appBundleName;
     let cls: AnyClass = NSClassFromString(nameSpace + "." + name)!;
     return cls;

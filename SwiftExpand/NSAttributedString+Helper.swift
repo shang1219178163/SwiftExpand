@@ -66,7 +66,7 @@ import UIKit
     
     /// nsRange范围子字符串差异华显示
     static func attString(_ text: String!, nsRange: NSRange, font: CGFloat = 15, textColor: UIColor = UIColor.theme) -> NSAttributedString! {
-        assert(text.count > (nsRange.location + nsRange.length))
+        assert(text.count >= (nsRange.location + nsRange.length))
         
         let attrString = NSMutableAttributedString(string: text)
         
