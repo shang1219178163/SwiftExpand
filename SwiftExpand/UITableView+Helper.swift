@@ -98,7 +98,7 @@ import UIKit
 
 public extension UITableView{
     
-    /// 泛型复用cell - cellType: "类名.self" (备用默认值 T.self)
+    /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UITableViewCell>(for cellType: T.Type, identifier: String = String(describing: T.self), style: UITableViewCell.CellStyle = .default) -> T{
         //        let identifier = String(describing: T.self)
         var cell = self.dequeueReusableCell(withIdentifier: identifier);
@@ -112,7 +112,7 @@ public extension UITableView{
         return cell! as! T;
     }
     
-    /// 泛型复用cell - aClass: "类名()"
+    /// 泛型复用cell - aClass: "类名()" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UITableViewCell>(for aClass: T, identifier: String = String(describing: T.self), style: UITableViewCell.CellStyle = .default) -> T{
         return dequeueReusableCell(for: T.self, identifier: identifier, style: style)
     }
@@ -127,7 +127,7 @@ public extension UITableView{
         return cell! as! T;
     }
     
-    /// 泛型复用HeaderFooterView - aClass: "类名()"
+    /// 泛型复用HeaderFooterView - aClass: "类名()" (默认identifier: 类名字符串)
     final func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(for aClass: T, identifier: String = String(describing: T.self)) -> T{
         return dequeueReusableHeaderFooterView(for: T.self, identifier: identifier)
     }
