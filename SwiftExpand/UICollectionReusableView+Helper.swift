@@ -13,6 +13,19 @@
 import UIKit
 
 @objc public extension UICollectionReusableView{
+    /// [源]自定义 UICollectionReusableView 获取方法(兼容OC)
+    static func dequeueSupplementaryView(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> Self{
+
+//        let kindSuf = kind.components(separatedBy: "KindSection").last;
+//        let identifier = self.identifier + kindSuf!;
+        let identifier = kind == UICollectionView.elementKindSectionHeader ? identifyHeader : identifyFooter;
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
+        view.textLabel.text = identifier + "\(indexPath.section)";
+
+        view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? UIColor.green : UIColor.yellow;
+        return view as! Self;
+    }
+    
     /// 表头值
     static var identifyHeader: String {
         return String(describing: self) + "Header";

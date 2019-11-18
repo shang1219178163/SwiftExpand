@@ -9,7 +9,7 @@
 import UIKit
 
 @objc public extension UITableViewHeaderFooterView{
-    /// [源]自定义 UITableViewHeaderFooterView 获取方法
+    /// [源]自定义 UITableViewHeaderFooterView 获取方法(兼容OC)
     static func dequeueReusableHeaderFooterView(_ tableView: UITableView, identifier: String = String(describing: self)) -> Self {
         var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if view == nil {

@@ -9,6 +9,13 @@ import UIKit
 
 @objc public extension UICollectionViewCell{
     
+    /// [源]自定义 UICollectionViewCell 获取方法(兼容OC)
+    static func dequeueReusableCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
+        let identifier = self.identifier;
+        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        return view;
+    }
+
     var imgView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
