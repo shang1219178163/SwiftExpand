@@ -13,11 +13,11 @@ import UIKit
     static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
     
     /// 通用方法cell
-    static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
-        let identifier = self.identifier;
-        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        return view;
-    }
+//    static func dequeueReusableCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
+//        let identifier = self.identifier;
+//        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+//        return view;
+//    }
     
     /// UICollectionViewLayout默认布局
     static var layoutDefault: UICollectionViewLayout {
@@ -45,9 +45,9 @@ import UIKit
         }
     }
     
-    var dictClass: Dictionary<String, [String]> {
+    var dictClass: [String: [String]] {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! Dictionary<String, [String]>;
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! [String: [String]];
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -65,7 +65,7 @@ import UIKit
             let (key, value) = arg0
             if key == UICollectionView.elementKindSectionItem {
                 registerCTVCell(value)
-            }else {
+            } else {
                 registerCTVReusable(value, kind: key)
             }
         }
@@ -101,7 +101,7 @@ public extension UICollectionView{
     
     /// 泛型复用register cell - Type: "类名.self" (备用默认值 T.self)
     final func register<T: UICollectionViewCell>(cellType: T.Type, forCellWithReuseIdentifier identifier: String = String(describing: T.self)){
-        self.register(cellType.self, forCellWithReuseIdentifier: identifier)
+        register(cellType.self, forCellWithReuseIdentifier: identifier)
     }
     
     /// 泛型复用register supplementaryView - Type: "类名.self" (备用默认值 T.self)
@@ -111,21 +111,21 @@ public extension UICollectionView{
         }
         let kindSuf = elementKind.components(separatedBy: "KindSection").last;
         let identifier = String(describing: T.self) + kindSuf!;
-        self.register(supplementaryViewType.self, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
+        register(supplementaryViewType.self, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
     }
     
-    /// 泛型复用cell - cellType: "类名.self" (备用默认值 T.self)
+    /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UICollectionViewCell>(for cellType: T.Type, identifier: String = String(describing: T.self), indexPath: IndexPath) -> T{
         let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         return cell as! T;
     }
     
-    /// 泛型复用cell - aClass: "类名()"
+    /// 泛型复用cell - aClass: "类名()" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UICollectionViewCell>(for aClass: T, identifier: String = String(describing: T.self), indexPath: IndexPath) -> T{
         return dequeueReusableCell(for: T.self, identifier: identifier, indexPath: indexPath)
     }
     
-    /// 泛型复用SupplementaryView - cellType: "类名.self" (备用默认值 T.self)
+    /// 泛型复用SupplementaryView - cellType: "类名.self" (默认identifier: 类名字符串 + Header/Footer)
     final func dequeueReusableSupplementaryView<T: UICollectionReusableView>(for cellType: T.Type, kind: String, indexPath: IndexPath) -> T{
         let kindSuf = kind.components(separatedBy: "KindSection").last;
         let identifier = String(describing: T.self) + kindSuf!;
@@ -136,7 +136,7 @@ public extension UICollectionView{
         return view as! T;
     }
     
-    /// 泛型复用SupplementaryView - aClass: "类名()"
+    /// 泛型复用SupplementaryView - aClass: "类名()" (默认identifier: 类名字符串 + Header/Footer)
     final func dequeueReusableSupplementaryView<T: UICollectionReusableView>(for aClass: T, kind: String, indexPath: IndexPath) -> T{
         return dequeueReusableSupplementaryView(for: T.self, kind: kind, indexPath: indexPath)
     }

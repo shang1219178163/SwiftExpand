@@ -9,13 +9,6 @@ import UIKit
 
 @objc public extension UICollectionViewCell{
     
-    ///获取UICollectionViewCell
-    static func dequeueCTVCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
-        let identifier = self.identifier;
-        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        return view;
-    }
-    
     var imgView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
@@ -44,6 +37,7 @@ import UIKit
                 obj = UILabel(frame: .zero);
                 obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
+                obj!.font = UIFont.systemFont(ofSize: 15)
                 obj!.numberOfLines = 0;
                 obj!.lineBreakMode = .byCharWrapping;
                 obj!.textAlignment = .center;

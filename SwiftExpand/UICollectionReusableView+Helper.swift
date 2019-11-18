@@ -10,23 +10,18 @@
  UICollectionViewCell继承于UICollectionReusableView,所以两者属性,方法不能同名
  */
 
-
 import UIKit
 
 @objc public extension UICollectionReusableView{
+    /// 表头值
+    static var identifyHeader: String {
+        return String(describing: self) + "Header";
+     }
+    /// 表尾值
+    static var identifyFooter: String {
+        return String(describing: self) + "Footer";
+     }
  
-    ///获取UICollectionReusableView
-    static func dequeueCTVReusable(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> UICollectionReusableView{
-        
-        let kindSuf = kind.components(separatedBy: "KindSection").last;
-        let identifier = self.identifier + kindSuf!;
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
-        view.textLabel.text = kindSuf! + "\(indexPath.section)";
-        
-        view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? UIColor.green : UIColor.yellow;
-        return view;
-    }
-
     var imageView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
