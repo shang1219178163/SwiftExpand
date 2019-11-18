@@ -12,13 +12,6 @@ import UIKit
     
     static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
     
-    /// 通用方法cell
-//    static func dequeueReusableCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
-//        let identifier = self.identifier;
-//        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-//        return view;
-//    }
-    
     /// UICollectionViewLayout默认布局
     static var layoutDefault: UICollectionViewLayout {
         get {

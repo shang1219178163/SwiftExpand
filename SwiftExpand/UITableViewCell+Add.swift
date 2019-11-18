@@ -22,6 +22,11 @@ import UIKit
         cell!.layoutMargins = .zero;
         return cell as! Self;
     }
+    
+    /// [OC简洁方法]自定义 UITableViewCell 获取方法
+    static func dequeueReusableCell(_ tableView: UITableView) -> Self {
+        return dequeueReusableCell(tableView, identifier: String(describing: self), style: .default)
+    }
         
     var imgViewLeft: UIImageView {
         get {

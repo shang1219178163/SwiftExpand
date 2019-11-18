@@ -20,6 +20,12 @@ import UIKit
         view!.contentView.lineBottom.isHidden = false
         return view as! Self;
     }
+    
+    /// [OC简洁方法]自定义 UITableViewHeaderFooterView 获取方法
+    static func dequeueReusableHeaderFooterView(_ tableView: UITableView) -> Self {
+        return dequeueReusableHeaderFooterView(tableView, identifier: String(describing: self))
+    }
+    
     /// UITableViewHeaderFooterView -源方法生成,自定义identifier
 //    static func viewWithTableView(_ tableView: UITableView, identifier: String = identifier) -> UITableViewHeaderFooterView! {
 //        var obj = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
