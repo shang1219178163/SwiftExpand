@@ -257,7 +257,7 @@ import StoreKit
                 return
             }
             
-            guard let dic = json as? Dictionary<String, Any> else {
+            guard let dic = json as? [String: Any] else {
                 print("数据格式错误")
                 return
             }
@@ -272,7 +272,7 @@ import StoreKit
                 return
             }
             
-            guard let dicInfo = list[0] as? Dictionary<String, Any> else {
+            guard let dicInfo = list[0] as? [String: Any] else {
                 print("dicInfo错误")
                 return
             }

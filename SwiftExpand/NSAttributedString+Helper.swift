@@ -10,7 +10,7 @@ import UIKit
 @objc public extension NSAttributedString{
     
     /// 富文本特殊部分设置
-    static func attrDict(_ font: CGFloat = 15, textColor: UIColor = .theme) -> Dictionary<NSAttributedString.Key, Any> {
+    static func attrDict(_ font: CGFloat = 15, textColor: UIColor = .theme) -> [NSAttributedString.Key: Any] {
         let dic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize:font),
                    NSAttributedString.Key.foregroundColor: textColor,
                    NSAttributedString.Key.backgroundColor: UIColor.clear,
@@ -21,14 +21,14 @@ import UIKit
     /// 富文本整体设置
     static func paraDict(_ font: CGFloat = 15,
                          textColor: UIColor = .theme,
-                         alignment: NSTextAlignment = .left) -> Dictionary<NSAttributedString.Key, Any> {
+                         alignment: NSTextAlignment = .left) -> [NSAttributedString.Key: Any] {
         let paraStyle = NSMutableParagraphStyle();
         paraStyle.lineBreakMode = .byCharWrapping;
         paraStyle.alignment = alignment;
         
         let mdic = NSMutableDictionary(dictionary: attrDict(font, textColor: textColor));
         mdic.setObject(paraStyle, forKey:kCTParagraphStyleAttributeName as! NSCopying);
-        return mdic.copy() as! Dictionary<NSAttributedString.Key, Any>;
+        return mdic.copy() as! [NSAttributedString.Key: Any];
     }
     
     /// [源]富文本

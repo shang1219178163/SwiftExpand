@@ -83,7 +83,7 @@ import UIKit
         }
     }
     /// 字典转模型
-    convenience init(dic: Dictionary<String, Any>) {
+    convenience init(dic: [String: Any]) {
         self.init();
         self.setValuesForKeys(dic)
     }
@@ -189,9 +189,9 @@ import UIKit
     }
     
     /// NSString/NSData->NSDictionary
-    func dictValue() -> Dictionary<String, Any>? {
-        guard let dic = self.objValue() as? Dictionary<String, Any> else { return nil }
-        return dic as Dictionary<String, Any>;
+    func dictValue() -> [String: Any]? {
+        guard let dic = self.objValue() as? [String: Any] else { return nil }
+        return dic as [String: Any];
     }
     
     /// NSString/NSData->NSArray

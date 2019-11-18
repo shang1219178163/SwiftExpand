@@ -49,7 +49,7 @@ import UIKit
     
     public var sizeWidth: CGFloat {
         get {
-            return frame.width
+            return frame.size.width
         }
         set {
 //            frame.size.width = newValue
