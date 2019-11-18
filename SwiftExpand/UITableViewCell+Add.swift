@@ -10,8 +10,8 @@
 import UIKit
 
 @objc public extension UITableViewCell{
-    /// cell-源方法生成,自定义identifier
-    static func cellWithTableView(_ tableView: UITableView, identifier: String, style: UITableViewCell.CellStyle = .default) -> UITableViewCell! {
+    /// [源]自定义 UITableViewCell 获取方法
+    static func dequeueReusableCell(_ tableView: UITableView, identifier: String = String(describing: self), style: UITableViewCell.CellStyle = .default) -> Self {
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
         if cell == nil {
             cell = self.init(style: style, reuseIdentifier: identifier);
@@ -20,15 +20,9 @@ import UIKit
         cell!.selectionStyle = .none;
         cell!.separatorInset = .zero;
         cell!.layoutMargins = .zero;
-        return cell!;
+        return cell as! Self;
     }
-    
-    /// cell-使用默认identifier生成
-    static func cellWithTableView(_ tableView: UITableView) -> UITableViewCell! {
-//        let identifier = NSStringFromClass(self.classForCoder());
-        return cellWithTableView(tableView, identifier: identifier);
-    }
-    
+        
     var imgViewLeft: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
@@ -39,7 +33,6 @@ import UIKit
                 obj!.contentMode = .scaleAspectFit;
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
             }
             return obj!;
         }
@@ -59,7 +52,6 @@ import UIKit
                 obj!.image = UIImage(named: kIMG_arrowRight);
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
             }
             return obj!;
         }
@@ -81,7 +73,6 @@ import UIKit
                 obj!.isUserInteractionEnabled = true;
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
             }
             return obj!;
         }
@@ -104,7 +95,6 @@ import UIKit
                 obj!.isUserInteractionEnabled = true;
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
             }
             return obj!;
         }
@@ -126,7 +116,6 @@ import UIKit
                 obj!.isUserInteractionEnabled = true;
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
             }
             return obj!;
         }
@@ -149,7 +138,6 @@ import UIKit
                 obj!.isUserInteractionEnabled = true;
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
             }
             return obj!;
         }
@@ -170,7 +158,6 @@ import UIKit
                 obj!.isExclusiveTouch = true;
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
             }
             return obj!;
         }
@@ -193,8 +180,8 @@ import UIKit
                 obj!.clearButtonMode = .whileEditing;
                 obj!.backgroundColor = .white;
                 obj!.returnKeyType = .done
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;
         }
@@ -216,7 +203,6 @@ import UIKit
                 obj!.backgroundColor = .white;
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
             }
             return obj!;
         }

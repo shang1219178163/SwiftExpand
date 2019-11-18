@@ -9,19 +9,28 @@
 import UIKit
 
 @objc public extension UITableViewHeaderFooterView{
-    
-    //NSStringFromClass(classForCoder())
-    /// UITableViewHeaderFooterView -源方法生成,自定义identifier
-    static func viewWithTableView(_ tableView: UITableView, identifier: String = identifier) -> UITableViewHeaderFooterView! {
-        var obj = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
-        if obj == nil {
-            obj = self.init(reuseIdentifier: identifier)
+    /// [源]自定义 UITableViewHeaderFooterView 获取方法
+    static func dequeueReusableHeaderFooterView(_ tableView: UITableView, identifier: String = String(describing: self)) -> Self {
+        var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
+        if view == nil {
+            view = self.init(reuseIdentifier: identifier)
         }
       
-        obj!.contentView.lineTop.isHidden = false
-        obj!.contentView.lineBottom.isHidden = false
-        return obj!;
+        view!.contentView.lineTop.isHidden = false
+        view!.contentView.lineBottom.isHidden = false
+        return view as! Self;
     }
+    /// UITableViewHeaderFooterView -源方法生成,自定义identifier
+//    static func viewWithTableView(_ tableView: UITableView, identifier: String = identifier) -> UITableViewHeaderFooterView! {
+//        var obj = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
+//        if obj == nil {
+//            obj = self.init(reuseIdentifier: identifier)
+//        }
+//
+//        obj!.contentView.lineTop.isHidden = false
+//        obj!.contentView.lineBottom.isHidden = false
+//        return obj!;
+//    }
     
     var indicatorView: UIImageView {
         get {
