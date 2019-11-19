@@ -20,7 +20,7 @@ import UIKit
 //        let identifier = self.identifier + kindSuf!;
         let identifier = kind == UICollectionView.elementKindSectionHeader ? identifyHeader : identifyFooter;
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
-        view.textLabel.text = identifier + "\(indexPath.section)";
+        view.label.text = identifier + "\(indexPath.section)";
 
         view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? UIColor.green : UIColor.yellow;
         return view as! Self;
@@ -35,7 +35,7 @@ import UIKit
         return String(describing: self) + "Footer";
      }
  
-    var imageView: UIImageView {
+    var imgView: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -44,7 +44,7 @@ import UIKit
 
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
-                obj!.backgroundColor = UIColor.random
+//                obj!.backgroundColor = UIColor.random
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
@@ -56,7 +56,7 @@ import UIKit
         }
     }
     
-    var imageViewRight: UIImageView {
+    var imgViewRight: UIImageView {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIImageView;
             if obj == nil {
@@ -66,7 +66,7 @@ import UIKit
                 obj!.isUserInteractionEnabled = true;
                 obj!.contentMode = .scaleAspectFit;
                 obj!.image = UIImage(named: kIMG_arrowRight);
-                obj!.backgroundColor = UIColor.random
+//                obj!.backgroundColor = UIColor.random
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
@@ -77,30 +77,8 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
-    var textLabel: UILabel {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
-            if obj == nil {
-                obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-                obj!.numberOfLines = 2;
-                obj!.lineBreakMode = .byCharWrapping;
-                obj!.textAlignment = .left;
-                obj!.backgroundColor = UIColor.random
-                
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
-            }
-            return obj!;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    
-    var textLabelRight: UILabel {
+            
+    var labelRight: UILabel {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
             if obj == nil {
@@ -110,10 +88,80 @@ import UIKit
                 obj!.numberOfLines = 1;
                 obj!.adjustsFontSizeToFitWidth = true
                 obj!.textAlignment = .center;
-                obj!.backgroundColor = UIColor.random
+//                obj!.backgroundColor = UIColor.random
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    var label: UILabel {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
+            if obj == nil {
+                obj = UILabel(frame: .zero);
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
+                obj!.font = UIFont.systemFont(ofSize: 15)
+                obj!.numberOfLines = 0;
+                obj!.lineBreakMode = .byCharWrapping;
+                obj!.textAlignment = .center;
+//                obj!.backgroundColor = UIColor.random
+
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    var labelSub: UILabel {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UILabel;
+            if obj == nil {
+                obj = UILabel(frame: CGRect.zero);
+                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                
+                obj!.font = UIFont.systemFont(ofSize: 13)
+                obj!.numberOfLines = 0;
+                obj!.lineBreakMode = .byCharWrapping;
+                obj!.textAlignment = .center;
+//                obj!.backgroundColor = UIColor.random
+                
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                
+            }
+            return obj!;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    var btn: UIButton {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIButton;
+            if obj == nil {
+                obj = {
+                    let btn = UIButton(type: .custom);
+                    btn.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                    btn.titleLabel?.font = UIFont.systemFont(ofSize: 15);
+                    btn.titleLabel?.adjustsFontSizeToFitWidth = true;
+                    btn.titleLabel?.minimumScaleFactor = 1.0;
+                    btn.isExclusiveTouch = true;
+                    btn.setTitleColor(.textColor3, for: .normal)
+                    btn.setTitleColor(.theme, for: .selected)
+                    return btn
+                }()
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;
         }

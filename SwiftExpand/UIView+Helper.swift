@@ -167,14 +167,14 @@ import UIKit
         self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     /// 图层调试
-    public func getViewLayer() -> () {
+    public func getViewLayer(lineColor: UIColor = .blue) {
         let subviews = self.subviews;
         if subviews.count == 0 {
             return;
         }
         for subview in subviews {
             subview.layer.borderWidth = kW_LayerBorder;
-            subview.layer.borderColor = UIColor.blue.cgColor;
+            subview.layer.borderColor = lineColor.cgColor;
 //            subview.layer.borderColor = UIColor.clear.cgColor;
 
             subview.getViewLayer();

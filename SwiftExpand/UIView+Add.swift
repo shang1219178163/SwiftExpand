@@ -34,7 +34,7 @@ import UIKit
             if obj == nil {
                 obj = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: kH_LINE_VIEW));
                 obj!.backgroundColor = .line
-                addSubview(obj!)
+//                addSubview(obj!)
 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }

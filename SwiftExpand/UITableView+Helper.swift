@@ -132,4 +132,34 @@ public extension UITableView{
         return dequeueReusableHeaderFooterView(for: T.self, identifier: identifier)
     }
     
+    /// 按照时间值划分section(例如 var mdic:[String: [NSObject]] = [:] //全局变量)
+    static func sectionByDatetime<T: NSObject>(_ timeKey: String, length: Int = 9, mdic: inout [String: [T]], list: [T]) {
+        for e in list.enumerated() {
+            if let time = e.element.value(forKey: timeKey) as? String {
+                let key = time.count >= length ? time.substringTo(length) : time;
+                if mdic[key] == nil {
+                    mdic[key] = [];
+                }
+                mdic[key]?.append(e.element as T)
+            }
+        }
+//        DDLog(mdic.keys);
+    }
+    
+    /// 获取section模型数组(例如 var mdic:[String: [CCSParkRecordDetailModel]] = [:] //全局变量)
+    static func sectionModelList<T: NSObject>(_ section: Int, mdic: inout [String: [T]]) -> [T]? {
+        let keys = mdic.keys.sorted(by: > );
+        let key = keys[section]
+        let modelList = mdic[key]
+        return modelList;
+    }
+    /// 获取cellList
+    static func sectionCellList(_ titles: [[String]], indexPath: IndexPath) -> [String] {
+        let sectionList = titles[indexPath.section];
+        
+        let obj = sectionList.count > indexPath.row ? sectionList[indexPath.row] : sectionList.last!
+        let cellList: [String] = (obj as NSString).components(separatedBy: ",");
+//        DDLog(cellList);
+        return cellList;
+    }
 }
