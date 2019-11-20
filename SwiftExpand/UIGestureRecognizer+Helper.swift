@@ -7,10 +7,10 @@
 
 import UIKit
 
-@objc public extension UIGestureRecognizer{
+@objc extension UIGestureRecognizer{
     
     /// 方法名称(用于自定义)
-    var funcName: String {
+    public var funcName: String {
         get {
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
             if obj == nil {
@@ -24,8 +24,8 @@ import UIKit
         }
     }
     /// 闭包回调
-    func addAction(_ closure: @escaping (UIGestureRecognizer) -> Void) {
-        objc_setAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!, closure, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    public func addAction(_ closure: @escaping (UIGestureRecognizer) -> Void) {
+        objc_setAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
         addTarget(self, action: #selector(p_invoke))
     }
     
@@ -33,6 +33,5 @@ import UIKit
         let closure = objc_getAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!) as! ((UIGestureRecognizer) -> Void)
         closure(self);
     }
-    
     
 }
