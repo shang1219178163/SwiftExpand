@@ -37,7 +37,7 @@ public let kArrMax_inter       = "@max.intValue";
 /// min.intValue
 public let kArrMin_inter       = "@min.intValue";
 /// sum.floatValue
-public let kArr_sum_float       = "@sum.floatValue";
+public let kArrSum_float       = "@sum.floatValue";
 /// max.floatValue
 public let kArrMax_float       = "@max.floatValue";
 /// min.floatValue

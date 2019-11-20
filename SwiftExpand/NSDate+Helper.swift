@@ -173,38 +173,38 @@ public let kDateFormatTwo         = "yyyyMMdd";
 }
 
 @objc public extension NSDate{
-    //MARK: 年
+    /// 年
     var year: Int {
         return NSDate.dateComponents(self).year!
     }
-    //MARK: 月
+    /// 月
     var month: Int {
         return NSDate.dateComponents(self).month!
     }
-    //MARK: 日
+    /// 日
     var day: Int {
         return NSDate.dateComponents(self).day!;
     }
-    //MARK: 时
+    /// 时
     var hour: Int {
         return NSDate.dateComponents(self).hour!;
     }
-    //MARK: 分
+    /// 分
     var minute: Int {
        return NSDate.dateComponents(self).minute!;
     }
-    //MARK: 秒
+    /// 秒
     var second: Int {
     return NSDate.dateComponents(self).second!;
     }
     
-    //MARK: 当月天数
+    /// 当月天数
     var countOfDaysInMonth: Int {
         let calendar = NSDate.calendar
         let range = (calendar as NSCalendar?)?.range(of: .day, in: .month, for: self as Date)
         return range!.length
     }
-    //MARK: 当月第一天是星期几
+    /// 当月第一天是星期几
     var firstWeekDay: Int {
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
         var comp: DateComponents = NSDate.dateComponents(self)
@@ -378,7 +378,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
         return number
     }
     
-    //MARK: 一周的第几天
+    /// 一周的第几天
     static func weekDay(_ comp: DateComponents) ->Int{
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
         let newDate = NSDate.calendar.date(from: comp)
@@ -423,35 +423,35 @@ public extension NSDate{
 }
 
 public extension Date{
-    //MARK: 年
+    /// 年
     var year: Int {
        return (self as NSDate).year
     }
-    //MARK: 月
+    /// 月
     var month: Int {
        return (self as NSDate).month
     }
-    //MARK: 日
+    /// 日
     var day: Int {
        return (self as NSDate).day;
     }
-    //MARK: 时
+    /// 时
     var hour: Int {
        return (self as NSDate).hour;
     }
-    //MARK: 分
+    /// 分
     var minute: Int {
        return (self as NSDate).minute;
     }
-    //MARK: 秒
+    /// 秒
     var second: Int {
        return (self as NSDate).second;
     }
-    //MARK: 当月天数
+    /// 当月天数
     var countOfDaysInMonth: Int {
         return (self as NSDate).countOfDaysInMonth
     }
-    //MARK: 当月第一天是星期几
+    /// 当月第一天是星期几
     var firstWeekDay: Int {
         return (self as NSDate).firstWeekDay
     }
@@ -526,12 +526,12 @@ public extension Date{
         return NSDate.numDateFrom(aDate as NSDate, anotherDate: anotherDate as NSDate, type: type)
     }
 
-    //MARK: 一周的第几天
+    /// 一周的第几天
     static func weekDay(_ comp: DateComponents) ->Int{
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
         return NSDate.weekDay(comp);
     }
-    //MARK: - 日期的一些比较
+    /// - 日期的一些比较
     /// 两个时间同年0;同月1;同日2;同时3;同分4;同秒5
     static func isSameFrom(_ aDate: Date, anotherDate: Date, type: Int = 0) -> Bool {
         return NSDate.isSameFrom(aDate as NSDate, anotherDate: anotherDate as NSDate, type: type)

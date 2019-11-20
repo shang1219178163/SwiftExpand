@@ -10,7 +10,7 @@ import UIKit
 
 @objc extension UIBarButtonItem{
     
-   public var systemType: UIBarButtonItem.SystemItem {
+    public var systemType: UIBarButtonItem.SystemItem {
         get {
             return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! UIBarButtonItem.SystemItem;
         }
