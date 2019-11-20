@@ -343,7 +343,7 @@ public extension Substring {
         assert(self.length >= 10);
         
         let tmp = self.substring(to: 10) + " 00:00:00";
-        let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormat_start)
+        let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatStart)
         return result;
     }
     
@@ -352,7 +352,7 @@ public extension Substring {
         assert(self.length >= 10);
         
         let tmp = self.substring(to: 10) + " 23:59:59";
-        let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormat_end)
+        let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatEnd)
         return result;
     }
     

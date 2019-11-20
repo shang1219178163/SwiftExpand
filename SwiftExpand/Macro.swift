@@ -9,13 +9,13 @@
 
 import UIKit
 
-// MARK: -系统私有类
+// MARK: - 系统私有类
 public let kUIButtonBarButton          = "UIButtonBarButton";
 public let kUIModernBarButton          = "_UIModernBarButton";
 public let kUITabBarButton             = "UITabBarButton";
 public let kUITabBarSwappableImageView = "UITabBarSwappableImageView";
 
-// MARK: -kSet
+// MARK: - kSet
 /// 0123456789
 public let kSetNumber      =   "0123456789";
 /// 0123456789.
@@ -27,31 +27,31 @@ public let kSetAlpha_Num   =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuv
 /// ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.
 public let kSetAlpha_Float =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.";
 
-// MARK: -kArr
+// MARK: - kArr
 /// avg.floatValue
-public let kArr_avg_float       = "@avg.floatValue";
+public let kArrAvg_float       = "@avg.floatValue";
 /// sum.intValue
-public let kArr_sum_inter       = "@sum.intValue";
+public let kArrSum_inter       = "@sum.intValue";
 /// max.intValue
-public let kArr_max_inter       = "@max.intValue";
+public let kArrMax_inter       = "@max.intValue";
 /// min.intValue
-public let kArr_min_inter       = "@min.intValue";
+public let kArrMin_inter       = "@min.intValue";
 /// sum.floatValue
 public let kArr_sum_float       = "@sum.floatValue";
 /// max.floatValue
-public let kArr_max_float       = "@max.floatValue";
+public let kArrMax_float       = "@max.floatValue";
 /// min.floatValue
-public let kArr_min_float       = "@min.floatValue";
+public let kArrMin_float       = "@min.floatValue";
 /// uppercaseString
-public let kArr_upper_list      = "uppercaseString";
+public let kArrUpper_list      = "uppercaseString";
 /// lowercaseString
-public let kArr_lower_list      = "lowercaseString";
+public let kArrLower_list      = "lowercaseString";
 /// distinctUnionOfArrays.self(数组内部去重)
-public let kArrs_unionDist_list = "@distinctUnionOfArrays.self";
+public let kArrsUnionDist_list = "@distinctUnionOfArrays.self";
 /// unionOfArrays.self
-public let kArrs_union_list     = "@unionOfArrays.self";
+public let kArrsUnion_list     = "@unionOfArrays.self";
 
-// MARK: -tag
+// MARK: - Tag
 
 public let kTAG_LABEL: Int        = 100;
 public let kTAG_BTN: Int          = 200;
@@ -72,7 +72,7 @@ public let kTAG_VIEW_radio: Int   = 1200;
 public let kTAG_VIEW_Picture: Int = 1300;
 
 
-// MARK: -计算有关的尺寸属性
+// MARK: - 计算有关的尺寸属性
 /// 屏幕宽度
 public let kScreenWidth: CGFloat           = UIScreen.main.bounds.width;
 /// 屏幕高度
@@ -126,15 +126,15 @@ public let kW_LINE_Vert: CGFloat           = 3.0;
 public let kW_LayerBorder: CGFloat         = 0.5;
 
 
-// MARK: -font
+// MARK: - font
 
-public let kFontSize18: CGFloat  =  18;
-public let kFontSize16: CGFloat  = 16;
-public let kFontSize14: CGFloat  =  14;
-public let kFontSize12: CGFloat  =  12;
-public let kFontSize10: CGFloat  =  10;
+public let kFontSize18: CGFloat = 18;
+public let kFontSize16: CGFloat = 16;
+public let kFontSize14: CGFloat = 14;
+public let kFontSize12: CGFloat = 12;
+public let kFontSize10: CGFloat = 10;
 
-// MARK: -视图
+// MARK: - 图像名称
 
 public let kIMG_arrowRight      = "img_arrowRight_gray";
 public let kIMG_arrowDown       = "img_arrowDown_black";
@@ -154,6 +154,7 @@ public let kIMG_pictureDelete   = "img_pictureDelete";
 public let kIMG_defaultFailed   = "img_failedDefault";
 /// 图片加载失败(小)
 public let kIMG_defaultFailed_S = "img_failedDefault_S";
+/// 默认肖像
 public let kIMG_defaultPortrait = "img_portrait_N";
 /// 性别男
 public let kIMG_sexBoy          = "img_sex_boy";
@@ -183,46 +184,72 @@ public let kIMG_Add             = "btn_add";
 public let kIMG_like_H          = "img_like_H";
 public let kIMG_like_W          = "img_like_W";
 
-public let kMsg_NetWorkRequesting    = "网络请求中...";
-public let kMsg_NetWorkFailed        = "网络请求失败,请稍后再试";
-public let kMsg_NetWorkNodata        = "暂无数据";
-public let kMsg_NetWorkNoMoredata    = "没有更多数据了";
-public let kMsg_NetWorkFailed_Params = "参数错误,请稍后再试";
+// MARK: - 文字
 
-public let kMsg_Locationing          = "定位中...";
-public let kMsg_LocationSuccess      = "位置信息更新成功!";
-public let kMsg_LocationFailed       = "定位失败,请稍后再试";
-public let kMsg_IDCardFailed         = "身份证识别失败,请稍后再试";
-public let kMsg_IDCardSuccess        = "身份证识别成功";
+/// 网络请求中...
+public let kMsgNetWorkRequesting    = "网络请求中...";
+/// 网络请求失败,请稍后再试
+public let kMsgNetWorkNodata        = "暂无数据";
+/// 没有更多数据了
+public let kMsgNetWorkNoMoredata    = "没有更多数据了";
+/// 网络请求失败,请稍后再试
+public let kMsgNetWorkFailed        = "网络请求失败,请稍后再试";
+/// 参数错误,请稍后再试
+public let kMsgNetWorkFailedParams  = "参数错误,请稍后再试";
+/// 定位中...
+public let kMsgLocationing          = "定位中...";
+/// 位置信息更新成功!
+public let kMsgLocationSuccess      = "位置信息更新成功!";
+/// 定位失败,请稍后再试
+public let kMsgLocationFailed       = "定位失败,请稍后再试";
+/// 身份证识别失败,请稍后再试
+public let kMsgIDCardFailed         = "身份证识别失败,请稍后再试";
+/// 身份证识别成功
+public let kMsgIDCardSuccess        = "身份证识别成功";
 
-public let kActionTitle_Default = "重置";
-public let kActionTitle_Know    = "知道了";
-public let kActionTitle_Sure    = "确定";
-public let kActionTitle_Cancell = "取消";
-public let kActionTitle_Delete  = "删除";
-public let kActionTitle_Drop    = "彻底删除";
-public let kActionTitle_Call    = "呼叫";
-public let kActionTitle_Update  = "立即升级";
-
-public let kActionTitle_Collect = "收藏";
-public let kActionTitle_Recover = "恢复";
-
-public let kNilText     = "--";
-public let kSeparateStr = ",";
-public let kAsterisk    = "*";
-public let kBlankHalf   = "  ";
-public let kBlankOne    = "    ";
-public let kBlankTwo    = "        ";
-public let kBlankFour   = "                ";
-
-//MARK: -通用
+/// 重置
+public let kTitleDefault = "重置";
+/// 知道了
+public let kTitleKnow    = "知道了";
+/// 确定
+public let kTitleSure    = "确定";
+/// 取消
+public let kTitleCancell = "取消";
+/// 删除
+public let kTitleDelete  = "删除";
+/// 彻底删除
+public let kTitleDrop    = "彻底删除";
+/// 呼叫
+public let kTitleCall    = "呼叫";
+/// 立即升级
+public let kTitleUpdate  = "立即升级";
+/// 收藏
+public let kTitleCollect = "收藏";
+/// 恢复
+public let kTitleRecover = "恢复";
+/// --
+public let kNilText      = "--";
+/// ,
+public let kSeparateStr  = ",";
+/// *
+public let kAsterisk     = "*";
+/// 空格(半个字体)
+public let kBlankHalf    = "  ";
+/// 空格(1个字体)
+public let kBlankOne     = "    ";
+/// 空格(2个字体)
+public let kBlankTwo     = "        ";
+/// 空格(4个字体)
+public let kBlankFour    = "                ";
 
 /// 一周七天
-public let kDes_week  = "星期一,星期二,星期三,星期四,星期五,星期六,星期天";
+public let kDesWeek  = "星期一,星期二,星期三,星期四,星期五,星期六,星期天";
 /// 一年十二月
-public let kDes_month = "正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月,九月, 十月, 冬月, 腊月";
+public let kDesMonth = "正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月,九月, 十月, 冬月, 腊月";
 /// 一月31天
-public let kDes_day   = "初一, 初二, 初三, 初四, 初五, 初六, 初七, 初八, 初九, 初十,十一, 十二, 十三, 十四, 十五, 十六, 十七, 十八, 十九, 二十, 廿一, 廿二, 廿三, 廿四, 廿五, 廿六, 廿七, 廿八, 廿九, 三十, 三十一";
+public let kDesDay   = "初一, 初二, 初三, 初四, 初五, 初六, 初七, 初八, 初九, 初十,十一, 十二, 十三, 十四, 十五, 十六, 十七, 十八, 十九, 二十, 廿一, 廿二, 廿三, 廿四, 廿五, 廿六, 廿七, 廿八, 廿九, 三十, 三十一";
+
+//MARK: - 其他
 
 /// Debug模式日志打印
 public func DDLog(_ msgs: Any..., fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){

@@ -8,9 +8,9 @@
 
 import UIKit
 
-@objc public extension UINavigationController{
+@objc extension UINavigationController{
     
-    func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
+    public func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //需要注入的代码写在此处
 //        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil);
         viewController.view.backgroundColor = .white;
@@ -18,8 +18,7 @@ import UIKit
         if viewControllers.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
             _ = viewController.createBackItem(UIImageNamed("icon_arowLeft_black")!)
-            DDLog(viewController.navigationItem.leftBarButtonItem)
-
+//            DDLog(viewController.navigationItem.leftBarButtonItem)
         }
         //push进入下一个控制器
         hook_pushViewController(viewController, animated: animated);

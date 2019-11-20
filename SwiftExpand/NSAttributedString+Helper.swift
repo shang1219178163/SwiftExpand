@@ -9,7 +9,7 @@ import UIKit
 
 @objc public extension NSAttributedString{
     
-    /// 富文本特殊部分设置
+    /// 富文本特殊部分配置字典
     static func attrDict(_ font: CGFloat = 15, textColor: UIColor = .theme) -> [NSAttributedString.Key: Any] {
         let dic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize:font),
                    NSAttributedString.Key.foregroundColor: textColor,

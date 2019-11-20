@@ -20,7 +20,7 @@ public let kAlertActionColor = "titleTextColor"
     static func createAlert(_ title: String?,
                                   placeholders: [String]? = nil,
                                   msg: String,
-                                  actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure],
+                                  actionTitles: [String]? = [kTitleCancell, kTitleSure],
                                   handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
        
@@ -32,7 +32,7 @@ public let kAlertActionColor = "titleTextColor"
         }
         
         actionTitles?.forEach({ (title:String) in
-            let style: UIAlertAction.Style = title == kActionTitle_Cancell ? .destructive : .default
+            let style: UIAlertAction.Style = title == kTitleCancell ? .destructive : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
                 if handler != nil {
                     handler!(alertController, action)
@@ -46,7 +46,7 @@ public let kAlertActionColor = "titleTextColor"
     static func showAlert(_ title: String?,
                                 placeholders: [String]? = nil,
                                 msg: String,
-                                actionTitles: [String]? = [kActionTitle_Cancell, kActionTitle_Sure],
+                                actionTitles: [String]? = [kTitleCancell, kTitleSure],
                                 handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         
         let rootVC = UIApplication.shared.delegate?.window??.rootViewController
@@ -73,7 +73,7 @@ public let kAlertActionColor = "titleTextColor"
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .actionSheet)
         
         items?.forEach({ (title:String) in
-            let style: UIAlertAction.Style = title == kActionTitle_Cancell ? .cancel : .default
+            let style: UIAlertAction.Style = title == kTitleCancell ? .cancel : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
                 alertController.dismiss(animated: true, completion: nil)
                 if handler != nil {
@@ -82,8 +82,8 @@ public let kAlertActionColor = "titleTextColor"
             }))
         })
         
-        if items?.contains(kActionTitle_Cancell) == false || items == nil {
-            alertController.addAction(UIAlertAction(title: kActionTitle_Cancell, style: .cancel, handler: { (action: UIAlertAction) in
+        if items?.contains(kTitleCancell) == false || items == nil {
+            alertController.addAction(UIAlertAction(title: kTitleCancell, style: .cancel, handler: { (action: UIAlertAction) in
                 alertController.dismiss(animated: true, completion: nil)
                 if handler != nil {
                     handler!(alertController, action)

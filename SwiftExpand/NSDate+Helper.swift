@@ -29,44 +29,43 @@
 import UIKit
 
 /// 60s
-public let kDate_minute : Double = 60 ;
+public let kDateMinute: Double = 60 ;
 /// 3600s
-public let kDate_hour : Double   = 3600 ;
+public let kDateHour: Double   = 3600 ;
 /// 86400
-public let kDate_day : Double    = 86400 ;
+public let kDateDay: Double    = 86400 ;
 /// 604800
-public let kDate_week : Double   = 604800 ;
+public let kDateWeek: Double   = 604800 ;
 /// 31556926
-public let kDate_year : Double   = 31556926 ;
+public let kDateYear: Double   = 31556926 ;
 
 
 /// yyyy-MM-dd HH:mm:ss(默认)
-public let kDateFormat             = "yyyy-MM-dd HH:mm:ss";
+public let kDateFormat            = "yyyy-MM-dd HH:mm:ss";
 /// yyyy-MM
-public let kDateFormat_month       = "yyyy-MM";
+public let kDateFormatMonth       = "yyyy-MM";
 /// yyyy-MM-dd
-public let kDateFormat_day         = "yyyy-MM-dd";
+public let kDateFormatDay         = "yyyy-MM-dd";
 /// yyyy-MM-dd HH
-public let kDateFormat_hour        = "yyyy-MM-dd HH";
+public let kDateFormatHour        = "yyyy-MM-dd HH";
 /// yyyy-MM-dd HH:mm
-public let kDateFormat_minute      = "yyyy-MM-dd HH:mm";
+public let kDateFormatMinute      = "yyyy-MM-dd HH:mm";
 /// yyyy-MM-dd HH:mm:ss eee
-public let kDateFormat_millisecond = "yyyy-MM-dd HH:mm:ss eee";
+public let kDateFormatMillisecond = "yyyy-MM-dd HH:mm:ss eee";
 /// yyyy-MM-dd 00:00:00
-public let kDateFormat_start       = "yyyy-MM-dd 00:00:00";
+public let kDateFormatStart       = "yyyy-MM-dd 00:00:00";
 /// yyyy-MM-dd 23:59:59
-public let kDateFormat_end         = "yyyy-MM-dd 23:59:59";
+public let kDateFormatEnd         = "yyyy-MM-dd 23:59:59";
 
 /// yyyy年M月
-public let kDateFormat_month_ch    = "yyyy年MM月";
+public let kDateFormatMonth_CH    = "yyyy年MM月";
 /// yyyy年MM月dd日
-public let kDateFormat_day_ch      = "yyyy年MM月dd日";
+public let kDateFormatDay_CH      = "yyyy年MM月dd日";
 /// yyyyMMdd
-public let kDateFormat_two         = "yyyyMMdd";
+public let kDateFormatTwo         = "yyyyMMdd";
 
 
 @objc public extension DateFormatter{
-    
     /// 获取DateFormatter(默认格式)
     static func format(_ formatStr: String = kDateFormat) -> DateFormatter {
         let dic = Thread.current.threadDictionary;
@@ -164,6 +163,13 @@ public let kDateFormat_two         = "yyyyMMdd";
         return false
     }
     
+    /// 获取起止时间区间数组,默认往前31天
+    static func queryDate(_ day: Int = -30, fmtStart: String = kDateFormatStart, fmtEnd: String = kDateFormatEnd) -> [String] {
+        let endTime = DateFormatter.stringFromDate(Date(), fmt: fmtEnd)
+        let date = Date().adding(day)
+        let startTime = DateFormatter.stringFromDate(date, fmt: fmtStart)
+        return [startTime, endTime];
+    }
 }
 
 @objc public extension NSDate{
@@ -254,26 +260,26 @@ public let kDateFormat_two         = "yyyyMMdd";
         switch type {
         case 1:
             
-            if interval/kDate_day < 10 {
-                info += "0\(Int(interval/kDate_day))" + ":"
+            if interval/kDateDay < 10 {
+                info += "0\(Int(interval/kDateDay))" + ":"
             } else {
-                info += "\(Int(interval/kDate_day))" + ":"
+                info += "\(Int(interval/kDateDay))" + ":"
             }
-            interval = interval.truncatingRemainder(dividingBy: kDate_day);
+            interval = interval.truncatingRemainder(dividingBy: kDateDay);
             
-            if interval/kDate_hour < 10 {
-                info += "0\(Int(interval/kDate_hour))" + ":"
+            if interval/kDateHour < 10 {
+                info += "0\(Int(interval/kDateHour))" + ":"
             } else {
-                info += "\(Int(interval/kDate_hour))" + ":"
+                info += "\(Int(interval/kDateHour))" + ":"
             }
-            interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+            interval = interval.truncatingRemainder(dividingBy: kDateHour);
             
-            if interval/kDate_minute < 10 {
-                info += "0\(Int(interval/kDate_minute))" + ":"
+            if interval/kDateMinute < 10 {
+                info += "0\(Int(interval/kDateMinute))" + ":"
             } else {
-                info += "\(Int(interval/kDate_minute))" + ":"
+                info += "\(Int(interval/kDateMinute))" + ":"
             }
-            interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+            interval = interval.truncatingRemainder(dividingBy: kDateMinute);
             
             if interval < 10 {
                 info += "0\(Int(interval))"
@@ -282,14 +288,14 @@ public let kDateFormat_two         = "yyyyMMdd";
             }
             
         default:
-            info = "\(Int(interval/kDate_day))" + "天"
-            interval = interval.truncatingRemainder(dividingBy: kDate_day);
+            info = "\(Int(interval/kDateDay))" + "天"
+            interval = interval.truncatingRemainder(dividingBy: kDateDay);
             
-            info += "\(Int(interval/kDate_hour))" + "时"
-            interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+            info += "\(Int(interval/kDateHour))" + "时"
+            interval = interval.truncatingRemainder(dividingBy: kDateHour);
             
-            info += "\(Int(interval/kDate_minute))" + "分"
-            interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+            info += "\(Int(interval/kDateMinute))" + "分"
+            interval = interval.truncatingRemainder(dividingBy: kDateMinute);
             
             info += "\(Int(interval))" + "秒"
         }

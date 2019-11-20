@@ -30,7 +30,7 @@ import UIKit
 
 }
 
-@objc extension UIFont{
+@objc public extension UIFont{
     static let kPingFang           = "PingFang SC";
     static let kPingFangMedium     = "PingFangSC-Medium";
     static let kPingFangSemibold   = "PingFangSC-Semibold";

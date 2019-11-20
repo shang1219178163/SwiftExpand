@@ -267,10 +267,33 @@ import UIKit
     }
    
     //MARK: -通用响应添加方法
+    public func addActionClosure(_ action: @escaping ViewClosure) {
+        if let sender = self as? UIButton {
+            sender.addActionHandler({ (control) in
+                action(nil, control, control.tag);
+
+            }, for: .touchUpInside)
+            
+        }
+        else if let sender = self as? UIControl {
+            sender.addActionHandler({ (control) in
+                action(nil, control, control.tag);
+
+            }, for: .valueChanged)
+            
+        } else {
+            _ = self.addGestureTap { (reco) in
+                action((reco as! UITapGestureRecognizer), reco.view!, reco.view!.tag);
+            }
+        }
+    }
+    
+/*
+    //MARK: -通用响应添加方法
     public func addActionClosure(_ action: @escaping (ViewClosure)) {
         if let sender = self as? UIButton {
             sender.addTarget(self, action:#selector(p_handleActionSender(_:)), for:.touchUpInside);
-            
+
         }
         else if let sender = self as? UIControl {
             sender.addTarget(self, action:#selector(p_handleActionSender(_:)), for:.valueChanged);
@@ -287,7 +310,7 @@ import UIKit
 //        objc_setAssociatedObject(self, RuntimeKey.tap, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
         objc_setAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
-    
+
     /// 点击回调
     private func p_handleActionTap(_ tap: UITapGestureRecognizer) {
 //       let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
@@ -296,20 +319,21 @@ import UIKit
             block!(tap, tap.view!, tap.view!.tag);
         }
     }
-    
+
     private func p_handleActionSender(_ sender: UIControl) {
         let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
         if let sender = self as? UISegmentedControl {
             if block != nil {
                 block!(nil, sender, sender.selectedSegmentIndex);
             }
-            
+
         } else {
             if block != nil {
                 block!(nil, sender, sender.tag);
             }
         }
     }
+*/
     
     ///手势 - 轻点 UITapGestureRecognizer
     public func addGestureTap(_ action: @escaping RecognizerClosure) -> UITapGestureRecognizer {

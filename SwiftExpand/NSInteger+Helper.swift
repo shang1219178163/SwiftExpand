@@ -63,26 +63,26 @@ public extension Double{
         switch type {
         case 1:
             
-            if Int(interval/kDate_day) < 10 {
-                info += "0\(Int(interval/kDate_day))" + ":"
+            if Int(interval/kDateDay) < 10 {
+                info += "0\(Int(interval/kDateDay))" + ":"
             } else {
-                info += "\(Int(interval/kDate_day))" + ":"
+                info += "\(Int(interval/kDateDay))" + ":"
             }
-            interval = interval.truncatingRemainder(dividingBy: kDate_day);
+            interval = interval.truncatingRemainder(dividingBy: kDateDay);
             
-            if Int(interval/kDate_hour) < 10 {
-                info += "0\(Int(interval/kDate_hour))" + ":"
+            if Int(interval/kDateHour) < 10 {
+                info += "0\(Int(interval/kDateHour))" + ":"
             } else {
-                info += "\(Int(interval/kDate_hour))" + ":"
+                info += "\(Int(interval/kDateHour))" + ":"
             }
-            interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+            interval = interval.truncatingRemainder(dividingBy: kDateHour);
             
-            if Int(interval/kDate_minute) < 10 {
-                info += "0\(Int(interval/kDate_minute))" + ":"
+            if Int(interval/kDateMinute) < 10 {
+                info += "0\(Int(interval/kDateMinute))" + ":"
             } else {
-                info += "\(Int(interval/kDate_minute))" + ":"
+                info += "\(Int(interval/kDateMinute))" + ":"
             }
-            interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+            interval = interval.truncatingRemainder(dividingBy: kDateMinute);
             
             if interval < 10 {
                 info += "0\(Int(interval))"
@@ -93,32 +93,32 @@ public extension Double{
         default:
             
             if showAll == true {
-                info = "\(Int(interval/kDate_day))" + "天"
-                interval = interval.truncatingRemainder(dividingBy: kDate_day);
+                info = "\(Int(interval/kDateDay))" + "天"
+                interval = interval.truncatingRemainder(dividingBy: kDateDay);
                 
-                info += "\(Int(interval/kDate_hour))" + "时"
-                interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+                info += "\(Int(interval/kDateHour))" + "时"
+                interval = interval.truncatingRemainder(dividingBy: kDateHour);
                 
-                info += "\(Int(interval/kDate_minute))" + "分"
-                interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+                info += "\(Int(interval/kDateMinute))" + "分"
+                interval = interval.truncatingRemainder(dividingBy: kDateMinute);
                 
                 info += "\(Int(interval))" + "秒"
             } else {
                 
-                if Int(interval/kDate_day) > 0 {
-                    info = "\(Int(interval/kDate_day))" + "天"
+                if Int(interval/kDateDay) > 0 {
+                    info = "\(Int(interval/kDateDay))" + "天"
                 }
-                interval = interval.truncatingRemainder(dividingBy: kDate_day);
+                interval = interval.truncatingRemainder(dividingBy: kDateDay);
                 
-                if Int(interval/kDate_hour) > 0 {
-                    info += "\(Int(interval/kDate_hour))" + "时"
+                if Int(interval/kDateHour) > 0 {
+                    info += "\(Int(interval/kDateHour))" + "时"
                 }
-                interval = interval.truncatingRemainder(dividingBy: kDate_hour);
+                interval = interval.truncatingRemainder(dividingBy: kDateHour);
                 
-                if Int(interval/kDate_minute) > 0 {
-                    info += "\(Int(interval/kDate_minute))" + "分"
+                if Int(interval/kDateMinute) > 0 {
+                    info += "\(Int(interval/kDateMinute))" + "分"
                 }
-                interval = interval.truncatingRemainder(dividingBy: kDate_minute);
+                interval = interval.truncatingRemainder(dividingBy: kDateMinute);
                 info += "\(Int(interval))" + "秒"
             }
         }

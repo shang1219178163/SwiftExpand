@@ -283,9 +283,9 @@ import StoreKit
                 isUpdate = appStoreVer.compare(UIApplication.appVer, options: .numeric, range: nil, locale: nil) == .orderedDescending
                 if isUpdate == true {
                     DispatchQueue.main.async {
-                        let titles = isForce == false ? [kActionTitle_Update, kActionTitle_Cancell] : [kActionTitle_Update];
+                        let titles = isForce == false ? [kTitleUpdate, kTitleCancell] : [kTitleUpdate];
                         let alertController = UIAlertController.createAlert("新版本 v\(appStoreVer)", msg: "\n\(releaseNotes)", actionTitles: titles, handler: { (controller: UIAlertController, action: UIAlertAction) in
-                            if action.title == kActionTitle_Update {
+                            if action.title == kTitleUpdate {
                                 //去升级
                                 UIApplication.openURL(UIApplication.appUrlWithID(appStoreID))
                             }
