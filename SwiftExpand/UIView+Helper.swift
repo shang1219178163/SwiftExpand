@@ -713,6 +713,14 @@ import UIKit
         return (supView as! UIScrollView)
     }
     
+    /// 插入模糊背景
+    public func insertVisualEffectView() -> UIVisualEffectView {
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+        effectView.frame = self.bounds
+        self.insertSubview(effectView, at: 0)
+        return effectView;
+    }
+    
     /// 验证码倒计时显示
     public static func GCDTimerStart(_ lab: UILabel!, _ interval: Int = 60) {
         var time = interval
@@ -757,4 +765,6 @@ import UIKit
 ////        codeTimer.activate()
 //        return codeTimer;
 //    }
+    
+
 }
