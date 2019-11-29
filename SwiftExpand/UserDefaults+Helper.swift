@@ -9,7 +9,22 @@
 import Foundation
 
 public extension UserDefaults{
-    
+    /// UserDefaults 二次封装
+    static func setObject(_ object: Any?, forKey key: String) {
+        self.standard.setValue(object, forKey: key)
+    }
+    /// UserDefaults 二次封装
+    static func object(forKey key: String) -> Any? {
+        self.standard.value(forKey: key)
+    }
+    /// UserDefaults 二次封装
+    static func object(forKeyPath keyPath: String) -> Any? {
+        self.standard.value(forKeyPath: keyPath)
+    }
+    /// UserDefaults 二次封装
+    static func synchronize() {
+         self.standard.synchronize()
+     }
     ///UserDefaults 保存模型
     static func setArcObject(_ value: Any?, forkey defaultName: String) {
         guard let value = value else { return }

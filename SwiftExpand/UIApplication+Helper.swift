@@ -10,6 +10,12 @@ import UIKit
 
 @objc public extension UIApplication{
     
+    static var isPortrait: Bool {
+        //横竖屏判断
+        let orientation = UIApplication.shared.statusBarOrientation
+        return orientation.isPortrait
+    }
+    
     static var appName: String {
         let infoDic = Bundle.main.infoDictionary;
         if let name = infoDic!["CFBundleDisplayName"] {
@@ -285,32 +291,27 @@ import UIKit
         return schemes.contains(scheme)
     }
     
-    /// 打开网络链接
-    static func openURL(_ urlStr: String, isUrl: Bool = true) {
-        if isUrl == true {
-            _ = UIApplication.openURLStr(urlStr, prefix: "http://")
-        } else {
-            _ = UIApplication.openURLStr(urlStr, prefix: "tel://")
-        }
-    }
+    static let kPrefixHttp = "http://"
+    
+    static let kPrefixTel = "tel://"
     
     /// 打开网络链接(prefix为 http://或 tel:// )
     static func openURLStr(_ urlStr: String, prefix: String = "http://") -> Bool {
-        //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
-        //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
-        //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
+
         var tmp = urlStr;
         if urlStr.hasPrefix(prefix) == false {
             tmp = prefix + urlStr;
         }
         
-        let url: NSURL? = NSURL(string:tmp);
-        let canOpenUrl = UIApplication.shared.canOpenURL(url! as URL)
+        guard let url = URL(string:tmp) else { return false}
+        let canOpenUrl = UIApplication.shared.canOpenURL(url)
         if canOpenUrl == true {
+
             if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
-                UIApplication.shared.openURL(url! as URL);
+
+                UIApplication.shared.openURL(url);
             }
         } else {
             print("链接无法打开!!!\n%@",url as Any);

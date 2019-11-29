@@ -13,7 +13,7 @@ import UIKit
 
 @objc public extension UILabel{
     /// [源]UILabel创建
-    static func create(_ rect: CGRect = .zero, type: Int = 0) -> Self {
+    static func create(_ rect: CGRect = .zero, textColor: UIColor = .black, type: Int = 0) -> Self {
         let view = self.init(frame: rect);
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.isUserInteractionEnabled = true;
@@ -24,19 +24,17 @@ import UIKit
         case 1:
             view.numberOfLines = 1;
             view.lineBreakMode = .byTruncatingTail;
-            
         // 一行文本自适应宽度调节
         case 2:
             view.numberOfLines = 1;
             view.lineBreakMode = .byTruncatingTail;
             view.adjustsFontSizeToFitWidth = true;
-            
-        // 红色带边框
+        // 红色带边框标签
         case 3:
             view.numberOfLines = 1;
             view.lineBreakMode = .byTruncatingTail;
             view.textAlignment = .center;
-            view.textColor = .red;
+            view.textColor = textColor;
             
             view.layer.borderColor = view.textColor.cgColor;
             view.layer.borderWidth = 1.0;
@@ -48,7 +46,7 @@ import UIKit
             view.numberOfLines = 1;
             view.lineBreakMode = .byTruncatingTail;
             view.textAlignment = .center;
-            view.textColor = .red;
+            view.textColor = textColor;
             
             view.layer.borderColor = view.textColor.cgColor;
             view.layer.borderWidth = 1.0;

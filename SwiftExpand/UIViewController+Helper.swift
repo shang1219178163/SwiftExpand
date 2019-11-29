@@ -131,7 +131,7 @@ import UIKit
     public func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
         var item: UIView? = nil;
         if UIImage(named:obj) != nil{
-            item = UIImageView.create(CGRectMake(0, 0, 40, 40), imgName: obj)
+            item = UIImageView.create(CGRectMake(0, 0, 25, 25), imgName: obj)
 
         } else {
             item = UILabel.create(CGRectMake(0, 0, 72, 20), type: 1)

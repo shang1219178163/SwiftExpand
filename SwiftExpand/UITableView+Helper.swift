@@ -94,6 +94,24 @@ import UIKit
        sectionView.addSubview(label)
        return sectionView
     }
+    
+    /// [源]HeaderView,footerView
+    static func createSectionView(_ tableView: UITableView, text: String?, textAlignment: NSTextAlignment = .left, height: CGFloat = 30) -> UIView{
+        let sectionView = UIView()
+        if text == nil {
+            return sectionView
+        }
+        let view = UILabel(frame: CGRect(x: kX_GAP, y: 0, width: tableView.sizeWidth - kX_GAP*2, height: height));
+        view.isUserInteractionEnabled = true;
+        view.lineBreakMode = .byTruncatingTail;
+        view.adjustsFontSizeToFitWidth = true;
+        view.text = text;
+        view.textAlignment = textAlignment
+        view.font = UIFont.systemFont(ofSize: 15)
+
+        sectionView.addSubview(view)
+        return sectionView
+    }
 }
 
 public extension UITableView{
