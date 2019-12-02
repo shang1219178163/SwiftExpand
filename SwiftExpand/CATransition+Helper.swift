@@ -6,27 +6,7 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 import QuartzCore
-/// 立方体效果
-public let kCATransitionCube                  = "cube";
-/// 阿拉神灯效果
-public let kCATransitionSuckEffect            = "suckEffect";
-/// 上下左右翻转效果
-public let kCATransitionOglFlip               = "oglFlip";
-/// 水滴效果
-public let kCATransitionRippleEffect          = "rippleEffect";
-/// 向上翻页效果
-public let kCATransitionPageCurl              = "pageCurl";
-/// 向下翻页效果
-public let kCATransitionPageUnCurl            = "pageUnCurl";
-/// 相机镜头打开效果
-public let kCATransitionCameraIrisHollowOpen  = "cameraIrisHollowOpen";
-/// 相机镜头关闭效果
-public let kCATransitionCameraIrisHollowClose = "cameraIrisHollowClose";
-/// 动画方向
-public let kSubTypeFuntionNames = [CATransitionSubtype.fromTop,
-                                   CATransitionSubtype.fromLeft,
-                                   CATransitionSubtype.fromBottom,
-                                   CATransitionSubtype.fromRight];
+
 
 @objc public extension CATransition{
    

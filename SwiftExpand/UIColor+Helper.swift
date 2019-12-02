@@ -124,7 +124,6 @@ import UIKit
     static func dim(_ white: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
         return .init(white: white, alpha: a);
     }
-
     
     static func randomColor() -> UIColor {
         let r = arc4random_uniform(256);
@@ -134,7 +133,7 @@ import UIKit
     }
     
     /// 两个颜色是否相等
-    func equalTo(_ c2: UIColor) -> Bool{
+    func equalTo(_ c2: UIColor) -> Bool {
         // some kind of weird rounding made the colors unequal so had to compare like this
         let c1 = self;
         var red: CGFloat = 0

@@ -16,7 +16,7 @@ import QuartzCore
                                    fillMode: CAMediaTimingFillMode = .forwards,
                                    removedOnCompletion:Bool = false,
                                    functionName: CAMediaTimingFunctionName) -> CAKeyframeAnimation {
-        let anim: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: kTransformPosition);
+        let anim: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: CAAnimation.kTransformPosition);
         anim.duration = duration;
         anim.repeatCount = repeatCount;
         anim.fillMode = fillMode;
