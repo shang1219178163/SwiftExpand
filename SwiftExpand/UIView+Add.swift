@@ -81,7 +81,7 @@ import UIKit
                 let label = UILabel(frame: CGRectMake(0, imgView.frame.maxY + 25, bounds.width, 25))
                 label.textAlignment = .center
                 label.text = "暂无数据"
-                label.textColor = UIColorHexValue(0x999999)
+                label.textColor = UIColor.hexValue(0x999999)
                 label.tag = kTAG_LABEL
                 obj!.addSubview(label)
                 

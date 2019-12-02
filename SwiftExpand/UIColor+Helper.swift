@@ -19,7 +19,7 @@ import UIKit
     static var theme: UIColor {
         get{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIColor;
-            obj = obj ?? UIColorHexValue(0x0082e0)
+            obj = obj ?? UIColor.hexValue(0x0082e0)
             return obj!;
         }
         set{
@@ -28,24 +28,24 @@ import UIKit
     }
     /// 通用背景色
     static var background: UIColor {
-        return UIColorHexValue(0xe9e9e9);
+        return UIColor.hexValue(0xe9e9e9);
     }
     /// 线条默认颜色(同cell分割线颜色)
     static var line: UIColor {
-//        return UIColorHexValue(0xe0e0e0);
-        return UIColorHexValue(0xe4e4e4);
+//        return UIColor.hexValue(0xe0e0e0);
+        return UIColor.hexValue(0xe4e4e4);
     }
     
     static var btnN: UIColor {
-        return UIColorHexValue(0xfea914);
+        return UIColor.hexValue(0xfea914);
     }
     
     static var btnH: UIColor {
-        return UIColorHexValue(0xf1a013);
+        return UIColor.hexValue(0xf1a013);
     }
     
     static var btnD: UIColor {
-        return UIColorHexValue(0x999999);
+        return UIColor.hexValue(0x999999);
     }
     
     static var excel: UIColor {
@@ -53,30 +53,43 @@ import UIKit
     }
     /// 青蓝
     static var lightBlue: UIColor {
-        return UIColorHexValue(0x29B5FE);
+        return UIColor.hexValue(0x29B5FE);
     }
     /// 亮橙
     static var lightOrange: UIColor {
-        return UIColorHexValue(0xFFBB50);
+        return UIColor.hexValue(0xFFBB50);
     }
     /// 浅绿
     static var lightGreen: UIColor {
-        return UIColorHexValue(0x1AC756);
+        return UIColor.hexValue(0x1AC756);
     }
     
     static var textColor3: UIColor {
-        return UIColorHexValue(0x333333);
+        return UIColor.hexValue(0x333333);
     }
     
     static var textColor6: UIColor {
-        return UIColorHexValue(0x666666);
+        return UIColor.hexValue(0x666666);
     }
     
     static var textColor9: UIColor {
-        return UIColorHexValue(0x999999);
+        return UIColor.hexValue(0x999999);
     }
     
-    //MARK: - -方法
+    /// 获取某种颜色Alpha下的色彩
+    static func alpha(_ color: UIColor, _ a: CGFloat = 1.0) -> UIColor{
+        return color.withAlphaComponent(a)
+    }
+
+    static func RGBA(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
+        return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
+    }
+
+    /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
+    static func hexValue(_ hex: Int, _ a: CGFloat = 1.0) -> UIColor {
+        return UIColor(red: CGFloat((hex & 0xFF0000) >> 16)/255.0, green: CGFloat((hex & 0xFF00) >> 8)/255.0, blue: CGFloat(hex & 0xFF)/255.0, alpha: a)
+    }
+    
     /// [源]十六进制颜色字符串
     static func hex(_ hex: String, a: CGFloat = 1.0) -> UIColor {
         var cString = hex.trimmingCharacters(in: CharacterSet.whitespaces).uppercased();
@@ -99,7 +112,7 @@ import UIKit
         let bIndex = cString.index(cString.endIndex, offsetBy: -2);
         let bString = String(cString[bIndex...]);
         
-        var r:CUnsignedInt = 0, g:CUnsignedInt = 0, b:CUnsignedInt = 0
+        var r: CUnsignedInt = 0, g: CUnsignedInt = 0, b: CUnsignedInt = 0
         Scanner(string: rString).scanHexInt32(&r);
         Scanner(string: gString).scanHexInt32(&g);
         Scanner(string: bString).scanHexInt32(&b);
@@ -107,6 +120,11 @@ import UIKit
         //        print(hex,rString,gString,bString,otherString)
         return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a);
     }
+    /// 灰色背景
+    static func dim(_ white: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
+        return .init(white: white, alpha: a);
+    }
+
     
     static func randomColor() -> UIColor {
         let r = arc4random_uniform(256);

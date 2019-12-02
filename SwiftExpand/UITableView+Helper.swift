@@ -166,7 +166,10 @@ public extension UITableView{
     
     /// 获取section模型数组(例如 var mdic:[String: [CCSParkRecordDetailModel]] = [:] //全局变量)
     static func sectionModelList<T: NSObject>(_ section: Int, mdic: inout [String: [T]]) -> [T]? {
-        let keys = mdic.keys.sorted(by: > );
+        let keys = mdic.keys.sorted(by: > )
+        if keys.count <= 0 {
+            return nil;
+        }
         let key = keys[section]
         let modelList = mdic[key]
         return modelList;

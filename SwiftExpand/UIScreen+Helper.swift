@@ -35,4 +35,8 @@ import UIKit
     static var tabBarHeight: CGFloat {
         return 49.0
     }
+    
+    static func scaleWidth(_ width: CGFloat) -> CGFloat {
+        return width * UIScreen.main.bounds.size.width / 320.0
+    }
 }

@@ -232,6 +232,25 @@ import UIKit
             self.navigationController!.popViewController(animated: true);
         });
     }
+    
+    /// 获取UIViewController/UINavigationController数组
+    static public func controllers(_ list: [[String]], isNavController: Bool = false) -> [UIViewController] {
+        let tabItems: [UITabBarItem] = UITabBarItemsFromList(list);
+        let marr: NSMutableArray = [];
+        for e in list.enumerated() {
+            let itemList = e.element
+            
+            let title: String = itemList.count > 1 ? itemList[1] : "";
+            
+            var controller: UIViewController = UICtrFromString(itemList.first!)
+            controller.title = title
+            controller.tabBarItem = tabItems[e.offset]
+            
+            controller = isNavController == true ? UINavCtrFromObj(controller)! : controller
+            marr.add(controller)
+        }
+        return marr.copy() as! [UIViewController]
+    }
 }
 
 

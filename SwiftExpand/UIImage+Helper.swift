@@ -28,22 +28,36 @@ import UIKit
 //    }
     
     convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
-        let rect = CGRect(origin: CGPoint.zero, size: size)
-        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
-        color.setFill()
-        UIRectFill(rect)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        guard let cgImage = image?.cgImage else { return nil }
+        let image = UIImage.color(color)
+        guard let cgImage = image.cgImage else { return nil }
         self.init(cgImage: cgImage)
+    }
+    
+    // 把颜色转成UIImage
+    static func color(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage{
+        let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
+        
+        let context: CGContext = UIGraphicsGetCurrentContext()!
+        context.setFillColor(color.cgColor)
+        context.fill(rect)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsGetCurrentContext()
+        return image!
+    }
+    
+    /// UIImage 相等判断
+    func equelToImage(_ image: UIImage) -> Bool{
+        let data0: Data = self.pngData()!
+        let data1: Data = image.pngData()!
+        return data0 == data1
     }
     
     func croppedImage(bound: CGRect) -> UIImage {
         let scaledBounds = CGRect(x:bound.origin.x * self.scale, y:bound.origin.y * self.scale, width:bound.size.width * self.scale, height:bound.size.height * self.scale)
         let imageRef = cgImage?.cropping(to:scaledBounds)
         let croppedImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: .up)
-        
         return croppedImage
     }
     
