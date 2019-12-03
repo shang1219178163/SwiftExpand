@@ -50,26 +50,5 @@ import QuartzCore
                                 CAMediaTimingFunctionName.easeInEaseOut,//先慢 后慢 中间快
                                 CAMediaTimingFunctionName.default//默认
                                 ];
-    // MARK: - kCATransition
-    /// 立方体效果
-    static let kCATransitionCube                  = "cube";
-    /// 阿拉神灯效果
-    static let kCATransitionSuckEffect            = "suckEffect";
-    /// 上下左右翻转效果
-    static let kCATransitionOglFlip               = "oglFlip";
-    /// 水滴效果
-    static let kCATransitionRippleEffect          = "rippleEffect";
-    /// 向上翻页效果
-    static let kCATransitionPageCurl              = "pageCurl";
-    /// 向下翻页效果
-    static let kCATransitionPageUnCurl            = "pageUnCurl";
-    /// 相机镜头打开效果
-    static let kCATransitionCameraIrisHollowOpen  = "cameraIrisHollowOpen";
-    /// 相机镜头关闭效果
-    static let kCATransitionCameraIrisHollowClose = "cameraIrisHollowClose";
-    /// 动画方向
-    static let kSubTypeFuntionNames = [CATransitionSubtype.fromTop,
-                                       CATransitionSubtype.fromLeft,
-                                       CATransitionSubtype.fromBottom,
-                                       CATransitionSubtype.fromRight];
+
 }
