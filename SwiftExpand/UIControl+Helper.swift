@@ -12,7 +12,7 @@ import UIKit
     /// UIControl 添加回调方式
     public func addActionHandler(_ action: @escaping (ControlClosure), for controlEvents: UIControl.Event = .touchUpInside) {
         let funcAbount = NSStringFromSelector(#function) + ",\(controlEvents)"
-        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
+        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
         
         self.runtimeKey = runtimeKey
         addTarget(self, action:#selector(p_handleActionControl(_:)), for:controlEvents);

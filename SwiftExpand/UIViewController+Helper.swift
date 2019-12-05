@@ -75,7 +75,7 @@ import UIKit
     
     public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
-        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
+        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
         
         let item:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(p_handleActionItem(_:)));
         item.systemType = systemItem;

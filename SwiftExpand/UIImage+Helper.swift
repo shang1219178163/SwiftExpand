@@ -64,7 +64,7 @@ import UIKit
     /// 保存UIImage对象到相册
     func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) {
         let funcAbount = NSStringFromSelector(#function)
-        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)!
+        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
         
         UIImageWriteToSavedPhotosAlbum(self, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
         self.runtimeKey = runtimeKey;

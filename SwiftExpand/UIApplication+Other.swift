@@ -13,15 +13,16 @@ import Photos
     /// 全局token
     static var token: String {
         get {
-            return UserDefaults.standard.string(forKey: "token") ?? ""
+            return UserDefaults.standard.string(forKey: #function) ?? ""
         }
         set {
-            UserDefaults.standard.set(newValue, forKey: "token")
+            UserDefaults.standard.set(newValue, forKey: #function)
+            UserDefaults.standard.synchronize()
         }
     }
     
     /// 是否已经登录
-    static var isLoggedIn: Bool {
+    static var isLogin: Bool {
         return UIApplication.token.count > 0;
     }
     

@@ -25,7 +25,7 @@ import UIKit
 
         
         searchBar.barStyle = .default;
-        searchBar.keyboardType = .namePhonePad;
+//        searchBar.keyboardType = .namePhonePad;
         //searchBar.searchBarStyle = UISearchBarStyleMinimal;
         //没有背影，透明样式
         // 修改cancel
