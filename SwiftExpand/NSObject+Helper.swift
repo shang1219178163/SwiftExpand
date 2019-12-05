@@ -134,6 +134,30 @@ import UIKit
         return arr as [AnyObject];
     }
     
+    // MARK: - KVC
+
+    /// 返回key对应的值
+    func valueText(forKey key: String, defalut: String = "--") -> String{
+        if key == "" {
+            return "";
+        }
+        if let result = self.value(forKey: key) {
+            return "\(result)" != "" ? "\(result)" : defalut;
+        }
+        return defalut;
+    }
+    /// 返回key对应的值
+    func valueText(forKeyPath keyPath: String, defalut: String = "--") -> String{
+        if keyPath == "" {
+            return "";
+        }
+        if let result = self.value(forKeyPath: keyPath) {
+            return "\(result)" != "" ? "\(result)" : defalut;
+        }
+        return defalut;
+    }
+    // MARK: - 视图相关
+
     ///  富文本只有同字体大小才能计算高度
     func sizeWithText(_ text: String = "", font: CGFloat = 15, width: CGFloat) -> CGSize {
         let attDic = NSAttributedString.paraDict(font, textColor: .black, alignment: .left);
@@ -164,28 +188,7 @@ import UIKit
         return attString
     }
 
-    // MARK: - KVC
 
-    /// 返回key对应的值
-    func valueText(forKey key: String, defalut: String = "--") -> String{
-        if key == "" {
-            return "";
-        }
-        if let result = self.value(forKey: key) {
-            return "\(result)" != "" ? "\(result)" : defalut;
-        }
-        return defalut;
-    }
-    /// 返回key对应的值
-    func valueText(forKeyPath keyPath: String, defalut: String = "--") -> String{
-        if keyPath == "" {
-            return "";
-        }
-        if let result = self.value(forKeyPath: keyPath) {
-            return "\(result)" != "" ? "\(result)" : defalut;
-        }
-        return defalut;
-    }
     
 }
 

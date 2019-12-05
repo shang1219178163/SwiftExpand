@@ -33,18 +33,18 @@ public struct RuntimeKey {
 
 }
 
-public func RuntimeKeyFromParams(_ obj: NSObject!, funcAbount: String!) -> UnsafeRawPointer! {
+public func RuntimeKeyFromParams(_ obj: NSObject!, funcAbount: String!) -> UnsafeRawPointer {
     let unique = "\(obj.hashValue)," + funcAbount
     let key: UnsafeRawPointer = UnsafeRawPointer(bitPattern: unique.hashValue)!
     return key;
 }
 
-public func RuntimeKeyFromString(_ obj: String) -> UnsafeRawPointer! {
+public func RuntimeKeyFromString(_ obj: String) -> UnsafeRawPointer {
     let key: UnsafeRawPointer = UnsafeRawPointer(bitPattern: obj.hashValue)!
     return key;
 }
 
-public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer! {
+public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer {
     let aSelectorName = NSStringFromSelector(aSelector);
     let key: UnsafeRawPointer = RuntimeKeyFromString(aSelectorName)
     return key;
@@ -123,7 +123,7 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
     // 需将cls转换为制定类型
     let vcCls = cls as! UIViewController.Type;
     // 创建对象
-    let controller:UIViewController = vcCls.init();
+    let controller: UIViewController = vcCls.init();
     return controller;
 }
 
@@ -161,6 +161,12 @@ public func UITarBarCtrFromList(_ list: [[String]]) -> UITabBarController {
     let tabBarVC: UITabBarController = UITabBarController()
     tabBarVC.viewControllers = UICtlrListFromList(list, isNavController: true)
     return tabBarVC;
+}
+
+/// UIImage快捷方法
+public func UIImageNamed(_ name: String, in bundle: Bundle = Bundle.main, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
+    let image = UIImage(named: name, in: bundle, compatibleWith: nil)?.withRenderingMode(renderingMode)
+    return image
 }
 
 /// UIImage快捷方法
