@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "SwiftExpand"
-    s.version      = "1.9.6.5"
+    s.version      = "1.9.6.7"
     s.summary      = "系统类功能扩展."
     s.description  = "主要通过分类实现"
 
@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
 
     s.source_files = "SwiftExpand/*.swift"
     s.resource_bundles = {
-      'SwiftExpand' => ['SwiftExpand/*.bundle']
+      'SwiftExpand' => ['SwiftExpand/*.xcassets']
     }
 
     s.ios.deployment_target = '8.0'

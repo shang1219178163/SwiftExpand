@@ -1,0 +1,6 @@
+framework module Pods_SwiftExpandExample {
+  umbrella header "Pods-SwiftExpandExample-umbrella.h"
+
+  export *
+  module * { export * }
+}
