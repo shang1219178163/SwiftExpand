@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
         setupExtendedLayout()
         view.backgroundColor = UIColor.white
 
-        title = "车牌键盘重构"
+        title = "Home"
         textField.frame = CGRect.make(10, 20, kScreenWidth - 20, 35)
         view.addSubview(textField)
         
