@@ -33,7 +33,7 @@ import UIKit
         self.init(cgImage: cgImage)
     }
     
-    // 把颜色转成UIImage
+    /// 把颜色转成UIImage
     static func color(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage{
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
@@ -45,6 +45,17 @@ import UIKit
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsGetCurrentContext()
         return image!
+    }
+    /// 从 bundle 中加载图片(注意bundle中路径)
+    static func named(_ name: String, bundleCls: AnyClass) -> UIImage?{
+        if let image = UIImage(named: "\(bundleCls).bundle/Image/\(name)") {
+            return image;
+        }
+
+        let bundle = Bundle(for: bundleCls.self)
+        let filePath = bundle.resourcePath! + "/\(bundleCls).bundle/Image/\(name)"
+        let image = UIImage(contentsOfFile: filePath)
+        return image;
     }
     
     /// UIImage 相等判断

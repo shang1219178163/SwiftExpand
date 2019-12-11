@@ -383,9 +383,9 @@ public extension Substring {
     }
     
     /// 取代索引处字符
-    func replacingCharacter(_ index: Int) -> String{
+    func replacingCharacter(_ aString: String, at index: Int) -> String{
         assert(self.length > 0);
-        let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: self as String)
+        let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: aString)
         return result;
     }
     

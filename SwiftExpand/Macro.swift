@@ -77,10 +77,15 @@ public let kTAG_VIEW_Picture: Int = 1300;
 public let kScreenWidth: CGFloat           = UIScreen.main.bounds.width;
 /// 屏幕高度
 public let kScreenHeight: CGFloat          = UIScreen.main.bounds.height;
+/// IphoneXtab
+public let kIphoneXtabHeight: CGFloat      = kScreenHeight >= 812 ? 34 : 0;
+/// 键盘视图高度
+public let kKeyboardHeight: CGFloat        = 226;
 /// 顶部状态栏 20
 public let kStatusBarHeight: CGFloat       = 20.0;
 /// 导航栏高 44
 public let kNaviBarHeight: CGFloat         = 44.0;
+
 public let kBarHeight: CGFloat             = 64.0;
 /// 底部tabBar高度 49
 public let kTabBarHeight: CGFloat          = 49.0;

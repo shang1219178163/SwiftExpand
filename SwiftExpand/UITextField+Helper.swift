@@ -26,6 +26,31 @@ import UIKit
         view.font = UIFont.systemFont(ofSize: 15)
         return view
     }
+    
+    /// 设置 leftView 图标
+    func setupLeftView(image: UIImage?, viewMode: UITextField.ViewMode = .always) {
+        if image == nil {
+            return
+        }
+        if leftView != nil {
+            leftViewMode = viewMode
+            return
+        }
+     
+        leftView = {
+            let view: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 40))
+            
+            let imgView = UIImageView(frame:CGRect(x: 0, y: 0, width: 15, height: 15));
+            imgView.image = image
+            imgView.contentMode = UIView.ContentMode.scaleAspectFit;
+            imgView.center = view.center;
+            view.addSubview(imgView);
+          
+            return view;
+        }()
+        leftViewMode = viewMode; //此处用来设置leftview现实时机
+    }
+    
     ///  RightView
     func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView! {
         assert(unitName != nil && unitName.isValid == true);
@@ -66,4 +91,5 @@ import UIKit
         }
         return string != "" ? self.text! + string : self.text!.substringTo(self.text!.count - 2);
     }
+    
 }
