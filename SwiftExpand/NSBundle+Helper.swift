@@ -47,4 +47,15 @@ import UIKit
         return image;
     }
     
+    /// 获取 pod bundle 图片资源
+    static func image(named name: String, bundlePath: String) -> UIImage?{
+        if let image = UIImage(named: name) {
+            return image;
+        }
+                
+        guard let bundle = Bundle(path: bundlePath) else { return nil}
+        let image = UIImage(named: name, in: bundle, compatibleWith: nil)
+        return image;
+    }
+    
 }
