@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1460508D23A2182100C10F34 /* SwiftExpand.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 1460508C23A2182100C10F34 /* SwiftExpand.podspec */; };
 		14D4ED2823A1336B00B8BD16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D4ED2723A1336B00B8BD16 /* AppDelegate.swift */; };
 		14D4ED3123A1336C00B8BD16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 14D4ED3023A1336C00B8BD16 /* Assets.xcassets */; };
 		14D4ED3423A1336C00B8BD16 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14D4ED3223A1336C00B8BD16 /* LaunchScreen.storyboard */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1460508C23A2182100C10F34 /* SwiftExpand.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SwiftExpand.podspec; path = ../../SwiftExpand.podspec; sourceTree = "<group>"; };
 		14D4ED2423A1336B00B8BD16 /* SwiftExpandExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftExpandExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D4ED2723A1336B00B8BD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14D4ED3023A1336C00B8BD16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 		14D4ED2623A1336B00B8BD16 /* SwiftExpandExample */ = {
 			isa = PBXGroup;
 			children = (
+				1460508C23A2182100C10F34 /* SwiftExpand.podspec */,
 				14D4ED2723A1336B00B8BD16 /* AppDelegate.swift */,
 				14D4ED3D23A1351200B8BD16 /* HomeViewController.swift */,
 				14D4ED3023A1336C00B8BD16 /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1460508D23A2182100C10F34 /* SwiftExpand.podspec in Resources */,
 				14D4ED3423A1336C00B8BD16 /* LaunchScreen.storyboard in Resources */,
 				14D4ED3123A1336C00B8BD16 /* Assets.xcassets in Resources */,
 			);
