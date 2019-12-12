@@ -77,7 +77,7 @@ public let kTAG_VIEW_Picture: Int = 1300;
 public let kScreenWidth: CGFloat           = UIScreen.main.bounds.width;
 /// 屏幕高度
 public let kScreenHeight: CGFloat          = UIScreen.main.bounds.height;
-/// IphoneXtab
+/// IphoneXtab 底部安全区高度
 public let kIphoneXtabHeight: CGFloat      = kScreenHeight >= 812 ? 34 : 0;
 /// 键盘视图高度
 public let kKeyboardHeight: CGFloat        = 226;
@@ -192,25 +192,25 @@ public let kIMG_like_W          = "img_like_W";
 // MARK: - 文字
 
 /// 网络请求中...
-public let kMsgNetWorkRequesting    = "网络请求中...";
+public let kNetWorkRequesting    = "网络请求中...";
 /// 网络请求失败,请稍后再试
-public let kMsgNetWorkNodata        = "暂无数据";
+public let kNetWorkNodata        = "暂无数据";
 /// 没有更多数据了
-public let kMsgNetWorkNoMoredata    = "没有更多数据了";
+public let kNetWorkNoMoredata    = "没有更多数据了";
 /// 网络请求失败,请稍后再试
-public let kMsgNetWorkFailed        = "网络请求失败,请稍后再试";
+public let kNetWorkFailed        = "网络请求失败,请稍后再试";
 /// 参数错误,请稍后再试
-public let kMsgNetWorkFailedParams  = "参数错误,请稍后再试";
+public let kNetWorkFailedParams  = "参数错误,请稍后再试";
 /// 定位中...
-public let kMsgLocationing          = "定位中...";
+public let kLocationing          = "定位中...";
 /// 位置信息更新成功!
-public let kMsgLocationSuccess      = "位置信息更新成功!";
+public let kLocationSuccess      = "位置信息更新成功!";
 /// 定位失败,请稍后再试
-public let kMsgLocationFailed       = "定位失败,请稍后再试";
+public let kLocationFailed       = "定位失败,请稍后再试";
 /// 身份证识别失败,请稍后再试
-public let kMsgIDCardFailed         = "身份证识别失败,请稍后再试";
+public let kIDCardFailed         = "身份证识别失败,请稍后再试";
 /// 身份证识别成功
-public let kMsgIDCardSuccess        = "身份证识别成功";
+public let kIDCardSuccess        = "身份证识别成功";
 
 /// 重置
 public let kTitleDefault = "重置";
