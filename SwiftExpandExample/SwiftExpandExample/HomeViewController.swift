@@ -20,9 +20,8 @@ class HomeViewController: UIViewController {
         textField.frame = CGRect.make(10, 20, kScreenWidth - 20, 35)
         view.addSubview(textField)
         
-        textField.setupLeftView(image: Bundle.image(named: "search_bar", podClassName: "SwiftExpand"))
+        textField.setupLeftView(image: UIImage.image(named: "search_bar", podClassName: "SwiftExpand"))
 
-//        textField.setupLeftView(image: Bundle.image(named: "search_bar", podClass: NSClassFromString("SwiftExpand")!.self))
         textField.becomeFirstResponder()
         
         _ = view.addGestureTap { (reco) in
