@@ -46,17 +46,7 @@ import UIKit
         UIGraphicsGetCurrentContext()
         return image!
     }
-    /// 从 bundle 中加载图片(注意bundle中路径)
-//    static func named(_ name: String, bundleCls: AnyClass) -> UIImage?{
-//        if let image = UIImage(named: "\(bundleCls).bundle/Image/\(name)") {
-//            return image;
-//        }
-//
-//        let bundle = Bundle(for: bundleCls.self)
-//        let filePath = bundle.resourcePath! + "/\(bundleCls).bundle/Image/\(name)"
-//        let image = UIImage(contentsOfFile: filePath)
-//        return image;
-//    }
+
     /// 获取 pod bundle 图片资源
     static func image(named name: String, podClass: AnyClass, bundleName: String? = nil) -> UIImage?{
         let bundleNameNew = bundleName ?? "\(podClass)"
