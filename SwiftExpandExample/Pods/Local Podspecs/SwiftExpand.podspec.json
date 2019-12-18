@@ -1,6 +1,6 @@
 {
   "name": "SwiftExpand",
-  "version": "1.9.6.6",
+  "version": "1.9.8.1",
   "summary": "系统类功能扩展.",
   "description": "主要通过分类实现",
   "homepage": "https://github.com/shang1219178163/SwiftExpand",
@@ -13,9 +13,9 @@
   },
   "source": {
     "git": "https://github.com/shang1219178163/SwiftExpand.git",
-    "tag": "1.9.6.6"
+    "tag": "1.9.8.1"
   },
-  "source_files": "SwiftExpand/*.swift",
+  "source_files": "SwiftExpand/Classes/**/*",
   "resource_bundles": {
     "SwiftExpand": [
       "SwiftExpand/*.xcassets"
@@ -37,5 +37,6 @@
     "GLKit",
     "QuartzCore",
     "WebKit"
-  ]
+  ],
+  "swift_version": "5.0"
 }

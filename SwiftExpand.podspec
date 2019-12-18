@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "SwiftExpand"
-    s.version      = "1.9.8"
+    s.version      = "1.9.8.1"
     s.summary      = "系统类功能扩展."
     s.description  = "主要通过分类实现"
 
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
     s.author       = { "BIN" => "shang1219178163@gmail.com" }
     s.source       = { :git => "https://github.com/shang1219178163/SwiftExpand.git", :tag => "#{s.version}" }
 
-    s.source_files = "SwiftExpand/*.swift"
+    s.source_files = "SwiftExpand/Classes/**/*"
     s.resource_bundles = {
       'SwiftExpand' => ['SwiftExpand/*.xcassets']
     }

@@ -1,5 +1,5 @@
 PODS:
-  - SwiftExpand (1.9.6.6)
+  - SwiftExpand (1.9.8.1)
 
 DEPENDENCIES:
   - SwiftExpand (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SwiftExpand: 3120dbe918c1c60aef3b433d832764c8bd0fa3c7
+  SwiftExpand: 0d3f874e489e41d62aca1069dce976a287dcc241
 
-PODFILE CHECKSUM: a75e13416c5f51ca6eab533cf4aa2f082a6a9028
+PODFILE CHECKSUM: 1ebbffd0537dffd57bd2b07a91090ffdaedd1833
 
-COCOAPODS: 1.7.0.beta.3
+COCOAPODS: 1.8.4
