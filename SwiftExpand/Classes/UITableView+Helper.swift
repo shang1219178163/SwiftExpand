@@ -115,6 +115,14 @@ import UIKit
 }
 
 public extension UITableView{
+    /// 泛型复用register cell - Type: "类名.self" (备用默认值 T.self)
+    final func register<T: UITableViewCell>(cellType: T.Type, forCellReuseIdentifier identifier: String = String(describing: T.self)){
+        register(cellType.self, forCellReuseIdentifier: identifier)
+    }
+    /// 泛型复用register UITableViewHeaderFooterView - Type: "类名.self" (备用默认值 T.self)
+    final func register<T: UITableViewHeaderFooterView>(cellType: T.Type, forHeaderFooterViewReuseIdentifier identifier: String = String(describing: T.self)){
+        register(cellType.self, forHeaderFooterViewReuseIdentifier: identifier)
+    }
     
     /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UITableViewCell>(for cellType: T.Type, identifier: String = String(describing: T.self), style: UITableViewCell.CellStyle = .default) -> T{
