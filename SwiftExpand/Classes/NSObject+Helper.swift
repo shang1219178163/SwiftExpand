@@ -187,8 +187,18 @@ import UIKit
         let attString = NSAttributedString.attString(string, textTaps: [prefix], font: 15, tapFont: 15, color: .black, tapColor: colorMust, alignment: .left)
         return attString
     }
-
-
+    /// 乘法表打印
+    static func printChengfaBiao(num: Int = 9) {
+        assert(num > 0)
+        var result = ""
+        for i in 1...num {
+            for j in 1...i {
+                result = "\(result)\t\(j) * \(i) = \(j * i)"
+            }
+            print(result)
+            result = ""
+        }
+    }
     
 }
 
