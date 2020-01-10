@@ -13,7 +13,7 @@ import Foundation
     func getSubviewsForName(_ name: String) -> [UIView] {
         var marr: [UIView] = []
         tabBar.subviews.forEach { (view) in
-            if view.isKind(of: SwiftClassFromString(name)) {
+            if view.isKind(of: NNClassFromString(name)!) {
                 marr.append(view)
             }
         }

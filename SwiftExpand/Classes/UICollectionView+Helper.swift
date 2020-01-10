@@ -67,7 +67,7 @@ import UIKit
     /// cell注册
     func registerCTVCell(_ listClass: [String]) {
         listClass.forEach { (className: String) in
-            let obj:AnyClass = SwiftClassFromString(className)
+            let obj:AnyClass = NNClassFromString(className)!
             register(obj, forCellWithReuseIdentifier: className)
         }
     }
@@ -83,7 +83,7 @@ import UIKit
     func registerCTVReusable(_ listClass: [String], kind: String = UICollectionView.elementKindSectionHeader) {
         listClass.forEach { (className: String) in
             let identifier = sectionReuseIdentifier(className, kind: kind)
-            register(SwiftClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
+            register(NNClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         }
     }
     

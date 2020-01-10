@@ -137,7 +137,7 @@ import UIKit
     // MARK: - KVC
 
     /// 返回key对应的值
-    func valueText(forKey key: String, defalut: String = "--") -> String{
+    func valueText(forKey key: String, defalut: String = "-") -> String{
         if key == "" {
             return "";
         }
@@ -147,7 +147,7 @@ import UIKit
         return defalut;
     }
     /// 返回key对应的值
-    func valueText(forKeyPath keyPath: String, defalut: String = "--") -> String{
+    func valueText(forKeyPath keyPath: String, defalut: String = "-") -> String{
         if keyPath == "" {
             return "";
         }

@@ -16,6 +16,9 @@ public typealias ViewClosure = ((UITapGestureRecognizer?, UIView, NSInteger) -> 
 public typealias ControlClosure = (UIControl) -> Void
 public typealias RecognizerClosure = ((UIGestureRecognizer) -> Void)
 
+public typealias TextFieldClosure = ((UITextField) -> Void)
+public typealias TextViewClosure = ((UITextView) -> Void)
+
 public typealias CellHeightForRowClosure = ((UITableView, IndexPath) -> CGFloat)
 public typealias CellForRowClosure = ((UITableView, IndexPath) -> UITableViewCell?)
 public typealias DidSelectRowClosure = ((UITableView, IndexPath) -> Void)
@@ -96,25 +99,15 @@ public func NNClassFromString(_ name: String) -> AnyClass? {
     return nil;
 }
 
-////获取本地创建类
-//public func NNClassFromString(_ name: String, hasNameSpace: Bool = true) -> AnyClass {
-//    //    let nameKey = "CFBundleName";
-//    //    这里也是坑，请不要翻译oc的代码，而是去NSBundle类里面看它的api
-//    //    let appName = Bundle.main.infoDictionary!["CFBundleName"] as? String;
-//    let nameSpace = hasNameSpace ? UIApplication.appBundleName : "";
+//获取本地创建类(弃用,代替方法 "NNClassFromString")
+//public func SwiftClassFromString(_ name: String) -> AnyClass {
+//    if name.contains(".") {
+//        return NSClassFromString(name)!;
+//    }
+//    let nameSpace = UIApplication.appBundleName;
 //    let cls: AnyClass = NSClassFromString(nameSpace + "." + name)!;
 //    return cls;
 //}
-
-//获取本地创建类(弃用,代替方法 "NNClassFromString")
-public func SwiftClassFromString(_ name: String) -> AnyClass {
-    if name.contains(".") {
-        return NSClassFromString(name)!;
-    }
-    let nameSpace = UIApplication.appBundleName;
-    let cls: AnyClass = NSClassFromString(nameSpace + "." + name)!;
-    return cls;
-}
 
 /// 获取本地 UIViewController 文件
 public func UICtrFromString(_ vcName: String) -> UIViewController {
