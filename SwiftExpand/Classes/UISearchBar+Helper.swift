@@ -9,6 +9,24 @@ import UIKit
 
 @objc public extension UISearchBar{
 
+    var textField: UITextField? {
+        get {
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
+            if obj == nil {
+                obj = self.findSubview(type: UITextField.self, resursion: true) as? UITextField
+                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            return obj;
+        }
+    }
+    
+    var cancellBtn: UIButton? {
+        if let btn = self.findSubview(type: (NSClassFromString("UINavigationButton") as! UIResponder.Type).self, resursion: true) as? UIButton {
+            return btn;
+        }
+        return nil;
+    }
+    
     /// [源]UISearchBar创建
     static func create(_ rect: CGRect) -> UISearchBar {
         let searchBar = UISearchBar(frame: rect)
@@ -22,7 +40,6 @@ import UIKit
         //searchBar.backgroundImage = [UIImage imageNamed:@"sexBankgroundImage"];
         // 设置SearchBar的主题颜色
         //searchBar.barTintColor = [UIColor colorWithRed:111 green:212 blue:163 alpha:1];
-
         
         searchBar.barStyle = .default;
 //        searchBar.keyboardType = .namePhonePad;
@@ -49,23 +66,16 @@ import UIKit
 
         return searchBar;
     }
-    
-    var textField: UITextField? {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITextField;
-            if obj == nil {
-                obj = self.findSubview(type: UITextField.self, resursion: true) as? UITextField
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return obj;
-        }
+    /// 创建默认搜索框
+    static func createDefault() -> UISearchBar {
+        let view = UISearchBar.create(CGRectMake(0, 0, kScreenWidth, 50))
+        view.layer.cornerRadius = 0;
+        view.showsCancelButton = false;
+        view.backgroundColor = .white
+        view.textField?.placeholder = "请输入名称搜索";
+        view.textField?.backgroundColor = UIColor.background
+        view.textField?.layer.cornerRadius = 5;
+        view.textField?.layer.masksToBounds = true;
+        return view;
     }
-    
-    var cancellBtn: UIButton? {
-        if let btn = self.findSubview(type: (NSClassFromString("UINavigationButton") as! UIResponder.Type).self, resursion: true) as? UIButton {
-            return btn;
-        }
-        return nil;
-    }
-    
 }
