@@ -68,5 +68,19 @@ import UIKit
         return jsonString;
     }
 
+    /// 本地json文件(.geojson) -> NSString
+    static func ObjFromGeojson(_ name: String) -> Any? {
+        assert(name.contains(".geojson") == true);
+         
+        let array: Array = name.components(separatedBy: ".");
+        let path = Bundle.main.path(forResource: array.first, ofType: array.last);
+        if path == nil {
+            return nil;
+        }
+         
+        guard let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path!)) else { return nil}
+        guard let jsonObj = try? JSONSerialization.jsonObject(with: jsonData, options: []) else { return nil}
+        return jsonObj
+     }
     
 }

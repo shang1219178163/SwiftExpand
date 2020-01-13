@@ -75,11 +75,6 @@ public extension String{
         return from ..< to
     }
     
-    /// 读取本地json文件
-    func jsonFileToJSONString() -> String {
-        return (self as NSString).jsonFileToJSONString();
-    }
-    
     /// 大于version
     func isNewer(version: String) -> Bool {
         return (self as NSString).isNewer(version:version)
@@ -276,21 +271,6 @@ public extension Substring {
     func toAsterisk() -> NSAttributedString{
         let isMust = self.contains(kAsterisk)
         return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, isMust: isMust)
-    }
-    
-    /// 读取本地json文件
-    func jsonFileToJSONString() -> String {
-        assert(self.contains(".geojson") == true);
-        let array: Array = self.components(separatedBy: ".");
-        let path = Bundle.main.path(forResource: array.first, ofType: array.last);
-        if path == nil {
-            return "";
-        }
-        
-        guard let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path!)) else { return ""}
-        guard let jsonObj = try? JSONSerialization.jsonObject(with: jsonData, options: []) else { return ""}
-        let jsonString = (jsonObj as! NSDictionary).jsonString.removingPercentEncoding;
-        return jsonString ?? "";
     }
     
     /// 复制到剪切板
