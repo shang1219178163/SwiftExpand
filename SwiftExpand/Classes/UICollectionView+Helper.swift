@@ -18,7 +18,19 @@ import UIKit
             var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
             if layout == nil {
                 // 初始化
-                layout = UICollectionViewLayout.createFlowLayout()
+                layout = {
+                    let layout = UICollectionViewFlowLayout()
+                    layout.sectionInset = UIEdgeInsets.zero;
+                    layout.minimumLineSpacing = 0;
+                    layout.minimumInteritemSpacing = 0;
+                    
+                    let itemWidth = floor(kScreenWidth/4.0);
+                    let itemHeight = itemWidth*0.75;
+                    layout.itemSize = CGSize(width: round(itemWidth), height: itemHeight);
+                    layout.headerReferenceSize = CGSize(width: kScreenWidth, height: 40);
+            //        layout.footerReferenceSize = CGSize(width: kScreenWidth, height: 0);
+                    return layout;
+                }()
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return layout!

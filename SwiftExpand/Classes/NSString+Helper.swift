@@ -26,7 +26,7 @@ public extension String{
     }
     /// Int
     var intValue: Int {
-        return Int((self as NSString).intValue)
+        return Int((self as NSString).integerValue)
     }
     /// Float
     var floatValue: Float {

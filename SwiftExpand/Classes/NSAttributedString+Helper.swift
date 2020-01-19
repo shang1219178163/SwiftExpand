@@ -22,7 +22,8 @@ import UIKit
         case 2:
             dic[NSAttributedString.Key.strikethroughStyle] = NSUnderlineStyle.single.rawValue;
             dic[NSAttributedString.Key.strikethroughColor] = UIColor.red;
-            
+            dic[NSAttributedString.Key.baselineOffset] = 0;
+
         case 3:
             dic[NSAttributedString.Key.obliqueness] = 0.8;
             

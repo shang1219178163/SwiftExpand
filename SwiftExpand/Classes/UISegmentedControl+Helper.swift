@@ -10,17 +10,17 @@ import UIKit
 @objc public extension UISegmentedControl{
 
     /// [源]UISegmentControl创建
-    static func create(_ rect: CGRect = .zero, items: [Any]!, selectedIdx: Int = 0, type: Int = 0) -> Self {
+    static func create(_ rect: CGRect = .zero, items: [Any]!, selectedIdx: Int = 0, type: Int = 0, tintColor: UIColor = .theme, fontSize: CGFloat = 13) -> Self {
         let view = self.init(items: items)
         view.frame = rect
         view.autoresizingMask = .flexibleWidth
         view.selectedSegmentIndex = selectedIdx
         
         if #available(iOS 13, *) {
-            view.ensureiOS12Style()
+            view.ensureiOS12Style(tintColor: tintColor, fontSize: fontSize)
             return view;
         }
-
+        
         switch type {
         case 1:
             view.tintColor = UIColor.theme
@@ -28,7 +28,7 @@ import UIKit
             view.layer.borderWidth = 1.0
             view.layer.borderColor = UIColor.white.cgColor
             let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                          
                          ]
             view.setTitleTextAttributes(dic_N, for: .normal)
@@ -39,11 +39,11 @@ import UIKit
             view.backgroundColor = UIColor.white
             
             let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                          ]
             
             let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                          ]
             
             view.setTitleTextAttributes(dic_N, for: .normal)
@@ -54,12 +54,12 @@ import UIKit
             view.backgroundColor = UIColor.line
             
             let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                          
                          ]
             
             let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                          
                          ]
             
@@ -71,12 +71,12 @@ import UIKit
             view.backgroundColor = UIColor.white
             
             let dic_N = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                 
                 ]
             
             let dic_H = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                 
                 ]
             
@@ -85,6 +85,7 @@ import UIKit
         }
         return view;
     }
+    
     /// Tint color doesn't have any effect on iOS 13.
     func ensureiOS12Style(tintColor: UIColor = .theme, fontSize: CGFloat = 13) {
         if #available(iOS 13, *) {
@@ -109,6 +110,7 @@ import UIKit
 
         }
     }
+    
     /// 控件items
     var itemList: [String] {
         get {
