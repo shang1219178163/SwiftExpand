@@ -11,7 +11,8 @@ import UIKit
 @objc public extension UICollectionView{
     
     static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
-    
+    static let sectionKindBackgroud: String = "UICollectionView.sectiinKindBackgroud";
+
     /// UICollectionViewLayout默认布局
     static var layoutDefault: UICollectionViewLayout {
         get {

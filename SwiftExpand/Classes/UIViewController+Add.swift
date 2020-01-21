@@ -97,13 +97,13 @@ import UIKit
                 obj!.backgroundColor = UIColor.background
 
                 obj!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
-                if self.conforms(to: UICollectionViewDelegate.self) {
-                    obj!.delegate = (self as! UICollectionViewDelegate)
-                }
                 if self.conforms(to: UICollectionViewDataSource.self) {
                     obj!.dataSource = (self as! UICollectionViewDataSource)
                 }
- 
+                 
+                if self.conforms(to: UICollectionViewDelegate.self) {
+                    obj!.delegate = (self as! UICollectionViewDelegate)
+                }
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;
