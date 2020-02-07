@@ -51,7 +51,7 @@ import UIKit
         //    searchBar.showsSearchResultsButton = true;
         //5. 设置搜索Icon
         //    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
-        searchBar.setPositionAdjustment(UIOffset(horizontal: -8, vertical: 1), for: .search)
+//        searchBar.setPositionAdjustment(UIOffset(horizontal: -8, vertical: 1), for: .search)
         // 删除按钮往右移一点
         searchBar.setPositionAdjustment(UIOffset(horizontal: 8, vertical: 0), for: .clear)
         
