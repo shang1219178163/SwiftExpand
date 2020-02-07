@@ -11,6 +11,18 @@ import CommonCrypto
 
 public extension String{
     /// md5字符串
+    var RMB: String {
+        if (self.count <= 0) {
+            return "-";
+        }
+        
+        if self.cgFloatValue == 0.0 {
+            return "¥0.00元"
+        }
+        return "¥\(self.cgFloatValue * 0.01)元"
+    }
+
+    /// md5字符串
     var md5: String {
         let data = Data(self.utf8)
         let hash = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) -> [UInt8] in
@@ -208,6 +220,10 @@ public extension Substring {
 
 
 @objc public extension NSString{
+    var RMB: String {
+        return (self as String).RMB
+    }
+
     var md5: String {
         return (self as String).md5
     }
@@ -268,9 +284,9 @@ public extension Substring {
     }
     
     /// 字符串首位加*
-    func toAsterisk() -> NSAttributedString{
+    func toAsterisk(_ color: UIColor = .black) -> NSAttributedString{
         let isMust = self.contains(kAsterisk)
-        return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, isMust: isMust)
+        return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, color: color, isMust: isMust)
     }
     
     /// 复制到剪切板
