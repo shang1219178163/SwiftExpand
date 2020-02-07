@@ -18,6 +18,7 @@ import UIKit
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.isUserInteractionEnabled = true;
         view.textAlignment = .left;
+        view.textColor = textColor
         view.font = UIFont.systemFont(ofSize: 15);
         
         switch type {
