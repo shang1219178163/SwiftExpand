@@ -222,6 +222,10 @@ public let kTitleKnow    = "知道了";
 public let kTitleSure    = "确定";
 /// 取消
 public let kTitleCancell = "取消";
+/// 是
+public let kTitleYes     = "是";
+/// 否
+public let kTitleNo      = "否";
 /// 删除
 public let kTitleDelete  = "删除";
 /// 彻底删除

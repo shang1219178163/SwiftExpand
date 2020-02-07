@@ -32,7 +32,7 @@ public let kAlertActionColor = "titleTextColor"
         }
         
         actionTitles?.forEach({ (title:String) in
-            let style: UIAlertAction.Style = title == kTitleCancell ? .destructive : .default
+            let style: UIAlertAction.Style = [kTitleCancell, kTitleNo].contains(title) ? .destructive : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
                 if handler != nil {
                     handler!(alertController, action)
