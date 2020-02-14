@@ -104,8 +104,8 @@ public extension String{
        return (self as NSString).transformToPinyin();
     }
     /// 字符串首位加*
-    func toAsterisk() -> NSAttributedString{
-        return (self as NSString).toAsterisk()
+    func toAsterisk(_ textColor: UIColor = .black, font: CGFloat = 15) -> NSAttributedString{
+        return (self as NSString).toAsterisk(textColor, font: font)
     }
     
     /// 复制到剪切板
@@ -284,9 +284,9 @@ public extension Substring {
     }
     
     /// 字符串首位加*
-    func toAsterisk(_ color: UIColor = .black) -> NSAttributedString{
+    func toAsterisk(_ textColor: UIColor = .black, font: CGFloat = 15) -> NSAttributedString{
         let isMust = self.contains(kAsterisk)
-        return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, color: color, isMust: isMust)
+        return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, color: textColor, font: font, isMust: isMust)
     }
     
     /// 复制到剪切板

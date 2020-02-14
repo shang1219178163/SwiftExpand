@@ -244,21 +244,27 @@ public let kNilText      = "--";
 public let kSeparateStr  = ",";
 /// *
 public let kAsterisk     = "*";
+/// 空格(四分之一个字体)
+public let kBlankQuarter = " ";
 /// 空格(半个字体)
 public let kBlankHalf    = "  ";
 /// 空格(1个字体)
 public let kBlankOne     = "    ";
 /// 空格(2个字体)
 public let kBlankTwo     = "        ";
+/// 空格(3个字体)
+public let kBlankThree   = "            ";
 /// 空格(4个字体)
 public let kBlankFour    = "                ";
+/// 空格(5个字体)
+public let kBlankFiver   = "                    ";
 
 /// 一周七天
-public let kDesWeek  = "星期一,星期二,星期三,星期四,星期五,星期六,星期天";
+public let kDesWeek: String  = "星期一,星期二,星期三,星期四,星期五,星期六,星期天";
 /// 一年十二月
-public let kDesMonth = "正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月,九月, 十月, 冬月, 腊月";
+public let kDesMonth: String = "正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月,九月, 十月, 冬月, 腊月";
 /// 一月31天
-public let kDesDay   = "初一, 初二, 初三, 初四, 初五, 初六, 初七, 初八, 初九, 初十,十一, 十二, 十三, 十四, 十五, 十六, 十七, 十八, 十九, 二十, 廿一, 廿二, 廿三, 廿四, 廿五, 廿六, 廿七, 廿八, 廿九, 三十, 三十一";
+public let kDesDay: String   = "初一, 初二, 初三, 初四, 初五, 初六, 初七, 初八, 初九, 初十,十一, 十二, 十三, 十四, 十五, 十六, 十七, 十八, 十九, 二十, 廿一, 廿二, 廿三, 廿四, 廿五, 廿六, 廿七, 廿八, 廿九, 三十, 三十一";
 
 //MARK: - 其他
 
