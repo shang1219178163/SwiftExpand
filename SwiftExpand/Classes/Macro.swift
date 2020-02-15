@@ -257,7 +257,7 @@ public let kBlankThree   = "            ";
 /// 空格(4个字体)
 public let kBlankFour    = "                ";
 /// 空格(5个字体)
-public let kBlankFiver   = "                    ";
+public let kBlankFive    = "                    ";
 
 /// 一周七天
 public let kDesWeek: String  = "星期一,星期二,星期三,星期四,星期五,星期六,星期天";

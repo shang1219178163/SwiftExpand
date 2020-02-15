@@ -65,6 +65,40 @@ public let kAlertActionColor = "titleTextColor"
         return alertController
     }
     
+    /// 创建包含图片不含message的提示框
+    static func createAlertImage(_ title: String?,
+                                 image: String,
+                                 contentMode: UIView.ContentMode = .scaleAspectFit,
+                                  count: Int = 10,
+                                  actionTitles: [String]? = [kTitleCancell, kTitleSure],
+                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        assert(UIImage(named: image) != nil)
+        
+        let msg = String(repeating: "\n", count: count)
+        let alertController = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        // 配置图片
+        let image = UIImage(named: image)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = contentMode
+        alertController.view.addSubview(imageView)
+
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        alertController.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: alertController.view, attribute: .centerX, multiplier: 1, constant: 0))
+        alertController.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: alertController.view, attribute: .centerY, multiplier: 1, constant: 15))
+        alertController.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 240))
+        alertController.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 17*CGFloat(count) - 30))
+        // 配置按钮
+        actionTitles?.forEach({ (title:String) in
+            let style: UIAlertAction.Style = [kTitleCancell, kTitleNo].contains(title) ? .destructive : .default
+            alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
+                if handler != nil {
+                    handler!(alertController, action)
+                }
+            }))
+        })
+        return alertController
+    }
+    
     /// 创建系统sheetView
     static func createSheet(_ title: String?,
                                   msg: String? = nil,
@@ -129,4 +163,31 @@ public let kAlertActionColor = "titleTextColor"
         setValue(attrMsg, forKey: kAlertCtlrMessage)
     }
     
+    /// [便利方法]提示信息
+    static func showAlert(_ title: String = "提示", message: String, alignment: NSTextAlignment = .center, actionTitles: [String]? = [kTitleSure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
+        DispatchQueue.main.async {
+            let alertVC = UIAlertController.createAlert(title, placeholders: nil, msg: message, actionTitles: actionTitles, handler: handler)
+            //富文本效果
+            let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: alignment)
+            alertVC.setMessageParaStyle(paraStyle)
+            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+                rootVC.present(alertVC, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    /// 创建包含图片不含message的提示框
+    static func showAlertImage(_ title: String?,
+                                 image: String,
+                                 contentMode: UIView.ContentMode = .scaleAspectFit,
+                                  count: Int = 10,
+                                  actionTitles: [String]? = [kTitleCancell, kTitleSure],
+                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
+        DispatchQueue.main.async {
+            let alertVC = UIAlertController.createAlertImage(title, image: image, contentMode: contentMode, count: count, actionTitles: actionTitles, handler: handler)
+            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+                rootVC.present(alertVC, animated: true, completion: nil)
+            }
+        }
+    }
 }
