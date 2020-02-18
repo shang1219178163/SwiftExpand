@@ -56,17 +56,16 @@ import UIKit
         assert(unitName != nil && unitName.isValid == true);
         
         if unitName.contains("img") {
-            let view = UIImageView(frame: CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height));
-            view.image = UIImage(named: unitName);
-            view.contentMode = .scaleAspectFit;
-            view.tag = kTAG_IMGVIEW;
-            return view;
+            return self.asoryView(isRight, imageName: unitName)
         }
-       
-        let size = sizeWithText(unitName, font: UIFont.labelFontSize, width: kScreenWidth);
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width, height: viewSize.height));
+        return self.asoryView(isRight, text: unitName)
+    }
+    
+    func asoryView(_ isRight: Bool, text: String) -> UILabel {
+        let size = sizeWithText(text, font: UIFont.labelFontSize, width: kScreenWidth);
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width, height: kSizeArrow.height));
         label.tag = kTAG_LABEL;
-        label.text = unitName;
+        label.text = text;
         label.font = UIFont.systemFont(ofSize: 15);
         label.textAlignment = .center;
         label.lineBreakMode = .byCharWrapping;
@@ -82,6 +81,24 @@ import UIKit
             self.leftViewMode = .always;
         }
         return label;
+    }
+    
+    func asoryView(_ isRight: Bool, imageName: String) -> UIImageView {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: kSizeArrow.width, height: kSizeArrow.height));
+        view.image = UIImage(named: imageName);
+        view.contentMode = .scaleAspectFit;
+        view.tag = kTAG_IMGVIEW;
+        if isRight == true {
+            self.rightView = view
+            self.rightViewMode = .always;
+
+        }
+        else{
+            self.leftView = view
+            self.leftViewMode = .always;
+
+        }
+        return view;
     }
     
     /// 返回当前文本框字符串(func textField(_ textField: shouldChangeCharactersIn:, replacementString:) -> Bool 中调用)

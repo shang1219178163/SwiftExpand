@@ -721,27 +721,6 @@ import UIKit
         return effectView;
     }
     
-    /// 验证码倒计时显示
-    public static func GCDTimerStart(_ lab: UILabel!, _ interval: Int = 60) {
-        var time = interval
-        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
-        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))  //此处方法与Swift 3.0 不同
-        codeTimer.setEventHandler {
-            
-            time -= 1
-            DispatchQueue.main.async {
-                lab.isEnabled = time <= 0;
-                if time > 0 {
-                    lab.text = "剩余\(time)s";
-                    return;
-                }
-                codeTimer.cancel()
-                lab.text = "发送验证码";
-            }
-        }
-        codeTimer.resume()
-//        codeTimer.activate()
-    }
 //    /// 计时显示
 //    public static func GCDTimerAdd(_ lab: UILabel!, _ length: Int = 5, date: NSDate = NSDate(), step: Int = 1) -> DispatchSourceTimer{
 //

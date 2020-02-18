@@ -47,7 +47,7 @@ public let kAlertActionColor = "titleTextColor"
                                 placeholders: [String]? = nil,
                                 msg: String,
                                 actionTitles: [String]? = [kTitleCancell, kTitleSure],
-                                handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+                                handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) {
         
         let rootVC = UIApplication.shared.delegate?.window??.rootViewController
 
@@ -62,7 +62,6 @@ public let kAlertActionColor = "titleTextColor"
             rootVC?.present(alertController, animated: true, completion: nil)
 
         }
-        return alertController
     }
     
     /// 创建包含图片不含message的提示框

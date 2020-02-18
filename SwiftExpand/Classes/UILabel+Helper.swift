@@ -71,4 +71,25 @@ import UIKit
         attributedText = attString
         return attString
     }
+    
+    /// 验证码倒计时显示
+    func timerStart(_ interval: Int = 60) {
+        var time = interval
+        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
+        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))  //此处方法与Swift 3.0 不同
+        codeTimer.setEventHandler {
+            
+            time -= 1
+            DispatchQueue.main.async {
+                self.isEnabled = time <= 0;
+                if time > 0 {
+                    self.text = "剩余\(time)s";
+                    return;
+                }
+                codeTimer.cancel()
+                self.text = "发送验证码";
+            }
+        }
+        codeTimer.resume()
+    }
 }

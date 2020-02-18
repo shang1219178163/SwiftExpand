@@ -238,6 +238,12 @@ public let kTitleUpdate  = "立即升级";
 public let kTitleCollect = "收藏";
 /// 恢复
 public let kTitleRecover = "恢复";
+/// 查看
+public let kTitleLook    = "点击查看";
+/// 上传
+public let kTitleUpload  = "上传";
+
+
 /// --
 public let kNilText      = "--";
 /// ,

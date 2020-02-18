@@ -180,7 +180,7 @@ import UIKit
     }
     
     /// 根据最大尺寸限制压缩图片
-    static func compressData(_ image: UIImage, limit: Int = 1024*2) -> Data {
+    static func compressData(_ image: UIImage, limit: Int = 1024*1024*2) -> Data {
         var compression: CGFloat = 1.0;
         let maxCompression: CGFloat = 0.1;
         
@@ -189,6 +189,7 @@ import UIKit
             compression -= 0.1;
             imageData = image.jpegData(compressionQuality: compression)
         }
+        DDLog("压缩后图片大小:\(imageData!.count/1024)M__压缩系数:\(compression)")
         return imageData!;
     }
     
@@ -218,7 +219,7 @@ import UIKit
                 type = "webp"
             }
         default:
-            type = "jpg";
+            break;
         }
         return type;
     }
