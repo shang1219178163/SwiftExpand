@@ -76,6 +76,10 @@ import UIKit
         return UIColor.hexValue(0x999999);
     }
     
+    static var textColorExpired: UIColor {
+        return UIColor.hexValue(0xCCCCCC);
+    }
+    
     /// 获取某种颜色Alpha下的色彩
     static func alpha(_ color: UIColor, _ a: CGFloat = 1.0) -> UIColor{
         return color.withAlphaComponent(a)

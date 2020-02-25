@@ -176,6 +176,11 @@ import UIKit
             subview.layer.borderWidth = kW_LayerBorder;
             subview.layer.borderColor = lineColor.cgColor;
 //            subview.layer.borderColor = UIColor.clear.cgColor;
+            #if DEBUG
+            subview.layer.borderColor = UIColor.blue.cgColor;
+            #else
+            subview.layer.borderColor = UIColor.clear.cgColor;
+            #endif
 
             subview.getViewLayer();
         }
@@ -204,6 +209,15 @@ import UIKit
     public func removeAllSubViews(){
         subviews.forEach { (view: UIView) in
             view.removeFromSuperview()
+        }
+    }
+    
+    public func reloadSubviewTableView(){
+        for e in self.subviews.enumerated() {
+            if let tableView = e.element as? UITableView {
+                tableView.reloadData()
+                return
+            }
         }
     }
     
