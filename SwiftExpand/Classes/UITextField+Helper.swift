@@ -51,16 +51,7 @@ import UIKit
         leftViewMode = viewMode; //此处用来设置leftview现实时机
     }
     
-    ///  RightView
-    func asoryView(_ isRight: Bool, unitName: String!, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView! {
-        assert(unitName != nil && unitName.isValid == true);
-        
-        if unitName.contains("img") {
-            return self.asoryView(isRight, imageName: unitName)
-        }
-        return self.asoryView(isRight, text: unitName)
-    }
-    
+    ///  RightView    
     func asoryView(_ isRight: Bool, text: String) -> UILabel {
         let size = sizeWithText(text, font: UIFont.labelFontSize, width: kScreenWidth);
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width, height: kSizeArrow.height));
@@ -83,9 +74,9 @@ import UIKit
         return label;
     }
     
-    func asoryView(_ isRight: Bool, imageName: String) -> UIImageView {
+    func asoryView(_ isRight: Bool, image: UIImage?) -> UIImageView {
         let view = UIImageView(frame: CGRect(x: 0, y: 0, width: kSizeArrow.width, height: kSizeArrow.height));
-        view.image = UIImage(named: imageName);
+        view.image = image
         view.contentMode = .scaleAspectFit;
         view.tag = kTAG_IMGVIEW;
         if isRight == true {
