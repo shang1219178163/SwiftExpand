@@ -113,7 +113,7 @@ import UIKit
             imageEdgeInsets = UIEdgeInsets(top: 0,
                                            left: -imageTitleSpace/2,
                                            bottom: 0,
-                                           right: imageTitleSpace)
+                                           right: imageTitleSpace/2)
             labelEdgeInsets = UIEdgeInsets(top: 0,
                                            left: imageTitleSpace/2,
                                            bottom: 0,

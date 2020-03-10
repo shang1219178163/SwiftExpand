@@ -66,6 +66,13 @@ import UIKit
         }
     }
     
+    /// 重置布局(UIDocumentPickerViewController需要为automatic)
+    public func setupContentInsetAdjustmentBehavior(_ isAutomatic: Bool = false) {
+        if #available(iOS 11.0, *) {
+            UIScrollView.appearance().contentInsetAdjustmentBehavior = isAutomatic == true ? .automatic : .never;
+        }
+    }
+    
     private func p_handleActionItem(_ sender: UIBarButtonItem) {
         let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ObjClosure;
         if block != nil {
