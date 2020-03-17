@@ -7,10 +7,21 @@
 
 import UIKit
 
-@objc public extension UINavigationController{
+@objc extension UINavigationController{
     
     /// vcName 控制器类名
-    convenience init(vcName: String){
+    public convenience init(vcName: String){
         self.init(rootViewController: UICtrFromString(vcName))
+    }
+    
+    /// pop到特定控制器页面
+    public func popToViewController(_ type: UIViewController.Type, animate: Bool) {
+        for e in viewControllers {
+            if e.isKind(of: type) {
+                popToViewController(e, animated: animate)
+                return
+            }
+        }
+        popViewController(animated: animate)
     }
 }

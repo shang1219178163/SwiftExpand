@@ -113,6 +113,15 @@ public extension String{
         (self as NSString).copyToPasteboard(showTips)
     }
     
+    /// 整形判断
+    func isPureInteger() -> Bool{
+        return (self as NSString).isPureInteger()
+    }
+    /// 浮点形判断
+    func isPureFloat() -> Bool{
+        return (self as NSString).isPureFloat()
+    }
+    
     /// 字符串开始到第index
     func substringTo(_ index: Int) -> String {
         guard index < self.count else {

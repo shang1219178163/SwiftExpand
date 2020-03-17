@@ -93,8 +93,9 @@ import UIKit
                 //其他的弹框提示正常处理
                 hook_present(viewControllerToPresent, animated: flag, completion: completion)
             }
+        } else {
+            hook_present(viewControllerToPresent, animated: flag, completion: completion)
         }
-        hook_present(viewControllerToPresent, animated: flag, completion: completion)
     }
     
     // MARK: -funtions
