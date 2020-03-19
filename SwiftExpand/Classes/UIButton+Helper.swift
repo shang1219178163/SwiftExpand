@@ -81,6 +81,8 @@ import UIKit
     }
     /// 图片上左下右配置
     func layoutButton(direction: Int, imageTitleSpace: CGFloat = 5, space: CGFloat = 0) {
+        sizeToFit()
+
         //得到imageView和titleLabel的宽高
         let imageWidth = self.imageView?.frame.size.width
         let imageHeight = self.imageView?.frame.size.height
