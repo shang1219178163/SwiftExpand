@@ -70,7 +70,7 @@ public let kNumIdentify_exponentSymbol = "指数符号";
     static func fractionDigits(obj: Any?,
                                      min: Int = 2,
                                      max: Int = 2, 
-                                     roundingMode: NumberFormatter.RoundingMode = .up) -> String {
+                                     roundingMode: NumberFormatter.RoundingMode = .halfUp) -> String {
         let formatter = NumberFormatter.identify() ;
         formatter.minimumFractionDigits = min
         formatter.maximumFractionDigits = max

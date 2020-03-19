@@ -80,7 +80,7 @@ import UIKit
         return view
     }
     /// 图片上左下右配置
-    func layoutButton(style: Int, imageTitleSpace: CGFloat = 5) {
+    func layoutButton(direction: Int, imageTitleSpace: CGFloat = 5, space: CGFloat = 0) {
         //得到imageView和titleLabel的宽高
         let imageWidth = self.imageView?.frame.size.width
         let imageHeight = self.imageView?.frame.size.height
@@ -96,7 +96,7 @@ import UIKit
         var labelEdgeInsets: UIEdgeInsets = .zero
         
         //根据style和space得到imageEdgeInsets和labelEdgeInsets的值
-        switch style {
+        switch direction {
         case 0:
             //上 左 下 右
             imageEdgeInsets = UIEdgeInsets(top: -labelHeight - imageTitleSpace/2,
@@ -108,18 +108,16 @@ import UIKit
                                            bottom: -imageHeight! - imageTitleSpace/2,
                                            right: 0)
             break;
-            
         case 1:
             imageEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: -imageTitleSpace/2,
+                                           left: -imageTitleSpace/2 + space,
                                            bottom: 0,
-                                           right: imageTitleSpace/2)
+                                           right: imageTitleSpace/2 + space)
             labelEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: imageTitleSpace/2,
+                                           left: imageTitleSpace/2 + space,
                                            bottom: 0,
-                                           right: -imageTitleSpace/2)
+                                           right: -imageTitleSpace/2 + space)
             break;
-            
         case 2:
             imageEdgeInsets = UIEdgeInsets(top: 0,
                                            left: 0,
@@ -129,41 +127,24 @@ import UIKit
                                            left: -imageWidth!,
                                            bottom: 0,
                                            right: 0)
+
             break;
-            
         case 3:
             imageEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: labelWidth + imageTitleSpace/2,
+                                           left: labelWidth - imageTitleSpace/2 - space,
                                            bottom: 0,
-                                           right: -labelWidth - imageTitleSpace/2)
+                                           right: imageTitleSpace/2 + space)
             labelEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: -imageWidth! - imageTitleSpace/2,
+                                           left: -imageWidth! - imageTitleSpace/2 + space,
                                            bottom: 0,
-                                           right: imageWidth! + imageTitleSpace/2)
+                                           right: imageWidth! + imageTitleSpace/2 + space)
+
             break;
-            
         default:
             break
         }
-        
         self.titleEdgeInsets = labelEdgeInsets
         self.imageEdgeInsets = imageEdgeInsets
-    }
-    
-    func layoutBtnImage(_ direction: Int = 3){
-        sizeToFit()
-        
-        switch direction {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            titleEdgeInsets = UIEdgeInsetsMake(0, -imageView!.bounds.width, 0, imageView!.bounds.width)
-            imageEdgeInsets = UIEdgeInsetsMake(0, titleLabel!.bounds.width + 5.0, 0, -titleLabel!.bounds.width - 5.0)
-        default:
-            break;
-        }
     }
     
     /// UIButton不同状态下设置富文本标题

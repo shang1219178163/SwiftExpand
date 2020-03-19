@@ -111,6 +111,7 @@ public func NNClassFromString(_ name: String) -> AnyClass? {
 
 /// 获取本地 UIViewController 文件
 public func UICtrFromString(_ vcName: String) -> UIViewController {
+    assert(vcName.hasSuffix("Controller"), "控制器必须以Controller结尾")
     let cls: AnyClass = NNClassFromString(vcName)!;
     // 通过类创建对象， 不能用cls.init(),有的类可能没有init方法
     // 需将cls转换为制定类型
