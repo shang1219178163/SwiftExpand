@@ -77,22 +77,20 @@ filepath=$(cd "$(dirname "$0")"; pwd)
 echo_blue "文件目录: ${filepath}"
 
 fileName=${filepath##*/}
-# echo_blue "fileName_${fileName}"
+#echo "fileName_${fileName}"
 
 fileNameAll="${fileName}.podspec"
 echo_blue "查找文件: ${fileNameAll}"
 
-# result=$(echo ${fileNameAll} | grep ".podspec")
-# if [[ "$result" != "" ]]
+#result=$(echo ${fileNameAll} | grep ".podspec")
+#if [[ "$result" != "" ]]
 if [ -f "$fileNameAll" ]
 then
-    # echo_green "--- 存在：${fileNameAll} ---"
-    echo_green "--- date: $(datetime) ---"
+    echo_green "--- $(datetime) ---"
 #    testLogColor;
-
-    gitUpdatePod $fileNameAll;
+    updatePod ${fileNameAll};
 
 else
     echo_red "文件不存在：$fileNameAll"
-fi 
- 
+fi
+
