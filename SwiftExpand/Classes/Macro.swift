@@ -214,6 +214,8 @@ public let kIDCardFailed         = "身份证识别失败,请稍后再试";
 /// 身份证识别成功
 public let kIDCardSuccess        = "身份证识别成功";
 
+/// ···
+public let kTitleMoreSymbol = "···";
 /// 重置
 public let kTitleDefault = "重置";
 /// 知道了

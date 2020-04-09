@@ -103,6 +103,15 @@ public extension String{
     func transformToPinyin() -> String {
        return (self as NSString).transformToPinyin();
     }
+    
+    /// 汉字链接处理
+    func handleHanzi() -> String {
+        var charSet = CharacterSet.urlQueryAllowed
+        charSet.insert(charactersIn: "#")
+        let encodingURL = self.addingPercentEncoding(withAllowedCharacters: charSet)
+        return encodingURL ?? ""
+    }
+    
     /// 字符串首位加*
     func toAsterisk(_ textColor: UIColor = .black, font: CGFloat = 15) -> NSAttributedString{
         return (self as NSString).toAsterisk(textColor, font: font)

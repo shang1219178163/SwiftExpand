@@ -178,6 +178,22 @@ import UIKit
         self.draw(in: imageRect)
         return UIGraphicsGetImageFromCurrentImageContext()
     }
+    /// 将原来的 UIImage 剪裁出圆角
+    func imageWithRoundedCorner(_ radius: CGFloat, size: CGSize) -> UIImage {
+        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
+
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.main.scale)
+        let path: CGPath = UIBezierPath(roundedRect: rect, byRoundingCorners: .allCorners,
+        cornerRadii: CGSize(width: radius, height: radius)).cgPath
+        UIGraphicsGetCurrentContext()?.addPath(path)
+        UIGraphicsGetCurrentContext()?.clip()
+
+        self.draw(in: rect)
+        UIGraphicsGetCurrentContext()?.drawPath(using: .fillStroke)
+        let output = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return output!
+    }
     
     /// 根据最大尺寸限制压缩图片
     static func compressData(_ image: UIImage, limit: Int = 1024*1024*2) -> Data {
