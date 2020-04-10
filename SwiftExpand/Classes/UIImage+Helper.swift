@@ -195,6 +195,53 @@ import UIKit
         return output!
     }
     
+    // 缩放本地大图
+    static func resizedImage(at url: URL, for size: CGSize) -> UIImage? {
+        guard let image = UIImage(contentsOfFile: url.path) else {
+            return nil
+        }
+
+        if #available(iOS 10.0, *) {
+            let renderer = UIGraphicsImageRenderer(size: size)
+            return renderer.image { (context) in
+                image.draw(in: CGRect(origin: .zero, size: size))
+            }
+        }
+        return UIImage.resizeImage(image: image, size: size)
+    }
+    
+    // 缩放图片
+    static func resizeImage(image: UIImage, size: CGSize) -> UIImage? {
+        if #available(iOS 10.0, *) {
+            let renderer = UIGraphicsImageRenderer(size: size)
+            return renderer.image { (context) in
+                image.draw(in: CGRect(origin: .zero, size: size))
+            }
+        }
+        
+        let imageSize = image.size
+        let widthRatio  = size.width  / imageSize.width
+        let heightRatio = size.height / imageSize.height
+
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width:imageSize.width * heightRatio, height: imageSize.height * heightRatio)
+        } else {
+            newSize = CGSize(width:imageSize.width * widthRatio, height: imageSize.height * widthRatio)
+        }
+
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     /// 根据最大尺寸限制压缩图片
     static func compressData(_ image: UIImage, limit: Int = 1024*1024*2) -> Data {
         var compression: CGFloat = 1.0;
