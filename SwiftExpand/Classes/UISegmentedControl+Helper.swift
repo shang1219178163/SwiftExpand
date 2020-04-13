@@ -114,10 +114,10 @@ import UIKit
     /// 控件items
     var itemList: [String] {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! [String]
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! [String]
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             
             p_handleSegmentItems(newValue);
         }

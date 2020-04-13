@@ -28,28 +28,49 @@ public typealias DidSelectItemClosure = ((UICollectionView, IndexPath) -> Void)
 
 public typealias ScrollViewDidScrollClosure = ((UIScrollView) -> Void)
 
+
+public struct AssociationKey {
+    public static var keysDic:[String: UnsafeRawPointer] = [:]
+    public static func from(_ key: String) -> UnsafeRawPointer{
+        var value = keysDic[key]
+        if value == nil {
+            value = (key.data(using: .utf8)?.withUnsafeBytes({ (uint8Ptr) -> UnsafeRawPointer in
+                return UnsafeRawPointer(uint8Ptr.baseAddress!)
+            }))!
+            keysDic[key] = value
+        }
+        return value!
+    }
+}
+
+public func AddressOf(_ o: UnsafeRawPointer) -> String {
+    let addr = Int(bitPattern: o)
+    return String(format: "%p", addr)
+}
+
+public func AddressOf<T: AnyObject>(_ o: T) -> String {
+    let addr = unsafeBitCast(o, to: Int.self)
+    return String(format: "%p", addr)
+}
+
 // MARK: - 关联属性的key
-public struct RuntimeKey {
-    public static let tap = UnsafeRawPointer(bitPattern: "tap".hashValue)!;
-    public static let item = UnsafeRawPointer(bitPattern: "item".hashValue)!;
-//    public static let control = UnsafeRawPointer(bitPattern: "control".hashValue)!;
 
-}
-
-public func RuntimeKeyFromParams(_ obj: NSObject!, funcAbount: String!) -> UnsafeRawPointer {
-    let unique = "\(obj.hashValue)," + funcAbount
-    let key: UnsafeRawPointer = UnsafeRawPointer(bitPattern: unique.hashValue)!
+public func RuntimeKeyFromParams(_ obj: NSObject, funcAbount: String!) -> UnsafeRawPointer {
+    let unique = "\(AddressOf(obj))," + funcAbount
+    let key: UnsafeRawPointer = AssociationKey.from(unique)
     return key;
 }
 
-public func RuntimeKeyFromString(_ obj: String) -> UnsafeRawPointer {
-    let key: UnsafeRawPointer = UnsafeRawPointer(bitPattern: obj.hashValue)!
+public func RuntimeKeyFromSelector(_ obj: NSObject, aSelector: Selector) -> UnsafeRawPointer {
+    let funcAbount = NSStringFromSelector(aSelector);
+    let key: UnsafeRawPointer = RuntimeKeyFromParams(obj, funcAbount: funcAbount)
     return key;
 }
-
-public func RuntimeKeyFromSelector(_ aSelector: Selector) -> UnsafeRawPointer {
+///类属性/静态变量
+public func RuntimeKeyFromType(_ obj: NSObject.Type, aSelector: Selector) -> UnsafeRawPointer {
     let aSelectorName = NSStringFromSelector(aSelector);
-    let key: UnsafeRawPointer = RuntimeKeyFromString(aSelectorName)
+    let unique = "\(obj)," + aSelectorName
+    let key: UnsafeRawPointer = AssociationKey.from(unique)
     return key;
 }
 

@@ -13,25 +13,25 @@ import UIKit
     /// 动态属性关联key
     var runtimeKey: UnsafeRawPointer {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! UnsafeRawPointer
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! UnsafeRawPointer
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
 
     /// 类的字符串名称
     static var identifier: String {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? String;
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? String;
             if obj == nil {
                 obj = String(describing: self);// return "\(type(of: self))" //NSStringFromClass(self.classForCoder())
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
 

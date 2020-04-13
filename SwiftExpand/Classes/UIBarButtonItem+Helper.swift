@@ -12,10 +12,10 @@ import UIKit
     
     public var systemType: UIBarButtonItem.SystemItem {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! UIBarButtonItem.SystemItem;
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! UIBarButtonItem.SystemItem;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
@@ -35,13 +35,15 @@ import UIKit
     
     /// UIBarButtonItem 回调
     public func addAction(_ closure: @escaping (UIBarButtonItem) -> Void) {
-        objc_setAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+        let runtimeKey = RuntimeKeyFromSelector(self, aSelector: #selector(addAction(_:)))
+        objc_setAssociatedObject(self, runtimeKey, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
         target = self;
         action = #selector(p_invoke);
     }
     
     private func p_invoke() {
-        let closure = objc_getAssociatedObject(self, UnsafeRawPointer(bitPattern: self.hashValue)!) as! ((UIBarButtonItem) -> Void)
+        let runtimeKey = RuntimeKeyFromSelector(self, aSelector: #selector(addAction(_:)))
+        let closure = objc_getAssociatedObject(self, runtimeKey) as! ((UIBarButtonItem) -> Void)
         closure(self);
     }
 

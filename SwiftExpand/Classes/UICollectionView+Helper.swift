@@ -16,7 +16,7 @@ import UIKit
     /// UICollectionViewLayout默认布局
     static var layoutDefault: UICollectionViewLayout {
         get {
-            var layout = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UICollectionViewFlowLayout;
+            var layout = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UICollectionViewFlowLayout;
             if layout == nil {
                 // 初始化
                 layout = {
@@ -32,31 +32,31 @@ import UIKit
             //        layout.footerReferenceSize = CGSize(width: kScreenWidth, height: 0);
                     return layout;
                 }()
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return layout!
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var listClass: [String] {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! [String];
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! [String];
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             registerCTVCell(newValue)
         }
     }
     
     var dictClass: [String: [String]] {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as! [String: [String]];
+            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! [String: [String]];
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             registerCTVAll();
         }
     }

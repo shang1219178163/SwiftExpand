@@ -18,12 +18,12 @@ import UIKit
     
     static var theme: UIColor {
         get{
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIColor;
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UIColor;
             obj = obj ?? UIColor.hexValue(0x0082e0)
             return obj!;
         }
         set{
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     /// 通用背景色

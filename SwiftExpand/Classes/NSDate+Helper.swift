@@ -170,6 +170,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
         let startTime = DateFormatter.stringFromDate(date, fmt: fmtStart)
         return [startTime, endTime];
     }
+    
 }
 
 @objc public extension NSDate{
@@ -413,6 +414,16 @@ public let kDateFormatTwo         = "yyyyMMdd";
         }
         return isSame
     }
+    
+//    func isSameDay2(_ date1:Date, _ date2:Date) -> Bool {
+//        let d1 = Calendar.current.dateComponents([.year,.month,.day], from: date1)
+//        let d2 = Calendar.current.dateComponents([.year,.month,.day], from: date2)
+//        return d1.year == d2.year && d1.month == d2.month && d1.day == d2.day
+//    }
+//
+//    static func isSameDay3(_ date1: Date, _ date2: Date) -> Bool {
+//        return Calendar.current.isDate(date1, inSameDayAs: date2)
+//    }
 }
 
 public extension NSDate{

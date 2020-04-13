@@ -11,13 +11,13 @@ import UIKit
     
     var tag: Int {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? Int {
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? Int {
                 return obj
             }
             return 1
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     

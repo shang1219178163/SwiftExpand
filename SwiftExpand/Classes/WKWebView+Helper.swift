@@ -13,7 +13,7 @@ import WebKit
     /// WKWebViewConfiguration默认配置
     static var confiDefault: WKWebViewConfiguration {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? WKWebViewConfiguration;
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? WKWebViewConfiguration;
             if obj == nil {
                 obj = WKWebViewConfiguration()
                 obj!.allowsInlineMediaPlayback = true;
@@ -22,12 +22,12 @@ import WebKit
                 obj!.preferences.javaScriptCanOpenWindowsAutomatically = false;
                 obj!.preferences.javaScriptEnabled = true;
                 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     

@@ -36,15 +36,15 @@ import UIKit
     
     static var defaultColors: [Any] {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? [Any];
+            var obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? [Any];
             if obj == nil {
                 obj = [UIColor.hexValue(0x6cda53, 0.9).cgColor, UIColor.hexValue(0x1a965a, 0.9).cgColor]
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
 }

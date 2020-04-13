@@ -123,17 +123,17 @@ import UIKit
     
     static var mainWindow: UIWindow {
         get {
-            var window = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UIWindow;
+            var window = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UIWindow;
             if window == nil {
                 window = UIWindow(frame: UIScreen.main.bounds)
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             window!.backgroundColor = UIColor.white
             window!.makeKeyAndVisible()
             return window!;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
         
@@ -148,7 +148,7 @@ import UIKit
     
     static var tabBarController: UITabBarController? {
         get {
-            var tabBarVC = objc_getAssociatedObject(self, RuntimeKeyFromSelector(#function)) as? UITabBarController;
+            var tabBarVC = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UITabBarController;
             if tabBarVC == nil {
                 if UIApplication.mainWindow.rootViewController is UITabBarController {
                     tabBarVC = (UIApplication.mainWindow.rootViewController as! UITabBarController);
@@ -157,7 +157,7 @@ import UIKit
             return tabBarVC;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(#function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     

@@ -86,6 +86,102 @@ import UIKit
         let image = UIImage(named: name, in: bundle, compatibleWith: nil)
         return image;
     }
+    
+
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
+//    -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
+//                                                      for: indexPath) as! MyCollectionViewCell
+//        cell.layoutIfNeeded() // Ensure imageView is its final size.
+//
+//        let imageViewSize = cell.imageView.bounds.size
+//        let scale = collectionView.traitCollection.displayScale
+//        cell.imageView.image = downsample(imageAt: imageURLs[indexPath.item],
+//                                          to: imageViewSize, scale: scale)
+//        return cell
+//    }
+//    let imageViewSize = cell.imageView.bounds.size
+//     let scale = collectionView.traitCollection.displayScale
+    ///下采样 imageURL
+    static func downsample(imageAt imageURL: URL, to pointSize: CGSize, scale: CGFloat) -> UIImage {
+        //生成CGImageSourceRef 时，不需要先解码。
+        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions)!
+        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
+        
+        //kCGImageSourceShouldCacheImmediately
+        //在创建Thumbnail时直接解码，这样就把解码的时机控制在这个downsample的函数内
+        let downsampleOptions = [kCGImageSourceCreateThumbnailFromImageAlways: true,
+                                 kCGImageSourceShouldCacheImmediately: true,
+                                 kCGImageSourceCreateThumbnailWithTransform: true,
+                                 kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels] as CFDictionary
+        //生成
+        let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions)!
+        return UIImage(cgImage: downsampledImage)
+    }
+    
+    /// Fix image orientaton to protrait up
+    func fixedOrientation() -> UIImage? {
+        guard imageOrientation != UIImage.Orientation.up else {
+            // This is default orientation, don't need to do anything
+            return self.copy() as? UIImage
+        }
+        
+        guard let cgImage = self.cgImage else {
+            // CGImage is not available
+            return nil
+        }
+        
+        guard let colorSpace = cgImage.colorSpace, let ctx = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: cgImage.bitsPerComponent, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else {
+            return nil // Not able to create CGContext
+        }
+        
+        var transform: CGAffineTransform = CGAffineTransform.identity
+        
+        switch imageOrientation {
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: size.width, y: size.height)
+            transform = transform.rotated(by: CGFloat.pi)
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.rotated(by: CGFloat.pi / 2.0)
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: size.height)
+            transform = transform.rotated(by: CGFloat.pi / -2.0)
+        case .up, .upMirrored:
+            break
+        @unknown default:
+            break
+        }
+        
+        // Flip image one more time if needed to, this is to prevent flipped image
+        switch imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform = transform.translatedBy(x: size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        case .leftMirrored, .rightMirrored:
+            transform = transform.translatedBy(x: size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        case .up, .down, .left, .right:
+            break
+        @unknown default:
+            break
+        }
+        
+        ctx.concatenate(transform)
+        
+        switch imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            ctx.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.height, height: size.width))
+        default:
+            ctx.draw(cgImage, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            break
+        }
+        
+        guard let newCGImage = ctx.makeImage() else { return nil }
+        return UIImage.init(cgImage: newCGImage, scale: 1, orientation: .up)
+    }
+        
     /// UIImage 相等判断
     func equelToImage(_ image: UIImage) -> Bool{
         let data0: Data = self.pngData()!
@@ -181,15 +277,17 @@ import UIKit
     /// 将原来的 UIImage 剪裁出圆角
     func imageWithRoundedCorner(_ radius: CGFloat, size: CGSize) -> UIImage {
         let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
-
+        guard let ctx = UIGraphicsGetCurrentContext() else { return self}
+        
         UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.main.scale)
-        let path: CGPath = UIBezierPath(roundedRect: rect, byRoundingCorners: .allCorners,
-        cornerRadii: CGSize(width: radius, height: radius)).cgPath
-        UIGraphicsGetCurrentContext()?.addPath(path)
-        UIGraphicsGetCurrentContext()?.clip()
+        let path: CGPath = UIBezierPath(roundedRect: rect,
+                                        byRoundingCorners: .allCorners,
+                                        cornerRadii: CGSize(width: radius, height: radius)).cgPath
+        ctx.addPath(path)
+        ctx.clip()
 
         self.draw(in: rect)
-        UIGraphicsGetCurrentContext()?.drawPath(using: .fillStroke)
+        ctx.drawPath(using: .fillStroke)
         let output = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return output!
@@ -211,12 +309,20 @@ import UIKit
     }
     
     // 缩放图片
-    static func resizeImage(image: UIImage, size: CGSize) -> UIImage? {
+    static func resizeImage(image: UIImage, size: CGSize, isScaleFit: Bool = true) -> UIImage? {
         if #available(iOS 10.0, *) {
             let renderer = UIGraphicsImageRenderer(size: size)
             return renderer.image { (context) in
                 image.draw(in: CGRect(origin: .zero, size: size))
             }
+        }
+        
+        if isScaleFit == false {
+            UIGraphicsBeginImageContext(size)
+            image.draw(in: CGRect(origin: .zero, size: size))
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return image
         }
         
         let imageSize = image.size
@@ -231,12 +337,9 @@ import UIKit
             newSize = CGSize(width:imageSize.width * widthRatio, height: imageSize.height * widthRatio)
         }
 
-        // This is the rect that we've calculated out and this is what is actually used below
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-
         // Actually do the resizing to the rect using the ImageContext stuff
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: rect)
+        image.draw(in: CGRect(origin: .zero, size: newSize))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage
