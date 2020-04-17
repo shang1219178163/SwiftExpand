@@ -43,7 +43,7 @@ import UIKit
         let attString = NSMutableAttributedString(string: content, attributes: attDic as [NSAttributedString.Key : Any])
         for e in tapTexts.enumerated() {
             let nsRange = (attString.string as NSString).range(of: e.element)
-            attString.addAttribute(NSAttributedString.Key.link, value: "\(e.offset)://\(tapUrls[e.offset])", range: nsRange)
+            attString.addAttribute(NSAttributedString.Key.link, value: "\(e.offset)_\(tapUrls[e.offset])", range: nsRange)
         }
         
         let linkAttDic = [NSAttributedString.Key.foregroundColor : tapColor,
