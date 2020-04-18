@@ -10,17 +10,19 @@ import UIKit
 @objc extension UIImageView{
     override public class func initializeMethod() {
         super.initializeMethod();
-        if self == UIImageView.self {
-            let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
-            //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
-            DispatchQueue.once(token: onceToken) {
-                let oriSel0 = #selector(setter: self.tintColor)
-                let repSel0 = #selector(self.hook_tintColor(_:))
-                
-                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
-                
-            }
+        
+        if self != UIImageView.self {
+            return
         }
+        
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        DispatchQueue.once(token: onceToken) {
+            let oriSel = #selector(setter: self.tintColor)
+            let repSel = #selector(self.hook_tintColor(_:))
+            _ = swizzleMethodInstance(self, origSel: oriSel, replSel: repSel);
+            
+        }
+        
     }
     
     private func hook_tintColor(_ color: UIColor!) {

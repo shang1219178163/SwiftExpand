@@ -14,46 +14,36 @@ import UIKit
         super.initializeMethod();
         
         if self == UIViewController.self {
-            let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
-            //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
+            let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
             DispatchQueue.once(token: onceToken) {
-                let oriSel = #selector(UIViewController.viewDidLoad)
-                let repSel = #selector(UIViewController.hook_viewDidLoad)
-                //            _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
-                _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel, replSel: repSel);
+                let oriSel = #selector(viewDidLoad)
+                let repSel = #selector(hook_viewDidLoad)
+                _ = swizzleMethodInstance(self, origSel: oriSel, replSel: repSel);
+                                
+                let oriSel1 = #selector(viewWillAppear(_:))
+                let repSel1 = #selector(hook_viewWillAppear(animated:))
+                _ = swizzleMethodInstance(self, origSel: oriSel1, replSel: repSel1);
                 
-//                DDLog(UIViewController.self)
+                let oriSel2 = #selector(viewWillDisappear(_:))
+                let repSel2 = #selector(hook_viewWillDisappear(animated:))
+                _ = swizzleMethodInstance(self, origSel: oriSel2, replSel: repSel2);
                 
-                let oriSel1 = #selector(UIViewController.viewWillAppear(_:))
-                let repSel1 = #selector(UIViewController.hook_viewWillAppear(animated:))
-                //            _ = UIViewController.swizzleMethodInstance(oriSel, replSel: repSel);
-                _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel1, replSel: repSel1);
-                
-                
-                let oriSel2 = #selector(UIViewController.viewWillDisappear(_:))
-                let repSel2 = #selector(UIViewController.hook_viewWillDisappear(animated:))
-                _ = swizzleMethodInstance(UIViewController.self, origSel: oriSel2, replSel: repSel2);
-                
-                let oriSelPresent = #selector(UIViewController.present(_:animated:completion:))
-                let repSelPresent = #selector(UIViewController.hook_present(_:animated:completion:))
-                _ = swizzleMethodInstance(UIViewController.self, origSel: oriSelPresent, replSel: repSelPresent);
+                let oriSelPresent = #selector(present(_:animated:completion:))
+                let repSelPresent = #selector(hook_present(_:animated:completion:))
+                _ = swizzleMethodInstance(self, origSel: oriSelPresent, replSel: repSelPresent);
                 
             }
         } else if self == UINavigationController.self {
-            let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
-            //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
+            let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(UINavigationController.pushViewController(_:animated:));
                 let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:));
-//                _ = UINavigationController.swizzleMethodInstance(oriSel, replSel: repSel);
-                _ = swizzleMethodInstance(UINavigationController.self, origSel:oriSel , replSel: repSel);
-
+                _ = swizzleMethodInstance(self, origSel:oriSel , replSel: repSel);
             }
         }
     }
     
     private func hook_viewDidLoad(animated: Bool) {
-        //需要注入的代码写在此处
 //        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
         edgesForExtendedLayout = [];
         if #available(iOS 11.0, *) {
@@ -61,18 +51,18 @@ import UIKit
         } else {
             automaticallyAdjustsScrollViewInsets = false;
         }
-        self.hook_viewDidLoad(animated: animated)
+        hook_viewDidLoad(animated: animated)
     }
     
     private func hook_viewWillAppear(animated: Bool) {
         //需要注入的代码写在此处
-        self.hook_viewWillAppear(animated: animated)
+        hook_viewWillAppear(animated: animated)
 //        self.eventGather(isBegin: true);
     }
     
     private func hook_viewWillDisappear(animated: Bool) {
         //需要注入的代码写在此处
-        self.hook_viewWillDisappear(animated: animated)
+        hook_viewWillDisappear(animated: animated)
 //        self.eventGather(isBegin: false);
     }
     

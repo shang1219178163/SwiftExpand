@@ -45,27 +45,30 @@ import UIKit
 
 @objc public extension NSObject{
     class func initializeMethod() {
-        if self == NSObject.self {
-            let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
-            //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
-            DispatchQueue.once(token: onceToken) {
-                let oriSel = #selector(self.setValue(_:forUndefinedKey:))
-                let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
-                _ = swizzleMethodInstance(NSObject.self, origSel: oriSel, replSel: repSel);
-                
-                let oriSel0 = #selector(self.value(forUndefinedKey:))
-                let repSel0 = #selector(self.hook_value(forUndefinedKey:))
-                _ = swizzleMethodInstance(NSObject.self, origSel: oriSel0, replSel: repSel0);
-                
-                let oriSel1 = #selector(self.setNilValueForKey(_:))
-                let repSel1 = #selector(self.hook_setNilValueForKey(_:))
-                _ = swizzleMethodInstance(NSObject.self, origSel: oriSel1, replSel: repSel1);
-                
-                let oriSel2 = #selector(self.setValuesForKeys(_:))
-                let repSel2 = #selector(self.hook_setValuesForKeys(_:))
-                _ = swizzleMethodInstance(NSObject.self, origSel: oriSel2, replSel: repSel2);
-            }
+        
+        if self != UIButton.self {
+            return
         }
+
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        DispatchQueue.once(token: onceToken) {
+            let oriSel = #selector(self.setValue(_:forUndefinedKey:))
+            let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
+            _ = swizzleMethodInstance(NSObject.self, origSel: oriSel, replSel: repSel);
+            
+            let oriSel0 = #selector(self.value(forUndefinedKey:))
+            let repSel0 = #selector(self.hook_value(forUndefinedKey:))
+            _ = swizzleMethodInstance(NSObject.self, origSel: oriSel0, replSel: repSel0);
+            
+            let oriSel1 = #selector(self.setNilValueForKey(_:))
+            let repSel1 = #selector(self.hook_setNilValueForKey(_:))
+            _ = swizzleMethodInstance(NSObject.self, origSel: oriSel1, replSel: repSel1);
+            
+            let oriSel2 = #selector(self.setValuesForKeys(_:))
+            let repSel2 = #selector(self.hook_setValuesForKeys(_:))
+            _ = swizzleMethodInstance(NSObject.self, origSel: oriSel2, replSel: repSel2);
+        }
+        
     }
     
     private func hook_setValue(_ value: Any?, forUndefinedKey key: String){

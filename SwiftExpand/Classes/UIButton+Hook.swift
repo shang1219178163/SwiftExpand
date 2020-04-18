@@ -13,20 +13,19 @@ import UIKit
     override public class func initializeMethod() {
         super.initializeMethod();
         
-        if self == UIButton.self {
-            let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
-            //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
-            DispatchQueue.once(token: onceToken) {
-                let oriSel0 = #selector(setBackgroundImage(_:for:))
-                let repSel0 = #selector(hook_setBackgroundImage(_:for:))
+        if self != UIButton.self {
+            return
+        }
                 
-                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
-                
-                let oriSel1 = #selector(setImage(_:for:))
-                let repSel1 = #selector(hook_setImage(_:for:))
-                
-                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel1, replSel: repSel1);
-            }
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        DispatchQueue.once(token: onceToken) {
+            let oriSel = #selector(setBackgroundImage(_:for:))
+            let repSel = #selector(hook_setBackgroundImage(_:for:))
+            _ = swizzleMethodInstance(self, origSel: oriSel, replSel: repSel);
+            
+            let oriSel1 = #selector(setImage(_:for:))
+            let repSel1 = #selector(hook_setImage(_:for:))
+            _ = swizzleMethodInstance(self, origSel: oriSel1, replSel: repSel1);
         }
     }
     

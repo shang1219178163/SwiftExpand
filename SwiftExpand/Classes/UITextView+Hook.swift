@@ -12,17 +12,17 @@ import UIKit
     override public class func initializeMethod() {
         super.initializeMethod();
         
-        if self == UIImageView.self {
-            let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
-            //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
-            DispatchQueue.once(token: onceToken) {
-                let oriSel0 = NSSelectorFromString("deinit")
-                let repSel0 = #selector(self.hook_deinit)
-                
-                _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
-                
-            }
+        if self != UITextView.self {
+            return
         }
+
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        DispatchQueue.once(token: onceToken) {
+            let oriSel = NSSelectorFromString("deinit")
+            let repSel = #selector(self.hook_deinit)
+            _ = swizzleMethodInstance(self, origSel: oriSel, replSel: repSel);
+        }
+        
     }
     
     private func hook_deinit() {

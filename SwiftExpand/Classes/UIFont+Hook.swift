@@ -11,16 +11,17 @@ import UIKit
 @objc public extension UIFont{
     override class func initializeMethod() {
         super.initializeMethod();
-        if self == UIFont.self {
-            let onceToken = "Method Swizzling_\(NSStringFromClass(classForCoder()))";
-            //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
-            DispatchQueue.once(token: onceToken) {
-                let oriSel0 = #selector(systemFont(ofSize:))
-                let repSel0 = #selector(swz_systemFont(ofSize:))
-                
-                let _ = swizzleMethodInstance(UIImageView.self, origSel: oriSel0, replSel: repSel0);
-                
-            }
+        
+        if self != UIFont.self {
+            return
+        }
+        
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        DispatchQueue.once(token: onceToken) {
+            let oriSel = #selector(systemFont(ofSize:))
+            let repSel = #selector(swz_systemFont(ofSize:))
+            _ = swizzleMethodInstance(self, origSel: oriSel, replSel: repSel);
+            
         }
     }
     

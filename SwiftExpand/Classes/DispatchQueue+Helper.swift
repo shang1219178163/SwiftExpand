@@ -9,7 +9,8 @@
 import UIKit
 
 public extension DispatchQueue{
-    private static var _onceTracker = [String]();
+    private static var _onceTracker = [String]()
+    /// 函数只被执行一次
     class func once(token: String, block: () -> ()) {
         objc_sync_enter(self);
         defer {
