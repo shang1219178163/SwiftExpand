@@ -37,8 +37,7 @@ import UIKit
         
         if self.image != nil {
             if self.image?.renderingMode != UIImage.RenderingMode.alwaysTemplate {
-                self.image = self.image!.withRenderingMode( .alwaysTemplate);
-                
+                self.image = self.image!.withRenderingMode(.alwaysTemplate);
             }
         }
     }

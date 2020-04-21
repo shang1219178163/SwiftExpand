@@ -22,13 +22,13 @@ import Foundation
     
     /// 用特定数据源刷新tabBar
     /// - Parameter list: 参照HomeViewController数据源
-    func reloadTabarItems(_ list: [[Any]]) {
+    func reloadTabarItems(_ list: [[String]]) {
         
         for e in viewControllers!.enumerated(){
             let itemList = list[e.offset]
-            let title = itemList[itemList.count - 4] as! String
-            let img = UIImage(named: itemList[itemList.count - 3] as! String)?.withRenderingMode(.alwaysOriginal)
-            let imgH = UIImage(named: itemList[itemList.count - 2] as! String)?.withRenderingMode(.alwaysTemplate)
+            let title = itemList[itemList.count - 4]
+            let img = UIImage(named: itemList[itemList.count - 3])?.withRenderingMode(.alwaysOriginal)
+            let imgH = UIImage(named: itemList[itemList.count - 2])?.withRenderingMode(.alwaysTemplate)
             e.element.tabBarItem = UITabBarItem(title: title, image: img, selectedImage: imgH)
         }
     }

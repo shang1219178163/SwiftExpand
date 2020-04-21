@@ -103,6 +103,9 @@ import UIKit
             setTitleTextAttributes([.foregroundColor: UIColor.white,
                                     .font: UIFont.systemFont(ofSize: fontSize)], for: .selected)
             setDividerImage(tintColorImage, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+            setDividerImage(UIImage(color: UIColor.clear), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+            setDividerImage(UIImage(color: UIColor.clear), forLeftSegmentState: .highlighted, rightSegmentState: .normal, barMetrics: .default)
+            
             layer.borderWidth = 1.0;
             layer.borderColor = tintColor.cgColor;
             layer.masksToBounds = true;

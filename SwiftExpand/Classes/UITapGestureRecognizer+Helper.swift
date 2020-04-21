@@ -9,6 +9,7 @@
 import UIKit
 
 @objc public extension UITapGestureRecognizer {
+    /// UILabel 富文本点击
     func didTapAttributedTextIn(label: UILabel, tapTexts: [String], action: @escaping (String, Int) -> Void) {
         // Create instances of NSLayoutManager, NSTextContainer and NSTextStorage
         let layoutManager = NSLayoutManager()

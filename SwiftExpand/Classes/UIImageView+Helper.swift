@@ -25,7 +25,6 @@ import UIKit
     }
     /// 全屏展示,支持缩放
     public func showImageEnlarge() {
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(enlargeImageView(_:)))
         tap.numberOfTapsRequired = 1  //轻点次数
         tap.numberOfTouchesRequired = 1  //手指个数

@@ -10,19 +10,15 @@
 import UIKit
 
 @objc public extension UIColor{
-    
-    convenience init(red: Int = 0, green: Int = 0, blue: Int = 0, opacity: Int = 255) {
-         precondition(0...255 ~= red   &&
-                      0...255 ~= green &&
-                      0...255 ~= blue  &&
-                      0...255 ~= opacity, "input range is out of range 0...255")
-         self.init(red: CGFloat(red)/255, green: CGFloat(green)/255, blue: CGFloat(blue)/255, alpha: CGFloat(opacity)/255)
-    }
-    //MARK: - -属性
-    static var random: UIColor {
-        return UIColor.randomColor();
+        
+    convenience init(r: Int = 0, g: Int = 0, b: Int = 0, a: CGFloat = 1) {
+         precondition(0...255 ~= r   &&
+                      0...255 ~= g &&
+                      0...255 ~= b , "input range is out of range 0...255")
+         self.init(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: a)
     }
     
+    //MARK: - -属性    
     static var theme: UIColor {
         get{
             var obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UIColor;
@@ -33,10 +29,21 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
+    
+    static var random: UIColor {
+        return UIColor.randomColor();
+    }
+    
     /// 通用背景色
     static var background: UIColor {
         return UIColor.hexValue(0xe9e9e9);
     }
+    
+    /// 半透明蒙版
+    static var dim: UIColor {
+        return UIColor(white: 0, alpha: 0.2)
+    }
+    
     /// 线条默认颜色(同cell分割线颜色)
     static var line: UIColor {
 //        return UIColor.hexValue(0xe0e0e0);
@@ -90,15 +97,6 @@ import UIKit
     static var textColorExpired: UIColor {
         return UIColor.hexValue(0xCCCCCC);
     }
-    
-    /// 获取某种颜色Alpha下的色彩
-    static func alpha(_ color: UIColor, a: CGFloat = 1.0) -> UIColor{
-        return color.withAlphaComponent(a)
-    }
-
-    static func RGBA(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat = 1.0) -> UIColor{
-        return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
-    }
 
     /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
     static func hexValue(_ hex: Int, a: CGFloat = 1.0) -> UIColor {
@@ -136,7 +134,7 @@ import UIKit
         return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a);
     }
     /// 灰色背景
-    static func dim(_ white: CGFloat, a: CGFloat = 1.0) -> UIColor{
+    static func dim(_ white: CGFloat, a: CGFloat = 0.2) -> UIColor{
         return .init(white: white, alpha: a);
     }
     
@@ -145,6 +143,11 @@ import UIKit
         let g = arc4random_uniform(256);
         let b = arc4random_uniform(256);
         return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(1.0));
+    }
+    
+    /// 获取某种颜色Alpha下的色彩
+    func alpha(_ a: CGFloat = 1.0) -> UIColor{
+        return withAlphaComponent(a)
     }
     
     /// 两个颜色是否相等

@@ -190,7 +190,6 @@ import UIKit
         setupAppearanceNavigationBar(barTintColor)
         setupAppearanceScrollView()
         setupAppearanceOthers();
-
     }
     
     /// 配置UIScrollView默认值
