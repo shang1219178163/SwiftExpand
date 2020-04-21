@@ -79,6 +79,45 @@ import UIKit
         }
         return view
     }
+    
+    /// 创建 UIButton 集群
+    static func createGroupView(_ rect: CGRect = .zero, list: [String], numberOfRow: Int = 4, padding: CGFloat = kPadding, action: (ControlClosure)? = nil) -> UIView {
+        
+        let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1;
+        let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
+        let itemHeight = (rect.height - CGFloat(rowCount - 1)*padding)/CGFloat(rowCount)
+        
+        let backView = UIView(frame: rect);
+        for (i,value) in list.enumerated() {
+            let x = CGFloat(i % numberOfRow) * (itemWidth + padding);
+            let y = CGFloat(i / numberOfRow) * (itemHeight + padding);
+            let rect = CGRect(x: x, y: y, width: itemWidth, height: itemHeight);
+            
+            let button: UIButton = {
+                let button = UIButton(type: .custom);
+                button.frame = rect;
+                button.setTitle(value, for: .normal);
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 15);
+                button.titleLabel?.adjustsFontSizeToFitWidth = true;
+                button.titleLabel?.minimumScaleFactor = 1.0;
+                button.isExclusiveTouch = true;
+                
+                button.setTitleColor(UIColor.black, for: .normal);
+                button.backgroundColor = UIColor.white;
+                button.tag = i;
+                
+                return button;
+            }()
+    
+            if action != nil {
+                button.addActionHandler(action!)
+            }
+            backView.addSubview(button);
+            backView.addSubview(backView.lineTop)
+        }
+        return backView;
+    }
+    
     /// 图片上左下右配置
     func layoutButton(direction: Int, imageTitleSpace: CGFloat = 5, space: CGFloat = 0) {
         sizeToFit()
