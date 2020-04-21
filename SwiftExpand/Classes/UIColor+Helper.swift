@@ -63,6 +63,10 @@ import UIKit
     static var lightGreen: UIColor {
         return UIColor.hexValue(0x1AC756);
     }
+    /// 浅红
+    static var lightRed: UIColor {
+        return UIColor.hexValue(0xFA6D5B);
+    }
     
     static var textColor3: UIColor {
         return UIColor.hexValue(0x333333);
@@ -81,16 +85,16 @@ import UIKit
     }
     
     /// 获取某种颜色Alpha下的色彩
-    static func alpha(_ color: UIColor, _ a: CGFloat = 1.0) -> UIColor{
+    static func alpha(_ color: UIColor, a: CGFloat = 1.0) -> UIColor{
         return color.withAlphaComponent(a)
     }
 
-    static func RGBA(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
+    static func RGBA(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, a: CGFloat = 1.0) -> UIColor{
         return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
     }
 
     /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
-    static func hexValue(_ hex: Int, _ a: CGFloat = 1.0) -> UIColor {
+    static func hexValue(_ hex: Int, a: CGFloat = 1.0) -> UIColor {
         return UIColor(red: CGFloat((hex & 0xFF0000) >> 16)/255.0, green: CGFloat((hex & 0xFF00) >> 8)/255.0, blue: CGFloat(hex & 0xFF)/255.0, alpha: a)
     }
     
@@ -125,7 +129,7 @@ import UIKit
         return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a);
     }
     /// 灰色背景
-    static func dim(_ white: CGFloat, _ a: CGFloat = 1.0) -> UIColor{
+    static func dim(_ white: CGFloat, a: CGFloat = 1.0) -> UIColor{
         return .init(white: white, alpha: a);
     }
     
