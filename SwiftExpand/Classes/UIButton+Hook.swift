@@ -21,11 +21,11 @@ import UIKit
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(setBackgroundImage(_:for:))
             let repSel = #selector(hook_setBackgroundImage(_:for:))
-            _ = swizzleMethodInstance(self, origSel: oriSel, replSel: repSel);
+            _ = hookInstanceMethod(of: oriSel, with: repSel);
             
             let oriSel1 = #selector(setImage(_:for:))
             let repSel1 = #selector(hook_setImage(_:for:))
-            _ = swizzleMethodInstance(self, origSel: oriSel1, replSel: repSel1);
+            _ = hookInstanceMethod(of: oriSel1, with: repSel1);
         }
     }
     

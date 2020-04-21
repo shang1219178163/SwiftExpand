@@ -18,19 +18,19 @@ import UIKit
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(viewDidLoad)
                 let repSel = #selector(hook_viewDidLoad)
-                _ = swizzleMethodInstance(self, origSel: oriSel, replSel: repSel);
+                _ = hookInstanceMethod(of: oriSel, with: repSel);
                                 
                 let oriSel1 = #selector(viewWillAppear(_:))
                 let repSel1 = #selector(hook_viewWillAppear(animated:))
-                _ = swizzleMethodInstance(self, origSel: oriSel1, replSel: repSel1);
+                _ = hookInstanceMethod(of: oriSel1, with: repSel1);
                 
                 let oriSel2 = #selector(viewWillDisappear(_:))
                 let repSel2 = #selector(hook_viewWillDisappear(animated:))
-                _ = swizzleMethodInstance(self, origSel: oriSel2, replSel: repSel2);
+                _ = hookInstanceMethod(of: oriSel2, with: repSel2);
                 
                 let oriSelPresent = #selector(present(_:animated:completion:))
                 let repSelPresent = #selector(hook_present(_:animated:completion:))
-                _ = swizzleMethodInstance(self, origSel: oriSelPresent, replSel: repSelPresent);
+                _ = hookInstanceMethod(of: oriSelPresent, with: repSelPresent);
                 
             }
         } else if self == UINavigationController.self {
@@ -38,7 +38,7 @@ import UIKit
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(UINavigationController.pushViewController(_:animated:));
                 let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:));
-                _ = swizzleMethodInstance(self, origSel:oriSel , replSel: repSel);
+                _ = hookInstanceMethod(of:oriSel , with: repSel);
             }
         }
     }

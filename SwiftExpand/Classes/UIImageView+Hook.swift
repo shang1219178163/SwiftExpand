@@ -19,7 +19,7 @@ import UIKit
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(setter: self.tintColor)
             let repSel = #selector(self.hook_tintColor(_:))
-            _ = swizzleMethodInstance(self, origSel: oriSel, replSel: repSel);
+            _ = hookInstanceMethod(of: oriSel, with: repSel);
             
         }
         
