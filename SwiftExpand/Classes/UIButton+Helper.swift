@@ -113,7 +113,6 @@ import UIKit
                 button.addActionHandler(action!)
             }
             backView.addSubview(button);
-            backView.addSubview(backView.lineTop)
         }
         return backView;
     }

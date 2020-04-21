@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "SwiftExpand"
-    s.version      = "2.6.2"
+    s.version      = "2.6.3"
     s.summary      = "系统类功能扩展."
     s.description  = "主要通过分类实现"
 
