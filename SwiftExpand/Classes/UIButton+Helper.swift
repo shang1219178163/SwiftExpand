@@ -51,7 +51,8 @@ import UIKit
         switch type {
         case 1://白色字体,主题色背景
             view.setTitleColor( .white, for: .normal)
-            view.backgroundColor = .theme
+            view.setBackgroundImage(UIImage(color: .theme), for: .normal)
+            view.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
             
         case 2:
             view.setTitleColor( .red, for: .normal);
@@ -60,10 +61,7 @@ import UIKit
             view.setTitleColor( .white, for: .normal);
 
         case 4://地图定位按钮一类
-//            view.setBackgroundImage(UIImageNamed(imgName!), for: .normal)
-//            view.setBackgroundImage(UIImageColor( .lightGray), for: .disabled)
             view.setImage(UIImageNamed(imgName!), for: .normal)
-            view.setImage(UIImageColor(.lightGray), for: .disabled)
             
         case 5://主题色字体,边框
             view.setTitleColor( .theme, for: .normal);
@@ -74,8 +72,9 @@ import UIKit
             view.setTitleColor( .theme, for: .normal);
             
         default://黑色字体,白色背景
-            view.setTitleColor( .black, for: .normal)
-            
+            view.setTitleColor( .gray, for: .normal)
+            view.setBackgroundImage(UIImage(color: .white), for: .normal)
+            view.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
         }
         return view
     }

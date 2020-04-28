@@ -10,6 +10,7 @@
 import UIKit
 
 @objc public extension NSObject{
+
     /// 动态属性关联key
     var runtimeKey: UnsafeRawPointer {
         get {
@@ -88,6 +89,11 @@ import UIKit
         self.setValuesForKeys(dic)
     }
     
+    func synchronized(_ lock: AnyObject, block: () -> Void) {
+        objc_sync_enter(lock)
+        block()
+        objc_sync_exit(lock)
+    }
     // MARK: - 数据类型转换 Data - String - Dictionary - Array
     
     /// NSObject->NSData

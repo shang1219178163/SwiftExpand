@@ -258,6 +258,35 @@ import UIKit
         }
         return marr.copy() as! [UIViewController]
     }
+    
+    ///背景灰度设置
+    public func setAlphaOfBackgroundViews(_ alpha: CGFloat) {
+        guard let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIWindow else { return }
+        UIView.animate(withDuration: 0.2) {
+            statusBarWindow.alpha = alpha;
+            self.view.alpha = alpha;
+            self.navigationController?.navigationBar.alpha = alpha;
+        }
+    }
+    ///呈现popover
+    public func presentPopover(_ popoverContentVC: UIViewController,
+                             sender: UIView,
+                             arrowDirection: UIPopoverArrowDirection = .any,
+                             completion: (() -> Void)? = nil){
+        popoverContentVC.modalPresentationStyle = .popover
+
+        guard let superview = sender.superview else { return }
+        let sourceRect = superview.convert(sender.frame, to: self.view)
+        
+        guard let popoverPresentationVC = popoverContentVC.popoverPresentationController else { return }
+        popoverPresentationVC.permittedArrowDirections = arrowDirection
+        popoverPresentationVC.sourceView = self.view
+        popoverPresentationVC.sourceRect = sourceRect
+        if conforms(to: UIPopoverPresentationControllerDelegate.self) {
+            popoverPresentationVC.delegate = self as? UIPopoverPresentationControllerDelegate
+        }
+        present(popoverContentVC, animated: true, completion: completion)
+    }
 }
 
 

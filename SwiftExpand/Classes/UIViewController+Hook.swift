@@ -67,6 +67,10 @@ import UIKit
     }
     
     private func hook_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        if viewControllerToPresent.presentationController == nil {
+            DDLog("viewControllerToPresent.presentationController 不能为 nil")
+            return
+        }
         //判断是否是alert弹窗
         if viewControllerToPresent.isKind(of: UIAlertController.self) {
             #if DEBUG

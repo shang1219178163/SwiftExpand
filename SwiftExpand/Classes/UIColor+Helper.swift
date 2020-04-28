@@ -12,9 +12,9 @@ import UIKit
 @objc public extension UIColor{
         
     convenience init(r: Int = 0, g: Int = 0, b: Int = 0, a: CGFloat = 1) {
-         precondition(0...255 ~= r   &&
-                      0...255 ~= g &&
-                      0...255 ~= b , "input range is out of range 0...255")
+         assert(r >= 0 && r <= 255, "Invalid red component")
+         assert(g >= 0 && g <= 255, "Invalid green component")
+         assert(b >= 0 && b <= 255, "Invalid blue component")
          self.init(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: a)
     }
     
@@ -46,20 +46,7 @@ import UIKit
     
     /// 线条默认颜色(同cell分割线颜色)
     static var line: UIColor {
-//        return UIColor.hexValue(0xe0e0e0);
         return UIColor.hexValue(0xe4e4e4);
-    }
-    
-    static var btnN: UIColor {
-        return UIColor.hexValue(0xfea914);
-    }
-    
-    static var btnH: UIColor {
-        return UIColor.hexValue(0xf1a013);
-    }
-    
-    static var btnD: UIColor {
-        return UIColor.hexValue(0x999999);
     }
     
     static var excel: UIColor {
