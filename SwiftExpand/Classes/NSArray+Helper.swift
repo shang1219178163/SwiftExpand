@@ -21,7 +21,7 @@ public extension Array{
     }
 
     static func itemPrefix(prefix: String, count: Int, type: Int) -> Array! {
-        var marr:[Any] = [];
+        var marr: [Any] = [];
         for i in 0...count {
             let item = String(format: "%@%d", prefix,i);
             
@@ -52,32 +52,6 @@ public extension Array{
         return list
     }
     
-    ///模型(继承于NSObject)query对应属性为@objc声明的字符串
-    func filterModelList(_ list: [AnyObject]!, querys: [String]) -> [[String]] {
-        var listArr: [[String]]?
-        for e in list.enumerated() {
-            var itemList:[String]?
-            querys.forEach({ (query) in
-                let value = e.element.value(forKeyPath: query) ?? ""
-                itemList?.append(value as! String)
-            })
-            listArr?.append(itemList!)
-        }
-        return listArr!
-    }
-    
-    ///模型(继承于NSObject)query对应属性为@objc声明的字符串
-    func filterModelList(_ list: [AnyObject], query: String) -> [String] {
-        var itemList:[String] = []
-        list.forEach { (obj:AnyObject) in
-            
-            let value = obj.value(forKeyPath: query) != nil ? obj.value(forKeyPath: query) : ""
-            itemList.append(value as! String)
-            
-        }
-        return itemList
-    }
- 
 }
 
 @objc public extension NSArray{

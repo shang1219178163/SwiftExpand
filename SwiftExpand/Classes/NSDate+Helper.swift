@@ -92,7 +92,9 @@ public let kDateFormatTwo         = "yyyyMMdd";
     /// String -> Date
     static func dateFromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
         let formatter = DateFormatter.format(fmt);
-        return formatter.date(from: dateStr)!;
+        let str = (dateStr as NSString).substring(to: fmt.count)
+        let result = formatter.date(from: str);
+        return result!
     }
     
     /// 时间戳字符串 -> 日期字符串
@@ -171,6 +173,31 @@ public let kDateFormatTwo         = "yyyyMMdd";
         return [startTime, endTime];
     }
     
+    ///获取指定时间内的所有天数日期
+    static func getDateDays(_ startTime: String, endTime: String, fmt: String = kDateFormatDay) -> [String] {
+        let calendar = Calendar(identifier: .gregorian)
+        
+        var startDate = DateFormatter.dateFromString(startTime, fmt: fmt)
+        let endDate = DateFormatter.dateFromString(endTime, fmt: fmt)
+
+        var days: [String] = []
+        var comps: DateComponents?
+        
+        var result = startDate.compare(endDate)
+        while result != .orderedDescending {
+            comps = calendar.dateComponents([.year, .month, .day, .weekday], from: startDate)
+            
+            let time = DateFormatter.stringFromDate(startDate, fmt: fmt)
+            days.append(time)
+            
+            if comps != nil {
+                comps!.day! += 1
+                startDate = calendar.date(from: comps!)!
+                result = startDate.compare(endDate)
+            }
+        }
+        return days
+    }
 }
 
 @objc public extension NSDate{
@@ -231,15 +258,15 @@ public let kDateFormatTwo         = "yyyyMMdd";
     static var calendar: Calendar = Calendar(identifier: .gregorian)
 
     /// NSDate转化为日期时间字符串
-    func toString(_ fmt: String = kDateFormat) -> NSString {
-        let dateStr = DateFormatter.stringFromDate(self as Date, fmt: fmt);
-        return dateStr as NSString;
-    }
-    /// 字符串时间戳转NSDate
-    static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> NSDate {
-        let date: NSDate = DateFormatter.dateFromString(dateStr, fmt: fmt) as NSDate;
-        return date;
-    }
+//    func toString(_ fmt: String = kDateFormat) -> NSString {
+//        let dateStr = DateFormatter.stringFromDate(self as Date, fmt: fmt);
+//        return dateStr as NSString;
+//    }
+//    /// 字符串时间戳转NSDate
+//    static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> NSDate {
+//        let date: NSDate = DateFormatter.dateFromString(dateStr, fmt: fmt) as NSDate;
+//        return date;
+//    }
 
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> NSDate
     func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> NSDate{
@@ -387,6 +414,27 @@ public let kDateFormatTwo         = "yyyyMMdd";
         return weekDay
     }
     
+    //MARK: 一周的第几天
+    func weekDay(_ addDays: Int = 0) ->Int{
+        //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
+        var comp: DateComponents = NSDate.dateComponents(self)
+        comp.day! += addDays
+
+        let newDate = NSDate.calendar.date(from: comp)
+        let weekDay = NSDate.calendar.component(.weekday, from: newDate!)
+        return weekDay
+    }
+    
+    //MARK: 周几
+    func weekDayDes(_ addDays: Int = 0) ->String{
+        //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
+        let dic: [String: String] = ["1": "周日", "2": "星期一", " 3": "星期二",  "4": "星期三", "5": "星期四", "6": "星期五", "7": "星期六"]
+        
+        let weekDay = "\(self.weekDay(addDays))"
+        let result = dic.keys.contains(weekDay) ? dic[weekDay] : "-"
+        return result!
+    }
+    
     /// 两个时间同年0;同月1;同日2;同时3;同分4;同秒5
     static func isSameFrom(_ aDate: NSDate, anotherDate: NSDate, type: Int = 0) -> Bool {
         let comp = NSDate.dateComponents(aDate)
@@ -479,14 +527,14 @@ public extension Date{
         return Date.isSameFrom(self, anotherDate: Date(), type: 0)
     }
     
-    /// Date转化为日期时间字符串
-    func toString(_ fmt: String = kDateFormat) -> String {
-        return (self as NSDate).toString(fmt) as String;
-    }
-    /// 字符串时间戳转Date
-    static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
-        return NSDate.fromString(dateStr, fmt: fmt) as Date;
-    }
+//    /// Date转化为日期时间字符串
+//    func toString(_ fmt: String = kDateFormat) -> String {
+//        return (self as NSDate).toString(fmt) as String;
+//    }
+//    /// 字符串时间戳转Date
+//    static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
+//        return NSDate.fromString(dateStr, fmt: fmt) as Date;
+//    }
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间)
     func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date{
         return (self as NSDate).adding(days, hour: hour, minute: minute, second: second) as Date
@@ -497,9 +545,9 @@ public extension Date{
         return (self as NSDate).addingDaysDes(days, fmt: fmt);
     }
 
-    func agoInfo() -> String {
-        return (self as NSDate).agoInfo();
-    }
+//    func agoInfo() -> String {
+//        return (self as NSDate).agoInfo();
+//    }
 
     func hourInfoBetween(_ date: Date,_ type: Int = 0) -> Double {
         return (self as NSDate).hourInfoBetween(date as NSDate, type);
