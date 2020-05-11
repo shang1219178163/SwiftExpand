@@ -373,6 +373,16 @@ public extension Substring {
         let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatEnd)
         return result;
     }
+    ///截止到天
+    func timeToDay() -> String {
+        if self.contains(" ") == false {
+            return self as String;
+        }
+        if let result: String = self.components(separatedBy: " ").first as String?{
+            return result;
+        }
+        return ""
+    }
     
     /// 过滤特殊字符集
     func filter(_ string: String) -> String{

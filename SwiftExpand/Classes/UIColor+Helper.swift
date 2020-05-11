@@ -84,6 +84,13 @@ import UIKit
     static var textColorExpired: UIColor {
         return UIColor.hexValue(0xCCCCCC);
     }
+    
+    static var placeholderColor: UIColor {
+        if #available(iOS 13.0, *) {
+            return UIColor.placeholderText
+        }
+        return UIColor.lightGray
+    }
 
     /// [源]0x开头的16进制Int数字(无#前缀十六进制数表示，开头就是0x)
     static func hexValue(_ hex: Int, a: CGFloat = 1.0) -> UIColor {

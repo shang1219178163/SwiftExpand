@@ -23,6 +23,19 @@ import UIKit
         self.tintColor = tintColor
         self.image = self.image!.withRenderingMode(mode)
     }
+    /// 翻转动画
+    public func addFlipAnimtion(_ image: UIImage, backImage: UIImage, isRepeat: Bool = true) {
+        let opts: UIView.AnimationOptions = [.transitionFlipFromLeft]
+        UIView.transition(with: self, duration: 1.35, options: opts, animations: {
+            self.image = (self.image == image) ? backImage : image
+       
+        }) { (finished) in
+            if isRepeat {
+                self.addFlipAnimtion(image, backImage: backImage)
+            }
+        }
+    }
+    
     /// 全屏展示,支持缩放
     public func showImageEnlarge() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(enlargeImageView(_:)))
