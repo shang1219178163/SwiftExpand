@@ -106,9 +106,10 @@ import UIKit
         view.lineBreakMode = .byTruncatingTail;
         view.adjustsFontSizeToFitWidth = true;
         view.text = text;
+        view.textColor = .gray;
+
         view.textAlignment = textAlignment
         view.font = UIFont.systemFont(ofSize: 15)
-
         sectionView.addSubview(view)
         return sectionView
     }

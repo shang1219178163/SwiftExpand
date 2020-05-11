@@ -302,52 +302,17 @@ import UIKit
         }
     }
     
-/*
-    //MARK: -通用响应添加方法
-    public func addActionClosure(_ action: @escaping (ViewClosure)) {
-        if let sender = self as? UIButton {
-            sender.addTarget(self, action:#selector(p_handleActionSender(_:)), for:.touchUpInside);
+    ///手势 - 轻点 UITapGestureRecognizer
+    public func addGestureTap(_ target: Any?, action: Selector?) -> UITapGestureRecognizer {
+        let obj = UITapGestureRecognizer(target: target, action: action)
+        obj.numberOfTapsRequired = 1  //轻点次数
+        obj.numberOfTouchesRequired = 1  //手指个数
 
-        }
-        else if let sender = self as? UIControl {
-            sender.addTarget(self, action:#selector(p_handleActionSender(_:)), for:.valueChanged);
-
-        } else {
-//            let recoginzer = objc_getAssociatedObject(self, RuntimeKey.tap);
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function));
-            if obj == nil {
-                obj = UITapGestureRecognizer(target: self, action: #selector(p_handleActionTap(_:)));
-                isUserInteractionEnabled = true;
-                addGestureRecognizer(obj! as! UIGestureRecognizer);
-            }
-        }
-//        objc_setAssociatedObject(self, RuntimeKey.tap, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
-        objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+        isUserInteractionEnabled = true
+        isMultipleTouchEnabled = true
+        addGestureRecognizer(obj)
+        return obj
     }
-
-    /// 点击回调
-    private func p_handleActionTap(_ tap: UITapGestureRecognizer) {
-//       let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
-        let block = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? ViewClosure;
-        if block != nil{
-            block!(tap, tap.view!, tap.view!.tag);
-        }
-    }
-
-    private func p_handleActionSender(_ sender: UIControl) {
-        let block = objc_getAssociatedObject(self, RuntimeKey.tap) as? ViewClosure;
-        if let sender = self as? UISegmentedControl {
-            if block != nil {
-                block!(nil, sender, sender.selectedSegmentIndex);
-            }
-
-        } else {
-            if block != nil {
-                block!(nil, sender, sender.tag);
-            }
-        }
-    }
-*/
     
     ///手势 - 轻点 UITapGestureRecognizer
     public func addGestureTap(_ action: @escaping RecognizerClosure) -> UITapGestureRecognizer {
@@ -362,6 +327,17 @@ import UIKit
         obj.addAction { (recognizer) in
             action(recognizer)
         }
+        return obj
+    }
+    
+    ///手势 - 长按 UILongPressGestureRecognizer
+    public func addGestureLongPress(_ target: Any?, action: Selector?, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
+        let obj = UILongPressGestureRecognizer(target: target, action: action)
+        obj.minimumPressDuration = minimumPressDuration;
+      
+        isUserInteractionEnabled = true
+        isMultipleTouchEnabled = true
+        addGestureRecognizer(obj)
         return obj
     }
     
@@ -404,6 +380,16 @@ import UIKit
     }
       
     ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
+    public func addGestureEdgPan(_ target: Any?, action: Selector?, for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
+        let obj = UIScreenEdgePanGestureRecognizer(target: target, action: action)
+        obj.edges = edgs
+        isUserInteractionEnabled = true
+        isMultipleTouchEnabled = true
+        addGestureRecognizer(obj)
+        return obj
+    }
+    
+    ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
     public func addGestureEdgPan(_ action: @escaping RecognizerClosure, for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         let obj = UIScreenEdgePanGestureRecognizer(target: nil, action: nil)
         obj.edges = edgs
@@ -417,6 +403,17 @@ import UIKit
         return obj
     }
       
+    ///手势 - 清扫 UISwipeGestureRecognizer
+    public func addGestureSwip(_ target: Any?, action: Selector?, for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
+        let obj = UISwipeGestureRecognizer(target: target, action: action)
+        obj.direction = direction
+      
+        isUserInteractionEnabled = true
+        isMultipleTouchEnabled = true
+        addGestureRecognizer(obj)
+        return obj
+    }
+    
     ///手势 - 清扫 UISwipeGestureRecognizer
     public func addGestureSwip(_ action: @escaping RecognizerClosure, for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         let obj = UISwipeGestureRecognizer(target: nil, action: nil)
