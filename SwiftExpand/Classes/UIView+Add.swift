@@ -18,6 +18,7 @@ import UIKit
         case left
         case bottom
         case right
+        case center
     }
 
     ///视图角落(左上,左下,右上,右下)

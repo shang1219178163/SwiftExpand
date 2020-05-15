@@ -198,6 +198,24 @@ public let kDateFormatTwo         = "yyyyMMdd";
         }
         return days
     }
+    ///根据 UIDatePicker.Mode 获取时间字符串简
+    static func dateFromPicker(_ datePicker: UIDatePicker, date: Date) -> String {
+        var result = DateFormatter.stringFromDate(date)
+        switch datePicker.datePickerMode {
+        case .time, .countDownTimer:
+            result = (result as NSString).substring(with: NSMakeRange(11, 5))
+
+            break;
+        case .date:
+            result = (result as NSString).substring(with: NSMakeRange(0, 10))
+            break;
+
+        default:
+            result = (result as NSString).substring(with: NSMakeRange(0, 16))
+            break
+        }
+        return result
+    }
 }
 
 @objc public extension NSDate{

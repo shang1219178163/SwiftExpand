@@ -85,7 +85,7 @@ import UIKit
         return UIColor.hexValue(0xCCCCCC);
     }
     
-    static var placeholderColor: UIColor {
+    static var placeholder: UIColor {
         if #available(iOS 13.0, *) {
             return UIColor.placeholderText
         }

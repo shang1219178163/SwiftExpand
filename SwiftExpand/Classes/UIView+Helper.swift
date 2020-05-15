@@ -521,28 +521,4 @@ import UIKit
         return effectView;
     }
     
-//    /// 计时显示
-//    public static func GCDTimerAdd(_ lab: UILabel!, _ length: Int = 5, date: NSDate = NSDate(), step: Int = 1) -> DispatchSourceTimer{
-//
-//        var time = 0;
-//        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
-//        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
-//        codeTimer.setEventHandler {
-//            
-//            time += step;
-//            DispatchQueue.main.async {
-//                lab.isEnabled = time <= 0;
-//                if time > 0 {
-//                    lab.text = "\(date.agoInfo(1, length: lab.text!.count))"
-//                    return;
-//                }
-//                codeTimer.cancel()
-//                lab.text = "00:00:00".substringFrom(8-length)
-//            }
-//        }
-//        codeTimer.resume()
-////        codeTimer.activate()
-//        return codeTimer;
-//    }
-
 }

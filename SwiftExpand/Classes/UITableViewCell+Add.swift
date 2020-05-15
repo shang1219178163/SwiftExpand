@@ -160,8 +160,8 @@ import UIKit
                 obj!.titleLabel?.font = UIFont.systemFont(ofSize: 15);
                 obj!.titleLabel?.adjustsFontSizeToFitWidth = true;
                 obj!.titleLabel?.minimumScaleFactor = 1.0;
-                obj!.setTitleColor(UIColor.white, for: .normal)
-                obj!.backgroundColor = UIColor.theme
+//                obj!.setTitleColor(UIColor.white, for: .normal)
+//                obj!.backgroundColor = UIColor.theme
                 obj!.isExclusiveTouch = true;
                 
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

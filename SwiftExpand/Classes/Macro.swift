@@ -92,7 +92,7 @@ public let kBarHeight: CGFloat             = 64.0;
 /// 底部tabBar高度 49
 public let kTabBarHeight: CGFloat          = 49.0;
 /// 选择器默认高度 180
-public let kPickerViewHeight: CGFloat      = 180.0;
+public let kPickerViewHeight: CGFloat      = 216;
 
 public let kX_GAP: CGFloat                 = 15.0;
 public let kY_GAP: CGFloat                 = 10.0;
