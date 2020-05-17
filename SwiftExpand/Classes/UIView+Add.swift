@@ -13,7 +13,7 @@ import UIKit
 @objc public extension UIView {
     
     ///视图方向(上左下右)
-    enum Direction: Int {
+    @objc enum Direction: Int {
         case top
         case left
         case bottom
@@ -22,11 +22,15 @@ import UIKit
     }
 
     ///视图角落(左上,左下,右上,右下)
-    enum Location: Int {
+    @objc enum Location: Int {
         case leftTop
         case leftBottom
         case rightTop
         case rightBottom
+    }
+    
+    @objc enum HolderViewState: Int {
+        case nomrol, loading, empty, fail
     }
     
     var lineTop: UIView {
@@ -76,7 +80,6 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-
     
     /// 渐变色层
     var gradientLayer: CAGradientLayer {
@@ -93,53 +96,80 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
+        
     /// (与holderView配置方法)配套使用
     var holderView: UIView {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView;
-            if obj == nil {
-                obj = UIView(frame: bounds);
-                obj!.backgroundColor = UIColor.white
+        var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView;
+        if obj == nil {
+            obj = UIView(frame: bounds);
+            obj!.backgroundColor = UIColor.white
 
-                obj!.isHidden = true;
+            obj!.isHidden = true;
 
-                let height = bounds.height - 25*2
-                let YGap = height*0.2
-                let imgView = UIImageView(frame: CGRectMake(0, YGap, bounds.width, height*0.3))
-                imgView.contentMode = .scaleAspectFit
-                imgView.tag = kTAG_IMGVIEW
-                obj!.addSubview(imgView)
+            let height = bounds.height - 25*2
+            let YGap = height*0.2
+            let imgView = UIImageView(frame: CGRectMake(0, YGap, bounds.width, height*0.3))
+            imgView.contentMode = .scaleAspectFit
+            imgView.contentMode = .center
 
-                let label = UILabel(frame: CGRectMake(0, imgView.frame.maxY + 25, bounds.width, 25))
-                label.textAlignment = .center
-                label.text = "暂无数据"
-                label.textColor = UIColor.hexValue(0x999999)
-                label.tag = kTAG_LABEL
-                obj!.addSubview(label)
-                
-                addSubview(obj!)
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return obj!;
+            imgView.tag = kTAG_IMGVIEW
+            obj!.addSubview(imgView)
+
+            let label = UILabel(frame: CGRectMake(0, imgView.frame.maxY + 25, bounds.width, 25))
+            label.font = UIFont.systemFont(ofSize: 15)
+            label.textAlignment = .center
+//            label.text = "暂无数据"
+            label.textColor = .gray
+            label.tag = kTAG_LABEL
+            obj!.addSubview(label)
+            
+            addSubview(obj!)
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
+        return obj!;
     }
     
     /// 配置HolderView
-    func holderView(_ title: String = "暂无数据", image: String?) {
-        let imgView: UIImageView = holderView.viewWithTag(kTAG_IMGVIEW) as! UIImageView
-        let label: UILabel = holderView.viewWithTag(kTAG_LABEL) as! UILabel
-        label.text = title
-        if image == nil {
-            label.center = CGPointMake(holderView.center.x, holderView.sizeHeight*0.35)
+    func setHolderView(for state: HolderViewState = .nomrol) {
+        guard let imgView = holderView.subView(UIImageView.self) as? UIImageView,
+            let label = holderView.subView(UILabel.self) as? UILabel
+            else { return }
+        
+        label.isHidden = (state == .nomrol)
+        imgView.isHidden = (state == .nomrol)
 
-        } else {
-            imgView.image = UIImageNamed(image!)
-
+        switch state {
+        case .empty:
+            label.text = "暂无数据"
+            imgView.image = UIImage.image(named: "img_data_empty", podClassName: "SwiftExpand")
+            
+        case .loading:
+            label.text = "加载中..."
+            imgView.image = UIImage.image(named: "img_network_loading", podClassName: "SwiftExpand")
+            
+        case .fail:
+            label.text = "请求失败"
+            imgView.image = UIImage.image(named: "img_network_error", podClassName: "SwiftExpand")
+            
+        default:
+            break
         }
+    }
+    
+    func setHolderViewTitle(_ title: String, for state: HolderViewState = .nomrol) {
+        guard let label = holderView.subView(UILabel.self) as? UILabel
+            else { return }
+        
+        label.isHidden = (state == .nomrol)
+        label.text = title
+    }
+    
+    func setHolderViewImage(_ image: UIImage, for state: HolderViewState = .nomrol) {
+        guard let imgView = holderView.subView(UIImageView.self) as? UIImageView
+            else { return }
+        
+        imgView.isHidden = (state == .nomrol)
+        imgView.image = image
     }
     
     /// 增加虚线边框
