@@ -44,93 +44,61 @@ import UIKit
     }
     /// 关联UITableView视图对象
     var tbView: UITableView {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITableView;
-            if obj == nil {
-                obj = UITableView.create(view.bounds, style: .plain, rowHeight: 70);
-                if self.conforms(to: UITableViewDataSource.self) {
-                    obj!.dataSource = self as? UITableViewDataSource;
-                }
-                if self.conforms(to: UITableViewDelegate.self) {
-                    obj!.delegate = self as? UITableViewDelegate;
-                }
-
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        guard let tableView = view.subView(UITableView.self) as? UITableView else {
+            let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
+            if self.conforms(to: UITableViewDataSource.self) {
+                view.dataSource = self as? UITableViewDataSource;
             }
-            return obj!;
+            if self.conforms(to: UITableViewDelegate.self) {
+                view.delegate = self as? UITableViewDelegate;
+            }
+            return view
         }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
+        return tableView
     }
     /// 关联UITableView视图对象
     var tbViewGrouped: UITableView {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITableView;
-            if obj == nil {
-                obj = UITableView.create(view.bounds, style: .grouped, rowHeight: 70);
-                if self.conforms(to: UITableViewDataSource.self) {
-                    obj!.dataSource = self as? UITableViewDataSource;
-                }
-                if self.conforms(to: UITableViewDelegate.self) {
-                    obj!.delegate = self as? UITableViewDelegate;
-                }
-
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        guard let tableView = view.subView(UITableView.self) as? UITableView else {
+            let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
+            if self.conforms(to: UITableViewDataSource.self) {
+                view.dataSource = self as? UITableViewDataSource;
             }
-            return obj!;
+            if self.conforms(to: UITableViewDelegate.self) {
+                view.delegate = self as? UITableViewDelegate;
+            }
+            return view
         }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
+        return tableView
     }
     
     /// 关联UICollectionView视图对象
-    var ctView : UICollectionView {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UICollectionView;
-            if obj == nil {
-                // 初始化
-                obj = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
-                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                obj!.isPagingEnabled = true;
-                obj!.backgroundColor = UIColor.background
+    var ctView: UICollectionView {
+        guard let collectionView = view.subView(UICollectionView.self) as? UICollectionView else {
+            let view = UICollectionView(frame: self.view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.isPagingEnabled = true;
+            view.backgroundColor = UIColor.background
 
-                obj!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
-                if self.conforms(to: UICollectionViewDataSource.self) {
-                    obj!.dataSource = (self as! UICollectionViewDataSource)
-                }
-                 
-                if self.conforms(to: UICollectionViewDelegate.self) {
-                    obj!.delegate = (self as! UICollectionViewDelegate)
-                }
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
+            if self.conforms(to: UICollectionViewDataSource.self) {
+                view.dataSource = (self as! UICollectionViewDataSource)
             }
-            return obj!;
+             
+            if self.conforms(to: UICollectionViewDelegate.self) {
+                view.delegate = (self as! UICollectionViewDelegate)
+            }
+            return view
         }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
+        return collectionView
     }
     
     /// 关联tipLab
-    var tipLab : UILabel {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel;
-            if obj == nil {
-                // 初始化
-                obj = UILabel()
-                obj!.text = "暂无数据"
-                obj!.textColor = UIColor.gray;
-                obj!.sizeToFit();
-                obj!.center = self.view.center;
-                
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return obj!;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
+    var tipLab: UILabel {
+        let view = UILabel(frame: .zero)
+        view.text = "暂无数据"
+        view.textColor = UIColor.gray;
+        view.sizeToFit();
+        view.center = self.view.center;
+        return view
     }
 }

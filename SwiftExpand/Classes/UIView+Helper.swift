@@ -212,15 +212,6 @@ import UIKit
         }
     }
     
-    public func reloadSubviewTableView(){
-        for e in self.subviews.enumerated() {
-            if let tableView = e.element as? UITableView {
-                tableView.reloadData()
-                return
-            }
-        }
-    }
-    
     public func addCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
                           cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0),
                           width: CGFloat = 1,
@@ -466,7 +457,7 @@ import UIKit
         return obj
     }
 
-    public func getCell() -> UITableViewCell{
+    public func supTableViewCell() -> UITableViewCell{
         var supView = superview
         while let view = supView as? UITableViewCell {
             supView = view.superview
@@ -475,9 +466,46 @@ import UIKit
     }
     
     public func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
-        let cell = self.getCell();
+        let cell = self.supTableViewCell();
         return tableView.indexPathForRow(at: cell.center)!
     }
+    
+    /// 获取特定类型子视图
+    public func subView(_ type: UIView.Type) -> UIView? {
+        for e in self.subviews.enumerated() {
+            if e.element.isKind(of: type) {
+                return e.element
+            }
+        }
+        return nil
+    }
+    
+//    public func subTableView() -> UITableView?{
+//        for e in self.subviews.enumerated() {
+//            if let tableView = e.element as? UITableView {
+//                return tableView
+//            }
+//        }
+//        return nil
+//    }
+//    
+//    public func subCollectionView() -> UICollectionView?{
+//        for e in self.subviews.enumerated() {
+//            if let collectionView = e.element as? UICollectionView {
+//                return collectionView
+//            }
+//        }
+//        return nil
+//    }
+//    
+//    public func subScrollView() -> UIScrollView?{
+//        for e in self.subviews.enumerated() {
+//            if let scrollView = e.element as? UIScrollView {
+//                return scrollView
+//            }
+//        }
+//        return nil
+//    }
     
     public func convertToImage() -> UIImage{
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
