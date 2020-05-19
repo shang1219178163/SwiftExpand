@@ -55,7 +55,7 @@ import Photos
     /// 注册APNs远程推送
     static func registerAPNsWithDelegate(_ delegate: Any) {
         if #available(iOS 10.0, *) {
-            let options = UNAuthorizationOptions(rawValue : UNAuthorizationOptions.alert.rawValue | UNAuthorizationOptions.badge.rawValue | UNAuthorizationOptions.sound.rawValue)
+            let options: UNAuthorizationOptions = [.alert, .badge, .sound]
             let center = UNUserNotificationCenter.current()
             center.delegate = (delegate as! UNUserNotificationCenterDelegate);
             center.requestAuthorization(options: options){ (granted: Bool, error:Error?) in
@@ -67,8 +67,8 @@ import Photos
             //            center.delegate = self
         } else {
             // 请求授权
-            let types = UIUserNotificationType.alert.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.sound.rawValue
-            let settings = UIUserNotificationSettings(types: UIUserNotificationType(rawValue: types), categories: nil)
+            let types: UIUserNotificationType = [.alert, .badge, .sound]
+            let settings = UIUserNotificationSettings(types: types, categories: nil)
             UIApplication.shared.registerUserNotificationSettings(settings)
             // 需要通过设备UDID, 和app bundle id, 发送请求, 获取deviceToken
             UIApplication.shared.registerForRemoteNotifications()

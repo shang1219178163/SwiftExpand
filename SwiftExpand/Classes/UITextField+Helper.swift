@@ -37,6 +37,7 @@ import UIKit
             return
         }
      
+        leftViewMode = viewMode; //此处用来设置leftview现实时机
         leftView = {
             let view: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 30, height: 40))
             
@@ -48,48 +49,52 @@ import UIKit
           
             return view;
         }()
-        leftViewMode = viewMode; //此处用来设置leftview现实时机
     }
     
-    ///  RightView    
-    func asoryView(_ isRight: Bool, text: String) -> UILabel {
-        let size = sizeWithText(text, font: UIFont.labelFontSize, width: kScreenWidth);
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width, height: kSizeArrow.height));
-        label.tag = kTAG_LABEL;
-        label.text = text;
-        label.font = UIFont.systemFont(ofSize: 15);
-        label.textAlignment = .center;
-        label.lineBreakMode = .byCharWrapping;
-        label.numberOfLines = 0;
-        label.backgroundColor = .clear;
-        
+    ///RightView
+    func asoryView(_ isRight: Bool, unit: String, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UIView {
+         if let image = UIImage(named: unit) {
+            return asoryView(isRight, image: image, viewSize: viewSize)
+         }
+        return asoryView(isRight, text: unit, viewSize: viewSize)
+    }
+    ///字符串为单位
+    func asoryView(_ isRight: Bool, text: String, viewSize: CGSize = CGSize(width: 25, height: 25)) -> UILabel {
+         let size = sizeWithText(text, font: 15, width: kScreenWidth);
+         let label = UILabel(frame: CGRect(x: 0, y: 0, width: size.width + 10, height: viewSize.height))
+         label.tag = kTAG_LABEL;
+         label.text = text;
+         label.textColor = .gray;
+         label.font = UIFont.systemFont(ofSize: 15);
+         label.textAlignment = .center;
+         label.lineBreakMode = .byCharWrapping;
+         label.numberOfLines = 0;
+         label.backgroundColor = .clear;
+                
         if isRight == true {
-            self.rightView = label;
             self.rightViewMode = .always;
-            
+            self.rightView = label
         } else {
-            self.leftView = label;
             self.leftViewMode = .always;
+            self.leftView = label
         }
-        return label;
+        return label
     }
     
-    func asoryView(_ isRight: Bool, image: UIImage?) -> UIImageView {
-        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: kSizeArrow.width, height: kSizeArrow.height));
+    ///图标为单位
+    func asoryView(_ isRight: Bool, image: UIImage, viewSize: CGSize = CGSize(width: 25, height: 35)) -> UIImageView {
+        let view = UIImageView(frame: CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height))
         view.image = image
         view.contentMode = .scaleAspectFit;
         view.tag = kTAG_IMGVIEW;
         if isRight == true {
             self.rightView = view
             self.rightViewMode = .always;
-
-        }
-        else{
+        } else {
             self.leftView = view
             self.leftViewMode = .always;
-
         }
-        return view;
+        return view
     }
     
     /// 返回当前文本框字符串(func textField(_ textField: shouldChangeCharactersIn:, replacementString:) -> Bool 中调用)

@@ -118,8 +118,9 @@ import UIKit
     
     /// 图片上左下右配置
     func layoutButton(direction: Int, imageTitleSpace: CGFloat = 5, space: CGFloat = 0) {
-        sizeToFit()
-
+        if imageView?.image == nil {
+            sizeToFit()
+        }
         //得到imageView和titleLabel的宽高
         let imageWidth = self.imageView?.frame.size.width
         let imageHeight = self.imageView?.frame.size.height
@@ -184,6 +185,11 @@ import UIKit
         }
         self.titleEdgeInsets = labelEdgeInsets
         self.imageEdgeInsets = imageEdgeInsets
+    }
+    
+    func setBackgroundColor(_ color: UIColor?, for state: UIControl.State){
+        guard let color = color else { return }
+        setBackgroundImage(UIImageColor(color), for: .normal)
     }
     
     /// UIButton不同状态下设置富文本标题
