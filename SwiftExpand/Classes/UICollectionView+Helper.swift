@@ -66,9 +66,7 @@ import UIKit
         if dictClass.keys.count == 0 {
             return
         }
-        dictClass.forEach { (arg0) in
-//            DDLog(arg0)
-            let (key, value) = arg0
+        dictClass.forEach { (key, value) in
             if key == UICollectionView.elementKindSectionItem {
                 registerCTVCell(value)
             } else {
@@ -79,9 +77,8 @@ import UIKit
     
     /// cell注册
     func registerCTVCell(_ listClass: [String]) {
-        listClass.forEach { (className: String) in
-            let obj:AnyClass = NNClassFromString(className)!
-            register(obj, forCellWithReuseIdentifier: className)
+        listClass.forEach { (className) in
+            register(NNClassFromString(className).self, forCellWithReuseIdentifier: className)
         }
     }
     
@@ -94,7 +91,7 @@ import UIKit
     
     /// headerView/FooterView注册
     func registerCTVReusable(_ listClass: [String], kind: String = UICollectionView.elementKindSectionHeader) {
-        listClass.forEach { (className: String) in
+        listClass.forEach { (className) in
             let identifier = sectionReuseIdentifier(className, kind: kind)
             register(NNClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         }

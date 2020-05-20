@@ -43,8 +43,9 @@ import UIKit
     
     private func p_invoke() {
         let runtimeKey = RuntimeKeyFromSelector(self, aSelector: #selector(addAction(_:)))
-        let closure = objc_getAssociatedObject(self, runtimeKey) as! ((UIBarButtonItem) -> Void)
-        closure(self);
+        if let closure = objc_getAssociatedObject(self, runtimeKey) as? ((UIBarButtonItem) -> Void) {
+            closure(self);
+        }
     }
 
 }

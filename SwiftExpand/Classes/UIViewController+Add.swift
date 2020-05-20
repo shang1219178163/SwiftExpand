@@ -31,74 +31,161 @@ import UIKit
     /// 关联NSMutableArray 数据容器
     var dataList: NSMutableArray {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? NSMutableArray;
-            if obj == nil {
-                obj = [];
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? NSMutableArray {
+                return obj
             }
-            return obj!;
+
+            let obj = NSMutableArray()
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return obj;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    /// 关联UITableView视图对象
+    var tbView: UITableView {
+        get {
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITableView {
+                return obj
+            }
+            
+            let obj = UITableView.create(view.bounds, style: .grouped, rowHeight: 50);
+            if self.conforms(to: UITableViewDataSource.self) {
+                obj.dataSource = self as? UITableViewDataSource;
+            }
+            if self.conforms(to: UITableViewDelegate.self) {
+                obj.delegate = self as? UITableViewDelegate;
+            }
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     /// 关联UITableView视图对象
-    var tbView: UITableView {
-        guard let tableView = view.subView(UITableView.self) as? UITableView else {
-            let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
-            if self.conforms(to: UITableViewDataSource.self) {
-                view.dataSource = self as? UITableViewDataSource;
-            }
-            if self.conforms(to: UITableViewDelegate.self) {
-                view.delegate = self as? UITableViewDelegate;
-            }
-            return view
-        }
-        return tableView
-    }
-    /// 关联UITableView视图对象
     var tbViewGrouped: UITableView {
-        guard let tableView = view.subView(UITableView.self) as? UITableView else {
-            let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
+        get {
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITableView {
+                return obj
+            }
+
+            let obj = UITableView.create(view.bounds, style: .grouped, rowHeight: 50);
             if self.conforms(to: UITableViewDataSource.self) {
-                view.dataSource = self as? UITableViewDataSource;
+                obj.dataSource = self as? UITableViewDataSource;
             }
             if self.conforms(to: UITableViewDelegate.self) {
-                view.delegate = self as? UITableViewDelegate;
+                obj.delegate = self as? UITableViewDelegate;
             }
-            return view
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj;
         }
-        return tableView
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
     }
     
     /// 关联UICollectionView视图对象
     var ctView: UICollectionView {
-        guard let collectionView = view.subView(UICollectionView.self) as? UICollectionView else {
-            let view = UICollectionView(frame: self.view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
-            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.isPagingEnabled = true;
-            view.backgroundColor = UIColor.background
+        get {
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UICollectionView {
+                return obj
+            }
+            // 初始化
+            let obj = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
+            obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            obj.isPagingEnabled = true;
+            obj.backgroundColor = UIColor.background
 
-            view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
+            obj.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
             if self.conforms(to: UICollectionViewDataSource.self) {
-                view.dataSource = (self as! UICollectionViewDataSource)
+                obj.dataSource = (self as! UICollectionViewDataSource)
             }
              
             if self.conforms(to: UICollectionViewDelegate.self) {
-                view.delegate = (self as! UICollectionViewDelegate)
+                obj.delegate = (self as! UICollectionViewDelegate)
             }
-            return view
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj;
         }
-        return collectionView
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
     }
     
     /// 关联tipLab
     var tipLab: UILabel {
-        let view = UILabel(frame: .zero)
-        view.text = "暂无数据"
-        view.textColor = UIColor.gray;
-        view.sizeToFit();
-        view.center = self.view.center;
-        return view
+        get {
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
+                return obj
+            }
+                // 初始化
+            let obj = UILabel()
+            obj.text = "暂无数据"
+            obj.textColor = .gray;
+            obj.sizeToFit();
+            obj.center = self.view.center;
+                
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj;
+        }
+        set {
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
     }
+    
+//    /// 关联UITableView视图对象(必须先添加到父视图再设置其他)
+//    var tbView: UITableView {
+//        guard let tableView = self.view.subView(UITableView.self) as? UITableView else {
+//            let obj = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
+//            if self.conforms(to: UITableViewDataSource.self) {
+//                obj.dataSource = self as? UITableViewDataSource;
+//            }
+//            if self.conforms(to: UITableViewDelegate.self) {
+//                obj.delegate = self as? UITableViewDelegate;
+//            }
+//            return obj
+//        }
+//        return tableView
+//    }
+//    /// 关联UITableView视图对象(必须先添加到父视图再设置其他)
+//    var tbViewGrouped: UITableView {
+//        guard let tableView = self.view.subView(UITableView.self) as? UITableView else {
+//            let obj = UITableView.create(self.view.bounds, style: .grouped, rowHeight: 50)
+//            if self.conforms(to: UITableViewDataSource.self) {
+//                obj.dataSource = self as? UITableViewDataSource;
+//            }
+//            if self.conforms(to: UITableViewDelegate.self) {
+//                obj.delegate = self as? UITableViewDelegate;
+//            }
+//            return obj
+//        }
+//        return tableView
+//    }
+//    /// 关联UICollectionView视图对象(必须先添加到父视图再注册Cell)
+//    var ctView: UICollectionView {
+//        guard let collectionView = self.view.subView(UICollectionView.self) as? UICollectionView else {
+//            // 初始化
+//            let obj = UICollectionView(frame: self.view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
+//            obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            obj.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
+//            obj.backgroundColor = UIColor.background
+//
+//            if self.conforms(to: UICollectionViewDelegate.self) {
+//                obj.delegate = (self as! UICollectionViewDelegate)
+//            }
+//            if self.conforms(to: UICollectionViewDataSource.self) {
+//                obj.dataSource = (self as! UICollectionViewDataSource)
+//            }
+//            return view
+//        }
+//        return collectionView
+//    }
+
 }

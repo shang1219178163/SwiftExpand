@@ -457,19 +457,27 @@ import UIKit
         return obj
     }
 
-    public func supTableViewCell() -> UITableViewCell{
+//    public func supTableViewCell() -> UITableViewCell{
+//        var supView = superview
+//        while let view = supView as? UITableViewCell {
+//            supView = view.superview
+//        }
+//        return supView as! UITableViewCell;
+//    }
+//    
+//    public func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
+//        let cell = self.supTableViewCell();
+//        return tableView.indexPathForRow(at: cell.center)!
+//    }
+    
+    /// 获取特定类型父视图
+    public func supView(_ type: UIView.Type) -> UIView? {
         var supView = superview
-        while let view = supView as? UITableViewCell {
-            supView = view.superview
+        while supView?.isKind(of: type) == false {
+            supView = supView?.superview
         }
-        return supView as! UITableViewCell;
+        return supView ?? nil
     }
-    
-    public func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
-        let cell = self.supTableViewCell();
-        return tableView.indexPathForRow(at: cell.center)!
-    }
-    
     /// 获取特定类型子视图
     public func subView(_ type: UIView.Type) -> UIView? {
         for e in self.subviews.enumerated() {
@@ -480,6 +488,16 @@ import UIKit
         return nil
     }
     
+    /// 获取特定类型子视图
+//    public func subView(_ viewType: UIView.Type) -> UIView? {
+//        for e in self.subviews.enumerated() {
+//            if type(of: e.element) == viewType {
+//                return e.element
+//            }
+//        }
+//        return nil
+//    }
+//
 //    public func subTableView() -> UITableView?{
 //        for e in self.subviews.enumerated() {
 //            if let tableView = e.element as? UITableView {

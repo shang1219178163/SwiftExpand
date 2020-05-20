@@ -75,9 +75,7 @@ import UIKit
     
     private func p_handleActionItem(_ sender: UIBarButtonItem) {
         let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ObjClosure;
-        if block != nil {
-            block!(sender);
-        }
+        block?(sender);
     }
     
     public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) {
