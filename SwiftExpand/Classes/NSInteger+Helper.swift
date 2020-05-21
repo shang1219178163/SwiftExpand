@@ -36,6 +36,16 @@ public extension Int{
         return Int(log10(fabs(Double(self)))) + 1
 //        }
     }
+
+    ///返回重复值字符串
+    func repeatString(_ repeatedValue: String) ->String{
+        return String(repeating: repeatedValue, count: self)
+    }
+    ///返回重复值数组
+    func repeatArray<T>(_ repeatedValue: T) -> [T] {
+        return [T](repeating: repeatedValue, count: self)
+    }
+    
 }
 
 public extension Double{

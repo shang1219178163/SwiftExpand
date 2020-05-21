@@ -13,19 +13,20 @@ import UIKit
     static func hookInstanceMethod(of origSel: Selector, with replSel: Selector) -> Bool {
         let clz: AnyClass = classForCoder();
 
-        let oriMethod = class_getInstanceMethod(clz, origSel);
-        let repMethod = class_getInstanceMethod(clz, replSel);
-        if oriMethod == nil ||  repMethod == nil {
+        guard let oriMethod = class_getInstanceMethod(clz, origSel) as Method?,
+        let repMethod = class_getInstanceMethod(clz, replSel) as Method?
+        else {
             print("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
-            return false;
+            return false
         }
+        
         //在进行 Swizzling 的时候,需要用 class_addMethod 先进行判断一下原有类中是否有要替换方法的实现
-        let didAddMethod: Bool = class_addMethod(clz, origSel, method_getImplementation(repMethod!), method_getTypeEncoding(repMethod!))
+        let didAddMethod: Bool = class_addMethod(clz, origSel, method_getImplementation(repMethod), method_getTypeEncoding(repMethod))
         //如果 class_addMethod 返回 yes,说明当前类中没有要替换方法的实现,所以需要在父类中查找,这时候就用到 method_getImplemetation 去获取 class_getInstanceMethod 里面的方法实现,然后再进行 class_replaceMethod 来实现 Swizzing
         if didAddMethod {
-            class_replaceMethod(clz, replSel, method_getImplementation(oriMethod!), method_getTypeEncoding(oriMethod!))
+            class_replaceMethod(clz, replSel, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod))
         } else {
-            method_exchangeImplementations(oriMethod!, repMethod!)
+            method_exchangeImplementations(oriMethod, repMethod)
         }
         return true;
     }
@@ -33,62 +34,46 @@ import UIKit
     /// 类方法替换
     static func hookClassMethod(of origSel: Selector, with replSel: Selector) -> Bool {
         let clz: AnyClass = classForCoder();
-        
-        let oriMethod = class_getClassMethod(clz, origSel);
-        let repMethod = class_getClassMethod(clz, replSel);
-        if oriMethod == nil ||  repMethod == nil {
+                
+        guard let oriMethod = class_getClassMethod(clz, origSel) as Method?,
+        let repMethod = class_getClassMethod(clz, replSel) as Method?
+        else {
             print("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
-            return false;
+            return false
         }
+        
         //在进行 Swizzling 的时候,需要用 class_addMethod 先进行判断一下原有类中是否有要替换方法的实现
-        let didAddMethod: Bool = class_addMethod(clz, origSel, method_getImplementation(repMethod!), method_getTypeEncoding(repMethod!))
+        let didAddMethod: Bool = class_addMethod(clz, origSel, method_getImplementation(repMethod), method_getTypeEncoding(repMethod))
         //如果 class_addMethod 返回 yes,说明当前类中没有要替换方法的实现,所以需要在父类中查找,这时候就用到 method_getImplemetation 去获取 class_getInstanceMethod 里面的方法实现,然后再进行 class_replaceMethod 来实现 Swizzing
         if didAddMethod {
-            class_replaceMethod(clz, replSel, method_getImplementation(oriMethod!), method_getTypeEncoding(oriMethod!))
+            class_replaceMethod(clz, replSel, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod))
         } else {
-            method_exchangeImplementations(oriMethod!, repMethod!)
+            method_exchangeImplementations(oriMethod, repMethod)
         }
         return true;
     }
-//    static func hookInstanceMethod(_ clz: AnyClass, origSel: Selector, replSel: Selector) -> Bool {
-//
-//        let oriMethod = class_getInstanceMethod(clz, origSel);
-//        let repMethod = class_getInstanceMethod(clz, replSel);
-//        if oriMethod == nil ||  repMethod == nil {
-//            print("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
-//            return false;
-//        }
-//        //在进行 Swizzling 的时候,需要用 class_addMethod 先进行判断一下原有类中是否有要替换方法的实现
-//        let didAddMethod: Bool = class_addMethod(clz, origSel, method_getImplementation(repMethod!), method_getTypeEncoding(repMethod!))
-//        //如果 class_addMethod 返回 yes,说明当前类中没有要替换方法的实现,所以需要在父类中查找,这时候就用到 method_getImplemetation 去获取 class_getInstanceMethod 里面的方法实现,然后再进行 class_replaceMethod 来实现 Swizzing
-//        if didAddMethod {
-//            class_replaceMethod(clz, replSel, method_getImplementation(oriMethod!), method_getTypeEncoding(oriMethod!))
-//        } else {
-//            method_exchangeImplementations(oriMethod!, repMethod!)
-//        }
-//        return true;
-//    }
-//
-//    /// 类方法替换
-//    static func hookClassMethod(__ clz: AnyClass, origSel: Selector, replSel: Selector) -> Bool {
-//
-//        let oriMethod = class_getClassMethod(clz, origSel);
-//        let repMethod = class_getClassMethod(clz, replSel);
-//        if oriMethod == nil ||  repMethod == nil {
-//            print("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
-//            return false;
-//        }
-//        //在进行 Swizzling 的时候,需要用 class_addMethod 先进行判断一下原有类中是否有要替换方法的实现
-//        let didAddMethod: Bool = class_addMethod(clz, origSel, method_getImplementation(repMethod!), method_getTypeEncoding(repMethod!))
-//        //如果 class_addMethod 返回 yes,说明当前类中没有要替换方法的实现,所以需要在父类中查找,这时候就用到 method_getImplemetation 去获取 class_getInstanceMethod 里面的方法实现,然后再进行 class_replaceMethod 来实现 Swizzing
-//        if didAddMethod {
-//            class_replaceMethod(clz, replSel, method_getImplementation(oriMethod!), method_getTypeEncoding(oriMethod!))
-//        } else {
-//            method_exchangeImplementations(oriMethod!, repMethod!)
-//        }
-//        return true;
-//    }
-
+    
+    /// 方法替换
+    static func hookMethod(of origSel: Selector, with replSel: Selector, isClassMethod: Bool) -> Bool {
+        let clz: AnyClass = classForCoder();
+        
+        guard let oriMethod = (isClassMethod ? class_getClassMethod(clz, origSel) : class_getClassMethod(clz, origSel)) as Method?,
+        let repMethod = (isClassMethod ? class_getClassMethod(clz, replSel) : class_getClassMethod(clz, replSel)) as Method?
+        else {
+            print("Swizzling Method(s) not found while swizzling class \(NSStringFromClass(classForCoder())).")
+            return false
+        }
+        
+        //在进行 Swizzling 的时候,需要用 class_addMethod 先进行判断一下原有类中是否有要替换方法的实现
+        let didAddMethod: Bool = class_addMethod(clz, origSel, method_getImplementation(repMethod), method_getTypeEncoding(repMethod))
+        //如果 class_addMethod 返回 yes,说明当前类中没有要替换方法的实现,所以需要在父类中查找,这时候就用到 method_getImplemetation 去获取 class_getInstanceMethod 里面的方法实现,然后再进行 class_replaceMethod 来实现 Swizzing
+        if didAddMethod {
+            class_replaceMethod(clz, replSel, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod))
+        } else {
+            method_exchangeImplementations(oriMethod, repMethod)
+        }
+        return true;
+    }
 }
 
 @objc public extension NSObject{
