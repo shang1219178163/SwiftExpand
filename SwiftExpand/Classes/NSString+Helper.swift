@@ -263,18 +263,18 @@ public extension Substring {
         return self.substring(with: NSRange(location: loc, length: len))
     }
     
-    /// 字符串本身大于string
-    func isCompare(_ string: NSString) -> Bool {
-        if self.isEqual(to: "") {
-            return false
-        }
-        
-        var strSelf = self
-        if strSelf.contains(".") {
-            strSelf = strSelf.replacingOccurrences(of: ".", with: "") as NSString
-        }
-        return strSelf.integerValue > string.integerValue;
-    }
+//    /// 字符串本身大于string
+//    func isCompare(_ string: NSString) -> Bool {
+//        if self.isEqual(to: "") {
+//            return false
+//        }
+//        
+//        var strSelf = self
+//        if strSelf.contains(".") {
+//            strSelf = strSelf.replacingOccurrences(of: ".", with: "") as NSString
+//        }
+//        return strSelf.integerValue > string.integerValue;
+//    }
     
     /// 大于version
     func isNewer(version: String) -> Bool {

@@ -167,7 +167,7 @@ import UIKit
     }
 
     public func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) {
-        assert(UICtrFromString(name).isKind(of: UIViewController.classForCoder()))
+        assert(UICtrFromString(name).isKind(of: UIViewController.self))
         let controller = UICtrFromString(name)
         controller.obj = obj
         controller.objOne = objOne
@@ -176,13 +176,13 @@ import UIKit
     
     public func addControllerName(_ controllerName: String) {
         let controller = UICtrFromString(controllerName)
-        assert(controller.isKind(of: UIViewController.classForCoder()))
+        assert(controller.isKind(of: UIViewController.self))
         addControllerVC(controller)
     }
     
     /// 添加子控制器(对应方法 removeControllerVC)
     public func addControllerVC(_ controller: UIViewController) {
-        assert(controller.isKind(of: UIViewController.classForCoder()))
+        assert(controller.isKind(of: UIViewController.self))
         
         addChild(controller)
         view.addSubview(controller.view)
@@ -192,7 +192,7 @@ import UIKit
     
     /// 移除添加的子控制器(对应方法 addControllerVC)
     public func removeControllerVC(_ controller: UIViewController) {
-        assert(controller.isKind(of: UIViewController.classForCoder()))
+        assert(controller.isKind(of: UIViewController.self))
         
         controller.willMove(toParent: nil)
         controller.view.removeFromSuperview()
@@ -271,6 +271,10 @@ import UIKit
                              sender: UIView,
                              arrowDirection: UIPopoverArrowDirection = .any,
                              completion: (() -> Void)? = nil){
+        if popoverContentVC.presentingViewController != nil {
+            return
+        }
+        
         popoverContentVC.modalPresentationStyle = .popover
 
         guard let superview = sender.superview else { return }

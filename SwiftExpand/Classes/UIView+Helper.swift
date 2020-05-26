@@ -146,9 +146,9 @@ import UIKit
     //MARK: -funtions
     /// text是否有效
     public func validText() -> Bool {
-        assert(isKind(of: UITextView.classForCoder())
-            || isKind(of: UITextField.classForCoder())
-            || isKind(of: UILabel.classForCoder()))
+        assert(isKind(of: UITextView.self)
+            || isKind(of: UITextField.self)
+            || isKind(of: UILabel.self))
         
         var value = self.value(forKey: "text") as? String
         if value == nil {
@@ -478,11 +478,26 @@ import UIKit
         }
         return supView ?? nil
     }
+        
     /// 获取特定类型子视图
     public func subView(_ type: UIView.Type) -> UIView? {
         for e in self.subviews.enumerated() {
             if e.element.isKind(of: type) {
                 return e.element
+            }
+        }
+        return nil
+    }
+    ///获取下一级别响应者
+    public func nextResponder(_ type: AnyClass, isPrint: Bool = false) -> NSObject? {
+        var nextResponder: UIResponder? = self
+        while nextResponder != nil {
+            if let controller = nextResponder as? UIWindow {
+                return controller
+            }
+            nextResponder = nextResponder?.next
+            if isPrint && nextResponder != nil {
+                print("responder - \(nextResponder!)")
             }
         }
         return nil
@@ -546,18 +561,7 @@ import UIKit
             action(error)
         }
     }
-    /// 获取父视图的 UIScrollView
-    public func supScrollView() -> UIScrollView? {
-        var supView = self.superview
-        while supView?.isKind(of: UIScrollView.classForCoder()) == false {
-            supView = supView?.superview;
-        }
-        
-        if supView?.isKind(of: UIWindow.classForCoder()) == true {
-            return nil
-        }
-        return (supView as! UIScrollView)
-    }
+
     
     /// 插入模糊背景
     public func insertVisualEffectView() -> UIVisualEffectView {

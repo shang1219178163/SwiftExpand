@@ -50,7 +50,8 @@ public func AddressOf(_ o: UnsafeRawPointer) -> String {
 
 public func AddressOf<T: AnyObject>(_ o: T) -> String {
     let addr = unsafeBitCast(o, to: Int.self)
-    return String(format: "%p", addr)
+//    return String(format: "%p", addr)
+    return "\(addr)"
 }
 
 // MARK: - 关联属性的key
