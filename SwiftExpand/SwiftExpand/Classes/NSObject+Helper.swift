@@ -22,19 +22,7 @@ import UIKit
     }
 
     /// 类的字符串名称
-    static var identifier: String {
-        get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? String;
-            if obj == nil {
-                obj = String(describing: self);// return "\(type(of: self))" //NSStringFromClass(self.classForCoder())
-                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return obj!;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
+    static let identifier = String(describing: self)
 
     /// 模型自动编码
     func se_encode(with aCoder: NSCoder) {

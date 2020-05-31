@@ -209,6 +209,8 @@ import UIKit
                 obj!.autocorrectionType = .no;
                 obj!.backgroundColor = .white;
                 
+                obj!.layer.borderColor = UIColor.lightGray.cgColor
+                obj!.layer.borderWidth = 0.5
                 objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             return obj!;

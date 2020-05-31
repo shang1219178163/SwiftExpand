@@ -151,4 +151,33 @@ import UIKit
         layout.footerReferenceSize = CGSize(width: width, height: footerHeight);
         return layout;
     }
+    
+    ///获取代理方法里的布局基础属性值
+    func refreshValueFromDelegate(_ indexPath: IndexPath) {
+        if let collectionView = collectionView, let delegate = collectionView.delegate {
+            if delegate.conforms(to: UICollectionViewDelegateFlowLayout.self) == true {
+                if let flowDelegate: UICollectionViewDelegateFlowLayout = delegate as? UICollectionViewDelegateFlowLayout{
+                    if let value = flowDelegate.collectionView?(collectionView, layout: self, minimumLineSpacingForSectionAt: indexPath.section) as CGFloat? {
+                        minimumLineSpacing = value
+                    }
+                    
+                    if let inset = flowDelegate.collectionView?(collectionView, layout: self, minimumInteritemSpacingForSectionAt: indexPath.section) as CGFloat? {
+                        minimumInteritemSpacing = inset
+                    }
+                    
+                    if let inset = flowDelegate.collectionView?(collectionView, layout: self, insetForSectionAt: indexPath.section) as UIEdgeInsets? {
+                        sectionInset = inset
+                    }
+                    
+                    if let size = flowDelegate.collectionView?(collectionView, layout: self, referenceSizeForHeaderInSection: indexPath.section) as CGSize? {
+                        headerReferenceSize = size
+                    }
+                    
+                    if let size = flowDelegate.collectionView?(collectionView, layout: self, referenceSizeForFooterInSection: indexPath.section) as CGSize? {
+                        footerReferenceSize = size
+                    }
+                }
+            }
+        }
+    }
 }

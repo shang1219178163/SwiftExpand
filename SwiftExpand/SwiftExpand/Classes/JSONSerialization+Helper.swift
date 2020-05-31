@@ -46,7 +46,7 @@ import UIKit
 //            return nil;
 //        }
 //        do {
-//            let obj: NSObject = try JSONSerialization.jsonObject(with: data, options: opt) as! NSObject
+//            let obj: Any = try JSONSerialization.jsonObject(with: data, options: opt)
 //            return obj;
 //
 //        } catch {

@@ -16,9 +16,8 @@ import UIKit
         }
         
         do {
-            let obj: NSObject = try JSONSerialization.jsonObject(with: self as Data, options: []) as! NSObject
-           return obj;
-           
+            let obj: Any = try JSONSerialization.jsonObject(with: self as Data, options: [])
+            return obj;
         } catch {
            print(error)
         }

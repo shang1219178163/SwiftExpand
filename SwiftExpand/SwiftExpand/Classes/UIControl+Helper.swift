@@ -25,6 +25,5 @@ import UIKit
         if block != nil {
             block!(sender);
         }
-        
     }
 }

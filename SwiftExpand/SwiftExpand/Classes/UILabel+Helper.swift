@@ -93,3 +93,57 @@ import UIKit
         codeTimer.resume()
     }
 }
+
+@objc public extension UILabel{
+        
+//    func setupMenuItem(_ items: [UIMenuItem]) {
+//        UIMenuController.shared.menuItems = items
+//    }
+    
+    func addLongPressMenuItems() {
+        isUserInteractionEnabled = true
+
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleMenuItems(_:)));
+        addGestureRecognizer(recognizer)
+    }
+    
+    // MARK: -funtions
+    @objc func handleMenuItems(_ recognizer: UIGestureRecognizer) {
+        guard let recognizerView = recognizer.view,
+              let recognizerSuperView = recognizerView.superview
+          else { return }
+   
+        if #available(iOS 13.0, *) {
+            UIMenuController.shared.showMenu(from: recognizerSuperView, rect: recognizerView.frame)
+
+        } else {
+            UIMenuController.shared.setTargetRect(recognizerView.frame, in: recognizerSuperView)
+            UIMenuController.shared.setMenuVisible(true, animated: true)
+        }
+        recognizerView.becomeFirstResponder()
+    }
+    
+    // MARK: -edit menu
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        guard let menuItems = UIMenuController.shared.menuItems else { return [#selector(copy(_:))].contains(action)}
+        let actions: [Selector] = menuItems.map { $0.action }
+        return actions.contains(action)
+    }
+    
+    // MARK: - UIResponderStandardEditActions
+    override func copy(_ sender: Any?) {
+        UIPasteboard.general.string = text
+    }
+    
+    override func paste(_ sender: Any?) {
+        text = UIPasteboard.general.string
+    }
+    
+    override func delete(_ sender: Any?) {
+        text = ""
+    }
+}
