@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIResponder {
+@objc public extension UIResponder {
 
     func responderChain() -> String {
         guard let next = next else {
