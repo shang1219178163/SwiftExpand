@@ -27,21 +27,22 @@ public let kNumIdentify_plusSign = "加号符号";
 public let kNumIdentify_minusSign = "减号符号";
 /// 指数符号
 public let kNumIdentify_exponentSymbol = "指数符号";
+/// 数字转汉字
+public let kNumIdentify_spellOut = "数字转汉字";
 
 //MARK: -NumberFormatter
 @objc public extension NumberFormatter{
     
     static var styleDic: [String: Any] {
-        get{
-            let dic: [String: Any] = [
-                kNumIdentify: NumberFormatter.Style.none,
-                kNumIdentify_decimal: NumberFormatter.Style.decimal,
-                kNumIdentify_percent: NumberFormatter.Style.percent,
-                kNumIdentify_currency: NumberFormatter.Style.currency,
-                kNumIdentify_scientific: NumberFormatter.Style.scientific,
-            ];
-            return dic
-        }
+        let dic: [String: Any] = [
+            kNumIdentify: NumberFormatter.Style.none,
+            kNumIdentify_decimal: NumberFormatter.Style.decimal,
+            kNumIdentify_percent: NumberFormatter.Style.percent,
+            kNumIdentify_currency: NumberFormatter.Style.currency,
+            kNumIdentify_scientific: NumberFormatter.Style.scientific,
+            kNumIdentify_spellOut: NumberFormatter.Style.spellOut,
+        ];
+        return dic
     }
 
     /// 根据定义的关键字生成/获取对应的NumberFormatter,避免多次创建
@@ -70,16 +71,16 @@ public let kNumIdentify_exponentSymbol = "指数符号";
     static func fractionDigits(obj: Any?,
                                      min: Int = 2,
                                      max: Int = 2, 
-                                     roundingMode: NumberFormatter.RoundingMode = .halfUp) -> String {
-        let formatter = NumberFormatter.identify() ;
+                                     roundingMode: NumberFormatter.RoundingMode = .halfUp, identify: String = kNumIdentify) -> String {
+        let formatter = NumberFormatter.identify(identify)
         formatter.minimumFractionDigits = min
         formatter.maximumFractionDigits = max
         formatter.roundingMode = roundingMode
         return formatter.string(for: obj) ?? ""
     }
     
-    static func positiveFormat(_ format: String = kNumFormat) -> NumberFormatter {
-        let fmt = NumberFormatter.identify();
+    static func positiveFormat(_ format: String = kNumFormat, identify: String = kNumIdentify) -> NumberFormatter {
+        let fmt = NumberFormatter.identify(identify)
         fmt.positiveFormat = format;
         return fmt;
     }

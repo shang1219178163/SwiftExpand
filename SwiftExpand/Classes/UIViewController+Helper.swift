@@ -146,24 +146,24 @@ import UIKit
         }
         item!.tag = isLeft ? kTAG_BackItem : kTAG_RightItem;
         
-        let containView = UIView(frame: CGRectMake(0, 0, 44, 44))
-        item!.center = containView.center;
-        containView.addSubview(item!)
+        let contentView = UIView(frame: CGRectMake(0, 0, 44, 44))
+        item!.center = contentView.center;
+        contentView.addSubview(item!)
         
-        _ = containView.addGestureTap { (reco) in
-            if containView.isHidden == true {
+        _ = contentView.addGestureTap { (reco) in
+            if contentView.isHidden == true {
                 return
             }
             action((reco as! UITapGestureRecognizer), (reco.view!.subviews.first)!, (reco.view?.subviews.first!.tag)!)
         }
 
-        let barItem = UIBarButtonItem(customView: containView)
+        let barItem = UIBarButtonItem(customView: contentView)
         if isLeft == true {
             navigationItem.leftBarButtonItem = barItem;
         } else {
             navigationItem.rightBarButtonItem = barItem;
         }
-        return containView;
+        return contentView;
     }
 
     public func goController(_ name: String!, obj: AnyObject? = nil, objOne: AnyObject? = nil) {

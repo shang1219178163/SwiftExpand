@@ -294,28 +294,54 @@ import UIKit
     
     static let kPrefixTel = "tel://"
     
-    /// 打开网络链接(prefix为 http://或 tel:// )
-    static func openURLStr(_ urlStr: String, prefix: String = "http://") -> Bool {
-
-        var tmp = urlStr;
-        if urlStr.hasPrefix(prefix) == false {
-            tmp = prefix + urlStr;
-        }
+//    /// 打开网络链接(prefix为 http://或 tel:// )
+//    static func openURLString(_ string: String, prefix: String = "http://") -> Bool {
+//        var tmp = string
+//        if string.hasPrefix(prefix) == false {
+//            tmp = prefix + string;
+//        }
+//        
+//        guard let url = URL(string:tmp) else { return false}
+//        let canOpenUrl = UIApplication.shared.canOpenURL(url)
+//        if canOpenUrl == true {
+//
+//            if #available(iOS 10.0, *) {
+//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//            } else {
+//
+//                UIApplication.shared.openURL(url);
+//            }
+//        } else {
+//            print("链接无法打开!!!\n%@",url as Any);
+//        }
+//        return canOpenUrl;
+//    }
+    
+    /// 打开网络链接
+    static func openURLString(_ string: String) {
+//        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
+//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
+//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
         
-        guard let url = URL(string:tmp) else { return false}
-        let canOpenUrl = UIApplication.shared.canOpenURL(url)
-        if canOpenUrl == true {
-
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            } else {
-
-                UIApplication.shared.openURL(url);
-            }
-        } else {
-            print("链接无法打开!!!\n%@",url as Any);
+        guard let url = URL(string: string) as URL? else {
+            print("\(#function):链接无法打开!!!\n\(string)");
+            return
         }
-        return canOpenUrl;
+
+        if UIApplication.shared.canOpenURL(url) == false {
+            print("\(#function):链接无法打开!!!\n\(string)");
+            return
+        }
+        UIApplication.openURL(url);
+    }
+    
+    /// 打开网络链接
+    static func openURL(_ url: URL) {
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url as URL);
+        }
     }
     
     /// 远程推送deviceToken处理

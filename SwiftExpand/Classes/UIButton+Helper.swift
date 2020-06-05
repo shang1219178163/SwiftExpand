@@ -61,7 +61,9 @@ import UIKit
             view.setTitleColor( .white, for: .normal);
 
         case 4://地图定位按钮一类
-            view.setImage(UIImageNamed(imgName!), for: .normal)
+            if let name = imgName, let image = UIImage(named: name){
+                view.setImage(image, for: .normal)
+            }
             
         case 5://主题色字体,边框
             view.setTitleColor( .theme, for: .normal);

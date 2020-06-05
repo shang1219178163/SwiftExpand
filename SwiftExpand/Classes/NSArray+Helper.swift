@@ -44,13 +44,13 @@ public extension Array{
     }
     
     ///添加多个相同元素到数组
-    static func appendSame(_ item: AnyObject, count: Int) -> [AnyObject] {
-        var list: [AnyObject] = []
-        for _ in 0..<count {
-            list.append(item)
-        }
-        return list
-    }
+//    static func appendSame(_ item: AnyObject, count: Int) -> [AnyObject] {
+//        var list: [AnyObject] = []
+//        for _ in 0..<count {
+//            list.append(item)
+//        }
+//        return list
+//    }
     
 }
 

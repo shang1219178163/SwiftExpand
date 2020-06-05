@@ -23,12 +23,13 @@ import UIKit
 
     ///视图角落(左上,左下,右上,右下)
     @objc enum Location: Int {
+        case none
         case leftTop
         case leftBottom
         case rightTop
         case rightBottom
     }
-    
+
     @objc enum HolderViewState: Int {
         case nomrol, loading, empty, fail
     }

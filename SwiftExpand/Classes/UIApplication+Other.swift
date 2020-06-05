@@ -128,13 +128,8 @@ import Photos
         let path =  UIApplication.appDetailUrlWithID(appStoreID)
         let request = URLRequest(url:NSURL(string: path)! as URL, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 6)
         let dataTask = URLSession.shared.dataTask(with: request) { (data, respone, error) in
-            guard let data = data, let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) else {
+            guard let data = data, let dic = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [String: Any] else {
                 print("字典不能为空")
-                return
-            }
-            
-            guard let dic = json as? [String: Any] else {
-                print("数据格式错误")
                 return
             }
             
@@ -143,41 +138,38 @@ import Photos
                 return
             }
             
-            guard let list = dic["results"] as? NSArray else {
-                print("dicInfo错误")
-                return
-            }
-            
-            guard let dicInfo = list[0] as? [String: Any] else {
+            guard let list = dic["results"] as? NSArray,
+                let dicInfo = list[0] as? [String: Any],
+                let appStoreVer = dicInfo["version"] as? String
+            else {
                 print("dicInfo错误")
                 return
             }
             
             let releaseNotes = dicInfo["releaseNotes"] ?? "";
             //            print(dicInfo);
-            if let appStoreVer = dicInfo["version"] as? String {
-                isUpdate = appStoreVer.compare(UIApplication.appVer, options: .numeric, range: nil, locale: nil) == .orderedDescending
-                if isUpdate == true {
-                    DispatchQueue.main.async {
-                        let titles = isForce == false ? [kTitleUpdate, kTitleCancell] : [kTitleUpdate];
-                        let alertController = UIAlertController.createAlert("新版本 v\(appStoreVer)", msg: "\n\(releaseNotes)", actionTitles: titles, handler: { (controller: UIAlertController, action: UIAlertAction) in
-                            if action.title == kTitleUpdate {
-                                //去升级
-                                _ = UIApplication.openURLStr(UIApplication.appUrlWithID(appStoreID))
-                            }
-                        })
-                        
-                        //富文本效果
-                        let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
-                        alertController.setTitleColor(UIColor.theme)
-                        alertController.setMessageParaStyle(paraStyle)
-                        //                        alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
-                        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
-                        
-                    }
+            isUpdate = appStoreVer.compare(UIApplication.appVer, options: .numeric, range: nil, locale: nil) == .orderedDescending
+            if isUpdate == true {
+                DispatchQueue.main.async {
+                    let titles = isForce == false ? [kTitleUpdate, kTitleCancell] : [kTitleUpdate];
+                    let alertController = UIAlertController.createAlert("新版本 v\(appStoreVer)", msg: "\n\(releaseNotes)", actionTitles: titles, handler: { (controller: UIAlertController, action: UIAlertAction) in
+                        if action.title == kTitleUpdate {
+                            //去升级
+                            _ = UIApplication.openURLString(UIApplication.appUrlWithID(appStoreID))
+                        }
+                    })
+                    
+                    //富文本效果
+                    let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
+                    alertController.setTitleColor(UIColor.theme)
+                    alertController.setMessageParaStyle(paraStyle)
+//                        alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
+                    UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+                    
                 }
             }
         }
+        
         dataTask.resume()
         return isUpdate;
     }

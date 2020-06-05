@@ -53,7 +53,7 @@ public let kDateFormatMinute      = "yyyy-MM-dd HH:mm";
 /// yyyy-MM-dd HH:mm:ss eee
 public let kDateFormatMillisecond = "yyyy-MM-dd HH:mm:ss eee";
 /// yyyy-MM-dd 00:00:00
-public let kDateFormatStart       = "yyyy-MM-dd 00:00:00";
+public let kDateFormatBegin       = "yyyy-MM-dd 00:00:00";
 /// yyyy-MM-dd 23:59:59
 public let kDateFormatEnd         = "yyyy-MM-dd 23:59:59";
 
@@ -92,8 +92,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
     /// String -> Date
     static func dateFromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
         let formatter = DateFormatter.format(fmt);
-        let str = (dateStr as NSString).substring(to: fmt.count)
-        let result = formatter.date(from: str);
+        let result = formatter.date(from: dateStr);
         return result!
     }
     
@@ -166,7 +165,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
     }
     
     /// 获取起止时间区间数组,默认往前31天
-    static func queryDate(_ day: Int = -30, fmtStart: String = kDateFormatStart, fmtEnd: String = kDateFormatEnd) -> [String] {
+    static func queryDate(_ day: Int = -30, fmtStart: String = kDateFormatBegin, fmtEnd: String = kDateFormatEnd) -> [String] {
         let endTime = DateFormatter.stringFromDate(Date(), fmt: fmtEnd)
         let date = Date().adding(day)
         let startTime = DateFormatter.stringFromDate(date, fmt: fmtStart)

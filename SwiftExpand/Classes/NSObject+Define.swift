@@ -30,7 +30,7 @@ public typealias ScrollViewDidScrollClosure = ((UIScrollView) -> Void)
 
 
 public struct AssociationKey {
-    public static var keysDic:[String: UnsafeRawPointer] = [:]
+    public static var keysDic: [String: UnsafeRawPointer] = [:]
     public static func from(_ key: String) -> UnsafeRawPointer{
         var value = keysDic[key]
         if value == nil {

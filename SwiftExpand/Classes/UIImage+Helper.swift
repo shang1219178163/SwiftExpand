@@ -27,12 +27,21 @@ import UIKit
 //        self.init(cgImage: cgImage)
 //    }
     
-    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
-        let image = UIImage.color(color)
-        guard let cgImage = image.cgImage else { return nil }
-        self.init(cgImage: cgImage)
-    }
+//    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+//        let image = UIImage.color(color)
+//        guard let cgImage = image.cgImage else { return nil }
+//        self.init(cgImage: cgImage)
+//    }
     
+    convenience init(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+        let image = UIImage.color(color)
+        if let cgImage = image.cgImage {
+            self.init(cgImage: cgImage)
+        } else {
+            self.init(cgImage: UIImage().cgImage!)
+        }
+    }
+        
     /// 把颜色转成UIImage
     static func color(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage{
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)

@@ -361,7 +361,7 @@ public extension Substring {
         assert(self.length >= 10);
         
         let tmp = self.substring(to: 10) + " 00:00:00";
-        let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatStart)
+        let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatBegin)
         return result;
     }
     
