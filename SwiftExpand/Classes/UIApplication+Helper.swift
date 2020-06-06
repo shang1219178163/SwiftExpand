@@ -235,8 +235,8 @@ import UIKit
         
         UINavigationBar.appearance().tintColor = tintColor;
         UINavigationBar.appearance().barTintColor = barTintColor;
-        UINavigationBar.appearance().setBackgroundImage(UIImageColor(barTintColor), for: UIBarPosition.any, barMetrics: .default)
-        UINavigationBar.appearance().shadowImage = UIImageColor(barTintColor);
+        UINavigationBar.appearance().setBackgroundImage(UIImage(color: barTintColor), for: UIBarPosition.any, barMetrics: .default)
+        UINavigationBar.appearance().shadowImage = UIImage(color: barTintColor);
         
         let attDic = [NSAttributedString.Key.foregroundColor :   tintColor,
 //                      NSAttributedString.Key.font    :   UIFont.boldSystemFont(ofSize:18)

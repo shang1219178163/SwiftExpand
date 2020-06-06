@@ -32,7 +32,7 @@ import UIKit
                          
                          ]
             view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setDividerImage(UIImageColor(UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default);
+            view.setDividerImage(UIImage(color: UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default);
             
         case 2:
             view.tintColor = UIColor.white

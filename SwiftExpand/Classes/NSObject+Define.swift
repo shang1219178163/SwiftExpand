@@ -175,26 +175,12 @@ public func UIImageNamed(_ name: String, in bundle: Bundle = Bundle.main, render
     return image
 }
 
-/// UIImage快捷方法
-public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
-    let image = UIImage(named: name)?.withRenderingMode(renderingMode)
-    return image
-}
+///// UIImage快捷方法
+//public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
+//    let image = UIImage(named: name)?.withRenderingMode(renderingMode)
+//    return image
+//}
 
-// 把颜色转成UIImage
-public func UIImageColor(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage{
-    return UIImage.color(color)
-//    let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-//    UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
-//
-//    let context: CGContext = UIGraphicsGetCurrentContext()!
-//    context.setFillColor(color.cgColor)
-//    context.fill(rect)
-//
-//    let image = UIGraphicsGetImageFromCurrentImageContext()
-//    UIGraphicsGetCurrentContext()
-//    return image!
-}
 /// UIImage 相等判断
 public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
     return image0.equelToImage(image1)
