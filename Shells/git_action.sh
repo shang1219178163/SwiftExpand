@@ -62,7 +62,7 @@ pushLib(){
      echo_green "--- Step: git add . ---"
      git add . || exit 1
      
-     echo_green "--- Step: git commit -m \"update\" ---"
+     echo_green "--- Step: git commit -m \"initial\" ---"
      git commit -m "updatet" || exit 1
 
 #     echo_green "--- Step: git push origin master ---"
@@ -95,7 +95,7 @@ updatePod(){
 #    git push -u origin master || exit 1
     git push || exit 1
 
-    echo_green "--- Step: add tag to local reposit：：`git log -1 --pretty=format:"%s"`---"
+    echo_green "--- Step: add tag to local reposit：`git log -1 --pretty=format:"%s"`---"
     git tag -a ${version} -m "`git log -1 --pretty=format:"%s"`" || exit 1
 
     echo_green "--- Step: push tag to remote reposit ---"
