@@ -95,8 +95,8 @@ updatePod(){
 #    git push -u origin master || exit 1
     git push || exit 1
 
-    echo_green "--- Step: add tag to local reposit：：`git log -1 --pretty=format:"%s" --graph`---"
-    git tag -a ${version} -m "`git log -1 --pretty=format:"%s" --graph`" || exit 1
+    echo_green "--- Step: add tag to local reposit：：`git log -1 --pretty=format:"%s"`---"
+    git tag -a ${version} -m "`git log -1 --pretty=format:"%s"`" || exit 1
 
     echo_green "--- Step: push tag to remote reposit ---"
     git push --tags || exit 1
