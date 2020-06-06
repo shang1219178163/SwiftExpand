@@ -62,7 +62,7 @@ pushLib(){
      echo_green "--- Step: git add . ---"
      git add . || exit 1
      
-     echo_green "--- Step: git commit -m \"update\" ---"
+     echo_green "--- Step: git commit -m \"`git log -1 --pretty=format:"%s" --graph`\" ---"
      git commit -m "updatet" || exit 1
 
 #     echo_green "--- Step: git push origin master ---"
