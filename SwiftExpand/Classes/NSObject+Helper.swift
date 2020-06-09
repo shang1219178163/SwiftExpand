@@ -76,58 +76,33 @@ import UIKit
         self.init();
         self.setValuesForKeys(dic)
     }
+    ///详情模型转字典(不支持嵌套)
+    func toDictionary() -> [AnyHashable : Any] {
+        let classType: NSObject.Type = type(of: self)
+        var dic: [AnyHashable : Any] = [:]
+        
+        let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
+        if let properties = class_copyPropertyList(classType, count) {
+            for i in 0 ..< count.pointee {
+                let name = String(cString: property_getName(properties.advanced(by: Int(i)).pointee))
+                if let propertyName = String(utf8String: name) {
+                    let propertyValue = value(forKey: propertyName)
+                    if propertyValue != nil {
+                        dic[propertyName] = propertyValue
+                    }
+                }
+            }
+            free(properties)
+        }
+        return dic
+    }
     
     func synchronized(_ lock: AnyObject, block: () -> Void) {
         objc_sync_enter(lock)
         block()
         objc_sync_exit(lock)
     }
-    // MARK: - 数据类型转换 Data - String - Dictionary - Array
-    
-    /// NSObject->NSData
-    var jsonData: Data? {
-        var data: Data?
-        
-        switch self {
-        case is Data:
-            data = (self as! Data);
             
-        case is NSString:
-            data = (self as! String).data(using: .utf8);
-            
-        case is UIImage:
-            data = (self as! UIImage).jpegData(compressionQuality: 1.0);
-            
-        case is NSDictionary, is NSArray:
-            do {
-                data = try JSONSerialization.data(withJSONObject: self, options: []);
-            } catch {
-                print(error)
-            }
-            
-        default:
-            break;
-        }
-        return data;
-    }
-    
-    /// NSObject->NSString
-    var jsonString: String {
-        return JSONSerialization.jsonStringFromObj(self);
-    }
-    
-    /// NSString/NSData->NSDictionary
-    var dictValue: [String: Any]? {
-        guard let dic = self.jsonData?.objValue as? [String: Any] else { return nil }
-        return dic as [String: Any];
-    }
-    
-    /// NSString/NSData->NSArray
-    var arrayValue: [AnyObject]? {
-        guard let arr = self.jsonData?.objValue as? [AnyObject] else { return nil }
-        return arr as [AnyObject];
-    }
-    
     // MARK: - KVC
 
     /// 返回key对应的值

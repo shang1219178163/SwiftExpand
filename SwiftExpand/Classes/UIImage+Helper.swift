@@ -33,6 +33,12 @@ import UIKit
 //        self.init(cgImage: cgImage)
 //    }
     
+    /// ->Data
+    var jsonData: Data? {
+        guard let data: Data = self.jpegData(compressionQuality: 1.0) as Data? else { return nil }
+        return data;
+    }
+    
     convenience init(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
         let image = UIImage.color(color)
         if let cgImage = image.cgImage {
@@ -41,7 +47,7 @@ import UIKit
             self.init(cgImage: UIImage().cgImage!)
         }
     }
-        
+            
     /// 把颜色转成UIImage
     static func color(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage{
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)

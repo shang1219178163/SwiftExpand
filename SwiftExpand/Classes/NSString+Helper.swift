@@ -60,6 +60,13 @@ public extension String{
     var reverse: String {
         return String(self.reversed())
     }
+    
+    /// ->Data
+    var jsonData: Data? {
+        guard let data = (self as String).data(using: .utf8) as Data? else { return nil }
+        return data;
+    }
+    
     /// 字符串->数组/字典
     var objValue: Any? {
         if let data: Data = self.data(using: .utf8) {
