@@ -89,7 +89,7 @@ updatePod(){
     git add . || exit 1
 
     echo_green "--- Step: commit changes to local reposit ---"
-    git commit -m "`git log -1 --pretty=format:"%s" --graph`" || exit 1
+    git commit -m "`git log -1 --pretty=format:"%s"`" || exit 1
 
     echo_green "--- Step: push changes to remote reposit ---"
 #    git push -u origin master || exit 1

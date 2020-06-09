@@ -12,7 +12,7 @@
 //#define DDLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 #define DDLog(FORMAT, ...) {\
-NSString *formatStr = @"yyyy-MM-dd HH:mm:ss.SSSSSSZ";\
+NSString *formatStr = @"yyyy-MM-dd HH:mm:ss.SSS";\
 NSMutableDictionary *threadDic = NSThread.currentThread.threadDictionary;\
 NSDateFormatter *formatter = [threadDic objectForKey:formatStr];\
 if (!formatter) {\

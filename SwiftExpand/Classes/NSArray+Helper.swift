@@ -17,7 +17,7 @@ public extension Array{
     }
     
     /// ->NSString
-    var jsonString: String {
+    var jsonString: String? {
         return (self as NSArray).jsonString;
     }
     
@@ -69,10 +69,10 @@ public extension Array{
     }
     
     /// ->NSString
-    var jsonString: String {
+    var jsonString: String? {
         guard let jsonData = self.jsonData as Data?,
         let jsonString = String(data: jsonData, encoding: .utf8) as String?
-        else { return "" }
+        else { return nil }
         return jsonString
     }
     

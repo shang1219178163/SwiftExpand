@@ -74,8 +74,8 @@ public let kDateFormatTwo         = "yyyyMMdd";
     /// 获取DateFormatter(默认格式)
     static func format(_ formatStr: String = kDateFormat) -> DateFormatter {
         let dic = Thread.current.threadDictionary;
-        if dic.object(forKey: formatStr) != nil {
-            return dic.object(forKey: formatStr) as! DateFormatter;
+        if let formatter = dic.object(forKey: formatStr) as? DateFormatter {
+            return formatter
         }
         
         let fmt = DateFormatter();
@@ -83,7 +83,6 @@ public let kDateFormatTwo         = "yyyyMMdd";
         fmt.locale = .current;
         fmt.locale = Locale(identifier: "zh_CN");
         fmt.timeZone = formatStr.contains("GMT") ? TimeZone(identifier: "GMT") : TimeZone.current;
-        
         dic.setObject(fmt, forKey: formatStr as NSCopying)
         return fmt;
     }
@@ -223,6 +222,14 @@ public let kDateFormatTwo         = "yyyyMMdd";
 }
 
 @objc public extension NSDate{
+    
+    /// 本地时间(东八区时间)
+    static var dateLocale: NSDate {
+//        return NSDate().addingTimeInterval(8 * 60 * 60)
+        let interval = NSTimeZone.system.secondsFromGMT(for: NSDate() as Date)
+        return NSDate().addingTimeInterval(TimeInterval(interval))
+    }
+    
     /// 年
     var year: Int {
         return NSDate.dateComponents(self).year!
@@ -504,6 +511,12 @@ public extension NSDate{
 }
 
 public extension Date{
+    /// 本地时间(东八区时间)
+    static var dateLocale: Date {
+//        return Date().addingTimeInterval(8 * 60 * 60)
+        let interval = NSTimeZone.system.secondsFromGMT(for: Date())
+        return Date().addingTimeInterval(TimeInterval(interval))
+    }
     /// 年
     var year: Int {
        return (self as NSDate).year
