@@ -57,6 +57,11 @@ public let kDateFormatBegin       = "yyyy-MM-dd 00:00:00";
 /// yyyy-MM-dd 23:59:59
 public let kDateFormatEnd         = "yyyy-MM-dd 23:59:59";
 
+/// yyyy-MM-dd HH:mm:00
+public let kTimeFormatBegin       = "yyyy-MM-dd HH:mm:00";
+/// yyyy-MM-dd HH:mm:59
+public let kTimeFormatEnd         = "yyyy-MM-dd HH:mm:59";
+
 /// yyyy年M月
 public let kDateFormatMonth_CH    = "yyyy年MM月";
 /// yyyy年MM月dd日
