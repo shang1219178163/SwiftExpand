@@ -18,6 +18,7 @@ public extension CGRect{
     static func make(_ x: CGFloat, _ y: CGFloat, _ w: CGFloat, _ h: CGFloat) -> CGRect{
         return self.init(x: x, y: y, width: w, height: h)
     }
+
 }
 
 public extension UIEdgeInsets{

@@ -279,31 +279,23 @@ public let kDesDay: String   = "初一, 初二, 初三, 初四, 初五, 初六, 
 /// Debug模式日志打印
 public func DDLog(_ msgs: Any..., fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
     #if DEBUG
-    let params = msgs.compactMap{ "\($0)" }.joined(separator: "");
+    let params = msgs.compactMap{ "\($0)" }.joined(separator: ", ");
     let formatter = DateFormatter.format("yyyy-MM-dd HH:mm:ss.SSS");
-    let dateStr = formatter.string(from: Date())
-    print(dateStr,"\((fileName as NSString).lastPathComponent).\(methodName)[line \(lineNumber)]: \(params)")
-
+//    var dateStr = formatter.string(from: Date())
+//    print(dateStr,"\((fileName as NSString).lastPathComponent).\(methodName)[line \(lineNumber)]: \(params)")
+        #if targetEnvironment(simulator)
+            let dateStr = formatter.string(from: Date().addingTimeInterval(8*60*60))
+            print(dateStr, "\((fileName as NSString).lastPathComponent).\(methodName)[line \(lineNumber)]: \(params)")
+        #else
+            let dateStr = formatter.string(from: Date())
+            print(dateStr,"\((fileName as NSString).lastPathComponent).\(methodName)[line \(lineNumber)]: \(params)")
+        #endif
     #endif
 }
 
 //func NNLog(FORMAT,...) {
 //    let formatter = DateFormatter.format(f"yyyy-MM-dd HH:mm:ss.SSS");
-//    fprintf(stderr,"%s【line -%d】%s %s\n", formatter.string(from: Date()), #line,(fileName as NSString).lastPathComponent,NSString.init(format: FORMAT, CVarArg).UTF8String,]);
-//}
-
-// 日志打印，支持传入不同类型的多个参数
-//
-// - Parameters:
-//   - message: 内容
-//   - file: 文件名
-//   - function: 方法名
-//   - line: 行号
-//public func printLog(_ messages: Any..., file: String = #file, function: String = #function, line: Int = #line) {
-//    #if DEBUG
-//    let message = messages.compactMap{ "\($0)" }.joined(separator: "\n__")
-//    print("\((file as NSString).lastPathComponent)[\(line)] - \(function): \n__\(message)")
-//    #endif
+//    fprintf(stderr,"%s【line -%d】%s %s\n", formatter.string(from: Date()), #line,(fileName as NSString).lastPathComponent,NSString(format: FORMAT, CVarArg).UTF8String,]);
 //}
 
 
