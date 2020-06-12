@@ -32,6 +32,30 @@ public extension String{
         }
         return hash.map { String(format: "%02x", $0) }.joined()
     }
+    
+    var sha256: String{
+        guard let data = self.data(using: .utf8) else { return ""}
+        return String.hexString(from: String.digest(data: data as NSData))
+    }
+
+    static func digest(data: NSData) -> NSData {
+        let digestLength = Int(CC_SHA256_DIGEST_LENGTH)
+        var hash = [UInt8](repeating: 0, count: digestLength)
+        CC_SHA256(data.bytes, UInt32(data.length), &hash)
+        return NSData(bytes: hash, length: digestLength)
+    }
+
+    static func hexString(from data: NSData) -> String {
+        var bytes = [UInt8](repeating: 0, count: data.length)
+        data.getBytes(&bytes, length: data.length)
+
+        var hexString = ""
+        for byte in bytes {
+            hexString += String(format:"%02x", UInt8(byte))
+        }
+        return hexString
+    }
+    
     /// 是否是"","nil","null"
     var isValid: Bool {
         return !["","nil","null"].contains(self);
@@ -253,6 +277,10 @@ public extension Substring {
         return (self as String).md5
     }
     
+    var sha256: String{
+        return (self as String).sha256
+
+    }
     /// 地址字符串(hostname + port)
     static func UrlAddress(_ hostname: String, port: String) ->String {
         var webUrl: String = hostname;

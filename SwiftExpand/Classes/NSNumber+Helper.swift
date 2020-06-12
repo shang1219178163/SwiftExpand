@@ -9,8 +9,8 @@
 
 import Foundation
 
-/// #,##0.00
-public let kNumFormat = "#,##0.00";
+/// ###,##0.00
+public let kNumFormat = "###,##0.00";
 /// 四舍五入
 public let kNumIdentify = "四舍五入";
 /// 分隔符,
@@ -47,9 +47,9 @@ public let kNumIdentify_spellOut = "数字转汉字";
 
     /// 根据定义的关键字生成/获取对应的NumberFormatter,避免多次创建
     static func identify(_ identify: String = kNumIdentify) -> NumberFormatter {
-        let dic = Thread.current.threadDictionary;
-        if dic.object(forKey: identify) != nil {
-            return dic.object(forKey: identify) as! NumberFormatter;
+        let dic = Thread.current.threadDictionary
+        if let formatter = dic.object(forKey: identify) as? NumberFormatter {
+            return formatter
         }
         
         let fmt = NumberFormatter();
@@ -72,17 +72,22 @@ public let kNumIdentify_spellOut = "数字转汉字";
                                      min: Int = 2,
                                      max: Int = 2, 
                                      roundingMode: NumberFormatter.RoundingMode = .halfUp, identify: String = kNumIdentify) -> String {
-        let formatter = NumberFormatter.identify(identify)
-        formatter.minimumFractionDigits = min
-        formatter.maximumFractionDigits = max
-        formatter.roundingMode = roundingMode
-        return formatter.string(for: obj) ?? ""
-    }
-    
-    static func positiveFormat(_ format: String = kNumFormat, identify: String = kNumIdentify) -> NumberFormatter {
+        guard let obj = obj else { return ""}
+        
         let fmt = NumberFormatter.identify(identify)
-        fmt.positiveFormat = format;
-        return fmt;
+        fmt.minimumFractionDigits = min
+        fmt.maximumFractionDigits = max
+        fmt.roundingMode = roundingMode
+        return fmt.string(for: obj) ?? ""
+    }
+    /// 千分位格式金钱显示(10204500 --> 10,204,500.00)
+    static func positiveFormat(_ obj: Any?, format: String = kNumFormat, identify: String = kNumIdentify) -> String {
+        guard let obj = obj else { return ""}
+        
+        let fmt = NumberFormatter.identify(identify)
+        fmt.numberStyle = .decimal
+        fmt.positiveFormat = format
+        return fmt.string(for: obj) ?? ""
     }
     
     /// number为NSNumber/String
@@ -91,13 +96,12 @@ public let kNumIdentify_spellOut = "数字转汉字";
             return NumberFormatter.localizedString(from: obj, number: numberStyle);
         }
         
-        if let obj = number as? String {
-            let set = CharacterSet(charactersIn: kSetFloat).inverted
-            let result = obj.components(separatedBy: set).joined(separator: "")
-            if obj == result {
-                return NumberFormatter.localizedString(from: NSNumber(value: obj.floatValue), number: numberStyle);
-                
-            }
+        guard let obj = number as? String else { return "" }
+
+        let set = CharacterSet(charactersIn: kSetFloat).inverted
+        let result = obj.components(separatedBy: set).joined(separator: "")
+        if obj == result {
+            return NumberFormatter.localizedString(from: NSNumber(value: obj.floatValue), number: numberStyle);
         }
         return ""
     }
