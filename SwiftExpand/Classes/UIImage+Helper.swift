@@ -10,23 +10,7 @@ import UIKit
 
 //MARK - UIImage
 @objc public extension UIImage {
-//    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
-//        UIGraphicsBeginImageContextWithOptions(size, true, UIScreen.main.scale)
-//        defer {
-//            UIGraphicsEndImageContext()
-//        }
-//        let context = UIGraphicsGetCurrentContext()
-//        context?.setFillColor(color.cgColor)
-//        context?.fill(CGRect(origin: CGPoint.zero, size: size))
-//        context?.setShouldAntialias(true)
-//        let image = UIGraphicsGetImageFromCurrentImageContext()
-//        guard let cgImage = image?.cgImage else {
-//            self.init()
-//            return nil
-//        }
-//        self.init(cgImage: cgImage)
-//    }
-    
+
 //    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
 //        let image = UIImage.color(color)
 //        guard let cgImage = image.cgImage else { return nil }
@@ -35,7 +19,7 @@ import UIKit
     
     /// ->Data
     var jsonData: Data? {
-        guard let data: Data = self.jpegData(compressionQuality: 1.0) as Data? else { return nil }
+        guard let data = self.jpegData(compressionQuality: 1.0) else { return nil }
         return data;
     }
     
@@ -52,14 +36,15 @@ import UIKit
     static func color(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage{
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
-        
+        defer {
+            UIGraphicsEndImageContext()
+        }
         let context: CGContext = UIGraphicsGetCurrentContext()!
         context.setFillColor(color.cgColor)
         context.fill(rect)
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsGetCurrentContext()
-        return image!
+        return image ?? UIImage()
     }
 
     /// 获取 pod bundle 图片资源

@@ -192,7 +192,6 @@ import UIKit
     func setBackgroundColor(_ color: UIColor?, for state: UIControl.State){
         guard let color = color else { return }
         setBackgroundImage(UIImage(color: color), for: .normal)
-
     }
     
     /// UIButton不同状态下设置富文本标题

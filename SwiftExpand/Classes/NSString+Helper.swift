@@ -87,18 +87,16 @@ public extension String{
     
     /// ->Data
     var jsonData: Data? {
-        guard let data = (self as String).data(using: .utf8) as Data? else { return nil }
+        guard let data = self.data(using: .utf8) else { return nil }
         return data;
     }
     
     /// 字符串->数组/字典
     var objValue: Any? {
-        if let data: Data = self.data(using: .utf8) {
-            if let json = try? JSONSerialization.jsonObject(with: data, options: []) {
-                return json
-            }
-        }
-        return nil;
+        guard let data = self.data(using: .utf8),
+        let json = try? JSONSerialization.jsonObject(with: data, options: [])
+            else { return nil }
+        return json
     }
     // MARK: -funtions
 

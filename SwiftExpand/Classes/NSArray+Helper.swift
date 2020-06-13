@@ -16,7 +16,7 @@ public extension Array{
         return (self as NSArray).jsonData;
     }
     
-    /// ->NSString
+    /// ->String
     var jsonString: String? {
         return (self as NSArray).jsonString;
     }
@@ -29,30 +29,6 @@ public extension Array{
         assert(loc < self.count);
         return Array(self[loc...len]);
     }
-
-    static func itemPrefix(prefix: String, count: Int, type: Int) -> Array! {
-        var marr: [Any] = [];
-        for i in 0...count {
-            let item = String(format: "%@%d", prefix,i);
-            
-            switch type {
-            case 1:
-                let image = UIImage(named: item)!;
-                marr.append(image);
-            default:
-                marr.append(item);
-            }
-        }
-        return (marr as! Array<Element>);
-    }
-    
-    ///添加多个相同元素到数组
-    mutating func appendSame(_ item: Element, count: Int) {
-        for _ in self.enumerated() {
-            append(item)
-        }
-    }
-    
 }
 
 @objc public extension NSArray{
@@ -95,3 +71,4 @@ public extension Array{
     }
     
 }
+

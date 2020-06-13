@@ -12,7 +12,7 @@ import UIKit
 @objc extension UIViewController{
     
     public var controllerName: String {
-        var className: String = NNStringFromClass(self.classForCoder);
+        var className: String = NNStringFromClass(self.classForCoder)
         if className.contains("Controller") {
             var range = className.range(of: "Controller");
             if className.contains("ViewController") {
@@ -62,7 +62,7 @@ import UIKit
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
         } else {
-            self.automaticallyAdjustsScrollViewInsets = false;
+            automaticallyAdjustsScrollViewInsets = false;
         }
     }
     
@@ -91,7 +91,6 @@ import UIKit
         }
         item.runtimeKey = runtimeKey
         objc_setAssociatedObject(self, runtimeKey, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
-
     }
     
     /// 创建导航栏按钮(UIButton)
@@ -129,7 +128,7 @@ import UIKit
         } else {
             navigationItem.rightBarButtonItem = item;
         }
-        return btn;
+        return btn
     }
     
     /// 创建导航栏按钮(标题或者图片名称)
