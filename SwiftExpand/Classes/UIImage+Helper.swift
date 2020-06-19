@@ -22,8 +22,8 @@ import UIKit
         guard let data = self.jpegData(compressionQuality: 1.0) else { return nil }
         return data;
     }
-    
-    convenience init(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
+    ///扩展便利构造器
+    convenience init(color: UIColor) {
         let image = UIImage.color(color)
         if let cgImage = image.cgImage {
             self.init(cgImage: cgImage)
@@ -33,7 +33,8 @@ import UIKit
     }
             
     /// 把颜色转成UIImage
-    static func color(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage{
+    static func color(_ color: UIColor) -> UIImage{
+        let size: CGSize = CGSize(width: 1, height: 1)
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
         defer {

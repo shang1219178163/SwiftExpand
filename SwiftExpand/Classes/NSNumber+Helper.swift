@@ -88,7 +88,7 @@ public let kNumIdentifyCurrencyAccounting = "格式化为货币会计输出";
         return fmt.string(for: obj) ?? ""
     }
     
-    /// 千分位格式金钱显示(10204500 --> 10,204,500.00)
+    /// format 格式金钱显示
     static func positive(_ obj: CGFloat, format: String = kNumFormat, defalut: String = "-") -> String {
         let fmt = NumberFormatter.identify(kNumIdentifyDecimal)
         fmt.positiveFormat = format
