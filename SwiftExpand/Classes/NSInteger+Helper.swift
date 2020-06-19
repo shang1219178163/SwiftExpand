@@ -36,6 +36,10 @@ public extension Int{
         return Int(log10(fabs(Double(self)))) + 1
 //        }
     }
+    
+    
+    static var randomCGFloat: CGFloat { return CGFloat(arc4random()) / CGFloat(UInt32.max) }
+    static var random: Int { return Int(arc4random()) / Int(UInt32.max) }
 
     ///返回重复值字符串
     func repeatString(_ repeatedValue: String) ->String{

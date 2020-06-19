@@ -27,7 +27,7 @@ import UIKit
     }
     
     /// 刷新行数组
-    func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) {
+    func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .automatic) {
         assert(section <= numberOfSections)
         let rowMax = rowList.value(forKeyPath: kArrMax_inter) as! Int
         assert(rowMax < numberOfRows(inSection: section))
@@ -44,7 +44,7 @@ import UIKit
         endUpdates()
     }
     /// 插入行数组
-    func insertRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) {
+    func insertRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .automatic) {
         var marr: [IndexPath] = []
         for e in rowList.enumerated() {
             if let row = e.element as? NSNumber {
@@ -57,7 +57,7 @@ import UIKit
         endUpdates()
     }
     /// 删除行数组
-    func deleteRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .fade) {
+    func deleteRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .automatic) {
         assert(section <= numberOfSections)
         let rowMax = rowList.value(forKeyPath: kArrMax_inter) as! Int
         assert(rowMax < numberOfRows(inSection: section))

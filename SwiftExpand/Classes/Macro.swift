@@ -253,7 +253,7 @@ public let kSeparateStr  = ",";
 /// *
 public let kAsterisk     = "*";
 /// 空格(四分之一个字体)
-public let kBlankQuarter = " ";
+public let kBlankQtr     = " ";
 /// 空格(半个字体)
 public let kBlankHalf    = "  ";
 /// 空格(1个字体)
@@ -279,7 +279,7 @@ public let kDesDay: String   = "初一, 初二, 初三, 初四, 初五, 初六, 
 /// Debug模式日志打印
 public func DDLog(_ msgs: Any..., fileName: String = #file, methodName: String = #function, lineNumber: Int = #line){
     #if DEBUG
-    let params = msgs.compactMap{ "\($0)" }.joined(separator: " ");
+    let params = msgs.compactMap{ "\($0)" }.joined(separator: ", ");
     let formatter = DateFormatter.format("yyyy-MM-dd HH:mm:ss.SSS");
 //    var dateStr = formatter.string(from: Date())
 //    print(dateStr,"\((fileName as NSString).lastPathComponent).\(methodName)[line \(lineNumber)]: \(params)")
