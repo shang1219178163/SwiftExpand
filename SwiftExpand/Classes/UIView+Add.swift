@@ -208,4 +208,50 @@ import UIKit
         return rowCount.toCGFloat * itemHeight + (rowCount - 1).toCGFloat * padding;
     }
     
+    
+}
+
+
+public extension UIView{
+    
+    ///更新各种子视图
+    final func updateItems<T: UIView>(_ count: Int, type: T.Type, hanler: ((T) -> Void)? = nil) -> [T] {
+        if let list = self.subviews.filter({ $0.isKind(of: type) }) as? [T] {
+            if list.count == count {
+                return list
+            }
+        }
+        
+        self.subviews.forEach { $0.removeFromSuperview() }
+        
+        var arr: [T] = [];
+        for i in 0..<count {
+            let subview = type.init()
+            subview.tag = i
+            self.addSubview(subview)
+            arr.append(subview)
+            
+            hanler?(subview)
+        }
+        return arr;
+    }
+    
+    ///更新各种子类按钮
+    final func updateButtonItems<T: UIButton>(_ count: Int, type: T.Type, hanler: ((T) -> Void)? = nil) -> [T] {
+        return updateItems(count, type: type) {
+            $0.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+            $0.setTitle("\(type)\($0.tag)", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.setBackgroundColor(.gray, for: .disabled)
+        }
+    }
+    
+    ///更新各种子类UILabel
+    final func updateLabelItems<T: UILabel>(_ count: Int, type: T.Type, hanler: ((T) -> Void)? = nil) -> [T] {
+        return updateItems(count, type: type) {
+            $0.text = "\(type)\($0.tag)"
+            $0.textAlignment = .center
+            $0.font = UIFont.systemFont(ofSize: 15)
+        }
+    }
 }
