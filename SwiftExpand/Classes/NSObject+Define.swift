@@ -13,7 +13,7 @@ public typealias SwiftClosure = (AnyObject, AnyObject, Int) -> Void
 
 public typealias ObjClosure = ((AnyObject) -> Void)
 public typealias ViewClosure = ((UITapGestureRecognizer?, UIView, NSInteger) -> Void)
-public typealias ControlClosure = (UIControl) -> Void
+public typealias ControlClosure = ((UIControl) -> Void)
 public typealias RecognizerClosure = ((UIGestureRecognizer) -> Void)
 
 public typealias TextFieldClosure = ((UITextField) -> Void)

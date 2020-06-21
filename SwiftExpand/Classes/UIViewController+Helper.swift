@@ -78,7 +78,7 @@ import UIKit
         block?(sender);
     }
     
-    public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping (ObjClosure)) {
+    public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping ObjClosure) {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
         
@@ -94,35 +94,35 @@ import UIKit
     }
     
     /// 创建导航栏按钮(UIButton)
-    public func createBtnBarItem(_ title: String?, image: String? = nil, isLeft: Bool = false, isHidden: Bool = false, action: (ControlClosure)? = nil) -> UIButton {
+    public func createBtnBarItem(_ title: String?, imageName: String? = nil, isLeft: Bool = false, isHidden: Bool = false, action: ControlClosure? = nil) -> UIButton {
         var size = CGSize(width: 32, height: 32)
-        if image != nil && UIImage(named:image!) != nil {
+        if imageName != nil && UIImage(named:imageName!) != nil {
             size = CGSize(width: 40, height: 40)
         }
         
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height);
-        let btn: UIButton = UIButton.create(rect, title: title, imgName: image, type: 3)
+        let btn: UIButton = UIButton.create(rect, title: title, imgName: imageName, type: 3)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         btn.tag = isLeft == true ? kTAG_BackItem : kTAG_RightItem;
         btn.isHidden = isHidden;
-        btn.sizeToFit();
+        btn.sizeToFit()
         
-        if image != nil && UIImage(named:image!) != nil {
-            btn.setImage(UIImage(named:image!), for: .normal);
+        if let imageName = imageName, let image = UIImage(named:imageName) {
+            btn.setImage(image, for: .normal);
         } else {
-            if title!.isEmpty == false{
+            if let title = title {
                 btn.setTitle(title, for: .normal);
-                if title!.count == 4{
+                if title.count == 4{
                     btn.titleLabel?.adjustsFontSizeToFitWidth = true;
                     btn.titleLabel?.minimumScaleFactor = 1;
                 }
             }
         }
         
-        if action != nil {
-            btn.addActionHandler(action!, for: .touchUpInside)
+        if let action = action {
+            btn.addActionHandler(action, for: .touchUpInside)
         }
-        let item:UIBarButtonItem = UIBarButtonItem(customView: btn);
+        let item = UIBarButtonItem(customView: btn);
         if isLeft == true {
             navigationItem.leftBarButtonItem = item;
         } else {
@@ -133,8 +133,8 @@ import UIKit
     
     /// 创建导航栏按钮(标题或者图片名称)
     public func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
-        var item: UIView? = nil;
-        if UIImage(named:obj) != nil{
+        var item = UIView();
+        if UIImage(named: obj) != nil {
             item = UIImageView.create(CGRectMake(0, 0, 25, 25), imgName: obj)
 
         } else {
@@ -143,11 +143,11 @@ import UIKit
             (item as! UILabel).textAlignment = .center;
             (item as! UILabel).textColor = UINavigationBar.appearance().tintColor;
         }
-        item!.tag = isLeft ? kTAG_BackItem : kTAG_RightItem;
+        item.tag = isLeft ? kTAG_BackItem : kTAG_RightItem;
         
         let contentView = UIView(frame: CGRectMake(0, 0, 44, 44))
-        item!.center = contentView.center;
-        contentView.addSubview(item!)
+        item.center = contentView.center;
+        contentView.addSubview(item)
         
         _ = contentView.addGestureTap { (reco) in
             if contentView.isHidden == true {
@@ -218,22 +218,9 @@ import UIKit
     
     /// 导航栏返回按钮图片定制
     public func createBackItem(_ image: UIImage) {
-//        let btn = UIButton(type: .custom)
-//        btn.adjustsImageWhenHighlighted = false;
-//        btn.frame = CGRectMake(0, 0, 30, 40)
-//        btn.imageEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 0)
-//
-//        btn.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
-//        btn.imageView?.tintColor = UINavigationBar.appearance().tintColor ?? .red
-//
-//        btn.addActionHandler({ (control) in
-//            self.navigationController!.popViewController(animated: true);
-//        }, for: .touchUpInside)
-//        let backItem = UIBarButtonItem(customView: btn)
-//          navigationItem.leftBarButtonItem = backItem
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem?.addAction({ (item) in
-            self.navigationController!.popViewController(animated: true);
+            self.navigationController?.popViewController(animated: true);
         });
     }
     

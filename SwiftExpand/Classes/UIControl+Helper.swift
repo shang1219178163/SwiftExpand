@@ -10,7 +10,7 @@ import UIKit
 
 @objc extension UIControl {
     /// UIControl 添加回调方式
-    public func addActionHandler(_ action: @escaping (ControlClosure), for controlEvents: UIControl.Event = .touchUpInside) {
+    public func addActionHandler(_ action: @escaping ControlClosure, for controlEvents: UIControl.Event = .touchUpInside) {
         let funcAbount = NSStringFromSelector(#function) + ",\(controlEvents)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
         
@@ -21,9 +21,8 @@ import UIKit
     
     /// 点击回调
     private func p_handleActionControl(_ sender: UIControl) {
-        let block = objc_getAssociatedObject(self, self.runtimeKey) as? ControlClosure;
-        if block != nil {
-            block!(sender);
+        if let block = objc_getAssociatedObject(self, self.runtimeKey) as? ControlClosure {
+            block(sender);
         }
     }
 }

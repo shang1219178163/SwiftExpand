@@ -163,9 +163,6 @@ import UIKit
         return true;
     }
 
-    public func autoresizeMask() {
-        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    }
     /// 图层调试
     public func getViewLayer(lineColor: UIColor = .blue) {
         let subviews = self.subviews;
@@ -278,7 +275,6 @@ import UIKit
                 action(nil, control, control.tag);
 
             }, for: .touchUpInside)
-            
         }
         else if let sender = self as? UIControl {
             sender.addActionHandler({ (control) in

@@ -23,33 +23,33 @@ public let kSetFloat       =   "0123456789.";
 /// ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
 public let kSetAlpha       =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 /// ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789
-public let kSetAlpha_Num   =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+public let kSetAlphaNum    =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 /// ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.
-public let kSetAlpha_Float =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.";
+public let kSetAlphaFloat  =   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.";
 
 // MARK: - kArr
 /// avg.floatValue
-public let kArrAvg_float       = "@avg.floatValue";
+public let kArrAvgFloat       = "@avg.floatValue";
 /// sum.intValue
-public let kArrSum_inter       = "@sum.intValue";
+public let kArrSumInter       = "@sum.intValue";
 /// max.intValue
-public let kArrMax_inter       = "@max.intValue";
+public let kArrMaxInter       = "@max.intValue";
 /// min.intValue
-public let kArrMin_inter       = "@min.intValue";
+public let kArrMinInter       = "@min.intValue";
 /// sum.floatValue
-public let kArrSum_float       = "@sum.floatValue";
+public let kArrSumFloat       = "@sum.floatValue";
 /// max.floatValue
-public let kArrMax_float       = "@max.floatValue";
+public let kArrMaxFloat       = "@max.floatValue";
 /// min.floatValue
-public let kArrMin_float       = "@min.floatValue";
+public let kArrMinFloat       = "@min.floatValue";
 /// uppercaseString
-public let kArrUpper_list      = "uppercaseString";
+public let kArrUpperList      = "uppercaseString";
 /// lowercaseString
-public let kArrLower_list      = "lowercaseString";
+public let kArrLowerList      = "lowercaseString";
 /// distinctUnionOfArrays.self(数组内部去重)
-public let kArrsUnionDist_list = "@distinctUnionOfArrays.self";
+public let kArrsUnionDistList = "@distinctUnionOfArrays.self";
 /// unionOfArrays.self
-public let kArrsUnion_list     = "@unionOfArrays.self";
+public let kArrsUnionList     = "@unionOfArrays.self";
 
 // MARK: - Tag
 
@@ -268,11 +268,11 @@ public let kBlankFour    = "                ";
 public let kBlankFive    = "                    ";
 
 /// 一周七天
-public let kDesWeek: String  = "星期一,星期二,星期三,星期四,星期五,星期六,星期天";
+public let kWeekDes: String  = "星期一,星期二,星期三,星期四,星期五,星期六,星期天";
 /// 一年十二月
-public let kDesMonth: String = "正月, 二月, 三月, 四月, 五月, 六月, 七月, 八月,九月, 十月, 冬月, 腊月";
+public let kMonthDes: String = "正月,二月,三月,四月,五月,六月,七月,八月,九月,十月,冬月,腊月";
 /// 一月31天
-public let kDesDay: String   = "初一, 初二, 初三, 初四, 初五, 初六, 初七, 初八, 初九, 初十,十一, 十二, 十三, 十四, 十五, 十六, 十七, 十八, 十九, 二十, 廿一, 廿二, 廿三, 廿四, 廿五, 廿六, 廿七, 廿八, 廿九, 三十, 三十一";
+public let kMontDayDes: String   = "初一,初二,初三,初四,初五,初六,初七,初八,初九,初十,十一,十二,十三,十四,十五,十六,十七,十八,十九,二十,廿一,廿二,廿三,廿四,廿五,廿六,廿七,廿八,廿九,三十,三十一";
 
 //MARK: - 其他
 

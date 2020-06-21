@@ -17,33 +17,39 @@ import UIKit
     }
     
     static var appName: String {
-        let infoDic = Bundle.main.infoDictionary;
-        if let name = infoDic!["CFBundleDisplayName"] {
+        guard let infoDic = Bundle.main.infoDictionary else { return "" }
+        if let name = infoDic["CFBundleDisplayName"] {
             return name as! String;
         }
-        return infoDic![kCFBundleExecutableKey as String] as! String;
+        return infoDic[kCFBundleExecutableKey as String] as! String;
     }
     
     static var appBundleName: String {
-        let infoDic = Bundle.main.infoDictionary;
-        return infoDic!["CFBundleExecutable"] as! String;
+        guard let infoDic = Bundle.main.infoDictionary else { return "" }
+        return infoDic["CFBundleExecutable"] as! String;
     }
     
     static var appIcon: UIImage {
-        let infoDic: AnyObject = Bundle.main.infoDictionary as AnyObject;
-        let iconFiles:Array<Any> = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as! Array<Any>;
-        let imgName: String = iconFiles.last as! String;
-        return UIImage(named: imgName)!;
+        guard let infoDic = Bundle.main.infoDictionary as? AnyObject,
+            let iconFiles: [Any] = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as? [Any],
+            let imgName: String = iconFiles.last as? String,
+            let image = UIImage(named: imgName)
+            else { return UIImage() }
+        return image
     }
     
     static var appVer: String {
-        let infoDic = Bundle.main.infoDictionary;
-        return infoDic!["CFBundleShortVersionString"] as! String;
+        guard let infoDic = Bundle.main.infoDictionary,
+            let version = infoDic["CFBundleShortVersionString"] as? String
+        else { return "" }
+        return version
     }
     
     static var appBuild: String {
-        let infoDic = Bundle.main.infoDictionary;
-        return infoDic!["CFBundleVersion"] as! String;
+        guard let infoDic = Bundle.main.infoDictionary,
+            let version = infoDic["CFBundleVersion"] as? String
+        else { return "" }
+        return version
     }
     
     static var phoneSystemVer: String {
@@ -248,7 +254,7 @@ import UIKit
 //        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
     }
     
-    static func setupAppearanceTabBar() {
+//    static func setupAppearanceTabBar() {
         //         设置字体颜色
 //        let attDic_N = [NSAttributedString.Key.foregroundColor: UIColor.black];
 //        let attDic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme];
@@ -258,7 +264,7 @@ import UIKit
 //        UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5.0);
         // 设置图标选中时颜色
 //        UITabBar.appearance().tintColor = .red;
-    }
+//    }
     
     @available(iOS 9.0, *)
     static func setupAppearanceSearchbarCancellButton(_ textColor: UIColor = .theme) {
@@ -293,30 +299,7 @@ import UIKit
     static let kPrefixHttp = "http://"
     
     static let kPrefixTel = "tel://"
-    
-//    /// 打开网络链接(prefix为 http://或 tel:// )
-//    static func openURLString(_ string: String, prefix: String = "http://") -> Bool {
-//        var tmp = string
-//        if string.hasPrefix(prefix) == false {
-//            tmp = prefix + string;
-//        }
-//        
-//        guard let url = URL(string:tmp) else { return false}
-//        let canOpenUrl = UIApplication.shared.canOpenURL(url)
-//        if canOpenUrl == true {
-//
-//            if #available(iOS 10.0, *) {
-//                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-//            } else {
-//
-//                UIApplication.shared.openURL(url);
-//            }
-//        } else {
-//            print("链接无法打开!!!\n%@",url as Any);
-//        }
-//        return canOpenUrl;
-//    }
-    
+        
     /// 打开网络链接
     static func openURLString(_ string: String) {
 //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;

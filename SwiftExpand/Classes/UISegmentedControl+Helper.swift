@@ -10,7 +10,7 @@ import UIKit
 @objc public extension UISegmentedControl{
 
     /// [源]UISegmentControl创建
-    static func create(_ rect: CGRect = .zero, items: [Any]!, selectedIdx: Int = 0, type: Int = 0, tintColor: UIColor = .theme, fontSize: CGFloat = 13) -> Self {
+    static func create(_ rect: CGRect = .zero, items: [Any]?, selectedIdx: Int = 0, type: Int = 0, tintColor: UIColor = .theme, fontSize: CGFloat = 13) -> Self {
         let view = self.init(items: items)
         view.frame = rect
         view.autoresizingMask = .flexibleWidth
@@ -27,61 +27,51 @@ import UIKit
             view.backgroundColor = UIColor.white
             view.layer.borderWidth = 1.0
             view.layer.borderColor = UIColor.white.cgColor
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
+            let dicN = [NSAttributedString.Key.foregroundColor: UIColor.black,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                          
                          ]
-            view.setTitleTextAttributes(dic_N, for: .normal)
+            view.setTitleTextAttributes(dicN, for: .normal)
             view.setDividerImage(UIImage(color: UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default);
             
         case 2:
             view.tintColor = UIColor.white
             view.backgroundColor = UIColor.white
             
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
+            let dicN = [NSAttributedString.Key.foregroundColor: UIColor.black,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                          ]
             
-            let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
+            let dicH = [NSAttributedString.Key.foregroundColor: UIColor.theme,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
                          ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
+            view.setTitleTextAttributes(dicN, for: .normal)
+            view.setTitleTextAttributes(dicH, for: .selected)
             
         case 3:
             view.tintColor = UIColor.clear
             view.backgroundColor = UIColor.line
             
-            let dic_N = [NSAttributedString.Key.foregroundColor: UIColor.black,
+            let dicN = [NSAttributedString.Key.foregroundColor: UIColor.black,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                         
                          ]
             
-            let dic_H = [NSAttributedString.Key.foregroundColor: UIColor.theme,
+            let dicH = [NSAttributedString.Key.foregroundColor: UIColor.theme,
                          NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                         
                          ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
+            view.setTitleTextAttributes(dicN, for: .normal)
+            view.setTitleTextAttributes(dicH, for: .selected)
             
         default:
             view.tintColor = UIColor.theme
             view.backgroundColor = UIColor.white
             
-            let dic_N = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                
-                ]
-            
-            let dic_H = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                
-                ]
-            
-            view.setTitleTextAttributes(dic_N, for: .normal)
-            view.setTitleTextAttributes(dic_H, for: .selected)
+            let dicN = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
+                        ]
+            let dicH = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
+                        ]
+            view.setTitleTextAttributes(dicN, for: .normal)
+            view.setTitleTextAttributes(dicH, for: .selected)
         }
         return view;
     }
@@ -121,24 +111,21 @@ import UIKit
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            
-            p_handleSegmentItems(newValue);
+            updateItems(newValue)
         }
     }
-    
+        
     /// 配置新item数组
-    private func p_handleSegmentItems(_ itemList: [String]) {
-        if itemList.count == 0 {
+    private func updateItems(_ items: [String]) {
+        if items.count == 0 {
             return
         }
         
         removeAllSegments()
-        for e in itemList.enumerated() {
+        for e in items.enumerated() {
             insertSegment(withTitle: e.element, at: e.offset, animated: false)
         }
         selectedSegmentIndex = 0
     }
-    
-
     
 }
