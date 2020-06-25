@@ -183,6 +183,5 @@ public extension NSObjectProtocol where Self: NSObject {
     func bind<Value, Target>(_ sourceKeyPath: KeyPath<Self, Value>, to target: Target, at targetKeyPath: ReferenceWritableKeyPath<Target, Value>) -> NSKeyValueObservation {
         return observe(sourceKeyPath) { target[keyPath: targetKeyPath] = $0 }
     }
-    
-    
+
 }

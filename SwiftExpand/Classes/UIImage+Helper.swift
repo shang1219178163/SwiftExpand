@@ -28,7 +28,7 @@ import UIKit
         if let cgImage = image.cgImage {
             self.init(cgImage: cgImage)
         } else {
-            self.init(cgImage: UIImage().cgImage!)
+            self.init(cgImage: UIImage.color(.white).cgImage!)
         }
     }
             
@@ -88,21 +88,6 @@ import UIKit
         return image;
     }
     
-
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)
-//    -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell",
-//                                                      for: indexPath) as! MyCollectionViewCell
-//        cell.layoutIfNeeded() // Ensure imageView is its final size.
-//
-//        let imageViewSize = cell.imageView.bounds.size
-//        let scale = collectionView.traitCollection.displayScale
-//        cell.imageView.image = downsample(imageAt: imageURLs[indexPath.item],
-//                                          to: imageViewSize, scale: scale)
-//        return cell
-//    }
-//    let imageViewSize = cell.imageView.bounds.size
-//     let scale = collectionView.traitCollection.displayScale
     ///下采样 imageURL
     static func downsample(imageAt imageURL: URL, to pointSize: CGSize, scale: CGFloat) -> UIImage {
         //生成CGImageSourceRef 时，不需要先解码。
@@ -212,9 +197,8 @@ import UIKit
     }
     
     func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) {
-        let obj = objc_getAssociatedObject(self, image.runtimeKey) as? ((NSError?) -> Void)
-        if obj != nil {
-            obj!(error)
+        if let obj = objc_getAssociatedObject(self, image.runtimeKey) as? ((NSError?) -> Void) {
+            obj(error)
         }
     }
     
