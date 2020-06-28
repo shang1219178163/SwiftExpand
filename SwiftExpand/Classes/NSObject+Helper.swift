@@ -68,7 +68,7 @@ import UIKit
         }
     }
     ///遍历方法列表
-    func enumerateMethods(_ block: @escaping ((Method, String, Int)->Void)) {
+    func enumerateMethods(_ block: @escaping ((Method, String)->Void)) {
         var count: UInt32 = 0
         guard let list = class_copyMethodList(self.classForCoder, &count) else { return }
         defer {
@@ -81,11 +81,11 @@ import UIKit
             let name: Selector = method_getName(method)
             //转换成String字符串
             let strName = NSStringFromSelector(name)
-            block(method, strName, i)
+            block(method, strName)
         }
     }
     ///遍历遵循的协议列表
-    func enumerateProtocols(_ block: @escaping ((Protocol, String, Int)->Void)) {
+    func enumerateProtocols(_ block: @escaping ((Protocol, String)->Void)) {
         var count: UInt32 = 0
         guard let list = class_copyProtocolList(self.classForCoder, &count) else { return }
 
@@ -98,7 +98,7 @@ import UIKit
                 //继续下一次遍历
                 continue
             }
-            block(proto, strName, i)
+            block(proto, strName)
         }
     }
 
