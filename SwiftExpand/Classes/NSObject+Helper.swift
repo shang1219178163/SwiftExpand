@@ -23,6 +23,84 @@ import UIKit
 
     /// 类的字符串名称
     static let identifier = String(describing: self)
+    
+    ///遍历成员变量列表
+    func enumerateIvars(_ block: @escaping ((Ivar, String, Any?)->Void)) {
+        var count: UInt32 = 0
+        guard let list = class_copyIvarList(self.classForCoder, &count) else { return }
+        defer {
+            free(list)// 释放c语言对象
+        }
+
+        for i in 0..<Int(count) {
+            let ivar = list[i]
+            //转换成String字符串
+            guard let name = ivar_getName(ivar),
+                let strName = String(cString: name, encoding: String.Encoding.utf8) else {
+                //继续下一次遍历
+                continue
+            }
+            //利用kvc 取值
+            let value = self.value(forKey: strName)
+            block(ivar, strName, value)
+        }
+    }
+    ///遍历属性列表
+    func enumeratePropertys(_ block: @escaping ((objc_property_t, String, Any?)->Void)) {
+        var count: UInt32 = 0
+        guard let list = class_copyPropertyList(self.classForCoder, &count) else { return }
+        defer {
+            free(list)// 释放c语言对象
+        }
+        
+        for i in 0..<Int(count) {
+            let property: objc_property_t = list[i]
+            //获取成员变量的名称 -> c语言字符串
+            let name = property_getName(property)
+            //转换成String字符串
+            guard let strName = String(cString: name, encoding: String.Encoding.utf8) else {
+                //继续下一次遍历
+                continue
+            }
+            //利用kvc 取值
+            let value = self.value(forKey: strName)
+            block(property, strName, value)
+        }
+    }
+    ///遍历方法列表
+    func enumerateMethods(_ block: @escaping ((Method, String, Int)->Void)) {
+        var count: UInt32 = 0
+        guard let list = class_copyMethodList(self.classForCoder, &count) else { return }
+        defer {
+            free(list)// 释放c语言对象
+        }
+
+        for i in 0..<Int(count) {
+            let method: Method = list[i]
+            //获取成员变量的名称 -> c语言字符串
+            let name: Selector = method_getName(method)
+            //转换成String字符串
+            let strName = NSStringFromSelector(name)
+            block(method, strName, i)
+        }
+    }
+    ///遍历遵循的协议列表
+    func enumerateProtocols(_ block: @escaping ((Protocol, String, Int)->Void)) {
+        var count: UInt32 = 0
+        guard let list = class_copyProtocolList(self.classForCoder, &count) else { return }
+
+        for i in 0..<Int(count) {
+            let proto: Protocol = list[i]
+            //获取成员变量的名称 -> c语言字符串
+            let name = protocol_getName(proto)
+            //转换成String字符串
+            guard let strName = String(cString: name, encoding: String.Encoding.utf8) else {
+                //继续下一次遍历
+                continue
+            }
+            block(proto, strName, i)
+        }
+    }
 
     /// 模型自动编码
     func se_encode(with aCoder: NSCoder) {
@@ -33,7 +111,7 @@ import UIKit
                 //获取成员变量的名称 -> c语言字符串
                 if let cName = ivar_getName(iv) {
                     //转换成String字符串
-                    guard let strName = String(cString: cName, encoding: String.Encoding.utf8) else{
+                    guard let strName = String(cString: cName, encoding: String.Encoding.utf8) else {
                         //继续下一次遍历
                         continue
                     }
@@ -81,18 +159,21 @@ import UIKit
         let classType: NSObject.Type = type(of: self)
         var dic: [AnyHashable : Any] = [:]
         
-        let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
-        if let properties = class_copyPropertyList(classType, count) {
-            for i in 0 ..< count.pointee {
-                let name = String(cString: property_getName(properties.advanced(by: Int(i)).pointee))
-                if let propertyName = String(utf8String: name) {
-                    let propertyValue = value(forKey: propertyName)
-                    if propertyValue != nil {
-                        dic[propertyName] = propertyValue
-                    }
-                }
-            }
-            free(properties)
+//        let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
+//        if let properties = class_copyPropertyList(classType, count) {
+//            for i in 0 ..< count.pointee {
+//                let name = String(cString: property_getName(properties.advanced(by: Int(i)).pointee))
+//                if let propertyName = String(utf8String: name) {
+//                    let propertyValue = value(forKey: propertyName)
+//                    if propertyValue != nil {
+//                        dic[propertyName] = propertyValue
+//                    }
+//                }
+//            }
+//            free(properties)
+//        }
+        self.enumeratePropertys { (property, name, value) in
+            dic[name] = value ?? ""
         }
         return dic
     }
