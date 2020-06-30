@@ -104,49 +104,20 @@ import UIKit
 
     /// 模型自动编码
     func se_encode(with aCoder: NSCoder) {
-        var count: UInt32 = 0
-        if let ivar = class_copyIvarList(self.classForCoder, &count) {
-            for i in 0..<Int(count) {
-                let iv = ivar[i]
-                //获取成员变量的名称 -> c语言字符串
-                if let cName = ivar_getName(iv) {
-                    //转换成String字符串
-                    guard let strName = String(cString: cName, encoding: String.Encoding.utf8) else {
-                        //继续下一次遍历
-                        continue
-                    }
-                    //利用kvc 取值
-                    let value = self.value(forKey: strName)
-                    aCoder.encode(value, forKey: strName)
-                }
-            }
-            // 释放c语言对象
-            free(ivar)
+        enumeratePropertys { (property, name, value) in
+            guard let value = self.value(forKey: name) else { return }
+            //进行编码
+            aCoder.encode(value, forKey: name)
         }
     }
     
     /// 模型自动解码
     func se_decode(with aDecoder: NSCoder) {
-        //        super.init()
-        var count: UInt32 = 0
-        if let ivar = class_copyIvarList(self.classForCoder, &count) {
-            for i in 0..<Int(count) {
-                let iv = ivar[i]
-                //获取成员变量的名称 -》 c语言字符串
-                if let cName = ivar_getName(iv) {
-                    //转换成String字符串
-                    guard let strName = String(cString: cName, encoding: String.Encoding.utf8) else{
-                        //继续下一次遍历
-                        continue
-                    }
-                    //进行解档取值
-                    let value = aDecoder.decodeObject(forKey: strName)
-                    //利用kvc给属性赋值
-                    setValue(value, forKeyPath: strName)
-                }
-            }
-            // 释放c语言对象
-            free(ivar)
+        enumeratePropertys { (property, name, value) in
+            //进行解档取值
+            guard let value = aDecoder.decodeObject(forKey: name) else { return }
+            //利用kvc给属性赋值
+            self.setValue(value, forKeyPath: name)
         }
     }
     /// 字典转模型
@@ -156,9 +127,9 @@ import UIKit
     }
     ///详情模型转字典(不支持嵌套)
     func toDictionary() -> [AnyHashable : Any] {
-        let classType: NSObject.Type = type(of: self)
-        var dic: [AnyHashable : Any] = [:]
-        
+//        let classType: NSObject.Type = type(of: self)
+//        var dic: [AnyHashable : Any] = [:]
+//
 //        let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
 //        if let properties = class_copyPropertyList(classType, count) {
 //            for i in 0 ..< count.pointee {
@@ -172,6 +143,7 @@ import UIKit
 //            }
 //            free(properties)
 //        }
+        var dic: [AnyHashable : Any] = [:]
         self.enumeratePropertys { (property, name, value) in
             dic[name] = value ?? ""
         }
@@ -213,12 +185,12 @@ import UIKit
         let attDic = NSAttributedString.paraDict(font, textColor: .black, alignment: .left);
         let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
         
-        var size = text.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options , attributes: attDic, context: nil).size;
+        var size = text.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, attributes: attDic, context: nil).size;
         size.width = ceil(size.width);
         size.height = ceil(size.height);
         return size;
     }
-    
+        
     /// 密集小视图的尺寸布局
     func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat = UIScreen.sizeWidth, itemHeight: CGFloat = 60, padding: CGFloat = kPadding) -> CGSize {
         let rowCount = items.count % numberOfRow == 0 ? items.count/numberOfRow : items.count/numberOfRow + 1
