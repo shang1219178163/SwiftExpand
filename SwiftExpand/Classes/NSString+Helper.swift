@@ -99,7 +99,10 @@ public extension String{
         return json
     }
     // MARK: -funtions
-
+    func substring(_ location: Int, length: Int) -> String {
+        let result = (self as NSString).substring(with: NSMakeRange(location, length))
+        return result
+    }
     /// range转换为NSRange
     func nsRange(from range: Range<String.Index>) -> NSRange {
         return NSRange(range, in: self)

@@ -107,6 +107,16 @@ import UIKit
         return attrString
     }
     
+    ///  富文本只有同字体大小才能计算高度
+    func sizeWithWidth(_ width: CGFloat) -> CGSize {
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        
+        var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, context: nil).size;
+        size.width = ceil(size.width);
+        size.height = ceil(size.height);
+        return size;
+    }
+    
 }
 
 
