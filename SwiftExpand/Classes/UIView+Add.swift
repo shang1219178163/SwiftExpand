@@ -130,6 +130,7 @@ import UIKit
         return obj!;
     }
     
+    
     /// 配置HolderView
     func setHolderView(for state: HolderViewState = .nomrol) {
         guard let imgView = holderView.subView(UIImageView.self) as? UIImageView,

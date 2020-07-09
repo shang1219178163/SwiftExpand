@@ -254,7 +254,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
     /// 本地时间(东八区时间)
     static var dateLocale: NSDate {
 //        return NSDate().addingTimeInterval(8 * 60 * 60)
-        let interval = NSTimeZone.system.secondsFromGMT(for: NSDate() as Date)
+        let interval = NSTimeZone.system.secondsFromGMT(for: Date())
         return NSDate().addingTimeInterval(TimeInterval(interval))
     }
     
@@ -286,8 +286,8 @@ public let kDateFormatTwo         = "yyyyMMdd";
     /// 当月天数
     var countOfDaysInMonth: Int {
         let calendar = NSDate.calendar
-        let range = (calendar as NSCalendar?)?.range(of: .day, in: .month, for: self as Date)
-        return range!.length
+        let range = (calendar as NSCalendar).range(of: .day, in: .month, for: self as Date)
+        return range.length
     }
     /// 当月第一天是星期几
     var firstWeekDay: Int {
@@ -313,17 +313,6 @@ public let kDateFormatTwo         = "yyyyMMdd";
     }
     
     static var calendar: Calendar = Calendar(identifier: .gregorian)
-
-    /// NSDate转化为日期时间字符串
-//    func toString(_ fmt: String = kDateFormat) -> NSString {
-//        let dateStr = DateFormatter.stringFromDate(self as Date, fmt: fmt);
-//        return dateStr as NSString;
-//    }
-//    /// 字符串时间戳转NSDate
-//    static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> NSDate {
-//        let date: NSDate = DateFormatter.dateFromString(dateStr, fmt: fmt) as NSDate;
-//        return date;
-//    }
 
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> NSDate
     func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> NSDate{
@@ -590,14 +579,6 @@ public extension Date{
         return Date.isSameFrom(self, anotherDate: Date(), type: 0)
     }
     
-//    /// Date转化为日期时间字符串
-//    func toString(_ fmt: String = kDateFormat) -> String {
-//        return (self as NSDate).toString(fmt) as String;
-//    }
-//    /// 字符串时间戳转Date
-//    static func fromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
-//        return NSDate.fromString(dateStr, fmt: fmt) as Date;
-//    }
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间)
     func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date{
         return (self as NSDate).adding(days, hour: hour, minute: minute, second: second) as Date
@@ -608,9 +589,6 @@ public extension Date{
         return (self as NSDate).addingDaysDes(days, fmt: fmt);
     }
 
-//    func agoInfo() -> String {
-//        return (self as NSDate).agoInfo();
-//    }
 
     func hourInfoBetween(_ date: Date,_ type: Int = 0) -> Double {
         return (self as NSDate).hourInfoBetween(date as NSDate, type);

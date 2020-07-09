@@ -37,7 +37,6 @@ public extension Int{
 //        }
     }
     
-    
     static var randomCGFloat: CGFloat { return CGFloat(arc4random()) / CGFloat(UInt32.max) }
     static var random: Int { return Int(arc4random()) / Int(UInt32.max) }
 

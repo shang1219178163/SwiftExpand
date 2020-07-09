@@ -203,7 +203,7 @@ import UIKit
     }
     
     /// 标题前缀差异化显示
-    func getAttringByPrefix(_ prefix: String!, content: String!, color: UIColor = .black, font: CGFloat = 15, isMust: Bool = false) -> NSAttributedString {
+    func getAttringByPrefix(_ prefix: String, content: String, color: UIColor = .black, font: CGFloat = 15, isMust: Bool = false) -> NSAttributedString {
         let string = content.hasPrefix(prefix) == true ? content : prefix + content
         let colorMust = isMust == true ? UIColor.red : UIColor.clear
         let attString = NSAttributedString.attString(string, textTaps: [prefix], font: font, tapFont: font, color: color, tapColor: colorMust, alignment: .left)

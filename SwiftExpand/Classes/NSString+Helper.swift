@@ -280,7 +280,6 @@ public extension Substring {
     
     var sha256: String{
         return (self as String).sha256
-
     }
     /// 地址字符串(hostname + port)
     static func UrlAddress(_ hostname: String, port: String) ->String {
@@ -298,20 +297,7 @@ public extension Substring {
     func substring(loc: Int, len: Int) -> String {
         return self.substring(with: NSRange(location: loc, length: len))
     }
-    
-//    /// 字符串本身大于string
-//    func isCompare(_ string: NSString) -> Bool {
-//        if self.isEqual(to: "") {
-//            return false
-//        }
-//        
-//        var strSelf = self
-//        if strSelf.contains(".") {
-//            strSelf = strSelf.replacingOccurrences(of: ".", with: "") as NSString
-//        }
-//        return strSelf.integerValue > string.integerValue;
-//    }
-    
+        
     /// 大于version
     func isNewer(version: String) -> Bool {
         return compare(version, options: .numeric) == .orderedDescending
