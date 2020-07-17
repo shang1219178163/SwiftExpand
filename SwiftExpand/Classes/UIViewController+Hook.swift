@@ -79,15 +79,17 @@ import UIKit
                 print("message: \(String(describing: (viewControllerToPresent as? UIAlertController)?.message))")
             #endif
             // 换图标时的提示框的title和message都是nil，由此可特殊处理
-            let alertController = viewControllerToPresent as? UIAlertController
-            if alertController?.title == nil && alertController?.message == nil {
-                //是更换icon的提示
-                changeAppIconAction()
-                return
-            } else {
-                //其他的弹框提示正常处理
-                hook_present(viewControllerToPresent, animated: flag, completion: completion)
+            if let alertController = viewControllerToPresent as? UIAlertController {
+                if alertController.title == nil && alertController.message == nil && alertController.preferredStyle == .alert {
+                     //是更换icon的提示
+                     changeAppIconAction()
+                     return
+                 } else {
+                     //其他的弹框提示正常处理
+                     hook_present(viewControllerToPresent, animated: flag, completion: completion)
+                 }
             }
+ 
         } else {
             hook_present(viewControllerToPresent, animated: flag, completion: completion)
         }
