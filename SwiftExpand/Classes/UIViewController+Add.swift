@@ -41,23 +41,42 @@ import UIKit
     }
     
     /// 关联UICollectionView视图对象
-    var ctView: UICollectionView {
-        guard let collectionView = view.subView(UICollectionView.self) as? UICollectionView else {
-            let view = UICollectionView(frame: self.view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
-            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
-            view.backgroundColor = UIColor.background
-
-            if self.conforms(to: UICollectionViewDelegate.self) {
-                view.delegate = (self as! UICollectionViewDelegate)
-            }
-            if self.conforms(to: UICollectionViewDataSource.self) {
-                view.dataSource = (self as! UICollectionViewDataSource)
-            }
-            return view
-        }
-        return collectionView
-    }
+//    var ctView: UICollectionView {
+//        guard let collectionView = view.subView(UICollectionView.self) as? UICollectionView else {
+//            let view = UICollectionView(frame: self.view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
+//            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
+//            view.backgroundColor = UIColor.background
+//
+//            if self.conforms(to: UICollectionViewDelegate.self) {
+//                view.delegate = (self as! UICollectionViewDelegate)
+//            }
+//            if self.conforms(to: UICollectionViewDataSource.self) {
+//                view.dataSource = (self as! UICollectionViewDataSource)
+//            }
+//            DDLog(view)
+//            return view
+//        }
+//        return collectionView
+//    }
+    
+//    var ctView: UICollectionView {
+//        get{
+//            let view = UICollectionView(frame: self.view.bounds, collectionViewLayout: UICollectionView.layoutDefault)
+//            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//            view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
+//            view.backgroundColor = UIColor.background
+//
+//            if self.conforms(to: UICollectionViewDelegate.self) {
+//                view.delegate = (self as! UICollectionViewDelegate)
+//            }
+//            if self.conforms(to: UICollectionViewDataSource.self) {
+//                view.dataSource = (self as! UICollectionViewDataSource)
+//            }
+//            DDLog(view)
+//            return view
+//        }
+//    }
     
     /// 关联tipLab
     var tipLab: UILabel {

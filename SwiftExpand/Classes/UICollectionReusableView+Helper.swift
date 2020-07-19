@@ -20,7 +20,7 @@ import UIKit
 //        let identifier = self.identifier + kindSuf!;
         let identifier = kind == UICollectionView.elementKindSectionHeader ? identifyHeader : identifyFooter;
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
-        view.label.text = identifier + "\(indexPath.section)";
+        view.lab.text = identifier + "\(indexPath.section)";
 
         view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? UIColor.green : UIColor.yellow;
         return view as! Self;
@@ -75,7 +75,7 @@ import UIKit
         }
     }
             
-    var labelRight: UILabel {
+    var labRight: UILabel {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
                 return obj;
@@ -94,7 +94,7 @@ import UIKit
         }
     }
     
-    var label: UILabel {
+    var lab: UILabel {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
                 return obj;
@@ -116,7 +116,7 @@ import UIKit
         }
     }
     
-    var labelSub: UILabel {
+    var labSub: UILabel {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
                 return obj;
