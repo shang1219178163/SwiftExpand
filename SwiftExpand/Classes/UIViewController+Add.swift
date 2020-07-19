@@ -11,35 +11,6 @@ import UIKit
 
 @objc public extension UIViewController{
     
-    var obj: AnyObject? {
-        get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as AnyObject;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    
-    var objOne: AnyObject? {
-        get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as AnyObject;
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    
-    var dataList: NSMutableArray {
-        get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? NSMutableArray {
-                return obj
-            }
-            return NSMutableArray()
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
     /// 关联UITableView视图对象
     var tbView: UITableView {
         guard let tableView = view.subView(UITableView.self) as? UITableView else {
