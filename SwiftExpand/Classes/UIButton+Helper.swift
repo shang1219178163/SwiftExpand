@@ -32,6 +32,31 @@ import UIKit
 //
 //        self.frame = frame
 //    }
+    /// 创建导航栏按钮(UIButton)
+    static func createBtnBarItem(_ title: String?, imageName: String? = nil) -> Self {
+        var size = CGSize(width: 32, height: 32)
+        if imageName != nil && UIImage(named:imageName!) != nil {
+            size = CGSize(width: 40, height: 40)
+        }
+        
+        let view = self.init(type: .custom);
+        view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height);
+        view.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        
+        if let imageName = imageName, let image = UIImage(named:imageName) {
+            view.setImage(image, for: .normal);
+        } else {
+            if let title = title {
+                view.setTitle(title, for: .normal);
+                if title.count == 4{
+                    view.titleLabel?.adjustsFontSizeToFitWidth = true;
+                    view.titleLabel?.minimumScaleFactor = 1;
+                }
+            }
+        }
+        return view
+    }
+    
     /// [源]UIButton创建
     static func create(_ rect: CGRect = .zero, title: String?, imgName: String?, type: Int = 0) -> Self {
         let view = self.init(type: .custom);
@@ -44,7 +69,7 @@ import UIKit
 
         view.frame = rect;
         view.setTitle(title, for: .normal)
-//        if imgName != nil && UIImageNamed(imgName!) != nil {
+//        if let name = imgName, let image = UIImage(named: name){
 //            view.setImage(UIImageNamed(imgName!), for: .normal)
 //        }
         

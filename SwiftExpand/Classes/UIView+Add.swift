@@ -36,14 +36,15 @@ import UIKit
     
     var lineTop: UIView {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView;
-            if obj == nil {
-                obj = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
-                obj!.backgroundColor = .line
-
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
+                return obj
             }
-            return obj!;
+            
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
+            view.backgroundColor = .line
+
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -52,15 +53,15 @@ import UIKit
     
     var lineBottom: UIView {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView;
-            if obj == nil {
-                obj = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: kH_LINE_VIEW));
-                obj!.backgroundColor = .line
-//                addSubview(obj!)
-
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
+                return obj
             }
-            return obj!;
+            
+            let view = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: kH_LINE_VIEW));
+            view.backgroundColor = .line
+
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -69,13 +70,15 @@ import UIKit
     
     var lineRight: UIView {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView;
-            if obj == nil {
-                obj = UIView(frame: CGRect(x: frame.maxX - kH_LINE_VIEW, y: 0, width: kH_LINE_VIEW, height: frame.height));
-                obj!.backgroundColor = .line
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
+                return obj
             }
-            return obj!;
+            
+            let view = UIView(frame: CGRect(x: frame.maxX - kH_LINE_VIEW, y: 0, width: kH_LINE_VIEW, height: frame.height));
+            view.backgroundColor = .line
+
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -85,13 +88,13 @@ import UIKit
     /// 渐变色层
     var gradientLayer: CAGradientLayer {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? CAGradientLayer;
-            if obj == nil {
-                let colors = [UIColor.theme.withAlphaComponent(0.5).cgColor, UIColor.theme.withAlphaComponent(0.9).cgColor]
-                obj = CAGradientLayer.layerRect(CGRect.zero, colors: colors, start: CGPointMake(0, 0), end: CGPointMake(1.0, 0))
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? CAGradientLayer {
+                return obj
             }
-            return obj!;
+            
+            let colors = [UIColor.theme.withAlphaComponent(0.5).cgColor, UIColor.theme.withAlphaComponent(0.9).cgColor]
+            let layer = CAGradientLayer.layerRect(CGRect.zero, colors: colors, start: CGPointMake(0, 0), end: CGPointMake(1.0, 0))
+            return layer
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -100,36 +103,36 @@ import UIKit
         
     /// (与holderView配置方法)配套使用
     var holderView: UIView {
-        var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView;
-        if obj == nil {
-            obj = UIView(frame: bounds);
-            obj!.backgroundColor = UIColor.white
-
-            obj!.isHidden = true;
-
-            let height = bounds.height - 25*2
-            let YGap = height*0.2
-            let imgView = UIImageView(frame: CGRectMake(0, YGap, bounds.width, height*0.3))
-            imgView.contentMode = .scaleAspectFit
-            imgView.contentMode = .center
-
-            imgView.tag = kTAG_IMGVIEW
-            obj!.addSubview(imgView)
-
-            let label = UILabel(frame: CGRectMake(0, imgView.frame.maxY + 25, bounds.width, 25))
-            label.font = UIFont.systemFont(ofSize: 15)
-            label.textAlignment = .center
-//            label.text = "暂无数据"
-            label.textColor = .gray
-            label.tag = kTAG_LABEL
-            obj!.addSubview(label)
-            
-            addSubview(obj!)
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
+            return obj
         }
-        return obj!;
+        
+        let view = UIView(frame: bounds);
+        view.backgroundColor = .white
+        view.isHidden = true;
+
+        let height = bounds.height - 25*2
+        let YGap = height*0.2
+        let imgView = UIImageView(frame: CGRectMake(0, YGap, bounds.width, height*0.3))
+        imgView.contentMode = .scaleAspectFit
+        imgView.contentMode = .center
+
+        imgView.tag = kTAG_IMGVIEW
+        view.addSubview(imgView)
+
+        let label = UILabel(frame: CGRectMake(0, imgView.frame.maxY + 25, bounds.width, 25))
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textAlignment = .center
+//            label.text = "暂无数据"
+        label.textColor = .gray
+        label.tag = kTAG_LABEL
+        view.addSubview(label)
+        
+        addSubview(view)
+        
+        objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        return view;
     }
-    
     
     /// 配置HolderView
     func setHolderView(for state: HolderViewState = .nomrol) {

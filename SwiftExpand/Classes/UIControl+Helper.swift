@@ -10,13 +10,14 @@ import UIKit
 
 @objc extension UIControl {
     /// UIControl 添加回调方式
-    public func addActionHandler(_ action: @escaping ControlClosure, for controlEvents: UIControl.Event = .touchUpInside) {
+    public func addActionHandler(_ action: @escaping ControlClosure, for controlEvents: UIControl.Event = .touchUpInside) -> Self {
         let funcAbount = NSStringFromSelector(#function) + ",\(controlEvents)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
         
         self.runtimeKey = runtimeKey
         addTarget(self, action:#selector(p_handleAction(_:)), for:controlEvents);
         objc_setAssociatedObject(self, runtimeKey, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        return self
     }
     
     /// 点击回调

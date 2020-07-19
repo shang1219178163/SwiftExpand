@@ -153,13 +153,13 @@ public func UITabBarItemsFromList(_ list: [[String]]) -> [UITabBarItem] {
 }
 
 /// 获取UIViewController/UINavigationController数组
-public func UICtlrListFromList(_ list: [[String]], isNavController: Bool = false) -> [UIViewController] {
-    return UIViewController.controllers(list, isNavController: isNavController)
+public func UICtlrListFromList(_ list: [[String]], isNavController: Bool = false, showVCTitle: Bool = true) -> [UIViewController] {
+    return UIViewController.controllers(list, isNavController: isNavController, showVCTitle: showVCTitle)
 }
 
 /// 获取UINavigationController数组
-public func UINavListFromList(_ list: [[String]]) -> [UIViewController] {
-    return UICtlrListFromList(list, isNavController: true)
+public func UINavListFromList(_ list: [[String]], showVCTitle: Bool = true) -> [UIViewController] {
+    return UICtlrListFromList(list, isNavController: true, showVCTitle: showVCTitle)
 }
 
 ///获取UITarBarController

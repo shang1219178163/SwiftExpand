@@ -82,7 +82,7 @@ import UIKit
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
         
-        let item:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(p_handleActionItem(_:)));
+        let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(p_handleActionItem(_:)));
         item.systemType = systemItem;
         if isLeft == true {
             navigationItem.leftBarButtonItem = item;
@@ -92,80 +92,8 @@ import UIKit
         item.runtimeKey = runtimeKey
         objc_setAssociatedObject(self, runtimeKey, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
-    
-    /// 创建导航栏按钮(UIButton)
-    public func createBtnBarItem(_ title: String?, imageName: String? = nil, isLeft: Bool = false, isHidden: Bool = false, action: ControlClosure? = nil) -> UIButton {
-        var size = CGSize(width: 32, height: 32)
-        if imageName != nil && UIImage(named:imageName!) != nil {
-            size = CGSize(width: 40, height: 40)
-        }
-        
-        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height);
-        let btn: UIButton = UIButton.create(rect, title: title, imgName: imageName, type: 3)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        btn.tag = isLeft == true ? kTAG_BackItem : kTAG_RightItem;
-        btn.isHidden = isHidden;
-        btn.sizeToFit()
-        
-        if let imageName = imageName, let image = UIImage(named:imageName) {
-            btn.setImage(image, for: .normal);
-        } else {
-            if let title = title {
-                btn.setTitle(title, for: .normal);
-                if title.count == 4{
-                    btn.titleLabel?.adjustsFontSizeToFitWidth = true;
-                    btn.titleLabel?.minimumScaleFactor = 1;
-                }
-            }
-        }
-        
-        if let action = action {
-            btn.addActionHandler(action, for: .touchUpInside)
-        }
-        let item = UIBarButtonItem(customView: btn);
-        if isLeft == true {
-            navigationItem.leftBarButtonItem = item;
-        } else {
-            navigationItem.rightBarButtonItem = item;
-        }
-        return btn
-    }
-    
-    /// 创建导航栏按钮(标题或者图片名称)
-    public func createBtnBarItem(_ obj: String, isLeft: Bool = false, action: @escaping (ViewClosure)) -> UIView {
-        var item = UIView();
-        if UIImage(named: obj) != nil {
-            item = UIImageView.create(CGRectMake(0, 0, 25, 25), imgName: obj)
 
-        } else {
-            item = UILabel.create(CGRectMake(0, 0, 72, 20), type: 1)
-            (item as! UILabel).text = obj;
-            (item as! UILabel).textAlignment = .center;
-            (item as! UILabel).textColor = UINavigationBar.appearance().tintColor;
-        }
-        item.tag = isLeft ? kTAG_BackItem : kTAG_RightItem;
-        
-        let contentView = UIView(frame: CGRectMake(0, 0, 44, 44))
-        item.center = contentView.center;
-        contentView.addSubview(item)
-        
-        _ = contentView.addGestureTap { (reco) in
-            if contentView.isHidden == true {
-                return
-            }
-            action((reco as! UITapGestureRecognizer), reco.view!.subviews.first!, reco.view!.subviews.first!.tag)
-        }
-
-        let barItem = UIBarButtonItem(customView: contentView)
-        if isLeft == true {
-            navigationItem.leftBarButtonItem = barItem;
-        } else {
-            navigationItem.rightBarButtonItem = barItem;
-        }
-        return contentView;
-    }
-
-    public func goController(_ name: String, animated: Bool = true) {
+    public func pushVC(_ name: String, animated: Bool = true) {
         assert(UICtrFromString(name).isKind(of: UIViewController.self))
         let controller = UICtrFromString(name)
         navigationController?.pushViewController(controller, animated: animated);
@@ -223,16 +151,17 @@ import UIKit
     }
     
     /// 获取UIViewController/UINavigationController数组
-    static public func controllers(_ list: [[String]], isNavController: Bool = false) -> [UIViewController] {
+    static public func controllers(_ list: [[String]], isNavController: Bool = false, showVCTitle: Bool = true) -> [UIViewController] {
         let tabItems: [UITabBarItem] = UITabBarItemsFromList(list);
         let marr: NSMutableArray = [];
         for e in list.enumerated() {
             let itemList = e.element
             
-            let title: String = itemList.count > 1 ? itemList[1] : "";
-            
             var controller: UIViewController = UICtrFromString(itemList.first!)
-            controller.title = title
+            if showVCTitle {
+                let title: String = itemList.count > 1 ? itemList[1] : "";
+                controller.title = title
+            }
             controller.tabBarItem = tabItems[e.offset]
             
             controller = isNavController == true ? UINavCtrFromObj(controller)! : controller

@@ -231,7 +231,6 @@ import UIKit
             UITabBar.appearance().unselectedItemTintColor = UIColor.gray;
         }
         UITabBarItem.appearance().titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5.0)
-        
     }
     
     /// 配置UINavigationBar默认值
@@ -239,19 +238,33 @@ import UIKit
         let isDefault: Bool = UIColor.white.equalTo(barTintColor);
         let tintColor = isDefault ? UIColor.black : UIColor.white;
         
-        UINavigationBar.appearance().tintColor = tintColor;
-        UINavigationBar.appearance().barTintColor = barTintColor;
-        UINavigationBar.appearance().setBackgroundImage(UIImage(color: barTintColor), for: UIBarPosition.any, barMetrics: .default)
-        UINavigationBar.appearance().shadowImage = UIImage(color: barTintColor);
+        let navBar = UINavigationBar.appearance();
+        navBar.tintColor = tintColor;
+        navBar.barTintColor = barTintColor;
+        navBar.setBackgroundImage(UIImage(color: barTintColor), for: UIBarPosition.any, barMetrics: .default)
+        navBar.shadowImage = UIImage(color: barTintColor);
+        navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: tintColor,]
+
+        // 自定义返回按钮的图片
+        let backImage = UIImage(named: "icon_arowLeft_black")?.withRenderingMode(.alwaysTemplate);
+        navBar.backIndicatorImage = backImage;
+        navBar.backIndicatorTransitionMaskImage = backImage;
+
+        // 字体设置
+        let barItem = UIBarButtonItem.appearance();
+        barItem.setTitleTextAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
+                                        NSAttributedString.Key.foregroundColor : tintColor], for: .normal);
+        barItem.setTitleTextAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
+                                        NSAttributedString.Key.foregroundColor : UIColor.gray], for: .disabled);
         
-        let attDic = [NSAttributedString.Key.foregroundColor :   tintColor,
-//                      NSAttributedString.Key.font    :   UIFont.boldSystemFont(ofSize:18)
-                    ];
-        UINavigationBar.appearance().titleTextAttributes = attDic;
-//
-//        let dicNomal = [NSAttributedString.Key.foregroundColor: UIColor.white,
-//        ]
-//        UIBarButtonItem.appearance().setTitleTextAttributes(dicNomal, for: .normal)
+        // 去除返回按钮的标题
+        if #available(iOS 11, *) {
+            // 这种隐藏的不止返回按钮，导航栏上的其他按钮标题也会被隐藏调
+//            barItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.clear], for: .normal);
+//            barItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.clear], for: .highlighted);
+        } else {
+            barItem.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -64), for: .default);
+        }
     }
     
 //    static func setupAppearanceTabBar() {

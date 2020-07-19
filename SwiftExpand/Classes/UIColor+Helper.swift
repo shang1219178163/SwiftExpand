@@ -21,9 +21,10 @@ import UIKit
     //MARK: - -属性    
     static var theme: UIColor {
         get{
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UIColor;
-            obj = obj ?? UIColor.hexValue(0x0082e0)
-            return obj!;
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UIColor {
+                return obj;
+            }
+            return UIColor.hexValue(0x0082e0)
         }
         set{
             objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

@@ -12,12 +12,14 @@ import UIKit
     /// 方法名称(用于自定义)
     public var funcName: String {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? String;
-            if obj == nil {
-                obj = String(describing: self.classForCoder);
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? String {
+                return obj;
             }
-            return obj!
+ 
+            let string = String(describing: self.classForCoder);
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), string, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return string
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

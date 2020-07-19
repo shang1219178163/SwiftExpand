@@ -33,24 +33,25 @@ import UIKit
     
     public var placeHolderTextView: UITextView {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITextView;
-            if obj == nil {
-                obj = UITextView(frame: bounds);
-                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                obj!.autocapitalizationType = .none;
-                obj!.autocorrectionType = .no;
-                obj!.backgroundColor = .clear;
-                obj!.textColor = .gray
-                obj!.textAlignment = .left;
-                obj!.font = self.font
-                self.addSubview(obj!)
-                
-                NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
-                NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
-
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITextView {
+                return obj
             }
-            return obj!;
+            
+            let view = UITextView(frame: bounds);
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.autocapitalizationType = .none;
+            view.autocorrectionType = .no;
+            view.backgroundColor = .clear;
+            view.textColor = .gray
+            view.textAlignment = .left;
+            view.font = self.font
+            self.addSubview(view)
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
+
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

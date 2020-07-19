@@ -31,14 +31,6 @@ import UIKit
                 let oriSelPresent = #selector(present(_:animated:completion:))
                 let repSelPresent = #selector(hook_present(_:animated:completion:))
                 _ = hookInstanceMethod(of: oriSelPresent, with: repSelPresent);
-                
-            }
-        } else if self == UINavigationController.self {
-            let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
-            DispatchQueue.once(token: onceToken) {
-                let oriSel = #selector(UINavigationController.pushViewController(_:animated:));
-                let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:));
-                _ = hookInstanceMethod(of:oriSel , with: repSel);
             }
         }
     }
@@ -79,20 +71,14 @@ import UIKit
                 print("message: \(String(describing: (viewControllerToPresent as? UIAlertController)?.message))")
             #endif
             // 换图标时的提示框的title和message都是nil，由此可特殊处理
-            if let alertController = viewControllerToPresent as? UIAlertController {
-                if alertController.title == nil && alertController.message == nil && alertController.preferredStyle == .alert {
-                     //是更换icon的提示
-                     changeAppIconAction()
-                     return
-                 } else {
-                     //其他的弹框提示正常处理
-                     hook_present(viewControllerToPresent, animated: flag, completion: completion)
+            if let alertVC = viewControllerToPresent as? UIAlertController, alertVC.preferredStyle == .alert {
+                if alertVC.title == nil && alertVC.message == nil   {
+                    changeAppIconAction()//是更换icon的提示
+                    return
                  }
             }
- 
-        } else {
-            hook_present(viewControllerToPresent, animated: flag, completion: completion)
         }
+        hook_present(viewControllerToPresent, animated: flag, completion: completion)
     }
     
     // MARK: -funtions

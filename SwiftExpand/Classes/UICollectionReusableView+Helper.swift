@@ -37,19 +37,18 @@ import UIKit
  
     var imgView: UIImageView {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIImageView;
-            if obj == nil {
-                obj = UIImageView(frame: CGRect.zero);
-                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-                obj!.isUserInteractionEnabled = true;
-                obj!.contentMode = .scaleAspectFit;
-//                obj!.backgroundColor = UIColor.random
-
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIImageView {
+                return obj;
             }
-            return obj!;
+
+            let view = UIImageView(frame: CGRect.zero);
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.isUserInteractionEnabled = true;
+            view.contentMode = .scaleAspectFit;
+//             view.backgroundColor = UIColor.random
+
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -58,20 +57,18 @@ import UIKit
     
     var imgViewRight: UIImageView {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIImageView;
-            if obj == nil {
-                obj = UIImageView(frame: CGRect.zero);
-                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-                obj!.isUserInteractionEnabled = true;
-                obj!.contentMode = .scaleAspectFit;
-                obj!.image = UIImage(named: kIMG_arrowRight);
-//                obj!.backgroundColor = UIColor.random
-                
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIImageView {
+                return obj;
             }
-            return obj!;
+
+            let view = UIImageView(frame: CGRect.zero);
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.isUserInteractionEnabled = true;
+            view.contentMode = .scaleAspectFit;
+            view.image = UIImage(named: kIMG_arrowRight);
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -80,20 +77,17 @@ import UIKit
             
     var labelRight: UILabel {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel;
-            if obj == nil {
-                obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-                obj!.numberOfLines = 1;
-                obj!.adjustsFontSizeToFitWidth = true
-                obj!.textAlignment = .center;
-//                obj!.backgroundColor = UIColor.random
-                
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
+                return obj;
             }
-            return obj!;
+            let view = UILabel(frame: .zero);
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.numberOfLines = 1;
+            view.adjustsFontSizeToFitWidth = true
+            view.textAlignment = .center;
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -102,21 +96,20 @@ import UIKit
     
     var label: UILabel {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel;
-            if obj == nil {
-                obj = UILabel(frame: .zero);
-                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-                obj!.font = UIFont.systemFont(ofSize: 15)
-                obj!.numberOfLines = 0;
-                obj!.lineBreakMode = .byCharWrapping;
-                obj!.textAlignment = .center;
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
+                return obj;
+            }
+            
+            let view = UILabel(frame: .zero);
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.font = UIFont.systemFont(ofSize: 15)
+            view.numberOfLines = 0;
+            view.lineBreakMode = .byCharWrapping;
+            view.textAlignment = .center;
 //                obj!.backgroundColor = UIColor.random
 
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
-            }
-            return obj!;
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -125,21 +118,20 @@ import UIKit
     
     var labelSub: UILabel {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel;
-            if obj == nil {
-                obj = UILabel(frame: CGRect.zero);
-                obj!.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                
-                obj!.font = UIFont.systemFont(ofSize: 13)
-                obj!.numberOfLines = 0;
-                obj!.lineBreakMode = .byCharWrapping;
-                obj!.textAlignment = .center;
-//                obj!.backgroundColor = UIColor.random
-                
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-                
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
+                return obj;
             }
-            return obj!;
+            
+            let view = UILabel(frame: .zero);
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.font = UIFont.systemFont(ofSize: 13)
+            view.numberOfLines = 0;
+            view.lineBreakMode = .byCharWrapping;
+            view.textAlignment = .center;
+//                obj!.backgroundColor = UIColor.random
+
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -148,22 +140,21 @@ import UIKit
     
     var btn: UIButton {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIButton;
-            if obj == nil {
-                obj = {
-                    let btn = UIButton(type: .custom);
-                    btn.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-                    btn.titleLabel?.font = UIFont.systemFont(ofSize: 15);
-                    btn.titleLabel?.adjustsFontSizeToFitWidth = true;
-                    btn.titleLabel?.minimumScaleFactor = 1.0;
-                    btn.isExclusiveTouch = true;
-                    btn.setTitleColor(.textColor3, for: .normal)
-                    btn.setTitleColor(.theme, for: .selected)
-                    return btn
-                }()
-                objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIButton {
+                return obj;
             }
-            return obj!;
+            
+            let view = UIButton(type: .custom);
+            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.titleLabel?.font = UIFont.systemFont(ofSize: 15);
+            view.titleLabel?.adjustsFontSizeToFitWidth = true;
+            view.titleLabel?.minimumScaleFactor = 1.0;
+            view.isExclusiveTouch = true;
+            view.setTitleColor(.textColor3, for: .normal)
+            view.setTitleColor(.theme, for: .selected)
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return view
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

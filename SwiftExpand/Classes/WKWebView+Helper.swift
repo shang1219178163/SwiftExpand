@@ -13,18 +13,19 @@ import WebKit
     /// WKWebViewConfiguration默认配置
     static var confiDefault: WKWebViewConfiguration {
         get {
-            var obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? WKWebViewConfiguration;
-            if obj == nil {
-                obj = WKWebViewConfiguration()
-                obj!.allowsInlineMediaPlayback = true;
-                obj!.selectionGranularity = .dynamic;
-                obj!.preferences = WKPreferences();
-                obj!.preferences.javaScriptCanOpenWindowsAutomatically = false;
-                obj!.preferences.javaScriptEnabled = true;
-                
-                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? WKWebViewConfiguration {
+                return obj;
             }
-            return obj!;
+            
+            let sender = WKWebViewConfiguration()
+            sender.allowsInlineMediaPlayback = true;
+            sender.selectionGranularity = .dynamic;
+            sender.preferences = WKPreferences();
+            sender.preferences.javaScriptCanOpenWindowsAutomatically = false;
+            sender.preferences.javaScriptEnabled = true;
+            
+            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), sender, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return sender;
         }
         set {
             objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
