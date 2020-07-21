@@ -12,14 +12,13 @@ import UIKit
     static func create(_ rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> Self{
         let table = self.init(frame: rect, style: style);
         table.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
         table.separatorStyle = .singleLine;
         table.separatorInset = .zero;
         table.rowHeight = rowHeight;
 //        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self));
         table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier);
         table.keyboardDismissMode = .onDrag
-        table.backgroundColor = UIColor.background;
+        table.backgroundColor = .background;
 //        table.tableHeaderView = UIView();
 //        table.tableFooterView = UIView();
 
@@ -173,7 +172,7 @@ public extension UITableView{
 //        DDLog(mdic.keys);
     }
     
-    /// 获取section模型数组(例如 var mdic:[String: [CCSParkRecordDetailModel]] = [:] //全局变量)
+    /// 获取section模型数组(例如 var mdic:[String: [NSObject]] = [:] //全局变量)
     static func sectionModelList<T: NSObject>(_ section: Int, mdic: inout [String: [T]]) -> [T]? {
         let keys = mdic.keys.sorted(by: > )
         if keys.count <= 0 {
@@ -188,7 +187,8 @@ public extension UITableView{
         let sectionList = titles[indexPath.section];
         
         let obj = sectionList.count > indexPath.row ? sectionList[indexPath.row] : sectionList.last!
-        let cellList: [String] = (obj as NSString).components(separatedBy: ",");
+        let cellList: [String] = obj.components(separatedBy: ",")
+
 //        DDLog(cellList);
         return cellList;
     }

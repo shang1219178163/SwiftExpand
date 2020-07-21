@@ -18,8 +18,8 @@ import UIKit
     
     static var appName: String {
         guard let infoDic = Bundle.main.infoDictionary else { return "" }
-        if let name = infoDic["CFBundleDisplayName"] {
-            return name as! String;
+        if let name = infoDic["CFBundleDisplayName"] as? String {
+            return name
         }
         return infoDic[kCFBundleExecutableKey as String] as! String;
     }
@@ -30,8 +30,8 @@ import UIKit
     }
     
     static var appIcon: UIImage {
-        guard let infoDic = Bundle.main.infoDictionary as? AnyObject,
-            let iconFiles: [Any] = infoDic.value(forKeyPath: "CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles") as? [Any],
+        guard let infoDic = Bundle.main.infoDictionary,
+            let iconFiles: [Any] = infoDic["CFBundleIcons.CFBundlePrimaryIcon.CFBundleIconFiles"] as? [Any],
             let imgName: String = iconFiles.last as? String,
             let image = UIImage(named: imgName)
             else { return UIImage() }

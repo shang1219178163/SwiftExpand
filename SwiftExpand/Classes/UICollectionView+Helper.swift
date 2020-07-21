@@ -13,42 +13,31 @@ import UIKit
     static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
     static let sectionKindBackgroud: String = "UICollectionView.sectiinKindBackgroud";
 
-    /// UICollectionViewLayout默认布局
-    static var layoutDefault: UICollectionViewLayout {
-        get {
-            var layout = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UICollectionViewFlowLayout;
-            if layout == nil {
-                // 初始化
-                layout = {
-                    let layout = UICollectionViewFlowLayout()
-                    layout.sectionInset = UIEdgeInsets.zero;
-                    layout.minimumLineSpacing = 0;
-                    layout.minimumInteritemSpacing = 0;
-                    
-                    let itemWidth = floor(kScreenWidth/4.0);
-                    let itemHeight = itemWidth*0.75;
-                    layout.itemSize = CGSize(width: round(itemWidth), height: itemHeight);
-                    layout.headerReferenceSize = CGSize(width: kScreenWidth, height: 40);
-            //        layout.footerReferenceSize = CGSize(width: kScreenWidth, height: 0);
-                    return layout;
-                }()
-                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), layout, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            }
-            return layout!
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
+    /// 默认流水布局
+    static func layoutDefault(_ headerHeight: CGFloat = 40, footerHeight: CGFloat = 0) -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = .zero;
+        layout.minimumLineSpacing = 0;
+        layout.minimumInteritemSpacing = 0;
+        
+        let screenWidth = UIScreen.main.bounds.width
+        
+        let itemWidth = floor(screenWidth/4.0);
+        let itemHeight = itemWidth*0.75;
+        layout.itemSize = CGSize(width: round(itemWidth), height: itemHeight);
+        layout.headerReferenceSize = CGSize(width: screenWidth, height: 40);
+        layout.footerReferenceSize = CGSize(width: screenWidth, height: 0);
+        return layout;
     }
-    
-    var listClass: [String] {
-        get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! [String];
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            registerCTVCell(newValue)
-        }
+    /// [源]UICollectionView创建
+    static func create(_ rect: CGRect = .zero, layout: UICollectionViewLayout = UICollectionView.layoutDefault()) -> Self{
+        let view = self.init(frame: rect, collectionViewLayout: layout)
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.isPagingEnabled = true;
+
+        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
+        view.backgroundColor = UIColor.background
+        return view
     }
     
     var dictClass: [String: [String]] {
@@ -109,11 +98,10 @@ public extension UICollectionView{
     
     /// 泛型复用register supplementaryView - Type: "类名.self" (备用默认值 T.self)
     final func register<T: UICollectionReusableView>(supplementaryViewType: T.Type, ofKind elementKind: String = UICollectionView.elementKindSectionHeader){
-        guard elementKind.contains("KindSection") else {
+        guard elementKind.contains("KindSection"), let kindSuf = elementKind.components(separatedBy: "KindSection").last else {
             return;
         }
-        let kindSuf = elementKind.components(separatedBy: "KindSection").last;
-        let identifier = String(describing: T.self) + kindSuf!;
+        let identifier = String(describing: T.self) + kindSuf
         register(supplementaryViewType.self, forSupplementaryViewOfKind: elementKind, withReuseIdentifier: identifier)
     }
     
@@ -134,8 +122,9 @@ public extension UICollectionView{
         let identifier = String(describing: T.self) + kindSuf!;
         let view = self.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
         view.lab.text = kindSuf! + "\(indexPath.section)";
-        
-        view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? UIColor.green : UIColor.yellow;
+        #if DEBUG
+        view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? .green : .yellow;
+        #endif
         return view as! T;
     }
     

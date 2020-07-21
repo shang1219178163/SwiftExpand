@@ -22,8 +22,12 @@ import UIKit
     }
 
     /// 类的字符串名称
-    static let identifier = String(describing: self)
-    
+//    static let identifier = String(describing: self)
+//    static let identifier = String(describing: self)
+    static var identifier: String{
+        return String(describing: self)
+    }
+
     ///遍历成员变量列表
     func enumerateIvars(_ block: @escaping ((Ivar, String, Any?)->Void)) {
         var count: UInt32 = 0

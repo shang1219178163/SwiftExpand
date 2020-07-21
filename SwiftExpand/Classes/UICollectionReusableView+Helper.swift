@@ -54,46 +54,7 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
-    var imgViewRight: UIImageView {
-        get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIImageView {
-                return obj;
-            }
-
-            let view = UIImageView(frame: CGRect.zero);
-            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.isUserInteractionEnabled = true;
-            view.contentMode = .scaleAspectFit;
-            view.image = UIImage(named: kIMG_arrowRight);
-            
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            return view
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-            
-    var labRight: UILabel {
-        get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
-                return obj;
-            }
-            let view = UILabel(frame: .zero);
-            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.numberOfLines = 1;
-            view.adjustsFontSizeToFitWidth = true
-            view.textAlignment = .center;
-            
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            return view
-        }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    
+                
     var lab: UILabel {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
@@ -116,20 +77,17 @@ import UIKit
         }
     }
     
-    var labSub: UILabel {
+    var labDetail: UILabel {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
                 return obj;
             }
-            
             let view = UILabel(frame: .zero);
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.font = UIFont.systemFont(ofSize: 13)
-            view.numberOfLines = 0;
-            view.lineBreakMode = .byCharWrapping;
+            view.numberOfLines = 1;
+            view.adjustsFontSizeToFitWidth = true
             view.textAlignment = .center;
-//                obj!.backgroundColor = UIColor.random
-
+            
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
@@ -137,7 +95,7 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
+
     var btn: UIButton {
         get {
             if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIButton {
