@@ -9,7 +9,60 @@
  
 import UIKit
 
+
+
 @objc public extension UIButton{
+    ///自定义按钮类型
+    @objc enum UIButtonCustomType: Int {
+        case white, whiteOutline, backgroundImage, theme, systemBlue, systemRed, systemOrange, systemYellow, systemGreen
+    }
+    
+    func setCustomType(_ type: UIButtonCustomType, backgroundImage: UIImage? = nil, for state: UIControl.State = .normal) {
+        switch type {
+        case .white:
+            setTitleColor(.black, for: state)
+            setBackgroundColor(.white, for: state)
+            
+        case .whiteOutline:
+            setTitleColor(.black, for: state)
+            setBackgroundColor(.white, for: state)
+            
+            layer.borderColor = UIColor.black.cgColor
+            layer.borderWidth = 1
+
+        case .backgroundImage:
+            assert(backgroundImage != nil)
+            setTitleColor(.white, for: state)
+            setBackgroundImage(backgroundImage, for: state)
+            
+        case .theme:
+            setTitleColor(.white, for: state)
+            setBackgroundColor(.theme, for: state)
+        
+        case .systemBlue:
+            setTitleColor(.white, for: state)
+            setBackgroundColor(.systemBlue, for: state)
+            
+        case .systemRed:
+            setTitleColor(.white, for: state)
+            setBackgroundColor(.systemRed, for: state)
+            
+        case .systemOrange:
+            setTitleColor(.white, for: state)
+            setBackgroundColor(.systemOrange, for: state)
+        
+        case .systemYellow:
+            setTitleColor(.white, for: state)
+            setBackgroundColor(.systemYellow, for: state)
+        
+        case .systemGreen:
+            setTitleColor(.white, for: state)
+            setBackgroundColor(.systemGreen, for: state)
+            
+        default:
+            break
+        }
+    }
 
 //    /// 快速创建
 //    convenience init(action:@escaping ControlClosure){
@@ -32,6 +85,7 @@ import UIKit
 //
 //        self.frame = frame
 //    }
+    
     /// 创建导航栏按钮(UIButton)
     static func createBtnBarItem(_ title: String?, imageName: String? = nil) -> Self {
         var size = CGSize(width: 32, height: 32)
@@ -69,9 +123,6 @@ import UIKit
 
         view.frame = rect;
         view.setTitle(title, for: .normal)
-//        if let name = imgName, let image = UIImage(named: name){
-//            view.setImage(UIImageNamed(imgName!), for: .normal)
-//        }
         
         switch type {
         case 1://白色字体,主题色背景
@@ -218,7 +269,7 @@ import UIKit
         guard let color = color else { return }
         setBackgroundImage(UIImage(color: color), for: state)
     }
-    
+        
     /// UIButton不同状态下设置富文本标题
     func setContent(_ content: String, attDic: [NSAttributedString.Key: Any], for state: UIControl.State) -> NSMutableAttributedString{
         assert((self.titleLabel!.text?.contains(content))!)

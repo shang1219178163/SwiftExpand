@@ -74,11 +74,11 @@ import UIKit
     }
     
     private func p_handleActionItem(_ sender: UIBarButtonItem) {
-        let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ObjClosure;
+        let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ((UIBarButtonItem) -> Void)
         block?(sender);
     }
     
-    public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping ObjClosure) {
+    public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping ((UIBarButtonItem) -> Void)) {
         let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
         let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
         

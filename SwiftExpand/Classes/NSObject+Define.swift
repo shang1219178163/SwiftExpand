@@ -100,6 +100,12 @@ public func UIOffsetMake(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> 
     return UIOffset(horizontal: horizontal, vertical: vertical)
 }
 
+/// 自定义两点之间距离
+public func CGDistance(_ pointA: CGPoint, pointB: CGPoint) -> CGFloat {
+    let result = sqrt(pow(pointA.x - pointB.x, 2) + pow(pointA.y - pointB.y, 2))
+    return result
+}
+
 ///返回类名字符串
 public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
     return String(describing: cls);// return "\(type(of: self))";

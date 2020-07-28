@@ -100,7 +100,7 @@ import UIKit
         if text == nil {
             return sectionView
         }
-        let view = UILabel(frame: CGRect(x: kX_GAP, y: 0, width: tableView.sizeWidth - kX_GAP*2, height: height));
+        let view = UILabel(frame: CGRect(x: 10, y: 5, width: tableView.sizeWidth - 10*2, height: height - 10));
         view.isUserInteractionEnabled = true;
         view.lineBreakMode = .byTruncatingTail;
         view.adjustsFontSizeToFitWidth = true;
@@ -109,6 +109,27 @@ import UIKit
 
         view.textAlignment = textAlignment
         view.font = UIFont.systemFont(ofSize: 15)
+        sectionView.addSubview(view)
+        return sectionView
+    }
+    
+    /// [源]HeaderView,footerView
+    static func createSectionView(_ tableView: UITableView, height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((UILabel)->Void)) -> UIView{
+        let sectionView = UIView()
+        sectionView.backgroundColor = .background
+        
+        let view = UILabel(frame: CGRect(x: labelInset.left,
+                                         y: labelInset.top,
+                                         width: tableView.bounds.width - labelInset.left - labelInset.right,
+                                         height: height - labelInset.top - labelInset.bottom));
+        view.isUserInteractionEnabled = true;
+        view.lineBreakMode = .byTruncatingTail;
+        view.adjustsFontSizeToFitWidth = true;
+        view.textColor = .gray;
+        view.textAlignment = .left
+        view.font = UIFont.systemFont(ofSize: 15)
+        
+        block(view)
         sectionView.addSubview(view)
         return sectionView
     }

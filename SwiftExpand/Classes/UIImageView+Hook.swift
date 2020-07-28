@@ -34,10 +34,10 @@ import UIKit
 //            return
 //        }
         
-        if self.image != nil {
-            if self.image?.renderingMode != UIImage.RenderingMode.alwaysTemplate {
-                self.image = self.image!.withRenderingMode(.alwaysTemplate);
-            }
-        }
+//        if self.image != nil {
+//            if self.image?.renderingMode != UIImage.RenderingMode.alwaysTemplate {
+//                self.image = self.image!.withRenderingMode(.alwaysTemplate);
+//            }
+//        }
     }
 }

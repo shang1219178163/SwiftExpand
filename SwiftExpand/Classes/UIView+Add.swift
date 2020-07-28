@@ -14,6 +14,7 @@ import UIKit
     
     ///视图方向(上左下右)
     @objc enum Direction: Int {
+        case none
         case top
         case left
         case bottom

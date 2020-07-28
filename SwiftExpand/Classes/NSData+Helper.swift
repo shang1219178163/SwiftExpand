@@ -23,7 +23,13 @@ import UIKit
         }
         return nil;
     }
-    
+    /// NSData -> 转字符串
+    var stringValue: String {
+        if let result = String(data: self as Data, encoding: .utf8) {
+            return result
+        }
+        return ""
+    }
 }
 
 public extension Data{
@@ -31,5 +37,9 @@ public extension Data{
     var objValue: Any? {
         return (self as NSData).objValue;
     }
-    
+    /// NSData -> 转字符串
+    var stringValue: String? {
+        return (self as NSData).stringValue;
+
+    }
 }

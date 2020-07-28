@@ -32,6 +32,13 @@ import UIKit
                 let repSelPresent = #selector(hook_present(_:animated:completion:))
                 _ = hookInstanceMethod(of: oriSelPresent, with: repSelPresent);
             }
+        } else if self == UINavigationController.self {
+            let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+            DispatchQueue.once(token: onceToken) {
+                let oriSel = #selector(UINavigationController.pushViewController(_:animated:));
+                let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:));
+                _ = hookInstanceMethod(of:oriSel , with: repSel);
+            }
         }
     }
     
@@ -84,10 +91,7 @@ import UIKit
     // MARK: -funtions
     private func eventGather(isBegin: Bool = true) {
         let className = NSStringFromClass(classForCoder);
-        //设置不允许发送数据的Controller
-        let filters = ["UINavigationController", "UITabBarController", "UICompatibilityInputViewController",
-                       "UIInputWindowController", "UIAlertController"];
-        if filters.contains(className) {
+        if className.hasPrefix("UI") && className.hasSuffix("Controller"){
             return ;
         }
         
@@ -100,6 +104,20 @@ import UIKit
     
     private func changeAppIconAction(){
         print("替换成功")
+    }
+
+}
+
+@objc extension UINavigationController{
+    
+    public func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
+        //判断是否是根控制器
+        if viewControllers.count > 0 {
+            viewController.view.backgroundColor = .white;
+            viewController.hidesBottomBarWhenPushed = true
+        }
+        //push进入下一个控制器
+        hook_pushViewController(viewController, animated: animated);
     }
 
 }

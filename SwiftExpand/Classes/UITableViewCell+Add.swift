@@ -220,3 +220,24 @@ import UIKit
         }
     }
 }
+
+public extension UITableViewCell{
+
+    ///设置accessoryView 为 UIButton
+    final func assoryBtn<T: UIButton>(_ type: T.Type) -> T {
+        assoryView(type)
+    }
+    ///设置accessoryView 为 UIView
+    final func assoryView<T: UIView>(_ type: T.Type) -> T {
+        let sender: T = {
+            let view: T = {
+                let view = type.init()
+                view.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
+                return view
+            }()
+            accessoryView = view
+            return view
+        }()
+        return sender
+    }
+}

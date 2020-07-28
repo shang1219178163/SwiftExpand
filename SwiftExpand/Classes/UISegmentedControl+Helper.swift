@@ -80,27 +80,27 @@ import UIKit
     func ensureiOS12Style(tintColor: UIColor = .theme, fontSize: CGFloat = 13) {
         if #available(iOS 13, *) {
             let tintColorImage = UIImage(color: tintColor)
+            let clearColorImage = UIImage(color: .clear)
+
             // Must set the background image for normal to something (even clear) else the rest won't work
             setBackgroundImage(UIImage(color: backgroundColor ?? .clear), for: .normal, barMetrics: .default)
-            setBackgroundImage(tintColorImage, for: .selected, barMetrics: .default)
-            setBackgroundImage(UIImage(color: tintColor), for: .highlighted, barMetrics: .default)
-            setBackgroundImage(UIImage(color: .white), for: [.highlighted, .selected], barMetrics: .default)
-            
+            setBackgroundImage(clearColorImage, for: .selected, barMetrics: .default)
+            setBackgroundImage(clearColorImage, for: .highlighted, barMetrics: .default)
+
             setTitleTextAttributes([.foregroundColor: tintColor as Any,
                                     .font: UIFont.systemFont(ofSize: fontSize)], for: .normal)
             setTitleTextAttributes([.foregroundColor: UIColor.white,
                                     .font: UIFont.systemFont(ofSize: fontSize)], for: .highlighted)
             setTitleTextAttributes([.foregroundColor: UIColor.white,
                                     .font: UIFont.systemFont(ofSize: fontSize)], for: .selected)
-            setDividerImage(tintColorImage, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-            setDividerImage(UIImage(color: UIColor.clear), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-            setDividerImage(UIImage(color: UIColor.clear), forLeftSegmentState: .highlighted, rightSegmentState: .normal, barMetrics: .default)
+            setDividerImage(tintColorImage, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
+            setDividerImage(clearColorImage, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+            setDividerImage(clearColorImage, forLeftSegmentState: .highlighted, rightSegmentState: .normal, barMetrics: .default)
             
-            layer.borderWidth = 1.0;
             layer.borderColor = tintColor.cgColor;
+            layer.borderWidth = 1.0;
             layer.masksToBounds = true;
             layer.cornerRadius = 1.0;
-
         }
     }
     
@@ -126,6 +126,24 @@ import UIKit
             insertSegment(withTitle: e.element, at: e.offset, animated: false)
         }
         selectedSegmentIndex = 0
+    }
+    ///设置图片和标题
+    func setCustom(_ title: String, image: UIImage, forSegmentAt segment: Int) {
+        let image = UIImage.textEmbededImage(image: image, string: title, color: .systemGreen)
+        setImage(image, forSegmentAt: segment)
+    }
+
+    func setCustom(_ dividerImage: UIImage, forSegmentAt segment: Int) {
+        setDividerImage(dividerImage, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
+        setDividerImage(dividerImage, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+        setDividerImage(dividerImage, forLeftSegmentState: .highlighted, rightSegmentState: .normal, barMetrics: .default)
+    }
+    
+    func setDivideColor(_ divideColor: UIColor, forSegmentAt segment: Int) {
+        let dividerImage = UIImage(color: divideColor)
+        setDividerImage(dividerImage, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
+        setDividerImage(dividerImage, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+        setDividerImage(dividerImage, forLeftSegmentState: .highlighted, rightSegmentState: .normal, barMetrics: .default)
     }
     
 }
