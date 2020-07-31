@@ -25,7 +25,7 @@ import UIKit
     }
     
     static var navBarHeight: CGFloat {
-        return 44.0
+        return UIScreen.main.bounds.size.height >= 812 ? 88 : 64
     }
     
     static var barHeight: CGFloat {
@@ -33,10 +33,10 @@ import UIKit
     }
     
     static var tabBarHeight: CGFloat {
-        return 49.0
+        return UIScreen.main.bounds.size.height >= 812 ? 84 :  49
     }
     
-    static func scaleWidth(_ width: CGFloat) -> CGFloat {
-        return width * UIScreen.main.bounds.size.width / 320.0
+    static var isIPhoneX: Bool {
+        return UIScreen.main.bounds.size.height >= 812
     }
 }

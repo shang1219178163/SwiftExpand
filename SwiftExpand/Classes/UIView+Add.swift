@@ -253,7 +253,7 @@ public extension UIView{
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 15)
                 $0.setTitle("\(type)\($0.tag)", for: .normal)
                 $0.setTitleColor(.black, for: .normal)
-                $0.setBackgroundColor(.gray, for: .disabled)
+                $0.setBackgroundColor(.lightGray, for: .disabled)
             }
             hanler($0)
         }

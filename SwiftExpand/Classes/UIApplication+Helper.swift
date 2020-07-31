@@ -252,10 +252,14 @@ import UIKit
 
         // 字体设置
         let barItem = UIBarButtonItem.appearance();
-        barItem.setTitleTextAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
-                                        NSAttributedString.Key.foregroundColor : tintColor], for: .normal);
-        barItem.setTitleTextAttributes([NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15),
-                                        NSAttributedString.Key.foregroundColor : UIColor.gray], for: .disabled);
+        barItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+                                        NSAttributedString.Key.foregroundColor: tintColor,
+                                        NSAttributedString.Key.backgroundColor: barTintColor
+        ], for: .normal);
+        barItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+                                        NSAttributedString.Key.backgroundColor: barTintColor,
+                                        NSAttributedString.Key.foregroundColor: UIColor.gray
+        ],for: .disabled);
         
         // 去除返回按钮的标题
         if #available(iOS 11, *) {
@@ -265,6 +269,12 @@ import UIKit
         } else {
             barItem.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: 0, vertical: -64), for: .default);
         }
+        ///
+        let otherBarItem = UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIButton.self, UILabel.self])
+        otherBarItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+                                        NSAttributedString.Key.foregroundColor : tintColor], for: .normal);
+        barItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+                                        NSAttributedString.Key.foregroundColor : UIColor.gray], for: .disabled);
     }
     
 //    static func setupAppearanceTabBar() {
@@ -314,12 +324,16 @@ import UIKit
     static let kPrefixTel = "tel://"
         
     /// 打开网络链接
-    static func openURLString(_ string: String) {
+    static func openURLString(_ string: String, prefix: String = "") {
 //        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
 //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
 //        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
         
-        guard let url = URL(string: string) as URL? else {
+        var tmp = string
+        if string.hasPrefix(prefix) == false {
+            tmp = prefix + string
+        }
+        guard let url = URL(string: tmp) as URL? else {
             print("\(#function):链接无法打开!!!\n\(string)");
             return
         }
@@ -387,7 +401,6 @@ import UIKit
     }
     /// 配置app图标(传 nil 恢复默认)
     static func setAppIcon(name: String?) {
-        UIViewController.initializeMethod()
         //判断是否支持替换图标, false: 不支持
         if #available(iOS 10.3, *) {
             //判断是否支持替换图标, false: 不支持

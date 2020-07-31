@@ -9,6 +9,14 @@
 import UIKit
 
 @objc public extension CALayer{
+    
+    ///添加边框线
+    func addRoundLine(_ width: CGFloat = 1, color: UIColor, cornerRadius: CGFloat = 3) {
+        self.borderColor = color.cgColor;
+        self.borderWidth = width;
+        self.cornerRadius = cornerRadius
+        self.masksToBounds = true
+    }
     /// [源]创建 CALayer
     static func create(_ rect: CGRect = .zero, contents: Any?) -> Self {
         let layer = self.init()

@@ -92,12 +92,6 @@ import UIKit
         item.runtimeKey = runtimeKey
         objc_setAssociatedObject(self, runtimeKey, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
-
-    public func pushVC(_ name: String, animated: Bool = true) {
-        assert(UICtrFromString(name).isKind(of: UIViewController.self))
-        let controller = UICtrFromString(name)
-        navigationController?.pushViewController(controller, animated: animated);
-    }
         
     public func addControllerName(_ controllerName: String) {
         let controller = UICtrFromString(controllerName)
@@ -201,14 +195,5 @@ import UIKit
             popoverPresentationVC.delegate = self as? UIPopoverPresentationControllerDelegate
         }
         present(popoverContentVC, animated: true, completion: completion)
-    }
-}
-
-public extension UIViewController{
-        
-    final func pushVC<T: UIViewController>(_ type: T.Type, animated: Bool = true, block: ((T) -> Void)? = nil) {
-        let controller = type.init()
-        block?(controller)
-        navigationController?.pushViewController(controller, animated: animated);
     }
 }

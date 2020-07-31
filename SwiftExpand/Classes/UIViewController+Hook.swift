@@ -44,7 +44,7 @@ import UIKit
     
     private func hook_viewDidLoad(animated: Bool) {
 //        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
-        edgesForExtendedLayout = [];
+        edgesForExtendedLayout = []
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         } else {
@@ -70,20 +70,6 @@ import UIKit
             viewControllerToPresent.presentationController?.presentedViewController.dismiss(animated: false, completion: nil)
             DDLog("viewControllerToPresent.presentationController 不能为 nil")
             return
-        }
-        //判断是否是alert弹窗
-        if viewControllerToPresent.isKind(of: UIAlertController.self) {
-            #if DEBUG
-                print("title: \(String(describing: (viewControllerToPresent as? UIAlertController)?.title))")
-                print("message: \(String(describing: (viewControllerToPresent as? UIAlertController)?.message))")
-            #endif
-            // 换图标时的提示框的title和message都是nil，由此可特殊处理
-            if let alertVC = viewControllerToPresent as? UIAlertController, alertVC.preferredStyle == .alert {
-                if alertVC.title == nil && alertVC.message == nil   {
-                    changeAppIconAction()//是更换icon的提示
-                    return
-                 }
-            }
         }
         hook_present(viewControllerToPresent, animated: flag, completion: completion)
     }
@@ -113,11 +99,13 @@ import UIKit
     public func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //判断是否是根控制器
         if viewControllers.count > 0 {
-            viewController.view.backgroundColor = .white;
             viewController.hidesBottomBarWhenPushed = true
+            _ = viewController.createBackItem(UIImage(named: "icon_arowLeft_black")!.withRenderingMode(.alwaysTemplate))
+
         }
         //push进入下一个控制器
         hook_pushViewController(viewController, animated: animated);
     }
 
 }
+

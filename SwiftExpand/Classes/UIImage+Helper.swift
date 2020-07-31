@@ -207,7 +207,10 @@ import UIKit
     }
     
     func croppedImage(bound: CGRect) -> UIImage {
-        let scaledBounds = CGRect(x:bound.origin.x * self.scale, y:bound.origin.y * self.scale, width:bound.size.width * self.scale, height:bound.size.height * self.scale)
+        let scaledBounds = CGRect(x:bound.origin.x * self.scale,
+                                  y:bound.origin.y * self.scale,
+                                  width:bound.size.width * self.scale,
+                                  height:bound.size.height * self.scale)
         let imageRef = cgImage?.cropping(to:scaledBounds)
         let croppedImage = UIImage(cgImage: imageRef!, scale: self.scale, orientation: .up)
         return croppedImage

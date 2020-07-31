@@ -354,7 +354,7 @@ public extension Substring {
             return false;
         }
         
-        if self.isPureInteger() == false || self.doubleValue < NSDate().timeIntervalSince1970 {
+        if isPureInteger() == false || doubleValue < NSDate().timeIntervalSince1970 {
             return false;
         }
         return true
@@ -400,7 +400,7 @@ public extension Substring {
         if self.contains(" ") == false {
             return self as String;
         }
-        if let result: String = self.components(separatedBy: " ").first as String?{
+        if let result = self.components(separatedBy: " ").first as String?{
             return result;
         }
         return ""
@@ -416,7 +416,7 @@ public extension Substring {
     
     /// 通过集合字符的字母分割字符串
     func componentsSeparatedByCharactersInString(_ aString: String) -> [String]{
-        let result = (self as NSString).components(separatedBy: CharacterSet(charactersIn: aString))
+        let result = self.components(separatedBy: CharacterSet(charactersIn: aString))
         return result;
     }
     

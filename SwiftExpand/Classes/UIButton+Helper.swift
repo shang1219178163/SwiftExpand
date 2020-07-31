@@ -111,7 +111,51 @@ import UIKit
         return view
     }
     
-    /// [源]UIButton创建
+    /// [源]UIButton创建(标题)
+    static func create(_ rect: CGRect = .zero, title: String, textColor: UIColor, backgroundColor: UIColor = .white) -> Self {
+        let view = self.init(type: .custom);
+        view.titleLabel?.font = UIFont.systemFont(ofSize:16);
+        view.titleLabel?.adjustsFontSizeToFitWidth = true;
+        view.titleLabel?.minimumScaleFactor = 1.0;
+        view.imageView?.contentMode = .scaleAspectFit
+        view.isExclusiveTouch = true;
+        view.adjustsImageWhenHighlighted = false;
+
+        if CGRect.zero == rect {
+            view.sizeToFit()
+        } else {
+            view.frame = rect;
+        }
+        view.setTitle(title, for: .normal)
+        view.setTitleColor(textColor, for: .normal)
+        view.setBackgroundImage(UIImage(color: backgroundColor), for: .normal)
+        view.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
+        return view
+    }
+    /// [源]UIButton创建(图像)
+    static func create(_ rect: CGRect = .zero, imgName: String, isBackgroudImage: Bool) -> Self {
+        assert(UIImage(named: imgName) != nil, "图像不能为空")
+
+        let view = self.init(type: .custom);
+        view.titleLabel?.font = UIFont.systemFont(ofSize:16);
+        view.titleLabel?.adjustsFontSizeToFitWidth = true;
+        view.titleLabel?.minimumScaleFactor = 1.0;
+        view.imageView?.contentMode = .scaleAspectFit
+        view.isExclusiveTouch = true;
+        view.adjustsImageWhenHighlighted = false;
+
+        view.frame = rect;
+        if let image = UIImage(named: imgName){
+            if isBackgroudImage {
+                view.setBackgroundImage(image, for: .disabled)
+            } else {
+                view.setImage(image, for: .normal)
+            }
+        }
+        return view
+    }
+    
+    /// [源]UIButton创建(弃用)
     static func create(_ rect: CGRect = .zero, title: String?, imgName: String?, type: Int = 0) -> Self {
         let view = self.init(type: .custom);
         view.titleLabel?.font = UIFont.systemFont(ofSize:16);
