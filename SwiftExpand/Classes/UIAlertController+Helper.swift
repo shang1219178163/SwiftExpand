@@ -14,6 +14,12 @@ public let kAlertCtlrTitle = "attributedTitle"
 public let kAlertCtlrMessage = "attributedMessage"
 /// UIAlertController按钮颜色key
 public let kAlertActionColor = "titleTextColor"
+/// UIAlertController按钮颜色image
+public let kAlertActionImage = "image"
+/// UIAlertController按钮颜色imageTintColor
+public let kAlertActionImageTintColor = "imageTintColor"
+/// UIAlertController按钮 checkmark
+public let kAlertActionChecked = "checked"
 
 @objc public extension UIAlertController{
     /// 创建系统提示框
@@ -105,9 +111,15 @@ public let kAlertActionColor = "titleTextColor"
                                   handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
         let alertController = UIAlertController(title: title, message: msg, preferredStyle: .actionSheet)
         
-        items?.forEach({ (title:String) in
+        items?.forEach({ (title) in
             let style: UIAlertAction.Style = title == kTitleCancell ? .cancel : .default
             alertController.addAction(UIAlertAction(title: title, style: style, handler: { (action: UIAlertAction) in
+                alertController.actions.forEach {
+                    if action.title != kTitleCancell {
+                        let number = NSNumber(booleanLiteral: ($0 == action))
+                        $0.setValue(number, forKey: "checked")
+                    }
+                }
                 alertController.dismiss(animated: true, completion: nil)
                 if handler != nil {
                     handler!(alertController, action)

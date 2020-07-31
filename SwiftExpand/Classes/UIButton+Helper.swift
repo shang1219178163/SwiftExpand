@@ -112,7 +112,7 @@ import UIKit
     }
     
     /// [源]UIButton创建(标题)
-    static func create(_ rect: CGRect = .zero, title: String, textColor: UIColor, backgroundColor: UIColor = .white) -> Self {
+    static func create(_ rect: CGRect = .zero, title: String, textColor: UIColor, backgroundColor: UIColor) -> Self {
         let view = self.init(type: .custom);
         view.titleLabel?.font = UIFont.systemFont(ofSize:16);
         view.titleLabel?.adjustsFontSizeToFitWidth = true;

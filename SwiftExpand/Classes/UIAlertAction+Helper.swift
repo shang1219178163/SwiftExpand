@@ -26,4 +26,20 @@ import UIKit
         setValue(color, forKey: kAlertActionColor);
     }
     
+    /// 设置UIAlertController Image
+//    func setImage(_ image: UIImage?) {
+//        guard let image = image else { return }
+//        setValue(image, forKey: kAlertActionImage)
+//    }
+    
+//    /// 设置UIAlertController Image
+//    func setImageTintColor(_ color: UIColor?) {
+//        guard let color = color else { return }
+//        setValue(color, forKey: kAlertActionImageTintColor)
+//    }
+//    
+//    /// 设置UIAlertController Image
+//    func setChecked(_ value: Bool) {
+//        setValue(value, forKey: kAlertActionChecked)
+//    }
 }
