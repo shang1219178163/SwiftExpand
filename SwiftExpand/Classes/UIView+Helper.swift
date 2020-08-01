@@ -165,22 +165,17 @@ import UIKit
 
     /// 图层调试
     public func getViewLayer(lineColor: UIColor = .blue) {
-        let subviews = self.subviews;
-        if subviews.count == 0 {
-            return;
-        }
-        for subview in subviews {
-            subview.layer.borderWidth = kW_LayerBorder;
-            subview.layer.borderColor = lineColor.cgColor;
-//            subview.layer.borderColor = UIColor.clear.cgColor;
-            #if DEBUG
-            subview.layer.borderColor = UIColor.blue.cgColor;
-            #else
-            subview.layer.borderColor = UIColor.clear.cgColor;
-            #endif
-
-            subview.getViewLayer();
-        }
+        #if DEBUG
+            let subviews = self.subviews;
+            if subviews.count == 0 {
+                return;
+            }
+            for subview in subviews {
+                subview.layer.borderWidth = kW_LayerBorder;
+                subview.layer.borderColor = lineColor.cgColor;
+                subview.getViewLayer(lineColor: lineColor)
+            }
+         #endif
     }
     
     /// 寻找子视图

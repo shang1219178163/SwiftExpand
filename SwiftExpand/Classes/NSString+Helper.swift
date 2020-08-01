@@ -98,6 +98,12 @@ public extension String{
             else { return nil }
         return json
     }
+    
+    /// 计算高度
+    func size(_ font: CGFloat, width: CGFloat) -> CGSize {
+        return (self as NSString).size(font, width: width)
+    }
+    
     // MARK: -funtions
     func substring(_ location: Int, length: Int) -> String {
         let result = (self as NSString).substring(with: NSMakeRange(location, length))
@@ -433,6 +439,15 @@ public extension Substring {
         assert(self.length > 0);
         let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: aString)
         return result;
+    }
+    
+    ///计算高度
+    func size(_ font: CGFloat, width: CGFloat) -> CGSize {
+        let attDic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font),];
+        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+        
+        let size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, attributes: attDic, context: nil).size;
+        return CGSize(width: ceil(size.width), height: ceil(size.height))
     }
     
 }

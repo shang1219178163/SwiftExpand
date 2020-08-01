@@ -194,8 +194,83 @@ public let kAlertActionChecked = "checked"
                                   count: Int = 10,
                                   actionTitles: [String]? = [kTitleCancell, kTitleSure],
                                   handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
+        let alertVC = UIAlertController.createAlertImage(title, image: image, contentMode: contentMode, count: count, actionTitles: actionTitles, handler: handler)
         DispatchQueue.main.async {
-            let alertVC = UIAlertController.createAlertImage(title, image: image, contentMode: contentMode, count: count, actionTitles: actionTitles, handler: handler)
+            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
+                rootVC.present(alertVC, animated: true, completion: nil)
+            }
+        }
+    }
+
+}
+
+
+public extension UIAlertController {
+
+    ///添加子视图
+    final func addCustomView<T:UIView>(_ type: T.Type, height: CGFloat, inset: UIEdgeInsets, block: @escaping((T)->Void)) {
+        let customView = type.init()
+        view.addSubview(customView)
+        customView.translatesAutoresizingMaskIntoConstraints = false
+        customView.topAnchor.constraint(equalTo: view.topAnchor, constant: inset.top).isActive = true
+        customView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -inset.right).isActive = true
+        customView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: inset.left).isActive = true
+        customView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -inset.bottom).isActive = true
+        customView.backgroundColor = .systemGreen
+
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalToConstant: inset.top + height).isActive = true
+        block(customView)
+    }
+    
+    /// 创建包含图片不含message的提示框
+    static func createSheet<T:UIView>(_ title: String?,
+                                    message: String?,
+                                    type: T.Type,
+                                    height: CGFloat,
+                                    block: @escaping ((T)->Void),
+                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController{
+        let alertVC = UIAlertController(title: title,
+                                        message: message,
+                                        preferredStyle: .actionSheet)
+
+        var top: CGFloat = alertVC.title == nil ? 0.0 : 45
+        if let message = alertVC.message {
+            let width = UIScreen.main.bounds.width - 52
+//            let attDic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize:15),];
+//            let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+//
+//            let size = message.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, attributes: attDic, context: nil).size;
+//            let messageSize = CGSize(width: ceil(size.width), height: ceil(size.height))
+            
+            let messageSize = message.size(15, width: width)
+            top += messageSize.height
+        }
+        
+        let inset = UIEdgeInsetsMake(top + 3, 16, 75, 16)
+        alertVC.addCustomView(type, height: height, inset: inset, block: block)
+
+        alertVC.addAction(UIAlertAction(title: kTitleCancell, style: .cancel, handler: { (action) in
+            handler?(alertVC, action)
+        }))
+        return alertVC
+    }
+    
+    /// 创建包含图片不含message的提示框
+    static func showSheet<T:UIView>(_ title: String?,
+                                    message: String?,
+                                    type: T.Type,
+                                    height: CGFloat,
+                                    block: @escaping ((T)->Void),
+                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
+        let alertVC = UIAlertController.createSheet(title,
+                                                    message: message,
+                                                    type: type,
+                                                    height: height,
+                                                    block: block,
+                                                    handler: handler)
+        
+        DispatchQueue.main.async {
             if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
                 rootVC.present(alertVC, animated: true, completion: nil)
             }
