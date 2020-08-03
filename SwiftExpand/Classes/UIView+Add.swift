@@ -107,32 +107,35 @@ import UIKit
         if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
             return obj
         }
-        
-        let view = UIView(frame: bounds);
-        view.backgroundColor = .white
-        view.isHidden = true;
 
-        let height = bounds.height - 25*2
-        let YGap = height*0.2
-        let imgView = UIImageView(frame: CGRectMake(0, YGap, bounds.width, height*0.3))
+        let holderView = UIView(frame: .zero)
+        holderView.backgroundColor = UIColor.white
+        addSubview(holderView)
+
+        let imgView = UIImageView(frame: .zero)
         imgView.contentMode = .scaleAspectFit
         imgView.contentMode = .center
 
         imgView.tag = kTAG_IMGVIEW
-        view.addSubview(imgView)
+        holderView.addSubview(imgView)
 
-        let label = UILabel(frame: CGRectMake(0, imgView.frame.maxY + 25, bounds.width, 25))
+        let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 15)
         label.textAlignment = .center
 //            label.text = "暂无数据"
         label.textColor = .gray
         label.tag = kTAG_LABEL
-        view.addSubview(label)
+        holderView.addSubview(label)
+        ///
+        holderView.frame = CGRectMake(0, 0, bounds.width, bounds.height+100)
+        let height = bounds.height - 25*2
+        let YGap = height*0.2
+        imgView.frame = CGRectMake(0, YGap, bounds.width, height*0.3)
+        label.frame = CGRectMake(0, imgView.frame.maxY + 25, bounds.width, 25)
+
+        objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), holderView, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         
-        addSubview(view)
-        
-        objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        return view;
+        return holderView
     }
     
     /// 配置HolderView
@@ -146,16 +149,16 @@ import UIKit
 
         switch state {
         case .empty:
-            label.text = "暂无数据"
-            imgView.image = UIImage.image(named: "img_data_empty", podClassName: "SwiftExpand")
+            label.text = label.text ?? "暂无数据"
+            imgView.image = imgView.image ?? UIImage.image(named: "img_data_empty", podClassName: "SwiftExpand")
             
         case .loading:
-            label.text = "加载中..."
-            imgView.image = UIImage.image(named: "img_network_loading", podClassName: "SwiftExpand")
+            label.text = label.text ?? "加载中..."
+            imgView.image = imgView.image ?? UIImage.image(named: "img_network_loading", podClassName: "SwiftExpand")
             
         case .fail:
-            label.text = "请求失败"
-            imgView.image = UIImage.image(named: "img_network_error", podClassName: "SwiftExpand")
+            label.text = label.text ?? "请求失败"
+            imgView.image = imgView.image ?? UIImage.image(named: "img_network_error", podClassName: "SwiftExpand")
             
         default:
             break

@@ -178,6 +178,21 @@ import UIKit
          #endif
     }
     
+    /// 图层调试(兼容OC)
+    public func getViewLayer() {
+        #if DEBUG
+        let subviews = self.subviews;
+        if subviews.count == 0 {
+            return;
+        }
+        for subview in subviews {
+            subview.layer.borderWidth = kW_LayerBorder;
+            subview.layer.borderColor = UIColor.blue.cgColor;
+            subview.getViewLayer();
+        }
+        #endif
+    }
+    
     /// 寻找子视图
     public func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
         for e in self.subviews.enumerated() {
