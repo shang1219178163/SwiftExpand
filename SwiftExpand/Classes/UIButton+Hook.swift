@@ -52,7 +52,7 @@ import UIKit
     
     private func hook_addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event){
         self.hook_addTarget(target, action: action, for: controlEvents)
-        DDLog(action)
+//        DDLog(action)
     }
 }
 
@@ -76,14 +76,12 @@ import UIKit
     
     private func hook_init(target: Any?, action: Selector?){
         self.hook_init(target: target, action: action)
-        
-        DDLog(action)
+//        DDLog(action)
     }
 
     private func hook_addTarget(_ target: Any, action: Selector) {
         self.hook_addTarget(target, action: action)
-        
-        DDLog(action)
+//        DDLog(action)
     }
     
     
