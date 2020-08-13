@@ -333,6 +333,9 @@ import UIKit
         if string.hasPrefix(prefix) == false {
             tmp = prefix + string
         }
+        if tmp.hasPrefix("tel") {
+            tmp = tmp.replacingOccurrences(of: "-", with: "")
+        }
         guard let url = URL(string: tmp) as URL? else {
             print("\(#function):链接无法打开!!!\n\(string)");
             return
@@ -348,9 +351,9 @@ import UIKit
     /// 打开网络链接
     static func openURL(_ url: URL) {
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         } else {
-            UIApplication.shared.openURL(url as URL);
+            UIApplication.shared.openURL(url)
         }
     }
     

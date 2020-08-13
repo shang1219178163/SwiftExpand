@@ -115,21 +115,18 @@ import UIKit
     static func create(_ rect: CGRect = .zero, title: String, textColor: UIColor, backgroundColor: UIColor) -> Self {
         let view = self.init(type: .custom);
         view.titleLabel?.font = UIFont.systemFont(ofSize:16);
-        view.titleLabel?.adjustsFontSizeToFitWidth = true;
+//        view.titleLabel?.adjustsFontSizeToFitWidth = true;
         view.titleLabel?.minimumScaleFactor = 1.0;
         view.imageView?.contentMode = .scaleAspectFit
         view.isExclusiveTouch = true;
         view.adjustsImageWhenHighlighted = false;
 
-        if CGRect.zero == rect {
-            view.sizeToFit()
-        } else {
-            view.frame = rect;
-        }
         view.setTitle(title, for: .normal)
         view.setTitleColor(textColor, for: .normal)
         view.setBackgroundImage(UIImage(color: backgroundColor), for: .normal)
         view.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
+        
+        CGRect.zero != rect ? view.frame = rect : view.sizeToFit()
         return view
     }
     /// [源]UIButton创建(图像)

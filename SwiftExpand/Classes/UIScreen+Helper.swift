@@ -21,11 +21,11 @@ import UIKit
     }
     
     static var statusBarHeight: CGFloat {
-        return 20.0
+        return isIPhoneX ? 44 : 20
     }
     
     static var navBarHeight: CGFloat {
-        return UIScreen.main.bounds.size.height >= 812 ? 88 : 64
+        return isIPhoneX ? 88 : 64
     }
     
     static var barHeight: CGFloat {
@@ -33,7 +33,7 @@ import UIKit
     }
     
     static var tabBarHeight: CGFloat {
-        return UIScreen.main.bounds.size.height >= 812 ? 84 :  49
+        return isIPhoneX ? (49.0 + 34.0) : 49
     }
     
     static var isIPhoneX: Bool {

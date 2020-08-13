@@ -10,6 +10,13 @@
 import UIKit
 
 @objc public extension UITextView{
+    
+    ///获取文字行数
+    var numberOfLine: Int {
+        let rows = (contentSize.height - textContainerInset.top - textContainerInset.bottom)/font!.lineHeight
+        return Int(rows)
+    }
+    
     /// [源]UITextView创建
     static func create(_ rect: CGRect = .zero) -> Self {
         let view = self.init(frame: rect);

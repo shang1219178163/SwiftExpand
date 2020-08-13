@@ -26,6 +26,11 @@ import UIKit
             let oriSel1 = #selector(setImage(_:for:))
             let repSel1 = #selector(hook_setImage(_:for:))
             _ = hookInstanceMethod(of: oriSel1, with: repSel1);
+            
+            let oriSel2 = #selector(self.addTarget(_:action:for:))
+            let repSel2 = #selector(self.hook_addTarget(_:action:for:))
+            _ = hookInstanceMethod(of: oriSel2, with: repSel2)
+            
         }
     }
     
@@ -44,5 +49,42 @@ import UIKit
             adjustsImageWhenHighlighted = false;
         }
     }
+    
+    private func hook_addTarget(_ target: Any?, action: Selector, for controlEvents: UIControl.Event){
+        self.hook_addTarget(target, action: action, for: controlEvents)
+        DDLog(action)
+    }
 }
 
+@objc extension UITapGestureRecognizer{
+    
+    override public class func initializeMethod() {
+        super.initializeMethod()
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        //DispatchQueue函数保证代码只被执行一次，防止又被交换回去导致得不到想要的效果
+        DispatchQueue.once(token: onceToken) {
+            let oriSel = #selector(self.init(target:action:))
+            let repSel = #selector(self.hook_init(target:action:))
+            _ = hookInstanceMethod(of: oriSel, with: repSel)
+            
+            let oriSel1 = #selector(self.addTarget(_:action:))
+            let repSel1 = #selector(self.hook_addTarget(_:action:))
+            _ = hookInstanceMethod(of: oriSel1, with: repSel1)
+        }
+        
+    }
+    
+    private func hook_init(target: Any?, action: Selector?){
+        self.hook_init(target: target, action: action)
+        
+        DDLog(action)
+    }
+
+    private func hook_addTarget(_ target: Any, action: Selector) {
+        self.hook_addTarget(target, action: action)
+        
+        DDLog(action)
+    }
+    
+    
+}

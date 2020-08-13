@@ -10,11 +10,6 @@ import UIKit
 
 @objc public extension UINavigationBar {
     
-    func setClearColor(_ isClear: Bool) {
-        let image = isClear ? nil : UIImage()
-        setBackgroundImage(UIImage(), for: .default)
-        shadowImage = image
-    }
     ///设置背景色
     func setBackgroudColor(_ color: UIColor?) {
         guard let color = color else {
@@ -22,7 +17,7 @@ import UIKit
             shadowImage = nil
             return
         }
-        let image = UIImage(color: color)
+        let image = color == UIColor.clear ? UIImage() : UIImage(color: color)
         setBackgroundImage(image, for: .default)
         shadowImage = image
     }

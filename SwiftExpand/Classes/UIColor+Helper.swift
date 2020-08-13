@@ -104,6 +104,9 @@ import UIKit
         if cString.hasPrefix("#") {
             let index = cString.index(cString.startIndex, offsetBy:1);
             cString = String(cString[index...]);
+        } else if cString.hasPrefix("0X") {
+            let index = cString.index(cString.startIndex, offsetBy:2);
+            cString = String(cString[index...]);
         }
         
         if cString.count != 6 {

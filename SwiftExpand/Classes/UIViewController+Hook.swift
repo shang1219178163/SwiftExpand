@@ -44,7 +44,7 @@ import UIKit
     
     private func hook_viewDidLoad(animated: Bool) {
 //        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
-        edgesForExtendedLayout = []
+//        edgesForExtendedLayout = []
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         } else {

@@ -78,7 +78,6 @@ import UIKit
 
 @objc public extension NSObject{
     class func initializeMethod() {
-        
         if self != NSObject.self {
             return
         }
@@ -130,3 +129,6 @@ import UIKit
         }
     }
 }
+
+
+

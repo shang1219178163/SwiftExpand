@@ -92,6 +92,22 @@ import UIKit
         item.runtimeKey = runtimeKey
         objc_setAssociatedObject(self, runtimeKey, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
     }
+    
+    /// 创建 UIBarButtonItem
+    public func createItem(_ obj: String, style: UIBarButtonItem.Style = .plain, isLeft: Bool = false, action: @escaping ((UIBarButtonItem) -> Void)){
+        var barItem: UIBarButtonItem?
+        if let image = UIImage(named: obj) {
+            barItem = UIBarButtonItem(image: image, style: style, target: nil, action: nil)
+        } else {
+            barItem = UIBarButtonItem(title: obj, style: style, target: nil, action: nil);
+        }
+        barItem?.addAction(action)        
+        if isLeft == true {
+            navigationItem.leftBarButtonItem = barItem;
+        } else {
+            navigationItem.rightBarButtonItem = barItem;
+        }
+    }
         
     public func addControllerName(_ controllerName: String) {
         let controller = UICtrFromString(controllerName)

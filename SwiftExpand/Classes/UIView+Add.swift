@@ -101,7 +101,7 @@ import UIKit
             objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-        
+    /*
     /// (与holderView配置方法)配套使用
     var holderView: UIView {
         if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
@@ -115,6 +115,7 @@ import UIKit
         let imgView = UIImageView(frame: .zero)
         imgView.contentMode = .scaleAspectFit
         imgView.contentMode = .center
+        imgView.isUserInteractionEnabled = true
 
         imgView.tag = kTAG_IMGVIEW
         holderView.addSubview(imgView)
@@ -180,7 +181,7 @@ import UIKit
         imgView.isHidden = (state == .nomrol)
         imgView.image = image
     }
-    
+    */
     /// 增加虚线边框
     func addLineDashLayer(color: UIColor = UIColor.red,
                                     width: CGFloat = 1,
@@ -235,11 +236,11 @@ public extension UIView{
             }
         }
         
-        subviews.forEach { $0.removeFromSuperview() }
-        
+        subviews.filter { $0.isMember(of: type) }.forEach { $0.removeFromSuperview() }
+
         var arr: [T] = [];
         for i in 0..<count {
-            let subview = type.init()
+            let subview = type.init(frame: .zero)
             subview.tag = i
             self.addSubview(subview)
             arr.append(subview)
@@ -267,7 +268,6 @@ public extension UIView{
         return updateItems(count, type: type) {
             if $0.text == nil {
                 $0.text = "\(type)\($0.tag)"
-                $0.textAlignment = .center
                 $0.font = UIFont.systemFont(ofSize: 15)
             }
             hanler($0)
