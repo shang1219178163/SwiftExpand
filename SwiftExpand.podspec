@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "SwiftExpand"
-    s.version      = "3.14.1"
+    s.version      = "3.14.2"
     s.summary      = "系统类功能扩展."
     s.description  = "主要通过分类实现"
 
@@ -21,5 +21,8 @@ Pod::Spec.new do |s|
     s.requires_arc = true
     s.frameworks = 'UIKit', 'CoreFoundation', 'CoreGraphics', 'CoreImage',
       'CoreLocation','QuartzCore', 'WebKit'
+
+    s.dependency 'SnapKit'
+
 
 end
