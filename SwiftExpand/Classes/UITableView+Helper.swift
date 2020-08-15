@@ -113,11 +113,11 @@ import UIKit
 //        return sectionView
 //    }
     
-    /// [源]HeaderView,footerView
-    func createSectionView(_ height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((UILabel)->Void)) -> UIView{
+    /// [源]HeaderView,footerView(兼容 OC)
+    func createSectionViewLabel(_ height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((UILabel)->Void)) -> UIView{
         let sectionView = UIView()
         sectionView.backgroundColor = .background
-        
+                
         let view = UILabel(frame: CGRect(x: labelInset.left,
                                          y: labelInset.top,
                                          width: bounds.width - labelInset.left - labelInset.right,
@@ -128,11 +128,10 @@ import UIKit
         view.textColor = .gray;
         view.textAlignment = .left
         view.font = UIFont.systemFont(ofSize: 15)
-        
-        block(view)
         sectionView.addSubview(view)
         return sectionView
     }
+    
 }
 
 public extension UITableView{
@@ -177,6 +176,21 @@ public extension UITableView{
     /// 泛型复用HeaderFooterView - aClass: "类名()" (默认identifier: 类名字符串)
     final func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(for aClass: T, identifier: String = String(describing: T.self)) -> T{
         return dequeueReusableHeaderFooterView(for: T.self, identifier: identifier)
+    }
+    
+    /// [源]HeaderView,footerView
+    final func createSectionView<T: UIView>(_ type: T.Type, height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((T)->Void)) -> UIView{
+        let sectionView = UIView()
+        sectionView.backgroundColor = .background
+
+        let view = type.init(frame: CGRect(x: labelInset.left,
+                                           y: labelInset.top,
+                                           width: bounds.width - labelInset.left - labelInset.right,
+                                           height: height - labelInset.top - labelInset.bottom));
+        
+        sectionView.addSubview(view)
+        block(view)
+        return sectionView
     }
     
     /// 按照时间值划分section(例如 var mdic:[String: [NSObject]] = [:] //全局变量)

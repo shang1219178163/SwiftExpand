@@ -229,9 +229,13 @@ public extension UITableViewCell{
     }
     ///设置accessoryView 为 UIView
     final func assoryView<T: UIView>(_ type: T.Type) -> T {
+        if let accessoryView = accessoryView, accessoryView.isKind(of: type) {
+            return accessoryView as! T;
+        }
+        
         let sender: T = {
             let view: T = {
-                let view = type.init()
+                let view = type.init(frame: .zero)
                 view.frame = CGRect(x: 0, y: 0, width: 80, height: 30)
                 return view
             }()
