@@ -155,17 +155,19 @@ import SnapKit
 
 
 @objc public extension UIScrollView{
-    
+    private struct AssociateKeys {
+        static var placeHolderView   = "UIScrollView" + "placeHolderView"
+    }
     ///占位视图
      var placeHolderView: NNPlaceHolderView {
-        if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? NNPlaceHolderView {
+        if let obj = objc_getAssociatedObject(self, &AssociateKeys.placeHolderView) as? NNPlaceHolderView {
             return obj
         }
 
         let holderView = NNPlaceHolderView(frame: self.bounds)
         addSubview(holderView)
 
-        objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), holderView, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &AssociateKeys.placeHolderView, holderView, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         return holderView
     }
     
@@ -197,12 +199,7 @@ import SnapKit
             return
         }
                 
-        var isEmpty = true
-        if let sections = dataSource.numberOfSections?(in: self) {
-            isEmpty = (sections <= 0)
-        } else {
-            isEmpty = (dataSource.tableView(self, numberOfRowsInSection: 0) <= 0)
-        }
+        let isEmpty = dataSource.tableView(self, numberOfRowsInSection: 0) <= 0
         placeHolderView.isHidden = !isEmpty
         if isEmpty {
             placeHolderView.state = .empty

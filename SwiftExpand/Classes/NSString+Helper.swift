@@ -10,27 +10,36 @@ import UIKit
 import CommonCrypto
 
 public extension String{
-    /// md5字符串
-    var RMB: String {
-        if (self.count <= 0) {
-            return "-";
-        }
-        
-        if self.cgFloatValue == 0.0 {
-            return "¥0.00元"
-        }
-        return "¥\(self.cgFloatValue * 0.01)元"
-    }
 
     /// md5字符串
     var md5: String {
-        let data = Data(self.utf8)
+        guard let data = self.data(using: .utf8) else { return ""}
         let hash = data.withUnsafeBytes { (bytes: UnsafeRawBufferPointer) -> [UInt8] in
             var hash = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
             CC_MD5(bytes.baseAddress, CC_LONG(data.count), &hash)
             return hash
         }
         return hash.map { String(format: "%02x", $0) }.joined()
+    }
+    
+    var base64: String {
+        let strData = self.data(using: .utf8)
+        let base64String = strData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        return base64String ?? ""
+    }
+    
+    var base64Decode: String {
+        let decodedData = NSData(base64Encoded: self, options: NSData.Base64DecodingOptions.init(rawValue: 0))
+        let decodedString = NSString(data: decodedData! as Data, encoding: String.Encoding.utf8.rawValue)
+        return (decodedString ?? "") as String
+    }
+    
+    var sha1: String {
+         guard let data = self.data(using: .utf8) else { return ""}
+         var digest = [UInt8](repeating: 0, count: Int(CC_SHA1_DIGEST_LENGTH))
+         CC_SHA1([UInt8](data), CC_LONG(data.count), &digest)
+         let hexBytes = digest.map { String(format: "%02hhx", $0) }
+         return hexBytes.joined()
     }
     
     var sha256: String{
@@ -54,6 +63,31 @@ public extension String{
             hexString += String(format:"%02x", UInt8(byte))
         }
         return hexString
+    }
+    
+    /// md5字符串
+    var RMB: String {
+        if (self.count <= 0) {
+            return "-";
+        }
+        
+        if self.cgFloatValue == 0.0 {
+            return "¥0.00元"
+        }
+        return "¥\(self.cgFloatValue * 0.01)元"
+    }
+    
+    ///以千为单位的描述
+    var thousandDes: String {
+        if self.isEmpty {
+            return "0"
+        }
+        
+        if self.intValue <= 1000 {
+            return self
+        }
+        let result = String(format: "%.2fk", Float(self.intValue)/1000)
+        return result
     }
     
     /// 是否是"","nil","null"
@@ -276,17 +310,35 @@ public extension Substring {
 
 
 @objc public extension NSString{
-    var RMB: String {
-        return (self as String).RMB
-    }
 
     var md5: String {
         return (self as String).md5
     }
     
+    var base64: String {
+        return (self as String).base64
+    }
+
+    var base64Decode: String {
+        return (self as String).base64Decode
+    }
+    
+    var sha1: String{
+        return (self as String).sha1
+    }
+    
     var sha256: String{
         return (self as String).sha256
     }
+    
+    var RMB: String {
+        return (self as String).RMB
+    }
+    
+    var thousandDes: String {
+        return (self as String).thousandDes
+    }
+
     /// 地址字符串(hostname + port)
     static func UrlAddress(_ hostname: String, port: String) ->String {
         var webUrl: String = hostname;

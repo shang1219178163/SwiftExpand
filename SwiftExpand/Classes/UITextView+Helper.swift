@@ -42,20 +42,25 @@ import UIKit
         return view
     }
     /// 用户协议点击跳转配制方法
-    func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], tapColor: UIColor = UIColor.theme) {
+    func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], tapColor: UIColor = UIColor.theme, fontSize: CGFloat = 15) {
         let attDic = [NSAttributedString.Key.foregroundColor: self.textColor ?? UIColor.gray,
-                      NSAttributedString.Key.font: self.font ?? UIFont.systemFont(ofSize: 16)
+                      NSAttributedString.Key.font: self.font ?? UIFont.systemFont(ofSize: fontSize)
         ]
-        
-        let attString = NSMutableAttributedString(string: content, attributes: attDic as [NSAttributedString.Key : Any])
+                
+        let linkAttDic = [NSAttributedString.Key.foregroundColor: tapColor,
+                          NSAttributedString.Key.font: self.font ?? UIFont.systemFont(ofSize: fontSize)
+        ]
+        setupUserAgreements(content, tapTexts: tapTexts, tapUrls: tapUrls, attributes: attDic, linkAttributes: linkAttDic)
+    }
+    
+    /// 用户协议点击跳转配制方法
+    func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], attributes: [NSAttributedString.Key : Any], linkAttributes: [NSAttributedString.Key : Any], options mask: NSString.CompareOptions = []) {
+        let attString = NSMutableAttributedString(string: content, attributes: attributes)
         for e in tapTexts.enumerated() {
-            let nsRange = (attString.string as NSString).range(of: e.element)
+            let nsRange = (attString.string as NSString).range(of: e.element, options: mask)
             attString.addAttribute(NSAttributedString.Key.link, value: "\(e.offset)_\(tapUrls[e.offset])", range: nsRange)
         }
-        
-        let linkAttDic = [NSAttributedString.Key.foregroundColor : tapColor,
-        ]
-        linkTextAttributes = linkAttDic
+        linkTextAttributes = linkAttributes
         attributedText = attString
         isSelectable = true
         isEditable = false

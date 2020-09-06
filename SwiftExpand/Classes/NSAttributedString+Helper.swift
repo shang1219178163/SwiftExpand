@@ -68,11 +68,12 @@ import UIKit
                                 tapFont: CGFloat = 15,
                                 color: UIColor = .black,
                                 tapColor: UIColor = .theme,
-                                alignment: NSTextAlignment = .left) -> NSAttributedString {
+                                alignment: NSTextAlignment = .left,
+                                rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
         let paraDic = paraDict(font, textColor: color, alignment: alignment)
         let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in
-            let nsRange = (text as NSString).range(of: textTap)
+            let nsRange = (text as NSString).range(of: textTap, options: mask)
             let attDic = attrDict(tapFont, textColor: tapColor)
             attString.addAttributes(attDic, range: nsRange)
         }

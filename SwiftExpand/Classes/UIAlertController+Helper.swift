@@ -142,14 +142,47 @@ public let kAlertActionChecked = "checked"
     static func showSheet(_ title: String?,
                                 msg: String? = nil,
                                 items: [String]? = nil,
-                                handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
+                                handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) {
         let rootVC = UIApplication.shared.delegate?.window??.rootViewController
 
         let alertController = UIAlertController.createSheet(title, msg:msg, items: items, handler: handler)
         rootVC?.present(alertController, animated: true, completion: nil)
-        return alertController
     }
 
+    ///添加 UIAlertAction
+    func addActionTitle(_ title: String?, style: UIAlertAction.Style, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        self.addAction(UIAlertAction(title: title, style: style, handler: handler))
+        return self
+    }
+    ///添加 textField
+    func addTextFieldPlaceholder(_ placeholder: String, handler: ((UITextField) -> Void)? = nil) -> UIAlertController {
+        self.addTextField { (textField: UITextField) in
+            textField.placeholder = placeholder
+            handler?(textField)
+        }
+        return self
+    }
+
+    
+    ///添加多个 UIAlertAction
+    func addActionTitles(_ titles: [String]?, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        titles?.forEach({ (string) in
+            let style: UIAlertAction.Style = string == kTitleCancell ? .destructive : .default
+            self.addAction(UIAlertAction(title: string, style: style, handler: handler))
+        })
+        return self
+    }
+    ///添加多个 textField
+    func addTextFields(_ placeholders: [String]?, handler: ((UITextField) -> Void)? = nil) -> UIAlertController {
+        placeholders?.forEach({ (string) in
+            self.addTextField { (textField: UITextField) in
+                textField.placeholder = string
+                handler?(textField)
+            }
+        })
+        return self
+    }
+    
     /// 设置标题颜色
     func setTitleColor(_ color: UIColor = .theme) {
         guard let title = title else {
