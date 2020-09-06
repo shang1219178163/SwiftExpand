@@ -10,81 +10,90 @@ import UIKit
 
 @objc public extension UICollectionViewLayout{
     
+    private struct AssociateKeys {
+        static var minimumLineSpacing      = "UICollectionViewLayout" + "minimumLineSpacing"
+        static var minimumInteritemSpacing = "UICollectionViewLayout" + "minimumInteritemSpacing"
+        static var itemSize                = "UICollectionViewLayout" + "itemSize"
+        static var headerReferenceSize     = "UICollectionViewLayout" + "headerReferenceSize"
+        static var footerReferenceSize     = "UICollectionViewLayout" + "footerReferenceSize"
+        static var sectionInset            = "UICollectionViewLayout" + "sectionInset"
+    }
+    
     /// 仿 flowLayout
     var minimumLineSpacing: CGFloat {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? CGFloat {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.minimumLineSpacing) as? CGFloat {
                 return obj
             }
             return 5.0
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.minimumLineSpacing, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     /// 仿 flowLayout
     var minimumInteritemSpacing: CGFloat {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? CGFloat {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.minimumInteritemSpacing) as? CGFloat {
                 return obj
             }
             return 5.0
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.minimumInteritemSpacing, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     /// 仿 flowLayout
     var itemSize: CGSize {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? CGSize {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.itemSize) as? CGSize {
                 return obj
             }
             return CGSize.zero
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.itemSize, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     /// 仿 flowLayout
     var headerReferenceSize: CGSize {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? CGSize {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.headerReferenceSize) as? CGSize {
                 return obj
             }
             return CGSize.zero
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.headerReferenceSize, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     /// 仿 flowLayout
     var footerReferenceSize: CGSize {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? CGSize {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.footerReferenceSize) as? CGSize {
                 return obj
             }
             return CGSize.zero
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.footerReferenceSize, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     /// 仿 flowLayout
     var sectionInset: UIEdgeInsets {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIEdgeInsets {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.sectionInset) as? UIEdgeInsets {
                 return obj
             }
             return UIEdgeInsets.zero
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.sectionInset, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
    

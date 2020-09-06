@@ -10,19 +10,20 @@
 import UIKit
 
 @objc public extension NSObject{
-
+    private struct AssociateKeys {
+        static var runtimeKey   = "NSObject" + "runtimeKey"
+    }
     /// 动态属性关联key
     var runtimeKey: UnsafeRawPointer {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! UnsafeRawPointer
+            return objc_getAssociatedObject(self, &AssociateKeys.runtimeKey) as! UnsafeRawPointer
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.runtimeKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
 
     /// 类的字符串名称
-//    static let identifier = String(describing: self)
 //    static let identifier = String(describing: self)
     static var identifier: String{
         return String(describing: self)
@@ -131,22 +132,6 @@ import UIKit
     }
     ///详情模型转字典(不支持嵌套)
     func toDictionary() -> [AnyHashable : Any] {
-//        let classType: NSObject.Type = type(of: self)
-//        var dic: [AnyHashable : Any] = [:]
-//
-//        let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 1)
-//        if let properties = class_copyPropertyList(classType, count) {
-//            for i in 0 ..< count.pointee {
-//                let name = String(cString: property_getName(properties.advanced(by: Int(i)).pointee))
-//                if let propertyName = String(utf8String: name) {
-//                    let propertyValue = value(forKey: propertyName)
-//                    if propertyValue != nil {
-//                        dic[propertyName] = propertyValue
-//                    }
-//                }
-//            }
-//            free(properties)
-//        }
         var dic: [AnyHashable : Any] = [:]
         self.enumeratePropertys { (property, name, value) in
             dic[name] = value ?? ""

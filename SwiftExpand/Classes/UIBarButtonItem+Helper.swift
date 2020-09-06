@@ -9,20 +9,24 @@
 import UIKit
 
 @objc extension UIBarButtonItem{
+    private struct AssociateKeys {
+        static var systemType = "UIBarButtonItem" + "systemType"
+        static var closure = "UIBarButtonItem" + "closure"
+    }
     
     public var systemType: UIBarButtonItem.SystemItem {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! UIBarButtonItem.SystemItem;
+            return objc_getAssociatedObject(self, &AssociateKeys.systemType) as! UIBarButtonItem.SystemItem;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.systemType, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     /// 按钮是否显示
-    public func setHidden(_ hidden: Bool) {
+    public func setHidden(_ hidden: Bool, color: UIColor = UIColor.theme) {
         isEnabled = !hidden;
-        tintColor = !hidden ? UIColor.theme : UIColor.clear;
+        tintColor = !hidden ? color : .clear;
     }
 
     /// 创建 UIBarButtonItem
@@ -33,17 +37,26 @@ import UIKit
         return UIBarButtonItem(title: obj, style: style, target: target, action: action);
     }
     
+    /// 创建多个 UIBarButtonItem
+    public static func createTitles(_ titles: [String], style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) -> [UIBarButtonItem]{
+        var list = [UIBarButtonItem]()
+        
+        for e in titles.enumerated() {
+            let barItem = UIBarButtonItem(title: e.element, style: style, target: target, action: action);
+            list.append(barItem)
+        }
+        return list
+    }
+        
     /// UIBarButtonItem 回调
-    public func addAction(_ closure: @escaping (UIBarButtonItem) -> Void) {
-        let runtimeKey = RuntimeKeyFromSelector(self, aSelector: #selector(addAction(_:)))
-        objc_setAssociatedObject(self, runtimeKey, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+    public func addAction(_ closure: @escaping ((UIBarButtonItem) -> Void)) {
+        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
         target = self;
         action = #selector(p_invoke);
     }
     
     private func p_invoke() {
-        let runtimeKey = RuntimeKeyFromSelector(self, aSelector: #selector(addAction(_:)))
-        if let closure = objc_getAssociatedObject(self, runtimeKey) as? ((UIBarButtonItem) -> Void) {
+        if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIBarButtonItem) -> Void) {
             closure(self);
         }
     }

@@ -25,58 +25,21 @@ import UIKit
         }
         return view
     }
-    /// 关联UITableView视图对象
-    var tbViewGrouped: UITableView {
-        if let tableView = view.subView(UITableView.self) as? UITableView {
-            return tableView
-        }
-        
-        let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
-        if self.conforms(to: UITableViewDataSource.self) {
-            view.dataSource = self as? UITableViewDataSource;
-        }
-        if self.conforms(to: UITableViewDelegate.self) {
-            view.delegate = self as? UITableViewDelegate;
-        }
-        return view
-    }
-//    /// 关联UITableView视图对象
-//    var tbView: UITableView {
-//        guard let tableView = view.subView(UITableView.self) as? UITableView else {
-//            let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
-//            if self.conforms(to: UITableViewDataSource.self) {
-//                view.dataSource = self as? UITableViewDataSource;
-//            }
-//            if self.conforms(to: UITableViewDelegate.self) {
-//                view.delegate = self as? UITableViewDelegate;
-//            }
-//            return view
-//        }
-//        return tableView
-//    }
 //    /// 关联UITableView视图对象
 //    var tbViewGrouped: UITableView {
-//        guard let tableView = view.subView(UITableView.self) as? UITableView else {
-//            let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
-//            if self.conforms(to: UITableViewDataSource.self) {
-//                view.dataSource = self as? UITableViewDataSource;
-//            }
-//            if self.conforms(to: UITableViewDelegate.self) {
-//                view.delegate = self as? UITableViewDelegate;
-//            }
-//            return view
+//        if let tableView = view.subView(UITableView.self) as? UITableView {
+//            return tableView
 //        }
-//        return tableView
+//
+//        let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
+//        if self.conforms(to: UITableViewDataSource.self) {
+//            view.dataSource = self as? UITableViewDataSource;
+//        }
+//        if self.conforms(to: UITableViewDelegate.self) {
+//            view.delegate = self as? UITableViewDelegate;
+//        }
+//        return view
 //    }
-    
-    /// 关联tipLab
-    var tipLab: UILabel {
-        let view = UILabel(frame: .zero)
-        view.text = "暂无数据"
-        view.textColor = UIColor.gray;
-        view.sizeToFit();
-        view.center = self.view.center;
-        return view
-    }
+
 }
 

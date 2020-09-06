@@ -10,6 +10,9 @@
 import UIKit
 
 @objc public extension UIColor{
+    private struct AssociateKeys {
+        static var theme   = "UIColor" + "theme"
+    }
         
     convenience init(r: Int = 0, g: Int = 0, b: Int = 0, a: CGFloat = 1) {
          assert(r >= 0 && r <= 255, "Invalid red component")
@@ -21,13 +24,13 @@ import UIKit
     //MARK: - -属性    
     static var theme: UIColor {
         get{
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UIColor {
+            if let obj = objc_getAssociatedObject(self,  &AssociateKeys.theme) as? UIColor {
                 return obj;
             }
             return UIColor.hexValue(0x0082e0)
         }
         set{
-            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self,  &AssociateKeys.theme, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     

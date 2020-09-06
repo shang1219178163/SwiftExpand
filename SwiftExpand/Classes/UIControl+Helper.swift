@@ -9,19 +9,18 @@
 import UIKit
 
 @objc extension UIControl {
+    private struct AssociateKeys {
+        static var closure   = "UIControl" + "closure"
+    }
     /// UIControl 添加回调方式
     public func addActionHandler(_ action: @escaping ControlClosure, for controlEvents: UIControl.Event = .touchUpInside) {
-        let funcAbount = NSStringFromSelector(#function) + ",\(controlEvents)"
-        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
-        
-        self.runtimeKey = runtimeKey
         addTarget(self, action:#selector(p_handleAction(_:)), for:controlEvents);
-        objc_setAssociatedObject(self, runtimeKey, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     /// 点击回调
     private func p_handleAction(_ sender: UIControl) {
-        if let block = objc_getAssociatedObject(self, self.runtimeKey) as? ControlClosure {
+        if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ControlClosure {
             block(sender);
         }
     }

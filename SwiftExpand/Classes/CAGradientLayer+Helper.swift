@@ -9,6 +9,9 @@
 import UIKit
 
 @objc public extension CAGradientLayer{
+    private struct AssociateKeys {
+        static var defaultColors   = "CAGradientLayer" + "defaultColors"
+    }
     
     static func layerRect(_ rect: CGRect = .zero, colors: [Any], start: CGPoint, end: CGPoint) -> CAGradientLayer {
         let layer = CAGradientLayer()
@@ -36,16 +39,16 @@ import UIKit
     
     static var defaultColors: [Any] {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? [Any] {
+            if let obj = objc_getAssociatedObject(self,  &AssociateKeys.defaultColors) as? [Any] {
                 return obj;
             }
             
             let list = [UIColor.hexValue(0x6cda53, a: 0.9).cgColor, UIColor.hexValue(0x1a965a, a: 0.9).cgColor]
-                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), list, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self,  &AssociateKeys.defaultColors, list, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return list
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self,  &AssociateKeys.defaultColors, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
 }

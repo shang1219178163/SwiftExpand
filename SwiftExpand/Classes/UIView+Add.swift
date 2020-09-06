@@ -11,7 +11,12 @@ import UIKit
 
 
 @objc public extension UIView {
-    
+    private struct AssociateKeys {
+        static var lineTop       = "UIView" + "lineTop"
+        static var lineBottom    = "UIView" + "lineBottom"
+        static var lineRight     = "UIView" + "lineRight"
+        static var gradientLayer = "UIView" + "gradientLayer"
+    }
     ///视图方向(上左下右)
     @objc enum Direction: Int {
         case none
@@ -37,59 +42,59 @@ import UIKit
     
     var lineTop: UIView {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.lineTop) as? UIView {
                 return obj
             }
             
             let view = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
             view.backgroundColor = .line
 
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.lineTop, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.lineTop, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var lineBottom: UIView {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.lineBottom) as? UIView {
                 return obj
             }
             
             let view = UIView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: kH_LINE_VIEW));
             view.backgroundColor = .line
 
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.lineBottom, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.lineBottom, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var lineRight: UIView {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.lineRight) as? UIView {
                 return obj
             }
             
             let view = UIView(frame: CGRect(x: frame.maxX - kH_LINE_VIEW, y: 0, width: kH_LINE_VIEW, height: frame.height));
             view.backgroundColor = .line
 
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.lineRight, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.lineRight, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     /// 渐变色层
     var gradientLayer: CAGradientLayer {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? CAGradientLayer {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.gradientLayer) as? CAGradientLayer {
                 return obj
             }
             
@@ -98,91 +103,10 @@ import UIKit
             return layer
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-    /*
-    /// (与holderView配置方法)配套使用
-    var holderView: UIView {
-        if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIView {
-            return obj
-        }
-
-        let holderView = UIView(frame: .zero)
-        holderView.backgroundColor = UIColor.white
-        addSubview(holderView)
-
-        let imgView = UIImageView(frame: .zero)
-        imgView.contentMode = .scaleAspectFit
-        imgView.contentMode = .center
-        imgView.isUserInteractionEnabled = true
-
-        imgView.tag = kTAG_IMGVIEW
-        holderView.addSubview(imgView)
-
-        let label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.textAlignment = .center
-//            label.text = "暂无数据"
-        label.textColor = .gray
-        label.tag = kTAG_LABEL
-        holderView.addSubview(label)
-        ///
-        holderView.frame = CGRectMake(0, 0, bounds.width, bounds.height+100)
-        let height = bounds.height - 25*2
-        let YGap = height*0.2
-        imgView.frame = CGRectMake(0, YGap, bounds.width, height*0.3)
-        label.frame = CGRectMake(0, imgView.frame.maxY + 25, bounds.width, 25)
-
-        objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), holderView, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
-        return holderView
-    }
-    
-    /// 配置HolderView
-    func setHolderView(for state: HolderViewState = .nomrol) {
-        guard let imgView = holderView.subView(UIImageView.self) as? UIImageView,
-            let label = holderView.subView(UILabel.self) as? UILabel
-            else { return }
-        
-        label.isHidden = (state == .nomrol)
-        imgView.isHidden = (state == .nomrol)
-
-        switch state {
-        case .empty:
-            label.text = label.text ?? "暂无数据"
-            imgView.image = imgView.image ?? UIImage.image(named: "img_data_empty", podClassName: "SwiftExpand")
-            
-        case .loading:
-            label.text = label.text ?? "加载中..."
-            imgView.image = imgView.image ?? UIImage.image(named: "img_network_loading", podClassName: "SwiftExpand")
-            
-        case .fail:
-            label.text = label.text ?? "请求失败"
-            imgView.image = imgView.image ?? UIImage.image(named: "img_network_error", podClassName: "SwiftExpand")
-            
-        default:
-            break
+            objc_setAssociatedObject(self, &AssociateKeys.gradientLayer, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
-    func setHolderViewTitle(_ title: String, for state: HolderViewState = .nomrol) {
-        guard let label = holderView.subView(UILabel.self) as? UILabel
-            else { return }
-        
-        label.isHidden = (state == .nomrol)
-        label.text = title
-    }
-    
-    func setHolderViewImage(_ image: UIImage, for state: HolderViewState = .nomrol) {
-        guard let imgView = holderView.subView(UIImageView.self) as? UIImageView
-            else { return }
-        
-        imgView.isHidden = (state == .nomrol)
-        imgView.image = image
-    }
-    */
-    /// 增加虚线边框
     func addLineDashLayer(color: UIColor = UIColor.red,
                                     width: CGFloat = 1,
                                     dashPattern: [NSNumber] = [NSNumber(floatLiteral: 4), NSNumber(floatLiteral: 5)],
@@ -217,7 +141,41 @@ import UIKit
         return rowCount.toCGFloat * itemHeight + (rowCount - 1).toCGFloat * padding;
     }
     
-    
+     ///视图添加圆角
+    func addRoundCornerLayer(_ radius: CGFloat = 10, padding: CGFloat = 10, isHeader: Bool, lineColor: UIColor = UIColor.white) {
+         // 获取显示区域大小
+         let rect = bounds.insetBy(dx: padding, dy: 0)
+         // 贝塞尔曲线
+         var bezierPath: UIBezierPath?
+         if isHeader == true {
+             // 每组第一行（添加左上和右上的圆角）
+             bezierPath = UIBezierPath(roundedRect: rect, byRoundingCorners: [.topLeft, .topRight], cornerRadii: CGSize(width: radius, height: radius))
+         } else {
+             // 每组最后一行（添加左下和右下的圆角）
+             bezierPath = UIBezierPath(roundedRect: rect, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: radius, height: radius))
+         }
+
+         // 创建两个layer
+         let normalLayer = CAShapeLayer()
+         // 把已经绘制好的贝塞尔曲线路径赋值给图层，然后图层根据path进行图像渲染render
+         normalLayer.path = bezierPath?.cgPath
+         // 设置填充颜色
+         normalLayer.fillColor = lineColor.cgColor
+         normalLayer.strokeColor = UIColor.white.cgColor
+         // 设置填充颜色
+         layer.insertSublayer(normalLayer, at: 0)
+     }
+    ///添加阴影
+    func addShadow(_ color: UIColor = .gray, radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
+        layer.masksToBounds = false
+        layer.shadowColor = color.cgColor
+        layer.shadowRadius = radius
+        layer.shadowOpacity = Float(opacity)
+        layer.shadowOffset = offset
+        
+//        let path = UIBezierPath(rect: bounds.offsetBy(dx: 1, dy: 1))
+//        layer.shadowPath = path.cgPath
+    }
 }
 
 
@@ -273,4 +231,20 @@ public extension UIView{
             hanler($0)
         }
     }
+    
+    /// [源]创建子类型的 view
+    final func createSubTypeView<T: UIView>(_ type: T.Type, height: CGFloat = 30, inset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((T)->Void)) -> UIView{
+        let sectionView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: height))
+        sectionView.backgroundColor = .background
+
+        let view = type.init(frame: CGRect(x: inset.left,
+                                           y: inset.top,
+                                           width: bounds.width - inset.left - inset.right,
+                                           height: height - inset.top - inset.bottom));
+        
+        sectionView.addSubview(view)
+        block(view)
+        return sectionView
+    }
 }
+

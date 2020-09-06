@@ -9,70 +9,35 @@
 import UIKit
 
 // 定义数据类型(其实就是设置别名)
-public typealias SwiftClosure = ((AnyObject, AnyObject, Int) -> Void)
+public typealias SwiftClosure = ((AnyObject, AnyObject, Int) ->Void)
 
-public typealias ObjClosure = ((AnyObject) -> Void)
-public typealias ViewClosure = ((UITapGestureRecognizer?, UIView, NSInteger) -> Void)
-public typealias ControlClosure = ((UIControl) -> Void)
-public typealias RecognizerClosure = ((UIGestureRecognizer) -> Void)
+public typealias ObjClosure = ((AnyObject) ->Void)
+public typealias ViewClosure = ((UITapGestureRecognizer?, UIView, NSInteger) ->Void)
+public typealias ControlClosure = ((UIControl) ->Void)
+public typealias RecognizerClosure = ((UIGestureRecognizer) ->Void)
 
-public typealias TextFieldClosure = ((UITextField) -> Void)
-public typealias TextViewClosure = ((UITextView) -> Void)
+public typealias TextFieldClosure = ((UITextField) ->Void)
+public typealias TextViewClosure = ((UITextView) ->Void)
 
-public typealias CellHeightForRowClosure = ((UITableView, IndexPath) -> CGFloat)
-public typealias CellForRowClosure = ((UITableView, IndexPath) -> UITableViewCell?)
-public typealias DidSelectRowClosure = ((UITableView, IndexPath) -> Void)
+public typealias CellHeightForRowClosure = ((UITableView, IndexPath) ->CGFloat)
+public typealias CellForRowClosure = ((UITableView, IndexPath) ->UITableViewCell?)
+public typealias DidSelectRowClosure = ((UITableView, IndexPath) ->Void)
 
-public typealias CellForItemClosure = ((UICollectionView, IndexPath) -> UICollectionViewCell?)
-public typealias DidSelectItemClosure = ((UICollectionView, IndexPath) -> Void)
+public typealias CellForItemClosure = ((UICollectionView, IndexPath) ->UICollectionViewCell?)
+public typealias DidSelectItemClosure = ((UICollectionView, IndexPath) ->Void)
 
-public typealias ScrollViewDidScrollClosure = ((UIScrollView) -> Void)
+public typealias ScrollViewDidScrollClosure = ((UIScrollView) ->Void)
 
-
-public struct AssociationKey {
-    public static var keysDic: [String: UnsafeRawPointer] = [:]
-    public static func from(_ key: String) -> UnsafeRawPointer{
-        var value = keysDic[key]
-        if value == nil {
-            value = (key.data(using: .utf8)?.withUnsafeBytes({ (uint8Ptr) -> UnsafeRawPointer in
-                return UnsafeRawPointer(uint8Ptr.baseAddress!)
-            }))!
-            keysDic[key] = value
-        }
-        return value!
-    }
-}
-
+/// 打印地址
 public func AddressOf(_ o: UnsafeRawPointer) -> String {
     let addr = Int(bitPattern: o)
     return String(format: "%p", addr)
 }
-
+/// 打印地址
 public func AddressOf<T: AnyObject>(_ o: T) -> String {
     let addr = unsafeBitCast(o, to: Int.self)
 //    return String(format: "%p", addr)
     return "\(addr)"
-}
-
-// MARK: - 关联属性的key
-
-public func RuntimeKeyFromParams(_ obj: NSObject, funcAbount: String) -> UnsafeRawPointer {
-    let unique = "\(AddressOf(obj))," + funcAbount
-    let key: UnsafeRawPointer = AssociationKey.from(unique)
-    return key;
-}
-
-public func RuntimeKeyFromSelector(_ obj: NSObject, aSelector: Selector) -> UnsafeRawPointer {
-    let funcAbount = NSStringFromSelector(aSelector);
-    let key: UnsafeRawPointer = RuntimeKeyFromParams(obj, funcAbount: funcAbount)
-    return key;
-}
-///类属性/静态变量
-public func RuntimeKeyFromType(_ obj: NSObject.Type, aSelector: Selector) -> UnsafeRawPointer {
-    let aSelectorName = NSStringFromSelector(aSelector);
-    let unique = "\(obj)," + aSelectorName
-    let key: UnsafeRawPointer = AssociationKey.from(unique)
-    return key;
 }
 
 /// 自定义UIEdgeInsets
@@ -98,6 +63,15 @@ public func GGSizeMake(_ w: CGFloat = 0, _ h: CGFloat = 0) -> CGSize {
 /// 自定义GGSizeMake
 public func UIOffsetMake(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> UIOffset {
     return UIOffset(horizontal: horizontal, vertical: vertical)
+}
+
+///角度转弧度
+ public func CGRadianFromDegrees(_ value: CGFloat) -> CGFloat{
+    return (CGFloat(Double.pi) * (value) / 180.0);
+}
+///弧度转角度
+public func CGDegreesFromRadian(_ value: CGFloat) -> CGFloat{
+    return (value * 180.0)/CGFloat((Double.pi));
 }
 
 /// 自定义两点之间距离

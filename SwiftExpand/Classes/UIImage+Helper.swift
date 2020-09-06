@@ -10,7 +10,9 @@ import UIKit
 
 //MARK - UIImage
 @objc public extension UIImage {
-
+    private struct AssociateKeys {
+        static var closure   = "UIImage" + "closure"
+    }
 //    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
 //        let image = UIImage.color(color)
 //        guard let cgImage = image.cgImage else { return nil }
@@ -218,20 +220,16 @@ import UIKit
     
     /// 保存UIImage对象到相册
     func toSavedPhotoAlbum(_ action: @escaping((NSError?) -> Void)) {
-        let funcAbount = NSStringFromSelector(#function)
-        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
-        
         UIImageWriteToSavedPhotosAlbum(self, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-        self.runtimeKey = runtimeKey;
         
-        let obj = objc_getAssociatedObject(self, self.runtimeKey)
+        let obj = objc_getAssociatedObject(self, &AssociateKeys.closure)
         if obj == nil {
-            objc_setAssociatedObject(self, self.runtimeKey, action, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         }
     }
     
     func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: AnyObject) {
-        if let obj = objc_getAssociatedObject(self, image.runtimeKey) as? ((NSError?) -> Void) {
+        if let obj = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((NSError?) -> Void) {
             obj(error)
         }
     }

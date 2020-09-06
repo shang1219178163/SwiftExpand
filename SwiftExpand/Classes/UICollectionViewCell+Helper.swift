@@ -10,10 +10,9 @@ import UIKit
 @objc public extension UICollectionViewCell{
     
     /// [源]自定义 UICollectionViewCell 获取方法(兼容OC)
-    static func dequeueReusableCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell{
-        let identifier = self.identifier;
-        let view = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
-        return view;
+    static func dequeueReusableCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> Self {
+        let view = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: self), for: indexPath)
+        return view as! Self
     }
 
  

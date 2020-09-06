@@ -11,14 +11,14 @@ import UIKit
 @objc public extension UINavigationBar {
     
     ///设置背景色
-    func setBackgroudColor(_ color: UIColor?) {
+    func setBackgroudColor(_ color: UIColor?, for barMetrics: UIBarMetrics) {
         guard let color = color else {
-            setBackgroundImage(nil, for: .default)
+            setBackgroundImage(nil, for: barMetrics)
             shadowImage = nil
             return
         }
         let image = color == UIColor.clear ? UIImage() : UIImage(color: color)
-        setBackgroundImage(image, for: .default)
+        setBackgroundImage(image, for: barMetrics)
         shadowImage = image
     }
     

@@ -9,6 +9,9 @@
 import UIKit
 
 @objc public extension UIApplication{
+    private struct AssociateKeys {
+        static var mainWindow   = "UIApplication" + "mainWindow"
+    }
     
     static var isPortrait: Bool {
         //横竖屏判断
@@ -52,24 +55,19 @@ import UIKit
         return version
     }
     
-    static var phoneSystemVer: String {
+    static var deviceSystemVer: String {
         return UIDevice.current.systemVersion;
     }
     
-    static var phoneSystemName: String {
+    static var deviceSystemName: String {
         return UIDevice.current.systemName;
     }
     
-    static var phoneName: String {
+    static var deviceName: String {
         return UIDevice.current.name;
     }
     
-    static var iphoneType: String {
-        return UIApplication.getIphoneType();
-    }
-    
-    /// 获取手机型号
-    static func getIphoneType() ->String {
+    static var deviceModelName: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         
@@ -105,6 +103,12 @@ import UIKit
         case "iPhone10,1","iPhone10,4":   return "iPhone 8"
         case "iPhone10,2","iPhone10,5":   return "iPhone 8 Plus"
         case "iPhone10,3","iPhone10,6":   return "iPhone X"
+        case "iPhone11,2":                return "iPhone XS"
+        case "iPhone11,4", "iPhone11,6":  return "iPhone XS Max"
+        case "iPhone11,8":                return "iPhone XR"
+        case "iPhone12,1":                return "iPhone 11"
+        case "iPhone12,3":                return "iPhone 11 Pro"
+        case "iPhone12,5":                return "iPhone 11 Pro Max"
             
         case "iPad1,1":   return "iPad"
         case "iPad1,2":   return "iPad 3G"
@@ -119,6 +123,10 @@ import UIKit
         case "iPad5,3", "iPad5,4":  return "iPad Air 2"
         case "iPad6,3", "iPad6,4":  return "iPad Pro 9.7"
         case "iPad6,7", "iPad6,8":  return "iPad Pro 12.9"
+        case "iPad7,1", "iPad7,2":                      return "iPad Pro (12.9-inch) (2nd generation)"
+        case "iPad7,3", "iPad7,4":                      return "iPad Pro (10.5-inch)"
+        case "iPad8,1", "iPad8,2", "iPad8,3", "iPad8,4":return "iPad Pro (11-inch)"
+        case "iPad8,5", "iPad8,6", "iPad8,7", "iPad8,8":return "iPad Pro (12.9-inch) (3rd generation)"
         case "AppleTV2,1":  return "Apple TV 2"
         case "AppleTV3,1","AppleTV3,2":  return "Apple TV 3"
         case "AppleTV5,3":   return "Apple TV 4"
@@ -129,23 +137,23 @@ import UIKit
     
     static var mainWindow: UIWindow {
         get {
-            var window = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UIWindow;
+            var window = objc_getAssociatedObject(self,  &AssociateKeys.mainWindow) as? UIWindow;
             if window == nil {
                 window = UIWindow(frame: UIScreen.main.bounds)
-                objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             }
             window!.backgroundColor = UIColor.white
             window!.makeKeyAndVisible()
             return window!;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
         
     static var rootController: UIViewController {
         get {
-            return UIApplication.mainWindow.rootViewController!;
+            return UIApplication.mainWindow.rootViewController ?? (UIApplication.shared.keyWindow?.rootViewController as! UIViewController)
         }
         set {
             UIApplication.mainWindow.rootViewController = newValue;
@@ -153,18 +161,10 @@ import UIKit
     }
     
     static var tabBarController: UITabBarController? {
-        get {
-            var tabBarVC = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? UITabBarController;
-            if tabBarVC == nil {
-                if UIApplication.mainWindow.rootViewController is UITabBarController {
-                    tabBarVC = (UIApplication.mainWindow.rootViewController as! UITabBarController);
-                }
-            }
-            return tabBarVC;
+        if let tabBarVC = UIApplication.mainWindow.rootViewController as? UITabBarController {
+            return tabBarVC
         }
-        set {
-            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
+        return nil
     }
     
     //MARK: func

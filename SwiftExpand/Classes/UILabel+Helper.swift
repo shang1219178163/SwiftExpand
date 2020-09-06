@@ -76,7 +76,7 @@ import UIKit
     func timerStart(_ interval: Int = 60) {
         var time = interval
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
-        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))  //此处方法与Swift 3.0 不同
+        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
         codeTimer.setEventHandler {
             
             time -= 1

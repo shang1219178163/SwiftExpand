@@ -8,16 +8,19 @@
 import UIKit
 
 @objc public extension UIAlertAction{
+    private struct AssociateKeys {
+        static var tag = "UIAlertAction" + "tag"
+    }
     
     var tag: Int {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? Int {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.tag) as? Int {
                 return obj
             }
-            return 1
+            return 0
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.tag, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     

@@ -8,7 +8,10 @@
 import UIKit
 
 @objc public extension UISegmentedControl{
-
+    private struct AssociateKeys {
+        static var items   = "UISegmentedControl" + "items"
+    }
+    
     /// [源]UISegmentControl创建
     static func create(_ rect: CGRect = .zero, items: [Any]?, selectedIdx: Int = 0, type: Int = 0, tintColor: UIColor = .theme, fontSize: CGFloat = 13) -> Self {
         let view = self.init(items: items)
@@ -107,10 +110,10 @@ import UIKit
     /// 控件items
     var items: [String] {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! [String]
+            return objc_getAssociatedObject(self, &AssociateKeys.items) as! [String]
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.items, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             updateItems(newValue)
         }
     }

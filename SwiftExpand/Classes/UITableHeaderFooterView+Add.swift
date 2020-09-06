@@ -9,6 +9,21 @@
 import UIKit
 
 @objc public extension UITableViewHeaderFooterView{
+    
+    private struct AssociateKeys {
+        static var indicatorView = "UITableViewHeaderFooterView" + "indicatorView"
+        static var imgViewLeft   = "UITableViewHeaderFooterView" + "imgViewLeft"
+        static var imgViewRight  = "UITableViewHeaderFooterView" + "imgViewRight"
+        static var labelLeft     = "UITableViewHeaderFooterView" + "labelLeft"
+        static var labelLeftSub  = "UITableViewHeaderFooterView" + "labelLeftSub"
+        static var labelRight    = "UITableViewHeaderFooterView" + "labelRight"
+        static var labelRightSub = "UITableViewHeaderFooterView" + "labelRightSub"
+        static var btn           = "UITableViewHeaderFooterView" + "btn"
+        static var textfield     = "UITableViewHeaderFooterView" + "textfield"
+        static var isOpen        = "UITableViewHeaderFooterView" + "isOpen"
+        static var isCanOpen     = "UITableViewHeaderFooterView" + "isCanOpen"
+    }
+    
     /// [源]自定义 UITableViewHeaderFooterView 获取方法(兼容OC)
     static func dequeueReusableHeaderFooterView(_ tableView: UITableView, identifier: String = String(describing: self)) -> Self {
         var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
@@ -26,21 +41,10 @@ import UIKit
         return dequeueReusableHeaderFooterView(tableView, identifier: String(describing: self))
     }
     
-    /// UITableViewHeaderFooterView -源方法生成,自定义identifier
-//    static func viewWithTableView(_ tableView: UITableView, identifier: String = identifier) -> UITableViewHeaderFooterView! {
-//        var obj = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
-//        if obj == nil {
-//            obj = self.init(reuseIdentifier: identifier)
-//        }
-//
-//        obj!.contentView.lineTop.isHidden = false
-//        obj!.contentView.lineBottom.isHidden = false
-//        return obj!;
-//    }
     
     var indicatorView: UIImageView {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIImageView {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.indicatorView) as? UIImageView {
                 return obj
             }
 
@@ -48,18 +52,19 @@ import UIKit
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             view.isUserInteractionEnabled = true;
             view.contentMode = .scaleAspectFit;
-            
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            view.backgroundColor = .clear
+
+            objc_setAssociatedObject(self, &AssociateKeys.indicatorView, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.indicatorView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var imgViewLeft: UIImageView {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIImageView {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.imgViewLeft) as? UIImageView {
                 return obj
             }
 
@@ -67,18 +72,19 @@ import UIKit
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             view.isUserInteractionEnabled = true;
             view.contentMode = .scaleAspectFit;
-            
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            view.backgroundColor = .clear
+
+            objc_setAssociatedObject(self, &AssociateKeys.imgViewLeft, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.imgViewLeft, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var imgViewRight: UIImageView {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIImageView {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.imgViewRight) as? UIImageView {
                 return obj
             }
 
@@ -86,19 +92,20 @@ import UIKit
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             view.isUserInteractionEnabled = true;
             view.contentMode = .scaleAspectFit;
+            view.backgroundColor = .clear
             view.image = UIImage(named: kIMG_arrowRight);
             
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.imgViewRight, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.imgViewRight, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var labelLeft: UILabel {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.labelLeft) as? UILabel {
                 return obj
             }
 
@@ -108,17 +115,17 @@ import UIKit
             view.numberOfLines = 0;
             view.lineBreakMode = .byCharWrapping;
             
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelLeft, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelLeft, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var labelLeftSub: UILabel {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.labelLeftSub) as? UILabel {
                 return obj
             }
 
@@ -129,17 +136,17 @@ import UIKit
             view.lineBreakMode = .byCharWrapping;
             view.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0);
             
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelLeftSub, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelLeftSub, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var labelRight: UILabel {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UILabel {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.labelRight) as? UILabel {
                 return obj
             }
 
@@ -149,17 +156,17 @@ import UIKit
             view.numberOfLines = 0;
             view.lineBreakMode = .byCharWrapping;
             
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelRight, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelRight, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var btn: UIButton {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UIButton {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.btn) as? UIButton {
                 return obj;
             }
             
@@ -169,17 +176,17 @@ import UIKit
             view.titleLabel?.minimumScaleFactor = 1.0;
             view.isExclusiveTouch = true;
             
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.btn, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.btn, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var textfield: UITextField {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITextField {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.textfield) as? UITextField {
                 return obj
             }
    
@@ -192,35 +199,35 @@ import UIKit
             view.clearButtonMode = .whileEditing;
             view.backgroundColor = .white;
             
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.textfield, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.textfield, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     var isOpen: Bool {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? Bool {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.isOpen) as? Bool {
                 return obj
             }
             return false
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociateKeys.isOpen, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
     var isCanOpen: Bool {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? Bool {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.isCanOpen) as? Bool {
                 return obj
             }
             return false
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &AssociateKeys.isCanOpen, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

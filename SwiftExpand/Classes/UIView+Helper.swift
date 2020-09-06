@@ -10,43 +10,6 @@ import UIKit
 
 @objc extension UIView{
     
-//    // 混编和masonry冲突
-//    public var x: CGFloat {
-//        get {
-//            return frame.origin.x
-//        }
-//        set {
-//            frame.origin = CGPoint(x:newValue, y:frame.origin.y)
-//        }
-//    }
-//    // 混编和masonry冲突
-//    public var y: CGFloat {
-//        get {
-//            return frame.origin.y
-//        }
-//        set {
-//            frame.origin = CGPoint(x:frame.origin.x, y:newValue)
-//        }
-//    }
-//    // 混编和masonry冲突
-//    public var width: CGFloat {
-//        get {
-//            return frame.width
-//        }
-//        set {
-//            frame.size.width = newValue
-//        }
-//    }
-//    // 混编和masonry冲突
-//    public var height: CGFloat {
-//        get {
-//            return frame.size.height
-//        }
-//        set {
-//            frame.size.height = newValue
-//        }
-//    }
-    
     public var sizeWidth: CGFloat {
         get {
             return frame.size.width
@@ -71,17 +34,17 @@ import UIKit
         }
     }
     
-    public var size: CGSize  {
-        get {
-            return frame.size
-        }
-        set{
-//            frame.size = newValue
-            var rectTmp = frame;
-            rectTmp.size = newValue;
-            frame = rectTmp;
-        }
-    }
+//    public var size: CGSize  {
+//        get {
+//            return frame.size
+//        }
+//        set{
+////            frame.size = newValue
+//            var rectTmp = frame;
+//            rectTmp.size = newValue;
+//            frame = rectTmp;
+//        }
+//    }
     
     public var originX: CGFloat {
         get {
@@ -273,11 +236,6 @@ import UIKit
         return image
     }
     
-    public func addCornerAll() -> CAShapeLayer {
-        let cornerRadii = CGSize(width: bounds.width*0.5, height: bounds.height*0.5)
-        return addCorners( .allCorners, cornerRadii: cornerRadii, width: 1.0, color: .white)
-    }
-   
     //MARK: -通用响应添加方法
     public func addActionClosure(_ action: @escaping ViewClosure) {
         if let sender = self as? UIButton {
@@ -508,44 +466,7 @@ import UIKit
         }
         return nil
     }
-    
-    /// 获取特定类型子视图
-//    public func subView(_ viewType: UIView.Type) -> UIView? {
-//        for e in self.subviews.enumerated() {
-//            if type(of: e.element) == viewType {
-//                return e.element
-//            }
-//        }
-//        return nil
-//    }
-//
-//    public func subTableView() -> UITableView?{
-//        for e in self.subviews.enumerated() {
-//            if let tableView = e.element as? UITableView {
-//                return tableView
-//            }
-//        }
-//        return nil
-//    }
-//    
-//    public func subCollectionView() -> UICollectionView?{
-//        for e in self.subviews.enumerated() {
-//            if let collectionView = e.element as? UICollectionView {
-//                return collectionView
-//            }
-//        }
-//        return nil
-//    }
-//    
-//    public func subScrollView() -> UIScrollView?{
-//        for e in self.subviews.enumerated() {
-//            if let scrollView = e.element as? UIScrollView {
-//                return scrollView
-//            }
-//        }
-//        return nil
-//    }
-    
+
     public func convertToImage() -> UIImage{
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
         let ctx = UIGraphicsGetCurrentContext()
@@ -568,7 +489,6 @@ import UIKit
         }
     }
 
-    
     /// 插入模糊背景
     public func insertVisualEffectView() -> UIVisualEffectView {
         let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
@@ -578,3 +498,4 @@ import UIKit
     }
     
 }
+

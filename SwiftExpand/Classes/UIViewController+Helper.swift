@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 @objc extension UIViewController{
+
     
     public var controllerName: String {
         var className: String = NNStringFromClass(self.classForCoder)
@@ -27,6 +28,14 @@ import UIKit
     /// 是否正在展示
     public var isCurrentVC: Bool {
         return isViewLoaded == true && (view!.window != nil)
+    }
+    
+    ///展示
+    public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+        DispatchQueue.main.async {
+            guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
+            rootVC.present(self, animated: animated, completion: completion)
+        }
     }
     
     /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
@@ -78,19 +87,15 @@ import UIKit
         block?(sender);
     }
     
-    public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, action: @escaping ((UIBarButtonItem) -> Void)) {
-        let funcAbount = NSStringFromSelector(#function) + ",\(systemItem)" + ",\(isLeft)"
-        let runtimeKey = RuntimeKeyFromParams(self, funcAbount: funcAbount)
-        
-        let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: self, action: #selector(p_handleActionItem(_:)));
+    public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, closure: @escaping ((UIBarButtonItem) -> Void)) {
+        let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: nil, action: nil);
         item.systemType = systemItem;
         if isLeft == true {
             navigationItem.leftBarButtonItem = item;
         } else {
             navigationItem.rightBarButtonItem = item;
         }
-        item.runtimeKey = runtimeKey
-        objc_setAssociatedObject(self, runtimeKey, action, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+        item.addAction(closure)
     }
     
     /// 创建 UIBarButtonItem

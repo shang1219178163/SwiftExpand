@@ -9,6 +9,9 @@
 import UIKit
 
 @objc public extension UICollectionView{
+    private struct AssociateKeys {
+        static var dictClass   = "UICollectionView" + "dictClass"
+    }
     
     static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
     static let sectionKindBackgroud: String = "UICollectionView.sectiinKindBackgroud";
@@ -42,10 +45,10 @@ import UIKit
     
     var dictClass: [String: [String]] {
         get {
-            return objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as! [String: [String]];
+            return objc_getAssociatedObject(self, &AssociateKeys.dictClass) as! [String: [String]];
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.dictClass, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             registerCTVAll();
         }
     }

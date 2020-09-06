@@ -8,17 +8,28 @@
 import UIKit
 
 @objc public extension UISearchBar{
-
+    private struct AssociateKeys {
+        static var textField   = "UISearchBar" + "textField"
+    }
+    
     var textField: UITextField? {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITextField {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.textField) as? UITextField {
                 return obj
             }
-            return nil
+            let obj = self.findSubview(type: UITextField.self, resursion: true) as? UITextField
+            if #available(iOS 11.0, *) {
+                obj?.textContentType = .name;
+            }
+            objc_setAssociatedObject(self, &AssociateKeys.textField, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj;
         }
     }
     
     var cancellBtn: UIButton? {
+        if showsCancelButton == false {
+            return nil
+        }
         if let btn = self.findSubview(type: (NSClassFromString("UINavigationButton") as! UIResponder.Type).self, resursion: true) as? UIButton {
             return btn;
         }
@@ -51,13 +62,11 @@ import UIKit
         //    [searchBar setImage:[UIImage imageNamed:@"Search_Icon"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
 //        searchBar.setPositionAdjustment(UIOffset(horizontal: -8, vertical: 1), for: .search)
         // 删除按钮往右移一点
-        searchBar.setPositionAdjustment(UIOffset(horizontal: 8, vertical: 0), for: .clear)
+//        searchBar.setPositionAdjustment(UIOffset(horizontal: 8, vertical: 0), for: .clear)
+        ///调整输入框位置
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
+        searchBar.placeholder = "请输入";
         
-//        guard let textField: UITextField = (searchBar.findSubview(type: UITextField.self, resursion: true) as? UITextField) else { return searchBar; }
-//        textField.backgroundColor = UIColor.clear
-//        textField.tintColor = UIColor.gray;
-//        textField.textColor = UIColor.white;
-//        textField.font = UIFont.systemFont(ofSize: 13)
         searchBar.textField?.tintColor = UIColor.gray;
         searchBar.textField?.font = UIFont.systemFont(ofSize: 13)
         searchBar.textField?.borderStyle = .none;

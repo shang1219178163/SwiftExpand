@@ -15,12 +15,12 @@ import UIKit
         for e in list.enumerated() {
             let itemList = e.element
             let title: String = itemList.count > 1 ? itemList[1] : "";
-            let img_N: String = itemList.count > 2 ? itemList[2] : "";
-            let img_H: String = itemList.count > 3 ? itemList[3] : "";
+            let imgN: String = itemList.count > 2 ? itemList[2] : "";
+            let imgH: String = itemList.count > 3 ? itemList[3] : "";
             let badgeValue: String = itemList.count > 4 ? itemList[4] : "";
             //
-            let imageN = UIImage(named: img_N)?.withRenderingMode(.alwaysOriginal);
-            let imageH = UIImage(named: img_H)?.withRenderingMode(.alwaysTemplate);
+            let imageN = UIImage(named: imgN)?.withRenderingMode(.alwaysOriginal);
+            let imageH = UIImage(named: imgH)?.withRenderingMode(.alwaysTemplate);
             let tabBarItem: UITabBarItem = UITabBarItem(title: title, image: imageN, selectedImage: imageH);
             tabBarItem.badgeValue = badgeValue;
             

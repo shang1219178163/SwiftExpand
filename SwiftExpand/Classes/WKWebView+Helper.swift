@@ -10,10 +10,13 @@ import UIKit
 import WebKit
 
 @objc public extension WKWebView{
+    private struct AssociateKeys {
+        static var confiDefault  = "WKWebView" + "confiDefault"
+    }
     /// WKWebViewConfiguration默认配置
     static var confiDefault: WKWebViewConfiguration {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function)) as? WKWebViewConfiguration {
+            if let obj = objc_getAssociatedObject(self,  &AssociateKeys.confiDefault) as? WKWebViewConfiguration {
                 return obj;
             }
             
@@ -24,11 +27,11 @@ import WebKit
             sender.preferences.javaScriptCanOpenWindowsAutomatically = false;
             sender.preferences.javaScriptEnabled = true;
             
-            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), sender, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self,  &AssociateKeys.confiDefault, sender, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return sender;
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromType(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self,  &AssociateKeys.confiDefault, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     

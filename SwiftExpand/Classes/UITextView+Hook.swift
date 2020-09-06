@@ -8,6 +8,9 @@
 import UIKit
 
 @objc extension UITextView{
+    private struct AssociateKeys {
+        static var placeHolderLabel = "UITextView" + "placeHolderLabel"
+    }
     
     override public class func initializeMethod() {
         super.initializeMethod();
@@ -31,39 +34,57 @@ import UIKit
         self.hook_deinit()
     }
     
-    public var placeHolderTextView: UITextView {
+            
+    public var placeHolderLabel: UILabel {
         get {
-            if let obj = objc_getAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function)) as? UITextView {
+            if let obj = objc_getAssociatedObject(self, AssociateKeys.placeHolderLabel) as? UILabel {
                 return obj
             }
+            let obj = UILabel(frame: self.bounds)
+            obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            obj.font = font
+            obj.textColor = .gray
+            obj.textAlignment = textAlignment
+            obj.text = "请输入"
+            obj.numberOfLines = 0
+            obj.backgroundColor = .clear
+            obj.isUserInteractionEnabled = true
+            obj.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(obj)
             
-            let view = UITextView(frame: bounds);
-            view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.autocapitalizationType = .none;
-            view.autocorrectionType = .no;
-            view.backgroundColor = .clear;
-            view.textColor = .gray
-            view.textAlignment = .left;
-            view.font = self.font
-            self.addSubview(view)
+            obj.snp.remakeConstraints { (make) in
+                make.top.equalToSuperview().offset(8)
+                make.left.equalToSuperview().offset(6)
+                make.right.bottom.equalToSuperview().offset(-8)
+            }
+            
+            _ = obj.addGestureTap { (reco) in
+                self.becomeFirstResponder()
+            }
             
             NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidChange(_:)), name: UITextView.textDidChangeNotification, object: nil)
 
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            return view;
+            objc_setAssociatedObject(self, AssociateKeys.placeHolderLabel, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj
         }
         set {
-            objc_setAssociatedObject(self, RuntimeKeyFromSelector(self, aSelector: #function), newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, AssociateKeys.placeHolderLabel, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     private func p_textViewDidBeginEditing(_ n: Notification) {
-        placeHolderTextView.isHidden = true
+        placeHolderLabel.isHidden = true
     }
     
     private func p_textViewDidEndEditing(_ n: Notification) {
-        placeHolderTextView.isHidden = (self.text != "")
+        placeHolderLabel.isHidden = !text.isEmpty
+    }
+    
+    private func p_textViewDidChange(_ n: Notification) {
+//        guard let textView = n.object as? UITextView else { return }
+        placeHolderLabel.isHidden = !text.isEmpty
     }
     
     
