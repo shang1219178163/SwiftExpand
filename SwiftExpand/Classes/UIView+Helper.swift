@@ -108,23 +108,23 @@ import UIKit
     
     //MARK: -funtions
     /// text是否有效
-    public func validText() -> Bool {
-        assert(isKind(of: UITextView.self)
-            || isKind(of: UITextField.self)
-            || isKind(of: UILabel.self))
-        
-        var value = self.value(forKey: "text") as? String
-        if value == nil {
-            return false;
-        }
-        value = value!.replacingOccurrences(of: " ", with: "")
-        
-        let textNulls = ["", "nil", "null",  "NULL"];
-        if textNulls.contains(value!) {
-            return false
-        }
-        return true;
-    }
+//    public func validText() -> Bool {
+//        assert(isKind(of: UITextView.self)
+//            || isKind(of: UITextField.self)
+//            || isKind(of: UILabel.self))
+//
+//        var value = self.value(forKey: "text") as? String
+//        if value == nil {
+//            return false;
+//        }
+//        value = value!.replacingOccurrences(of: " ", with: "")
+//
+//        let textNulls = ["", "nil", "null",  "NULL"];
+//        if textNulls.contains(value!) {
+//            return false
+//        }
+//        return true;
+//    }
 
     /// 图层调试
     public func getViewLayer(lineColor: UIColor = .blue) {
@@ -196,45 +196,45 @@ import UIKit
         return maskLayer
     }
     
-    /// 高性能圆角
-    public func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) {
-        let image = drawCorners( .allCorners, radius: radius, width: width, color: color, bgColor: bgColor)
-        let imgView = UIImageView(image: image)
-        insertSubview(imgView, at: 0)
-    }
+//    /// 高性能圆角
+//    public func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) {
+//        let image = drawCorners( .allCorners, radius: radius, width: width, color: color, bgColor: bgColor)
+//        let imgView = UIImageView(image: image)
+//        insertSubview(imgView, at: 0)
+//    }
     
     /// [源]高性能圆角
-    public func drawCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
-                           radius: CGFloat,
-                           width: CGFloat,
-                           color: UIColor,
-                           bgColor: UIColor) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
-        let ctx = UIGraphicsGetCurrentContext()
-        
-        ctx?.setLineWidth(width)
-        ctx?.setStrokeColor(color.cgColor)
-        ctx?.setFillColor(bgColor.cgColor)
-        
-        let halfBorderWidth = width/2.0
-        let point0 = CGPointMake(bounds.width - halfBorderWidth, radius + halfBorderWidth)
-        let point1 = CGPointMake(bounds.width - halfBorderWidth, bounds.height - halfBorderWidth)
-        let point2 = CGPointMake(bounds.width - radius - halfBorderWidth, bounds.height - halfBorderWidth)
-        let point3 = CGPointMake(halfBorderWidth, halfBorderWidth)
-        let point4 = CGPointMake(bounds.width - halfBorderWidth, halfBorderWidth)
-        let point5 = CGPointMake(bounds.width - halfBorderWidth, halfBorderWidth)
-        let point6 = CGPointMake(bounds.width - halfBorderWidth, radius + halfBorderWidth)
-        
-        ctx?.move(to: point0)
-        ctx?.addArc(tangent1End: point1, tangent2End: point2, radius: radius)
-        ctx?.addArc(tangent1End: point3, tangent2End: point4, radius: radius)
-        ctx?.addArc(tangent1End: point5, tangent2End: point6, radius: radius)
-    
-        ctx?.drawPath(using: .fillStroke)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
+//    public func drawCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
+//                           radius: CGFloat,
+//                           width: CGFloat,
+//                           color: UIColor,
+//                           bgColor: UIColor) -> UIImage? {
+//        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
+//        let ctx = UIGraphicsGetCurrentContext()
+//
+//        ctx?.setLineWidth(width)
+//        ctx?.setStrokeColor(color.cgColor)
+//        ctx?.setFillColor(bgColor.cgColor)
+//
+//        let halfBorderWidth = width/2.0
+//        let point0 = CGPointMake(bounds.width - halfBorderWidth, radius + halfBorderWidth)
+//        let point1 = CGPointMake(bounds.width - halfBorderWidth, bounds.height - halfBorderWidth)
+//        let point2 = CGPointMake(bounds.width - radius - halfBorderWidth, bounds.height - halfBorderWidth)
+//        let point3 = CGPointMake(halfBorderWidth, halfBorderWidth)
+//        let point4 = CGPointMake(bounds.width - halfBorderWidth, halfBorderWidth)
+//        let point5 = CGPointMake(bounds.width - halfBorderWidth, halfBorderWidth)
+//        let point6 = CGPointMake(bounds.width - halfBorderWidth, radius + halfBorderWidth)
+//
+//        ctx?.move(to: point0)
+//        ctx?.addArc(tangent1End: point1, tangent2End: point2, radius: radius)
+//        ctx?.addArc(tangent1End: point3, tangent2End: point4, radius: radius)
+//        ctx?.addArc(tangent1End: point5, tangent2End: point6, radius: radius)
+//
+//        ctx?.drawPath(using: .fillStroke)
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        return image
+//    }
     
     //MARK: -通用响应添加方法
     public func addActionClosure(_ action: @escaping ViewClosure) {
@@ -473,6 +473,27 @@ import UIKit
         self.layer.render(in: ctx!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         return image!;
+    }
+    
+    public func snapshotImage() -> UIImage?{
+        guard let context = UIGraphicsGetCurrentContext() else { return nil}
+        
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
+        self.layer.render(in: context)
+        let snap: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return snap ?? nil
+    }
+    
+    public func snapshotImageAfterScreenUpdates(_ afterUpdates: Bool) -> UIImage?{
+        if !self.responds(to: #selector(drawHierarchy(in:afterScreenUpdates:))) {
+            return self.snapshotImage()
+        }
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
+        self.drawHierarchy(in: self.bounds, afterScreenUpdates: afterUpdates)
+        let snap: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return snap ?? nil
     }
         
     /// 保存图像到相册

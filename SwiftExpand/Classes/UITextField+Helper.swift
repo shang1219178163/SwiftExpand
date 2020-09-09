@@ -172,3 +172,30 @@ import UIKit
     }
     
 }
+
+public extension UITextField{
+
+    ///设置rightView 为 UIView
+    final func rightView<T: UIView>(_ type: T.Type, viewMode: UITextField.ViewMode = .always, size: CGSize = CGSize(width: 30, height: 35), block:((T)->Void)? = nil) -> T {
+        if let accessoryView = rightView as? T {
+            return accessoryView
+        }
+        let view = type.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        block?(view)
+        rightView = view
+        rightViewMode = viewMode
+        return view
+    }
+    
+    ///设置leftView 为 UIView
+    final func leftView<T: UIView>(_ type: T.Type, viewMode: UITextField.ViewMode = .always, size: CGSize = CGSize(width: 30, height: 35), block:((T)->Void)? = nil) -> T {
+        if let accessoryView = leftView as? T {
+            return accessoryView
+        }
+        let view = type.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        block?(view)
+        rightView = view
+        rightViewMode = viewMode
+        return view
+    }
+}

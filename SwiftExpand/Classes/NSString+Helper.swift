@@ -502,4 +502,49 @@ public extension Substring {
         return CGSize(width: ceil(size.width), height: ceil(size.height))
     }
     
+    
+    func isValidateByRegex(_ regex: String) -> Bool {
+        let pre: NSPredicate = NSPredicate(format: "SELF MATCHES %@",regex)
+        return pre.evaluate(with: self)
+    }
+    
+    func isMobileNumber() -> Bool {
+        if hasPrefix("1") {
+            if length == 11 {
+                if self.trimmingCharacters(in: .decimalDigits).count == 0 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func isEmailAddress() -> Bool {
+        let emailRegex: String = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        return isValidateByRegex(emailRegex)
+    }
+    
+    func isIPAddress() -> Bool {
+        let regex: String = "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$"
+        let pre: NSPredicate = NSPredicate(format: "SELF MATCHES %@",regex)
+        let rc: Bool = pre.evaluate(with: self)
+        if rc {
+            let componds: [String] = components(separatedBy: ",")
+            var v: Bool = true
+            for s in componds {
+                if s.intValue > 255 {
+                    v = false
+                    break
+                }
+            }
+            return v
+        }
+        return false
+    }
+    
+    func isValidUrl() -> Bool {
+        let regex = "^((http)|(https))+:[^\\s]+\\.[^\\s]*$";
+        return isValidateByRegex(regex)
+    }
+    
 }

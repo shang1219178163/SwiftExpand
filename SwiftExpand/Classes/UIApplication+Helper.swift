@@ -166,6 +166,42 @@ import UIKit
         }
         return nil
     }
+    ///当前导航控制器
+    static var navController: UINavigationController? {
+        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil }
+        
+        if rootVC.isKind(of: UINavigationController.self) {
+            return (rootVC as! UINavigationController)
+        }
+        
+        if rootVC.isKind(of: UITabBarController.self) {
+            let tabBarVC = rootVC as! UITabBarController
+            if let selectedViewController = tabBarVC.selectedViewController as? UINavigationController {
+                return selectedViewController
+            }
+        }
+        return nil
+    }
+    ///当前控制器
+    static var currentVC: UIViewController? {
+        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil}
+        
+        if rootVC.isKind(of: UINavigationController.self) {
+            return (rootVC as! UINavigationController).topViewController
+        }
+        
+        if rootVC.isKind(of: UITabBarController.self) {
+            let tabBarVC = rootVC as! UITabBarController
+            if let selectedViewController = tabBarVC.selectedViewController {
+                if selectedViewController.isKind(of: UINavigationController.self) {
+                    return (selectedViewController as! UINavigationController).topViewController
+                }
+                return selectedViewController
+            }
+            return tabBarVC.viewControllers?.first
+        }
+        return nil
+    }
     
     //MARK: func
     static func setupRootController(_ window: UIWindow = UIApplication.mainWindow, _ controller: AnyObject, _ isAdjust: Bool = true) {
