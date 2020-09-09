@@ -54,7 +54,6 @@ public let kAlertActionChecked = "checked"
                                 msg: String,
                                 actionTitles: [String]? = [kTitleCancell, kTitleSure],
                                 handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) {
-        
         let rootVC = UIApplication.shared.delegate?.window??.rootViewController
 
         let alertController = UIAlertController.createAlert(title, placeholders: placeholders, msg: msg, actionTitles: actionTitles, handler: handler)
@@ -66,7 +65,6 @@ public let kAlertActionChecked = "checked"
             })
         } else {
             rootVC?.present(alertController, animated: true, completion: nil)
-
         }
     }
     
@@ -143,10 +141,8 @@ public let kAlertActionChecked = "checked"
                                 msg: String? = nil,
                                 items: [String]? = nil,
                                 handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) {
-        let rootVC = UIApplication.shared.delegate?.window??.rootViewController
-
-        let alertController = UIAlertController.createSheet(title, msg:msg, items: items, handler: handler)
-        rootVC?.present(alertController, animated: true, completion: nil)
+        let alertVC = UIAlertController.createSheet(title, msg:msg, items: items, handler: handler)
+        alertVC.present()
     }
 
     ///添加 UIAlertAction
@@ -162,7 +158,6 @@ public let kAlertActionChecked = "checked"
         }
         return self
     }
-
     
     ///添加多个 UIAlertAction
     func addActionTitles(_ titles: [String]?, handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
@@ -173,7 +168,7 @@ public let kAlertActionChecked = "checked"
         return self
     }
     ///添加多个 textField
-    func addTextFields(_ placeholders: [String]?, handler: ((UITextField) -> Void)? = nil) -> UIAlertController {
+    func addTextFieldPlaceholders(_ placeholders: [String]?, handler: ((UITextField) -> Void)? = nil) -> UIAlertController {
         placeholders?.forEach({ (string) in
             self.addTextField { (textField: UITextField) in
                 textField.placeholder = string
@@ -184,20 +179,21 @@ public let kAlertActionChecked = "checked"
     }
     
     /// 设置标题颜色
-    func setTitleColor(_ color: UIColor = .theme) {
+    func setTitleColor(_ color: UIColor = .theme) -> UIAlertController {
         guard let title = title else {
-            return;
+            return self;
         }
         
         let attrTitle = NSMutableAttributedString(string: title)
         attrTitle.addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSRange(location: 0, length: title.count))
         setValue(attrTitle, forKey: kAlertCtlrTitle)
+        return self;
     }
     
     /// 设置Message文本换行,对齐方式
-    func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) {
+    func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> UIAlertController {
         guard let message = message else {
-            return;
+            return self;
         }
 
         let attrMsg = NSMutableAttributedString(string: message)
@@ -205,19 +201,27 @@ public let kAlertActionChecked = "checked"
                       NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13),]
         attrMsg.addAttributes(attDic, range: NSRange(location: 0, length: message.count))
         setValue(attrMsg, forKey: kAlertCtlrMessage)
+        return self;
+    }
+    
+    ///设置 Message 样式
+    func setMessageStyle(_ font: UIFont, textColor: UIColor, alignment: NSTextAlignment = .left, lineBreakMode: NSLineBreakMode = .byCharWrapping, lineSpacing: CGFloat = 5.0) -> UIAlertController {
+        
+        let paraStyle = NSMutableParagraphStyle()
+        paraStyle.lineBreakMode = .byCharWrapping;
+        paraStyle.lineSpacing = lineSpacing;
+        paraStyle.alignment = alignment;
+        return setMessageParaStyle(paraStyle)
     }
     
     /// [便利方法]提示信息
     static func showAlert(_ title: String = "提示", message: String, alignment: NSTextAlignment = .center, actionTitles: [String]? = [kTitleSure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
-        DispatchQueue.main.async {
-            let alertVC = UIAlertController.createAlert(title, placeholders: nil, msg: message, actionTitles: actionTitles, handler: handler)
-            //富文本效果
-            let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: alignment)
-            alertVC.setMessageParaStyle(paraStyle)
-            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
-                rootVC.present(alertVC, animated: true, completion: nil)
-            }
-        }
+        //富文本效果
+        let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: alignment)
+        
+        UIAlertController.createAlert(title, placeholders: nil, msg: message, actionTitles: actionTitles, handler: handler)
+            .setMessageParaStyle(paraStyle)
+            .present()
     }
     
     /// 创建包含图片不含message的提示框
@@ -228,11 +232,7 @@ public let kAlertActionChecked = "checked"
                                   actionTitles: [String]? = [kTitleCancell, kTitleSure],
                                   handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
         let alertVC = UIAlertController.createAlertImage(title, image: image, contentMode: contentMode, count: count, actionTitles: actionTitles, handler: handler)
-        DispatchQueue.main.async {
-            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
-                rootVC.present(alertVC, animated: true, completion: nil)
-            }
-        }
+        alertVC.present()
     }
 
 }
@@ -296,17 +296,8 @@ public extension UIAlertController {
                                     height: CGFloat,
                                     block: @escaping ((T)->Void),
                                   handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
-        let alertVC = UIAlertController.createSheet(title,
-                                                    message: message,
-                                                    type: type,
-                                                    height: height,
-                                                    block: block,
-                                                    handler: handler)
         
-        DispatchQueue.main.async {
-            if let rootVC = UIApplication.shared.keyWindow?.rootViewController {
-                rootVC.present(alertVC, animated: true, completion: nil)
-            }
-        }
+        UIAlertController.createSheet(title, message: message, type: type, height: height, block: block, handler: handler)
+        .present()
     }
 }

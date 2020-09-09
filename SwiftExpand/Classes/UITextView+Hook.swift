@@ -12,32 +12,30 @@ import UIKit
         static var placeHolderLabel = "UITextView" + "placeHolderLabel"
     }
     
-    override public class func initializeMethod() {
-        super.initializeMethod();
-        
-        if self != UITextView.self {
-            return
-        }
-
-        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
-        DispatchQueue.once(token: onceToken) {
-            let oriSel = NSSelectorFromString("deinit")
-            let repSel = #selector(self.hook_deinit)
-            _ = hookInstanceMethod(of: oriSel, with: repSel);
-        }
-        
-    }
-    
-    private func hook_deinit() {
-        //需要注入的代码写在此处
-        NotificationCenter.default.removeObserver(self)
-        self.hook_deinit()
-    }
-    
+//    override public class func initializeMethod() {
+//        super.initializeMethod();
+//
+//        if self != UITextView.self {
+//            return
+//        }
+//
+//        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+//        DispatchQueue.once(token: onceToken) {
+//            let oriSel = NSSelectorFromString("deinit")
+//            let repSel = #selector(self.hook_deinit)
+//            _ = hookInstanceMethod(of: oriSel, with: repSel);
+//        }
+//    }
+//
+//    private func hook_deinit() {
+//        //需要注入的代码写在此处
+//        NotificationCenter.default.removeObserver(self)
+//        self.hook_deinit()
+//    }
             
     public var placeHolderLabel: UILabel {
         get {
-            if let obj = objc_getAssociatedObject(self, AssociateKeys.placeHolderLabel) as? UILabel {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.placeHolderLabel) as? UILabel {
                 return obj
             }
             let obj = UILabel(frame: self.bounds)
@@ -66,25 +64,31 @@ import UIKit
             NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidChange(_:)), name: UITextView.textDidChangeNotification, object: nil)
 
-            objc_setAssociatedObject(self, AssociateKeys.placeHolderLabel, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.placeHolderLabel, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return obj
         }
         set {
-            objc_setAssociatedObject(self, AssociateKeys.placeHolderLabel, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.placeHolderLabel, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
     private func p_textViewDidBeginEditing(_ n: Notification) {
-        placeHolderLabel.isHidden = true
+        DispatchQueue.main.async {
+            self.placeHolderLabel.isHidden = true
+        }
     }
     
     private func p_textViewDidEndEditing(_ n: Notification) {
-        placeHolderLabel.isHidden = !text.isEmpty
+        DispatchQueue.main.async {
+            self.placeHolderLabel.isHidden = !self.text.isEmpty
+        }
     }
     
     private func p_textViewDidChange(_ n: Notification) {
 //        guard let textView = n.object as? UITextView else { return }
-        placeHolderLabel.isHidden = !text.isEmpty
+        DispatchQueue.main.async {
+            self.placeHolderLabel.isHidden = !self.text.isEmpty
+        }
     }
     
     

@@ -259,21 +259,18 @@ import UIKit
 
 public extension UITableViewCell{
 
-    ///设置accessoryView 为 UIButton
-    final func assoryBtn<T: UIButton>(_ type: T.Type, size: CGSize = CGSize(width: 80, height: 30)) -> T {
-        assoryView(type, size:size)
-    }
     ///设置accessoryView 为 UIView
     final func assoryView<T: UIView>(_ type: T.Type, size: CGSize = CGSize(width: 80, height: 30)) -> T {
-        let sender: T = {
-            let view: T = {
-                let view = type.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                return view
-            }()
-            accessoryView = view
+        if let accessoryView = accessoryView, accessoryView.isMember(of: type) {
+            return accessoryView as! T
+        }
+        
+        let view: T = {
+            let view = type.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
             return view
         }()
-        return sender
+        accessoryView = view
+        return view
     }
 
     ///设置accessoryView 为 UIView
