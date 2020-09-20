@@ -57,13 +57,13 @@ import UIKit
         paraStyle.alignment = alignment;
         
         let mdic = NSMutableDictionary(dictionary: attrDict(font, textColor: textColor));
-        mdic.setObject(paraStyle, forKey:kCTParagraphStyleAttributeName as! NSCopying);
+        mdic.setObject(paraStyle, forKey: NSAttributedString.Key.paragraphStyle as NSCopying);
         return mdic.copy() as! [NSAttributedString.Key: Any];
     }
     
     /// [源]富文本
     static func attString(_ text: String,
-                                textTaps: [String]!,
+                                textTaps: [String],
                                 font: CGFloat = 15,
                                 tapFont: CGFloat = 15,
                                 color: UIColor = .black,
@@ -80,6 +80,38 @@ import UIKit
         return attString
     }
     
+    /// [源]富文本二
+    static func createAttString(_ text: String,
+                                textTaps: [String],
+                                font: UIFont = UIFont.systemFont(ofSize: 15),
+                                tapFont: UIFont = UIFont.systemFont(ofSize: 15),
+                                color: UIColor = .black,
+                                tapColor: UIColor = .theme,
+                                alignment: NSTextAlignment = .left,
+                                rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
+        let paraStyle = NSMutableParagraphStyle()
+        paraStyle.lineBreakMode = .byCharWrapping
+        paraStyle.alignment = alignment;
+        
+        let attDic = [NSAttributedString.Key.font: font,
+                      NSAttributedString.Key.foregroundColor: color,
+                      NSAttributedString.Key.backgroundColor: UIColor.clear,
+                      NSAttributedString.Key.paragraphStyle: paraStyle,
+                    ];
+        
+        let attString = NSMutableAttributedString(string: text, attributes: attDic)
+        textTaps.forEach { ( textTap: String) in
+            let nsRange = (text as NSString).range(of: textTap, options: mask)
+
+            let attDic = [NSAttributedString.Key.font: tapFont,
+                       NSAttributedString.Key.foregroundColor: tapColor,
+                       NSAttributedString.Key.backgroundColor: UIColor.clear,
+                       ];
+            attString.addAttributes(attDic, range: nsRange)
+        }
+        return attString
+    }
+        
     /// 特定范围子字符串差异华显示
     static func attString(_ text: String, offsetStart: Int, offsetEnd: Int) -> NSAttributedString {
         let nsRange = NSRange(location: offsetStart, length: (text.count - offsetStart - offsetEnd))

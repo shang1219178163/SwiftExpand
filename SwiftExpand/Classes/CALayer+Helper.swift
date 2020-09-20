@@ -82,4 +82,16 @@ import UIKit
         //将动画添加到layer
         self.add(anim, forKey: nil)
     }
+    
+    ///添加阴影
+    func addShadow(_ color: UIColor = .gray, radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
+        masksToBounds = false
+        shadowColor = color.cgColor
+        shadowRadius = radius
+        shadowOpacity = Float(opacity)
+        shadowOffset = offset
+        
+//        let path = UIBezierPath(rect: bounds.offsetBy(dx: 1, dy: 1))
+//        layer.shadowPath = path.cgPath
+    }
 }

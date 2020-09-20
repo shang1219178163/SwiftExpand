@@ -35,20 +35,38 @@ import UIKit
     }
             
     /// 把颜色转成UIImage
-    static func color(_ color: UIColor) -> UIImage{
-        let size: CGSize = CGSize(width: 1, height: 1)
+    static func color(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1), cornerRadius: CGFloat = 0) -> UIImage{
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
-        defer {
-            UIGraphicsEndImageContext()
-        }
-        let context: CGContext = UIGraphicsGetCurrentContext()!
-        context.setFillColor(color.cgColor)
-        context.fill(rect)
         
+        let path = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
+        
+        let context: CGContext = UIGraphicsGetCurrentContext()!
+        context.addPath(path.cgPath)
+        context.setFillColor(color.cgColor)
+        context.setLineJoin(.round)
+        context.setLineCap(.round)
+        context.fillPath()
+
         let image = UIGraphicsGetImageFromCurrentImageContext()
-        return image ?? UIImage()
+        UIGraphicsGetCurrentContext()
+        return image!
     }
+    
+//    static func color(_ color: UIColor) -> UIImage{
+//        let size: CGSize = CGSize(width: 1, height: 1)
+//        let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+//        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
+//        defer {
+//            UIGraphicsEndImageContext()
+//        }
+//        let context: CGContext = UIGraphicsGetCurrentContext()!
+//        context.setFillColor(color.cgColor)
+//        context.fill(rect)
+//
+//        let image = UIGraphicsGetImageFromCurrentImageContext()
+//        return image ?? UIImage()
+//    }
 
     /// 获取 pod bundle 图片资源
     static func image(named name: String, podClass: AnyClass, bundleName: String? = nil) -> UIImage?{

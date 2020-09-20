@@ -125,7 +125,7 @@ import SnapKit
                 
         let size = CGSize(width: bounds.width - 30*2, height: 0)
         let labelSize = label.sizeThatFits(size)
-        label.snp.makeConstraints { (make) in
+        label.snp.remakeConstraints { (make) in
             make.centerY.equalToSuperview().offset(0)
             make.centerX.equalToSuperview().offset(0)
             make.width.equalTo(size.width)
@@ -140,7 +140,7 @@ import SnapKit
         }
         
         let btnSize = btn.sizeThatFits(.zero)
-        btn.snp.makeConstraints { (make) in
+        btn.snp.remakeConstraints { (make) in
             make.top.equalTo(label.snp.bottom).offset(10)
             make.centerX.equalToSuperview().offset(10)
             make.size.equalTo(btnSize)
@@ -189,20 +189,27 @@ import SnapKit
     }
     
     private func hook_reloadData() {
-        if subView(NNPlaceHolderView.self) == nil {
-            hook_reloadData()
-            return
-        }
-        
         guard let dataSource = dataSource else {
             hook_reloadData()
             return
         }
+        
+        guard let holderView = subView(NNPlaceHolderView.self) as? NNPlaceHolderView else {
+            hook_reloadData()
+            return
+        }
+        
+        var isEmpty: Bool = true
+        if dataSource.responds(to: #selector(dataSource.numberOfSections(in:))),
+            let sections: Int = dataSource.numberOfSections?(in: self) {
+            isEmpty = (sections <= 0)
+        } else {
+            isEmpty = dataSource.tableView(self, numberOfRowsInSection: 0) <= 0
+        }
                 
-        let isEmpty = dataSource.tableView(self, numberOfRowsInSection: 0) <= 0
-        placeHolderView.isHidden = !isEmpty
+        holderView.isHidden = !isEmpty
         if isEmpty {
-            placeHolderView.state = .empty
+            holderView.state = .empty
         }
         hook_reloadData()
     }

@@ -165,17 +165,6 @@ import UIKit
          // 设置填充颜色
          layer.insertSublayer(normalLayer, at: 0)
      }
-    ///添加阴影
-    func addShadow(_ color: UIColor = .gray, radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
-        layer.masksToBounds = false
-        layer.shadowColor = color.cgColor
-        layer.shadowRadius = radius
-        layer.shadowOpacity = Float(opacity)
-        layer.shadowOffset = offset
-        
-//        let path = UIBezierPath(rect: bounds.offsetBy(dx: 1, dy: 1))
-//        layer.shadowPath = path.cgPath
-    }
 }
 
 
@@ -184,10 +173,11 @@ public extension UIView{
     ///更新各种子视图
     final func updateItems<T: UIView>(_ count: Int, type: T.Type, hanler: ((T) -> Void)) -> [T] {
         if count == 0 {
+            subviews.filter { $0.isMember(of: type) }.forEach { $0.removeFromSuperview() }
             return []
         }
         
-        if let list = self.subviews.filter({ $0.isKind(of: type) }) as? [T] {
+        if let list = self.subviews.filter({ $0.isMember(of: type) }) as? [T] {
             if list.count == count {
                 list.forEach { hanler($0) }
                 return list
@@ -232,8 +222,12 @@ public extension UIView{
         }
     }
     
-    /// [源]创建子类型的 view
+    /// [源]创建子类型的 view(例如 cell headerView)
     final func createSubTypeView<T: UIView>(_ type: T.Type, height: CGFloat = 30, inset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((T)->Void)) -> UIView{
+        if let subView = viewWithTag(tag) as? T {
+            block(subView)
+            return subView
+        }
         let sectionView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: height))
         sectionView.backgroundColor = .background
 
@@ -241,10 +235,27 @@ public extension UIView{
                                            y: inset.top,
                                            width: bounds.width - inset.left - inset.right,
                                            height: height - inset.top - inset.bottom));
-        
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight, ]
         sectionView.addSubview(view)
         block(view)
         return sectionView
+    }
+    
+    /// [源]创建子类型的 view(cell 添加视图)
+    final func createSubTypeView<T: UIView>(_ type: T.Type, tag: Int, inset: UIEdgeInsets = .zero, block: @escaping ((T)->Void)) -> UIView{
+        if let subView = viewWithTag(tag) as? T {
+            block(subView)
+            return subView
+        }
+        
+        let view = type.init(frame: CGRect(x: inset.left,
+                                           y: inset.top,
+                                           width: bounds.width - inset.left - inset.right,
+                                           height: bounds.height - inset.top - inset.bottom));
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight, ]
+        addSubview(view)
+        block(view)
+        return view
     }
 }
 

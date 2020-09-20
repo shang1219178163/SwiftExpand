@@ -137,10 +137,10 @@ import Photos
                 
                 //富文本效果
                 let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
-                alertController.setTitleColor(UIColor.theme)
-                alertController.setMessageParaStyle(paraStyle)
-//                  alertController.actions.first?.setValue(UIColor.orange, forKey: kAlertActionColor);
-                UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+                alertController
+                    .setTitleColor(UIColor.theme)
+                    .setMessageParaStyle(paraStyle)
+                    .present()
             }
         }
     }
@@ -176,4 +176,78 @@ import Photos
         dataTask.resume()
     }
 
+}
+
+
+@available(iOS 10.0, *)
+@objc public extension UNMutableNotificationContent{
+    ///创建本地通知
+    func create(_ title: String, body: String, userInfo: [AnyHashable : Any], sound: UNNotificationSound = .default) -> UNMutableNotificationContent {
+        // 1. 创建通知内容
+        let content = UNMutableNotificationContent()
+        // 标题
+        content.title = title
+        // 内容
+        content.body = body
+        
+        content.userInfo = userInfo
+        // 通知提示音
+        content.sound = sound
+        
+        return content
+    }
+    ///添加TimeInterval本地通知到通知中心
+    func addTimeIntervalRequestToCenter(_ timeInterval: TimeInterval = 1,
+                                        repeats: Bool = false,
+                                        handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
+        let identifier = DateFormatter.stringFromDate(Date())
+        /// 几秒后触发，如果要设置可重复触发需要大于60
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: repeats)
+
+        let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { (error) in
+            handler?(center, request, error as NSError?)
+            if error != nil {
+                DDLog("推送添加失败: %@", error!.localizedDescription);
+            }
+        }
+    }
+    ///添加Calendar本地通知到通知中心
+    func addCalendarRequestToCenter(_ dateComponents: DateComponents,
+                                    repeats: Bool = false,
+                                    handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
+        let identifier = DateFormatter.stringFromDate(Date())
+        ///某年某月某日某天某时某分某秒触发
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: repeats)
+        
+        let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { (error) in
+            handler?(center, request, error as NSError?)
+            if error != nil {
+                DDLog("推送添加失败: %@", error!.localizedDescription);
+            }
+        }
+    }
+    ///添加Location本地通知到通知中心
+    func addLocationRequestToCenter(_ region: CLCircularRegion,
+                                    repeats: Bool = false,
+                                    handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
+        let identifier = DateFormatter.stringFromDate(Date())
+        ///在某个位置触发
+        let trigger = UNLocationNotificationTrigger(region: region, repeats: repeats)
+        
+        let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
+        
+        let center = UNUserNotificationCenter.current()
+        center.add(request) { (error) in
+            handler?(center, request, error as NSError?)
+            if error != nil {
+                DDLog("推送添加失败: %@", error!.localizedDescription);
+            }
+        }
+    }
 }

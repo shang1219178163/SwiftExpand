@@ -161,11 +161,13 @@ import UIKit
     }
     
     static var tabBarController: UITabBarController? {
-        if let tabBarVC = UIApplication.mainWindow.rootViewController as? UITabBarController {
+        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil }
+        if let tabBarVC = rootVC as? UITabBarController {
             return tabBarVC
         }
         return nil
     }
+    
     ///当前导航控制器
     static var navController: UINavigationController? {
         guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil }
@@ -185,6 +187,13 @@ import UIKit
     ///当前控制器
     static var currentVC: UIViewController? {
         guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil}
+        
+        if let presentedViewController = rootVC.presentedViewController {
+            if presentedViewController.isKind(of: UINavigationController.self) {
+                return (presentedViewController as! UINavigationController).topViewController
+            }
+            return presentedViewController as! UINavigationController
+        }
         
         if rootVC.isKind(of: UINavigationController.self) {
             return (rootVC as! UINavigationController).topViewController
