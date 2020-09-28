@@ -175,6 +175,7 @@ import UIKit
             view.titleLabel?.adjustsFontSizeToFitWidth = true;
             view.titleLabel?.minimumScaleFactor = 1.0;
             view.isExclusiveTouch = true;
+            view.setTitleColor(.black, for: .normal)
             
             objc_setAssociatedObject(self, &AssociateKeys.btn, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view

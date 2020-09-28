@@ -45,7 +45,10 @@ import UIKit
     private func hook_viewDidLoad(animated: Bool) {
 //        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
 //        edgesForExtendedLayout = []
-        hidesBottomBarWhenPushed = true
+//        if let navigationController = navigationController,
+//            navigationController.viewControllers.count > 0 {
+//            hidesBottomBarWhenPushed = true
+//        }
 
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
@@ -102,7 +105,7 @@ import UIKit
         //判断是否是根控制器
         if viewControllers.count > 0 {
             _ = viewController.createBackItem(UIImage(named: "icon_arowLeft_black")!.withRenderingMode(.alwaysTemplate))
-
+            viewController.hidesBottomBarWhenPushed = true
         }
         //push进入下一个控制器
         hook_pushViewController(viewController, animated: animated);

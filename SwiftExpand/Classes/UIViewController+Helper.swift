@@ -30,7 +30,7 @@ import UIKit
         return isViewLoaded == true && (view!.window != nil)
     }
     
-    ///展示
+    /// 呈现
     public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
         DispatchQueue.main.async {
             guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }

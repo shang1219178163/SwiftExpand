@@ -84,7 +84,7 @@ import UIKit
     }
     
     ///添加阴影
-    func addShadow(_ color: UIColor = .gray, radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
+    func showShadow(_ color: UIColor = .gray, radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
         masksToBounds = false
         shadowColor = color.cgColor
         shadowRadius = radius

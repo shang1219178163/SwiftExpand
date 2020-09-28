@@ -199,6 +199,7 @@ import UIKit
             view.titleLabel?.minimumScaleFactor = 1.0;
             view.isExclusiveTouch = true;
             view.adjustsImageWhenHighlighted = false;
+            view.setTitleColor(.black, for: .normal)
             
             objc_setAssociatedObject(self, &AssociateKeys.btn, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view
@@ -260,11 +261,13 @@ import UIKit
 public extension UITableViewCell{
 
     ///设置accessoryView 为 UIView
+    @discardableResult
     final func assoryView<T: UIView>(_ type: T.Type, size: CGSize = CGSize(width: 80, height: 30), block:((T)->Void)? = nil) -> T {
         if let accessoryView = accessoryView as? T {
             return accessoryView
         }
         let view = type.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         block?(view)
         accessoryView = view
         return view

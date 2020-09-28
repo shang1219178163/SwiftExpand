@@ -230,9 +230,9 @@ public let kDateFormatTwo         = "yyyyMMdd";
         return idxList
     }
     ///根据 UIDatePicker.Mode 获取时间字符串简
-    static func dateFromPicker(_ datePicker: UIDatePicker, date: Date) -> String {
+    static func dateFromPickerMode(_ mode: UIDatePicker.Mode = .dateAndTime, date: Date) -> String {
         var result = DateFormatter.stringFromDate(date)
-        switch datePicker.datePickerMode {
+        switch mode {
         case .time, .countDownTimer:
             result = (result as NSString).substring(with: NSMakeRange(11, 5))
 
@@ -247,6 +247,12 @@ public let kDateFormatTwo         = "yyyyMMdd";
         }
         return result
     }
+    
+    
+    ///根据 UIDatePicker.Mode 获取时间字符串简
+//    static func dateFromPicker(_ datePicker: UIDatePicker, date: Date) -> String {
+//        return DateFormatter.dateFromPickerMode(datePicker.datePickerMode, date: date)
+//    }
 }
 
 @objc public extension NSDate{
@@ -280,7 +286,12 @@ public let kDateFormatTwo         = "yyyyMMdd";
     }
     /// 秒
     var second: Int {
-    return NSDate.dateComponents(self).second!;
+        return NSDate.dateComponents(self).second!;
+    }
+    
+    /// 时间戳
+    var timeStamp: Int {
+        return "\(self.timeIntervalSince1970)".components(separatedBy: ",").first!.intValue
     }
     
     /// 当月天数
@@ -373,7 +384,8 @@ public let kDateFormatTwo         = "yyyyMMdd";
             
             info += "\(Int(interval))" + "秒"
         }
-        return info.substringFrom(info.count - length);
+        return (info as! NSString).substring(from: info.count - length)
+
     }
     
     func hourInfoBetween(_ date: NSDate,_ type: Int = 0) -> Double {
@@ -557,6 +569,11 @@ public extension Date{
     /// 秒
     var second: Int {
        return (self as NSDate).second;
+    }
+    
+    /// 时间戳
+    var timeStamp: Int {
+        return (self as NSDate).timeStamp;
     }
     /// 当月天数
     var countOfDaysInMonth: Int {

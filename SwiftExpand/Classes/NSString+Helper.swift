@@ -159,17 +159,27 @@ public extension String{
         return from ..< to
     }
     
+    ///过滤字符集
+    func replacingOccurrences(of String: String, withSet: String) -> String {
+        return (self as NSString).replacingOccurrences(of: String, withSet: withSet)
+    }
+    
+    ///获取两个字符串中间的部分(含这两部分)
+    func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
+        return (self as NSString).substring(prefix, subfix: subfix, isContain: isContain)
+    }
+    
     /// 大于version
-    func isNewer(version: String) -> Bool {
-        return (self as NSString).isNewer(version:version)
+    func isBig(_ value: String) -> Bool {
+        return (self as NSString).isBig(value)
     }
     /// 等于version
-    func isSame(version: String) -> Bool {
-        return (self as NSString).isSame(version:version)
-    }
+//    func isSame(version: String) -> Bool {
+//        return (self as NSString).isSame(value)
+//    }
     /// 小于version
-    func isOlder(version: String) -> Bool {
-        return (self as NSString).isOlder(version:version)
+    func isSmall(_ value: String) -> Bool {
+        return (self as NSString).isSmall(value)
     }
     /// 汉字转为拼音
     func transformToPinyin() -> String {
@@ -203,52 +213,20 @@ public extension String{
         return (self as NSString).isPureFloat()
     }
     
-    /// 字符串开始到第index
-    func substringTo(_ index: Int) -> String {
-        guard index < self.count else {
-            assertionFailure("index beyound the length of the string")
-            return ""
-        }
-        
-        let theIndex = self.index(self.startIndex, offsetBy: index)
-        return String(self[startIndex...theIndex])
+    func substring(from: Int) -> String{
+        (self as NSString).substring(from: from)
+    }
+
+    func substring(to: Int) -> String{
+        (self as NSString).substring(to: to)
+    }
+
+    func substring(with range: NSRange) -> String{
+        (self as NSString).substring(with: range)
     }
     
-    /// 从第index个开始到结尾的字符
-    func substringFrom(_ index: Int) -> String {
-        guard index < self.count else {
-            assertionFailure("index beyound the length of the string")
-            return ""
-        }
-        
-        guard index >= 0 else {
-            assertionFailure("index can't be lower than 0")
-            return ""
-        }
-        
-        let theIndex = self.index(self.endIndex, offsetBy: index - self.count)
-        return String(self[theIndex..<endIndex])
-    }
-    
-    /// 某个闭区间内的字符
-    ///
-    /// - Parameter range: 闭区间，例如：1...6
-    /// - Returns: 子字符串
-    func substringInRange(_ range: CountableClosedRange<Int>) -> String {
-        
-        guard range.lowerBound >= 0 else {
-            assertionFailure("lowerBound of the Range can't be lower than 0")
-            return ""
-        }
-        
-        guard range.upperBound < self.count else {
-            assertionFailure("upperBound of the Range beyound the length of the string")
-            return ""
-        }
-        let start = self.index(self.startIndex, offsetBy: range.lowerBound)
-        let end = self.index(self.startIndex, offsetBy: range.upperBound + 1)
-        
-        return String(self[start..<end])
+    func substring(_ loc: Int, _ len: Int) -> String{
+        (self as NSString).substring(with: NSRange(location: loc, length: len))
     }
     
     subscript (i: Int) -> Character {
@@ -356,17 +334,37 @@ public extension Substring {
         return self.substring(with: NSRange(location: loc, length: len))
     }
         
+    ///过滤字符集
+    func replacingOccurrences(of String: String, withSet: String) -> String {
+        let items: [String] = self.components(separatedBy: CharacterSet(charactersIn: withSet))
+        return items.joined(separator: "")
+    }
+    
+    ///获取两个字符串中间的部分(含这两部分)
+    func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
+        let beginLocation = self.range(of: prefix).location
+        let endLocation = self.range(of: subfix, options: .backwards).location
+        if beginLocation == NSNotFound || endLocation == NSNotFound {
+            return self as String
+        }
+        
+        let beginIdx = isContain == true ? beginLocation : beginLocation + 1
+        let endIdx = isContain == true ? endLocation - beginLocation + 1 : endLocation - beginLocation
+        let result = self.substring(with: NSRange(location: beginIdx, length: endIdx))
+        return result
+    }
+    
     /// 大于version
-    func isNewer(version: String) -> Bool {
-        return compare(version, options: .numeric) == .orderedDescending
+    func isBig(_ value: String) -> Bool {
+        return compare(value, options: .numeric) == .orderedDescending
     }
-    /// 等于version
-    func isSame(version: String) -> Bool {
-        return compare(version, options: .numeric) == .orderedSame
-    }
+//    /// 等于version
+//    func isSame(version: String) -> Bool {
+//        return compare(version, options: .numeric) == .orderedSame
+//    }
     /// 小于version
-    func isOlder(version: String) -> Bool {
-        return compare(version, options: .numeric) == .orderedAscending
+    func isSmall(_ value: String) -> Bool {
+        return compare(value, options: .numeric) == .orderedAscending
     }
     
     /// 转为拼音

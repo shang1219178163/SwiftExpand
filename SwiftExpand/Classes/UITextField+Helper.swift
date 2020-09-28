@@ -168,7 +168,7 @@ import UIKit
         if self.text?.count == 1 {
             return "";
         }
-        return string != "" ? self.text! + string : self.text!.substringTo(self.text!.count - 2);
+        return string != "" ? self.text! + string : (self.text! as NSString).substring(to: self.text!.count - 2)
     }
     
 }

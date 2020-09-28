@@ -258,6 +258,7 @@ import UIKit
     }
     
     ///手势 - 轻点 UITapGestureRecognizer
+    @discardableResult
     public func addGestureTap(_ target: Any?, action: Selector?) -> UITapGestureRecognizer {
         let obj = UITapGestureRecognizer(target: target, action: action)
         obj.numberOfTapsRequired = 1  //轻点次数
@@ -270,6 +271,7 @@ import UIKit
     }
     
     ///手势 - 轻点 UITapGestureRecognizer
+    @discardableResult
     public func addGestureTap(_ action: @escaping RecognizerClosure) -> UITapGestureRecognizer {
         let obj = UITapGestureRecognizer(target: nil, action: nil)
         obj.numberOfTapsRequired = 1  //轻点次数
@@ -286,6 +288,7 @@ import UIKit
     }
     
     ///手势 - 长按 UILongPressGestureRecognizer
+    @discardableResult
     public func addGestureLongPress(_ target: Any?, action: Selector?, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: target, action: action)
         obj.minimumPressDuration = minimumPressDuration;
@@ -297,6 +300,7 @@ import UIKit
     }
     
     ///手势 - 长按 UILongPressGestureRecognizer
+    @discardableResult
     public func addGestureLongPress(_ action: @escaping RecognizerClosure, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: nil, action: nil)
         obj.minimumPressDuration = minimumPressDuration;
@@ -312,6 +316,7 @@ import UIKit
     }
       
     ///手势 - 拖拽 UIPanGestureRecognizer
+    @discardableResult
     public func addGesturePan(_ action: @escaping RecognizerClosure) -> UIPanGestureRecognizer {
         let obj = UIPanGestureRecognizer(target: nil, action: nil)
           //最大最小的手势触摸次数
@@ -335,6 +340,7 @@ import UIKit
     }
       
     ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
+    @discardableResult
     public func addGestureEdgPan(_ target: Any?, action: Selector?, for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         let obj = UIScreenEdgePanGestureRecognizer(target: target, action: action)
         obj.edges = edgs
@@ -345,6 +351,7 @@ import UIKit
     }
     
     ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
+    @discardableResult
     public func addGestureEdgPan(_ action: @escaping RecognizerClosure, for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         let obj = UIScreenEdgePanGestureRecognizer(target: nil, action: nil)
         obj.edges = edgs
@@ -359,6 +366,7 @@ import UIKit
     }
       
     ///手势 - 清扫 UISwipeGestureRecognizer
+    @discardableResult
     public func addGestureSwip(_ target: Any?, action: Selector?, for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         let obj = UISwipeGestureRecognizer(target: target, action: action)
         obj.direction = direction
@@ -370,6 +378,7 @@ import UIKit
     }
     
     ///手势 - 清扫 UISwipeGestureRecognizer
+    @discardableResult
     public func addGestureSwip(_ action: @escaping RecognizerClosure, for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         let obj = UISwipeGestureRecognizer(target: nil, action: nil)
         obj.direction = direction
@@ -385,6 +394,7 @@ import UIKit
     }
       
     ///手势 - 捏合 UIPinchGestureRecognizer
+    @discardableResult
     public func addGesturePinch(_ action: @escaping RecognizerClosure) -> UIPinchGestureRecognizer {
         let obj = UIPinchGestureRecognizer(target: nil, action: nil)
         isUserInteractionEnabled = true
@@ -404,6 +414,7 @@ import UIKit
     }
       
     ///手势 - 旋转 UIRotationGestureRecognizer
+    @discardableResult
     public func addGestureRotation(_ action: @escaping RecognizerClosure) -> UIRotationGestureRecognizer {
         let obj = UIRotationGestureRecognizer(target: nil, action: nil)
         isUserInteractionEnabled = true
@@ -466,7 +477,32 @@ import UIKit
         }
         return nil
     }
+    
+    ///移动动画
+    public func move(_ x: CGFloat, y: CGFloat, animated: Bool, completion: ((Bool) -> Void)? = nil) {
+        let duration = animated ? 0.3 : 0
+        UIView.animate(withDuration: duration, animations: {
+            if self.transform.isIdentity == true {
+                self.transform = self.transform.translatedBy(x: x, y: y)
+            } else {
+                self.transform = CGAffineTransform.identity
+            }
+        }, completion: completion)
+    }
+    
+    ///旋转动画
+    public func rotate(_ angle: CGFloat, animated: Bool, completion: ((Bool) -> Void)? = nil) {
+        let duration = animated ? 0.3 : 0
+        UIView.animate(withDuration: duration, animations: {
+            if self.transform.isIdentity == true {
+                self.transform = self.transform.rotated(by: angle)
+            } else {
+                self.transform = CGAffineTransform.identity
+            }
 
+        }, completion: completion)
+    }
+    ///转为图像
     public func convertToImage() -> UIImage{
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, UIScreen.main.scale)
         let ctx = UIGraphicsGetCurrentContext()

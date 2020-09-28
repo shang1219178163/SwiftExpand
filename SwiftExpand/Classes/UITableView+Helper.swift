@@ -245,7 +245,7 @@ public extension UITableView{
     static func sectionByDatetime<T: NSObject>(_ timeKey: String, length: Int = 9, mdic: inout [String: [T]], list: [T]) {
         for e in list.enumerated() {
             if let time = e.element.value(forKey: timeKey) as? String {
-                let key = time.count >= length ? time.substringTo(length) : time;
+                let key = time.count >= length ? (time as NSString).substring(to: length) : time;
                 if mdic[key] == nil {
                     mdic[key] = [];
                 }

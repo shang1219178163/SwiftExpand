@@ -171,6 +171,7 @@ import UIKit
 public extension UIView{
     
     ///更新各种子视图
+    @discardableResult
     final func updateItems<T: UIView>(_ count: Int, type: T.Type, hanler: ((T) -> Void)) -> [T] {
         if count == 0 {
             subviews.filter { $0.isMember(of: type) }.forEach { $0.removeFromSuperview() }
@@ -199,6 +200,7 @@ public extension UIView{
     }
     
     ///更新各种子类按钮
+    @discardableResult
     final func updateButtonItems<T: UIButton>(_ count: Int, type: T.Type, hanler: ((T) -> Void)) -> [T] {
         return updateItems(count, type: type) {
             if $0.title(for: .normal) == nil {
@@ -212,6 +214,7 @@ public extension UIView{
     }
     
     ///更新各种子类UILabel
+    @discardableResult
     final func updateLabelItems<T: UILabel>(_ count: Int, type: T.Type, hanler: ((T) -> Void)) -> [T] {
         return updateItems(count, type: type) {
             if $0.text == nil {
@@ -223,6 +226,7 @@ public extension UIView{
     }
     
     /// [源]创建子类型的 view(例如 cell headerView)
+    @discardableResult
     final func createSubTypeView<T: UIView>(_ type: T.Type, height: CGFloat = 30, inset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((T)->Void)) -> UIView{
         if let subView = viewWithTag(tag) as? T {
             block(subView)
@@ -242,6 +246,7 @@ public extension UIView{
     }
     
     /// [源]创建子类型的 view(cell 添加视图)
+    @discardableResult
     final func createSubTypeView<T: UIView>(_ type: T.Type, tag: Int, inset: UIEdgeInsets = .zero, block: @escaping ((T)->Void)) -> UIView{
         if let subView = viewWithTag(tag) as? T {
             block(subView)
