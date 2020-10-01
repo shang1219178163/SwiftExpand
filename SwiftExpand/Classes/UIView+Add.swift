@@ -240,6 +240,7 @@ public extension UIView{
                                            width: bounds.width - inset.left - inset.right,
                                            height: height - inset.top - inset.bottom));
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight, ]
+        view.tag = tag
         sectionView.addSubview(view)
         block(view)
         return sectionView
@@ -258,6 +259,7 @@ public extension UIView{
                                            width: bounds.width - inset.left - inset.right,
                                            height: bounds.height - inset.top - inset.bottom));
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight, ]
+        view.tag = tag
         addSubview(view)
         block(view)
         return view

@@ -33,19 +33,7 @@ import UIKit
             frame = rectTmp;
         }
     }
-    
-//    public var size: CGSize  {
-//        get {
-//            return frame.size
-//        }
-//        set{
-////            frame.size = newValue
-//            var rectTmp = frame;
-//            rectTmp.size = newValue;
-//            frame = rectTmp;
-//        }
-//    }
-    
+        
     public var originX: CGFloat {
         get {
             return frame.origin.x
@@ -181,7 +169,7 @@ import UIKit
             view.removeFromSuperview()
         }
     }
-    
+    /// 添加圆角
     public func addCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
                           cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0),
                           width: CGFloat = 1,

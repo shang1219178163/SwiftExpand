@@ -29,11 +29,12 @@ import UIKit
     public var isCurrentVC: Bool {
         return isViewLoaded == true && (view!.window != nil)
     }
-    
+        
     /// 呈现
     public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
+
         DispatchQueue.main.async {
-            guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
             rootVC.present(self, animated: animated, completion: completion)
         }
     }

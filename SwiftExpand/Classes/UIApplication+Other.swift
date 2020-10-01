@@ -128,7 +128,7 @@ import Photos
             }
             DispatchQueue.main.async {
                 let titles = isForce == false ? [kTitleUpdate, kTitleCancell] : [kTitleUpdate];
-                let alertController = UIAlertController.createAlert("新版本 v\(appStoreVer)", msg: "\n\(releaseNotes)", actionTitles: titles, handler: { (controller: UIAlertController, action: UIAlertAction) in
+                let alertController = UIAlertController.createAlert("新版本 v\(appStoreVer)", message: "\n\(releaseNotes)", actionTitles: titles, handler: { (controller: UIAlertController, action: UIAlertAction) in
                     if action.title == kTitleUpdate {
                         //去升级
                         _ = UIApplication.openURLString(UIApplication.appUrlWithID(appStoreID))
