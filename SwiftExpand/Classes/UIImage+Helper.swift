@@ -24,7 +24,8 @@ import UIKit
         guard let data = self.jpegData(compressionQuality: 1.0) else { return nil }
         return data;
     }
-    ///扩展便利构造器
+    
+    ///颜色->图像
     convenience init(color: UIColor) {
         let image = UIImage.color(color)
         if let cgImage = image.cgImage {
@@ -33,7 +34,34 @@ import UIKit
             self.init(cgImage: UIImage.color(.white).cgImage!)
         }
     }
-            
+    
+    ///十六进制数值颜色->图像
+    convenience init(hexValue: Int, a: CGFloat = 1.0) {
+        let image = UIImage.color(UIColor.hexValue(hexValue, a: a))
+        if let cgImage = image.cgImage {
+            self.init(cgImage: cgImage)
+        } else {
+            self.init(cgImage: UIImage.color(.white).cgImage!)
+        }
+    }
+    
+    ///十六进制字符串颜色->图像
+    convenience init(hex: String, a: CGFloat = 1.0) {
+        let image = UIImage.color(UIColor.hex(hex, a: a))
+        if let cgImage = image.cgImage {
+            self.init(cgImage: cgImage)
+        } else {
+            self.init(cgImage: UIImage.color(.white).cgImage!)
+        }
+    }
+    
+    /// UIImage 相等判断
+    func equelTo(_ image: UIImage) -> Bool{
+        guard let data0 = self.pngData(), let data1 = image.pngData() else {
+            return false
+        }
+        return data0 == data1
+    }
     /// 把颜色转成UIImage
     static func color(_ color: UIColor, size: CGSize = CGSize(width: 1, height: 1), cornerRadius: CGFloat = 0) -> UIImage{
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -217,13 +245,6 @@ import UIKit
         
         guard let newCGImage = ctx.makeImage() else { return nil }
         return UIImage.init(cgImage: newCGImage, scale: 1, orientation: .up)
-    }
-        
-    /// UIImage 相等判断
-    func equelToImage(_ image: UIImage) -> Bool{
-        let data0: Data = self.pngData()!
-        let data1: Data = image.pngData()!
-        return data0 == data1
     }
     
     func croppedImage(bound: CGRect) -> UIImage {

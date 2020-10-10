@@ -168,7 +168,7 @@ import UIKit
     
     /// 获取UIViewController/UINavigationController数组
     static public func controllers(_ list: [[String]], isNavController: Bool = false, showVCTitle: Bool = true) -> [UIViewController] {
-        let tabItems: [UITabBarItem] = UITabBarItemsFromList(list);
+        let tabItems: [UITabBarItem] = UITabBar.barItems(list)
         let marr: NSMutableArray = [];
         for e in list.enumerated() {
             let itemList = e.element

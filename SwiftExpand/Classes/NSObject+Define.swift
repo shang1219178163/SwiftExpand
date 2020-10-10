@@ -122,14 +122,8 @@ public func UINavCtrFromObj(_ obj: AnyObject) -> UINavigationController?{
         
     } else if obj is UIViewController {
         return UINavigationController(rootViewController: obj as! UIViewController);
-        
     }
     return nil;
-}
-
-///获取UITabBarItem 数组
-public func UITabBarItemsFromList(_ list: [[String]]) -> [UITabBarItem] {
-    return UITabBar.barItems(list)
 }
 
 /// 获取UIViewController/UINavigationController数组
@@ -144,27 +138,11 @@ public func UINavListFromList(_ list: [[String]], showVCTitle: Bool = true) -> [
 
 ///获取UITarBarController
 public func UITarBarCtrFromList(_ list: [[String]]) -> UITabBarController {
-    let tabBarVC: UITabBarController = UITabBarController()
+    let tabBarVC = UITabBarController()
     tabBarVC.viewControllers = UICtlrListFromList(list, isNavController: true)
-    return tabBarVC;
+    return tabBarVC
 }
 
-/// UIImage快捷方法
-public func UIImageNamed(_ name: String, in bundle: Bundle = Bundle.main, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
-    let image = UIImage(named: name, in: bundle, compatibleWith: nil)?.withRenderingMode(renderingMode)
-    return image
-}
-
-///// UIImage快捷方法
-//public func UIImageNamed(_ name: String, renderingMode: UIImage.RenderingMode = .alwaysOriginal) -> UIImage?{
-//    let image = UIImage(named: name)?.withRenderingMode(renderingMode)
-//    return image
-//}
-
-/// UIImage 相等判断
-public func UIImageEquelToImage(_ image0: UIImage, image1: UIImage) -> Bool{
-    return image0.equelToImage(image1)
-}
 /// 地址字符串(hostname + port)
 public func UrlAddress(_ hostname: String, port: String) ->String {
     return NSString.UrlAddress(hostname, port: port);
