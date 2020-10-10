@@ -169,6 +169,14 @@ public extension String{
         return (self as NSString).substring(prefix, subfix: subfix, isContain: isContain)
     }
     
+    //使用正则表达式替换
+    func pregReplace(pattern: String, with: String, options: NSRegularExpression.Options = []) -> String {
+        let regex = try! NSRegularExpression(pattern: pattern, options: options)
+        return regex.stringByReplacingMatches(in: self, options: [],
+                                              range: NSMakeRange (0, self.count),
+                                              withTemplate: with)
+    }
+    
     /// 大于version
     func isBig(_ value: String) -> Bool {
         return (self as NSString).isBig(value)
