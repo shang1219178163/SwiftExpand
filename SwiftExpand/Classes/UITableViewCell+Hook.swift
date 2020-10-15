@@ -9,7 +9,28 @@
 import UIKit
 
 @objc extension UITableViewCell{
+    private struct AssociateKeys {
+        static var assoryOffSet   = "UITableViewCell" + "assoryOffSet"
+    }
+    
+    public var assoryOffSet: UIOffset {
+        get {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.assoryOffSet) as? UIOffset {
+                return obj
+            }
 
+            let set = UIOffset(horizontal: 0, vertical: 0);
+            
+            objc_setAssociatedObject(self, &AssociateKeys.assoryOffSet, set, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return set
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociateKeys.assoryOffSet, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    
+    
+    // MARK: -lifecycle
     override public class func initializeMethod() {
         super.initializeMethod();
         
@@ -28,7 +49,7 @@ import UIKit
     private func hook_layoutSubviews() {
         hook_layoutSubviews()
         
-        positionAccessoryView()
+        positionAccessoryView(assoryOffSet.horizontal, dy: assoryOffSet.vertical)
     }
     
 }

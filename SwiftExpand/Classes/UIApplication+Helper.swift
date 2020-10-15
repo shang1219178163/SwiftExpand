@@ -19,6 +19,11 @@ import UIKit
         return orientation.isPortrait
     }
     
+    @available(iOS 13.0, *)
+    static var isDarkMode: Bool {
+        return UITraitCollection.current.userInterfaceStyle == .dark
+    }
+    
     static var appName: String {
         guard let infoDic = Bundle.main.infoDictionary else { return "" }
         if let name = infoDic["CFBundleDisplayName"] as? String {

@@ -12,6 +12,10 @@ import UIKit
         static var items   = "UISegmentedControl" + "items"
     }
     
+    var currentTitle: String? {
+        let currentTitle = self.titleForSegment(at: self.selectedSegmentIndex)
+        return currentTitle
+    }
     /// [源]UISegmentControl创建
     static func create(_ rect: CGRect = .zero, items: [Any]?, selectedIdx: Int = 0, type: Int = 0, tintColor: UIColor = .theme, fontSize: CGFloat = 13) -> Self {
         let view = self.init(items: items)
