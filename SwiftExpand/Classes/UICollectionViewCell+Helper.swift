@@ -11,8 +11,9 @@ import UIKit
     
     /// [源]自定义 UICollectionViewCell 获取方法(兼容OC)
     static func dequeueReusableCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> Self {
-        let view = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: self), for: indexPath)
-        return view as! Self
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: self), for: indexPath)
+        cell.backgroundColor = .white
+        return cell as! Self
     }
 
  

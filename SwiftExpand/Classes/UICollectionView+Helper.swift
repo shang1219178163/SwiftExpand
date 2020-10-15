@@ -111,6 +111,7 @@ public extension UICollectionView{
     /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UICollectionViewCell>(for cellType: T.Type, identifier: String = String(describing: T.self), indexPath: IndexPath) -> T{
         let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
+        cell.backgroundColor = .white
         return cell as! T;
     }
     

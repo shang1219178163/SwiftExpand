@@ -203,6 +203,7 @@ public extension UITableView{
         cell!.selectionStyle = .none;
         cell!.separatorInset = .zero;
         cell!.layoutMargins = .zero;
+        cell!.backgroundColor = .white
         return cell! as! T;
     }
     

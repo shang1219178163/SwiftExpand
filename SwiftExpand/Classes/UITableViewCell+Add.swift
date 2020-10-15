@@ -28,9 +28,10 @@ import UIKit
             cell = self.init(style: style, reuseIdentifier: identifier);
         }
 
-        cell!.selectionStyle = .none;
-        cell!.separatorInset = .zero;
-        cell!.layoutMargins = .zero;
+        cell!.selectionStyle = .none
+        cell!.separatorInset = .zero
+        cell!.layoutMargins = .zero
+        cell!.backgroundColor = .white
         return cell as! Self;
     }
     
