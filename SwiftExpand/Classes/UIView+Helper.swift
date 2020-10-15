@@ -95,25 +95,6 @@ import UIKit
     }
     
     //MARK: -funtions
-    /// text是否有效
-//    public func validText() -> Bool {
-//        assert(isKind(of: UITextView.self)
-//            || isKind(of: UITextField.self)
-//            || isKind(of: UILabel.self))
-//
-//        var value = self.value(forKey: "text") as? String
-//        if value == nil {
-//            return false;
-//        }
-//        value = value!.replacingOccurrences(of: " ", with: "")
-//
-//        let textNulls = ["", "nil", "null",  "NULL"];
-//        if textNulls.contains(value!) {
-//            return false
-//        }
-//        return true;
-//    }
-
     /// 图层调试
     public func getViewLayer(lineColor: UIColor = .blue) {
         #if DEBUG
@@ -420,19 +401,7 @@ import UIKit
         return obj
     }
 
-//    public func supTableViewCell() -> UITableViewCell{
-//        var supView = superview
-//        while let view = supView as? UITableViewCell {
-//            supView = view.superview
-//        }
-//        return supView as! UITableViewCell;
-//    }
-//    
-//    public func getCellIndexPath(_ tableView: UITableView) -> IndexPath{
-//        let cell = self.supTableViewCell();
-//        return tableView.indexPathForRow(at: cell.center)!
-//    }
-    
+
     /// 获取特定类型父视图
     public func supView(_ type: UIView.Type) -> UIView? {
         var supView = superview

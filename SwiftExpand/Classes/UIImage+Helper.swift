@@ -13,12 +13,7 @@ import UIKit
     private struct AssociateKeys {
         static var closure   = "UIImage" + "closure"
     }
-//    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1.0, height: 1.0)) {
-//        let image = UIImage.color(color)
-//        guard let cgImage = image.cgImage else { return nil }
-//        self.init(cgImage: cgImage)
-//    }
-    
+
     /// ->Data
     var jsonData: Data? {
         guard let data = self.jpegData(compressionQuality: 1.0) else { return nil }
