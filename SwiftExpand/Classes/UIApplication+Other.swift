@@ -128,16 +128,19 @@ import Photos
             }
             DispatchQueue.main.async {
                 let titles = isForce == false ? [kTitleUpdate, kTitleCancell] : [kTitleUpdate];
-                let alertController = UIAlertController.createAlert("新版本 v\(appStoreVer)", message: "\n\(releaseNotes)", actionTitles: titles, handler: { (controller: UIAlertController, action: UIAlertAction) in
-                    if action.title == kTitleUpdate {
-                        //去升级
-                        _ = UIApplication.openURLString(UIApplication.appUrlWithID(appStoreID))
-                    }
-                })
                 
                 //富文本效果
                 let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
-                alertController
+                
+                let title = "新版本 v\(appStoreVer)"
+                let message = "\n\(releaseNotes)"
+                UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    .addActionTitles(titles) { (action) in
+                        if action.title == kTitleUpdate {
+                            //去升级
+                            UIApplication.openURLString(UIApplication.appUrlWithID(appStoreID))
+                        }
+                    }
                     .setTitleColor(UIColor.theme)
                     .setMessageParaStyle(paraStyle)
                     .present()

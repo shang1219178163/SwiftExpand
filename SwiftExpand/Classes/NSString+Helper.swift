@@ -397,7 +397,8 @@ public extension Substring {
     func copyToPasteboard(_ showTips: Bool) {
         UIPasteboard.general.string = self as String
         if showTips == true {
-            _ = UIAlertController.showAlert(nil, placeholders: nil, message: "已复制'\(self)'到剪切板!", actionTitles: nil, handler: nil)
+            UIAlertController(title: nil, message: "已复制'\(self)'到剪切板!", preferredStyle: .alert)
+                .present(true, completion: nil)
         }
     }
     

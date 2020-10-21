@@ -35,7 +35,19 @@ import UIKit
         guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
 
         DispatchQueue.main.async {
-            rootVC.present(self, animated: animated, completion: completion)
+            if self.isKind(of: UIAlertController.self) {
+                if (self as! UIAlertController).actions.count == 0 {
+                    rootVC.present(self, animated: animated, completion: {
+                        DispatchQueue.main.after(TimeInterval(kDurationToast), execute: {
+                            self.dismiss(animated: animated, completion: completion)
+                        })
+                    })
+                } else {
+                    rootVC.present(self, animated: animated, completion: completion)
+                }
+            } else {
+                rootVC.present(self, animated: animated, completion: completion)
+            }
         }
     }
     
