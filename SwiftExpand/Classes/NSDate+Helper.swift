@@ -291,7 +291,12 @@ public let kDateFormatTwo         = "yyyyMMdd";
     
     /// 时间戳
     var timeStamp: Int {
-        return "\(self.timeIntervalSince1970)".components(separatedBy: ",").first!.intValue
+        return Int(self.timeIntervalSince1970)
+    }
+    
+    /// 时间戳
+    var timeStamp13: Int {
+        return Int(self.timeIntervalSince1970 * 1000)
     }
     
     /// 当月天数
@@ -574,6 +579,10 @@ public extension Date{
     /// 时间戳
     var timeStamp: Int {
         return (self as NSDate).timeStamp;
+    }
+    
+    var timeStamp13: Int {
+        return (self as NSDate).timeStamp13
     }
     /// 当月天数
     var countOfDaysInMonth: Int {
