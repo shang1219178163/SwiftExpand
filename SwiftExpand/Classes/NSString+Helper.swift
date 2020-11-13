@@ -222,19 +222,25 @@ public extension String{
     }
     
     func substring(from: Int) -> String{
-        (self as NSString).substring(from: from)
+        return (self as NSString).substring(from: from)
     }
 
     func substring(to: Int) -> String{
-        (self as NSString).substring(to: to)
+        if self.count < to {
+            return self
+        }
+        return (self as NSString).substring(to: to)
     }
 
     func substring(with range: NSRange) -> String{
-        (self as NSString).substring(with: range)
+        return (self as NSString).substring(with: range)
     }
     
     func substring(_ loc: Int, _ len: Int) -> String{
-        (self as NSString).substring(with: NSRange(location: loc, length: len))
+        if self.count < loc {
+            return self
+        }
+        return (self as NSString).substring(with: NSRange(location: loc, length: len))
     }
     
     subscript (i: Int) -> Character {
