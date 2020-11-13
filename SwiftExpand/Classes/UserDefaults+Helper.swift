@@ -25,16 +25,48 @@ import Foundation
     static func synchronize() {
          standard.synchronize()
      }
+//    ///UserDefaults 保存模型
+//    static func setArcObject(_ value: Any?, forkey defaultName: String) {
+//        guard let value = value else { return }
+//        let data = NSKeyedArchiver.archivedData(withRootObject: value)
+//        standard.setValue(data, forKey: defaultName)
+//    }
+//    ///UserDefaults 解包模型
+//    static func arcObject(forkey defaultName: String) -> Any? {
+//        guard let value = standard.object(forKey: defaultName) as? Data else { return nil}
+//        return NSKeyedUnarchiver.unarchiveObject(with: value);
+//    }
+    
     ///UserDefaults 保存模型
-    static func setArcObject(_ value: Any?, forkey defaultName: String) {
+    static func arcObject(_ value: Any?, forkey defaultName: String) {
         guard let value = value else { return }
-        let data = NSKeyedArchiver.archivedData(withRootObject: value)
-        standard.setValue(data, forKey: defaultName)
+        if #available(iOS 11.0, *) {
+            do {
+                let data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: true)
+                standard.setValue(data, forKey: defaultName)
+            } catch {
+                DDLog(error.localizedDescription)
+            }
+        } else {
+            let data = NSKeyedArchiver.archivedData(withRootObject: value)
+            standard.setValue(data, forKey: defaultName)
+        }
     }
     ///UserDefaults 解包模型
-    static func arcObject(forkey defaultName: String) -> Any? {
+    static func unarcObject(ofClasses classes: Set<AnyHashable>, forkey defaultName: String) -> Any? {
         guard let value = standard.object(forKey: defaultName) as? Data else { return nil}
-        return NSKeyedUnarchiver.unarchiveObject(with: value);
+        if #available(iOS 11.0, *) {
+            do {
+                let data = try NSKeyedUnarchiver.unarchivedObject(ofClasses: classes, from: value)
+                return data
+            } catch {
+                DDLog(error.localizedDescription)
+            }
+        } else {
+            let data = NSKeyedArchiver.archivedData(withRootObject: value)
+            return data
+        }
+        return nil
     }
     
 }
