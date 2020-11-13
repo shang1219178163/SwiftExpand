@@ -11,7 +11,7 @@ import UIKit
 
     ///获取UITabBarItem 数组
     static func barItems(_ list: [[String]]) -> [UITabBarItem] {
-        let marr: NSMutableArray = [];
+        var marr = [UITabBarItem]()
         for e in list.enumerated() {
             let itemList = e.element
             let title: String = itemList.count > 1 ? itemList[1] : "";
@@ -31,10 +31,9 @@ import UIKit
             if tabBarItem.title == nil || tabBarItem.title == "" {
                 tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
             }
-            
-            marr.add(tabBarItem)
+            marr.append(tabBarItem)
         }
-        return marr.copy() as! [UITabBarItem]
+        return marr
     }
 
 }

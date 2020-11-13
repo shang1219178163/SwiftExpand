@@ -10,17 +10,17 @@ import UIKit
 @objc public extension UITableView{
     /// [源]UITableView创建
     static func create(_ rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> Self{
-        let table = self.init(frame: rect, style: style);
+        let table = self.init(frame: rect, style: style)
         table.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        table.separatorStyle = .singleLine;
-        table.separatorInset = .zero;
-        table.rowHeight = rowHeight;
-//        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self));
-        table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier);
+        table.separatorStyle = .singleLine
+        table.separatorInset = .zero
+        table.rowHeight = rowHeight
+//        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self))
+        table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         table.keyboardDismissMode = .onDrag
-        table.backgroundColor = .groupTableViewBackground;
+        table.backgroundColor = .groupTableViewBackground
 //        table.tableHeaderView = UIView();
-//        table.tableFooterView = UIView();
+//        table.tableFooterView = UIView()
 
         table.estimatedRowHeight = 0;
         table.estimatedSectionHeaderHeight = 0;
@@ -30,10 +30,10 @@ import UIKit
     
     func adJustedContentIOS11() {
         if #available(iOS 11.0, *) {
-            self.contentInsetAdjustmentBehavior = .never
-            self.estimatedRowHeight = 0;
-            self.estimatedSectionHeaderHeight = 0;
-            self.estimatedSectionFooterHeight = 0;
+            contentInsetAdjustmentBehavior = .never
+            estimatedRowHeight = 0;
+            estimatedSectionHeaderHeight = 0;
+            estimatedSectionFooterHeight = 0;
         }
     }
     

@@ -151,7 +151,7 @@ import UIKit
         }
     }
     /// 添加圆角
-    public func addCorners(_ corners: UIRectCorner = UIRectCorner.allCorners,
+    public func addCorners(_ corners: UIRectCorner = .allCorners,
                           cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0),
                           width: CGFloat = 1,
                           color: UIColor = UIColor.gray) -> CAShapeLayer {

@@ -127,8 +127,8 @@ import UIKit
         }
     }
         
-    public func addControllerName(_ controllerName: String) {
-        let controller = UICtrFromString(controllerName)
+    public func addControllerName(_ vcName: String) {
+        let controller = UICtrFromString(vcName)
         assert(controller.isKind(of: UIViewController.self))
         addControllerVC(controller)
     }
@@ -138,8 +138,9 @@ import UIKit
         assert(controller.isKind(of: UIViewController.self))
         
         addChild(controller)
+//        controller.view.frame = self.view.bounds;
+        controller.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         view.addSubview(controller.view)
-        controller.view.frame = self.view.bounds;
         controller.didMove(toParent: self)
     }
     
@@ -181,7 +182,7 @@ import UIKit
     /// 获取UIViewController/UINavigationController数组
     static public func controllers(_ list: [[String]], isNavController: Bool = false, showVCTitle: Bool = true) -> [UIViewController] {
         let tabItems: [UITabBarItem] = UITabBar.barItems(list)
-        let marr: NSMutableArray = [];
+        var marr = [UIViewController]()
         for e in list.enumerated() {
             let itemList = e.element
             
@@ -193,9 +194,9 @@ import UIKit
             controller.tabBarItem = tabItems[e.offset]
             
             controller = isNavController == true ? UINavCtrFromObj(controller)! : controller
-            marr.add(controller)
+            marr.append(controller)
         }
-        return marr.copy() as! [UIViewController]
+        return marr
     }
     
     ///背景灰度设置

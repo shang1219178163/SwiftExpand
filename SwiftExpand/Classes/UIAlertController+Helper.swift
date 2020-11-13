@@ -22,42 +22,7 @@ public let kAlertActionImageTintColor = "imageTintColor"
 public let kAlertActionChecked = "checked"
 
 @objc public extension UIAlertController{
-//    /// 创建系统提示框
-//    static func createAlert(_ title: String?,
-//                                  placeholders: [String]? = nil,
-//                                  message: String,
-//                                  actionTitles: [String]? = [kTitleCancell, kTitleSure],
-//                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
-//        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//
-//        placeholders?.forEach { (placeholder: String) in
-//            alertVC.addTextField(configurationHandler: { (textField: UITextField) in
-//                textField.placeholder = placeholder
-//            })
-//        }
-//
-//        actionTitles?.forEach({ (title: String) in
-//            let style: UIAlertAction.Style = [kTitleCancell, kTitleNo].contains(title) ? .destructive : .default
-//            alertVC.addAction(UIAlertAction(title: title, style: style, handler: { (action) in
-//                if handler != nil {
-//                    handler!(action)
-//                }
-//            }))
-//        })
-//        return alertVC
-//    }
-//
-//    /// 展示提示框
-//    static func showAlert(_ title: String?,
-//                                placeholders: [String]? = nil,
-//                                message: String,
-//                                actionTitles: [String]? = [kTitleCancell, kTitleSure],
-//                                handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) {
-//
-//        let alertVC = UIAlertController.createAlert(title, placeholders: placeholders, message: message, actionTitles: actionTitles, handler: handler)
-//        alertVC.present()
-//    }
-    
+
     /// 创建包含图片不含message的提示框
     static func createAlertImage(_ title: String?,
                                  image: String,
@@ -115,14 +80,15 @@ public let kAlertActionChecked = "checked"
     
     /// 展示提示框
     static func showSheet(_ title: String?,
-                                message: String? = nil,
-                                items: [String]? = nil,
-                                handler: ((UIAlertAction) -> Void)? = nil) {
+                          message: String? = nil,
+                          items: [String]? = nil,
+                          handler: ((UIAlertAction) -> Void)? = nil) {
         let alertVC = UIAlertController.createSheet(title, message:message, items: items, handler: handler)
         alertVC.present()
     }
 
     ///添加多个 UIAlertAction
+    @discardableResult
     func addActionTitles(_ titles: [String]? = [kTitleCancell, kTitleSure], handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
         titles?.forEach({ (string) in
             let style: UIAlertAction.Style = string == kTitleCancell ? .destructive : .default
@@ -131,6 +97,7 @@ public let kAlertActionChecked = "checked"
         return self
     }
     ///添加多个 textField
+    @discardableResult
     func addTextFieldPlaceholders(_ placeholders: [String]?, handler: ((UITextField) -> Void)? = nil) -> UIAlertController {
         if self.preferredStyle != .alert {
             return self
@@ -145,6 +112,7 @@ public let kAlertActionChecked = "checked"
     }
         
     /// 设置标题颜色
+    @discardableResult
     func setTitleColor(_ color: UIColor = .theme) -> UIAlertController {
         guard let title = title else {
             return self;
@@ -157,6 +125,7 @@ public let kAlertActionChecked = "checked"
     }
     
     /// 设置Message文本换行,对齐方式
+    @discardableResult
     func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> UIAlertController {
         guard let message = message else {
             return self;
@@ -171,6 +140,7 @@ public let kAlertActionChecked = "checked"
     }
     
     ///设置 Message 样式
+    @discardableResult
     func setMessageStyle(_ font: UIFont, textColor: UIColor, alignment: NSTextAlignment = .left, lineBreakMode: NSLineBreakMode = .byCharWrapping, lineSpacing: CGFloat = 5.0) -> UIAlertController {
         
         let paraStyle = NSMutableParagraphStyle()
@@ -181,13 +151,25 @@ public let kAlertActionChecked = "checked"
     }
     
     /// [便利方法]提示信息
-    static func showAlert(_ title: String = "提示", message: String, alignment: NSTextAlignment = .center, actionTitles: [String]? = [kTitleSure], handler: ((UIAlertAction) -> Void)? = nil){
+    static func showAlert(_ title: String? = "提示",
+                          message: String?,
+                          actionTitles: [String]? = [kTitleSure],
+                          block: ((NSMutableParagraphStyle) -> Void)? = nil,
+                          handler: ((UIAlertAction) -> Void)? = nil){
         //富文本效果
-        let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: alignment)
-        
+        let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .center)
+        block?(paraStyle)
         UIAlertController(title: title, message: message, preferredStyle: .alert)
             .addActionTitles(actionTitles, handler: handler)
             .setMessageParaStyle(paraStyle)
+            .present()
+    }
+    
+    /// [便利方法1]提示信息(兼容 OC)
+    static func showAlert(_ title: String? = "提示", message: String?){
+        //富文本效果
+        UIAlertController(title: title, message: message, preferredStyle: .alert)
+            .addActionTitles([kTitleSure], handler: nil)
             .present()
     }
     
@@ -195,7 +177,7 @@ public let kAlertActionChecked = "checked"
     static func showAlertImage(_ title: String?,
                                  image: String,
                                  contentMode: UIView.ContentMode = .scaleAspectFit,
-                                  count: Int = 10,
+                                  count: Int = 20,
                                   actionTitles: [String]? = [kTitleCancell, kTitleSure],
                                   handler: ((UIAlertAction) -> Void)? = nil){
         let alertVC = UIAlertController.createAlertImage(title, image: image, contentMode: contentMode, count: count, actionTitles: actionTitles, handler: handler)
@@ -203,7 +185,7 @@ public let kAlertActionChecked = "checked"
     }
 
     ///根据 fmt 进行相隔时间展示
-    static func showAlert(_ interval: Int = Int(kDateWeek)) -> Bool {
+    static func canShow(_ interval: Int = Int(kDateWeek)) -> Bool {
         let nowTimestamp = Date().timeStamp
         
         if let lastTimestamp = UserDefaults.standard.integer(forKey: "lastShowAlert") as Int?,
@@ -221,8 +203,12 @@ public let kAlertActionChecked = "checked"
 
 public extension UIAlertController {
 
-    ///添加子视图
-    final func addCustomView<T:UIView>(_ type: T.Type, height: CGFloat, inset: UIEdgeInsets, block: @escaping((T)->Void)) {
+    ///添加子视图(仅限 actionSheet)
+    @discardableResult
+    final func addCustomView<T:UIView>(_ type: T.Type, height: CGFloat, inset: UIEdgeInsets, block: @escaping((T)->Void)) -> UIAlertController {
+        if preferredStyle == .alert {
+            return self
+        }
         let customView = type.init()
         view.addSubview(customView)
         customView.translatesAutoresizingMaskIntoConstraints = false
@@ -235,6 +221,7 @@ public extension UIAlertController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.heightAnchor.constraint(equalToConstant: inset.top + height).isActive = true
         block(customView)
+        return self
     }
     
     /// 创建包含图片不含message的提示框
@@ -282,3 +269,57 @@ public extension UIAlertController {
         .present()
     }
 }
+
+
+/**
+
+public final class SwiftExpand<Base> {
+    public let base: Base
+    public init(_ base: Base) {
+        self.base = base
+    }
+}
+
+/**
+ A type that has Kingfisher extensions.
+ */
+public protocol SwiftExpandCompatible {
+    associatedtype CompatibleType
+    var se: CompatibleType { get }
+}
+
+public extension SwiftExpandCompatible {
+    var se: SwiftExpand<Self> {
+        return SwiftExpand(self)
+    }
+}
+
+extension UIImage: SwiftExpandCompatible { }
+
+
+extension SwiftExpand where Base: UIAlertController {
+
+    /// 创建系统sheetView
+    static func createSheet(_ title: String?,
+                            message: String? = nil,
+                            items: [String]? = nil,
+                            handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        
+        items?.forEach({ (title) in
+            let style: UIAlertAction.Style = title == "取消" ? .cancel : .default
+            alertVC.addAction(UIAlertAction(title: title, style: style, handler: { (action) in
+                alertVC.actions.forEach {
+                    if action.title != "确定" {
+                        let number = NSNumber(booleanLiteral: ($0 == action))
+                        $0.setValue(number, forKey: "checked")
+                    }
+                }
+                alertVC.dismiss(animated: true, completion: nil)
+                handler?(action)
+            }))
+        })
+        return alertVC
+    }
+}
+ */
