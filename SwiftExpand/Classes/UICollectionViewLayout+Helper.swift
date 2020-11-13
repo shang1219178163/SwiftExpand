@@ -59,4 +59,11 @@ import UIKit
             }
         }
     }
+    
+    
+    func reloadItemSize(_ size: CGSize) {
+        itemSize = size
+        guard let collectionView = collectionView else { return }
+        collectionView.reloadData()
+    }
 }
