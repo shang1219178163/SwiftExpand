@@ -100,6 +100,7 @@ import UIKit
             
             let colors = [UIColor.theme.withAlphaComponent(0.5).cgColor, UIColor.theme.withAlphaComponent(0.9).cgColor]
             let layer = CAGradientLayer.layerRect(CGRect.zero, colors: colors, start: CGPointMake(0, 0), end: CGPointMake(1.0, 0))
+            objc_setAssociatedObject(self, &AssociateKeys.gradientLayer, layer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return layer
         }
         set {
