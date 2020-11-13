@@ -64,7 +64,7 @@ import UIKit
         // 删除按钮往右移一点
 //        searchBar.setPositionAdjustment(UIOffset(horizontal: 8, vertical: 0), for: .clear)
         ///调整输入框位置
-        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
+//        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
         searchBar.placeholder = "请输入";
         
         searchBar.textField?.tintColor = UIColor.gray;
@@ -84,5 +84,19 @@ import UIKit
         view.textField?.layer.cornerRadius = 5;
         view.textField?.layer.masksToBounds = true;
         return view;
+    }
+    
+    func hiddenSearchBarBackground() {
+        backgroundImage = UIImage()
+        subviews[0].subviews.forEach { (subview) in
+            if subview.isKind(of: NSClassFromString("UISearchBarBackground")!) {
+                if #available(iOS 13.0, *) {
+                    subview.isHidden = true
+                } else {
+                    subview.removeFromSuperview()
+                }
+                return
+            }
+        }
     }
 }
