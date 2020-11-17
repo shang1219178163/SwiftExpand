@@ -52,6 +52,7 @@ import UIKit
     }
     
     ///leftView/rightView
+    @discardableResult
     func asoryView(_ isRight: Bool, type: UIResponder.Type, unit: String, viewSize: CGSize = CGSize(width: 25, height: 25), viewMode: UITextField.ViewMode = .always) -> UIView {
         switch type {
         case is UILabel.Type:
@@ -68,6 +69,7 @@ import UIKit
         return asoryView(isRight, obj: unit, viewSize: viewSize, viewMode: viewMode)
     }
     ///leftView/rightView -> UILabel
+    @discardableResult
     func asoryView(_ isRight: Bool, text: String, viewSize: CGSize = CGSize(width: 25, height: 25), viewMode: UITextField.ViewMode = .always) -> UILabel {
         isRight ? (self.rightViewMode = viewMode) : (self.leftViewMode = viewMode)
         
@@ -99,6 +101,7 @@ import UIKit
     }
 
     ///leftView/rightView -> UIImageView
+    @discardableResult
     func asoryView(_ isRight: Bool, image: UIImage, viewSize: CGSize = CGSize(width: 25, height: 35), viewMode: UITextField.ViewMode = .always) -> UIImageView {
         isRight ? (self.rightViewMode = viewMode) : (self.leftViewMode = viewMode)
         
@@ -124,6 +127,7 @@ import UIKit
     }
     
     ///leftView/rightView -> UIButton
+    @discardableResult
     func asoryView(_ isRight: Bool, obj: String, viewSize: CGSize = CGSize(width: 30, height: 35), viewMode: UITextField.ViewMode = .always) -> UIButton {
         isRight ? (self.rightViewMode = viewMode) : (self.leftViewMode = viewMode)
 
