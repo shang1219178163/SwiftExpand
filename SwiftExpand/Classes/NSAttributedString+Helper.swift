@@ -88,10 +88,13 @@ import UIKit
                                 color: UIColor = .black,
                                 tapColor: UIColor = .theme,
                                 alignment: NSTextAlignment = .left,
+                                lineSpacing: CGFloat = 0,
+                                lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                                 rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineBreakMode = .byCharWrapping
-        paraStyle.alignment = alignment;
+        paraStyle.lineSpacing = lineSpacing
+        paraStyle.lineBreakMode = lineBreakMode
+        paraStyle.alignment = alignment
 
         let attDic = [NSAttributedString.Key.font: font,
                       NSAttributedString.Key.foregroundColor: color,
