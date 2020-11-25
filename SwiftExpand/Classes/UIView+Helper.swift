@@ -95,6 +95,7 @@ import UIKit
     }
     
     //MARK: -funtions
+    
     /// 图层调试
     public func getViewLayer(lineColor: UIColor = .blue) {
         #if DEBUG
@@ -151,19 +152,19 @@ import UIKit
         }
     }
     /// 添加圆角
-    public func addCorners(_ corners: UIRectCorner = .allCorners,
-                          cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0),
-                          width: CGFloat = 1,
-                          color: UIColor = UIColor.gray) -> CAShapeLayer {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: cornerRadii)
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = bounds
-        maskLayer.path = path.cgPath
-        maskLayer.borderWidth = width
-        maskLayer.borderColor = color.cgColor
-        layer.mask = maskLayer;
-        return maskLayer
-    }
+//    public func addCorners(_ corners: UIRectCorner = .allCorners,
+//                          cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0),
+//                          width: CGFloat = 1,
+//                          color: UIColor = UIColor.gray) -> CAShapeLayer {
+//        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: cornerRadii)
+//        let maskLayer = CAShapeLayer()
+//        maskLayer.frame = bounds
+//        maskLayer.path = path.cgPath
+//        maskLayer.borderWidth = width
+//        maskLayer.borderColor = color.cgColor
+//        layer.mask = maskLayer;
+//        return maskLayer
+//    }
     
 //    /// 高性能圆角
 //    public func drawCorners(_ radius: CGFloat, width: CGFloat, color: UIColor, bgColor: UIColor) {
@@ -381,7 +382,7 @@ import UIKit
         }
         return obj
     }
-      
+    
     ///手势 - 旋转 UIRotationGestureRecognizer
     @discardableResult
     public func addGestureRotation(_ action: @escaping RecognizerClosure) -> UIRotationGestureRecognizer {
@@ -401,7 +402,41 @@ import UIKit
         return obj
     }
 
+    ///呈现到 UIApplication.shared.keyWindow 上
+    public func show(_ animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
+        guard let keyWindow = UIApplication.shared.keyWindow else { return }
+        if keyWindow.subviews.contains(self) {
+            self.dismiss()
+        }
+        
+        if self.frame.equalTo(.zero) {
+            self.frame = UIScreen.main.bounds
+        }
+        
+        keyWindow.endEditing(true)
+        keyWindow.addSubview(self);
 
+//        self.transform = self.transform.scaledBy(x: 1.5, y: 1.5)
+        let duration = animated ? 0.15 : 0
+        UIView.animate(withDuration: duration, animations: {
+            self.backgroundColor = UIColor.black.withAlphaComponent(0.3);
+//            self.transform = CGAffineTransform.identity
+            
+        }, completion: completion);
+    }
+    ///从 UIApplication.shared.keyWindow 上移除
+    public func dismiss(_ animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
+        let duration = animated ? 0.15 : 0
+        UIView.animate(withDuration: duration, animations: {
+            self.backgroundColor = UIColor.black.withAlphaComponent(0);
+//            self.transform = self.transform.scaledBy(x: 0.5, y: 0.5)
+
+        }) { (isFinished) in
+            completion?(isFinished)
+            self.removeFromSuperview();
+        }
+    }
+    
     /// 获取特定类型父视图
     public func supView(_ type: UIView.Type) -> UIView? {
         var supView = superview
@@ -513,3 +548,16 @@ import UIKit
     
 }
 
+extension Array where Element : UIView {
+    ///手势 - 轻点 UITapGestureRecognizer
+    @discardableResult
+    public func addGestureTap(_ action: @escaping RecognizerClosure) -> [UITapGestureRecognizer] {
+        
+        var list = [UITapGestureRecognizer]()
+        forEach {
+            let obj = $0.addGestureTap(action)
+            list.append(obj)
+        }
+        return list
+    }
+}
