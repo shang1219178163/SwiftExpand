@@ -21,12 +21,12 @@ import UIKit
     }
     
     ///颜色->图像
-    convenience init(color: UIColor) {
-        let image = UIImage.color(color)
+    convenience init(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let image = UIImage.color(color, size: size)
         if let cgImage = image.cgImage {
             self.init(cgImage: cgImage)
         } else {
-            self.init(cgImage: UIImage.color(.white).cgImage!)
+            self.init(cgImage: UIImage.color(.white, size: size).cgImage!)
         }
     }
     

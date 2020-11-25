@@ -181,11 +181,9 @@ import UIKit
             return (rootVC as! UINavigationController)
         }
         
-        if rootVC.isKind(of: UITabBarController.self) {
-            let tabBarVC = rootVC as! UITabBarController
-            if let selectedViewController = tabBarVC.selectedViewController as? UINavigationController {
-                return selectedViewController
-            }
+        if let tabBarVC = rootVC as? UITabBarController,
+           let navController = tabBarVC.selectedViewController as? UINavigationController {
+            return navController
         }
         return nil
     }

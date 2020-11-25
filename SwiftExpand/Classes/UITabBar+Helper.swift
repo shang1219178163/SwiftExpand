@@ -8,7 +8,7 @@
 import UIKit
 
 @objc public extension UITabBar {
-
+ 
     ///获取UITabBarItem 数组
     static func barItems(_ list: [[String]]) -> [UITabBarItem] {
         var marr = [UITabBarItem]()
@@ -17,7 +17,7 @@ import UIKit
             let title: String = itemList.count > 1 ? itemList[1] : "";
             let imgN: String = itemList.count > 2 ? itemList[2] : "";
             let imgH: String = itemList.count > 3 ? itemList[3] : "";
-            let badgeValue: String = itemList.count > 4 ? itemList[4] : "";
+            let badgeValue: String = itemList.count > 4 ? itemList[4] : "0";
             //
             let imageN = UIImage(named: imgN)?.withRenderingMode(.alwaysOriginal);
             let imageH = UIImage(named: imgH)?.withRenderingMode(.alwaysTemplate);

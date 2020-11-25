@@ -110,6 +110,7 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
     let vcCls = cls as! UIViewController.Type;
     // 创建对象
     let controller: UIViewController = vcCls.init();
+    controller.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     return controller;
 }
 

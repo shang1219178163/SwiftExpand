@@ -15,6 +15,7 @@ import UIKit
         guard let color = color else {
             setBackgroundImage(nil, for: barMetrics)
             shadowImage = nil
+            barTintColor = nil
             return
         }
         let image = color == UIColor.clear ? UIImage() : UIImage(color: color)
