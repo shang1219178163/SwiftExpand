@@ -177,6 +177,36 @@ public extension String{
                                               withTemplate: with)
     }
     
+    func filterHTML() -> String {
+        var html = self
+        
+        let scanner = Scanner(string: html)
+        var text: NSString?
+        while scanner.isAtEnd == false {
+            scanner.scanUpTo("<", into: nil)
+            scanner.scanUpTo(">", into: &text)
+            html = html.replacingOccurrences(of: "\(text ?? "")>", with: "")
+        }
+        return html
+    }
+    
+    ///获取 URL 的参数字典
+    func urlParms() -> [String: Any]? {
+        guard self.hasPrefix("http") else {
+            return nil }
+                
+        let index = (self as NSString).range(of: "?", options: .backwards).location
+        let tmp = (self as NSString).substring(from: index + 1)
+        let list = tmp.components(separatedBy: "&")
+            
+        var dic = [String: Any]()
+        list.forEach {
+            let list = $0.components(separatedBy: "=")
+            dic["\(list[0])"] = list[1]
+        }
+        return dic
+    }
+    
     /// 大于version
     func isBig(_ value: String) -> Bool {
         return (self as NSString).isBig(value)
@@ -366,6 +396,15 @@ public extension Substring {
         let endIdx = isContain == true ? endLocation - beginLocation + 1 : endLocation - beginLocation
         let result = self.substring(with: NSRange(location: beginIdx, length: endIdx))
         return result
+    }
+    
+    func filterHTML() -> String {
+        return (self as String).filterHTML()
+    }
+    
+    ///获取 URL 的参数字典
+    func urlParms() -> [String: Any]? {
+        return (self as String).urlParms()
     }
     
     /// 大于version

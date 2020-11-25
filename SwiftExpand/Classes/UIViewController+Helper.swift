@@ -51,6 +51,19 @@ import UIKit
         }
     }
     
+    ///判断上一页是哪个页面
+    public func pushFromVC(_ type: UIViewController.Type) -> Bool {
+        
+        guard let viewControllers = navigationController?.viewControllers else {
+            return false }
+        if viewControllers.count <= 1 {
+            return false }
+        guard let index = viewControllers.firstIndex(of: self) else {
+            return false }
+        let result = viewControllers[index - 1].isKind(of: type)
+        return result
+    }
+    
     /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
     public func createSearchVC(_ resultsController: UIViewController) -> UISearchController {
         definesPresentationContext = true;

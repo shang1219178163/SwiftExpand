@@ -9,6 +9,13 @@ import UIKit
 import Foundation
 
 @objc public extension UITabBarController{
+    ///当前选择索引
+    static var selectedIdx: Int {
+        guard let keyWindow = UIApplication.shared.keyWindow,
+              let rootController = keyWindow.rootViewController as? UITabBarController else { return 0}
+        return rootController.selectedIndex
+    }
+
     /// 获取私有类视图
     func getSubviewsForName(_ name: String) -> [UIView] {
         var marr: [UIView] = []

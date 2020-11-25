@@ -46,4 +46,35 @@ import WebKit
         let result = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(ratio)%'"
         return result
     }
+    ///此方法解决了: Web 页面包含了 ajax 请求的话，cookie 要重新处理,这个处理需要在 WKWebView 的 WKWebViewConfiguration 中进行配置。
+    func loadUrl(_ urlString: String?, additionalHttpHeaders: [String: String]? = nil) {
+        guard let urlString = urlString,
+              let urlStr = urlString.removingPercentEncoding as String?,
+              let url = URL(string: urlStr) as URL?
+              else {
+            DDLog("链接错误")
+            return }
+        
+        let cookieSource: String = "document.cookie = 'user=\("userValue")';"
+        let cookieScript = WKUserScript(source: cookieSource, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+
+        let userContentController = WKUserContentController()
+        userContentController.addUserScript(cookieScript)
+
+        configuration.userContentController = userContentController
+
+        var request = URLRequest(url: url)
+        if let headFields: [AnyHashable : Any] = request.allHTTPHeaderFields {
+            if headFields["user"] != nil {
+
+            } else {
+                request.addValue("user=\("userValue")", forHTTPHeaderField: "Cookie")
+            }
+        }
+
+        additionalHttpHeaders?.forEach { (key, value) in
+            request.addValue(value, forHTTPHeaderField: key)
+        }
+        load(request as URLRequest)
+    }
 }
