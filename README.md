@@ -150,22 +150,62 @@ Swift SDK功能拓展 , Objective-C && Swift
     }
 }
 
-**Get any pod bundle image**
-
-    /// 获取 pod bundle 图片资源
-    static func image(named name: String, podClassName: String, bundleName: String? = nil) -> UIImage?{
-        let bundleNameNew = bundleName ?? podClassName
-        if let image = UIImage(named: "\(bundleNameNew).bundle/\(name)") {
-            return image;
+**UIViewController**
+       
+    @objc public extension UIViewController {
+    
+        /// 呈现    
+        public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+            guard let keyWindow = UIApplication.shared.keyWindow,
+                  let rootVC = keyWindow.rootViewController
+                  else { return }
+    
+            DispatchQueue.main.async {
+                if let alertVC = self as? UIAlertController {
+                    if alertVC.preferredStyle == .alert {
+                        if alertVC.actions.count == 0 {
+                            rootVC.present(alertVC, animated: animated, completion: {
+                                DispatchQueue.main.after(TimeInterval(kDurationToast), execute: {
+                                    alertVC.dismiss(animated: animated, completion: completion)
+                                })
+                            })
+                        } else {
+                            rootVC.present(alertVC, animated: animated, completion: completion)
+                        }
+                    } else {
+                        //防止 ipad 下 sheet 会崩溃的问题
+                        if UIDevice.current.userInterfaceIdiom == .pad {
+                            if let popoverPresentationController = alertVC.popoverPresentationController {
+                                popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                                popoverPresentationController.sourceView = keyWindow;
+                                
+                                let isEmpty = popoverPresentationController.sourceRect.equalTo(.null) || popoverPresentationController.sourceRect.equalTo(.zero)
+                                if isEmpty {
+                                    popoverPresentationController.sourceRect = CGRect(x: keyWindow.bounds.midX, y: 64, width: 1, height: 1);
+                                }
+                            }
+                        }
+                        rootVC.present(alertVC, animated: animated, completion: completion)
+                    }
+                } else {
+                    rootVC.present(self, animated: animated, completion: completion)
+                }
+            }
         }
-
-        let framework = Bundle.main
-        let filePath = framework.resourcePath! + "/Frameworks/\(podClassName).framework/\(bundleNameNew).bundle"
-        
-        guard let bundle = Bundle(path: filePath) else { return nil}
-        let image = UIImage(named: name, in: bundle, compatibleWith: nil)
-        return image;
-    }
+    
+        ///判断上一页是哪个页面
+        public func pushFromVC(_ type: UIViewController.Type) -> Bool {
+            
+            guard let viewControllers = navigationController?.viewControllers else {
+                return false }
+            if viewControllers.count <= 1 {
+                return false }
+            guard let index = viewControllers.firstIndex(of: self) else {
+                return false }
+            let result = viewControllers[index - 1].isKind(of: type)
+            return result
+        }
+    } 
     
 **UIStackView**
     
