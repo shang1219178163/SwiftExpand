@@ -30,20 +30,58 @@ import UIKit
         return isViewLoaded == true && (view!.window != nil)
     }
         
+//    public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+//        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
+//
+//        DispatchQueue.main.async {
+//            if self.isKind(of: UIAlertController.self) {
+//                if (self as! UIAlertController).actions.count == 0 {
+//                    rootVC.present(self, animated: animated, completion: {
+//                        DispatchQueue.main.after(TimeInterval(kDurationToast), execute: {
+//                            self.dismiss(animated: animated, completion: completion)
+//                        })
+//                    })
+//                } else {
+//                    rootVC.present(self, animated: animated, completion: completion)
+//                }
+//            } else {
+//                rootVC.present(self, animated: animated, completion: completion)
+//            }
+//        }
+//    }
     /// 呈现
     public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
-        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
+        guard let keyWindow = UIApplication.shared.keyWindow,
+              let rootVC = keyWindow.rootViewController
+              else { return }
+        self.modalPresentationStyle = .fullScreen
 
         DispatchQueue.main.async {
-            if self.isKind(of: UIAlertController.self) {
-                if (self as! UIAlertController).actions.count == 0 {
-                    rootVC.present(self, animated: animated, completion: {
-                        DispatchQueue.main.after(TimeInterval(kDurationToast), execute: {
-                            self.dismiss(animated: animated, completion: completion)
+            if let alertVC = self as? UIAlertController {
+                if alertVC.preferredStyle == .alert {
+                    if alertVC.actions.count == 0 {
+                        rootVC.present(alertVC, animated: animated, completion: {
+                            DispatchQueue.main.after(TimeInterval(kDurationToast), execute: {
+                                alertVC.dismiss(animated: animated, completion: completion)
+                            })
                         })
-                    })
+                    } else {
+                        rootVC.present(alertVC, animated: animated, completion: completion)
+                    }
                 } else {
-                    rootVC.present(self, animated: animated, completion: completion)
+                    //防止 ipad 下 sheet 会崩溃的问题
+                    if UIDevice.current.userInterfaceIdiom == .pad {
+                        if let popoverPresentationController = alertVC.popoverPresentationController {
+                            popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                            popoverPresentationController.sourceView = keyWindow;
+                            
+                            let isEmpty = popoverPresentationController.sourceRect.equalTo(.null) || popoverPresentationController.sourceRect.equalTo(.zero)
+                            if isEmpty {
+                                popoverPresentationController.sourceRect = CGRect(x: keyWindow.bounds.midX, y: 64, width: 1, height: 1);
+                            }
+                        }
+                    }
+                    rootVC.present(alertVC, animated: animated, completion: completion)
                 }
             } else {
                 rootVC.present(self, animated: animated, completion: completion)
