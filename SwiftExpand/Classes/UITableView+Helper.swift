@@ -228,22 +228,23 @@ public extension UITableView{
     }
     
     /// [源]HeaderView,footerView
-    final func createSectionView<T: UIView>(_ type: T.Type, height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((T)->Void)) -> UIView{
-        let sectionView = UIView()
-        sectionView.backgroundColor = .background
-
-        let view = type.init(frame: CGRect(x: labelInset.left,
-                                           y: labelInset.top,
-                                           width: bounds.width - labelInset.left - labelInset.right,
-                                           height: height - labelInset.top - labelInset.bottom));
-        
-        sectionView.addSubview(view)
-        block(view)
-        return sectionView
-    }
+//    final func createSectionView<T: UIView>(_ type: T.Type, height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((T)->Void)) -> UIView{
+//        let sectionView = UIView()
+//        sectionView.backgroundColor = .background
+//
+//        let view = type.init(frame: CGRect(x: labelInset.left,
+//                                           y: labelInset.top,
+//                                           width: bounds.width - labelInset.left - labelInset.right,
+//                                           height: height - labelInset.top - labelInset.bottom));
+//        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        sectionView.addSubview(view)
+//        block(view)
+//        return sectionView
+//    }
     
     /// 按照时间值划分section(例如 var mdic:[String: [NSObject]] = [:] //全局变量)
-    static func sectionByDatetime<T: NSObject>(_ timeKey: String, length: Int = 9, mdic: inout [String: [T]], list: [T]) {
+    @discardableResult
+    static func sectionByDatetime<T: NSObject>(_ timeKey: String, length: Int = 9, mdic: inout [String: [T]], list: [T])  -> [String: [T]] {
         for e in list.enumerated() {
             if let time = e.element.value(forKey: timeKey) as? String {
                 let key = time.count >= length ? (time as NSString).substring(to: length) : time;
@@ -253,7 +254,7 @@ public extension UITableView{
                 mdic[key]?.append(e.element as T)
             }
         }
-//        DDLog(mdic.keys);
+        return mdic
     }
     
     /// 获取section模型数组(例如 var mdic:[String: [NSObject]] = [:] //全局变量)
