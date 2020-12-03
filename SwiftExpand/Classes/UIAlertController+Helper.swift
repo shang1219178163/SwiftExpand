@@ -230,7 +230,7 @@ public extension UIAlertController {
                                     type: T.Type,
                                     height: CGFloat,
                                     block: @escaping ((T)->Void),
-                                  handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController{
+                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController{
         let alertVC = UIAlertController(title: title,
                                         message: message,
                                         preferredStyle: .actionSheet)
@@ -252,7 +252,7 @@ public extension UIAlertController {
         alertVC.addCustomView(type, height: height, inset: inset, block: block)
 
         alertVC.addAction(UIAlertAction(title: kTitleCancell, style: .cancel, handler: { (action) in
-            handler?(action)
+            handler?(alertVC, action)
         }))
         return alertVC
     }
@@ -263,7 +263,7 @@ public extension UIAlertController {
                                     type: T.Type,
                                     height: CGFloat,
                                     block: @escaping ((T)->Void),
-                                  handler: ((UIAlertAction) -> Void)? = nil){
+                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
         
         UIAlertController.createSheet(title, message: message, type: type, height: height, block: block, handler: handler)
         .present()

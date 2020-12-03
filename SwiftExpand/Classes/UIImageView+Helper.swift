@@ -21,7 +21,7 @@ import UIKit
     ///MARK:默认渲染AlwaysTemplate方式
     public func renderTintColor(_ tintColor: UIColor = .theme, mode: UIImage.RenderingMode = .alwaysTemplate) {
         self.tintColor = tintColor
-        self.image = self.image!.withRenderingMode(mode)
+        self.image = self.image?.withRenderingMode(mode)
     }
     /// 翻转动画
     public func addFlipAnimtion(_ image: UIImage, backImage: UIImage, isRepeat: Bool = true) {
@@ -49,42 +49,48 @@ import UIKit
     }
     
     private func enlargeImageView(_ tap: UITapGestureRecognizer) {
-        let window = UIApplication.shared.keyWindow;
+        guard let tapView = tap.view as? UIImageView,
+              let window = UIApplication.shared.keyWindow
+        else { return }
         
-        let avatarImageView = tap.view as! UIImageView;
-        let oldFrame = avatarImageView.convert(avatarImageView.frame, to: window)
+        let oldFrame = tapView.convert(tapView.frame, to: window)
         
         let imageView: UIImageView = {
           let view = UIImageView(frame: oldFrame)
             view.contentMode = .scaleAspectFit
             view.tag = 1001;
-                        
-            _ = view.addGesturePinch { (reco) in
+                                    
+            view.addGesturePinch { (reco) in
                 
             }
-            _ = view.addGesturePan { (reco) in
+            
+            view.addGesturePan { (reco) in
+                
+            }
+            
+            view.addGestureRotation { (reco) in
                 
             }
             return view;
         }()
-        imageView.image = avatarImageView.image
+        imageView.image = tapView.image
         
         let backgroundView: UIView = {
-            let view = UIView(frame: window!.bounds)
+            let view = UIView(frame: window.bounds)
             view.backgroundColor = .black
             view.tag = 1000;
             view.alpha = 0;
             return view;
         }()
         backgroundView.addSubview(imageView)
-        window?.insertSubview(backgroundView, at: 1)
+        window.insertSubview(backgroundView, at: 1)
                 
         UIView.animate(withDuration: 0.15) {
-            imageView.frame = window!.bounds;
+            imageView.frame = window.bounds;
             backgroundView.alpha = 1;
         }
         
-        _ = backgroundView.addGestureTap { (reco) in
+        backgroundView.addGestureTap { (reco) in
             UIView.animate(withDuration: 0.15, animations: {
                 backgroundView.alpha = 0;
 

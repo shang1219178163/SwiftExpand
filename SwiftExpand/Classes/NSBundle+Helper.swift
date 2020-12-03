@@ -21,9 +21,10 @@ import UIKit
     /// 国际化语言适配
     static func localizedString(forKey key: String, comment: String = "", userDefaultsKey: String = "AppLanguage") -> String {
         let defaultValue = NSLocalizedString(key, comment: comment)
-        guard let name = UserDefaults.standard.object(forKey: userDefaultsKey) as? String else { return defaultValue }
-        guard let lprojBundlePath = Bundle.main.path(forResource: name, ofType: "lproj") else { return defaultValue }
-        guard let lprojBundle = Bundle(path: lprojBundlePath) else { return defaultValue }
+        guard let name = UserDefaults.standard.object(forKey: userDefaultsKey) as? String,
+              let lprojBundlePath = Bundle.main.path(forResource: name, ofType: "lproj"),
+              let lprojBundle = Bundle(path: lprojBundlePath) else {
+            return defaultValue }
         let value = NSLocalizedString(key, bundle: lprojBundle, comment: comment)
 //        let value = bundle!.localizedString(forKey: key, value: "", table: nil)
         return value;

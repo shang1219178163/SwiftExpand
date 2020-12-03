@@ -108,11 +108,11 @@ import UIKit
         }
     }
     
-    func addLineDashLayer(color: UIColor = UIColor.red,
-                                    width: CGFloat = 1,
-                                    dashPattern: [NSNumber] = [NSNumber(floatLiteral: 4), NSNumber(floatLiteral: 5)],
-                                    cornerRadius: CGFloat = 0,
-                                    size: CGSize = CGSize.zero) {
+    func addLineDashLayer(color: UIColor = .red,
+                          width: CGFloat = 1,
+                          dashPattern: [NSNumber] = [NSNumber(floatLiteral: 4), NSNumber(floatLiteral: 5)],
+                          cornerRadius: CGFloat = 0,
+                          size: CGSize = CGSize.zero) {
         let view: UIView = self;
         assert(CGRect.zero.equalTo(view.bounds) == true && CGSize.zero.equalTo(size));
 
@@ -143,7 +143,7 @@ import UIKit
     }
     
      ///视图添加圆角
-    func addRoundCornerLayer(_ radius: CGFloat = 10, padding: CGFloat = 10, isHeader: Bool, lineColor: UIColor = UIColor.white) {
+    func addRoundCornerLayer(_ radius: CGFloat = 10, padding: CGFloat = 10, isHeader: Bool, lineColor: UIColor = .white) {
          // 获取显示区域大小
          let rect = bounds.insetBy(dx: padding, dy: 0)
          // 贝塞尔曲线

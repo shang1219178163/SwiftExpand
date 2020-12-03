@@ -30,7 +30,7 @@ import UIKit
         }
         popViewController(animated: animated)
     }
-    
+        
     /// 修改切换导航栏样式
     public func changeBarStyle() {
          // 切换导航栏样式

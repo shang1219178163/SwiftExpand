@@ -156,21 +156,20 @@ import UIKit
         }
     }
         
-    static var rootController: UIViewController {
+    static var rootController: UIViewController? {
         get {
-            return UIApplication.mainWindow.rootViewController ?? (UIApplication.shared.keyWindow?.rootViewController as! UIViewController)
+            return UIApplication.mainWindow.rootViewController
         }
         set {
+            guard let newValue = newValue else { return }
             UIApplication.mainWindow.rootViewController = newValue;
         }
     }
     
     static var tabBarController: UITabBarController? {
-        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil }
-        if let tabBarVC = rootVC as? UITabBarController {
-            return tabBarVC
-        }
-        return nil
+        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController else {
+            return nil }
+        return rootVC
     }
     
     ///当前导航控制器
@@ -216,25 +215,16 @@ import UIKit
     }
     
     //MARK: func
-    static func setupRootController(_ window: UIWindow = UIApplication.mainWindow, _ controller: AnyObject, _ isAdjust: Bool = true) {
-        UIApplication.setupRootController(controller, isAdjust);
-    }
-    
-    static func setupRootController(_ controller: AnyObject, _ isAdjust: Bool = true) {
-        var contr = controller;
-        if controller is String {
-            contr = UICtrFromString(controller as! String);
-        }
-        
+    static func setupRootController(_ vc: UIViewController, isAdjust: Bool = true) {
         if !isAdjust {
-            UIApplication.rootController = contr as! UIViewController;
+            UIApplication.rootController = vc
             return;
         }
         
-        if controller is UINavigationController || controller is UITabBarController {
-            UIApplication.rootController = contr as! UIViewController;
+        if vc is UINavigationController || vc is UITabBarController {
+            UIApplication.rootController = vc
         } else {
-            UIApplication.rootController = UINavigationController(rootViewController: contr as! UIViewController);
+            UIApplication.rootController = UINavigationController(rootViewController: vc);
         }
     }
     
@@ -337,7 +327,6 @@ import UIKit
 //        UITabBar.appearance().tintColor = .red;
 //    }
     
-    @available(iOS 9.0, *)
     static func setupAppearanceSearchbarCancellButton(_ textColor: UIColor = .theme) {
         let shandow: NSShadow = {
             let shadow = NSShadow();
@@ -443,9 +432,7 @@ import UIKit
             //完成一些工作。我们有几分钟的时间来完成它
             //在结束时，必须调用endBackgroundTask
             NSLog("Doing some background work!")
-            if block != nil {
-                block!();
-            }
+            block?()
             application.endBackgroundTask(bgTask)
             bgTask = UIBackgroundTaskIdentifier.invalid
         }

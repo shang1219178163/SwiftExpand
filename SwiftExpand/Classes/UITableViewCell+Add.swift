@@ -41,7 +41,7 @@ import UIKit
     }
     
     ///调整AccessoryView位置(默认垂直居中)
-    func positionAccessoryView(_ dx: CGFloat = 0, dy: CGFloat = 0) {
+    func positionAccessoryView(_ dx: CGFloat = 0, dy: CGFloat = 0) -> UIView? {
         var accessory: UIView?
         if let accessoryView = self.accessoryView {
             accessory = accessoryView
@@ -60,7 +60,9 @@ import UIKit
         if accessory != nil {
             accessory!.center = CGPoint(x: accessory!.center.x + dx, y: self.bounds.midY + dy)
         }
+        return accessory
     }
+    
         
     var imgViewLeft: UIImageView {
         get {

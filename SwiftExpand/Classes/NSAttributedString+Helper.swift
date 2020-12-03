@@ -51,26 +51,31 @@ import UIKit
     /// 富文本整体设置
     static func paraDict(_ font: CGFloat = 15,
                          textColor: UIColor = .theme,
-                         alignment: NSTextAlignment = .left) -> [NSAttributedString.Key: Any] {
-        let paraStyle = NSMutableParagraphStyle();
-        paraStyle.lineBreakMode = .byCharWrapping;
-        paraStyle.alignment = alignment;
-        
-        let mdic = NSMutableDictionary(dictionary: attrDict(font, textColor: textColor));
-        mdic.setObject(paraStyle, forKey: NSAttributedString.Key.paragraphStyle as NSCopying);
-        return mdic.copy() as! [NSAttributedString.Key: Any];
+                         alignment: NSTextAlignment = .left,
+                         lineSpacing: CGFloat = 0,
+                         lineBreakMode: NSLineBreakMode = .byTruncatingTail) -> [NSAttributedString.Key: Any] {
+        let paraStyle = NSMutableParagraphStyle()
+        paraStyle.lineBreakMode = lineBreakMode
+        paraStyle.lineSpacing = lineSpacing
+        paraStyle.alignment = alignment
+
+        var dic = attrDict(font, textColor: textColor)
+        dic[NSAttributedString.Key.paragraphStyle] = paraStyle
+        return dic
     }
     
     /// [源]富文本
     static func attString(_ text: String,
-                                textTaps: [String],
-                                font: CGFloat = 15,
-                                tapFont: CGFloat = 15,
-                                color: UIColor = .black,
-                                tapColor: UIColor = .theme,
-                                alignment: NSTextAlignment = .left,
-                                rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
-        let paraDic = paraDict(font, textColor: color, alignment: alignment)
+                          textTaps: [String],
+                          font: CGFloat = 15,
+                          tapFont: CGFloat = 15,
+                          color: UIColor = .black,
+                          tapColor: UIColor = .theme,
+                          alignment: NSTextAlignment = .left,
+                          lineSpacing: CGFloat = 0,
+                          lineBreakMode: NSLineBreakMode = .byTruncatingTail,
+                          rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
+        let paraDic = paraDict(font, textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
         let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in
             let nsRange = (text as NSString).range(of: textTap, options: mask)
@@ -178,3 +183,10 @@ public extension NSAttributedString{
 }
 
 
+public extension NSMutableAttributedString{
+    ///添加
+    func append(_ string: String, attributes attrs: [NSAttributedString.Key : Any]? = nil) -> NSMutableAttributedString{
+        self.append(NSAttributedString(string: string, attributes: attrs))
+        return self
+    }
+}
