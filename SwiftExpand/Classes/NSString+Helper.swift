@@ -251,6 +251,15 @@ public extension String{
         return (self as NSString).isPureFloat()
     }
     
+    func replacingOccurrences(_ loc: Int, _ len: Int, with replacement: String) -> String{
+        if self.count < loc + len {
+            return self
+        }
+        var tmp = (self as NSString).substring(with: NSRange(location: loc, length: len))
+        tmp = replacingOccurrences(of: tmp, with: replacement)
+        return tmp
+    }
+    
     func substring(from: Int) -> String{
         return (self as NSString).substring(from: from)
     }

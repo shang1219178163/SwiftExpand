@@ -548,6 +548,29 @@ import UIKit
     
 }
 
+
+extension UIView{
+    
+    /// 获取特定类型父视图
+    final func supView<T: UIView>(_ type: T.Type) -> T? {
+        var supView = superview
+        while supView?.isKind(of: type.self) == false {
+            supView = supView?.superview
+        }
+        return supView.self as? T
+    }
+        
+    /// 获取特定类型子视图
+    final func subView<T: UIView>(_ type: T.Type) -> T? {
+        for e in self.subviews.enumerated() {
+            if e.element.isKind(of: type) {
+                return (e.element.self as! T)
+            }
+        }
+        return nil
+    }
+}
+
 extension Array where Element : UIView {
     ///手势 - 轻点 UITapGestureRecognizer
     @discardableResult
