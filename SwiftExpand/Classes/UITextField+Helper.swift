@@ -27,6 +27,36 @@ import UIKit
         return view
     }
     
+    func clear() {
+        text = ""
+        attributedText = NSAttributedString(string: "")
+    }
+
+    /// - Parameter color: placeholder text color.
+    func setPlaceHolderTextColor(_ color: UIColor) {
+        guard let holder = placeholder, !holder.isEmpty else { return }
+        attributedPlaceholder = NSAttributedString(string: holder, attributes: [.foregroundColor: color])
+    }
+    
+    func addImageView(_ isRight: Bool, image: UIImage, padding: CGFloat, block:((UIView)->Void)?) {
+        let iconView = UIView(frame: CGRect(x: 0, y: 0, width: image.size.width + padding, height: image.size.height))
+        let imageView = UIImageView(image: image)
+        imageView.frame = iconView.bounds
+        imageView.contentMode = .center
+        imageView.isUserInteractionEnabled = true
+        iconView.addSubview(imageView)
+        
+        block?(iconView)
+        if isRight {
+            rightView = iconView
+            rightViewMode = .always
+
+        } else {
+            leftView = iconView
+            leftViewMode = .always
+        }
+    }
+    
     /// 设置 leftView 图标
     func setupLeftView(image: UIImage?, viewMode: UITextField.ViewMode = .always) {
         if image == nil {
@@ -174,6 +204,7 @@ import UIKit
         }
         return string != "" ? self.text! + string : (self.text! as NSString).substring(to: self.text!.count - 2)
     }
+    
     
 }
 

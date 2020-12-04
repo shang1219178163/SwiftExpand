@@ -121,6 +121,18 @@ import UIKit
             updateItems(newValue)
         }
     }
+    
+    /// 控件items
+    var imageItems: [UIImage]? {
+        get {
+            let range = 0..<numberOfSegments
+            return range.compactMap { imageForSegment(at: $0) }
+        }
+        set {
+            guard let newValue = newValue else { return }
+            updateImageItems(newValue)
+        }
+    }
         
     /// 配置新item数组
     private func updateItems(_ items: [String]) {
@@ -131,6 +143,19 @@ import UIKit
         removeAllSegments()
         for e in items.enumerated() {
             insertSegment(withTitle: e.element, at: e.offset, animated: false)
+        }
+        selectedSegmentIndex = 0
+    }
+    
+    /// 配置新item数组
+    private func updateImageItems(_ items: [UIImage]) {
+        if items.count == 0 {
+            return
+        }
+        
+        removeAllSegments()
+        for e in items.enumerated() {
+            insertSegment(with: e.element, at: e.offset, animated: false)
         }
         selectedSegmentIndex = 0
     }

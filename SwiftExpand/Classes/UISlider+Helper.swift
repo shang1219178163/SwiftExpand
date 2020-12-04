@@ -20,4 +20,17 @@ import UIKit
         view.minimumTrackTintColor = UIColor.theme
         return view;
     }
+    
+    func setValue(_ value: Float, animated: Bool = true, duration: TimeInterval = 1, completion: (() -> Void)? = nil) {
+        if animated {
+            UIView.animate(withDuration: duration, animations: {
+                self.setValue(value, animated: true)
+            }, completion: { _ in
+                completion?()
+            })
+        } else {
+            setValue(value, animated: false)
+            completion?()
+        }
+    }
 }

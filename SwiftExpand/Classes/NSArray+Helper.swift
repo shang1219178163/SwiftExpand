@@ -31,6 +31,10 @@ public extension Array{
     }
 }
 
+//public extension Array where Element : NSObject{
+//
+//}
+
 @objc public extension NSArray{
 
     /// ->Data

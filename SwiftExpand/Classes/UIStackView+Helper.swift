@@ -22,6 +22,12 @@ import UIKit
         return view
     }
 
+    func addArrangedSubviews(_ views: [UIView]) {
+        for view in views {
+            addArrangedSubview(view)
+        }
+    }
+    
     /// 设置子视图显示比例(此方法前请设置 .axis/.orientation)
     func setSubViewMultiplier(_ multiplier: CGFloat, at index: Int) {
         if index < subviews.count {

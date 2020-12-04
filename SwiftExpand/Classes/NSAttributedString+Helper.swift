@@ -180,6 +180,11 @@ public extension NSAttributedString{
         try self.init(data: data, documentType: .rtfd)
     }
     
+    static func + (lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString {
+        let string = NSMutableAttributedString(attributedString: lhs)
+        string.append(rhs)
+        return string
+    }
 }
 
 

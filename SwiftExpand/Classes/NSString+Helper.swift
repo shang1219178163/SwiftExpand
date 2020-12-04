@@ -110,10 +110,22 @@ public extension String{
     var doubleValue: Double {
         return (self as NSString).doubleValue
     }
-    /// 为空返回默认值"--"
-    var valueText: String {
-        return self != "" ? self : "--"
+    
+    var boolValue: Bool? {
+        let selfLowercased = trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        switch selfLowercased {
+        case "true", "yes", "1":
+            return true
+        case "false", "no", "0":
+            return false
+        default:
+            return nil
+        }
     }
+//    /// 为空返回默认值"--"
+//    var valueText: String {
+//        return self != "" ? self : "--"
+//    }
     /// d字符串翻转
     var reverse: String {
         return String(self.reversed())
@@ -131,6 +143,71 @@ public extension String{
         let json = try? JSONSerialization.jsonObject(with: data, options: [])
             else { return nil }
         return json
+    }
+    
+    var trimmed: String {
+        return trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    var urlDecoded: String {
+        return removingPercentEncoding ?? self
+    }
+
+    var urlEncoded: String {
+        return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+    }
+    
+    var isValidUrl: Bool {
+        return URL(string: self) != nil
+    }
+    
+    var isValidHttpUrl: Bool {
+        guard let url = URL(string: self) else { return false }
+        return url.scheme == "http"
+    }
+    
+    var isValidFileUrl: Bool {
+        return URL(string: self)?.isFileURL ?? false
+    }
+    
+    ///以1开头的11位数字
+    var isValidPhone: Bool{
+        let pattern = "^1[0-9]{10}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return predicate.evaluate(with: self)
+    }
+        
+    ///验证邮箱
+    var isValidEmail: Bool {
+        if self.count == 0 {
+            return false
+        }
+        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return predicate.evaluate(with: self)
+    }
+    
+    var isIPAddress: Bool {
+        let regex: String = "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$"
+        let pre: NSPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        let rc: Bool = pre.evaluate(with: self)
+        if rc {
+            let componds: [String] = components(separatedBy: ",")
+            var v: Bool = true
+            for s in componds {
+                if s.intValue > 255 {
+                    v = false
+                    break
+                }
+            }
+            return v
+        }
+        return false
+    }
+    
+    func isValidByRegex(_ regex: String) -> Bool {
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return predicate.evaluate(with: self)
     }
     
     /// 计算高度
@@ -339,6 +416,19 @@ public extension Substring {
     }
 }
 
+public extension String{
+    
+    static func * (lhs: String, rhs: Int) -> String {
+        guard rhs > 0 else { return "" }
+        return String(repeating: lhs, count: rhs)
+    }
+    
+    static func *= (lhs: inout String, rhs: Int) -> String {
+        guard rhs > 0 else { return "" }
+        return String(repeating: lhs, count: rhs)
+    }
+}
+
 
 @objc public extension NSString{
 
@@ -369,7 +459,51 @@ public extension Substring {
     var thousandDes: String {
         return (self as String).thousandDes
     }
+    
+    var trimmed: String {
+        return (self as String).trimmed
+    }
+    
+    var urlDecoded: String {
+        return (self as String).urlDecoded
+    }
 
+    var urlEncoded: String {
+        return (self as String).urlEncoded
+    }
+    
+    var isValidUrl: Bool {
+        return (self as String).isValidUrl
+    }
+    
+    var isValidHttpUrl: Bool {
+        return (self as String).isValidHttpUrl
+
+    }
+    
+    var isValidFileUrl: Bool {
+        return (self as String).isValidFileUrl
+    }
+    
+    ///以1开头的11位数字
+    var isValidPhone: Bool{
+        return (self as String).isValidPhone
+
+    }
+    ///验证邮箱
+    var isValidEmail: Bool {
+        return (self as String).isValidEmail
+    }
+    
+    ///验证IP
+    var isIPAddress: Bool {
+        return (self as String).isIPAddress
+    }
+    
+    func isValidByRegex(_ regex: String) -> Bool {
+        return (self as String).isValidByRegex(regex)
+    }
+        
     /// 地址字符串(hostname + port)
     static func UrlAddress(_ hostname: String, port: String) ->String {
         var webUrl: String = hostname;
@@ -562,50 +696,8 @@ public extension Substring {
         let size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, attributes: attDic, context: nil).size;
         return CGSize(width: ceil(size.width), height: ceil(size.height))
     }
-    
-    
-    func isValidateByRegex(_ regex: String) -> Bool {
-        let pre: NSPredicate = NSPredicate(format: "SELF MATCHES %@",regex)
-        return pre.evaluate(with: self)
-    }
-    
-    func isMobileNumber() -> Bool {
-        if hasPrefix("1") {
-            if length == 11 {
-                if self.trimmingCharacters(in: .decimalDigits).count == 0 {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-    
-    func isEmailAddress() -> Bool {
-        let emailRegex: String = "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        return isValidateByRegex(emailRegex)
-    }
-    
-    func isIPAddress() -> Bool {
-        let regex: String = "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$"
-        let pre: NSPredicate = NSPredicate(format: "SELF MATCHES %@",regex)
-        let rc: Bool = pre.evaluate(with: self)
-        if rc {
-            let componds: [String] = components(separatedBy: ",")
-            var v: Bool = true
-            for s in componds {
-                if s.intValue > 255 {
-                    v = false
-                    break
-                }
-            }
-            return v
-        }
-        return false
-    }
-    
-    func isValidUrl() -> Bool {
-        let regex = "^((http)|(https))+:[^\\s]+\\.[^\\s]*$";
-        return isValidateByRegex(regex)
-    }
+        
+
+
     
 }

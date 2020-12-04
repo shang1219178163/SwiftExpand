@@ -28,5 +28,13 @@ import UIKit
         tintColor = color
         titleTextAttributes = [NSAttributedString.Key.foregroundColor: color,]
     }
+    
+    func makeTransparent(withTint tint: UIColor = .white) {
+        setBackgroundImage(UIImage(), for: .default)
+        shadowImage = UIImage()
+        isTranslucent = true
+        tintColor = tint
+        titleTextAttributes = [.foregroundColor: tint]
+    }
 
 }
