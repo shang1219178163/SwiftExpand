@@ -539,11 +539,12 @@ import UIKit
     }
 
     /// 插入模糊背景
-    public func insertVisualEffectView() -> UIVisualEffectView {
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
-        effectView.frame = self.bounds
-        self.insertSubview(effectView, at: 0)
-        return effectView;
+    public func insertVisualEffectView(style: UIBlurEffect.Style = .light) -> UIVisualEffectView {
+        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: style))
+        blurView.frame = self.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        insertSubview(blurView, at: 0)
+        return blurView
     }
     
 }
