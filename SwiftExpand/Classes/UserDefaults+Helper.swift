@@ -9,22 +9,32 @@
 import Foundation
 
 @objc public extension UserDefaults{
-    /// UserDefaults 二次封装
-    static func setObject(_ object: Any?, forKey key: String) {
-        standard.setValue(object, forKey: key)
+    
+    subscript(key: String) -> Any? {
+        get {
+            return object(forKey: key)
+        }
+        set {
+            set(newValue, forKey: key)
+        }
     }
+    
     /// UserDefaults 二次封装
-    static func object(forKey key: String, default defaultProvider: Any) -> Any? {
-        return standard.value(forKey: key) ?? defaultProvider
-    }
-    /// UserDefaults 二次封装
-    static func object(forKeyPath keyPath: String, default defaultProvider: Any) -> Any? {
-        return standard.value(forKeyPath: keyPath) ?? defaultProvider
-    }
-    /// UserDefaults 二次封装
-    static func synchronize() {
-         standard.synchronize()
-     }
+//    static func setObject(_ object: Any?, forKey key: String) {
+//        standard.setValue(object, forKey: key)
+//    }
+//    /// UserDefaults 二次封装
+//    static func object(forKey key: String, default defaultProvider: Any) -> Any? {
+//        return standard.value(forKey: key) ?? defaultProvider
+//    }
+//    /// UserDefaults 二次封装
+//    static func object(forKeyPath keyPath: String, default defaultProvider: Any) -> Any? {
+//        return standard.value(forKeyPath: keyPath) ?? defaultProvider
+//    }
+//    /// UserDefaults 二次封装
+//    static func synchronize() {
+//         standard.synchronize()
+//     }
 //    ///UserDefaults 保存模型
 //    static func setArcObject(_ value: Any?, forkey defaultName: String) {
 //        guard let value = value else { return }
