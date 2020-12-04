@@ -25,7 +25,7 @@ public extension Dictionary{
 public extension Dictionary where Key == String, Value == String {
     /// 键值翻转
     var reversed: [String : String] {
-        var dic: [String : String] = [:]
+        var dic = [String : String]()
         for (key, value) in self {
             dic[value] = key
         }

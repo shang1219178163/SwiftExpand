@@ -280,6 +280,7 @@ import UIKit
         if conforms(to: UIPopoverPresentationControllerDelegate.self) {
             popoverPresentationVC.delegate = self as? UIPopoverPresentationControllerDelegate
         }
-        present(popoverContentVC, animated: true, completion: completion)
+//        present(popoverContentVC, animated: true, completion: completion)
+        popoverContentVC.present(true, completion: completion)
     }
 }

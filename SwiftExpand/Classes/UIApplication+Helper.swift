@@ -26,15 +26,21 @@ import UIKit
     
     static var appName: String {
         guard let infoDic = Bundle.main.infoDictionary else { return "" }
-        if let name = infoDic["CFBundleDisplayName"] as? String {
-            return name
+        if let value = infoDic["CFBundleDisplayName"] as? String {
+            return value
         }
-        return infoDic[kCFBundleExecutableKey as String] as! String;
+        
+        if let value = infoDic[kCFBundleExecutableKey as String] as? String {
+            return value
+        }
+        return ""
     }
     
     static var appBundleName: String {
-        guard let infoDic = Bundle.main.infoDictionary else { return "" }
-        return infoDic["CFBundleExecutable"] as! String;
+        guard let infoDic = Bundle.main.infoDictionary,
+              let value = infoDic["CFBundleExecutable"] as? String
+        else { return "" }
+        return value
     }
     
     static var appIcon: UIImage {

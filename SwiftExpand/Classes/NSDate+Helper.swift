@@ -328,7 +328,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
         return NSDate.isSameFrom(self, anotherDate: NSDate(), type: 0)
     }
     
-    static var calendar: Calendar = Calendar(identifier: .gregorian)
+    static var calendar = Calendar(identifier: .gregorian)
 
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> NSDate
     func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> NSDate{
@@ -389,7 +389,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
             
             info += "\(Int(interval))" + "秒"
         }
-        return (info as! NSString).substring(from: info.count - length)
+        return (info as NSString).substring(from: info.count - length)
 
     }
     
