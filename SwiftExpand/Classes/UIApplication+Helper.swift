@@ -148,17 +148,28 @@ import UIKit
     
     static var mainWindow: UIWindow {
         get {
-            var window = objc_getAssociatedObject(self,  &AssociateKeys.mainWindow) as? UIWindow;
-            if window == nil {
-                window = UIWindow(frame: UIScreen.main.bounds)
-                objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let window = objc_getAssociatedObject(self,  &AssociateKeys.mainWindow) as? UIWindow {
+                return window
             }
-            window!.backgroundColor = UIColor.white
-            window!.makeKeyAndVisible()
-            return window!;
+            let window = UIWindow(frame: UIScreen.main.bounds)
+            window.backgroundColor = UIColor.white
+            window.makeKeyAndVisible()
+            
+            objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return window
         }
         set {
             objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+    /// keyWindow代替品
+    var currentKeyWindow: UIWindow? {
+        get {
+//            UIApplication.shared.delegate?.window
+            if #available(iOS 13.0, *) {
+                return UIApplication.shared.windows.filter({ $0.isKeyWindow }).first
+            }
+            return UIApplication.shared.keyWindow
         }
     }
         
