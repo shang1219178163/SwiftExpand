@@ -112,9 +112,9 @@ import UIKit
             let nsRange = (text as NSString).range(of: textTap, options: mask)
 
             let attDic = [NSAttributedString.Key.font: tapFont,
-                       NSAttributedString.Key.foregroundColor: tapColor,
-                       NSAttributedString.Key.backgroundColor: UIColor.clear,
-                       ];
+                          NSAttributedString.Key.foregroundColor: tapColor,
+                          NSAttributedString.Key.backgroundColor: UIColor.clear,
+                        ];
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString
@@ -179,18 +179,57 @@ public extension NSAttributedString{
     convenience init(rtfd data: Data) throws {
         try self.init(data: data, documentType: .rtfd)
     }
-    
+}
+
+// MARK: - Operators
+
+public extension NSAttributedString {
+    /// Add a NSAttributedString to another NSAttributedString and return a new NSAttributedString instance.
+    ///
+    /// - Parameters:
+    ///   - lhs: NSAttributedString to add.
+    ///   - rhs: NSAttributedString to add.
+    /// - Returns: New instance with added NSAttributedString.
     static func + (lhs: NSAttributedString, rhs: NSAttributedString) -> NSAttributedString {
         let string = NSMutableAttributedString(attributedString: lhs)
         string.append(rhs)
-        return string
+        return NSAttributedString(attributedString: string)
+    }
+    
+    /// Add a NSAttributedString to another NSAttributedString.
+    ///
+    /// - Parameters:
+    ///   - lhs: NSAttributedString to add to.
+    ///   - rhs: NSAttributedString to add.
+    static func += (lhs: inout NSAttributedString, rhs: NSAttributedString) {
+        let string = NSMutableAttributedString(attributedString: lhs)
+        string.append(rhs)
+        lhs = string
+    }
+
+    /// Add a NSAttributedString to another NSAttributedString and return a new NSAttributedString instance.
+    ///
+    /// - Parameters:
+    ///   - lhs: NSAttributedString to add.
+    ///   - rhs: String to add.
+    /// - Returns: New instance with added NSAttributedString.
+    static func + (lhs: NSAttributedString, rhs: String) -> NSAttributedString {
+        return lhs + NSAttributedString(string: rhs)
+    }
+    
+    /// Add a NSAttributedString to another NSAttributedString.
+    ///
+    /// - Parameters:
+    ///   - lhs: NSAttributedString to add to.
+    ///   - rhs: String to add.
+    static func += (lhs: inout NSAttributedString, rhs: String) {
+        lhs += NSAttributedString(string: rhs)
     }
 }
 
-
 public extension NSMutableAttributedString{
     ///添加
-    func append(_ string: String, attributes attrs: [NSAttributedString.Key : Any]? = nil) -> NSMutableAttributedString{
+    func append(_ string: String, attributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSMutableAttributedString{
         self.append(NSAttributedString(string: string, attributes: attrs))
         return self
     }

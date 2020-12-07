@@ -39,4 +39,9 @@ import UIKit
     static var isIPhoneX: Bool {
         return UIScreen.main.bounds.size.height >= 812
     }
+    
+//    @available(iOS 11.0, *)
+//    static var insets: UIEdgeInsets {
+//        return UIApplication.shared.delegate?.window??.safeAreaInsets ?? UIEdgeInsets.zero
+//    }
 }

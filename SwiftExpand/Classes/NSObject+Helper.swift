@@ -28,6 +28,16 @@ import UIKit
     static var identifier: String{
         return String(describing: self)
     }
+    
+    static var named: String {
+        let array = NSStringFromClass(self).components(separatedBy: ".")
+        return array.last ?? ""
+    }
+    
+    var named: String {
+        let array = NSStringFromClass(type(of: self)).components(separatedBy: ".")
+        return array.last ?? ""
+    }
 
     ///遍历成员变量列表
     func enumerateIvars(_ block: @escaping ((Ivar, String, Any?)->Void)) {

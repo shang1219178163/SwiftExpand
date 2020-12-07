@@ -27,6 +27,12 @@ public extension CGRect{
     init(_ x: CGFloat, _ y: CGFloat, _ w: CGFloat, _ h: CGFloat) {
         self.init(x: x, y: y, width: w, height: h)
     }
+    
+    init(center: CGPoint, size: CGSize) {
+        let originX = center.x - (size.width / 2)
+        let originY = center.y - (size.height / 2)
+        self.init(origin: CGPoint(x: originX, y: originY), size: size)
+    }
     /// 仿OC方法
     static func make(_ x: CGFloat, _ y: CGFloat, _ w: CGFloat, _ h: CGFloat) -> CGRect{
         return self.init(x: x, y: y, width: w, height: h)
@@ -61,6 +67,11 @@ public extension CGPoint{
         return Self(x: x, y: y)
     }
 
+    static func distance(from point1: CGPoint, to point2: CGPoint) -> CGFloat {
+        // http://stackoverflow.com/questions/6416101/calculate-the-distance-between-two-cgpoints
+        return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2))
+    }
+    
 }
 
 public extension CGSize{
@@ -74,6 +85,25 @@ public extension CGSize{
         return Self(width: w, height: h)
     }
 
+    
+    ///Add two CGSize
+    /// - Parameters:
+    ///   - lhs: CGSize to add to.
+    ///   - rhs: CGSize to add.
+    /// - Returns: The result comes from the addition of the two given CGSize struct.
+    static func + (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
+    }
+    
+    /// Add a CGSize to self.
+    /// - Parameters:
+    ///   - lhs: self
+    ///   - rhs: CGSize to add.
+    static func += (lhs: inout CGSize, rhs: CGSize) -> CGSize {
+        lhs.width += rhs.width
+        lhs.height += rhs.height
+        return lhs
+    }
 }
 
 public extension UIOffset{
@@ -87,6 +117,14 @@ public extension UIOffset{
         return Self(horizontal: horizontal, vertical: vertical)
     }
 
+    ///Add two UIOffset
+    /// - Parameters:
+    ///   - lhs: UIOffset to add to.
+    ///   - rhs: UIOffset to add.
+    /// - Returns: The result comes from the addition of the two given UIOffset struct.
+    static func + (lhs: UIOffset, rhs: UIOffset) -> UIOffset {
+        return UIOffset(horizontal: lhs.horizontal + rhs.vertical, vertical: lhs.horizontal + rhs.vertical)
+    }
 }
 
 
@@ -109,7 +147,7 @@ public extension UIEdgeInsets{
     static func make(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Self{
         return Self(top: top, left: left, bottom: bottom, right: right)
     }
-    
+    ///Add two UIEdgeInsets
     static func + (_ lhs: UIEdgeInsets, _ rhs: UIEdgeInsets) -> UIEdgeInsets {
         return UIEdgeInsets(top: lhs.top + rhs.top,
                             left: lhs.left + rhs.left,
