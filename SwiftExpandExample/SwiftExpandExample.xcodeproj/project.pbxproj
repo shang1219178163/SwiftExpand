@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1460508C23A2182100C10F34 /* SwiftExpand.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SwiftExpand.podspec; path = ../../SwiftExpand.podspec; sourceTree = "<group>"; };
+		1460508C23A2182100C10F34 /* SwiftExpand.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SwiftExpand.podspec; path = ../../SwiftExpand.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		14D4ED2423A1336B00B8BD16 /* SwiftExpandExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftExpandExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D4ED2723A1336B00B8BD16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14D4ED3023A1336C00B8BD16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };

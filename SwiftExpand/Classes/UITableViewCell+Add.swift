@@ -41,6 +41,7 @@ import UIKit
     }
     
     ///调整AccessoryView位置(默认垂直居中)
+    @discardableResult
     func positionAccessoryView(_ dx: CGFloat = 0, dy: CGFloat = 0) -> UIView? {
         var accessory: UIView?
         if let accessoryView = self.accessoryView {
