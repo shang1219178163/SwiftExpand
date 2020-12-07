@@ -1,5 +1,5 @@
 //
-//  NSUserDefaults+Helper.swift
+//  UserDefaults+Helper.swift
 //  SwiftTemplet
 //
 //  Created by Bin Shang on 2019/10/28.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public extension NSUserDefaults{
+@objc public extension UserDefaults{
     
     subscript(key: String) -> Any? {
         get {
