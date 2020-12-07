@@ -122,10 +122,7 @@ public extension String{
             return nil
         }
     }
-//    /// 为空返回默认值"--"
-//    var valueText: String {
-//        return self != "" ? self : "--"
-//    }
+
     /// d字符串翻转
     var reverse: String {
         return String(self.reversed())
