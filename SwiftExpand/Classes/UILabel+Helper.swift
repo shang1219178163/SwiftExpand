@@ -61,12 +61,11 @@ import UIKit
         return view;
     }
     /// UILabel富文本设置
-    func setContent(_ content: String, attDic: [NSAttributedString.Key: Any]) -> NSMutableAttributedString{
-        assert((self.text?.contains(content))!)
+    func setContent(_ content: String, attDic: [NSAttributedString.Key: Any]) -> NSMutableAttributedString?{
+        guard let text = self.text as String? else { return nil}
         
-        let text: NSString = self.text! as NSString
-        let attString = NSMutableAttributedString(string: text as String)
-        let range:NSRange = text.range(of: content)
+        let attString = NSMutableAttributedString(string: text)
+        let range: NSRange = (text as NSString).range(of: content)
         attString.addAttributes(attDic, range: range)
         attributedText = attString
         return attString

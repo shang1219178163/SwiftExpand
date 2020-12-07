@@ -19,10 +19,10 @@ import UIKit
                 return obj
             }
 
-            let set = UIOffset(horizontal: 0, vertical: 0);
+            let offset = UIOffset(horizontal: 0, vertical: 0);
             
-            objc_setAssociatedObject(self, &AssociateKeys.assoryOffSet, set, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            return set
+            objc_setAssociatedObject(self, &AssociateKeys.assoryOffSet, offset, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return offset
         }
         set {
             objc_setAssociatedObject(self, &AssociateKeys.assoryOffSet, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

@@ -270,9 +270,12 @@ import UIKit
     }
         
     /// UIButton不同状态下设置富文本标题
-    func setContent(_ content: String, attDic: [NSAttributedString.Key: Any], for state: UIControl.State) -> NSMutableAttributedString{
-        assert((self.titleLabel!.text?.contains(content))!)
-        let attString = self.titleLabel!.setContent(content, attDic: attDic)
+    func setContent(_ content: String, attDic: [NSAttributedString.Key: Any], for state: UIControl.State) -> NSMutableAttributedString?{
+        guard let titleLabel = titleLabel,
+              let text = titleLabel.text,
+              text.contains(content)
+              else { return nil }
+        let attString = titleLabel.setContent(content, attDic: attDic)
         setAttributedTitle(attString, for: state)
         return attString
     }
