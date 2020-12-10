@@ -438,7 +438,7 @@ import UIKit
     }
     
     /// 获取特定类型父视图
-    public func supView(_ type: UIView.Type) -> UIView? {
+    public func findSupView(_ type: UIView.Type) -> UIView? {
         var supView = superview
         while supView?.isKind(of: type) == false {
             supView = supView?.superview
@@ -447,7 +447,7 @@ import UIKit
     }
         
     /// 获取特定类型子视图
-    public func subView(_ type: UIView.Type) -> UIView? {
+    public func findSubView(_ type: UIView.Type) -> UIView? {
         for e in self.subviews.enumerated() {
             if e.element.isKind(of: type) {
                 return e.element

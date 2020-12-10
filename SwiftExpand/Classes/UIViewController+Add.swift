@@ -12,7 +12,7 @@ import UIKit
 @objc public extension UIViewController{
     /// 关联UITableView视图对象
     var tbView: UITableView {
-        if let tableView = view.subView(UITableView.self) as? UITableView {
+        if let tableView = view.findSubView(UITableView.self) as? UITableView {
             return tableView
         }
         

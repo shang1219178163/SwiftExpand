@@ -8,36 +8,47 @@
 import UIKit
 
 @objc public extension NSAttributedString{
-    
-    /// 富文本配置字典
-    static func AttributeDict(_ type: Int) -> [NSAttributedString.Key: Any]{
-        var dic: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                                                  NSAttributedString.Key.backgroundColor: UIColor.white,]
-        
-        switch type {
-        case 1:
-            dic[NSAttributedString.Key.underlineStyle] = NSUnderlineStyle.single.rawValue;
-            dic[NSAttributedString.Key.underlineColor] = UIColor.theme;
-            
-        case 2:
-            dic[NSAttributedString.Key.strikethroughStyle] = NSUnderlineStyle.single.rawValue;
-            dic[NSAttributedString.Key.strikethroughColor] = UIColor.red;
-            dic[NSAttributedString.Key.baselineOffset] = 0;
-
-        case 3:
-            dic[NSAttributedString.Key.obliqueness] = 0.8;
-            
-        case 4:
-            dic[NSAttributedString.Key.expansion] = 0.3;
-            
-        case 5:
-            dic[NSAttributedString.Key.writingDirection] = 3;
-            
-        default:
-            break
+    ///获取所有的 [Range: NSAttributedString] 集合
+    var rangeSubAttStringDic: [String : NSAttributedString]{
+        get{
+            var dic = [String : NSAttributedString]()
+            enumerateAttributes(in: NSMakeRange(0, self.length), options: .longestEffectiveRangeNotRequired) { (attrs, range, _) in
+                let sub = self.attributedSubstring(from: range)
+                dic[NSStringFromRange(range)] = sub
+            }
+            return dic;
         }
-        return dic;
     }
+        
+//    /// 富文本配置字典
+//    static func AttributeDict(_ type: Int) -> [NSAttributedString.Key: Any]{
+//        var dic: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: UIColor.theme,
+//                                                  NSAttributedString.Key.backgroundColor: UIColor.white,]
+//
+//        switch type {
+//        case 1:
+//            dic[NSAttributedString.Key.underlineStyle] = NSUnderlineStyle.single.rawValue;
+//            dic[NSAttributedString.Key.underlineColor] = UIColor.theme;
+//
+//        case 2:
+//            dic[NSAttributedString.Key.strikethroughStyle] = NSUnderlineStyle.single.rawValue;
+//            dic[NSAttributedString.Key.strikethroughColor] = UIColor.red;
+//            dic[NSAttributedString.Key.baselineOffset] = 0;
+//
+//        case 3:
+//            dic[NSAttributedString.Key.obliqueness] = 0.8;
+//
+//        case 4:
+//            dic[NSAttributedString.Key.expansion] = 0.3;
+//
+//        case 5:
+//            dic[NSAttributedString.Key.writingDirection] = 3;
+//
+//        default:
+//            break
+//        }
+//        return dic;
+//    }
     
     /// 富文本特殊部分配置字典
     static func attrDict(_ font: CGFloat = 15, textColor: UIColor = .theme) -> [NSAttributedString.Key: Any] {
@@ -228,9 +239,33 @@ public extension NSAttributedString {
 }
 
 public extension NSMutableAttributedString{
+    ///获取或者替换某一段NSAttributedString
+    subscript(index: NSInteger) -> NSAttributedString?{
+        get {
+            let keys = rangeSubAttStringDic.keys.sorted()
+            if index < 0 || index >= keys.count {
+                return nil
+            }
+            let key = keys[index]
+            return rangeSubAttStringDic[key]
+        }
+        set {
+            guard let newValue = newValue else { return }
+            let keys = rangeSubAttStringDic.keys.sorted()
+            if index < 0 || index >= keys.count {
+                return
+            }
+            let key = keys[index]
+            replaceCharacters(in: NSRangeFromString(key), with: newValue)
+        }
+    }
+    
     ///添加
     func append(_ string: String, attributes attrs: [NSAttributedString.Key: Any]? = nil) -> NSMutableAttributedString{
         self.append(NSAttributedString(string: string, attributes: attrs))
         return self
     }
+    
+    
+
 }
