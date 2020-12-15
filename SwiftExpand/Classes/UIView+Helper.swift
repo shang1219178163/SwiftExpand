@@ -470,6 +470,18 @@ import UIKit
         return nil
     }
     
+    ///往复动画
+    public func animationCycle(_ transformBlock: @escaping ((CGAffineTransform) -> Void), animated: Bool, completion: ((Bool) -> Void)? = nil) {
+        let duration = animated ? 0.3 : 0
+        UIView.animate(withDuration: duration, animations: {
+            if self.transform.isIdentity == true {
+                transformBlock(self.transform)
+            } else {
+                self.transform = CGAffineTransform.identity
+            }
+        }, completion: completion)
+    }
+    
     ///移动动画
     public func move(_ x: CGFloat, y: CGFloat, animated: Bool, completion: ((Bool) -> Void)? = nil) {
         let duration = animated ? 0.3 : 0

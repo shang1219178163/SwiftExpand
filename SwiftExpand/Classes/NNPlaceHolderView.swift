@@ -102,7 +102,7 @@ import SnapKit
         addSubview(btn)
         btn.isHidden = true
 
-        _ = addGestureTap { (reco) in
+        addGestureTap { (reco) in
             self.delegate?.placeholderViewTap(self, tap: reco as! UITapGestureRecognizer)
         }
         getViewLayer()
@@ -194,7 +194,7 @@ import SnapKit
             return
         }
         
-        guard let holderView = subView(NNPlaceHolderView.self) as? NNPlaceHolderView else {
+        guard let holderView = subView(NNPlaceHolderView.self) else {
             hook_reloadData()
             return
         }

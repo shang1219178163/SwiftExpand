@@ -148,7 +148,7 @@ import Photos
     }
     
     /// 版本升级
-    static func updateVersion(appStoreID: String, isForce: Bool = false, block:@escaping (([String: Any], String, String, Bool)->Void)) {
+    static func updateVersion(appStoreID: String, block:@escaping (([String: Any], String, String, Bool)->Void)) {
 //        let path = "http://itunes.apple.com/cn/lookup?id=\(appStoreID)"
         let path =  UIApplication.appDetailUrlWithID(appStoreID)
         let request = URLRequest(url:NSURL(string: path)! as URL, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 6)
