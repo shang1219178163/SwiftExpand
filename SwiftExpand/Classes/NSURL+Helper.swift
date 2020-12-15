@@ -9,12 +9,11 @@
 import UIKit
 
 
-public extension URL {
+public extension URLComponents {
     
     ///查询参数
     var queryParameters: [String: String]? {
-        guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false),
-            let queryItems = components.queryItems else { return nil }
+        guard let queryItems = queryItems else { return nil }
 
         var dic = [String: String]()
         for item in queryItems {
@@ -23,18 +22,50 @@ public extension URL {
         return dic
     }
     ///追加查询参数
-    func appendingQueryParameters(_ parameters: [String: String]) -> URL {
-        var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: true)!
-        urlComponents.queryItems = (urlComponents.queryItems ?? []) + parameters
+    mutating func appendingQueryParameters(_ parameters: [String: String]) -> URL {
+        queryItems = (queryItems ?? []) + parameters
             .map { URLQueryItem(name: $0, value: $1) }
-        return urlComponents.url!
+        return url!
     }
     
     ///查询对应参数值
     func queryValue(for key: String) -> String? {
-        return URLComponents(string: absoluteString)?
-            .queryItems?
+        return queryItems?
             .first(where: { $0.name == key })?
             .value
     }
 }
+
+
+public extension URL {
+    
+    ///查询参数
+    var queryParameters: [String: String]? {
+        guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false)
+        else { return nil }
+        return components.queryParameters
+//        var dic = [String: String]()
+//        for item in queryItems {
+//            dic[item.name] = item.value
+//        }
+//        return dic
+    }
+    ///追加查询参数
+    func appendingQueryParameters(_ parameters: [String: String]) -> URL {
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)!
+        return components.appendingQueryParameters(parameters)
+//        components.queryItems = (components.queryItems ?? []) + parameters
+//            .map { URLQueryItem(name: $0, value: $1) }
+//        return urlComponents.url!
+    }
+    
+    ///查询对应参数值
+    func queryValue(for key: String) -> String? {
+        return URLComponents(string: absoluteString)?.queryValue(for: key)
+//        return URLComponents(string: absoluteString)?
+//            .queryItems?
+//            .first(where: { $0.name == key })?
+//            .value
+    }
+}
+
