@@ -22,7 +22,7 @@ import UIKit
         static var textView      = "UITableViewCell" + "textView"
     }
     /// [源]自定义 UITableViewCell 获取方法(兼容OC)
-    static func dequeueReusableCell(_ tableView: UITableView, identifier: String = String(describing: self), style: UITableViewCell.CellStyle = .default) -> Self {
+    static func dequeueReusableCell(_ tableView: UITableView, identifier: String, style: UITableViewCell.CellStyle = .default) -> Self {
         var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
         if cell == nil {
             cell = self.init(style: style, reuseIdentifier: identifier);
@@ -40,6 +40,16 @@ import UIKit
         return dequeueReusableCell(tableView, identifier: String(describing: self), style: .default)
     }
     
+    /// cell-源方法生成,自定义identifier
+    static func cellWithTableView(_ tableView: UITableView, identifier: String, style: UITableViewCell.CellStyle = .default) -> Self {
+        return dequeueReusableCell(tableView, identifier: identifier, style: style)
+    }
+    
+    /// [OC简洁方法]cell-源方法生成,自定义identifier
+    static func cellWithTableView(_ tableView: UITableView) -> Self {
+        return dequeueReusableCell(tableView, identifier: String(describing: self), style: .default)
+    }
+    
     ///调整AccessoryView位置(默认垂直居中)
     @discardableResult
     func positionAccessoryView(_ dx: CGFloat = 0, dy: CGFloat = 0) -> UIView? {
@@ -49,7 +59,7 @@ import UIKit
         } else if self.accessoryType != .none {
             for subview in self.subviews {
                 if subview != self.textLabel && subview != self.detailTextLabel
-                    && subview != self.backgroundView  && subview != self.selectedBackgroundView
+                    && subview != self.backgroundView && subview != self.selectedBackgroundView
                     && subview != self.imageView && subview != self.contentView
                     && subview.isKind(of: UIButton.self) {
                     accessory = subview
@@ -267,13 +277,14 @@ public extension UITableViewCell{
     ///设置accessoryView 为 UIView
     @discardableResult
     final func assoryView<T: UIView>(_ type: T.Type, size: CGSize = CGSize(width: 80, height: 30), block:((T)->Void)? = nil) -> T {
-        if let accessoryView = accessoryView as? T {
-            return accessoryView
+        if let view = accessoryView as? T {
+            block?(view)
+            return view
         }
         let view = type.init(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        block?(view)
         accessoryView = view
+        block?(view)
         return view
     }
 }

@@ -10,11 +10,14 @@ import UIKit
 @objc public extension UICollectionViewCell{
     
     /// [源]自定义 UICollectionViewCell 获取方法(兼容OC)
-    static func dequeueReusableCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> Self {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: self), for: indexPath)
+    static func dequeueReusableCell(_ collectionView: UICollectionView, identifier: String, indexPath: IndexPath) -> Self {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         cell.backgroundColor = .white
         return cell as! Self
     }
 
- 
+    /// [OC简洁方法]自定义 UITableViewCell 获取方法
+    static func dequeueReusableCell(_ collectionView: UICollectionView, indexPath: IndexPath) -> Self {
+        return dequeueReusableCell(collectionView, identifier: String(describing: self), indexPath: indexPath)
+    }
 }

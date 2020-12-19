@@ -12,6 +12,7 @@ import UIKit
 
 @objc public extension UIView {
     private struct AssociateKeys {
+//        static var isSelected    = "UIView" + "isSelected"
         static var lineTop       = "UIView" + "lineTop"
         static var lineBottom    = "UIView" + "lineBottom"
         static var lineRight     = "UIView" + "lineRight"
@@ -39,7 +40,7 @@ import UIKit
     @objc enum HolderViewState: Int {
         case nomrol, loading, empty, fail
     }
-    
+            
     var lineTop: UIView {
         get {
             if let obj = objc_getAssociatedObject(self, &AssociateKeys.lineTop) as? UIView {

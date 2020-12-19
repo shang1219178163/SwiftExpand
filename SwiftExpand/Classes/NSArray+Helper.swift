@@ -29,6 +29,7 @@ public extension Array{
         assert((loc + len) < self.count);
         return Array(self[loc..<len]);
     }
+    
 }
 
 //public extension Array where Element : NSObject{

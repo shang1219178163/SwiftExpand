@@ -25,7 +25,7 @@ import UIKit
     }
     
     /// [源]自定义 UITableViewHeaderFooterView 获取方法(兼容OC)
-    static func dequeueReusableHeaderFooterView(_ tableView: UITableView, identifier: String = String(describing: self)) -> Self {
+    static func dequeueReusableHeaderFooterView(_ tableView: UITableView, identifier: String) -> Self {
         var view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         if view == nil {
             view = self.init(reuseIdentifier: identifier)

@@ -31,13 +31,19 @@ import UIKit
         text = ""
         attributedText = NSAttributedString(string: "")
     }
-
-    /// - Parameter color: placeholder text color.
-    func setPlaceHolderTextColor(_ color: UIColor) {
-        guard let holder = placeholder, !holder.isEmpty else { return }
-        attributedPlaceholder = NSAttributedString(string: holder, attributes: [.foregroundColor: color])
-    }
     
+    //设置 attributedPlaceholder
+    func setPlaceHolder(_ color: UIColor? = nil, font: UIFont = UIFont.systemFont(ofSize: 15), baseline: CGFloat = 0) {
+        guard let holder = placeholder, !holder.isEmpty else { return }
+        var dic = [NSAttributedString.Key.font: font,
+                   NSAttributedString.Key.baselineOffset: baseline,
+        ] as [NSAttributedString.Key : Any]
+        if let color = color {
+            dic[NSAttributedString.Key.foregroundColor] = color
+        }
+        attributedPlaceholder = NSAttributedString(string: holder, attributes: dic)
+    }
+        
     func addImageView(_ isRight: Bool, image: UIImage, padding: CGFloat, block:((UIView)->Void)?) {
         let iconView = UIView(frame: CGRect(x: 0, y: 0, width: image.size.width + padding, height: image.size.height))
         let imageView = UIImageView(image: image)

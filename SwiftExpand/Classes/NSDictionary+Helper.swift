@@ -34,11 +34,11 @@ public extension Dictionary where Key == String, Value == String {
 }
 
 @objc public extension NSDictionary{
-    /// 键值翻转
-    var reversed: [String : String] {
-        return (self as! Dictionary).reversed
-    }
-    
+//    /// 键值翻转
+//    var reversed: [String : String] {
+//        return (self as! Dictionary).reversed
+//    }
+//    
     /// ->Data
     var jsonData: Data? {
         var data: Data?
@@ -59,3 +59,4 @@ public extension Dictionary where Key == String, Value == String {
     }
     
 }
+
