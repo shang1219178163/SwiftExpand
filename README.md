@@ -535,6 +535,101 @@ Swift SDK功能拓展 , Objective-C && Swift
         }
     }
     
+    
+**NSAttributedString 属性链式编程实现**
+
+    ///属性链式编程实现
+    @objc public extension NSAttributedString {
+            
+        func addAttributes(_ attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
+            let mattr = NSMutableAttributedString(attributedString: self)
+            mattr.addAttributes(attributes, range: NSMakeRange(0, self.length))
+            return mattr
+        }
+        
+        func font(_ font: UIFont) -> NSAttributedString {
+            return addAttributes([NSAttributedString.Key.font: font])
+        }
+        
+        func color(_ color: UIColor) -> NSAttributedString {
+            return addAttributes([NSAttributedString.Key.foregroundColor: color])
+        }
+        
+        func bgColor(_ color: UIColor) -> NSAttributedString {
+            return addAttributes([NSAttributedString.Key.backgroundColor: color])
+        }
+        
+        func link(_ value: String) -> NSAttributedString {
+            return linkURL(URL(string: value)!)
+        }
+        
+        func linkURL(_ value: URL) -> NSAttributedString {
+            return addAttributes([NSAttributedString.Key.link: value])
+        }
+        //设置字体倾斜度，取值为float，正值右倾，负值左倾
+        func oblique(_ value: CGFloat = 0.1) -> NSAttributedString {
+            return addAttributes([NSAttributedString.Key.obliqueness: value])
+        }
+           
+        //字符间距
+        func kern(_ value: CGFloat) -> NSAttributedString {
+            return addAttributes([.kern: value])
+        }
+        
+        //设置字体的横向拉伸，取值为float，正值拉伸 ，负值压缩
+        func expansion(_ value: CGFloat) -> NSAttributedString {
+            return addAttributes([.expansion: value])
+        }
+        
+        //设置下划线
+        func underline(_ color: UIColor, _ style: NSUnderlineStyle = .single) -> NSAttributedString {
+            return addAttributes([
+                .underlineColor: color,
+                .underlineStyle: style.rawValue
+            ])
+        }
+        
+        //设置删除线
+        func strikethrough(_ color: UIColor, _ style: NSUnderlineStyle = .single) -> NSAttributedString {
+            return addAttributes([
+                .strikethroughColor: color,
+                .strikethroughStyle: style.rawValue,
+            ])
+        }
+        
+        ///设置基准位置 (正上负下)
+        func baseline(_ value: CGFloat) -> NSAttributedString {
+            return addAttributes([.baselineOffset: value])
+        }
+        
+        ///设置段落
+        func paraStyle(_ alignment: NSTextAlignment,
+                              lineSpacing: CGFloat = 0,
+                              paragraphSpacingBefore: CGFloat = 0,
+                              lineBreakMode: NSLineBreakMode = .byTruncatingTail) -> NSAttributedString {
+            let style = NSMutableParagraphStyle()
+            style.alignment = alignment
+            style.lineBreakMode = lineBreakMode
+            style.lineSpacing = lineSpacing
+            style.paragraphSpacingBefore = paragraphSpacingBefore
+            return addAttributes([.paragraphStyle: style])
+        }
+            
+        ///设置段落
+        func paragraphStyle(_ style: NSMutableParagraphStyle) -> NSAttributedString {
+            return addAttributes([.paragraphStyle: style])
+        }
+    }
+    
+    public extension String {
+    
+        /// -> NSAttributedString
+        var attributed: NSAttributedString{
+            return NSAttributedString(string: self)
+        }
+    }
+
+    
 ##  Requirements
     s.ios.deployment_target = '8.0'
     s.swift_version = "5.0"
