@@ -78,7 +78,7 @@ public let kScreenWidth: CGFloat           = UIScreen.main.bounds.width;
 /// 屏幕高度
 public let kScreenHeight: CGFloat          = UIScreen.main.bounds.height;
 
-public let isiPhoneX: Bool               = (kScreenHeight >= 812)
+public let isiPhoneX: Bool                 = (kScreenHeight >= 812)
 /// IphoneXtab 底部安全区高度
 public let kIphoneXtabHeight: CGFloat      = isiPhoneX ? 34 : 0;
 /// 键盘视图高度
@@ -86,11 +86,11 @@ public let kKeyboardHeight: CGFloat        = 226;
 /// 顶部状态栏 20
 public let kStatusBarHeight: CGFloat       = isiPhoneX ? 44 : 20;
 /// 导航栏高 44
-public let kNaviBarHeight: CGFloat         = 44.0;
+public let kNaviBarHeight: CGFloat         = isiPhoneX ? 88 : 64;
 
 public let kBarHeight: CGFloat             = 64.0;
 /// 底部tabBar高度 49
-public let kTabBarHeight: CGFloat          = 49.0;
+public let kTabBarHeight: CGFloat          = isiPhoneX ? (49.0 + 34.0) : 49
 /// 选择器默认高度 180
 public let kPickerViewHeight: CGFloat      = 216;
 
