@@ -14,12 +14,12 @@ import UIKit
     }
     /// UIControl 添加回调方式
     override func addActionHandler(_ action: @escaping ((UISegmentedControl) ->Void), for controlEvents: UIControl.Event = .valueChanged) {
-        addTarget(self, action:#selector(p_handleAction(_:)), for:controlEvents);
+        addTarget(self, action:#selector(p_handleActionSegment(_:)), for:controlEvents);
         objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     /// 点击回调
-    private func p_handleAction(_ sender: UISegmentedControl) {
+    private func p_handleActionSegment(_ sender: UISegmentedControl) {
         if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UISegmentedControl) ->Void) {
             block(sender);
         }

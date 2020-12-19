@@ -18,12 +18,12 @@ import UIKit
     }
     /// UIControl 添加回调方式
     override func addActionHandler(_ action: @escaping ((UIButton) ->Void), for controlEvents: UIControl.Event = .touchUpInside) {
-        addTarget(self, action:#selector(p_handleAction(_:)), for:controlEvents);
+        addTarget(self, action:#selector(p_handleActionBtn(_:)), for:controlEvents);
         objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     /// 点击回调
-    private func p_handleAction(_ sender: UIButton) {
+    private func p_handleActionBtn(_ sender: UIButton) {
         if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIButton) ->Void) {
             block(sender);
         }
