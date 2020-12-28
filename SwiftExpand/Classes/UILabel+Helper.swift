@@ -60,16 +60,25 @@ import UIKit
         }
         return view;
     }
+    
     /// UILabel富文本设置
     func setContent(_ content: String, attDic: [NSAttributedString.Key: Any]) -> NSMutableAttributedString?{
         guard let text = self.text as String? else { return nil}
         
-        let attString = NSMutableAttributedString(string: text)
-        let range: NSRange = (text as NSString).range(of: content)
-        attString.addAttributes(attDic, range: range)
+        let attString = NSMutableAttributedString(string: text, attributes: attDic)
         attributedText = attString
         return attString
     }
+//    /// UILabel富文本设置
+//    func setContent(_ content: String, attDic: [NSAttributedString.Key: Any]) -> NSMutableAttributedString?{
+//        guard let text = self.text as String? else { return nil}
+//
+//        let attString = NSMutableAttributedString(string: text)
+//        let range: NSRange = (text as NSString).range(of: content)
+//        attString.addAttributes(attDic, range: range)
+//        attributedText = attString
+//        return attString
+//    }
     
     /// 验证码倒计时显示
     func timerStart(_ interval: Int = 60) {

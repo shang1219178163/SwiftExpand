@@ -9,6 +9,22 @@
 import UIKit
 
 @objc public extension UITapGestureRecognizer {
+    private struct AssociateKeys {
+        static var closure    = "UITapGestureRecognizer" + "closure"
+    }
+    
+    /// 闭包回调
+    override func addAction(_ closure: @escaping (UITapGestureRecognizer) -> Void) {
+        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+        addTarget(self, action: #selector(p_invokeTap))
+    }
+    
+    private func p_invokeTap() {
+        if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UITapGestureRecognizer) -> Void) {
+            closure(self);
+        }
+    }
+    
     /// UILabel 富文本点击
     func didTapAttributedTextIn(label: UILabel, tapTexts: [String], action: @escaping (String, Int) -> Void) {
         // Create instances of NSLayoutManager, NSTextContainer and NSTextStorage

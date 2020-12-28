@@ -35,7 +35,7 @@ import UIKit
     //设置 attributedPlaceholder
     func setPlaceHolder(_ color: UIColor? = nil, font: UIFont = UIFont.systemFont(ofSize: 15), baseline: CGFloat = 0) {
         guard let holder = placeholder, !holder.isEmpty else { return }
-        var dic = [NSAttributedString.Key.font: font,
+        var dic = [NSAttributedString.Key.font: self.font ?? font,
                    NSAttributedString.Key.baselineOffset: baseline,
         ] as [NSAttributedString.Key : Any]
         if let color = color {
@@ -211,7 +211,26 @@ import UIKit
         return string != "" ? self.text! + string : (self.text! as NSString).substring(to: self.text!.count - 2)
     }
     
+    func addLeftView(_ block: @escaping ((UITextField)->UIView), viewMode: UITextField.ViewMode = .always) -> UIView {
+        if let leftView = self.leftView{
+            return leftView
+        }
+        let assory = block(self);
+        self.leftView = assory
+        self.leftViewMode = viewMode;
+        return assory
+    }
     
+    func addRightView(_ block: @escaping ((UITextField)->UIView), viewMode: UITextField.ViewMode = .always) -> UIView {
+        if let leftView = self.leftView{
+            return leftView
+        }
+        let assory = block(self);
+        self.rightView = assory
+        self.rightViewMode = viewMode;
+        return assory
+    }
+
 }
 
 public extension UITextField{

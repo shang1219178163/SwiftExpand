@@ -20,6 +20,15 @@ public extension Dictionary{
     var jsonString: String {
         return (self as NSDictionary).jsonString;
     }
+    
+    
+    var plistData: Data?{
+        return (self as NSDictionary).plistData;
+    }
+    
+    func dictionaryFromPlistData(_ plistData: Data) -> Any? {
+        return (self as NSDictionary).dictionaryFromPlistData(plistData);
+    }
 }
 
 public extension Dictionary where Key == String, Value == String {
@@ -30,6 +39,13 @@ public extension Dictionary where Key == String, Value == String {
             dic[value] = key
         }
         return dic;
+    }
+    ///根据键数值排序
+    func valuesByKeySorted() -> [String] {
+        let values = keys.sorted {
+            return $0.intValue < $1.intValue
+        }.map { self[$0] ?? ""}
+        return values
     }
 }
 
@@ -58,5 +74,25 @@ public extension Dictionary where Key == String, Value == String {
         return jsonString
     }
     
+//    var valuesByKeySorted: [Any] {
+//        let marr = NSMutableArray()
+//        let list = (self.allKeys as [NSString]).sorted(by: >)
+//
+//        for key in list {
+//            marr.add(self[key])
+//        }
+//        return marr.copy() as! [Any]
+//    }
+    
+    var plistData: Data?{
+        let result = try? PropertyListSerialization.data(fromPropertyList: self, format: .binary, options: 0)
+        return result
+    }
+    
+    func dictionaryFromPlistData(_ plistData: Data) -> Any? {
+        let result = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil)
+        return result
+    }
+    
+    
 }
-

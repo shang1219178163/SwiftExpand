@@ -8,10 +8,10 @@
 
 import UIKit
 
-@objc extension Timer{
+@objc public extension Timer{
     
     /// 分类方法
-    public static func scheduled(_ Interval: TimeInterval = 60, repeats: Bool = true, action: @escaping((Timer) -> Void)) -> Timer {
+    static func scheduled(_ Interval: TimeInterval = 60, repeats: Bool = true, action: @escaping((Timer) -> Void)) -> Timer {
         return scheduledTimer(timeInterval: Interval, target: self, selector: #selector(handleInvoke(_:)), userInfo: action, repeats: repeats)
     }
     
@@ -21,21 +21,21 @@ import UIKit
         }
     }
     
-    public static func stopTimer(_ timer: Timer) {
-        timer.invalidate()
-    }
-    
-    public static func pause(_ timer: Timer, isPause: Bool) {
-        //    暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
+    func activate() {
         //    继续：触发时间设置在现在/获取，这样定时器自动进入马上进入工作状态.
-        timer.fireDate = isPause == true ? NSDate.distantFuture : Date();
+        self.fireDate = .distantPast
     }
     
-    public func pause(_ isPause: Bool) {
-        Timer.pause(self, isPause: isPause)
+    func pause() {
+        //    暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
+        self.fireDate = .distantFuture
     }
     
-    public static func createGCDTimer(_ interval: TimeInterval = 60, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
+    func destroy() {
+        self.invalidate()
+    }
+        
+    static func createGCDTimer(_ interval: TimeInterval = 60, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
         codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
         codeTimer.setEventHandler {
@@ -47,5 +47,27 @@ import UIKit
         
         codeTimer.resume()
         return codeTimer;
+    }
+    
+    static func destoryGCDTimer(_ timer: DispatchSourceTimer?) {
+        timer?.cancel()
+    }
+}
+
+
+public extension DispatchSourceTimer{
+    
+    static func create(_ interval: TimeInterval = 60, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
+        let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
+        codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
+        codeTimer.setEventHandler {
+            if repeats == false {
+                codeTimer.cancel()
+            }
+            DispatchQueue.main.async(execute: action)
+        }
+        
+        codeTimer.resume()
+        return codeTimer
     }
 }

@@ -51,10 +51,8 @@ import SnapKit
         view.titleLabel?.font = UIFont.systemFont(ofSize: 16);
         view.setTitle("Learn more", for: .normal);
         view.setTitleColor(.systemBlue, for: .normal);
-        view.addActionHandler({ (control) in
-            if let sender = control as? UIButton {
-                DDLog(control)
-            }
+        view.addActionHandler({ (sender) in
+            DDLog(sender)
 
         }, for: .touchUpInside)
         return view;

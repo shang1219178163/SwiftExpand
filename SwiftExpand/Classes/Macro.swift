@@ -86,7 +86,7 @@ public let kKeyboardHeight: CGFloat        = 226;
 /// 顶部状态栏 20
 public let kStatusBarHeight: CGFloat       = isiPhoneX ? 44 : 20;
 /// 导航栏高 44
-public let kNaviBarHeight: CGFloat         = isiPhoneX ? 88 : 64;
+public let kNaviBarHeight: CGFloat         = 44;
 
 public let kBarHeight: CGFloat             = 64.0;
 /// 底部tabBar高度 49

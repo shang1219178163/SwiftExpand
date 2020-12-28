@@ -163,7 +163,7 @@ import UIKit
     }
     
     /// 创建 UIBarButtonItem
-    public func createItem(_ obj: String, style: UIBarButtonItem.Style = .plain, isLeft: Bool = false, action: @escaping ((UIBarButtonItem) -> Void)){
+    public func createBarItem(_ obj: String, style: UIBarButtonItem.Style = .plain, isLeft: Bool = false, action: @escaping ((UIBarButtonItem) -> Void)){
         var barItem: UIBarButtonItem?
         if let image = UIImage(named: obj) {
             barItem = UIBarButtonItem(image: image, style: style, target: nil, action: nil)
