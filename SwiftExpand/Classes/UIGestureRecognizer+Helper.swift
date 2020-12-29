@@ -7,14 +7,14 @@
 
 import UIKit
 
-@objc extension UIGestureRecognizer{
+@objc public extension UIGestureRecognizer{
     private struct AssociateKeys {
         static var funcName   = "UIGestureRecognizer" + "funcName"
         static var closure    = "UIGestureRecognizer" + "closure"
     }
     
     /// 方法名称(用于自定义)
-    public var funcName: String {
+    var funcName: String {
         get {
             if let obj = objc_getAssociatedObject(self, &AssociateKeys.funcName) as? String {
                 return obj;
@@ -29,7 +29,7 @@ import UIKit
         }
     }
     /// 闭包回调
-    public func addAction(_ closure: @escaping (UIGestureRecognizer) -> Void) {
+    func addAction(_ closure: @escaping (UIGestureRecognizer) -> Void) {
         objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
         addTarget(self, action: #selector(p_invoke))
     }

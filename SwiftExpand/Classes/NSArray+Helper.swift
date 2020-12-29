@@ -32,7 +32,7 @@ public extension Array{
     
 }
 
-extension Array where Element == CGFloat{
+public extension Array where Element == CGFloat{
     var sum: CGFloat {
         return self.reduce(0, +)
     }

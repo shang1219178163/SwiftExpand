@@ -7,21 +7,21 @@
 
 import UIKit
 
-@objc extension UINavigationController{
+@objc public extension UINavigationController{
     
     /// vcName 控制器类名
-    public convenience init(vcName: String){
+    convenience init(vcName: String){
         self.init(rootViewController: UICtrFromString(vcName))
     }
     
-    public func pushVC(_ name: String, animated: Bool = true) {
+    func pushVC(_ name: String, animated: Bool = true) {
         assert(UICtrFromString(name).isKind(of: UIViewController.self))
         let controller = UICtrFromString(name)
         pushViewController(controller, animated: animated);
     }
     
     /// pop到特定控制器页面
-    public func popToVC(_ type: UIViewController.Type, animated: Bool) {
+    func popToVC(_ type: UIViewController.Type, animated: Bool) {
         for e in viewControllers {
             if e.isKind(of: type) {
                 popToViewController(e, animated: animated)
@@ -32,7 +32,7 @@ import UIKit
     }
         
     /// 修改切换导航栏样式
-    public func changeBarStyle() {
+    func changeBarStyle() {
          // 切换导航栏样式
          if navigationBar.barStyle == .default {
              navigationBar.barStyle = .black
@@ -60,12 +60,14 @@ public extension UINavigationController{
 
 
 extension DispatchTime: ExpressibleByIntegerLiteral {
+    
     public init(integerLiteral value: Int) {
         self = DispatchTime.now() + .seconds(value)
     }
 }
 
 extension DispatchTime: ExpressibleByFloatLiteral {
+    
     public init(floatLiteral value: Double) {
         self = DispatchTime.now() + .milliseconds(Int(value * 1000))
     }

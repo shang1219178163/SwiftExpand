@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-@objc extension UIViewController{
+@objc public extension UIViewController{
 
     
-    public var controllerName: String {
+    var controllerName: String {
         var className: String = NNStringFromClass(self.classForCoder)
         if className.contains("Controller") {
             var range = className.range(of: "Controller");
@@ -26,12 +26,12 @@ import UIKit
     }
     
     /// 是否正在展示
-    public var isCurrentVC: Bool {
+    var isCurrentVC: Bool {
         return isViewLoaded == true && (view!.window != nil)
     }
     
     /// 呈现
-    public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+    func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
         guard let keyWindow = UIApplication.shared.keyWindow,
               let rootVC = keyWindow.rootViewController
               else { return }
@@ -71,7 +71,7 @@ import UIKit
     }
     
     ///判断上一页是哪个页面
-    public func pushFromVC(_ type: UIViewController.Type) -> Bool {
+    func pushFromVC(_ type: UIViewController.Type) -> Bool {
         
         guard let viewControllers = navigationController?.viewControllers else {
             return false }
@@ -84,7 +84,7 @@ import UIKit
     }
     
     /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
-    public func createSearchVC(_ resultsController: UIViewController) -> UISearchController {
+    func createSearchVC(_ resultsController: UIViewController) -> UISearchController {
         definesPresentationContext = true;
         
         let searchVC = UISearchController(searchResultsController: resultsController)
@@ -111,7 +111,7 @@ import UIKit
     }
     
     /// 重置布局
-    public func setupExtendedLayout() {
+    func setupExtendedLayout() {
         edgesForExtendedLayout = [];
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
@@ -121,7 +121,7 @@ import UIKit
     }
     
     /// 重置布局(UIDocumentPickerViewController需要为automatic)
-    public func setupContentInsetAdjustmentBehavior(_ isAutomatic: Bool = false) {
+    func setupContentInsetAdjustmentBehavior(_ isAutomatic: Bool = false) {
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = isAutomatic == true ? .automatic : .never;
         }
@@ -132,7 +132,7 @@ import UIKit
         block?(sender);
     }
     
-    public func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, closure: @escaping ((UIBarButtonItem) -> Void)) {
+    func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, closure: @escaping ((UIBarButtonItem) -> Void)) {
         let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: nil, action: nil);
         item.systemType = systemItem;
         if isLeft == true {
@@ -144,7 +144,7 @@ import UIKit
     }
     
     /// 创建 UIBarButtonItem
-    public func createBarItem(_ obj: String, style: UIBarButtonItem.Style = .plain, isLeft: Bool = false, action: @escaping ((UIBarButtonItem) -> Void)){
+    func createBarItem(_ obj: String, style: UIBarButtonItem.Style = .plain, isLeft: Bool = false, action: @escaping ((UIBarButtonItem) -> Void)){
         var barItem: UIBarButtonItem?
         if let image = UIImage(named: obj) {
             barItem = UIBarButtonItem(image: image, style: style, target: nil, action: nil)
@@ -159,14 +159,14 @@ import UIKit
         }
     }
         
-    public func addControllerName(_ vcName: String) {
+    func addControllerName(_ vcName: String) {
         let controller = UICtrFromString(vcName)
         assert(controller.isKind(of: UIViewController.self))
         addControllerVC(controller)
     }
     
     /// 添加子控制器(对应方法 removeControllerVC)
-    public func addControllerVC(_ controller: UIViewController) {
+    func addControllerVC(_ controller: UIViewController) {
         assert(controller.isKind(of: UIViewController.self))
         
         addChild(controller)
@@ -177,7 +177,7 @@ import UIKit
     }
     
     /// 移除添加的子控制器(对应方法 addControllerVC)
-    public func removeControllerVC(_ controller: UIViewController) {
+    func removeControllerVC(_ controller: UIViewController) {
         assert(controller.isKind(of: UIViewController.self))
         
         controller.willMove(toParent: nil)
@@ -186,7 +186,7 @@ import UIKit
     }
     
     /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
-    public func transitionTo(VC: UIViewController) {
+    func transitionTo(VC: UIViewController) {
         beginAppearanceTransition(false, animated: true)  //调用self的 viewWillDisappear:
         VC.beginAppearanceTransition(true, animated: true)  //调用VC的 viewWillAppear:
         endAppearanceTransition(); //调用self的viewDidDisappear:
@@ -198,13 +198,13 @@ import UIKit
          */
     }
     /// 手动调用 viewWillAppear,viewDidDisappear 或 viewWillDisappear,viewDidDisappear
-    public func beginAppearance(_ isAppearing: Bool, animated: Bool){
+    func beginAppearance(_ isAppearing: Bool, animated: Bool){
         beginAppearanceTransition(isAppearing, animated: animated);
         endAppearanceTransition();
     }
     
     /// 导航栏返回按钮图片定制
-    public func createBackItem(_ image: UIImage) {
+    func createBackItem(_ image: UIImage) {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem?.addAction({ (item) in
             self.navigationController?.popViewController(animated: true);
@@ -212,7 +212,7 @@ import UIKit
     }
     
     /// 获取UIViewController/UINavigationController数组
-    static public func controllers(_ list: [[String]], isNavController: Bool = false, showVCTitle: Bool = true) -> [UIViewController] {
+    static func controllers(_ list: [[String]], isNavController: Bool = false, showVCTitle: Bool = true) -> [UIViewController] {
         let tabItems: [UITabBarItem] = UITabBar.barItems(list)
         var marr = [UIViewController]()
         for e in list.enumerated() {
@@ -232,7 +232,7 @@ import UIKit
     }
     
     ///背景灰度设置
-    public func setAlphaOfBackgroundViews(_ alpha: CGFloat) {
+    func setAlphaOfBackgroundViews(_ alpha: CGFloat) {
         guard let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIWindow else { return }
         UIView.animate(withDuration: 0.2) {
             statusBarWindow.alpha = alpha;
@@ -241,7 +241,7 @@ import UIKit
         }
     }
     ///呈现popover
-    public func presentPopover(_ popoverContentVC: UIViewController,
+    func presentPopover(_ popoverContentVC: UIViewController,
                              sender: UIView,
                              arrowDirection: UIPopoverArrowDirection = .any,
                              completion: (() -> Void)? = nil){
