@@ -9,13 +9,29 @@ import UIKit
 
 @objc public extension UISlider{
 
+    private struct AssociateKeys {
+        static var closure   = "UISlider" + "closure"
+    }
+    /// UIControl 添加回调方式
+    override func addActionHandler(_ action: @escaping ((UISlider) ->Void), for controlEvents: UIControl.Event = .touchUpInside) {
+        addTarget(self, action:#selector(p_handleActionSlider(_:)), for:controlEvents);
+        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    /// 点击回调
+    private func p_handleActionSlider(_ sender: UISlider) {
+        if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UISlider) ->Void) {
+            block(sender);
+        }
+    }
+    
     /// [源]UISlider创建
-    static func create(_ rect: CGRect = .zero, value: Float, minValue: Float = 0, maxValue: Float = 100) -> Self {
+    static func create(_ rect: CGRect = .zero, minValue: Float = 0, maxValue: Float = 100) -> Self {
         let view = self.init(frame: rect)
         view.autoresizingMask = .flexibleWidth
         view.minimumValue = minValue
         view.maximumValue = maxValue
-        view.value = value;
+        view.value = minValue
         
         view.minimumTrackTintColor = UIColor.theme
         return view;
