@@ -37,9 +37,9 @@ import UIKit
         case rightBottom
     }
 
-    @objc enum HolderViewState: Int {
-        case nomrol, loading, empty, fail
-    }
+//    @objc enum HolderViewState: Int {
+//        case nomrol, loading, empty, fail
+//    }
             
     var lineTop: UIView {
         get {
