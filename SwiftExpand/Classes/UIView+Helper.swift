@@ -222,7 +222,7 @@ import UIKit
             
         } else {
             _ = self.addGestureTap { (reco) in
-                action((reco as! UITapGestureRecognizer), reco.view!, reco.view!.tag);
+                action(reco, reco.view!, reco.view!.tag);
             }
         }
     }
@@ -242,7 +242,7 @@ import UIKit
     
     ///手势 - 轻点 UITapGestureRecognizer
     @discardableResult
-    public func addGestureTap(_ action: @escaping RecognizerClosure) -> UITapGestureRecognizer {
+    public func addGestureTap(_ action: @escaping ((UITapGestureRecognizer) ->Void)) -> UITapGestureRecognizer {
         let obj = UITapGestureRecognizer(target: nil, action: nil)
         obj.numberOfTapsRequired = 1  //轻点次数
         obj.numberOfTouchesRequired = 1  //手指个数
@@ -251,9 +251,7 @@ import UIKit
         isMultipleTouchEnabled = true
         addGestureRecognizer(obj)
 
-        obj.addAction { (recognizer) in
-            action(recognizer)
-        }
+        obj.addAction(action)
         return obj
     }
     
@@ -271,7 +269,7 @@ import UIKit
     
     ///手势 - 长按 UILongPressGestureRecognizer
     @discardableResult
-    public func addGestureLongPress(_ action: @escaping RecognizerClosure, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
+    public func addGestureLongPress(_ action: @escaping ((UILongPressGestureRecognizer) ->Void), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: nil, action: nil)
         obj.minimumPressDuration = minimumPressDuration;
       
@@ -280,14 +278,14 @@ import UIKit
         addGestureRecognizer(obj)
       
         obj.addAction { (recognizer) in
-            action(recognizer)
+            action(recognizer as! UILongPressGestureRecognizer)
         }
         return obj
     }
       
     ///手势 - 拖拽 UIPanGestureRecognizer
     @discardableResult
-    public func addGesturePan(_ action: @escaping RecognizerClosure) -> UIPanGestureRecognizer {
+    public func addGesturePan(_ action: @escaping ((UIPanGestureRecognizer) ->Void)) -> UIPanGestureRecognizer {
         let obj = UIPanGestureRecognizer(target: nil, action: nil)
           //最大最小的手势触摸次数
         obj.minimumNumberOfTouches = 1
@@ -298,12 +296,12 @@ import UIKit
         addGestureRecognizer(obj)
           
         obj.addAction { (recognizer) in
-            if let sender = recognizer as? UIPanGestureRecognizer {
-                let translate:CGPoint = sender.translation(in: sender.view?.superview)
-                sender.view!.center = CGPoint(x: sender.view!.center.x + translate.x, y: sender.view!.center.y + translate.y)
-                sender.setTranslation( .zero, in: sender.view!.superview)
+            if let gesture = recognizer as? UIPanGestureRecognizer {
+                let translate: CGPoint = gesture.translation(in: gesture.view?.superview)
+                gesture.view!.center = CGPoint(x: gesture.view!.center.x + translate.x, y: gesture.view!.center.y + translate.y)
+                gesture.setTranslation( .zero, in: gesture.view!.superview)
                              
-                action(recognizer)
+                action(gesture)
             }
         }
         return obj
@@ -322,7 +320,7 @@ import UIKit
     
     ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
     @discardableResult
-    public func addGestureEdgPan(_ action: @escaping RecognizerClosure, for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
+    public func addGestureEdgPan(_ action: @escaping ((UIScreenEdgePanGestureRecognizer) ->Void), for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
         let obj = UIScreenEdgePanGestureRecognizer(target: nil, action: nil)
         obj.edges = edgs
         isUserInteractionEnabled = true
@@ -330,7 +328,7 @@ import UIKit
         addGestureRecognizer(obj)
        
         obj.addAction { (recognizer) in
-            action(recognizer)
+            action(recognizer as! UIScreenEdgePanGestureRecognizer)
         }
         return obj
     }
@@ -349,7 +347,7 @@ import UIKit
     
     ///手势 - 清扫 UISwipeGestureRecognizer
     @discardableResult
-    public func addGestureSwip(_ action: @escaping RecognizerClosure, for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
+    public func addGestureSwip(_ action: @escaping ((UISwipeGestureRecognizer) ->Void), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
         let obj = UISwipeGestureRecognizer(target: nil, action: nil)
         obj.direction = direction
       
@@ -358,26 +356,26 @@ import UIKit
         addGestureRecognizer(obj)
       
         obj.addAction { (recognizer) in
-            action(recognizer)
+            action(recognizer as! UISwipeGestureRecognizer)
         }
         return obj
     }
       
     ///手势 - 捏合 UIPinchGestureRecognizer
     @discardableResult
-    public func addGesturePinch(_ action: @escaping RecognizerClosure) -> UIPinchGestureRecognizer {
+    public func addGesturePinch(_ action: @escaping ((UIPinchGestureRecognizer) ->Void)) -> UIPinchGestureRecognizer {
         let obj = UIPinchGestureRecognizer(target: nil, action: nil)
         isUserInteractionEnabled = true
         isMultipleTouchEnabled = true
         addGestureRecognizer(obj)
       
         obj.addAction { (recognizer) in
-            if let sender = recognizer as? UIPinchGestureRecognizer {
-                let location = recognizer.location(in: sender.view!.superview)
-                sender.view!.center = location;
-                sender.view!.transform = sender.view!.transform.scaledBy(x: sender.scale, y: sender.scale)
-                sender.scale = 1.0
-                action(recognizer)
+            if let gesture = recognizer as? UIPinchGestureRecognizer {
+                let location = recognizer.location(in: gesture.view!.superview)
+                gesture.view!.center = location;
+                gesture.view!.transform = gesture.view!.transform.scaledBy(x: gesture.scale, y: gesture.scale)
+                gesture.scale = 1.0
+                action(gesture)
             }
         }
         return obj
@@ -385,18 +383,18 @@ import UIKit
     
     ///手势 - 旋转 UIRotationGestureRecognizer
     @discardableResult
-    public func addGestureRotation(_ action: @escaping RecognizerClosure) -> UIRotationGestureRecognizer {
+    public func addGestureRotation(_ action: @escaping ((UIRotationGestureRecognizer) ->Void)) -> UIRotationGestureRecognizer {
         let obj = UIRotationGestureRecognizer(target: nil, action: nil)
         isUserInteractionEnabled = true
         isMultipleTouchEnabled = true
         addGestureRecognizer(obj)
       
         obj.addAction { (recognizer) in
-            if let sender = recognizer as? UIRotationGestureRecognizer {
-                sender.view!.transform = sender.view!.transform.rotated(by: sender.rotation)
-                sender.rotation = 0.0;
+            if let gesture = recognizer as? UIRotationGestureRecognizer {
+                gesture.view!.transform = gesture.view!.transform.rotated(by: gesture.rotation)
+                gesture.rotation = 0.0;
                           
-                action(recognizer)
+                action(gesture)
             }
         }
         return obj
@@ -587,7 +585,7 @@ extension UIView{
 extension Array where Element : UIView {
     ///手势 - 轻点 UITapGestureRecognizer
     @discardableResult
-    public func addGestureTap(_ action: @escaping RecognizerClosure) -> [UITapGestureRecognizer] {
+    public func addGestureTap(_ action: @escaping ((UIGestureRecognizer) ->Void)) -> [UITapGestureRecognizer] {
         
         var list = [UITapGestureRecognizer]()
         forEach {
