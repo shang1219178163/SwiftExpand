@@ -127,7 +127,10 @@ import UIKit
     /// 控件items
     var items: [String] {
         get {
-            return objc_getAssociatedObject(self, &AssociateKeys.items) as! [String]
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.items) as? [String] {
+                return obj
+            }
+            return []
         }
         set {
             objc_setAssociatedObject(self, &AssociateKeys.items, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

@@ -115,14 +115,18 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
 }
 
 public func UINavCtrFromObj(_ obj: AnyObject) -> UINavigationController?{
-    if obj is UINavigationController {
-        return obj as? UINavigationController;
+    switch obj {
+    case let result as UINavigationController:
+        return result
         
-    } else if obj is String {
-        return UINavigationController(rootViewController: UICtrFromString(obj as! String));
+    case let result as UIViewController:
+        return UINavigationController(rootViewController: result);
         
-    } else if obj is UIViewController {
-        return UINavigationController(rootViewController: obj as! UIViewController);
+    case let result as String:
+        return UINavigationController(rootViewController: UICtrFromString(result));
+
+    default:
+        break
     }
     return nil;
 }

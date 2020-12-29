@@ -153,12 +153,14 @@ import Photos
         let path =  UIApplication.appDetailUrlWithID(appStoreID)
         let request = URLRequest(url:NSURL(string: path)! as URL, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 6)
         let dataTask = URLSession.shared.dataTask(with: request) { (data, respone, error) in
-            guard let data = data, let dic = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [String: Any] else {
+            guard let data = data,
+                  let dic = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves) as? [String: Any] else {
                 print("字典不能为空")
                 return
             }
             
-            guard (dic["resultCount"] as! NSNumber).intValue == 1 else {
+            guard let resultCount = dic["resultCount"] as? NSNumber,
+                  resultCount.intValue == 1 else {
                 print("resultCount错误")
                 return
             }
@@ -170,10 +172,10 @@ import Photos
                 print("dicInfo错误")
                 return
             }
-            
-            let releaseNotes = dicInfo["releaseNotes"] ?? "";
+                        
+            let releaseNotes: String = (dicInfo["releaseNotes"] as? String) ?? ""
             let isUpdate = appStoreVer.compare(UIApplication.appVer, options: .numeric, range: nil, locale: nil) == .orderedDescending
-            block(dicInfo, appStoreVer, releaseNotes as! String, isUpdate)
+            block(dicInfo, appStoreVer, releaseNotes, isUpdate)
         }
         dataTask.resume()
     }

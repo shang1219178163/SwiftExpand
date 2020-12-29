@@ -45,7 +45,10 @@ import UIKit
     
     var dictClass: [String: [String]] {
         get {
-            return objc_getAssociatedObject(self, &AssociateKeys.dictClass) as! [String: [String]];
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.dictClass) as? [String: [String]] {
+                return obj
+            }
+            return [String: [String]]()
         }
         set {
             objc_setAssociatedObject(self, &AssociateKeys.dictClass, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);

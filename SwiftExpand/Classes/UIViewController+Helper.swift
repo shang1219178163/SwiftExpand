@@ -29,26 +29,7 @@ import UIKit
     public var isCurrentVC: Bool {
         return isViewLoaded == true && (view!.window != nil)
     }
-        
-//    public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
-//        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return }
-//
-//        DispatchQueue.main.async {
-//            if self.isKind(of: UIAlertController.self) {
-//                if (self as! UIAlertController).actions.count == 0 {
-//                    rootVC.present(self, animated: animated, completion: {
-//                        DispatchQueue.main.after(TimeInterval(kDurationToast), execute: {
-//                            self.dismiss(animated: animated, completion: completion)
-//                        })
-//                    })
-//                } else {
-//                    rootVC.present(self, animated: animated, completion: completion)
-//                }
-//            } else {
-//                rootVC.present(self, animated: animated, completion: completion)
-//            }
-//        }
-//    }
+    
     /// 呈现
     public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
         guard let keyWindow = UIApplication.shared.keyWindow,

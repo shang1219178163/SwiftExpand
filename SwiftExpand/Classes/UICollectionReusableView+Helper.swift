@@ -21,7 +21,6 @@ import UIKit
 
     }
     
-    
     /// [源]自定义 UICollectionReusableView 获取方法(兼容OC)
     static func dequeueSupplementaryView(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> Self{
 
@@ -76,7 +75,7 @@ import UIKit
             view.numberOfLines = 0;
             view.lineBreakMode = .byCharWrapping;
             view.textAlignment = .center;
-//                obj!.backgroundColor = UIColor.random
+//            view.backgroundColor = UIColor.random
 
             objc_setAssociatedObject(self, &AssociateKeys.lab, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view

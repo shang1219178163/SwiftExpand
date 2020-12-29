@@ -16,16 +16,16 @@ import UIKit
         var data: Data?
 
         switch obj {
-        case is Data:
-            data = (obj as! Data);
+        case let value as Data:
+            data = value;
 
-        case is NSString:
-            data = (obj as! String).data(using: .utf8);
+        case let value as String:
+            data = value.data(using: .utf8);
 
-        case is UIImage:
-            data = (obj as! UIImage).jpegData(compressionQuality: 1.0);
+        case let value as UIImage:
+            data = value.jpegData(compressionQuality: 1.0);
 
-        case is NSDictionary, is NSArray:
+        case _ as NSDictionary, _ as NSArray:
             do {
                 data = try JSONSerialization.data(withJSONObject: obj, options: []);
             } catch {
