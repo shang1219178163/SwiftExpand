@@ -9,7 +9,7 @@ import UIKit
 
 @objc public extension UITabBar {
  
-    ///获取UITabBarItem 数组
+    ///获取UITabBarItem 数组[["FirstViewController", "首页", "Item_first_N", "Item_first_H"]]
     static func barItems(_ list: [[String]]) -> [UITabBarItem] {
         var marr = [UITabBarItem]()
         for e in list.enumerated() {
