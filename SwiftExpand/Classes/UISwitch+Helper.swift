@@ -13,7 +13,7 @@ import UIKit
         static var closure   = "UISwitch" + "closure"
     }
     /// UIControl 添加回调方式
-    override func addActionHandler(_ action: @escaping ((UISwitch) ->Void), for controlEvents: UIControl.Event = .touchUpInside) {
+    override func addActionHandler(_ action: @escaping ((UISwitch) ->Void), for controlEvents: UIControl.Event = .valueChanged) {
         addTarget(self, action:#selector(p_handleActionSwitch(_:)), for:controlEvents);
         objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
