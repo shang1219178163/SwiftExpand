@@ -64,4 +64,8 @@ import UIKit
         return list
     }
 
+    /// 创建 UIBarButtonItem
+    func createBarItem(_ obj: String, style: UIBarButtonItem.Style = .plain, action: @escaping ((UIBarButtonItem) -> Void)){
+        UIBarButtonItem.create(obj, style: style, target: nil, action: nil).addAction(action)
+    }
 }
