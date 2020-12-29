@@ -72,15 +72,30 @@ import UIKit
     
     ///判断上一页是哪个页面
     func pushFromVC(_ type: UIViewController.Type) -> Bool {
-        
-        guard let viewControllers = navigationController?.viewControllers else {
+        guard let viewControllers = navigationController?.viewControllers,
+              viewControllers.count > 1,
+              let index = viewControllers.firstIndex(of: self) else {
             return false }
-        if viewControllers.count <= 1 {
-            return false }
-        guard let index = viewControllers.firstIndex(of: self) else {
-            return false }
+                        
         let result = viewControllers[index - 1].isKind(of: type)
         return result
+    }
+    
+    /// 重置布局
+    func setupExtendedLayout() {
+        edgesForExtendedLayout = [];
+        if #available(iOS 11.0, *) {
+            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
+        } else {
+            automaticallyAdjustsScrollViewInsets = false;
+        }
+    }
+    
+    /// 重置布局(UIDocumentPickerViewController需要为automatic)
+    func setupContentInsetAdjustmentBehavior(_ isAutomatic: Bool = false) {
+        if #available(iOS 11.0, *) {
+            UIScrollView.appearance().contentInsetAdjustmentBehavior = isAutomatic == true ? .automatic : .never;
+        }
     }
     
     /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
@@ -109,38 +124,24 @@ import UIKit
 //        searchVC.delegate = self;
         return searchVC;
     }
-    
-    /// 重置布局
-    func setupExtendedLayout() {
-        edgesForExtendedLayout = [];
-        if #available(iOS 11.0, *) {
-            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
-        } else {
-            automaticallyAdjustsScrollViewInsets = false;
-        }
+        
+    /// 导航栏返回按钮图片定制
+    func createBackItem(_ image: UIImage) {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
+        navigationItem.leftBarButtonItem?.addAction({ (item) in
+            self.navigationController?.popViewController(animated: true);
+        });
     }
-    
-    /// 重置布局(UIDocumentPickerViewController需要为automatic)
-    func setupContentInsetAdjustmentBehavior(_ isAutomatic: Bool = false) {
-        if #available(iOS 11.0, *) {
-            UIScrollView.appearance().contentInsetAdjustmentBehavior = isAutomatic == true ? .automatic : .never;
-        }
-    }
-    
-    private func p_handleActionItem(_ sender: UIBarButtonItem) {
-        let block = objc_getAssociatedObject(self, sender.runtimeKey) as? ((UIBarButtonItem) -> Void)
-        block?(sender);
-    }
-    
+    ///系统样式
     func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, closure: @escaping ((UIBarButtonItem) -> Void)) {
         let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: nil, action: nil);
-        item.systemType = systemItem;
+        item.systemType = systemItem
+        item.addAction(closure)
         if isLeft == true {
             navigationItem.leftBarButtonItem = item;
         } else {
             navigationItem.rightBarButtonItem = item;
         }
-        item.addAction(closure)
     }
     
     /// 创建 UIBarButtonItem
@@ -203,12 +204,14 @@ import UIKit
         endAppearanceTransition();
     }
     
-    /// 导航栏返回按钮图片定制
-    func createBackItem(_ image: UIImage) {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
-        navigationItem.leftBarButtonItem?.addAction({ (item) in
-            self.navigationController?.popViewController(animated: true);
-        });
+    ///背景灰度设置
+    func setAlphaOfBackgroundViews(_ alpha: CGFloat) {
+        guard let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIWindow else { return }
+        UIView.animate(withDuration: 0.2) {
+            statusBarWindow.alpha = alpha;
+            self.view.alpha = alpha;
+            self.navigationController?.navigationBar.alpha = alpha;
+        }
     }
     
     /// 获取UIViewController/UINavigationController数组
@@ -231,15 +234,6 @@ import UIKit
         return marr
     }
     
-    ///背景灰度设置
-    func setAlphaOfBackgroundViews(_ alpha: CGFloat) {
-        guard let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIWindow else { return }
-        UIView.animate(withDuration: 0.2) {
-            statusBarWindow.alpha = alpha;
-            self.view.alpha = alpha;
-            self.navigationController?.navigationBar.alpha = alpha;
-        }
-    }
     ///呈现popover
     func presentPopover(_ popoverContentVC: UIViewController,
                              sender: UIView,
@@ -264,4 +258,6 @@ import UIKit
 //        present(popoverContentVC, animated: true, completion: completion)
         popoverContentVC.present(true, completion: completion)
     }
+    
+    
 }
