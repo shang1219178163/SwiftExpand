@@ -207,6 +207,10 @@ public extension String{
         return predicate.evaluate(with: self)
     }
     
+    func trimmedBy(_ string: String) -> String {
+        return trimmingCharacters(in: CharacterSet(charactersIn: string))
+    }
+    
     /// 计算高度
     func size(_ font: CGFloat, width: CGFloat) -> CGSize {
         return (self as NSString).size(font, width: width)
@@ -501,6 +505,9 @@ public extension String{
         return (self as String).isValidByRegex(regex)
     }
         
+    func trimmedBy(_ string: String) -> String {
+        return (self as String).trimmedBy(string)
+    }
     /// 地址字符串(hostname + port)
     static func UrlAddress(_ hostname: String, port: String) ->String {
         var webUrl: String = hostname;
@@ -695,4 +702,7 @@ public extension String{
     }
         
 
+//    func map(_ separator: String = ",", block: @escaping (()->Void)) -> String {
+//        self.components(separatedBy: separator).map(<#T##transform: (String) throws -> T##(String) throws -> T#>)
+//    }
 }

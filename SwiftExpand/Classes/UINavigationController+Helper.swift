@@ -43,14 +43,24 @@ import UIKit
 }
 
 public extension UINavigationController{
-    
+    ///泛型方法: push到特定控制器页面
     final func pushVC<T: UIViewController>(_ type: T.Type, animated: Bool = true, block: ((T) -> Void)? = nil) {
         let controller = type.init()
 //        controller.hidesBottomBarWhenPushed = true
         block?(controller)
         pushViewController(controller, animated: animated);
     }
-    
+    ///泛型方法: pop到特定控制器页面
+    final func popToVC<T: UIViewController>(_ type: T.Type, animated: Bool = true) {
+        for e in viewControllers {
+            if e.isKind(of: type) {
+                popToViewController(e, animated: animated)
+                return
+            }
+        }
+        popViewController(animated: animated)
+    }
+    ///泛型方法: 延迟退出
     func popVC(animated: Bool, delay: Double) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime(floatLiteral: delay)) {
             self.popViewController(animated: animated)

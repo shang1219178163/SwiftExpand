@@ -20,14 +20,14 @@ public extension Array{
     var jsonString: String {
         return (self as NSArray).jsonString;
     }
-    
+    ///同 subarrayWithRange:
     func subarray(_ range: NSRange) -> Array {
         return self.subarray(range.location, range.length)
     }
-    
+    ///同 subarrayWithRange:
     func subarray(_ loc: Int, _ len: Int) -> Array {
-        assert((loc + len) < self.count);
-        return Array(self[loc..<len]);
+        assert((loc + len) <= self.count);
+        return Array(self[loc...len]);
     }
     
 }
