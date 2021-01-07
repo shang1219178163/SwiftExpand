@@ -101,7 +101,7 @@ import SnapKit
         btn.isHidden = true
 
         addGestureTap { (reco) in
-            self.delegate?.placeholderViewTap(self, tap: reco as! UITapGestureRecognizer)
+            self.delegate?.placeholderViewTap(self, tap: reco)
         }
         getViewLayer()
     }

@@ -19,6 +19,15 @@ import Foundation
         }
     }
     
+    /// UserDefaults 二次封装
+    static func defaults() -> UserDefaults {
+         return self.standard
+     }
+    /// UserDefaults 二次封装
+    static func synchronize() {
+         self.standard.synchronize()
+     }
+    
     ///UserDefaults 保存模型
     static func arcObject(_ value: Any?, forkey defaultName: String) {
         guard let value = value else { return }
