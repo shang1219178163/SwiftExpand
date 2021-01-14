@@ -248,6 +248,21 @@ public let kDateFormatTwo         = "yyyyMMdd";
         return result
     }
     
+    ///时间区间
+    static func durationFrom(_ btime: String?, etime: String?) -> TimeInterval {
+        guard let btime = btime,
+              let etime = etime
+              else { return 0 }
+        
+        let isEmpty = btime.isEmpty == false && etime.isEmpty == false
+        if isEmpty ||  btime.hasPrefix("1970") || etime.hasPrefix("1970") {
+            return 0
+        }
+        
+        let bdate = dateFromString(btime, fmt: kDateFormat)
+        let edate = dateFromString(etime, fmt: kDateFormat)
+        return edate.timeIntervalSince1970 - bdate.timeIntervalSince1970
+    }
     
     ///根据 UIDatePicker.Mode 获取时间字符串简
 //    static func dateFromPicker(_ datePicker: UIDatePicker, date: Date) -> String {

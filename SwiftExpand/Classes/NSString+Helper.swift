@@ -202,6 +202,16 @@ public extension String{
         return false
     }
     
+    ///****-**-** 00:00:00
+    var dayBegin: String{
+        return (self as NSString).dayBegin
+    }
+    
+    ///****-**-** 23:59:59
+    var dayEnd: String{
+        return (self as NSString).dayEnd
+    }
+    
     func isValidByRegex(_ regex: String) -> Bool {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return predicate.evaluate(with: self)
@@ -238,9 +248,9 @@ public extension String{
     }
     
     ///过滤字符集
-    func replacingOccurrences(of String: String, withSet: String) -> String {
-        return (self as NSString).replacingOccurrences(of: String, withSet: withSet)
-    }
+//    func replacingOccurrences(of String: String, withSet: String) -> String {
+//        return (self as NSString).replacingOccurrences(of: String, withSet: withSet)
+//    }
     
     ///获取两个字符串中间的部分(含这两部分)
     func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
@@ -255,6 +265,12 @@ public extension String{
                                               withTemplate: with)
     }
     
+    /// 通过集合字符的字母分割字符串
+    func componentsSeparatedByCharacters(_ aString: String) -> [String]{
+        let result = self.components(separatedBy: CharacterSet(charactersIn: aString))
+        return result;
+    }
+        
     func filterHTML() -> String {
         var html = self
         
@@ -266,23 +282,6 @@ public extension String{
             html = html.replacingOccurrences(of: "\(text ?? "")>", with: "")
         }
         return html
-    }
-    
-    ///获取 URL 的参数字典
-    func urlParms() -> [String: Any]? {
-        guard self.hasPrefix("http") else {
-            return nil }
-                
-        let index = (self as NSString).range(of: "?", options: .backwards).location
-        let tmp = (self as NSString).substring(from: index + 1)
-        let list = tmp.components(separatedBy: "&")
-            
-        var dic = [String: Any]()
-        list.forEach {
-            let list = $0.components(separatedBy: "=")
-            dic["\(list[0])"] = list[1]
-        }
-        return dic
     }
     
     /// 大于version
@@ -336,6 +335,14 @@ public extension String{
         var tmp = (self as NSString).substring(with: NSRange(location: loc, length: len))
         tmp = replacingOccurrences(of: tmp, with: replacement)
         return tmp
+    }
+    
+    func replacingCharacters(_ loc: Int, _ len: Int, with replacement: String) -> String{
+        if self.count < loc + len {
+            return self
+        }
+        let result = (self as NSString).replacingCharacters(in: NSRange(location: loc, length: len), with: replacement)
+        return result
     }
     
     func substring(from: Int) -> String{
@@ -433,6 +440,12 @@ public extension String{
 
 @objc public extension NSString{
 
+    var isEmpty: Bool {
+        let tmp = self.trimmingCharacters(in: .whitespacesAndNewlines)
+        let result = ["", "nil", "null"].contains(tmp.lowercased())
+        return result
+    }
+    
     var md5: String {
         return (self as String).md5
     }
@@ -501,6 +514,26 @@ public extension String{
         return (self as String).isIPAddress
     }
     
+    ///****-**-** 00:00:00
+    var dayBegin: String{
+        if length != 19 {
+            return self as String
+        }
+        
+        let result = self.substring(to: 10).appending(" 00:00:00")
+        return result;
+    }
+    
+    ///****-**-** 23:59:59
+    var dayEnd: String{
+        if length != 19 {
+            return self as String
+        }
+
+        let result = self.substring(to: 10).appending(" 23:59:59")
+        return result
+    }
+        
     func isValidByRegex(_ regex: String) -> Bool {
         return (self as String).isValidByRegex(regex)
     }
@@ -508,27 +541,35 @@ public extension String{
     func trimmedBy(_ string: String) -> String {
         return (self as String).trimmedBy(string)
     }
-    /// 地址字符串(hostname + port)
-    static func UrlAddress(_ hostname: String, port: String) ->String {
-        var webUrl: String = hostname;
-        if !hostname.contains("http://") {
-            webUrl = "http://" + hostname;
-        }
-        if port != "" {
-            webUrl = webUrl + ":\(port)";
-        }
-        return webUrl;
-    }
+        
+//    /// 地址字符串(hostname + port)
+//    static func UrlAddress(_ hostname: String, port: String) ->String {
+//        var webUrl: String = hostname;
+//        if !hostname.contains("http://") {
+//            webUrl = "http://" + hostname;
+//        }
+//        if port != "" {
+//            webUrl = webUrl + ":\(port)";
+//        }
+//        return webUrl;
+//    }
     
     /// 获取子字符串
     func substring(loc: Int, len: Int) -> String {
         return self.substring(with: NSRange(location: loc, length: len))
     }
         
-    ///过滤字符集
-    func replacingOccurrences(of String: String, withSet: String) -> String {
-        let items: [String] = self.components(separatedBy: CharacterSet(charactersIn: withSet))
-        return items.joined(separator: "")
+    /// 通过集合字符的字母分割字符串
+    func componentsSeparatedByCharacters(_ aString: String) -> [String]{
+        let result = self.components(separatedBy: CharacterSet(charactersIn: aString))
+        return result;
+    }
+    
+    /// 取代索引处字符
+    func replacingCharacter(_ aString: String, at index: Int) -> String{
+        assert(self.length > 0);
+        let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: aString)
+        return result;
     }
     
     ///获取两个字符串中间的部分(含这两部分)
@@ -548,12 +589,7 @@ public extension String{
     func filterHTML() -> String {
         return (self as String).filterHTML()
     }
-    
-    ///获取 URL 的参数字典
-    func urlParms() -> [String: Any]? {
-        return (self as String).urlParms()
-    }
-    
+        
     /// 大于version
     func isBig(_ value: String) -> Bool {
         return compare(value, options: .numeric) == .orderedDescending
@@ -594,17 +630,6 @@ public extension String{
         }
     }
     
-    /// isEnd 为真,秒追加为:59,为假 :00
-    static func dateTime(_ time: NSString, isEnd: Bool) -> NSString {
-        if time.length < 10 {
-            return time;
-        }
-        let sufix = isEnd == true ? " 23:59:59" : " 00:00:00";
-        var tmp: NSString = time.substring(to: 10) as NSString;
-        tmp = tmp.appending(sufix) as NSString
-        return tmp;
-    }
-    
     /// 判断是否时间戳字符串
     func isTimeStamp() -> Bool{
         if [" ", "-", ":"].contains(self) {
@@ -631,7 +656,9 @@ public extension String{
     
     /// (短时间)yyyy-MM-dd
     func toDateShort() -> String{
-        assert(self.length >= 10);
+        if length <= 10 {
+            return self as String
+        }
         return self.substring(to: 10);
     }
     
@@ -667,29 +694,8 @@ public extension String{
     func filter(_ string: String) -> String{
         assert(self.length > 0);
         let chartSet = NSCharacterSet(charactersIn: string).inverted;
-        let result = self.addingPercentEncoding(withAllowedCharacters: chartSet)
+        let result = addingPercentEncoding(withAllowedCharacters: chartSet)
         return result!;
-    }
-    
-    /// 通过集合字符的字母分割字符串
-    func componentsSeparatedByCharactersInString(_ aString: String) -> [String]{
-        let result = self.components(separatedBy: CharacterSet(charactersIn: aString))
-        return result;
-    }
-    
-    /// 删除首尾空白字符
-    func deleteWhiteSpaceBeginEnd() -> String{
-        assert(self.length > 0);
-        let chartSet = NSCharacterSet.whitespacesAndNewlines;
-        let result = self.trimmingCharacters(in: chartSet)
-        return result;
-    }
-    
-    /// 取代索引处字符
-    func replacingCharacter(_ aString: String, at index: Int) -> String{
-        assert(self.length > 0);
-        let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: aString)
-        return result;
     }
     
     ///计算高度
@@ -701,7 +707,6 @@ public extension String{
         return CGSize(width: ceil(size.width), height: ceil(size.height))
     }
         
-
 //    func map(_ separator: String = ",", block: @escaping (()->Void)) -> String {
 //        self.components(separatedBy: separator).map(<#T##transform: (String) throws -> T##(String) throws -> T#>)
 //    }

@@ -30,6 +30,25 @@ import UIKit
         }
         return ""
     }
+    
+    ///文件大小
+    var fileSize: String {
+        let length: CGFloat = CGFloat(self.length)
+        
+        if length < 1024.0 {
+            return String(format: "%.2fB", length*1.0)
+        }
+        
+        if length >= 1024.0 && length < (1024.0*1024.0) {
+            return String(format: "%.2fKB", length/1024.0)
+        }
+                
+        if length >= (1024.0*1024.0) && length < (1024.0*1024.0*1024.0) {
+            return String(format: "%.2fMB", length/(1024.0*1024.0))
+        }
+        
+        return String(format: "%.2fGB", length/(1024.0*1024.0*1024.0))
+    }
 }
 
 public extension Data{
@@ -40,6 +59,10 @@ public extension Data{
     /// NSData -> 转字符串
     var stringValue: String? {
         return (self as NSData).stringValue;
-
+    }
+    
+    /// NSData -> 转字符串
+    var fileSize: String {
+        return (self as NSData).fileSize;
     }
 }
