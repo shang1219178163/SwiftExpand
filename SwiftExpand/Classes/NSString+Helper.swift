@@ -516,7 +516,7 @@ public extension String{
     
     ///****-**-** 00:00:00
     var dayBegin: String{
-        if length != 19 {
+        if length != 19 || !contains(":") {
             return self as String
         }
         
@@ -526,7 +526,7 @@ public extension String{
     
     ///****-**-** 23:59:59
     var dayEnd: String{
-        if length != 19 {
+        if length != 19 || !contains(":") {
             return self as String
         }
 
