@@ -148,10 +148,10 @@ public func UITarBarCtrFromList(_ list: [[String]]) -> UITabBarController {
     return tabBarVC
 }
 
-/// 地址字符串(hostname + port)
-public func UrlAddress(_ hostname: String, port: String) ->String {
-    return NSString.UrlAddress(hostname, port: port);
-}
+///// 地址字符串(hostname + port)
+//public func UrlAddress(_ hostname: String, port: String) ->String {
+//    return NSString.UrlAddress(hostname, port: port);
+//}
 
 ///// 两个Int(+-*/)
 //public func resultByOpt(_ num1: Int, _ num2: Int, result: (Int, Int) -> Int) -> Int {
