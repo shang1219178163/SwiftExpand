@@ -445,10 +445,33 @@ import UIKit
             compression -= 0.1;
             imageData = image.jpegData(compressionQuality: compression)
         }
-        DDLog("压缩后图片大小:\(imageData!.count/1024)M__压缩系数:\(compression)")
+        DDLog("压缩后图片大小:\(imageData!.count/1024)kb_压缩系数:\(compression)")
         return imageData!;
     }
     
+    static func binaryCompressData(_ image: UIImage, limit: Int = 1024*1024) -> Data {
+        var compression: CGFloat = 1
+        var data = image.jpegData(compressionQuality: compression)
+        if data!.count < limit {
+            return data!
+        }
+        var max: CGFloat = 1
+        var min: CGFloat = 0
+        
+        for _ in 0..<6 {
+            compression = (max+min)/2
+            data = image.jpegData(compressionQuality: compression)
+            if data!.count < limit*Int(0.9) {
+                min = compression
+            } else if data!.count > limit {
+                max = compression
+            } else {
+                break
+            }
+        }
+        DDLog("压缩后图片大小:\(data!.count)kb_压缩系数:\(compression)")
+        return data!
+    }
     /// 获取图片data的类型
     static func contentType(_ imageData: NSData) -> String {
         var type: String = "jpg";

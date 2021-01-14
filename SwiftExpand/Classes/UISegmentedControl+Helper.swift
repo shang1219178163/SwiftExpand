@@ -37,7 +37,7 @@ import UIKit
         view.selectedSegmentIndex = selectedIdx
         
         if #available(iOS 13, *) {
-            view.ensureiOS12Style(tintColor: tintColor, fontSize: fontSize)
+            view.ensureiOS13Style(tintColor: tintColor, fontSize: fontSize)
             return view;
         }
         
@@ -97,7 +97,7 @@ import UIKit
     }
     
     /// Tint color doesn't have any effect on iOS 13.
-    func ensureiOS12Style(tintColor: UIColor = .theme, fontSize: CGFloat = 13) {
+    func ensureiOS13Style(tintColor: UIColor = .theme, fontSize: CGFloat = 13) {
         if #available(iOS 13, *) {
             let tintColorImage = UIImage(color: tintColor)
             let clearColorImage = UIImage(color: .clear)

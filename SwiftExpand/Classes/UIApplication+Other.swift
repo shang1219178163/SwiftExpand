@@ -121,7 +121,7 @@ import Photos
     }
     
     /// 版本升级
-    static func updateVersion(appStoreID: String, isForce: Bool = false) {
+    static func updateVersionShow(appStoreID: String, isForce: Bool = false) {
         UIApplication.updateVersion(appStoreID: appStoreID) { (dic, appStoreVer, releaseNotes, isUpdate) in
             if isUpdate == false {
                 return;
