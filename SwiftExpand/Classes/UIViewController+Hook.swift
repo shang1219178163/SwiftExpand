@@ -94,7 +94,7 @@ import UIKit
     }
     
     private func changeAppIconAction(){
-        print("替换成功")
+//        print("替换成功")
     }
 
 }

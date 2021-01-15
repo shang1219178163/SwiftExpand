@@ -12,20 +12,6 @@ import UIKit
         static var textField   = "UISearchBar" + "textField"
     }
     
-//    var textField: UITextField? {
-//        get {
-//            if let obj = objc_getAssociatedObject(self, &AssociateKeys.textField) as? UITextField {
-//                return obj
-//            }
-//            let obj = self.findSubview(type: UITextField.self, resursion: true) as? UITextField
-//            if #available(iOS 11.0, *) {
-//                obj?.textContentType = .name;
-//            }
-//            objc_setAssociatedObject(self, &AssociateKeys.textField, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//            return obj;
-//        }
-//    }
-    
     var textField: UITextField? {
         if #available(iOS 13.0, *) {
             return searchTextField

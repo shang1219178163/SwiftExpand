@@ -9,15 +9,9 @@
 import UIKit
 
 // 定义数据类型(其实就是设置别名)
-public typealias SwiftClosure = ((AnyObject, AnyObject, Int) ->Void)
 
-public typealias ObjClosure = ((AnyObject) ->Void)
 public typealias ViewClosure = ((UITapGestureRecognizer?, UIView, NSInteger) ->Void)
-public typealias ControlClosure = ((UIControl) ->Void)
-public typealias RecognizerClosure = ((UIGestureRecognizer) ->Void)
 
-public typealias TextFieldClosure = ((UITextField) ->Void)
-public typealias TextViewClosure = ((UITextView) ->Void)
 
 public typealias CellHeightForRowClosure = ((UITableView, IndexPath) ->CGFloat)
 public typealias CellForRowClosure = ((UITableView, IndexPath) ->UITableViewCell?)
@@ -25,8 +19,6 @@ public typealias DidSelectRowClosure = ((UITableView, IndexPath) ->Void)
 
 public typealias CellForItemClosure = ((UICollectionView, IndexPath) ->UICollectionViewCell?)
 public typealias DidSelectItemClosure = ((UICollectionView, IndexPath) ->Void)
-
-public typealias ScrollViewDidScrollClosure = ((UIScrollView) ->Void)
 
 /// 打印地址
 public func AddressOf(_ o: UnsafeRawPointer) -> String {

@@ -226,22 +226,7 @@ public extension UITableView{
     final func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(for aClass: T, identifier: String = String(describing: T.self)) -> T{
         return dequeueReusableHeaderFooterView(for: T.self, identifier: identifier)
     }
-    
-    /// [源]HeaderView,footerView
-//    final func createSectionView<T: UIView>(_ type: T.Type, height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((T)->Void)) -> UIView{
-//        let sectionView = UIView()
-//        sectionView.backgroundColor = .background
-//
-//        let view = type.init(frame: CGRect(x: labelInset.left,
-//                                           y: labelInset.top,
-//                                           width: bounds.width - labelInset.left - labelInset.right,
-//                                           height: height - labelInset.top - labelInset.bottom));
-//        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        sectionView.addSubview(view)
-//        block(view)
-//        return sectionView
-//    }
-    
+        
     /// 按照时间值划分section(例如 var mdic:[String: [NSObject]] = [:] //全局变量)
     @discardableResult
     static func sectionByDatetime<T: NSObject>(_ timeKey: String, length: Int = 9, mdic: inout [String: [T]], list: [T])  -> [String: [T]] {

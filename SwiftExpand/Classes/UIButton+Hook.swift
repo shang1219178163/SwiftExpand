@@ -65,22 +65,22 @@ import UIKit
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(self.init(target:action:))
             let repSel = #selector(self.hook_init(target:action:))
-            _ = hookInstanceMethod(of: oriSel, with: repSel)
+            hookInstanceMethod(of: oriSel, with: repSel)
             
             let oriSel1 = #selector(self.addTarget(_:action:))
             let repSel1 = #selector(self.hook_addTarget(_:action:))
-            _ = hookInstanceMethod(of: oriSel1, with: repSel1)
+            hookInstanceMethod(of: oriSel1, with: repSel1)
         }
         
     }
     
     private func hook_init(target: Any?, action: Selector?){
-        self.hook_init(target: target, action: action)
+        hook_init(target: target, action: action)
 //        DDLog(action)
     }
 
     private func hook_addTarget(_ target: Any, action: Selector) {
-        self.hook_addTarget(target, action: action)
+        hook_addTarget(target, action: action)
 //        DDLog(action)
     }
     

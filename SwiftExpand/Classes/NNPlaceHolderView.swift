@@ -103,7 +103,7 @@ import SnapKit
         addGestureTap { (reco) in
             self.delegate?.placeholderViewTap(self, tap: reco)
         }
-        getViewLayer()
+//        getViewLayer()
     }
     
     required init?(coder aDecoder: NSCoder) {

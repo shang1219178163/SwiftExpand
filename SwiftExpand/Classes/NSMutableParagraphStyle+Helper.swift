@@ -14,9 +14,9 @@ import UIKit
                                     alignment: NSTextAlignment = .left,
                                   lineSpacing: CGFloat = 5.0) -> NSMutableParagraphStyle {
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineBreakMode = lineBreakMode;
-        paraStyle.alignment = alignment;
-        paraStyle.lineSpacing = lineSpacing;
+        paraStyle.lineBreakMode = lineBreakMode
+        paraStyle.lineSpacing = lineSpacing
+        paraStyle.alignment = alignment
         return paraStyle
     }
 }

@@ -43,7 +43,9 @@ public extension Dictionary where Key == String, Value == String {
     ///根据键数值排序
     func valuesByKeySorted() -> [String] {
         let values = keys.sorted {
-            return $0.intValue < $1.intValue
+//            return $0.intValue < $1.intValue
+            return $0.compare($1) == .orderedAscending
+
         }.map { self[$0] ?? ""}
         return values
     }
@@ -69,16 +71,6 @@ public extension Dictionary where Key == String, Value == String {
         else { return "" }
         return jsonString
     }
-    
-//    var valuesByKeySorted: [Any] {
-//        let marr = NSMutableArray()
-//        let list = (self.allKeys as [NSString]).sorted(by: >)
-//
-//        for key in list {
-//            marr.add(self[key])
-//        }
-//        return marr.copy() as! [Any]
-//    }
     
     var plistData: Data?{
         let result = try? PropertyListSerialization.data(fromPropertyList: self, format: .binary, options: 0)

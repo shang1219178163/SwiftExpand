@@ -13,14 +13,14 @@ import UIKit
         static var closure   = "UIControl" + "closure"
     }
     /// UIControl 添加回调方式
-    public func addActionHandler(_ action: @escaping ControlClosure, for controlEvents: UIControl.Event = .touchUpInside) {
+    public func addActionHandler(_ action: @escaping ((UIControl) ->Void), for controlEvents: UIControl.Event = .touchUpInside) {
         addTarget(self, action:#selector(p_handleAction(_:)), for:controlEvents);
         objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     
     /// 点击回调
     private func p_handleAction(_ sender: UIControl) {
-        if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ControlClosure {
+        if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIControl) ->Void) {
             block(sender);
         }
     }
