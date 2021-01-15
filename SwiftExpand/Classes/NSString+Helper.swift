@@ -668,7 +668,7 @@ public extension String{
         
         let tmp = self.substring(to: 10) + " 00:00:00";
         let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatBegin)
-        return result;
+        return result
     }
     
     /// 截止时间( 23:59:59时间戳)
@@ -677,7 +677,7 @@ public extension String{
         
         let tmp = self.substring(to: 10) + " 23:59:59";
         let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatEnd)
-        return result;
+        return result
     }
     ///截止到天
     func timeToDay() -> String {

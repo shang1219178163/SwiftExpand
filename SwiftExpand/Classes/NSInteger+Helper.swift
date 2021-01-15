@@ -56,7 +56,7 @@ public extension Double{
     /// 转为String类型
     var toString: String { return NSNumber(floatLiteral: self).stringValue; }
     /// 转为NSNumber类型
-    var toNSNumber: NSNumber { return NSNumber(floatLiteral: self); }
+    var toNumber: NSNumber { return NSNumber(floatLiteral: self); }
     
     /// 保留n为小数
     func roundedTo(_ n: Int) -> Double {
@@ -64,76 +64,6 @@ public extension Double{
         let result = (self * divisor).rounded() / divisor
         return result
     }
-    
-    /// durationInfo
-//    func durationInfo(_ type: Int = 0, showAll: Bool = true) -> String {
-//        var interval = self
-//        
-//        var info = ""
-//        switch type {
-//        case 1:
-//            
-//            if Int(interval/kDateDay) < 10 {
-//                info += "0\(Int(interval/kDateDay))" + ":"
-//            } else {
-//                info += "\(Int(interval/kDateDay))" + ":"
-//            }
-//            interval = interval.truncatingRemainder(dividingBy: kDateDay);
-//            
-//            if Int(interval/kDateHour) < 10 {
-//                info += "0\(Int(interval/kDateHour))" + ":"
-//            } else {
-//                info += "\(Int(interval/kDateHour))" + ":"
-//            }
-//            interval = interval.truncatingRemainder(dividingBy: kDateHour);
-//            
-//            if Int(interval/kDateMinute) < 10 {
-//                info += "0\(Int(interval/kDateMinute))" + ":"
-//            } else {
-//                info += "\(Int(interval/kDateMinute))" + ":"
-//            }
-//            interval = interval.truncatingRemainder(dividingBy: kDateMinute);
-//            
-//            if interval < 10 {
-//                info += "0\(Int(interval))"
-//            } else {
-//                info += "\(Int(interval))"
-//            }
-//            
-//        default:
-//            
-//            if showAll == true {
-//                info = "\(Int(interval/kDateDay))" + "天"
-//                interval = interval.truncatingRemainder(dividingBy: kDateDay);
-//                
-//                info += "\(Int(interval/kDateHour))" + "时"
-//                interval = interval.truncatingRemainder(dividingBy: kDateHour);
-//                
-//                info += "\(Int(interval/kDateMinute))" + "分"
-//                interval = interval.truncatingRemainder(dividingBy: kDateMinute);
-//                
-//                info += "\(Int(interval))" + "秒"
-//            } else {
-//                
-//                if Int(interval/kDateDay) > 0 {
-//                    info = "\(Int(interval/kDateDay))" + "天"
-//                }
-//                interval = interval.truncatingRemainder(dividingBy: kDateDay);
-//                
-//                if Int(interval/kDateHour) > 0 {
-//                    info += "\(Int(interval/kDateHour))" + "时"
-//                }
-//                interval = interval.truncatingRemainder(dividingBy: kDateHour);
-//                
-//                if Int(interval/kDateMinute) > 0 {
-//                    info += "\(Int(interval/kDateMinute))" + "分"
-//                }
-//                interval = interval.truncatingRemainder(dividingBy: kDateMinute);
-//                info += "\(Int(interval))" + "秒"
-//            }
-//        }
-//        return info;
-//    }
 }
 
 

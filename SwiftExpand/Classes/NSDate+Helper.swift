@@ -94,10 +94,11 @@ public let kDateFormatTwo         = "yyyyMMdd";
     }
     
     /// String -> Date
-    static func dateFromString(_ dateStr: String, fmt: String = kDateFormat) -> Date {
+    static func dateFromString(_ dateStr: String, fmt: String = kDateFormat) -> Date? {
         let formatter = DateFormatter.format(fmt);
-        let result = formatter.date(from: dateStr);
-        return result!
+        let tmp = dateStr.count <= fmt.count ? dateStr : (dateStr as NSString).substring(to: fmt.count)
+        let result = formatter.date(from: tmp);
+        return result
     }
     
     /// 时间戳字符串 -> 日期字符串
@@ -108,127 +109,11 @@ public let kDateFormatTwo         = "yyyyMMdd";
 
     /// 日期字符串 -> 时间戳字符串
     static func intervalFromDateStr(_ dateStr: String, fmt: String = kDateFormat) -> String {
-        let date = DateFormatter.dateFromString(dateStr, fmt: fmt)
+        guard let date = DateFormatter.dateFromString(dateStr, fmt: fmt) else {
+            return "0" }
         return "\(date.timeIntervalSince1970)";
     }
     
-    /// 日期字符串和fmt是同种格式
-    static func isSameFormat(_ dateStr: String, fmt: String = kDateFormat) -> Bool {
-        
-        if dateStr.count == fmt.count {
-            let str: NSString = dateStr as NSString
-            let format: NSString = fmt as NSString
-
-            if str.length >= 17 {
-                let char4 = str.substring(with: NSRange(location: 4, length: 1))
-                let char7 = str.substring(with: NSRange(location: 7, length: 1))
-                let char13 = str.substring(with: NSRange(location: 13, length: 1))
-                let char16 = str.substring(with: NSRange(location: 16, length: 1))
-              
-                let format4 = format.substring(with: NSRange(location: 4, length: 1))
-                let format7 = format.substring(with: NSRange(location: 7, length: 1))
-                let format13 = format.substring(with: NSRange(location: 13, length: 1))
-                let format16 = format.substring(with: NSRange(location: 16, length: 1))
-                
-                let isSame = (char4 == format4 && char7 == format7 && char13 == format13 && char16 == format16)
-                return isSame;
-            }
-            
-            if str.length >= 14 {
-                let char4 = str.substring(with: NSRange(location: 4, length: 1))
-                let char7 = str.substring(with: NSRange(location: 7, length: 1))
-                let char13 = str.substring(with: NSRange(location: 13, length: 1))
-                
-                let format4 = format.substring(with: NSRange(location: 4, length: 1))
-                let format7 = format.substring(with: NSRange(location: 7, length: 1))
-                let format13 = format.substring(with: NSRange(location: 13, length: 1))
-                
-                let isSame = (char4 == format4  && char7 == format7 && char13 == format13)
-                return isSame;
-            }
-           
-            if str.length >= 8 {
-                let char4 = str.substring(with: NSRange(location: 4, length: 1))
-                let char7 = str.substring(with: NSRange(location: 7, length: 1))
-               
-                let format4 = format.substring(with: NSRange(location: 4, length: 1))
-                let format7 = format.substring(with: NSRange(location: 7, length: 1))
-                
-                let isSame = (char4 == format4  && char7 == format7)
-                return isSame;
-            } else if str.length >= 5 {
-                let char4 = str.substring(with: NSRange(location: 4, length: 1))
-                
-                let format4 = format.substring(with: NSRange(location: 4, length: 1))
-                
-                let isSame = (char4 == format4)
-                return isSame;
-            }
-        }
-        return false
-    }
-    
-    /// 获取起止时间区间数组,默认往前31天
-    static func queryDate(_ day: Int = -30, fmtStart: String = kDateFormatBegin, fmtEnd: String = kDateFormatEnd) -> [String] {
-        let endTime = DateFormatter.stringFromDate(Date(), fmt: fmtEnd)
-        let date = Date().adding(day)
-        let startTime = DateFormatter.stringFromDate(date, fmt: fmtStart)
-        return [startTime, endTime];
-    }
-    
-    ///获取指定时间内的所有天数日期
-    static func getDateDays(_ startTime: String, endTime: String, fmt: String = kDateFormatDay, block: ((DateComponents, Date) -> Void)? = nil) -> [String] {
-        let calendar = Calendar(identifier: .gregorian)
-        
-        var startDate = DateFormatter.dateFromString(startTime, fmt: fmt)
-        let endDate = DateFormatter.dateFromString(endTime, fmt: fmt)
-
-        var days: [String] = []
-        var comps: DateComponents?
-        
-        var result = startDate.compare(endDate)
-        while result != .orderedDescending {
-            comps = calendar.dateComponents([.year, .month, .day, .weekday], from: startDate)
-            
-            let time = DateFormatter.stringFromDate(startDate, fmt: fmt)
-            days.append(time)
-
-            if comps != nil {
-                block?(comps!, startDate)
-                comps!.day! += 1
-                startDate = calendar.date(from: comps!)!
-                result = startDate.compare(endDate)
-            }
-        }
-        return days
-    }
-    ///获取指定时间内的星期值集合
-    static func getDateWeekDays(_ startTime: String, endTime: String) -> [Int] {
-        var weekdays = Set<Int>()
-        let list = DateFormatter.getDateDays(startTime, endTime: endTime, fmt: kDateFormatDay) { (components, date) in
-//            DDLog(date, components.weekday!)
-            weekdays.insert(components.weekday!)
-        }
-        if list.count < 7 {
-            let array = Array(weekdays).sorted()
-//            DDLog("weekdays:", weekdays, array)
-            return array
-        }
-        return [1, 2, 3, 4, 5, 6, 7]
-    }
-    
-    ///获取指定时间内的索引值集合(["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"])
-    static func getDateWeekDayIdxs(_ startTime: String, endTime: String) -> [Int] {
-        let list = DateFormatter.getDateWeekDays(startTime, endTime: endTime)
-        var idxList = [Int]()
-        if list.contains(1) {
-            idxList = list.filter({ $0 >= 2 }).map({ $0 - 2 })
-            idxList.append(6)
-        } else {
-            idxList = list.map({ $0 - 2 })
-        }
-        return idxList
-    }
     ///根据 UIDatePicker.Mode 获取时间字符串简
     static func dateFromPickerMode(_ mode: UIDatePicker.Mode = .dateAndTime, date: Date) -> String {
         var result = DateFormatter.stringFromDate(date)
@@ -247,6 +132,70 @@ public let kDateFormatTwo         = "yyyyMMdd";
         }
         return result
     }
+        
+    /// 获取起止时间区间数组,默认往前31天
+    static func queryDate(_ day: Int = -30, fmtStart: String = kDateFormatBegin, fmtEnd: String = kDateFormatEnd) -> [String] {
+        let endTime = DateFormatter.stringFromDate(Date(), fmt: fmtEnd)
+        let date = Date().adding(day)
+        let startTime = DateFormatter.stringFromDate(date, fmt: fmtStart)
+        return [startTime, endTime];
+    }
+    
+    ///获取指定时间内的所有天数日期
+    static func betweenDateDays(_ startTime: String, endTime: String, fmt: String = kDateFormatDay, block: ((DateComponents, Date) -> Void)? = nil) -> [String] {
+        let calendar = Calendar(identifier: .gregorian)
+        guard var startDate = DateFormatter.dateFromString(startTime, fmt: fmt),
+              let endDate = DateFormatter.dateFromString(endTime, fmt: fmt)
+              else {
+            return []}
+
+        var days: [String] = []
+        var comps: DateComponents?
+        
+        var result = startDate.compare(endDate)
+        while result != .orderedDescending {
+            comps = calendar.dateComponents([.year, .month, .day, .weekday], from: startDate)
+            
+            let time = DateFormatter.stringFromDate(startDate, fmt: fmt)
+            days.append(time)
+
+            if var comps = comps {
+                block?(comps, startDate)
+                comps.day! += 1
+                startDate = calendar.date(from: comps)!
+                result = startDate.compare(endDate)
+            }
+        }
+        return days
+    }
+    ///获取指定时间内的星期值集合
+    static func betweenWeekDays(_ startTime: String, endTime: String) -> [Int] {
+        var weekdays = Set<Int>()
+        let list = DateFormatter.betweenDateDays(startTime, endTime: endTime, fmt: kDateFormatDay) { (components, date) in
+//            DDLog(date, components.weekday!)
+            weekdays.insert(components.weekday!)
+        }
+        if list.count < 7 {
+            let array = Array(weekdays).sorted()
+//            DDLog("weekdays:", weekdays, array)
+            return array
+        }
+        return [1, 2, 3, 4, 5, 6, 7]
+    }
+    
+    ///获取指定时间内的索引值集合(["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"])
+    static func betweenWeekDayIdxs(_ startTime: String, endTime: String) -> [Int] {
+        let list = DateFormatter.betweenWeekDays(startTime, endTime: endTime)
+        var idxList = [Int]()
+        if list.contains(1) {
+            idxList = list.filter({ $0 >= 2 }).map({ $0 - 2 })
+            idxList.append(6)
+        } else {
+            idxList = list.map({ $0 - 2 })
+        }
+        return idxList
+    }
+
     
     ///时间区间
     static func durationFrom(_ btime: String?, etime: String?) -> TimeInterval {
@@ -254,20 +203,17 @@ public let kDateFormatTwo         = "yyyyMMdd";
               let etime = etime
               else { return 0 }
         
-        let isEmpty = btime.isEmpty == false && etime.isEmpty == false
-        if isEmpty ||  btime.hasPrefix("1970") || etime.hasPrefix("1970") {
+        let isEmpty = btime.isEmpty == false || etime.isEmpty == false || btime.count < 10 || etime.count < 10
+        let isInitTime = btime.hasPrefix("1970") || etime.hasPrefix("1970")
+        if isEmpty || isInitTime {
             return 0
         }
         
-        let bdate = dateFromString(btime, fmt: kDateFormat)
-        let edate = dateFromString(etime, fmt: kDateFormat)
-        return edate.timeIntervalSince1970 - bdate.timeIntervalSince1970
+        guard let bDate = DateFormatter.dateFromString(btime, fmt: kDateFormat),
+              let eDate = DateFormatter.dateFromString(etime, fmt: kDateFormat)
+              else { return 0 }
+        return bDate.timeIntervalSince1970 - eDate.timeIntervalSince1970
     }
-    
-    ///根据 UIDatePicker.Mode 获取时间字符串简
-//    static func dateFromPicker(_ datePicker: UIDatePicker, date: Date) -> String {
-//        return DateFormatter.dateFromPickerMode(datePicker.datePickerMode, date: date)
-//    }
 }
 
 @objc public extension NSDate{
@@ -289,15 +235,15 @@ public let kDateFormatTwo         = "yyyyMMdd";
     }
     /// 日
     var day: Int {
-       return (self as Date).day;
+       return (self as Date).day
     }
     /// 时
     var hour: Int {
-       return (self as Date).hour;
+       return (self as Date).hour
     }
     /// 分
     var minute: Int {
-       return (self as Date).minute;
+       return (self as Date).minute
     }
     /// 秒
     var second: Int {
