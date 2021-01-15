@@ -20,7 +20,7 @@ import UIKit
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(systemFont(ofSize:))
             let repSel = #selector(swz_systemFont(ofSize:))
-            _ = hookInstanceMethod(of: oriSel, with: repSel);
+            hookInstanceMethod(of: oriSel, with: repSel);
             
         }
     }

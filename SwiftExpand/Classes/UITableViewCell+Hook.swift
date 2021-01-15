@@ -42,7 +42,7 @@ import UIKit
         DispatchQueue.once(token: onceToken) {
             let oriSel = NSSelectorFromString("layoutSubviews")
             let repSel = #selector(self.hook_layoutSubviews)
-            _ = hookInstanceMethod(of: oriSel, with: repSel);
+            hookInstanceMethod(of: oriSel, with: repSel);
         }
     }
     

@@ -19,7 +19,7 @@ import UIKit
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(setter: self.tintColor)
             let repSel = #selector(self.hook_tintColor(_:))
-            _ = hookInstanceMethod(of: oriSel, with: repSel);
+            hookInstanceMethod(of: oriSel, with: repSel);
         }
         
     }

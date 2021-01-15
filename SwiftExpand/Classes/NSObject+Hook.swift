@@ -10,6 +10,7 @@ import UIKit
 
 @objc public extension NSObject{
     /// 实例方法替换
+    @discardableResult
     static func hookInstanceMethod(of origSel: Selector, with replSel: Selector) -> Bool {
         let clz: AnyClass = classForCoder();
 
@@ -32,6 +33,7 @@ import UIKit
     }
     
     /// 类方法替换
+    @discardableResult
     static func hookClassMethod(of origSel: Selector, with replSel: Selector) -> Bool {
         let clz: AnyClass = classForCoder();
                 
@@ -54,6 +56,7 @@ import UIKit
     }
     
     /// 方法替换
+    @discardableResult
     static func hookMethod(of origSel: Selector, with replSel: Selector, isClassMethod: Bool) -> Bool {
         let clz: AnyClass = classForCoder();
         
@@ -86,19 +89,19 @@ import UIKit
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(self.setValue(_:forUndefinedKey:))
             let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
-            _ = hookInstanceMethod(of: oriSel, with: repSel);
+            hookInstanceMethod(of: oriSel, with: repSel);
             
             let oriSel0 = #selector(self.value(forUndefinedKey:))
             let repSel0 = #selector(self.hook_value(forUndefinedKey:))
-            _ = hookInstanceMethod(of: oriSel0, with: repSel0);
+            hookInstanceMethod(of: oriSel0, with: repSel0);
             
             let oriSel1 = #selector(self.setNilValueForKey(_:))
             let repSel1 = #selector(self.hook_setNilValueForKey(_:))
-            _ = hookInstanceMethod(of: oriSel1, with: repSel1);
+            hookInstanceMethod(of: oriSel1, with: repSel1);
             
             let oriSel2 = #selector(self.setValuesForKeys(_:))
             let repSel2 = #selector(self.hook_setValuesForKeys(_:))
-            _ = hookInstanceMethod(of: oriSel2, with: repSel2);
+            hookInstanceMethod(of: oriSel2, with: repSel2);
         }
         
     }

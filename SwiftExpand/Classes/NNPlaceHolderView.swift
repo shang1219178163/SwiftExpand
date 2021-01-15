@@ -181,7 +181,7 @@ import SnapKit
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(reloadData)
                 let repSel = #selector(hook_reloadData)
-                _ = hookInstanceMethod(of: oriSel, with: repSel);
+                hookInstanceMethod(of: oriSel, with: repSel);
             }
         }
     }

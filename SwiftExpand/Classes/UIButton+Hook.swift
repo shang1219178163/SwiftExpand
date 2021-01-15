@@ -21,15 +21,15 @@ import UIKit
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(setBackgroundImage(_:for:))
             let repSel = #selector(hook_setBackgroundImage(_:for:))
-            _ = hookInstanceMethod(of: oriSel, with: repSel);
+            hookInstanceMethod(of: oriSel, with: repSel);
             
             let oriSel1 = #selector(setImage(_:for:))
             let repSel1 = #selector(hook_setImage(_:for:))
-            _ = hookInstanceMethod(of: oriSel1, with: repSel1);
+            hookInstanceMethod(of: oriSel1, with: repSel1);
             
             let oriSel2 = #selector(self.addTarget(_:action:for:))
             let repSel2 = #selector(self.hook_addTarget(_:action:for:))
-            _ = hookInstanceMethod(of: oriSel2, with: repSel2)
+            hookInstanceMethod(of: oriSel2, with: repSel2)
             
         }
     }

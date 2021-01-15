@@ -23,7 +23,7 @@ import UIKit
 //        DispatchQueue.once(token: onceToken) {
 //            let oriSel = NSSelectorFromString("deinit")
 //            let repSel = #selector(self.hook_deinit)
-//            _ = hookInstanceMethod(of: oriSel, with: repSel);
+//            hookInstanceMethod(of: oriSel, with: repSel);
 //        }
 //    }
 //

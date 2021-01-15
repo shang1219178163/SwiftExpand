@@ -18,26 +18,26 @@ import UIKit
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(viewDidLoad)
                 let repSel = #selector(hook_viewDidLoad)
-                _ = hookInstanceMethod(of: oriSel, with: repSel);
+                hookInstanceMethod(of: oriSel, with: repSel);
                                 
                 let oriSel1 = #selector(viewWillAppear(_:))
                 let repSel1 = #selector(hook_viewWillAppear(animated:))
-                _ = hookInstanceMethod(of: oriSel1, with: repSel1);
+                hookInstanceMethod(of: oriSel1, with: repSel1);
                 
                 let oriSel2 = #selector(viewWillDisappear(_:))
                 let repSel2 = #selector(hook_viewWillDisappear(animated:))
-                _ = hookInstanceMethod(of: oriSel2, with: repSel2);
+                hookInstanceMethod(of: oriSel2, with: repSel2);
                 
                 let oriSelPresent = #selector(present(_:animated:completion:))
                 let repSelPresent = #selector(hook_present(_:animated:completion:))
-                _ = hookInstanceMethod(of: oriSelPresent, with: repSelPresent);
+                hookInstanceMethod(of: oriSelPresent, with: repSelPresent);
             }
         } else if self == UINavigationController.self {
             let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(UINavigationController.pushViewController(_:animated:));
                 let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:));
-                _ = hookInstanceMethod(of:oriSel , with: repSel);
+                hookInstanceMethod(of:oriSel , with: repSel);
             }
         }
     }
