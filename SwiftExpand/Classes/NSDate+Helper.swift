@@ -143,11 +143,11 @@ public let kDateFormatTwo         = "yyyyMMdd";
     
     ///获取指定时间内的所有天数日期
     static func betweenDateDays(_ startTime: String, endTime: String, fmt: String = kDateFormatDay, block: ((DateComponents, Date) -> Void)? = nil) -> [String] {
-        let calendar = Calendar(identifier: .gregorian)
         guard var startDate = DateFormatter.dateFromString(startTime, fmt: fmt),
               let endDate = DateFormatter.dateFromString(endTime, fmt: fmt)
               else {
             return []}
+        let calendar = Calendar(identifier: .gregorian)
 
         var days: [String] = []
         var comps: DateComponents?
@@ -219,10 +219,15 @@ public let kDateFormatTwo         = "yyyyMMdd";
 @objc public extension NSDate{
     
     /// 本地时间(东八区时间)
-    static var dateLocale: NSDate {
+    static var timeZoneDate: NSDate {
 //        return NSDate().addingTimeInterval(8 * 60 * 60)
-        let interval = NSTimeZone.system.secondsFromGMT(for: Date())
+        let interval = NSTimeZone.system.secondsFromGMT()
         return NSDate().addingTimeInterval(TimeInterval(interval))
+    }
+    
+    /// 本地时间(东八区时间)
+    static var timeZoneInterval: Int {
+        return NSTimeZone.system.secondsFromGMT()
     }
     
     /// 年
@@ -304,12 +309,12 @@ public let kDateFormatTwo         = "yyyyMMdd";
     //MARK: - 获取日期各种值
     /// 获取默认DateComponents[年月日]
     static func dateComponents(_ aDate: Date) -> DateComponents {
-        return Calendar.dateComponents(aDate);
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: aDate);
     }
 
     /// 两个时间差的NSDateComponents
     static func dateFrom(from start: Date, to end: Date) -> DateComponents {
-        return Calendar.dateComponents(from: start, to: end)
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: start, to: end)
     }
 
     /// 一周的第几天
@@ -328,35 +333,40 @@ public extension NSDate{
 
 public extension Date{
     /// 本地时间(东八区时间)
-    static var dateLocale: Date {
-//        return Date().addingTimeInterval(8 * 60 * 60)
-        let interval = NSTimeZone.system.secondsFromGMT(for: Date())
+    static var timeZoneDate: Date {
+//        return NSDate().addingTimeInterval(8 * 60 * 60)
+        let interval = NSTimeZone.system.secondsFromGMT()
         return Date().addingTimeInterval(TimeInterval(interval))
+    }
+    
+    /// 本地时间(东八区时间)
+    static var timeZoneInterval: Int {
+        return NSTimeZone.system.secondsFromGMT()
     }
     /// 年
     var year: Int {
-        return Calendar.dateComponents(self).year!
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: self).year ?? 0
     }
     /// 月
     var month: Int {
-        return Calendar.dateComponents(self).month!
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: self).month ?? 0
     }
 
     /// 日
     var day: Int {
-        return Calendar.dateComponents(self).day!;
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: self).day ?? 0
     }
     /// 时
     var hour: Int {
-        return Calendar.dateComponents(self).hour!;
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: self).hour ?? 0
     }
     /// 分
     var minute: Int {
-        return Calendar.dateComponents(self).minute!;
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: self).minute ?? 0
     }
     /// 秒
     var second: Int {
-        return Calendar.dateComponents(self).second!;
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: self).second ?? 0
     }
     
     /// 时间戳
@@ -378,13 +388,6 @@ public extension Date{
     /// 当月第一天是星期几
     var firstWeekDay: Int {
         return Calendar.shared.firstWeekday
-
-//        //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-//        var comp: DateComponents = Calendar.dateComponents(self)
-//        comp.day = 1
-//
-//        let firstWeekDay = NSDate.weekDay(comp)
-//        return firstWeekDay
     }
     
     var minimumDaysInFirstWeek: Int {
@@ -393,8 +396,8 @@ public extension Date{
     
     ///是否是今年
     var isThisYear: Bool {
-        let comp = Calendar.dateComponents(self)
-        let comp1 = Calendar.dateComponents(Date())
+        let comp = Calendar.shared.dateComponents(Calendar.unitFlags, from: self)
+        let comp1 = Calendar.shared.dateComponents(Calendar.unitFlags, from: Date())
         
         let isSame = (comp1.year == comp.year)
         return isSame
@@ -402,8 +405,8 @@ public extension Date{
     
     ///是否是这个月
     var isThisMonth: Bool {
-        let comp = Calendar.dateComponents(self)
-        let comp1 = Calendar.dateComponents(Date())
+        let comp = Calendar.shared.dateComponents(Calendar.unitFlags, from: self)
+        let comp1 = Calendar.shared.dateComponents(Calendar.unitFlags, from: Date())
         
         let isSame = (comp1.year == comp.year && comp1.month == comp.month);
         return isSame
@@ -411,11 +414,6 @@ public extension Date{
     ///是否是今天
     var isToday: Bool {
         return Calendar.shared.isDateInToday(self)
-//        let comp = Calendar.dateComponents(self)
-//        let comp1 = Calendar.dateComponents(Date())
-//
-//        let isSame = (comp1.year == comp.year && comp1.month == comp.month && comp1.day == comp.day);
-//        return isSame
     }
 
     ///****-**-** 00:00:00
@@ -439,7 +437,7 @@ public extension Date{
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> String
     func addingDaysDes(_ days: Int, fmt: String = kDateFormat) -> String{
         let newDate = adding(days);
-        return DateFormatter.stringFromDate(newDate as Date, fmt: fmt);
+        return DateFormatter.stringFromDate(newDate, fmt: fmt);
     }
     
     ///*天*小时*分*秒
@@ -491,15 +489,15 @@ public extension Date{
     /// 一周的第几天
     static func weekDay(_ comp: DateComponents) ->Int{
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-        let newDate = Calendar.shared.date(from: comp)
-        let weekDay = Calendar.shared.component(.weekday, from: newDate!)
+        guard let newDate = Calendar.shared.date(from: comp) else { return 0 }
+        let weekDay = Calendar.shared.component(.weekday, from: newDate)
         return weekDay
     }
     
     //MARK: 一周的第几天
     func weekDay(_ addDays: Int = 0) ->Int{
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-        var comp: DateComponents = Calendar.dateComponents(self)
+        var comp: DateComponents = Calendar.shared.dateComponents(Calendar.unitFlags, from: self)
         comp.day! += addDays
 
         let newDate = Calendar.shared.date(from: comp)
@@ -528,16 +526,5 @@ public extension Date{
 public extension Calendar{
     
     static let shared = Calendar(identifier: .gregorian)
-    
-    /// 获取默认DateComponents[年月日时分秒]
-    static func dateComponents(_ aDate: Date) -> DateComponents {
-        let com = Calendar.shared.dateComponents([.year, .month, .day, .hour, .minute, .second], from: aDate)
-        return com
-    }
-    
-    /// 两个时间差的NSDateComponents
-    static func dateComponents(from start: Date, to end: Date) -> DateComponents {
-        let com = Calendar.shared.dateComponents([.year, .month, .day, .hour, .minute, .second], from: start, to: end)
-        return com
-    }
+    static let unitFlags: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .weekdayOrdinal, .weekday]
 }
