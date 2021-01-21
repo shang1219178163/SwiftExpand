@@ -91,9 +91,6 @@ import UIKit
             register(NNClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
         }
     }
-    
-
-    
 }
 
 

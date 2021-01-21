@@ -130,9 +130,9 @@ public let kNumIdentifyCurrencyAccounting = "格式化为货币会计输出";
             return NSDecimalNumber(decimal: self.decimalValue)
         }
     }
-    
+     
     /// 获取对应的字符串
-    func to_string(_ max: Int = 2) -> String{
+    func toString(_ max: Int = 2) -> String{
         let result = NumberFormatter.fractionDigits(obj: CGFloat(self.floatValue), min: 2, max: max, roundingMode: .up)
         return result
     }

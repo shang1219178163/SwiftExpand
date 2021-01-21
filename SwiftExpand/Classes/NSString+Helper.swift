@@ -91,9 +91,9 @@ public extension String{
     }
     
     /// 是否是"","nil","null"
-    var isValid: Bool {
-        return !["","nil","null"].contains(self);
-    }
+//    var isValid: Bool {
+//        return !["","nil","null"].contains(self);
+//    }
     /// Int
     var intValue: Int {
         return Int((self as NSString).integerValue)
@@ -141,7 +141,7 @@ public extension String{
             else { return nil }
         return json
     }
-    
+    ///移除两端空白
     var trimmed: String {
         return trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -216,9 +216,17 @@ public extension String{
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return predicate.evaluate(with: self)
     }
-    
+    ///移除两端对应的字符
     func trimmedBy(_ string: String) -> String {
         return trimmingCharacters(in: CharacterSet(charactersIn: string))
+    }
+    
+    func replacingOccurrences(of targets: [String], replacement: String) -> String {
+        var result = self
+        targets.forEach { (value) in
+            result = result.replacingOccurrences(of: value, with: replacement)
+        }
+        return result
     }
     
     /// 计算高度
@@ -473,7 +481,7 @@ public extension String{
     var thousandDes: String {
         return (self as String).thousandDes
     }
-    
+    ///移除两端空白
     var trimmed: String {
         return (self as String).trimmed
     }
@@ -537,22 +545,10 @@ public extension String{
     func isValidByRegex(_ regex: String) -> Bool {
         return (self as String).isValidByRegex(regex)
     }
-        
+    ///移除两端对应的字符
     func trimmedBy(_ string: String) -> String {
         return (self as String).trimmedBy(string)
     }
-        
-//    /// 地址字符串(hostname + port)
-//    static func UrlAddress(_ hostname: String, port: String) ->String {
-//        var webUrl: String = hostname;
-//        if !hostname.contains("http://") {
-//            webUrl = "http://" + hostname;
-//        }
-//        if port != "" {
-//            webUrl = webUrl + ":\(port)";
-//        }
-//        return webUrl;
-//    }
     
     /// 获取子字符串
     func substring(loc: Int, len: Int) -> String {
