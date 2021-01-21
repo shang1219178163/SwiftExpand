@@ -48,7 +48,7 @@ public extension Int{
     func repeatArray<T>(_ repeatedValue: T) -> [T] {
         return [T](repeating: repeatedValue, count: self)
     }
-    
+        
 }
 
 public extension Double{
