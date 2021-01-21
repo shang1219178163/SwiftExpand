@@ -184,8 +184,8 @@ public let kIMG_notice          = "img_notice";
 public let kIMG_location_H      = "img_location_H";
 public let kIMG_more            = "img_more";
 
-public let kIMG_selected_NO     = "btn_selected_NO";
-public let kIMG_selected_YES    = "btn_selected_YES";
+public let kIMG_selected_NO     = "icon_selected_no_blue";
+public let kIMG_selected_YES    = "icon_selected_yes_blue";
 public let kIMG_Add             = "btn_add";
 
 public let kIMG_like_H          = "img_like_H";
