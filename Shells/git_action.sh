@@ -118,3 +118,11 @@ updatePod(){
     # fi
 }
 
+# deleteTags(){
+#     #删除远程 tags
+#     git show-ref --tag | grep "refs/tags/$1" | awk "{print $2}"|xargs git push origin --delete
+#     git tag | grep "$1" | xargs git tag -d
+
+#     echo_yellow "--- Step: tags delete success ！---"
+# }
+
