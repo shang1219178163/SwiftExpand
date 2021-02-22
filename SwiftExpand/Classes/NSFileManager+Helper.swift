@@ -33,12 +33,5 @@ public extension FileManager{
     var libraryPath: String {
         return NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!
     }
-    
-    ///读取本地文件内容
-    static func readFile(forResource name: String?, ofType ext: String?) -> String{
-        guard let path = Bundle.main.path(forResource: name, ofType: ext) else { return "" }
-        let content = try? String(contentsOfFile: path)
-        return content ?? ""
-    }
-    
+
 }
