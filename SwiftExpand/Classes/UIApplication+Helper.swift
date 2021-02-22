@@ -203,32 +203,43 @@ import UIKit
         }
         return nil
     }
-    ///当前控制器
-    static var currentVC: UIViewController? {
-        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil}
-        
-        if let presentedViewController = rootVC.presentedViewController {
-            if presentedViewController.isKind(of: UINavigationController.self) {
-                return (presentedViewController as! UINavigationController).topViewController
-            }
-            return presentedViewController as! UINavigationController
-        }
-        
-        if rootVC.isKind(of: UINavigationController.self) {
-            return (rootVC as! UINavigationController).topViewController
-        }
-        
-        if rootVC.isKind(of: UITabBarController.self) {
-            let tabBarVC = rootVC as! UITabBarController
-            if let selectedViewController = tabBarVC.selectedViewController {
-                if selectedViewController.isKind(of: UINavigationController.self) {
-                    return (selectedViewController as! UINavigationController).topViewController
-                }
-                return selectedViewController
-            }
-            return tabBarVC.viewControllers?.first
-        }
-        return nil
+//    ///当前控制器
+//    static var currentVC: UIViewController? {
+//        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil}
+//        
+//        if let presentedVC = rootVC.presentedViewController {
+//            if let nav = presentedVC as? UINavigationController {
+//                return nav.topViewController
+//            }
+//            return presentedVC
+//        }
+//        
+//        if let nav = rootVC as? UINavigationController {
+//            return nav.topViewController
+//        }
+//
+//        if let tab = rootVC as? UITabBarController {
+//            if let nav = tab.selectedViewController as? UINavigationController{
+//                return nav.topViewController
+//            }
+//            return tab.viewControllers?.first
+//        }
+//        return nil
+//    }
+    
+    static func topViewController(_ base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+          if let nav = base as? UINavigationController {
+                return topViewController(nav.visibleViewController)
+          }
+          if let tab = base as? UITabBarController {
+              if let selected = tab.selectedViewController {
+                  return topViewController(selected)
+              }
+          }
+          if let presented = base?.presentedViewController {
+              return topViewController(presented)
+          }
+          return base
     }
     
     //MARK: func
