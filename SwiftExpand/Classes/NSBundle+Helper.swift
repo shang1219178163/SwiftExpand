@@ -10,14 +10,7 @@ import UIKit
 
 
 @objc public extension Bundle{
-    /// 读取plist文件
-    static func infoDictionary(plist: String) -> [String: AnyObject]? {
-        guard
-            let pList = Bundle.main.path(forResource: plist, ofType: "plist"),
-            let dic = NSDictionary(contentsOfFile: pList)
-            else { return nil }
-        return dic as? [String : AnyObject]
-    }
+
     /// 国际化语言适配
     static func localizedString(forKey key: String, comment: String = "", userDefaultsKey: String = "AppLanguage") -> String {
         let defaultValue = NSLocalizedString(key, comment: comment)
@@ -29,6 +22,37 @@ import UIKit
 //        let value = bundle!.localizedString(forKey: key, value: "", table: nil)
         return value;
     }
+        
+    /// 读取plist文件
+    func dictionary(forResource name: String, ofType ext: String = "plist") -> NSDictionary? {
+        guard let path = Bundle.main.path(forResource: name, ofType: ext),
+            let obj = NSDictionary(contentsOfFile: path)
+            else { return nil }
+        return obj
+    }
     
+    /// 读取plist文件
+    func array(forResource name: String, ofType ext: String = "plist") -> NSArray? {
+        guard let path = Bundle.main.path(forResource: name, ofType: ext),
+            let obj = NSArray(contentsOfFile: path)
+            else { return nil }
+        return obj
+    }
+    
+    ///本地文件 URL
+    static func fileURL(forResource name: String, ofType ext: String?) -> NSURL?{
+        guard let path = Bundle.main.path(forResource: name, ofType: ext),
+              let URL = NSURL(fileURLWithPath: path) as NSURL?
+        else { return nil}
+        return URL
+    }
+    
+    ///本地文件内容
+    static func string(forResource name: String, ofType ext: String) -> String?{
+        guard let path = Bundle.main.path(forResource: name, ofType: ext),
+              let content = try? String(contentsOfFile: path)
+              else { return nil}
+        return content
+    }
 }
 

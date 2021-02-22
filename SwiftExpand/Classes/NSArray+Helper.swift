@@ -39,9 +39,29 @@ public extension Array where Element == CGFloat{
     
 }
 
-//public extension Array where Element : NSObject{
-//
-//}
+public extension Array where Element : NSObject {
+    ///嵌套数组扁平化
+    func flatModels(_ childKey: String = "children") -> [Element] {
+        ///内部函数
+        func recursionModel(_ model: Element, list: inout [Element]) {
+            guard let children = model.value(forKey: childKey) as? [Element] else { return }
+            children.forEach { (child) in
+                list.append(child)
+                
+                if let _ = child.value(forKey: childKey) as? [Element] {
+                    recursionModel(child, list: &list)
+                }
+            }
+        }
+                        
+        var list = [Element]()
+        self.forEach { (model) in
+            list.append(model)
+            recursionModel(model, list: &list)
+        }
+        return list;
+    }
+}
 
 @objc public extension NSArray{
 
