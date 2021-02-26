@@ -113,7 +113,37 @@ import UIKit
                           width: CGFloat = 1,
                           dashPattern: [NSNumber] = [NSNumber(floatLiteral: 4), NSNumber(floatLiteral: 5)],
                           cornerRadius: CGFloat = 0,
-                          size: CGSize = CGSize.zero) {
+                          start: CGPoint,
+                          end: CGPoint) {
+        let view: UIView = self;
+
+        view.layer.borderColor = UIColor.clear.cgColor;
+        view.layer.borderWidth = 0;
+        
+        let shapeLayer = CAShapeLayer();
+        shapeLayer.strokeColor = color.cgColor;
+        shapeLayer.fillColor = UIColor.clear.cgColor;
+        
+        let path = CGMutablePath()
+        path.move(to: start)
+        path.addLine(to: end)
+        shapeLayer.path = UIBezierPath(cgPath: path).cgPath;
+
+        shapeLayer.lineWidth = width;
+        shapeLayer.lineDashPattern = dashPattern;
+        shapeLayer.lineCap = .square;
+        if cornerRadius > 0 {
+            view.layer.cornerRadius = cornerRadius;
+            view.layer.masksToBounds = true;
+        }
+        view.layer.addSublayer(shapeLayer);
+    }
+    
+    func addDashLayer(color: UIColor = .red,
+                      width: CGFloat = 1,
+                    dashPattern: [NSNumber] = [NSNumber(floatLiteral: 4), NSNumber(floatLiteral: 5)],
+                    cornerRadius: CGFloat = 0,
+                    size: CGSize = CGSize.zero) {
         let view: UIView = self;
         assert(CGRect.zero.equalTo(view.bounds) == true && CGSize.zero.equalTo(size));
 
