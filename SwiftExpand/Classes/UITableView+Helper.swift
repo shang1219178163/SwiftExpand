@@ -91,6 +91,12 @@ import UIKit
         }
     }
 
+    ///获取子视图对应 cell 的 IndexPath
+    func indexPath(subview view: UIView) -> IndexPath?{
+        guard let cell = view.findSupView(UITableViewCell.self) as? UITableViewCell else { return nil}
+        return self.indexPath(for: cell)
+    }
+
     /// [源]HeaderView,footerView(兼容 OC)
     func createSectionViewLabel(_ height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((UILabel)->Void)) -> UIView{
         let sectionView = UIView()

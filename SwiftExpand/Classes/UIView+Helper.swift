@@ -436,12 +436,15 @@ import UIKit
     }
     
     /// 获取特定类型父视图
-    func findSupView(_ type: UIView.Type) -> UIView? {
+    public func findSupView(_ type: UIView.Type) -> UIView? {
         var supView = superview
-        while supView?.isKind(of: type) == false {
+        while supView != nil {
+            if supView!.isKind(of: type) {
+                return supView
+            }
             supView = supView?.superview
         }
-        return supView ?? nil
+        return nil
     }
         
     /// 获取特定类型子视图

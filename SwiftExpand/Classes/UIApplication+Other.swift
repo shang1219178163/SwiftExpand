@@ -134,7 +134,7 @@ import Photos
                 let title = "新版本 v\(appStoreVer)"
                 let message = "\n\(releaseNotes)"
                 UIAlertController(title: title, message: message, preferredStyle: .alert)
-                    .addActionTitles(titles) { (action) in
+                    .addActionTitles(titles) { (alertVC, action) in
                         if action.title == kTitleUpdate {
                             //去升级
                             UIApplication.openURLString(UIApplication.appUrlWithID(appStoreID))
