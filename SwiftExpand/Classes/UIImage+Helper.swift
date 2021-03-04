@@ -75,22 +75,7 @@ import UIKit
         UIGraphicsGetCurrentContext()
         return image!
     }
-    
-//    static func color(_ color: UIColor) -> UIImage{
-//        let size: CGSize = CGSize(width: 1, height: 1)
-//        let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-//        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0)
-//        defer {
-//            UIGraphicsEndImageContext()
-//        }
-//        let context: CGContext = UIGraphicsGetCurrentContext()!
-//        context.setFillColor(color.cgColor)
-//        context.fill(rect)
-//
-//        let image = UIGraphicsGetImageFromCurrentImageContext()
-//        return image ?? UIImage()
-//    }
-
+        
     /// 获取 pod bundle 图片资源
     static func image(named name: String, podClass: AnyClass, bundleName: String? = nil) -> UIImage?{
         let bundleNameNew = bundleName ?? "\(podClass)"
