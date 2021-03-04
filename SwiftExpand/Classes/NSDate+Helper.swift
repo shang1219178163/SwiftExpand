@@ -132,7 +132,51 @@ public let kDateFormatTwo         = "yyyyMMdd";
         }
         return result
     }
+       
+    ///两个日期之间差距(*年*天*小时*分*秒)
+    static func betweenInfo(_ interval: Int) -> String {
+        var value = interval
+
+        var year = 0
+        var day = 0
+        var hour = 0
+        var minute = 0
+        var second = 0
+
+        var result = ""
+        if value >= 365*24*3600 {
+            year = value/(365*24*3600)
+            result += "\(year)年"
+            value -= year*(365*24*3600)
+        }
         
+        if value >= 24*3600 {
+            day = value/(24*3600)
+            result += "\(day)天"
+            value -= day*(24*3600)
+        }
+        
+        if value > 3600 {
+            hour = value/3600
+            result += "\(hour)小时"
+            value -= hour*3600
+        }
+        
+        if value > 60 {
+            minute = value/60
+            result += "\(minute)分"
+            value -= minute*60
+        }
+        
+        if value > 0 {
+            second = value
+            result += "\(second)秒"
+        }
+        
+//        DDLog(day, hour, minute, second)
+        return result
+    }
+    
     /// 获取起止时间区间数组,默认往前31天
     static func queryDate(_ day: Int = -30, fmtStart: String = kDateFormatBegin, fmtEnd: String = kDateFormatEnd) -> [String] {
         let endTime = DateFormatter.stringFromDate(Date(), fmt: fmtEnd)
@@ -195,7 +239,6 @@ public let kDateFormatTwo         = "yyyyMMdd";
         }
         return idxList
     }
-
     
     ///时间区间
     static func durationFrom(_ btime: String?, etime: String?) -> TimeInterval {
@@ -427,7 +470,7 @@ public extension Date{
         let result = DateFormatter.stringFromDate(self, fmt: kDateFormatEnd)
         return result;
     }
-    
+        
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> NSDate
     func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date{
         let date = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
@@ -442,46 +485,8 @@ public extension Date{
     
     ///*天*小时*分*秒
     func betweenInfo(_ aDate: Date) -> String {
-        var value = Int(abs(aDate.timeIntervalSince1970 - self.timeIntervalSince1970))
-
-        var year = 0
-        var day = 0
-        var hour = 0
-        var minute = 0
-        var second = 0
-
-        var result = ""
-        if value >= 365*24*3600 {
-            year = value/(365*24*3600)
-            result += "\(year)年"
-            value -= year*(365*24*3600)
-        }
-        
-        if value >= 24*3600 {
-            day = value/(24*3600)
-            result += "\(day)天"
-            value -= day*(24*3600)
-        }
-        
-        if value > 3600 {
-            hour = value/3600
-            result += "\(hour)小时"
-            value -= hour*3600
-        }
-        
-        if value > 60 {
-            minute = value/60
-            result += "\(minute)分"
-            value -= minute*60
-        }
-        
-        if value > 0 {
-            second = value
-            result += "\(second)秒"
-        }
-        
-//        DDLog(day, hour, minute, second)
-        return result
+        let value = Int(abs(aDate.timeIntervalSince1970 - self.timeIntervalSince1970))
+        return DateFormatter.betweenInfo(value)
     }
     
     //MARK: - 获取日期各种值
