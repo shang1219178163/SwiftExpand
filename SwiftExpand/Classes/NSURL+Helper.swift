@@ -51,30 +51,35 @@ public extension URL {
         return components.appendingQueryParameters(parameters)
     }
     
+    ///追加查询参数
+    mutating func appendingQueryParameters(_ parameters: [String: String]) {
+        self = appendingQueryParameters(parameters)
+    }
+    
     ///查询对应参数值
     func queryValue(for key: String) -> String? {
         return URLComponents(string: absoluteString)?.queryValue(for: key)
     }
 }
 
-@objc public extension NSURLComponents {
-    
-    ///查询参数
-    var queryParameters: [String: String]? {
-        return (self as URLComponents).queryParameters
-    }
-    ///追加查询参数
-    func appendingQueryParameters(_ parameters: [String: String]) -> URL {
-        queryItems = (queryItems ?? []) + parameters
-            .map { URLQueryItem(name: $0, value: $1) }
-        return url!
-    }
-    
-    ///查询对应参数值
-    func queryValue(for key: String) -> String? {
-        return (self as URLComponents).queryValue(for: key)
-    }
-}
+//@objc public extension NSURLComponents {
+//
+//    ///查询参数
+//    var queryParameters: [String: String]? {
+//        return (self as URLComponents).queryParameters
+//    }
+//    ///追加查询参数
+//    func appendingQueryParameters(_ parameters: [String: String]) -> URL {
+//        queryItems = (queryItems ?? []) + parameters
+//            .map { URLQueryItem(name: $0, value: $1) }
+//        return url!
+//    }
+//
+//    ///查询对应参数值
+//    func queryValue(for key: String) -> String? {
+//        return (self as URLComponents).queryValue(for: key)
+//    }
+//}
 
 
 @objc public extension NSURL {
