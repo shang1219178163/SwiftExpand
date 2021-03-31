@@ -10,20 +10,18 @@ import UIKit
 
 @objc public extension NSAttributedString{
     ///获取所有的 [Range: NSAttributedString] 集合
-    var rangeSubAttStringDic: [String: NSAttributedString]{
-        get{
-            var dic = [String: NSAttributedString]()
-            enumerateAttributes(in: NSMakeRange(0, self.length), options: .longestEffectiveRangeNotRequired) { (attrs, range, _) in
-                let sub = self.attributedSubstring(from: range)
-                dic[NSStringFromRange(range)] = sub
-            }
-            return dic;
+    var rangeSubAttStringDic: [String: NSAttributedString] {
+        var dic = [String: NSAttributedString]()
+        enumerateAttributes(in: NSMakeRange(0, self.length), options: .longestEffectiveRangeNotRequired) { (attrs, range, _) in
+            let sub = self.attributedSubstring(from: range)
+            dic[NSStringFromRange(range)] = sub
         }
+        return dic;
     }
                 
     /// 富文本特殊部分配置字典
-    static func attrDict(_ font: CGFloat = 15, textColor: UIColor = .theme) -> [NSAttributedString.Key: Any] {
-        let dic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize:font),
+    static func attrDict(_ font: UIFont = UIFont.systemFont(ofSize:15), textColor: UIColor = .theme) -> [NSAttributedString.Key: Any] {
+        let dic = [NSAttributedString.Key.font: font,
                    NSAttributedString.Key.foregroundColor: textColor,
                    NSAttributedString.Key.backgroundColor: UIColor.clear,
                    ];
@@ -31,7 +29,7 @@ import UIKit
     }
     
     /// 富文本整体设置
-    static func paraDict(_ font: CGFloat = 15,
+    static func paraDict(_ font: UIFont = UIFont.systemFont(ofSize:15),
                          textColor: UIColor = .theme,
                          alignment: NSTextAlignment = .left,
                          lineSpacing: CGFloat = 0,
@@ -57,11 +55,11 @@ import UIKit
                           lineSpacing: CGFloat = 0,
                           lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                           rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
-        let paraDic = paraDict(font, textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
+        let paraDic = paraDict(UIFont.systemFont(ofSize: font), textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
         let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in
             let nsRange = (text as NSString).range(of: textTap, options: mask)
-            let attDic = attrDict(tapFont, textColor: tapColor)
+            let attDic = attrDict(UIFont.systemFont(ofSize: tapFont), textColor: tapColor)
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString
@@ -121,11 +119,11 @@ import UIKit
     static func attString(_ text: String, nsRange: NSRange, font: CGFloat = 15, textColor: UIColor = UIColor.theme) -> NSAttributedString {
         assert((nsRange.location + nsRange.length) <= text.count)
         
-        let attrString = NSMutableAttributedString(string: text)
-        
         let attDict = [NSAttributedString.Key.foregroundColor: textColor,
                        NSAttributedString.Key.font: UIFont.systemFont(ofSize: font),
         ]
+        
+        let attrString = NSMutableAttributedString(string: text)
         attrString.addAttributes(attDict, range: nsRange)
         return attrString
     }
@@ -133,8 +131,9 @@ import UIKit
     ///  富文本只有同字体大小才能计算高度
     func size(_ width: CGFloat) -> CGSize {
         let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
-         
-        var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, context: nil).size;
+        var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
+                                     options: options,
+                                     context: nil).size;
         size.width = ceil(size.width);
         size.height = ceil(size.height);
         return size;
