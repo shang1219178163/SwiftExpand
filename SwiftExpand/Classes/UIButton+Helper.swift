@@ -41,11 +41,12 @@ import UIKit
         case titleWhiteAndBackgroudTheme
              ///红底白字
         case titleWhiteAndBackgroudRed
+            ///白底(带边框)
+        case titleAndOutline
              ///白底主题色字(带边框)
         case titleThemeAndOutline
              ///白底红字(带边框)
         case titleRedAndOutline
-        
     }
     
     func setCustomType(_ type: UIButton.CustomType, for state: UIControl.State = .normal) {
@@ -66,6 +67,16 @@ import UIKit
             setTitleColor(.white, for: state)
             setBackgroundColor(.red, for: state)
 
+        case .titleAndOutline:
+            var titleColor = self.titleColor(for: .normal) ?? UIColor.black
+            if titleColor == UIColor.white {
+                titleColor = UIColor.black
+            }
+            setTitleColor(titleColor, for: state)
+            layer.borderColor = titleColor.cgColor
+            layer.borderWidth = 1
+            layer.cornerRadius = 5
+            
         case .titleThemeAndOutline:
             setTitleColor(.theme, for: state)
             setBackgroundColor(.white, for: state)

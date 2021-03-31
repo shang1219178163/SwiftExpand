@@ -70,6 +70,20 @@ import UIKit
         }
     }
     
+    
+    /// 消失
+    func dismissVC(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard let keyWindow = UIApplication.shared.keyWindow,
+              let rootVC = keyWindow.rootViewController
+              else { return }
+        
+        DispatchQueue.main.async {
+            if let presentedViewController = rootVC.presentedViewController {
+                presentedViewController.dismiss(animated: animated, completion: completion)
+            }
+        }
+    }
+    
     ///判断上一页是哪个页面
     func pushFromVC(_ type: UIViewController.Type) -> Bool {
         guard let viewControllers = navigationController?.viewControllers,
@@ -259,5 +273,26 @@ import UIKit
         popoverContentVC.present(true, completion: completion)
     }
     
+    ///左滑返回按钮(viewDidAppear/viewWillDisappear)
+    func popGesture(_ isEnabled: Bool) {
+        guard let navigationController = navigationController,
+              let interactivePopGestureRecognizer = navigationController.interactivePopGestureRecognizer,
+              let gestureRecognizers = interactivePopGestureRecognizer.view?.gestureRecognizers
+              else { return }
+   
+        gestureRecognizers.forEach { (gesture) in
+            gesture.isEnabled = isEnabled
+        }
+        interactivePopGestureRecognizer.isEnabled = isEnabled
+    }
     
+    ///左滑返回关闭(viewDidAppear/viewWillDisappear)
+    func popGestureClose() {
+        popGesture(false)
+    }
+
+    ///左滑返回打开(viewDidAppear/viewWillDisappear)
+    func popGestureOpen() {
+        popGesture(true)
+    }
 }

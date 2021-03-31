@@ -46,6 +46,12 @@ import WebKit
         let result = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(ratio)%'"
         return result
     }
+    /// 字体改变
+    func loadHTMLStringWithMagic(_ content: String, baseURL: URL?){
+        let headerString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>"
+        loadHTMLString(headerString + content, baseURL: baseURL)
+    }
+    
     ///此方法解决了: Web 页面包含了 ajax 请求的话，cookie 要重新处理,这个处理需要在 WKWebView 的 WKWebViewConfiguration 中进行配置。
     func loadUrl(_ urlString: String?, additionalHttpHeaders: [String: String]? = nil) {
         guard let urlString = urlString,
