@@ -11,6 +11,7 @@ import UIKit
 @objc public extension Timer{
     
     /// 分类方法
+    @discardableResult
     static func scheduled(_ Interval: TimeInterval = 60, repeats: Bool = true, action: @escaping((Timer) -> Void)) -> Timer {
         return scheduledTimer(timeInterval: Interval, target: self, selector: #selector(handleInvoke(_:)), userInfo: action, repeats: repeats)
     }
@@ -20,21 +21,15 @@ import UIKit
             action(timer)
         }
     }
-    
+    /// 继续：触发时间设置在现在/获取，这样定时器自动进入马上进入工作状态.
     func activate() {
-        //    继续：触发时间设置在现在/获取，这样定时器自动进入马上进入工作状态.
         self.fireDate = .distantPast
     }
-    
+    /// 暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
     func pause() {
-        //    暂停：触发时间设置在未来，既很久之后，这样定时器自动进入等待触发的状态.
         self.fireDate = .distantFuture
     }
     
-    func destroy() {
-        self.invalidate()
-    }
-        
     static func createGCDTimer(_ interval: TimeInterval = 60, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
         codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))
@@ -49,7 +44,7 @@ import UIKit
         return codeTimer;
     }
     
-    static func destoryGCDTimer(_ timer: DispatchSourceTimer?) {
+    static func cancelGCDTimer(_ timer: DispatchSourceTimer?) {
         timer?.cancel()
     }
 }

@@ -181,10 +181,13 @@ import UIKit
 
     ///  富文本只有同字体大小才能计算高度
     func sizeWithText(_ text: String = "", font: CGFloat = 15, width: CGFloat) -> CGSize {
-        let attDic = NSAttributedString.paraDict(font, textColor: .black, alignment: .left);
+        let attDic = NSAttributedString.paraDict(UIFont.systemFont(ofSize: font), textColor: .black, alignment: .left);
         let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
         
-        var size = text.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, attributes: attDic, context: nil).size;
+        var size = text.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
+                                     options: options,
+                                     attributes: attDic,
+                                     context: nil).size;
         size.width = ceil(size.width);
         size.height = ceil(size.height);
         return size;

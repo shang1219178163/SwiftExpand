@@ -90,10 +90,6 @@ public extension String{
         return result
     }
     
-    /// 是否是"","nil","null"
-//    var isValid: Bool {
-//        return !["","nil","null"].contains(self);
-//    }
     /// Int
     var intValue: Int {
         return Int((self as NSString).integerValue)
@@ -541,6 +537,11 @@ public extension String{
         let result = self.substring(to: 10).appending(" 23:59:59")
         return result
     }
+    
+    var objValue: Any? {
+        return (self as String).objValue
+    }
+
         
     func isValidByRegex(_ regex: String) -> Bool {
         return (self as String).isValidByRegex(regex)
