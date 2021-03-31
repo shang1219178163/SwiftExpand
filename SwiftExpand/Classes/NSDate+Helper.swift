@@ -134,7 +134,12 @@ public let kDateFormatTwo         = "yyyyMMdd";
     }
        
     ///两个日期之间差距(*年*天*小时*分*秒)
-    static func betweenInfo(_ interval: Int) -> String {
+    static func betweenInfo(_ interval: Int,
+                            yearUnit: String = "年",
+                            dayUnit: String = "天",
+                            hourUnit: String = "小时",
+                            miniuteUnit: String = "分",
+                            sencondUnit: String = "秒") -> String {
         var value = interval
 
         var year = 0
@@ -146,31 +151,31 @@ public let kDateFormatTwo         = "yyyyMMdd";
         var result = ""
         if value >= 365*24*3600 {
             year = value/(365*24*3600)
-            result += "\(year)年"
+            result += "\(year)\(yearUnit)"
             value -= year*(365*24*3600)
         }
         
         if value >= 24*3600 {
             day = value/(24*3600)
-            result += "\(day)天"
+            result += "\(day)\(dayUnit)"
             value -= day*(24*3600)
         }
         
         if value > 3600 {
             hour = value/3600
-            result += "\(hour)小时"
+            result += "\(hour)\(hourUnit)"
             value -= hour*3600
         }
         
         if value > 60 {
             minute = value/60
-            result += "\(minute)分"
+            result += "\(minute)\(sencondUnit)"
             value -= minute*60
         }
         
         if value > 0 {
             second = value
-            result += "\(second)秒"
+            result += "\(second)\(sencondUnit)"
         }
         
 //        DDLog(day, hour, minute, second)
