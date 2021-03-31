@@ -24,7 +24,9 @@ import UIKit
     }
 
     ///block 中加减乘除
-    static func calculate(_ initial: NSDecimalNumber = NSDecimalNumber(decimal: 0.00), block: @escaping ((NSDecimalNumber)->NSDecimalNumber)) -> NSDecimalNumber {
+    static func calculate(_ initial: NSDecimalNumber = NSDecimalNumber(decimal: 0.00),
+                          scale: Int16 = 2,
+                          block: @escaping ((NSDecimalNumber)->NSDecimalNumber)) -> NSDecimalNumber {
         /**
          该方法需要我们设置六个参数，
          第一个参数为舍入模式(roundingMode)，
@@ -35,7 +37,7 @@ import UIKit
          最后一个参数为数值除数为零异常捕获(raiseOnDivideByZero)：
          */
         let handler = NSDecimalNumberHandler(roundingMode: .bankers,
-                                         scale: 2,
+                                         scale: scale,
                                          raiseOnExactness: false,
                                          raiseOnOverflow: false,
                                          raiseOnUnderflow: false,
