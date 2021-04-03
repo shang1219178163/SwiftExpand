@@ -9,7 +9,7 @@
 
 import Foundation
 
-/// ###,##0.00
+/// ¥###,##0.00
 public let kNumFormat = "¥###,##0.00";
 
 //MARK: -NumberFormatter
@@ -67,8 +67,8 @@ public let kNumFormat = "¥###,##0.00";
         fmt.minimumFractionDigits = minFractionDigits
         fmt.maximumFractionDigits = maxFractionDigits
 
-//        fmt.positivePrefix = positivePrefix
-        fmt.positiveSuffix = ""
+        fmt.positivePrefix = positivePrefix
+//        fmt.positiveSuffix = ""
 
         fmt.usesGroupingSeparator = true //分隔设true
         fmt.groupingSeparator = groupingSeparator //分隔符
@@ -81,7 +81,7 @@ public let kNumFormat = "¥###,##0.00";
                                min: Int = 2,
                                max: Int = 2,
                                roundingMode: NumberFormatter.RoundingMode = .halfUp,
-                               numberStyle: NumberFormatter.Style = .decimal) -> String? {
+                               numberStyle: NumberFormatter.Style = .currency) -> String? {
         let fmt = NumberFormatter.number(numberStyle)
         fmt.minimumFractionDigits = min
         fmt.maximumFractionDigits = max
@@ -167,6 +167,10 @@ public let kNumFormat = "¥###,##0.00";
         return self
     }
 
+    func paddingCharacter(_ character: String) -> Self {
+        self.paddingCharacter = character
+        return self
+    }
 }
 
 public extension String.StringInterpolation {

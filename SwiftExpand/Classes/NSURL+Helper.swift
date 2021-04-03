@@ -21,12 +21,6 @@ public extension URLComponents {
         }
         return dic
     }
-    ///追加查询参数
-    mutating func appendingQueryParameters(_ parameters: [String: String]) -> URL {
-        queryItems = (queryItems ?? []) + parameters
-            .map { URLQueryItem(name: $0, value: $1) }
-        return url!
-    }
     
     ///查询对应参数值
     func queryValue(for key: String) -> String? {
@@ -34,6 +28,25 @@ public extension URLComponents {
             .first(where: { $0.name == key })?
             .value
     }
+    
+    ///追加查询参数
+    mutating func appendingQueryParameters(_ parameters: [String: String]) -> URL {
+        queryItems = (queryItems ?? []) + parameters.map { URLQueryItem(name: $0, value: $1) }
+        return url!
+    }
+    
+    ///删除查询参数
+    mutating func removingQueryParameters(for keys: [String]) -> URL {
+        var dic = [String: String]()
+
+        queryItems?
+            .filter({ !keys.contains($0.name) })
+            .forEach({ dic[$0.name] = $0.value })
+        
+        queryItems = [] + dic.map { URLQueryItem(name: $0, value: $1) }
+        return url!
+    }
+
 }
 
 
@@ -45,6 +58,12 @@ public extension URL {
         else { return nil }
         return components.queryParameters
     }
+    
+    ///查询对应参数值
+    func queryValue(for key: String) -> String? {
+        return URLComponents(string: absoluteString)?.queryValue(for: key)
+    }
+    
     ///追加查询参数
     func appendingQueryParameters(_ parameters: [String: String]) -> URL {
         var components = URLComponents(url: self, resolvingAgainstBaseURL: true)!
@@ -52,14 +71,21 @@ public extension URL {
     }
     
     ///追加查询参数
-    mutating func appendingQueryParameters(_ parameters: [String: String]) {
+    mutating func appendQueryParameters(_ parameters: [String: String]) {
         self = appendingQueryParameters(parameters)
     }
     
-    ///查询对应参数值
-    func queryValue(for key: String) -> String? {
-        return URLComponents(string: absoluteString)?.queryValue(for: key)
+    func removingQueryParameters(for keys: [String]) -> URL {
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)!
+        return components.removingQueryParameters(for: keys)
     }
+    
+    ///删除查询参数
+    mutating func removeQueryParameters(for keys: [String]) {
+        self = removingQueryParameters(for: keys)
+    }
+    
+
 }
 
 //@objc public extension NSURLComponents {
@@ -70,8 +96,7 @@ public extension URL {
 //    }
 //    ///追加查询参数
 //    func appendingQueryParameters(_ parameters: [String: String]) -> URL {
-//        queryItems = (queryItems ?? []) + parameters
-//            .map { URLQueryItem(name: $0, value: $1) }
+//        queryItems = (queryItems ?? []) + parameters.map { URLQueryItem(name: $0, value: $1) }
 //        return url!
 //    }
 //
@@ -88,13 +113,20 @@ public extension URL {
     var queryParameters: [String: String]? {
         return (self as URL).queryParameters
     }
-    ///追加查询参数
-    func appendingQueryParameters(_ parameters: [String: String]) -> URL {
-        return (self as URL).appendingQueryParameters(parameters)
-    }
     
     ///查询对应参数值
     func queryValue(for key: String) -> String? {
         return (self as URL).queryValue(for: key)
     }
+    
+    ///追加查询参数
+    func appendingQueryParameters(_ parameters: [String: String]) -> URL {
+        return (self as URL).appendingQueryParameters(parameters)
+    }
+    
+    ///删除查询参数
+    func removingQueryParameters(for keys: [String]) -> URL {
+        return (self as URL).removingQueryParameters(for: keys)
+    }
+    
 }
