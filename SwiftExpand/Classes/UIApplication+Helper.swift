@@ -172,89 +172,61 @@ import UIKit
             return UIApplication.shared.keyWindow
         }
     }
-        
-    static var rootController: UIViewController? {
-        get {
-            return UIApplication.mainWindow.rootViewController
-        }
-        set {
-            guard let newValue = newValue else { return }
-            UIApplication.mainWindow.rootViewController = newValue;
-        }
-    }
     
     static var tabBarController: UITabBarController? {
         guard let rootVC = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController else {
             return nil }
         return rootVC
     }
-    
-    ///当前导航控制器
-    static var navController: UINavigationController? {
-        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil }
+
+    ///当前控制器
+    static var currentVC: UIViewController? {
+        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil}
         
-        if rootVC.isKind(of: UINavigationController.self) {
-            return (rootVC as! UINavigationController)
+        if let presentedVC = rootVC.presentedViewController {
+            if let nav = presentedVC as? UINavigationController {
+                return nav.topViewController
+            }
+            return presentedVC
         }
         
-        if let tabBarVC = rootVC as? UITabBarController,
-           let navController = tabBarVC.selectedViewController as? UINavigationController {
-            return navController
+        if let nav = rootVC as? UINavigationController {
+            return nav.topViewController
+        }
+
+        if let tab = rootVC as? UITabBarController {
+            if let nav = tab.selectedViewController as? UINavigationController{
+                return nav.topViewController
+            }
+            return tab.viewControllers?.first
         }
         return nil
     }
-//    ///当前控制器
-//    static var currentVC: UIViewController? {
-//        guard let rootVC = UIApplication.shared.keyWindow?.rootViewController else { return nil}
-//        
-//        if let presentedVC = rootVC.presentedViewController {
-//            if let nav = presentedVC as? UINavigationController {
-//                return nav.topViewController
-//            }
-//            return presentedVC
-//        }
-//        
-//        if let nav = rootVC as? UINavigationController {
-//            return nav.topViewController
-//        }
-//
-//        if let tab = rootVC as? UITabBarController {
-//            if let nav = tab.selectedViewController as? UINavigationController{
-//                return nav.topViewController
-//            }
-//            return tab.viewControllers?.first
-//        }
-//        return nil
-//    }
+    
+    ///当前导航控制器
+    static var navController: UINavigationController? {
+        return currentVC?.navigationController
+    }
     
     static func topViewController(_ base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
-          if let nav = base as? UINavigationController {
-                return topViewController(nav.visibleViewController)
-          }
-          if let tab = base as? UITabBarController {
-              if let selected = tab.selectedViewController {
-                  return topViewController(selected)
-              }
-          }
-          if let presented = base?.presentedViewController {
-              return topViewController(presented)
-          }
-          return base
+          
+        if let nav = base as? UINavigationController {
+            return topViewController(nav.visibleViewController)
+        }
+          
+        if let tab = base as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return topViewController(selected)
+            }
+        }
+          
+        if let presented = base?.presentedViewController {
+            return topViewController(presented)
+        }
+        return base
     }
     
     //MARK: func
-    static func setupRootController(_ vc: UIViewController, isAdjust: Bool = true) {
-        if !isAdjust {
-            UIApplication.rootController = vc
-            return;
-        }
-        
-        if vc is UINavigationController || vc is UITabBarController {
-            UIApplication.rootController = vc
-        } else {
-            UIApplication.rootController = UINavigationController(rootViewController: vc);
-        }
-    }
     
     ///默认风格是白色导航栏黑色标题
     static func setupAppearanceDefault(_ isDefault: Bool = true) {

@@ -33,32 +33,16 @@ import UIKit
 
     ///自定义按钮类型
     @objc enum CustomType: Int {
-             ///白底黑色
-        case titleBlack
-             ///主题色字
-        case titleTheme
              ///主题色底白字
         case titleWhiteAndBackgroudTheme
              ///红底白字
         case titleWhiteAndBackgroudRed
             ///白底(带边框)
         case titleAndOutline
-             ///白底主题色字(带边框)
-        case titleThemeAndOutline
-             ///白底红字(带边框)
-        case titleRedAndOutline
     }
     
     func setCustomType(_ type: UIButton.CustomType, for state: UIControl.State = .normal) {
         switch type {
-        case .titleBlack:
-            setTitleColor(.black, for: state)
-            setBackgroundColor(.white, for: state)
-
-        case .titleTheme:
-            setTitleColor(.theme, for: state)
-            setBackgroundColor(.white, for: state)
-            
         case .titleWhiteAndBackgroudTheme:
             setTitleColor(.white, for: state)
             setBackgroundColor(.theme, for: state)
@@ -76,25 +60,7 @@ import UIKit
             layer.borderColor = titleColor.cgColor
             layer.borderWidth = 1
             layer.cornerRadius = 5
-            
-        case .titleThemeAndOutline:
-            setTitleColor(.theme, for: state)
-            setBackgroundColor(.white, for: state)
-
-            layer.borderColor = UIColor.theme.cgColor
-            layer.borderWidth = 1
-            layer.cornerRadius = 5
-//            layer.masksToBounds = true
-                
-        case .titleRedAndOutline:
-            setTitleColor(.red, for: state)
-            setBackgroundColor(.white, for: state)
-
-            layer.borderColor = UIColor.red.cgColor
-            layer.borderWidth = 1
-            layer.cornerRadius = 5
-//            layer.masksToBounds = true
-        
+                    
         default:
             break
         }

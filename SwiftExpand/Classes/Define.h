@@ -12,18 +12,7 @@
 #define DDLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 
 //#define DDLog(FORMAT, ...) {\
-//NSString *formatStr = @"yyyy-MM-dd HH:mm:ss.SSS";\
-//NSMutableDictionary *threadDic = NSThread.currentThread.threadDictionary;\
-//NSDateFormatter *formatter = [threadDic objectForKey:formatStr];\
-//if (!formatter) {\
-//formatter = [[NSDateFormatter alloc]init];\
-//formatter.dateFormat = formatStr;\
-//formatter.locale = [NSLocale currentLocale];\
-//formatter.timeZone = [NSTimeZone systemTimeZone];\
-//[threadDic setObject:formatter forKey:formatStr];\
-//}\
-//NSString *str = [formatter stringFromDate:NSDate.date];\
-//fprintf(stderr,"%s【line -%d】%s %s ", [str UTF8String], __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);\
+//fprintf(stderr, "%s【line -%d】%s %s ", __DATE__, __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);\
 //}
 
 #else
