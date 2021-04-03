@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 
+
 @objc public extension WKWebView{
     private struct AssociateKeys {
         static var confiDefault  = "WKWebView" + "confiDefault"
@@ -40,6 +41,36 @@ import WebKit
         let userScript = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
         configuration.userContentController.addUserScript(userScript)
     }
+    
+    ///设置 Cookie 参数
+    func setCookieByJavaScript(_ dic: [String: String], completionHandler: ((Any?, Error?) -> Void)? = nil){
+        var result = ""
+        dic.forEach { (key: String, value: String) in
+            result = (result + "\(key)=\(value),")
+        }
+        self.evaluateJavaScript("document.cookie ='\(result)'", completionHandler: completionHandler)
+    }
+    
+    ///添加 cookie的自动推送
+    @available(iOS 11.0, *)
+    func copyNSHTTPCookieStorageToWKHTTPCookieStore(_  handler: (() -> Void)? = nil) {
+        guard let cookies = HTTPCookieStorage.shared.cookies else { return }
+        let cookieStore = self.configuration.websiteDataStore.httpCookieStore
+
+        if cookies.count == 0 {
+            handler?()
+            return
+        }
+        for cookie in cookies {
+            cookieStore.setCookie(cookie) {
+                if cookies.last!.isEqual(cookie) {
+                    handler?()
+                    return
+                }
+            }
+        }
+    }
+
 
     /// 字体改变
     static func javaScriptFromTextSizeRatio(_ ratio: CGFloat) -> String {
@@ -53,13 +84,24 @@ import WebKit
     }
     
     ///此方法解决了: Web 页面包含了 ajax 请求的话，cookie 要重新处理,这个处理需要在 WKWebView 的 WKWebViewConfiguration 中进行配置。
-    func loadUrl(_ urlString: String?, additionalHttpHeaders: [String: String]? = nil) {
+    func loadUrl(_ urlString: String?, additionalHttpHeaders: [String: String]? = nil, isAddUserScript: Bool = true) {
         guard let urlString = urlString,
               let urlStr = urlString.removingPercentEncoding as String?,
               let url = URL(string: urlStr) as URL?
               else {
             DDLog("链接错误")
             return }
+        
+        if isAddUserScript == false {
+            if let URL = URL(string: urlString) as URL? {
+                var request = URLRequest(url: URL)
+                additionalHttpHeaders?.forEach { (key, value) in
+                    request.addValue(value, forHTTPHeaderField: key)
+                }
+               load(request)
+            }
+            return
+        }
         
         let cookieSource: String = "document.cookie = 'user=\("userValue")';"
         let cookieScript = WKUserScript(source: cookieSource, injectionTime: .atDocumentStart, forMainFrameOnly: false)
@@ -81,6 +123,40 @@ import WebKit
         additionalHttpHeaders?.forEach { (key, value) in
             request.addValue(value, forHTTPHeaderField: key)
         }
-        load(request as URLRequest)
+        load(request)
+    }
+    
+    @available(iOS 11.0, *)
+    func snapshot(_ rect: CGRect, snapshotWidth: NSNumber? = nil, completionHandler: @escaping (UIImage?, Error?) -> Void){
+        let conf = WKSnapshotConfiguration()
+        conf.rect = rect
+        conf.snapshotWidth = snapshotWidth
+        takeSnapshot(with: conf, completionHandler: completionHandler)
+    }
+}
+
+
+public extension URLRequest{
+    ///便捷方法设置 addValue(_ value: String, forHTTPHeaderField field: String)
+    init(url: URL, httpHeaders: [String: String]) {
+        self.init(url: url)
+        httpHeaders.forEach { (key, value) in
+            self.addValue(value, forHTTPHeaderField: key)
+        }
+    }
+
+    ///设置 addValue(_ value: String, forHTTPHeaderField field: String)
+    mutating func addHTTPHeaderField(for dic: [String: String]?) {
+        dic?.forEach { (key, value) in
+            self.addValue(value, forHTTPHeaderField: key)
+        }
+    }
+    
+    mutating func addDict(_ dic: [String: String]?, forHTTPHeaderField field: String = "Cookie") {
+        var result = ""
+        dic?.forEach{ (key: String, value: String) in
+            result = (result + "\(key)=\(value);")
+        }
+        self.addValue(result, forHTTPHeaderField: field)
     }
 }

@@ -21,6 +21,21 @@ import UIKit
          self.init(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: a)
     }
     
+    ///判断颜色深浅
+    var isDark: Bool{
+        var vRed: CGFloat = 0
+        var vGreen: CGFloat  = 0
+        var vBlue: CGFloat = 0
+        var valpha: CGFloat  = 0
+        getRed(&vRed, green: &vGreen, blue: &vBlue, alpha: &valpha)
+        
+        let brightness = 0.299 * vRed + 0.587 * vGreen + 0.114 * vBlue
+        let result = (brightness < 0.5)
+        DDLog(result ? "深色" : "浅色")
+        return result
+    }
+
+    
     //MARK: - -属性    
     static var theme: UIColor {
         get{
@@ -150,7 +165,7 @@ import UIKit
     func alpha(_ a: CGFloat = 1.0) -> UIColor{
         return withAlphaComponent(a)
     }
-    
+        
     /// 两个颜色是否相等
     func equalTo(_ c2: UIColor) -> Bool {
         // some kind of weird rounding made the colors unequal so had to compare like this

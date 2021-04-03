@@ -71,6 +71,35 @@ public let kDateFormatTwo         = "yyyyMMdd";
 
 
 @objc public extension DateFormatter{
+    
+    ///日期格式
+    enum FormatStyle: String {
+        /// yyyy-MM-dd HH:mm:ss(默认)
+        case dateFormat             = "yyyy-MM-dd HH:mm:ss"
+        /// yyyy-MM
+        case dateFormatMonth        = "yyyy-MM"
+        /// yyyy-MM-dd
+        case dateFormatDay          = "yyyy-MM-dd"
+        /// yyyy-MM-dd HH
+        case dateFormatHour         = "yyyy-MM-dd HH"
+        /// yyyy-MM-dd HH:mm
+        case dateFormatMinute       = "yyyy-MM-dd HH:mm"
+        /// yyyy-MM-dd HH:mm:ss eee
+        case dateFormatMillisecond  = "yyyy-MM-dd HH:mm:ss eee"
+        /// yyyy-MM-dd 00:00:00
+        case dateFormatBegin        = "yyyy-MM-dd 00:00:00"
+        /// yyyy-MM-dd 23:59:59
+        case dateFormatEnd          = "yyyy-MM-dd 23:59:59"
+        /// yyyy-MM-dd HH:mm:00
+        case dateFormatBeginSecond  = "yyyy-MM-dd HH:mm:00"
+        /// yyyy-MM-dd HH:mm:59
+        case dateFormatEndSecond    = "yyyy-MM-dd HH:mm:59"
+        /// yyyy年M月
+        case dateFormatMonth_CH     = "yyyy年MM月"
+        /// yyyy年MM月dd日
+        case dateFormatDay_CH       = "yyyy年MM月dd日"
+    }
+    
     /// 获取DateFormatter(默认格式)
     static func format(_ formatStr: String = kDateFormat) -> DateFormatter {
         let dic = Thread.current.threadDictionary;
@@ -83,7 +112,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
         fmt.locale = .current;
         fmt.locale = Locale(identifier: "zh_CN");
         fmt.timeZone = formatStr.contains("GMT") ? TimeZone(identifier: "GMT") : TimeZone.current;
-        dic.setObject(fmt, forKey: formatStr as NSCopying)
+        dic.setObject(fmt, forKey: (formatStr as NSString))
         return fmt;
     }
     
