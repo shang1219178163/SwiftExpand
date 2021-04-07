@@ -293,7 +293,7 @@ public func DDLog(_ message: Any..., file: String = #file, function: String = #f
             print(dateStr, "\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
         #else
             let dateStr = formatter.string(from: Date())
-            print(dateStr,"\((fileName as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
+            print(dateStr,"\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
         #endif
     #endif
 }
