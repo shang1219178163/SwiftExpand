@@ -278,24 +278,36 @@ public let kMontDayDes: String = "初一,初二,初三,初四,初五,初六,初�
 
 /// Debug模式日志打印
 /// - Parameters:
-///   - msgs: 内容
-///   - fileName: 文件名
-///   - methodName: 方法名
-///   - lineNumber: 行号
+///   - message: 内容
+///   - file: 文件名
+///   - function: 方法名
+///   - line: 行号
 public func DDLog(_ message: Any..., file: String = #file, function: String = #function, line: Int = #line){
     #if DEBUG
     let params = message.compactMap{ "\($0)" }.joined(separator: ", ");
-    let formatter = DateFormatter.format("yyyy-MM-dd HH:mm:ss.SSS");
-//    var dateStr = formatter.string(from: Date())
-//    print(dateStr,"\((fileName as NSString).lastPathComponent).\(methodName)[line \(lineNumber)]: \(params)")
-        #if targetEnvironment(simulator)
-            let dateStr = formatter.string(from: Date().addingTimeInterval(8*60*60))
-            print(dateStr, "\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
-        #else
-            let dateStr = formatter.string(from: Date())
-            print(dateStr,"\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
-        #endif
+    
+    let fmt = DateFormatter.format("yyyy-MM-dd HH:mm:ss.SSSSSSZ");
+    fmt.locale = Locale(identifier: "zh_CN")
+    
+    let dateStr = fmt.string(from: Date())
+    print(dateStr, "\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
     #endif
 }
+
+//public func DDLog(_ message: Any..., file: String = #file, function: String = #function, line: Int = #line){
+//    #if DEBUG
+//    let params = message.compactMap{ "\($0)" }.joined(separator: ", ");
+//    let fmt = DateFormatter.format("yyyy-MM-dd HH:mm:ss.SSSSSSZ");
+////    var dateStr = fmt.string(from: Date())
+////    print(dateStr,"\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
+//        #if targetEnvironment(simulator)
+//            let dateStr = fmt.string(from: Date().addingTimeInterval(8*60*60))
+//            print(dateStr, "\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
+//        #else
+//            let dateStr = fmt.string(from: Date())
+//            print(dateStr,"\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
+//        #endif
+//    #endif
+//}
 
 

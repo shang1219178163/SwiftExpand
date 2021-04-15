@@ -190,67 +190,65 @@ import UIKit
     }
     
     /// 图片上左下右配置
-    func layoutButton(direction: Int, imageTitleSpace: CGFloat = 5, space: CGFloat = 0) {
-        if imageView?.image == nil {
-            sizeToFit()
-        }
+    func layoutButton(direction: Int, imageTitleSpace: CGFloat = 5) {
+        guard let titleLabel = titleLabel,
+              let imageView = imageView else { return }
+            
+//        sizeToFit()
         //得到imageView和titleLabel的宽高
-        let imageWidth = self.imageView?.frame.size.width
-        let imageHeight = self.imageView?.frame.size.height
+        let labelWidth: CGFloat = titleLabel.bounds.width
+        let labelHeight: CGFloat = titleLabel.bounds.height
         
-        var labelWidth: CGFloat! = 0.0
-        var labelHeight: CGFloat! = 0.0
-        
-        labelWidth = self.titleLabel?.intrinsicContentSize.width
-        labelHeight = self.titleLabel?.intrinsicContentSize.height
-        
+        let imageWidth: CGFloat = imageView.bounds.width
+        let imageHeight: CGFloat = imageView.bounds.height
+                
         //初始化imageEdgeInsets和labelEdgeInsets
         var imageEdgeInsets: UIEdgeInsets = .zero
         var labelEdgeInsets: UIEdgeInsets = .zero
         
         //根据style和space得到imageEdgeInsets和labelEdgeInsets的值
+        //上 左 下 右
         switch direction {
         case 0:
-            //上 左 下 右
             imageEdgeInsets = UIEdgeInsets(top: -labelHeight - imageTitleSpace/2,
                                            left: 0,
                                            bottom: 0,
                                            right: -labelWidth)
             labelEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: -imageWidth!,
-                                           bottom: -imageHeight! - imageTitleSpace/2,
+                                           left: -imageWidth,
+                                           bottom: -imageHeight - imageTitleSpace/2,
                                            right: 0)
             break;
         case 1:
             imageEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: -imageTitleSpace/2 + space,
+                                           left: -imageTitleSpace/2,
                                            bottom: 0,
-                                           right: imageTitleSpace/2 + space)
+                                           right: imageTitleSpace/2)
             labelEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: imageTitleSpace/2 + space,
+                                           left: imageTitleSpace/2,
                                            bottom: 0,
-                                           right: -imageTitleSpace/2 + space)
+                                           right: -imageTitleSpace/2)
             break;
         case 2:
             imageEdgeInsets = UIEdgeInsets(top: 0,
                                            left: 0,
-                                           bottom: -labelHeight! - imageTitleSpace/2,
+                                           bottom: -labelHeight - imageTitleSpace/2,
                                            right: -labelWidth)
-            labelEdgeInsets = UIEdgeInsets(top: -imageHeight! - imageTitleSpace/2,
-                                           left: -imageWidth!,
+            labelEdgeInsets = UIEdgeInsets(top: -imageHeight - imageTitleSpace/2,
+                                           left: -imageWidth,
                                            bottom: 0,
                                            right: 0)
 
             break;
         case 3:
             imageEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: labelWidth - imageTitleSpace/2 - space,
+                                           left: labelWidth + imageTitleSpace/2,
                                            bottom: 0,
-                                           right: imageTitleSpace/2 + space)
+                                           right: -labelWidth - imageTitleSpace/2)
             labelEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: -imageWidth! - imageTitleSpace/2 + space,
+                                           left: -imageWidth - imageTitleSpace/2,
                                            bottom: 0,
-                                           right: imageWidth! + imageTitleSpace/2 + space)
+                                           right: imageWidth + imageTitleSpace/2)
 
             break;
         default:

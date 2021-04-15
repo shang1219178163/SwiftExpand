@@ -9,12 +9,10 @@
 #define Define_h
 
 #ifdef DEBUG
-#define DDLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
-
+#define DDLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 //#define DDLog(FORMAT, ...) {\
 //fprintf(stderr, "%s【line -%d】%s %s ", __DATE__, __LINE__, __PRETTY_FUNCTION__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);\
 //}
-
 #else
 #define DDLog(...)
 #endif

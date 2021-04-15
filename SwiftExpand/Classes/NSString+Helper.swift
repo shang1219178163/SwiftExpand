@@ -156,7 +156,7 @@ public extension String{
     
     var isValidHttpUrl: Bool {
         guard let url = URL(string: self) else { return false }
-        return url.scheme == "http"
+        return url.scheme == "http" || url.scheme == "https"
     }
     
     var isValidFileUrl: Bool {
@@ -496,7 +496,6 @@ public extension String{
     
     var isValidHttpUrl: Bool {
         return (self as String).isValidHttpUrl
-
     }
     
     var isValidFileUrl: Bool {
