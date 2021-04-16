@@ -292,10 +292,7 @@ public extension String{
     func isBig(_ value: String) -> Bool {
         return (self as NSString).isBig(value)
     }
-    /// 等于version
-//    func isSame(version: String) -> Bool {
-//        return (self as NSString).isSame(value)
-//    }
+
     /// 小于version
     func isSmall(_ value: String) -> Bool {
         return (self as NSString).isSmall(value)
