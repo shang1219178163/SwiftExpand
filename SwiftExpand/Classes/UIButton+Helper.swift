@@ -115,7 +115,7 @@ import UIKit
     static func create(_ rect: CGRect = .zero, title: String, textColor: UIColor, backgroundColor: UIColor) -> Self {
         let view = self.init(type: .custom);
         view.titleLabel?.font = UIFont.systemFont(ofSize:16);
-//        view.titleLabel?.adjustsFontSizeToFitWidth = true;
+        view.titleLabel?.adjustsFontSizeToFitWidth = true;
         view.titleLabel?.minimumScaleFactor = 1.0;
         view.imageView?.contentMode = .scaleAspectFit
         view.isExclusiveTouch = true;
