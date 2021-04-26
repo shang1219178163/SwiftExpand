@@ -37,7 +37,36 @@ public extension Array where Element == CGFloat{
         return self.reduce(0, +)
     }
     
+    ///获取数组期望值
+    var expectationValue: CGFloat {
+        var dic = [CGFloat : Int]()
+        let set = Set(self)
+        
+        for value in set {
+            let filterArray = self.filter { $0 == value }
+            dic[value] = filterArray.count
+        }
+//        DDLog(dic)
+        
+        let sum = dic.keys.map { $0 }.reduce(0, +)
+//        DDLog(sum)
+        
+        var percentDic = [CGFloat: CGFloat]()
+        set.forEach { (obj) in
+            percentDic[obj] = CGFloat(obj/sum)
+        }
+//        DDLog(percentDic)
+        
+        var expectation: CGFloat = 0.0
+        percentDic.forEach { (key: CGFloat, value: CGFloat) in
+            expectation += key * value
+        }
+        DDLog("数组:\(self)\n各元素出现次数: \(dic)\n各元素出现概率: \(percentDic)\n总和: \(sum)\n期望值是: \(expectation)")
+        return expectation
+    }
+    
 }
+
 
 public extension Array where Element : NSObject {
     ///嵌套数组扁平化
@@ -102,4 +131,21 @@ public extension Array where Element : NSObject {
         return list
     }
     
+    ///获取数组期望值
+    var expectationValue: CGFloat {
+        if self.count == 0 {
+            return 0.0
+        }
+        
+        if let list = self as? [NSNumber] {
+            let array = list.map({ CGFloat($0.floatValue) })
+            return array.expectationValue
+        }
+        
+        if let list = self as? [NSString] {
+            let array = list.map({ CGFloat($0.floatValue) })
+            return array.expectationValue
+        }
+        return 0.0
+    }
 }
