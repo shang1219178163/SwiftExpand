@@ -150,11 +150,11 @@ public let kAlertActionChecked = "checked"
                          alignment: NSTextAlignment = .left,
                          lineBreakMode: NSLineBreakMode = .byCharWrapping,
                          lineSpacing: CGFloat = 5.0) -> UIAlertController {
-        
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineBreakMode = .byCharWrapping;
-        paraStyle.lineSpacing = lineSpacing;
-        paraStyle.alignment = alignment;
+            .lineBreakMode(lineBreakMode)
+            .lineSpacing(lineSpacing)
+            .alignment(alignment)
+        
         return setMessageParaStyle(paraStyle)
     }
     
@@ -165,8 +165,12 @@ public let kAlertActionChecked = "checked"
                           block: ((NSMutableParagraphStyle) -> Void)? = nil,
                           handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
         //富文本效果
-        let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .center)
+        let paraStyle = NSMutableParagraphStyle()
+            .lineBreakMode(.byCharWrapping)
+            .lineSpacing(5)
+            .alignment(.center)
         block?(paraStyle)
+        
         UIAlertController(title: title, message: message, preferredStyle: .alert)
             .addActionTitles(actionTitles, handler: handler)
             .setMessageParaStyle(paraStyle)
