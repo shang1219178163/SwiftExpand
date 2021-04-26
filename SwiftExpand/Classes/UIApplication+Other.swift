@@ -129,7 +129,10 @@ import Photos
             DispatchQueue.main.async {
                 let titles = isForce == false ? [kTitleUpdate, kTitleCancell] : [kTitleUpdate];
                 //富文本效果
-                let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .left)
+                let paraStyle = NSMutableParagraphStyle()
+                    .lineBreakMode(.byCharWrapping)
+                    .lineSpacing(5)
+                    .alignment(.left)
                 
                 let title = "新版本 v\(appStoreVer)"
                 let message = "\n\(releaseNotes)"

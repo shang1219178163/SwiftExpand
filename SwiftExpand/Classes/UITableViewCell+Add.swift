@@ -39,17 +39,7 @@ import UIKit
     static func dequeueReusableCell(_ tableView: UITableView) -> Self {
         return dequeueReusableCell(tableView, identifier: String(describing: self), style: .default)
     }
-    
-    /// cell-源方法生成,自定义identifier
-    static func cellWithTableView(_ tableView: UITableView, identifier: String, style: UITableViewCell.CellStyle = .default) -> Self {
-        return dequeueReusableCell(tableView, identifier: identifier, style: style)
-    }
-    
-    /// [OC简洁方法]cell-源方法生成,自定义identifier
-    static func cellWithTableView(_ tableView: UITableView) -> Self {
-        return dequeueReusableCell(tableView, identifier: String(describing: self), style: .default)
-    }
-    
+        
     ///调整AccessoryView位置(默认垂直居中)
     @discardableResult
     func positionAccessoryView(_ dx: CGFloat = 0, dy: CGFloat = 0) -> UIView? {

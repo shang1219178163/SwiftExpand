@@ -73,7 +73,7 @@ import UIKit
             //获取成员变量的名称 -> c语言字符串
             let name = property_getName(property)
             //转换成String字符串
-            guard let strName = String(cString: name, encoding: String.Encoding.utf8) else {
+            guard let strName = String(cString: name, encoding: .utf8) else {
                 //继续下一次遍历
                 continue
             }

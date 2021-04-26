@@ -30,30 +30,30 @@ public let kAlertActionChecked = "checked"
                                  count: Int = 10,
                                  actionTitles: [String]? = [kTitleCancell, kTitleSure],
                                  handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
-    assert(UIImage(named: image) != nil)
-    
-    let msg = String(repeating: "\n", count: count)
-    let alertVC = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-    // 配置图片
-    let image = UIImage(named: image)
-    let imageView = UIImageView(image: image)
-    imageView.contentMode = contentMode
-    alertVC.view.addSubview(imageView)
+        assert(UIImage(named: image) != nil)
+        
+        let msg = String(repeating: "\n", count: count)
+        let alertVC = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        // 配置图片
+        let image = UIImage(named: image)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = contentMode
+        alertVC.view.addSubview(imageView)
 
-    imageView.translatesAutoresizingMaskIntoConstraints = false
-    alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: alertVC.view, attribute: .centerX, multiplier: 1, constant: 0))
-    alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: alertVC.view, attribute: .centerY, multiplier: 1, constant: 15))
-    alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 240))
-    alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 17*CGFloat(count) - 30))
-    // 配置按钮
-    actionTitles?.forEach({ (title:String) in
-        let style: UIAlertAction.Style = [kTitleCancell, kTitleNo].contains(title) ? .destructive : .default
-        alertVC.addAction(UIAlertAction(title: title, style: style, handler: { (action) in
-            handler?(alertVC, action)
-        }))
-    })
-    return alertVC
-}
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: alertVC.view, attribute: .centerX, multiplier: 1, constant: 0))
+        alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: alertVC.view, attribute: .centerY, multiplier: 1, constant: 15))
+        alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 240))
+        alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 17*CGFloat(count) - 30))
+        // 配置按钮
+        actionTitles?.forEach({ (title:String) in
+            let style: UIAlertAction.Style = [kTitleCancell, kTitleNo].contains(title) ? .destructive : .default
+            alertVC.addAction(UIAlertAction(title: title, style: style, handler: { (action) in
+                handler?(alertVC, action)
+            }))
+        })
+        return alertVC
+    }
     
     /// 创建系统sheetView
     static func createSheet(_ title: String?,
@@ -150,11 +150,11 @@ public let kAlertActionChecked = "checked"
                          alignment: NSTextAlignment = .left,
                          lineBreakMode: NSLineBreakMode = .byCharWrapping,
                          lineSpacing: CGFloat = 5.0) -> UIAlertController {
-        
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineBreakMode = .byCharWrapping;
-        paraStyle.lineSpacing = lineSpacing;
-        paraStyle.alignment = alignment;
+            .lineBreakMode(lineBreakMode)
+            .lineSpacing(lineSpacing)
+            .alignment(alignment)
+        
         return setMessageParaStyle(paraStyle)
     }
     
@@ -165,8 +165,12 @@ public let kAlertActionChecked = "checked"
                           block: ((NSMutableParagraphStyle) -> Void)? = nil,
                           handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
         //富文本效果
-        let paraStyle = NSMutableParagraphStyle.create(.byCharWrapping, alignment: .center)
+        let paraStyle = NSMutableParagraphStyle()
+            .lineBreakMode(.byCharWrapping)
+            .lineSpacing(5)
+            .alignment(.center)
         block?(paraStyle)
+        
         UIAlertController(title: title, message: message, preferredStyle: .alert)
             .addActionTitles(actionTitles, handler: handler)
             .setMessageParaStyle(paraStyle)
@@ -188,9 +192,9 @@ public let kAlertActionChecked = "checked"
                                 count: Int = 20,
                                 actionTitles: [String]? = [kTitleCancell, kTitleSure],
                                 handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
-    let alertVC = UIAlertController.createAlertImage(title, image: image, contentMode: contentMode, count: count, actionTitles: actionTitles, handler: handler)
-    alertVC.present()
-}
+        let alertVC = UIAlertController.createAlertImage(title, image: image, contentMode: contentMode, count: count, actionTitles: actionTitles, handler: handler)
+        alertVC.present()
+    }
 
     ///根据 fmt 进行相隔时间展示
     static func canShow(_ interval: Int = Int(kDateWeek)) -> Bool {

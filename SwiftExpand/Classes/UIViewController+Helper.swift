@@ -35,10 +35,14 @@ import UIKit
         guard let keyWindow = UIApplication.shared.keyWindow,
               let rootVC = keyWindow.rootViewController
               else { return }
+        if let presentedViewController = rootVC.presentedViewController {
+            presentedViewController.dismiss(animated: false, completion: nil)
+        }
+        
         self.modalPresentationStyle = .fullScreen
-
         DispatchQueue.main.async {
-            if let alertVC = self as? UIAlertController {
+            switch self {
+            case let alertVC as UIAlertController:
                 if alertVC.preferredStyle == .alert {
                     if alertVC.actions.count == 0 {
                         rootVC.present(alertVC, animated: animated, completion: {
@@ -46,25 +50,26 @@ import UIKit
                                 alertVC.dismiss(animated: animated, completion: completion)
                             })
                         })
-                    } else {
-                        rootVC.present(alertVC, animated: animated, completion: completion)
+                        return
                     }
+                    rootVC.present(alertVC, animated: animated, completion: completion)
                 } else {
                     //防止 ipad 下 sheet 会崩溃的问题
                     if UIDevice.current.userInterfaceIdiom == .pad {
-                        if let popoverPresentationController = alertVC.popoverPresentationController {
-                            popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-                            popoverPresentationController.sourceView = keyWindow;
+                        if let controller = alertVC.popoverPresentationController {
+                            controller.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                            controller.sourceView = keyWindow;
                             
-                            let isEmpty = popoverPresentationController.sourceRect.equalTo(.null) || popoverPresentationController.sourceRect.equalTo(.zero)
+                            let isEmpty = controller.sourceRect.equalTo(.null) || controller.sourceRect.equalTo(.zero)
                             if isEmpty {
-                                popoverPresentationController.sourceRect = CGRect(x: keyWindow.bounds.midX, y: 64, width: 1, height: 1);
+                                controller.sourceRect = CGRect(x: keyWindow.bounds.midX, y: 64, width: 1, height: 1);
                             }
                         }
                     }
                     rootVC.present(alertVC, animated: animated, completion: completion)
                 }
-            } else {
+                
+            default:
                 rootVC.present(self, animated: animated, completion: completion)
             }
         }

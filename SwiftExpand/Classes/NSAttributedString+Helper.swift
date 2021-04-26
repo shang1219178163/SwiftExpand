@@ -35,9 +35,9 @@ import UIKit
                          lineSpacing: CGFloat = 0,
                          lineBreakMode: NSLineBreakMode = .byTruncatingTail) -> [NSAttributedString.Key: Any] {
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineBreakMode = lineBreakMode
-        paraStyle.lineSpacing = lineSpacing
-        paraStyle.alignment = alignment
+            .lineBreakMode(lineBreakMode)
+            .lineSpacing(lineSpacing)
+            .alignment(alignment)
 
         var dic = attrDict(font, textColor: textColor)
         dic[NSAttributedString.Key.paragraphStyle] = paraStyle
@@ -77,9 +77,9 @@ import UIKit
                                 lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                                 rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
         let paraStyle = NSMutableParagraphStyle()
-        paraStyle.lineSpacing = lineSpacing
-        paraStyle.lineBreakMode = lineBreakMode
-        paraStyle.alignment = alignment
+            .lineBreakMode(lineBreakMode)
+            .lineSpacing(lineSpacing)
+            .alignment(alignment)
 
         let attDic = [NSAttributedString.Key.font: font,
                       NSAttributedString.Key.foregroundColor: color,

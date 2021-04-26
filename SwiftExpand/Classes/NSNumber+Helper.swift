@@ -102,24 +102,8 @@ public let kNumFormat = "¥###,##0.00";
         fmt.positiveFormat = format
         return fmt.string(for: obj)
     }
-    
-    /// number为NSNumber/String
-    static func localizedString(_ style: NumberFormatter.Style = .none, from number: Any) -> String? {
-        if let obj = number as? NSNumber {
-            return NumberFormatter.localizedString(from: obj, number: style);
-        }
-
-        guard let obj = number as? String else { return nil }
-
-        let set = CharacterSet(charactersIn: kSetFloat).inverted
-        let result = obj.components(separatedBy: set).joined(separator: "")
-        if result.count > 0 {
-            return NumberFormatter.localizedString(from: NSNumber(value: result.floatValue), number: style);
-        }
-        return nil
-    }
-   
-    
+       
+    ///最小整数和最大小数
     func digits(_ miniIntegerDigits: Int = 1,
                       minFractionDigits: Int = 2,
                       maxFractionDigits: Int = 2) -> Self {
