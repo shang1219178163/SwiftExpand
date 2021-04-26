@@ -155,13 +155,18 @@ Swift SDK功能拓展 , Objective-C && Swift
     @objc public extension UIViewController {
     
         /// 呈现    
-        public func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+        func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
             guard let keyWindow = UIApplication.shared.keyWindow,
                   let rootVC = keyWindow.rootViewController
                   else { return }
-    
+            if let presentedViewController = rootVC.presentedViewController {
+                presentedViewController.dismiss(animated: false, completion: nil)
+            }
+            
+            self.modalPresentationStyle = .fullScreen
             DispatchQueue.main.async {
-                if let alertVC = self as? UIAlertController {
+                switch self {
+                case let alertVC as UIAlertController:
                     if alertVC.preferredStyle == .alert {
                         if alertVC.actions.count == 0 {
                             rootVC.present(alertVC, animated: animated, completion: {
@@ -169,30 +174,30 @@ Swift SDK功能拓展 , Objective-C && Swift
                                     alertVC.dismiss(animated: animated, completion: completion)
                                 })
                             })
-                        } else {
-                            rootVC.present(alertVC, animated: animated, completion: completion)
+                            return
                         }
+                        rootVC.present(alertVC, animated: animated, completion: completion)
                     } else {
                         //防止 ipad 下 sheet 会崩溃的问题
                         if UIDevice.current.userInterfaceIdiom == .pad {
-                            if let popoverPresentationController = alertVC.popoverPresentationController {
-                                popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-                                popoverPresentationController.sourceView = keyWindow;
+                            if let controller = alertVC.popoverPresentationController {
+                                controller.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+                                controller.sourceView = keyWindow;
                                 
-                                let isEmpty = popoverPresentationController.sourceRect.equalTo(.null) || popoverPresentationController.sourceRect.equalTo(.zero)
+                                let isEmpty = controller.sourceRect.equalTo(.null) || controller.sourceRect.equalTo(.zero)
                                 if isEmpty {
-                                    popoverPresentationController.sourceRect = CGRect(x: keyWindow.bounds.midX, y: 64, width: 1, height: 1);
+                                    controller.sourceRect = CGRect(x: keyWindow.bounds.midX, y: 64, width: 1, height: 1);
                                 }
                             }
                         }
                         rootVC.present(alertVC, animated: animated, completion: completion)
                     }
-                } else {
+                    
+                default:
                     rootVC.present(self, animated: animated, completion: completion)
                 }
             }
-        }
-    
+        } 
         ///判断上一页是哪个页面
         public func pushFromVC(_ type: UIViewController.Type) -> Bool {
             
@@ -226,181 +231,181 @@ Swift SDK功能拓展 , Objective-C && Swift
     
 **UIView 手势**
 
+    @objc public extension UIView {
         ///手势 - 轻点 UITapGestureRecognizer
-    @discardableResult
-    public func addGestureTap(_ target: Any?, action: Selector?) -> UITapGestureRecognizer {
-        let obj = UITapGestureRecognizer(target: target, action: action)
-        obj.numberOfTapsRequired = 1  //轻点次数
-        obj.numberOfTouchesRequired = 1  //手指个数
-
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-        return obj
-    }
+        @discardableResult
+        func addGestureTap(_ target: Any?, action: Selector?) -> UITapGestureRecognizer {
+            let obj = UITapGestureRecognizer(target: target, action: action)
+            obj.numberOfTapsRequired = 1  //轻点次数
+            obj.numberOfTouchesRequired = 1  //手指个数
     
-    ///手势 - 轻点 UITapGestureRecognizer
-    @discardableResult
-    public func addGestureTap(_ action: @escaping RecognizerClosure) -> UITapGestureRecognizer {
-        let obj = UITapGestureRecognizer(target: nil, action: nil)
-        obj.numberOfTapsRequired = 1  //轻点次数
-        obj.numberOfTouchesRequired = 1  //手指个数
-
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-
-        obj.addAction { (recognizer) in
-            action(recognizer)
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+            return obj
         }
-        return obj
-    }
+        
+        ///手势 - 轻点 UITapGestureRecognizer
+        @discardableResult
+        func addGestureTap(_ action: @escaping ((UITapGestureRecognizer) ->Void)) -> UITapGestureRecognizer {
+            let obj = UITapGestureRecognizer(target: nil, action: nil)
+            obj.numberOfTapsRequired = 1  //轻点次数
+            obj.numberOfTouchesRequired = 1  //手指个数
     
-    ///手势 - 长按 UILongPressGestureRecognizer
-    @discardableResult
-    public func addGestureLongPress(_ target: Any?, action: Selector?, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
-        let obj = UILongPressGestureRecognizer(target: target, action: action)
-        obj.minimumPressDuration = minimumPressDuration;
-      
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-        return obj
-    }
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
     
-    ///手势 - 长按 UILongPressGestureRecognizer
-    @discardableResult
-    public func addGestureLongPress(_ action: @escaping RecognizerClosure, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
-        let obj = UILongPressGestureRecognizer(target: nil, action: nil)
-        obj.minimumPressDuration = minimumPressDuration;
-      
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-      
-        obj.addAction { (recognizer) in
-            action(recognizer)
+            obj.addAction(action)
+            return obj
         }
-        return obj
-    }
-      
-    ///手势 - 拖拽 UIPanGestureRecognizer
-    @discardableResult
-    public func addGesturePan(_ action: @escaping RecognizerClosure) -> UIPanGestureRecognizer {
-        let obj = UIPanGestureRecognizer(target: nil, action: nil)
-          //最大最小的手势触摸次数
-        obj.minimumNumberOfTouches = 1
-        obj.maximumNumberOfTouches = 3
+        
+        ///手势 - 长按 UILongPressGestureRecognizer
+        @discardableResult
+        func addGestureLongPress(_ target: Any?, action: Selector?, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
+            let obj = UILongPressGestureRecognizer(target: target, action: action)
+            obj.minimumPressDuration = minimumPressDuration;
           
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+            return obj
+        }
+        
+        ///手势 - 长按 UILongPressGestureRecognizer
+        @discardableResult
+        func addGestureLongPress(_ action: @escaping ((UILongPressGestureRecognizer) ->Void), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
+            let obj = UILongPressGestureRecognizer(target: nil, action: nil)
+            obj.minimumPressDuration = minimumPressDuration;
           
-        obj.addAction { (recognizer) in
-            if let sender = recognizer as? UIPanGestureRecognizer {
-                let translate:CGPoint = sender.translation(in: sender.view?.superview)
-                sender.view!.center = CGPoint(x: sender.view!.center.x + translate.x, y: sender.view!.center.y + translate.y)
-                sender.setTranslation( .zero, in: sender.view!.superview)
-                             
-                action(recognizer)
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+          
+            obj.addAction { (recognizer) in
+                action(recognizer as! UILongPressGestureRecognizer)
             }
+            return obj
         }
-        return obj
-    }
-      
-    ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
-    @discardableResult
-    public func addGestureEdgPan(_ target: Any?, action: Selector?, for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
-        let obj = UIScreenEdgePanGestureRecognizer(target: target, action: action)
-        obj.edges = edgs
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-        return obj
+          
+        ///手势 - 拖拽 UIPanGestureRecognizer
+        @discardableResult
+        func addGesturePan(_ action: @escaping ((UIPanGestureRecognizer) ->Void)) -> UIPanGestureRecognizer {
+            let obj = UIPanGestureRecognizer(target: nil, action: nil)
+              //最大最小的手势触摸次数
+            obj.minimumNumberOfTouches = 1
+            obj.maximumNumberOfTouches = 3
+              
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+              
+            obj.addAction { (recognizer) in
+                if let gesture = recognizer as? UIPanGestureRecognizer {
+                    let translate: CGPoint = gesture.translation(in: gesture.view?.superview)
+                    gesture.view!.center = CGPoint(x: gesture.view!.center.x + translate.x, y: gesture.view!.center.y + translate.y)
+                    gesture.setTranslation( .zero, in: gesture.view!.superview)
+                                 
+                    action(gesture)
+                }
+            }
+            return obj
+        }
+          
+        ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
+        @discardableResult
+        func addGestureEdgPan(_ target: Any?, action: Selector?, for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
+            let obj = UIScreenEdgePanGestureRecognizer(target: target, action: action)
+            obj.edges = edgs
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+            return obj
+        }
+        
+        ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
+        @discardableResult
+        func addGestureEdgPan(_ action: @escaping ((UIScreenEdgePanGestureRecognizer) ->Void), for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
+            let obj = UIScreenEdgePanGestureRecognizer(target: nil, action: nil)
+            obj.edges = edgs
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+           
+            obj.addAction { (recognizer) in
+                action(recognizer as! UIScreenEdgePanGestureRecognizer)
+            }
+            return obj
+        }
+          
+        ///手势 - 清扫 UISwipeGestureRecognizer
+        @discardableResult
+        func addGestureSwip(_ target: Any?, action: Selector?, for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
+            let obj = UISwipeGestureRecognizer(target: target, action: action)
+            obj.direction = direction
+          
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+            return obj
+        }
+        
+        ///手势 - 清扫 UISwipeGestureRecognizer
+        @discardableResult
+        func addGestureSwip(_ action: @escaping ((UISwipeGestureRecognizer) ->Void), for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
+            let obj = UISwipeGestureRecognizer(target: nil, action: nil)
+            obj.direction = direction
+          
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+          
+            obj.addAction { (recognizer) in
+                action(recognizer as! UISwipeGestureRecognizer)
+            }
+            return obj
+        }
+          
+        ///手势 - 捏合 UIPinchGestureRecognizer
+        @discardableResult
+        func addGesturePinch(_ action: @escaping ((UIPinchGestureRecognizer) ->Void)) -> UIPinchGestureRecognizer {
+            let obj = UIPinchGestureRecognizer(target: nil, action: nil)
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+          
+            obj.addAction { (recognizer) in
+                if let gesture = recognizer as? UIPinchGestureRecognizer {
+                    let location = recognizer.location(in: gesture.view!.superview)
+                    gesture.view!.center = location;
+                    gesture.view!.transform = gesture.view!.transform.scaledBy(x: gesture.scale, y: gesture.scale)
+                    gesture.scale = 1.0
+                    action(gesture)
+                }
+            }
+            return obj
+        }
+        
+        ///手势 - 旋转 UIRotationGestureRecognizer
+        @discardableResult
+        func addGestureRotation(_ action: @escaping ((UIRotationGestureRecognizer) ->Void)) -> UIRotationGestureRecognizer {
+            let obj = UIRotationGestureRecognizer(target: nil, action: nil)
+            isUserInteractionEnabled = true
+            isMultipleTouchEnabled = true
+            addGestureRecognizer(obj)
+          
+            obj.addAction { (recognizer) in
+                if let gesture = recognizer as? UIRotationGestureRecognizer {
+                    gesture.view!.transform = gesture.view!.transform.rotated(by: gesture.rotation)
+                    gesture.rotation = 0.0;
+                              
+                    action(gesture)
+                }
+            }
+            return obj
+        }
     }
     
-    ///手势 - 屏幕边缘 UIScreenEdgePanGestureRecognizer
-    @discardableResult
-    public func addGestureEdgPan(_ action: @escaping RecognizerClosure, for edgs: UIRectEdge) -> UIScreenEdgePanGestureRecognizer {
-        let obj = UIScreenEdgePanGestureRecognizer(target: nil, action: nil)
-        obj.edges = edgs
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-       
-        obj.addAction { (recognizer) in
-            action(recognizer)
-        }
-        return obj
-    }
-      
-    ///手势 - 清扫 UISwipeGestureRecognizer
-    @discardableResult
-    public func addGestureSwip(_ target: Any?, action: Selector?, for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
-        let obj = UISwipeGestureRecognizer(target: target, action: action)
-        obj.direction = direction
-      
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-        return obj
-    }
-    
-    ///手势 - 清扫 UISwipeGestureRecognizer
-    @discardableResult
-    public func addGestureSwip(_ action: @escaping RecognizerClosure, for direction: UISwipeGestureRecognizer.Direction) -> UISwipeGestureRecognizer {
-        let obj = UISwipeGestureRecognizer(target: nil, action: nil)
-        obj.direction = direction
-      
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-      
-        obj.addAction { (recognizer) in
-            action(recognizer)
-        }
-        return obj
-    }
-      
-    ///手势 - 捏合 UIPinchGestureRecognizer
-    @discardableResult
-    public func addGesturePinch(_ action: @escaping RecognizerClosure) -> UIPinchGestureRecognizer {
-        let obj = UIPinchGestureRecognizer(target: nil, action: nil)
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-      
-        obj.addAction { (recognizer) in
-            if let sender = recognizer as? UIPinchGestureRecognizer {
-                let location = recognizer.location(in: sender.view!.superview)
-                sender.view!.center = location;
-                sender.view!.transform = sender.view!.transform.scaledBy(x: sender.scale, y: sender.scale)
-                sender.scale = 1.0
-                action(recognizer)
-            }
-        }
-        return obj
-    }
-    
-    ///手势 - 旋转 UIRotationGestureRecognizer
-    @discardableResult
-    public func addGestureRotation(_ action: @escaping RecognizerClosure) -> UIRotationGestureRecognizer {
-        let obj = UIRotationGestureRecognizer(target: nil, action: nil)
-        isUserInteractionEnabled = true
-        isMultipleTouchEnabled = true
-        addGestureRecognizer(obj)
-      
-        obj.addAction { (recognizer) in
-            if let sender = recognizer as? UIRotationGestureRecognizer {
-                sender.view!.transform = sender.view!.transform.rotated(by: sender.rotation)
-                sender.rotation = 0.0;
-                          
-                action(recognizer)
-            }
-        }
-        return obj
-    }
-
     extension Array where Element : UIView {
         ///手势 - 轻点 UITapGestureRecognizer
         @discardableResult
@@ -629,9 +634,113 @@ Swift SDK功能拓展 , Objective-C && Swift
         }
     }
 
+    @objc public extension NSMutableParagraphStyle{
+        
+        func lineSpacing(_ value: CGFloat) -> Self {
+            self.lineSpacing = value
+            return self
+        }
+        
+        func paragraphSpacing(_ value: CGFloat) -> Self {
+            self.paragraphSpacing = value
+            return self
+        }
+        
+        func alignment(_ value: NSTextAlignment) -> Self {
+            self.alignment = value
+            return self
+        }
+        
+        func firstLineHeadIndent(_ value: CGFloat) -> Self {
+            self.firstLineHeadIndent = value
+            return self
+        }
+        
+        func headIndent(_ value: CGFloat) -> Self {
+            self.headIndent = value
+            return self
+        }
+        
+        func tailIndent(_ value: CGFloat) -> Self {
+            self.tailIndent = value
+            return self
+        }
+        
+        func lineBreakMode(_ value: NSLineBreakMode) -> Self {
+            self.lineBreakMode = value
+            return self
+        }
+        
+        func minimumLineHeight(_ value: CGFloat) -> Self {
+            self.minimumLineHeight = value
+            return self
+        }
+        
+        func maximumLineHeight(_ value: CGFloat) -> Self {
+            self.maximumLineHeight = value
+            return self
+        }
+        
+        func baseWritingDirection(_ value: NSWritingDirection) -> Self {
+            self.baseWritingDirection = value
+            return self
+        }
+        
+        func lineHeightMultiple(_ value: CGFloat) -> Self {
+            self.lineHeightMultiple = value
+            return self
+        }
+        
+        func paragraphSpacingBefore(_ value: CGFloat) -> Self {
+            self.paragraphSpacingBefore = value
+            return self
+        }
+        
+        func hyphenationFactor(_ value: Float) -> Self {
+            self.hyphenationFactor = value
+            return self
+        }
+        
+        func tabStops(_ value: [NSTextTab]) -> Self {
+            self.tabStops = value
+            return self
+        }
+        
+        func defaultTabInterval(_ value: CGFloat) -> Self {
+            self.defaultTabInterval = value
+            return self
+        }
+        
+        func allowsDefaultTighteningForTruncation(_ value: Bool) -> Self {
+            self.allowsDefaultTighteningForTruncation = value
+            return self
+        }
+        
+        func lineBreakStrategy(_ value: NSParagraphStyle.LineBreakStrategy) -> Self {
+            self.lineBreakStrategy = value
+            return self
+        }
+            
+        func addTabStopChain(_ value: NSTextTab) -> Self {
+            self.addTabStop(value)
+            return self
+        }
+        
+        func removeTabStopChain(_ value: NSTextTab) -> Self {
+            self.removeTabStop(value)
+            return self
+        }
+        
+        func setParagraphStyleChain(_ value: NSParagraphStyle) -> Self {
+            self.setParagraphStyle(value)
+            return self
+        }
+    }
+
+
     
 ##  Requirements
-    s.ios.deployment_target = '8.0'
+    s.ios.deployment_target = '9.0'
     s.swift_version = "5.0"
     
 ##  Author
