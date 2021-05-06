@@ -36,11 +36,10 @@ import UIKit
         return marr
     }
     
-    func setColors(
-        background: UIColor? = nil,
-        selectedBackground: UIColor? = nil,
-        item: UIColor? = nil,
-        selectedItem: UIColor? = nil) {
+    func setColors(background: UIColor? = nil,
+                   selectedBackground: UIColor? = nil,
+                   item: UIColor? = nil,
+                   selectedItem: UIColor? = nil) {
         // background
         barTintColor = background ?? barTintColor
 

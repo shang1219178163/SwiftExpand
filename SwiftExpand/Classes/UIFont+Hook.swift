@@ -21,7 +21,6 @@ import UIKit
             let oriSel = #selector(systemFont(ofSize:))
             let repSel = #selector(swz_systemFont(ofSize:))
             hookInstanceMethod(of: oriSel, with: repSel);
-            
         }
     }
     

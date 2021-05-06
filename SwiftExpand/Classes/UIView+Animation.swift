@@ -11,10 +11,10 @@ import UIKit
 @objc public extension UIView{
     
     func animRotation(fromValue: Double = 0,
-                            toValue: Double = Double.pi * 2,
-                            duration: Double = Double(kDurationRotation),
-                            repeatCount: Float = MAXFLOAT,
-                            key: String?) {
+                      toValue: Double = Double.pi * 2,
+                      duration: Double = Double(kDurationRotation),
+                      repeatCount: Float = MAXFLOAT,
+                      key: String?) {
         // 1.创建动画
         let anim = CABasicAnimation(keyPath: "transform.rotation.z")
         
@@ -30,9 +30,9 @@ import UIKit
     }
     
     func animRotation(isClockwise: Bool = true,
-                            duration: Double = Double(kDurationRotation),
-                            repeatCount: Float = MAXFLOAT,
-                            key: String? = nil) {
+                      duration: Double = Double(kDurationRotation),
+                      repeatCount: Float = MAXFLOAT,
+                      key: String? = nil) {
         let fromValue = isClockwise == true ? 0 : Double.pi * 2;
         let toValue = isClockwise == true ? Double.pi * 2 : 0;
         animRotation(fromValue: fromValue, toValue: toValue, duration: duration, repeatCount: repeatCount, key: key);
