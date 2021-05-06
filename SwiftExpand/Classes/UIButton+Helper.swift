@@ -87,28 +87,26 @@ import UIKit
 //
 //        self.frame = frame
 //    }
-    
-    /// 创建导航栏按钮(UIButton)
-    static func createBtnBarItem(_ obj: String) -> Self {
+    ///创建 UIBarButtonItem(customView
+    convenience init(barItem obj: String){
         var size = CGSize(width: 32, height: 32)
-        if let _ = UIImage(named: obj) {
+        if UIImage(named: obj) != nil {
             size = CGSize(width: 40, height: 40)
         }
-        
-        let view = self.init(type: .custom);
-        view.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height);
-        view.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+                
+        self.init(type: .custom);
+        self.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height);
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         
         if let image = UIImage(named: obj) {
-            view.setImage(image, for: .normal);
+            self.setImage(image, for: .normal);
         } else {
-            view.setTitle(obj, for: .normal);
-            if obj.count == 4{
-                view.titleLabel?.adjustsFontSizeToFitWidth = true;
-                view.titleLabel?.minimumScaleFactor = 1;
+            self.setTitle(obj, for: .normal);
+            if obj.count >= 4{
+                self.titleLabel?.adjustsFontSizeToFitWidth = true;
+                self.titleLabel?.minimumScaleFactor = 1;
             }
         }
-        return view
     }
     
     /// [源]UIButton创建(标题)
@@ -127,28 +125,6 @@ import UIKit
         view.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
         
         CGRect.zero != rect ? view.frame = rect : view.sizeToFit()
-        return view
-    }
-    /// [源]UIButton创建(图像)
-    static func create(_ rect: CGRect = .zero, imgName: String, isBackgroudImage: Bool) -> Self {
-        assert(UIImage(named: imgName) != nil, "图像不能为空")
-
-        let view = self.init(type: .custom);
-        view.titleLabel?.font = UIFont.systemFont(ofSize:16);
-        view.titleLabel?.adjustsFontSizeToFitWidth = true;
-        view.titleLabel?.minimumScaleFactor = 1.0;
-        view.imageView?.contentMode = .scaleAspectFit
-        view.isExclusiveTouch = true;
-        view.adjustsImageWhenHighlighted = false;
-
-        view.frame = rect;
-        if let image = UIImage(named: imgName){
-            if isBackgroudImage {
-                view.setBackgroundImage(image, for: .disabled)
-            } else {
-                view.setImage(image, for: .normal)
-            }
-        }
         return view
     }
         

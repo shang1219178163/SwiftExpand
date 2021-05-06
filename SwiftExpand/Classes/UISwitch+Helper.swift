@@ -24,29 +24,25 @@ import UIKit
             block(sender);
         }
     }
-    
 
     /// [源]UISwitch创建
-    static func create(_ rect: CGRect = .zero, isOn: Bool = true) -> Self {
-        let view = self.init(frame: rect)
-        view.autoresizingMask = .flexibleWidth
-        view.isOn = isOn
-        view.onTintColor = UIColor.theme
-        return view
+    convenience init(rect: CGRect = .zero, isOn: Bool = true) {
+        self.init(frame: rect)
+        self.autoresizingMask = .flexibleWidth
+        self.isOn = isOn
+        self.onTintColor = UIColor.theme
     }
 }
 
 @objc public extension UIDatePicker{
-
-    /// [源]UIDatePicker创建
-    static func create(_ rect: CGRect = .zero) -> Self {
-        let view = self.init(frame: rect)
-        view.datePickerMode = .date;
-        view.locale = Locale(identifier: "zh_CN");
-        view.backgroundColor = UIColor.white;
+    
+    convenience init(rect: CGRect = .zero, isOn: Bool = true) {
+        self.init(frame: rect)
+        self.datePickerMode = .date;
+        self.locale = Locale(identifier: "zh_CN");
+        self.backgroundColor = UIColor.white;
         if #available(iOS 13.4, *) {
-            view.preferredDatePickerStyle = .wheels
+            self.preferredDatePickerStyle = .wheels
         }
-        return view
     }
 }

@@ -75,7 +75,6 @@ import UIKit
         }
     }
     
-    
     /// 消失
     func dismissVC(_ animated: Bool = true, completion: (() -> Void)? = nil) {
         guard let keyWindow = UIApplication.shared.keyWindow,
@@ -254,28 +253,29 @@ import UIKit
     }
     
     ///呈现popover
-    func presentPopover(_ popoverContentVC: UIViewController,
-                             sender: UIView,
-                             arrowDirection: UIPopoverArrowDirection = .any,
-                             completion: (() -> Void)? = nil){
-        if popoverContentVC.presentingViewController != nil {
+    func presentPopover(_ contentVC: UIViewController,
+                        sender: UIView,
+                        arrowDirection: UIPopoverArrowDirection = .any,
+                        offset: UIOffset = .zero,
+                        completion: (() -> Void)? = nil){
+        if contentVC.presentingViewController != nil {
             return
         }
         
-        popoverContentVC.modalPresentationStyle = .popover
+        contentVC.modalPresentationStyle = .popover
 
         guard let superview = sender.superview else { return }
         let sourceRect = superview.convert(sender.frame, to: self.view)
         
-        guard let popoverPresentationVC = popoverContentVC.popoverPresentationController else { return }
+        guard let popoverPresentationVC = contentVC.popoverPresentationController else { return }
         popoverPresentationVC.permittedArrowDirections = arrowDirection
         popoverPresentationVC.sourceView = self.view
-        popoverPresentationVC.sourceRect = sourceRect
+        popoverPresentationVC.sourceRect = sourceRect.offsetBy(dx: offset.horizontal, dy: offset.vertical)
         if conforms(to: UIPopoverPresentationControllerDelegate.self) {
             popoverPresentationVC.delegate = self as? UIPopoverPresentationControllerDelegate
         }
 //        present(popoverContentVC, animated: true, completion: completion)
-        popoverContentVC.present(true, completion: completion)
+        contentVC.present(true, completion: completion)
     }
     
     ///左滑返回按钮(viewDidAppear/viewWillDisappear)

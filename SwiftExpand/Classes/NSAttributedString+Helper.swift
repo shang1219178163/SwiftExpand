@@ -21,10 +21,11 @@ import UIKit
                 
     /// 富文本特殊部分配置字典
     static func attrDict(_ font: UIFont = UIFont.systemFont(ofSize:15), textColor: UIColor = .theme) -> [NSAttributedString.Key: Any] {
-        let dic = [NSAttributedString.Key.font: font,
-                   NSAttributedString.Key.foregroundColor: textColor,
-                   NSAttributedString.Key.backgroundColor: UIColor.clear,
-                   ];
+        let dic: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: textColor,
+            .backgroundColor: UIColor.clear,
+        ];
         return dic;
     }
     
@@ -81,20 +82,22 @@ import UIKit
             .lineSpacing(lineSpacing)
             .alignment(alignment)
 
-        let attDic = [NSAttributedString.Key.font: font,
-                      NSAttributedString.Key.foregroundColor: color,
-                      NSAttributedString.Key.backgroundColor: UIColor.clear,
-                      NSAttributedString.Key.paragraphStyle: paraStyle,
-                    ];
+        let attDic: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: color,
+            .backgroundColor: UIColor.clear,
+            .paragraphStyle: paraStyle,
+        ];
         
         let attString = NSMutableAttributedString(string: text, attributes: attDic)
         textTaps.forEach { ( textTap: String) in
             let nsRange = (text as NSString).range(of: textTap, options: mask)
 
-            let attDic = [NSAttributedString.Key.font: tapFont,
-                          NSAttributedString.Key.foregroundColor: tapColor,
-                          NSAttributedString.Key.backgroundColor: UIColor.clear,
-                        ];
+            let attDic: [NSAttributedString.Key: Any] = [
+                .font: tapFont,
+                .foregroundColor: tapColor,
+                .backgroundColor: UIColor.clear,
+            ];
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString

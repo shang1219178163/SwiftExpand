@@ -9,14 +9,9 @@
 import UIKit
 
 // 定义数据类型(其实就是设置别名)
-
-public typealias ViewClosure = ((UITapGestureRecognizer?, UIView, NSInteger) ->Void)
-
-
-public typealias CellHeightForRowClosure = ((UITableView, IndexPath) ->CGFloat)
 public typealias CellForRowClosure = ((UITableView, IndexPath) ->UITableViewCell?)
 public typealias DidSelectRowClosure = ((UITableView, IndexPath) ->Void)
-
+//
 public typealias CellForItemClosure = ((UICollectionView, IndexPath) ->UICollectionViewCell?)
 public typealias DidSelectItemClosure = ((UICollectionView, IndexPath) ->Void)
 

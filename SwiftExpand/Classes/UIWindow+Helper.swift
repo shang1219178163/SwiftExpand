@@ -15,7 +15,7 @@ import UIKit
         animated: Bool = true,
         duration: TimeInterval = 0.5,
         functionName: CAMediaTimingFunctionName = .easeIn,
-        _ completion: (() -> Void)? = nil) {
+        completion: (() -> Void)? = nil) {
         guard animated else {
             rootViewController = viewController
             completion?()

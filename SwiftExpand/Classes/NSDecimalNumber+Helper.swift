@@ -45,4 +45,5 @@ import UIKit
         let result: NSDecimalNumber = block(initial).rounding(accordingToBehavior: handler)
         return result
     }
+
 }

@@ -20,6 +20,10 @@ import UIKit
          assert(b >= 0 && b <= 255, "Invalid blue component")
          self.init(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: a)
     }
+    /// 获取某种颜色Alpha下的色彩
+    func alpha(_ a: CGFloat = 1.0) -> UIColor{
+        return withAlphaComponent(a)
+    }
     
     ///判断颜色深浅
     var isDark: Bool{
@@ -160,12 +164,7 @@ import UIKit
         let b = arc4random_uniform(256);
         return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(1.0));
     }
-    
-    /// 获取某种颜色Alpha下的色彩
-    func alpha(_ a: CGFloat = 1.0) -> UIColor{
-        return withAlphaComponent(a)
-    }
-        
+            
     /// 两个颜色是否相等
     func equalTo(_ c2: UIColor) -> Bool {
         // some kind of weird rounding made the colors unequal so had to compare like this

@@ -10,7 +10,7 @@ import UIKit
 @objc public extension UISlider{
 
     private struct AssociateKeys {
-        static var closure   = "UISlider" + "closure"
+        static var closure = "UISlider" + "closure"
     }
     /// UIControl 添加回调方式
     override func addActionHandler(_ action: @escaping ((UISlider) ->Void), for controlEvents: UIControl.Event = .valueChanged) {
@@ -26,15 +26,13 @@ import UIKit
     }
     
     /// [源]UISlider创建
-    static func create(_ rect: CGRect = .zero, minValue: Float = 0, maxValue: Float = 100) -> Self {
-        let view = self.init(frame: rect)
-        view.autoresizingMask = .flexibleWidth
-        view.minimumValue = minValue
-        view.maximumValue = maxValue
-        view.value = minValue
-        
-        view.minimumTrackTintColor = UIColor.theme
-        return view;
+    convenience init(rect: CGRect = .zero, minValue: Float = 0, maxValue: Float = 100) {
+        self.init(frame: rect)
+        self.autoresizingMask = .flexibleWidth
+        self.minimumValue = minValue
+        self.maximumValue = maxValue
+        self.value = minValue
+        self.minimumTrackTintColor = UIColor.theme
     }
     
     func setValue(_ value: Float, animated: Bool = true, duration: TimeInterval = 1, completion: (() -> Void)? = nil) {

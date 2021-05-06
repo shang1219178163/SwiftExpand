@@ -10,23 +10,22 @@ import UIKit
 
 @objc public extension CALayer{
     
+    convenience init(contents: Any?) {
+        self.init()
+        self.contents = contents
+        self.contentsScale = UIScreen.main.scale
+        self.rasterizationScale = UIScreen.main.scale
+        self.shouldRasterize = true
+    }
+    
     ///添加边框线
-    func addRoundLine(_ width: CGFloat = 1, color: UIColor, cornerRadius: CGFloat = 3) {
+    func addOutline(_ width: CGFloat = 1, color: UIColor, cornerRadius: CGFloat = 3) {
         self.borderColor = color.cgColor;
         self.borderWidth = width;
         self.cornerRadius = cornerRadius
         self.masksToBounds = true
     }
-    /// [源]创建 CALayer
-    static func create(_ rect: CGRect = .zero, contents: Any?) -> Self {
-        let layer = self.init()
-        layer.frame = rect
-        layer.contents = contents
-        layer.contentsScale = UIScreen.main.scale
-        layer.rasterizationScale = UIScreen.main.scale
-        layer.shouldRasterize = true
-        return layer
-    }
+    
     /// 线条位置
     func rectWithLine(type: Int = 0, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CGRect {
         var rect = CGRect.zero;
@@ -81,6 +80,16 @@ import UIKit
         anim.autoreverses = true
         //将动画添加到layer
         self.add(anim, forKey: nil)
+    }
+    
+    func shake() {
+        let anim = CABasicAnimation(keyPath: "position")
+        anim.duration = 0.05
+        anim.repeatCount = 5
+        anim.autoreverses = true
+        anim.fromValue = NSValue(cgPoint: CGPoint(x: position.x - 4.0, y: position.y))
+        anim.toValue = NSValue(cgPoint: CGPoint(x: position.x + 4.0,  y: position.y))
+        self.add(anim, forKey: "position")
     }
     
     ///添加阴影

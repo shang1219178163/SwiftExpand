@@ -58,17 +58,17 @@ import UIKit
         }
     }
     
-    var origin: CGPoint {
-        get {
-            return frame.origin
-        }
-        set {
-//            frame.origin = newValue
-            var rectTmp = frame;
-            rectTmp.origin = newValue;
-            frame = rectTmp;
-        }
-    }
+//    var origin: CGPoint {
+//        get {
+//            return frame.origin
+//        }
+//        set {
+////            frame.origin = newValue
+//            var rectTmp = frame;
+//            rectTmp.origin = newValue;
+//            frame = rectTmp;
+//        }
+//    }
     
     var minX: CGFloat {
         return frame.minX
@@ -99,25 +99,17 @@ import UIKit
     /// 图层调试
     func getViewLayer(lineColor: UIColor = .blue) {
         #if DEBUG
-            let subviews = self.subviews;
-            if subviews.count == 0 {
-                return;
-            }
             for subview in subviews {
                 subview.layer.borderWidth = kW_LayerBorder;
                 subview.layer.borderColor = lineColor.cgColor;
                 subview.getViewLayer(lineColor: lineColor)
             }
-         #endif
+        #endif
     }
     
     /// 图层调试(兼容OC)
     func getViewLayer() {
         #if DEBUG
-        let subviews = self.subviews;
-        if subviews.count == 0 {
-            return;
-        }
         for subview in subviews {
             subview.layer.borderWidth = kW_LayerBorder;
             subview.layer.borderColor = UIColor.blue.cgColor;
@@ -207,25 +199,25 @@ import UIKit
 //    }
     
     //MARK: -通用响应添加方法
-    func addActionClosure(_ action: @escaping ViewClosure) {
-        if let sender = self as? UIButton {
-            sender.addActionHandler({ (control) in
-                action(nil, control, control.tag);
-
-            }, for: .touchUpInside)
-        }
-        else if let sender = self as? UIControl {
-            sender.addActionHandler({ (control) in
-                action(nil, control, control.tag);
-
-            }, for: .valueChanged)
-            
-        } else {
-            _ = self.addGestureTap { (reco) in
-                action(reco, reco.view!, reco.view!.tag);
-            }
-        }
-    }
+//    func addActionClosure(_ action: @escaping ViewClosure) {
+//        if let sender = self as? UIButton {
+//            sender.addActionHandler({ (control) in
+//                action(nil, control, control.tag);
+//
+//            }, for: .touchUpInside)
+//        }
+//        else if let sender = self as? UIControl {
+//            sender.addActionHandler({ (control) in
+//                action(nil, control, control.tag);
+//
+//            }, for: .valueChanged)
+//            
+//        } else {
+//            _ = self.addGestureTap { (reco) in
+//                action(reco, reco.view!, reco.view!.tag);
+//            }
+//        }
+//    }
     
     ///手势 - 轻点 UITapGestureRecognizer
     @discardableResult
@@ -436,7 +428,7 @@ import UIKit
     }
     
     /// 获取特定类型父视图
-    public func findSupView(_ type: UIView.Type) -> UIView? {
+    func findSupView(_ type: UIView.Type) -> UIView? {
         var supView = superview
         while supView != nil {
             if supView!.isKind(of: type) {

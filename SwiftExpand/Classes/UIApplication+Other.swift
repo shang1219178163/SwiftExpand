@@ -84,24 +84,28 @@ import Photos
                           handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
         
         var notiTrigger: UNNotificationTrigger?
-        if let date = trigger as? NSDate {
-            var interval = date.timeIntervalSince1970 - NSDate().timeIntervalSince1970;
+        switch trigger {
+        case let value as NSDate:
+            var interval = value.timeIntervalSince1970 - NSDate().timeIntervalSince1970;
             interval = interval < 0 ? 1 : interval;
-            
             notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: repeats)
-        } else if let components = trigger as? DateComponents {
-            notiTrigger = UNCalendarNotificationTrigger(dateMatching: components as DateComponents, repeats: repeats)
             
-        } else if let region = trigger as? CLCircularRegion {
-            notiTrigger = UNLocationNotificationTrigger(region: region, repeats: repeats)
-            
+        case let value as DateComponents:
+            notiTrigger = UNCalendarNotificationTrigger(dateMatching: value, repeats: repeats)
+
+        case let value as CLCircularRegion:
+            notiTrigger = UNLocationNotificationTrigger(region: value, repeats: repeats)
+
+        default:
+            break
         }
         
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: notiTrigger)
         let center = UNUserNotificationCenter.current()
-        
         center.add(request) { (error) in
-            if error == nil {
+            handler?(center, request, error as NSError?)
+            DDLog("推送添加失败\(error.debugDescription)");
+            if error != nil {
                 return;
             }
             DDLog("推送已添加成功");
@@ -189,20 +193,14 @@ import Photos
 @available(iOS 10.0, *)
 @objc public extension UNMutableNotificationContent{
     ///创建本地通知
-    func create(_ title: String, body: String, userInfo: [AnyHashable : Any], sound: UNNotificationSound = .default) -> UNMutableNotificationContent {
-        // 1. 创建通知内容
-        let content = UNMutableNotificationContent()
-        // 标题
-        content.title = title
-        // 内容
-        content.body = body
-        
-        content.userInfo = userInfo
-        // 通知提示音
-        content.sound = sound
-        
-        return content
+    convenience init(_ title: String, body: String, userInfo: [AnyHashable : Any], sound: UNNotificationSound = .default) {
+        self.init()
+        self.title = title
+        self.body = body
+        self.userInfo = userInfo
+        self.sound = sound
     }
+    
     ///添加TimeInterval本地通知到通知中心
     func addTimeIntervalRequestToCenter(_ timeInterval: TimeInterval = 1,
                                         repeats: Bool = false,
@@ -210,7 +208,6 @@ import Photos
         let identifier = DateFormatter.stringFromDate(Date())
         /// 几秒后触发，如果要设置可重复触发需要大于60
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: repeats)
-
         let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
         
         let center = UNUserNotificationCenter.current()
@@ -228,7 +225,6 @@ import Photos
         let identifier = DateFormatter.stringFromDate(Date())
         ///某年某月某日某天某时某分某秒触发
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: repeats)
-        
         let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
         
         let center = UNUserNotificationCenter.current()
@@ -246,7 +242,6 @@ import Photos
         let identifier = DateFormatter.stringFromDate(Date())
         ///在某个位置触发
         let trigger = UNLocationNotificationTrigger(region: region, repeats: repeats)
-        
         let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
         
         let center = UNUserNotificationCenter.current()

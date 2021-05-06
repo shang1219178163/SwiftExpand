@@ -12,55 +12,65 @@
 import UIKit
 
 @objc public extension UILabel{
+    
+    convenience init(textColor: UIColor = .black, textAlignment: NSTextAlignment = .left) {
+        self.init();
+        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.isUserInteractionEnabled = true;
+        self.textAlignment = textAlignment;
+        self.textColor = textColor
+    }
+    
+    ///自定义按钮类型
+    @objc enum LabelShowType: Int {
+            ///多行
+        case numLines = 0
+            ///主题色底白字
+        case oneLine
+            ///带边框
+        case titleAndOutline
+            ///白底(带边框)
+        case titleAndOutlineRadius
+    }
+    
+    func setLabelType(_ type: UILabel.LabelShowType) {
+        switch type {
+        case .oneLine:
+            numberOfLines = 1;
+            lineBreakMode = .byTruncatingTail;
+            adjustsFontSizeToFitWidth = true;
+
+        case .titleAndOutline:
+            numberOfLines = 1;
+            lineBreakMode = .byTruncatingTail;
+            textAlignment = .center;
+            
+            layer.borderColor = textColor.cgColor;
+            layer.borderWidth = 1.0;
+            layer.masksToBounds = true;
+            layer.cornerRadius = 0;
+            
+        default:
+            numberOfLines = 0;
+            lineBreakMode = .byCharWrapping;
+            break
+        }
+    }
+    
     /// [源]UILabel创建
-    static func create(_ rect: CGRect = .zero, textColor: UIColor = .black, type: Int = 0) -> Self {
+    static func create(_ rect: CGRect = .zero, textColor: UIColor = .black, type: UILabel.LabelShowType = .numLines) -> Self {
         let view = self.init(frame: rect);
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.isUserInteractionEnabled = true;
         view.textAlignment = .left;
         view.textColor = textColor
         view.font = UIFont.systemFont(ofSize: 15);
-        
-        switch type {
-        case 1:
-            view.numberOfLines = 1;
-            view.lineBreakMode = .byTruncatingTail;
-        // 一行文本自适应宽度调节
-        case 2:
-            view.numberOfLines = 1;
-            view.lineBreakMode = .byTruncatingTail;
-            view.adjustsFontSizeToFitWidth = true;
-        // 红色带边框标签
-        case 3:
-            view.numberOfLines = 1;
-            view.lineBreakMode = .byTruncatingTail;
-            view.textAlignment = .center;
-            view.textColor = textColor;
-            
-            view.layer.borderColor = view.textColor.cgColor;
-            view.layer.borderWidth = 1.0;
-            view.layer.masksToBounds = true;
-            view.layer.cornerRadius = rect.width*0.5;
-            
-        // 红色带圆角边框
-        case 4:
-            view.numberOfLines = 1;
-            view.lineBreakMode = .byTruncatingTail;
-            view.textAlignment = .center;
-            view.textColor = textColor;
-            
-            view.layer.borderColor = view.textColor.cgColor;
-            view.layer.borderWidth = 1.0;
-            view.layer.masksToBounds = true;
-            view.layer.cornerRadius = 3;
-            
-        default:
-            view.numberOfLines = 0;
-            view.lineBreakMode = .byCharWrapping;
-        }
+
+        view.setLabelType(type)
         return view;
     }
     
+
     /// UILabel富文本设置
     func setContent(_ content: String, attDic: [NSAttributedString.Key: Any]) -> NSMutableAttributedString?{
         guard let text = self.text as String? else { return nil}

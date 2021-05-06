@@ -45,12 +45,26 @@ import UIKit
         tintColor = !hidden ? color : .clear;
     }
 
+    
     /// 创建 UIBarButtonItem
-    static func create(_ obj: String, style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem{
+//    static func create(_ obj: String, style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem{
+//        if let image = UIImage(named: obj) {
+//            return UIBarButtonItem(image: image, style: style, target: target, action: action)
+//        }
+//        return UIBarButtonItem(title: obj, style: style, target: target, action: action);
+//    }
+    
+    convenience init(_ obj: String, style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) {
         if let image = UIImage(named: obj) {
-            return UIBarButtonItem(image: image, style: style, target: target, action: action)
+            self.init(image: image, style: style, target: target, action: action)
+            return
         }
-        return UIBarButtonItem(title: obj, style: style, target: target, action: action);
+        self.init(title: obj, style: style, target: target, action: action);
+    }
+    
+    convenience init(_ obj: String, style: UIBarButtonItem.Style = .plain, action: @escaping ((UIBarButtonItem) -> Void)) {
+        self.init(obj, style: style, target: nil, action: nil)
+        self.addAction(action)
     }
     
     /// 创建多个 UIBarButtonItem
@@ -62,10 +76,5 @@ import UIKit
             list.append(barItem)
         }
         return list
-    }
-
-    /// 创建 UIBarButtonItem
-    func createBarItem(_ obj: String, style: UIBarButtonItem.Style = .plain, action: @escaping ((UIBarButtonItem) -> Void)){
-        UIBarButtonItem.create(obj, style: style, target: nil, action: nil).addAction(action)
     }
 }
