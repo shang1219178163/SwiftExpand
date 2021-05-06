@@ -121,38 +121,283 @@ public let kNumFormat = "¥###,##0.00";
         return self
     }
     
-    func positivePrefix(_ prefix: String = "") -> Self {
-        self.positivePrefix = positivePrefix
-        return self
-    }
-    
-    func positiveSuffix(_ suffix: String = "") -> Self {
-        self.positiveSuffix = suffix
-        return self
-    }
-    
-    func negativePrefix(_ prefix: String = "") -> Self {
-        self.negativePrefix = prefix
-        return self
-    }
-    
-    func negativeSuffix(_ suffix: String = "") -> Self {
-        self.negativeSuffix = suffix
-        return self
-    }
-    
-    func positiveFormat(_ format: String = kNumFormat) -> Self {
-        self.positiveFormat = format
-        return self
-    }
-    
-    func negativeFormat(_ format: String) -> Self {
-        self.negativeFormat = format
+    func numberStyleChain(_ numberStyle: NumberFormatter.Style) -> Self {
+        self.numberStyle = numberStyle
         return self
     }
 
-    func paddingCharacter(_ character: String) -> Self {
-        self.paddingCharacter = character
+    func localeChain(_ locale: Locale!) -> Self {
+        self.locale = locale
+        return self
+    }
+
+    func generatesDecimalNumbersChain(_ generatesDecimalNumbers: Bool) -> Self {
+        self.generatesDecimalNumbers = generatesDecimalNumbers
+        return self
+    }
+
+    func formatterBehaviorChain(_ formatterBehavior: NumberFormatter.Behavior) -> Self {
+        self.formatterBehavior = formatterBehavior
+        return self
+    }
+
+    func negativeFormatChain(_ negativeFormat: String!) -> Self {
+        self.negativeFormat = negativeFormat
+        return self
+    }
+
+    func textAttributesForNegativeValuesChain(_ textAttributesForNegativeValues: [String : Any]) -> Self {
+        self.textAttributesForNegativeValues = textAttributesForNegativeValues
+        return self
+    }
+
+    func positiveFormatChain(_ positiveFormat: String!) -> Self {
+        self.positiveFormat = positiveFormat
+        return self
+    }
+
+    func textAttributesForPositiveValuesChain(_ textAttributesForPositiveValues: [String : Any]) -> Self {
+        self.textAttributesForPositiveValues = textAttributesForPositiveValues
+        return self
+    }
+
+    func allowsFloatsChain(_ allowsFloats: Bool) -> Self {
+        self.allowsFloats = allowsFloats
+        return self
+    }
+
+    func decimalSeparatorChain(_ decimalSeparator: String!) -> Self {
+        self.decimalSeparator = decimalSeparator
+        return self
+    }
+
+    func alwaysShowsDecimalSeparatorChain(_ alwaysShowsDecimalSeparator: Bool) -> Self {
+        self.alwaysShowsDecimalSeparator = alwaysShowsDecimalSeparator
+        return self
+    }
+
+    func currencyDecimalSeparatorChain(_ currencyDecimalSeparator: String!) -> Self {
+        self.currencyDecimalSeparator = currencyDecimalSeparator
+        return self
+    }
+
+    func usesGroupingSeparatorChain(_ usesGroupingSeparator: Bool) -> Self {
+        self.usesGroupingSeparator = usesGroupingSeparator
+        return self
+    }
+
+    func groupingSeparatorChain(_ groupingSeparator: String!) -> Self {
+        self.groupingSeparator = groupingSeparator
+        return self
+    }
+
+    func zeroSymbolChain(_ zeroSymbol: String?) -> Self {
+        self.zeroSymbol = zeroSymbol
+        return self
+    }
+
+    func textAttributesForZeroChain(_ textAttributesForZero: [String : Any]) -> Self {
+        self.textAttributesForZero = textAttributesForZero
+        return self
+    }
+
+    func nilSymbolChain(_ nilSymbol: String) -> Self {
+        self.nilSymbol = nilSymbol
+        return self
+    }
+
+    func textAttributesForNilChain(_ textAttributesForNil: [String : Any]) -> Self {
+        self.textAttributesForNil = textAttributesForNil
+        return self
+    }
+
+    func notANumberSymbolChain(_ notANumberSymbol: String!) -> Self {
+        self.notANumberSymbol = notANumberSymbol
+        return self
+    }
+
+    func textAttributesForNotANumberChain(_ textAttributesForNotANumber: [String : Any]) -> Self {
+        self.textAttributesForNotANumber = textAttributesForNotANumber
+        return self
+    }
+
+    func positiveInfinitySymbolChain(_ positiveInfinitySymbol: String) -> Self {
+        self.positiveInfinitySymbol = positiveInfinitySymbol
+        return self
+    }
+
+    func textAttributesForPositiveInfinityChain(_ textAttributesForPositiveInfinity: [String : Any]) -> Self {
+        self.textAttributesForPositiveInfinity = textAttributesForPositiveInfinity
+        return self
+    }
+
+    func negativeInfinitySymbolChain(_ negativeInfinitySymbol: String) -> Self {
+        self.negativeInfinitySymbol = negativeInfinitySymbol
+        return self
+    }
+
+    func textAttributesForNegativeInfinityChain(_ textAttributesForNegativeInfinity: [String : Any]) -> Self {
+        self.textAttributesForNegativeInfinity = textAttributesForNegativeInfinity
+        return self
+    }
+
+    func positivePrefixChain(_ positivePrefix: String!) -> Self {
+        self.positivePrefix = positivePrefix
+        return self
+    }
+
+    func positiveSuffixChain(_ positiveSuffix: String!) -> Self {
+        self.positiveSuffix = positiveSuffix
+        return self
+    }
+
+    func negativePrefixChain(_ negativePrefix: String!) -> Self {
+        self.negativePrefix = negativePrefix
+        return self
+    }
+
+    func negativeSuffixChain(_ negativeSuffix: String!) -> Self {
+        self.negativeSuffix = negativeSuffix
+        return self
+    }
+
+    func currencyCodeChain(_ currencyCode: String!) -> Self {
+        self.currencyCode = currencyCode
+        return self
+    }
+
+    func currencySymbolChain(_ currencySymbol: String!) -> Self {
+        self.currencySymbol = currencySymbol
+        return self
+    }
+
+    func internationalCurrencySymbolChain(_ internationalCurrencySymbol: String!) -> Self {
+        self.internationalCurrencySymbol = internationalCurrencySymbol
+        return self
+    }
+
+    func percentSymbolChain(_ percentSymbol: String!) -> Self {
+        self.percentSymbol = percentSymbol
+        return self
+    }
+
+    func perMillSymbolChain(_ perMillSymbol: String!) -> Self {
+        self.perMillSymbol = perMillSymbol
+        return self
+    }
+
+    func minusSignChain(_ minusSign: String!) -> Self {
+        self.minusSign = minusSign
+        return self
+    }
+
+    func plusSignChain(_ plusSign: String!) -> Self {
+        self.plusSign = plusSign
+        return self
+    }
+
+    func exponentSymbolChain(_ exponentSymbol: String!) -> Self {
+        self.exponentSymbol = exponentSymbol
+        return self
+    }
+
+    func groupingSizeChain(_ groupingSize: Int) -> Self {
+        self.groupingSize = groupingSize
+        return self
+    }
+
+    func secondaryGroupingSizeChain(_ secondaryGroupingSize: Int) -> Self {
+        self.secondaryGroupingSize = secondaryGroupingSize
+        return self
+    }
+
+    func multiplierChain(_ multiplier: NSNumber?) -> Self {
+        self.multiplier = multiplier
+        return self
+    }
+
+    func formatWidthChain(_ formatWidth: Int) -> Self {
+        self.formatWidth = formatWidth
+        return self
+    }
+
+    func paddingCharacterChain(_ paddingCharacter: String!) -> Self {
+        self.paddingCharacter = paddingCharacter
+        return self
+    }
+
+    func paddingPositionChain(_ paddingPosition: NumberFormatter.PadPosition) -> Self {
+        self.paddingPosition = paddingPosition
+        return self
+    }
+
+    func roundingModeChain(_ roundingMode: NumberFormatter.RoundingMode) -> Self {
+        self.roundingMode = roundingMode
+        return self
+    }
+
+    func roundingIncrementChain(_ roundingIncrement: NSNumber!) -> Self {
+        self.roundingIncrement = roundingIncrement
+        return self
+    }
+
+    func minimumIntegerDigitsChain(_ minimumIntegerDigits: Int) -> Self {
+        self.minimumIntegerDigits = minimumIntegerDigits
+        return self
+    }
+
+    func maximumIntegerDigitsChain(_ maximumIntegerDigits: Int) -> Self {
+        self.maximumIntegerDigits = maximumIntegerDigits
+        return self
+    }
+
+    func minimumFractionDigitsChain(_ minimumFractionDigits: Int) -> Self {
+        self.minimumFractionDigits = minimumFractionDigits
+        return self
+    }
+
+    func maximumFractionDigitsChain(_ maximumFractionDigits: Int) -> Self {
+        self.maximumFractionDigits = maximumFractionDigits
+        return self
+    }
+
+    func minimumChain(_ minimum: NSNumber?) -> Self {
+        self.minimum = minimum
+        return self
+    }
+
+    func maximumChain(_ maximum: NSNumber?) -> Self {
+        self.maximum = maximum
+        return self
+    }
+
+    func currencyGroupingSeparatorChain(_ currencyGroupingSeparator: String!) -> Self {
+        self.currencyGroupingSeparator = currencyGroupingSeparator
+        return self
+    }
+
+    func isLenientChain(_ isLenient: Bool) -> Self {
+        self.isLenient = isLenient
+        return self
+    }
+
+    func usesSignificantDigitsChain(_ usesSignificantDigits: Bool) -> Self {
+        self.usesSignificantDigits = usesSignificantDigits
+        return self
+    }
+
+    func minimumSignificantDigitsChain(_ minimumSignificantDigits: Int) -> Self {
+        self.minimumSignificantDigits = minimumSignificantDigits
+        return self
+    }
+
+    func maximumSignificantDigitsChain(_ maximumSignificantDigits: Int) -> Self {
+        self.maximumSignificantDigits = maximumSignificantDigits
+        return self
+    }
+
+    func isPartialStringValidationEnabledChain(_ isPartialStringValidationEnabled: Bool) -> Self {
+        self.isPartialStringValidationEnabled = isPartialStringValidationEnabled
         return self
     }
 }

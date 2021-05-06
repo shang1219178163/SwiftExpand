@@ -13,29 +13,22 @@ import UIKit
         static var defaultColors   = "CAGradientLayer" + "defaultColors"
     }
     
-    static func layerRect(_ rect: CGRect = .zero, colors: [Any], start: CGPoint, end: CGPoint) -> CAGradientLayer {
-        let layer = CAGradientLayer()
-        layer.frame = rect
-        layer.colors = colors
-        layer.startPoint = start
-        layer.endPoint = end
-        
-        return layer
+    convenience init(colors: [Any], start: CGPoint, end: CGPoint) {
+        self.init()
+        self.colors = colors
+        self.startPoint = start
+        self.endPoint = end
     }
     
-    static func gradientColor(_ from: UIColor, to: UIColor) -> [Any] {
-       return [from.cgColor, to.cgColor]
-    }
-    
-    /// 十六进制字符串
-    static func gradientColorHex(_ from: String, fromAlpha: CGFloat, to: String, toAlpha: CGFloat = 1.0) -> [Any] {
-        return [UIColor.hex(from, a: fromAlpha).cgColor, UIColor.hex(to, a: toAlpha).cgColor]
-    }
-    
-    /// 0x开头的十六进制数字
-    static func gradientColorHexValue(_ from: Int, fromAlpha: CGFloat, to: Int, toAlpha: CGFloat = 1.0) -> [Any] {
-        return [UIColor.hexValue(from, a: fromAlpha).cgColor, UIColor.hexValue(to, a: toAlpha).cgColor]
-    }
+//    /// 十六进制字符串
+//    static func gradientColorHex(_ from: String, fromAlpha: CGFloat, to: String, toAlpha: CGFloat = 1.0) -> [Any] {
+//        return [UIColor.hex(from, a: fromAlpha).cgColor, UIColor.hex(to, a: toAlpha).cgColor]
+//    }
+//    
+//    /// 0x开头的十六进制数字
+//    static func gradientColorHexValue(_ from: Int, fromAlpha: CGFloat, to: Int, toAlpha: CGFloat = 1.0) -> [Any] {
+//        return [UIColor.hexValue(from, a: fromAlpha).cgColor, UIColor.hexValue(to, a: toAlpha).cgColor]
+//    }
     
     static var defaultColors: [Any] {
         get {
@@ -50,5 +43,30 @@ import UIKit
         set {
             objc_setAssociatedObject(self,  &AssociateKeys.defaultColors, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
+    }
+    
+    func colorsChain(_ colors: [Any]) -> Self {
+        self.colors = colors
+        return self
+    }
+
+    func locationsChain(_ locations: [NSNumber]) -> Self {
+        self.locations = locations
+        return self
+    }
+
+    func startPointChain(_ startPoint: CGPoint) -> Self {
+        self.startPoint = startPoint
+        return self
+    }
+
+    func endPointChain(_ endPoint: CGPoint) -> Self {
+        self.endPoint = endPoint
+        return self
+    }
+
+    func typeChain(_ type: CAGradientLayerType) -> Self {
+        self.type = type
+        return self
     }
 }

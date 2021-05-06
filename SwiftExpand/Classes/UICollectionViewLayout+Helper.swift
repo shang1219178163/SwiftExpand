@@ -10,25 +10,99 @@ import UIKit
 
 @objc public extension UICollectionViewFlowLayout{
 
+    func minimumLineSpacingChain(_ minimumLineSpacing: CGFloat) -> Self {
+        self.minimumLineSpacing = minimumLineSpacing
+        return self
+    }
+
+    func minimumInteritemSpacingChain(_ minimumInteritemSpacing: CGFloat) -> Self {
+        self.minimumInteritemSpacing = minimumInteritemSpacing
+        return self
+    }
+
+    func itemSizeChain(_ itemSize: CGSize) -> Self {
+        self.itemSize = itemSize
+        return self
+    }
+
+    // defaults to CGSizeZero - setting a non-zero size enables cells that self-size via -preferredLayoutAttributesFittingAttributes:
+    @available(iOS 8.0, *)
+    func estimatedItemSizeChain(_ estimatedItemSize: CGSize) -> Self {
+        self.estimatedItemSize = estimatedItemSize
+        return self
+    }
+
+    // default is UICollectionViewScrollDirectionVertical
+    func scrollDirectionChain(_ scrollDirection: UICollectionView.ScrollDirection) -> Self {
+        self.scrollDirection = scrollDirection
+        return self
+    }
+
+    func headerReferenceSizeChain(_ headerReferenceSize: CGSize) -> Self {
+        self.headerReferenceSize = headerReferenceSize
+        return self
+    }
+
+    func footerReferenceSizeChain(_ footerReferenceSize: CGSize) -> Self {
+        self.footerReferenceSize = footerReferenceSize
+        return self
+    }
+
+    func sectionInsetChain(_ sectionInset: UIEdgeInsets) -> Self {
+        self.sectionInset = sectionInset
+        return self
+    }
+
+    @available(iOS 11.0, *)
+    func sectionInsetReferenceChain(_ sectionInsetReference: UICollectionViewFlowLayout.SectionInsetReference) -> Self {
+        self.sectionInsetReference = sectionInsetReference
+        return self
+    }
+
+    @available(iOS 9.0, *)
+    func sectionHeadersPinToVisibleBoundsChain(_ sectionHeadersPinToVisibleBounds: Bool) -> Self {
+        self.sectionHeadersPinToVisibleBounds = sectionHeadersPinToVisibleBounds
+        return self
+    }
+
+    @available(iOS 9.0, *)
+    func sectionFootersPinToVisibleBoundsChain(_ sectionFootersPinToVisibleBounds: Bool) -> Self {
+        self.sectionFootersPinToVisibleBounds = sectionFootersPinToVisibleBounds
+        return self
+    }
+
+    ///  默认布局配置(自上而下,自左而右)
+    convenience init(_ numOfRow: Int = 4,
+                     width: CGFloat = UIScreen.main.bounds.width,
+                     spacing: CGFloat = 10,
+                     headerHeight: CGFloat = 30,
+                     footerHeight: CGFloat = 30,
+                     sectionInset: UIEdgeInsets = .zero) {
+        self.init()
+        self.sectionInset = sectionInset;
+        self.minimumLineSpacing = spacing;
+        self.minimumInteritemSpacing = spacing;
+
+        let itemWidth = (width - (numOfRow.toCGFloat - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat;
+        let itemHeight = itemWidth/0.62;
+        self.itemSize = CGSize(width: round(itemWidth), height: itemHeight);
+        self.headerReferenceSize = CGSize(width: width, height: headerHeight);
+        self.footerReferenceSize = CGSize(width: width, height: footerHeight);
+    }
+    
     ///  默认布局配置(自上而下,自左而右)
     static func createFlowLayout(_ numOfRow: Int = 4,
                                  width: CGFloat = UIScreen.main.bounds.width,
                                  spacing: CGFloat = 10,
                                  headerHeight: CGFloat = 30,
                                  footerHeight: CGFloat = 30,
-                                 sectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)) -> UICollectionViewFlowLayout {
-        //
-        let layout = UICollectionViewFlowLayout();
-        layout.sectionInset = sectionInset;
-        layout.minimumLineSpacing = spacing;
-        layout.minimumInteritemSpacing = spacing;
-
-        let itemWidth = (width - (numOfRow.toCGFloat - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat;
-        let itemHeight = itemWidth/0.62;
-        layout.itemSize = CGSize(width: round(itemWidth), height: itemHeight);
-        layout.headerReferenceSize = CGSize(width: width, height: headerHeight);
-        layout.footerReferenceSize = CGSize(width: width, height: footerHeight);
-        return layout;
+                                 sectionInset: UIEdgeInsets = .zero) -> UICollectionViewFlowLayout {
+        return UICollectionViewFlowLayout.init(numOfRow,
+                                               width: width,
+                                               spacing: spacing,
+                                               headerHeight: headerHeight,
+                                               footerHeight: footerHeight,
+                                               sectionInset: sectionInset)
     }
     
     ///获取代理方法里的布局基础属性值
