@@ -31,20 +31,16 @@ import QuartzCore
                                       CATransitionSubtype.fromLeft,
                                       CATransitionSubtype.fromBottom,
                                       CATransitionSubtype.fromRight];
-    /// [源]CATransition
-    static func animDuration(_ duration: CFTimeInterval,
-                                   functionName: CAMediaTimingFunctionName = .linear,
-                                   type: CATransitionType = .fade,
-                                   subType: CATransitionSubtype? = nil) -> CATransition {
-
-        let anim = CATransition()
-        anim.duration = duration;
-       
-        let name = kFunctionNames.contains(functionName) ? functionName : kFunctionNames.first;
-        anim.timingFunction = CAMediaTimingFunction(name: name!);
-        anim.type = type
-        anim.subtype = subType
-        return anim;
+    /// [源]CATransition    
+    convenience init(duration: CFTimeInterval,
+                     functionName: CAMediaTimingFunctionName = .linear,
+                     type: CATransitionType = .fade,
+                     subType: CATransitionSubtype? = nil) {
+        self.init()
+        self.duration = duration;
+        self.timingFunction = CAMediaTimingFunction(name: functionName);
+        self.type = type
+        self.subtype = subType
     }
     
 }
