@@ -17,4 +17,8 @@ import UIKit
         return controller;
     }
 
+    convenience init(with name: String, bundle: Bundle? = nil, identifier: String) {
+        self.init(name: name, bundle: bundle)
+        self.instantiateViewController(withIdentifier: identifier)
+    }
 }

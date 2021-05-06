@@ -28,6 +28,24 @@ import UIKit
         return table
     }
     
+    convenience init(rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) {
+        self.init(frame: rect, style: style)
+        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.separatorStyle = .singleLine
+        self.separatorInset = .zero
+        self.rowHeight = rowHeight
+//        self.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self))
+        self.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
+        self.keyboardDismissMode = .onDrag
+        self.backgroundColor = .groupTableViewBackground
+//        self.tableHeaderView = UIView();
+//        self.tableFooterView = UIView()
+
+        self.estimatedRowHeight = 0;
+        self.estimatedSectionHeaderHeight = 0;
+        self.estimatedSectionFooterHeight = 0;
+    }
+    
     func adJustedContentIOS11() {
         if #available(iOS 11.0, *) {
             contentInsetAdjustmentBehavior = .never
