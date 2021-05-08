@@ -24,7 +24,6 @@ import UIKit
     }
 
     /// 类的字符串名称
-//    static let identifier = String(describing: self)
     static var identifier: String{
         return String(describing: self)
     }

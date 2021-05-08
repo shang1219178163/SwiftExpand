@@ -15,10 +15,10 @@ import UIKit
     }
         
     convenience init(r: Int = 0, g: Int = 0, b: Int = 0, a: CGFloat = 1) {
-         assert(r >= 0 && r <= 255, "Invalid red component")
-         assert(g >= 0 && g <= 255, "Invalid green component")
-         assert(b >= 0 && b <= 255, "Invalid blue component")
-         self.init(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: a)
+        assert(r >= 0 && r <= 255, "Invalid red component")
+        assert(g >= 0 && g <= 255, "Invalid green component")
+        assert(b >= 0 && b <= 255, "Invalid blue component")
+        self.init(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: a)
     }
     /// 获取某种颜色Alpha下的色彩
     func alpha(_ a: CGFloat = 1.0) -> UIColor{
