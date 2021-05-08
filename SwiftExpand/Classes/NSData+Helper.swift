@@ -23,6 +23,7 @@ import UIKit
         }
         return nil;
     }
+    
     /// NSData -> 转字符串
     var stringValue: String {
         if let result = String(data: self as Data, encoding: .utf8) {
@@ -65,4 +66,9 @@ public extension Data{
     var fileSize: String {
         return (self as NSData).fileSize;
     }
+    
+    func jsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {
+        return try JSONSerialization.jsonObject(with: self, options: options)
+    }
+    
 }

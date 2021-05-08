@@ -29,12 +29,14 @@ import UIKit
         titleTextAttributes = [NSAttributedString.Key.foregroundColor: color,]
     }
     
-    func makeTransparent(withTint tint: UIColor = .white) {
+    func setColors(withTint text: UIColor = .white, background: UIColor = .clear) {
         setBackgroundImage(UIImage(), for: .default)
         shadowImage = UIImage()
-        isTranslucent = true
-        tintColor = tint
-        titleTextAttributes = [.foregroundColor: tint]
+        isTranslucent = (background == .clear)
+        backgroundColor = background
+        barTintColor = background
+        tintColor = text
+        titleTextAttributes = [.foregroundColor: text]
     }
 
 }

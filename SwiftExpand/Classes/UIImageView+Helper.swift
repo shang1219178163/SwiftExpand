@@ -195,6 +195,17 @@ import UIKit
             }
         }.resume()
     }
+    
+    /// blurry.
+    func blur(withStyle style: UIBlurEffect.Style = .light) -> Self {
+        let blurEffect = UIBlurEffect(style: style)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        addSubview(blurEffectView)
+        clipsToBounds = true
+        return self
+    }
 }
 
 

@@ -40,6 +40,7 @@ import UIKit
              navigationBar.barStyle = .default
          }
     }
+    
 }
 
 public extension UINavigationController{

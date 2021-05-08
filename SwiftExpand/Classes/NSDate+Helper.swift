@@ -566,4 +566,15 @@ public extension Calendar{
     
     static let shared = Calendar(identifier: .gregorian)
     static let unitFlags: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .weekdayOrdinal, .weekday]
+    
+    /// eturn the number of days in the month for a specified 'Date'.
+    ///
+    ///        let date = Date() // "Jan 12, 2017, 7:07 PM"
+    ///        Calendar.current.numberOfDaysInMonth(for: date) -> 31
+    ///
+    /// - Parameter date: the date form which the number of days in month is calculated.
+    /// - Returns: The number of days in the month of 'Date'.
+    func numberOfDaysInMonth(for date: Date) -> Int {
+        return range(of: .day, in: .month, for: date)!.count
+    }
 }

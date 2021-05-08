@@ -67,6 +67,11 @@ import UIKit
         self.addAction(action)
     }
     
+    func addTargetForAction(_ target: AnyObject, action: Selector) {
+        self.target = target
+        self.action = action
+    }
+    
     /// 创建多个 UIBarButtonItem
     static func createTitles(_ titles: [String], style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) -> [UIBarButtonItem]{
         var list = [UIBarButtonItem]()
@@ -76,5 +81,25 @@ import UIKit
             list.append(barItem)
         }
         return list
+    }
+    
+    
+    /// 创建多个 UIBarButtonItem
+    static func createTitles(_ titles: [String], style: UIBarButtonItem.Style = .plain, action: @escaping ((UIBarButtonItem) -> Void)) -> [UIBarButtonItem]{
+        var list = [UIBarButtonItem]()
+        
+        for e in titles.enumerated() {
+            let barItem = UIBarButtonItem(title: e.element, style: style, target: nil, action: nil);
+            barItem.addAction(action)
+            list.append(barItem)
+        }
+        return list
+    }
+    
+    /// Creates a fixed space UIBarButtonItem with a specific width.
+    static func fixedSpace(width: CGFloat) -> UIBarButtonItem {
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+        barButtonItem.width = width
+        return barButtonItem
     }
 }

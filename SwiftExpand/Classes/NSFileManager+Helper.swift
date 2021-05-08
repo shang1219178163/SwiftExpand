@@ -34,4 +34,9 @@ public extension FileManager{
         return NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!
     }
 
+    func jsonFromFile(atPath path: String, readingOptions: JSONSerialization.ReadingOptions = .allowFragments) throws -> Any {
+        let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+        let json = try JSONSerialization.jsonObject(with: data, options: readingOptions)
+        return json
+    }
 }
