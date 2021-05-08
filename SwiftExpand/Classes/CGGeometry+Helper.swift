@@ -9,6 +9,19 @@
 import UIKit
 
 
+public extension Bool {
+    /// Return 1 if true, or 0 if false.
+    var int: Int {
+        return self ? 1 : 0
+    }
+
+    /// Return "true" if true, or "false" if false.
+    var string: String {
+        return self ? "true" : "false"
+    }
+}
+
+
 public extension Int {
 
     var double: Double  { return Double(self) }
@@ -58,7 +71,7 @@ public extension Int {
 public extension Double {
     var int: Int { return Int(self) }
 
-    /// SwifterSwift: Float.
+    /// Float.
     var float: Float { return Float(self) }
 
     var cgFloat: CGFloat { return CGFloat(self) }
@@ -80,12 +93,35 @@ public extension Float {
 
     var int: Int { return Int(self) }
 
-    /// SwifterSwift: Double.
+    /// Double.
     var double: Double { return Double(self) }
 
     var cgFloat: CGFloat { return CGFloat(self) }
 }
 
+public extension CGFloat {
+
+    var abs: CGFloat {
+        return Swift.abs(self)
+    }
+    /// Radian value of degree input.
+    var degreesToRadians: CGFloat {
+        return .pi * self / 180.0
+    }
+    
+    /// Degree value of radian input.
+    var radiansToDegrees: CGFloat {
+        return self * 180 / CGFloat.pi
+    }
+    
+    var floor: CGFloat {
+        return Foundation.floor(self)
+    }
+    
+    var ceil: CGFloat {
+        return Foundation.ceil(self)
+    }
+}
 
 public extension CGRect{
     ///中心点
@@ -147,7 +183,6 @@ public extension CGPoint{
     }
 
     static func distance(from point1: CGPoint, to point2: CGPoint) -> CGFloat {
-        // http://stackoverflow.com/questions/6416101/calculate-the-distance-between-two-cgpoints
         return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2))
     }
     
@@ -165,7 +200,13 @@ public extension CGSize{
     }
 
     
-    ///Add two CGSize
+    /// Add two CGSize.
+    ///
+    ///     let sizeA = CGSize(width: 5, height: 10)
+    ///     let sizeB = CGSize(width: 3, height: 4)
+    ///     let result = sizeA + sizeB
+    ///     // result = CGSize(width: 8, height: 14)
+    ///
     /// - Parameters:
     ///   - lhs: CGSize to add to.
     ///   - rhs: CGSize to add.
@@ -173,15 +214,178 @@ public extension CGSize{
     static func + (lhs: CGSize, rhs: CGSize) -> CGSize {
         return CGSize(width: lhs.width + rhs.width, height: lhs.height + rhs.height)
     }
-    
-    /// Add a CGSize to self.
+
+    /// Add a tuple to CGSize.
+    ///
+    ///     let sizeA = CGSize(width: 5, height: 10)
+    ///     let result = sizeA + (5, 4)
+    ///     // result = CGSize(width: 10, height: 14)
+    ///
     /// - Parameters:
-    ///   - lhs: self
+    ///   - lhs: CGSize to add to.
+    ///   - tuple: tuple value.
+    /// - Returns: The result comes from the addition of the given CGSize and tuple.
+    static func + (lhs: CGSize, tuple: (width: CGFloat, height: CGFloat)) -> CGSize {
+        return CGSize(width: lhs.width + tuple.width, height: lhs.height + tuple.height)
+    }
+
+    /// Add a CGSize to self.
+    ///
+    ///     var sizeA = CGSize(width: 5, height: 10)
+    ///     let sizeB = CGSize(width: 3, height: 4)
+    ///     sizeA += sizeB
+    ///     // sizeA = CGPoint(width: 8, height: 14)
+    ///
+    /// - Parameters:
+    ///   - lhs: `self`.
     ///   - rhs: CGSize to add.
-    static func += (lhs: inout CGSize, rhs: CGSize) -> CGSize {
+    static func += (lhs: inout CGSize, rhs: CGSize) {
         lhs.width += rhs.width
         lhs.height += rhs.height
-        return lhs
+    }
+
+    /// Add a tuple to self.
+    ///
+    ///     var sizeA = CGSize(width: 5, height: 10)
+    ///     sizeA += (3, 4)
+    ///     // result = CGSize(width: 8, height: 14)
+    ///
+    /// - Parameters:
+    ///   - lhs: `self`.
+    ///   - tuple: tuple value.
+    static func += (lhs: inout CGSize, tuple: (width: CGFloat, height: CGFloat)) {
+        lhs.width += tuple.width
+        lhs.height += tuple.height
+    }
+
+    /// Subtract two CGSize.
+    ///
+    ///     let sizeA = CGSize(width: 5, height: 10)
+    ///     let sizeB = CGSize(width: 3, height: 4)
+    ///     let result = sizeA - sizeB
+    ///     // result = CGSize(width: 2, height: 6)
+    ///
+    /// - Parameters:
+    ///   - lhs: CGSize to subtract from.
+    ///   - rhs: CGSize to subtract.
+    /// - Returns: The result comes from the subtract of the two given CGSize struct.
+    static func - (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width - rhs.width, height: lhs.height - rhs.height)
+    }
+
+    /// Subtract a tuple from CGSize.
+    ///
+    ///     let sizeA = CGSize(width: 5, height: 10)
+    ///     let result = sizeA - (3, 2)
+    ///     // result = CGSize(width: 2, height: 8)
+    ///
+    /// - Parameters:
+    ///   - lhs: CGSize to subtract from.
+    ///   - tuple: tuple value.
+    /// - Returns: The result comes from the subtract of the given CGSize and tuple.
+    static func - (lhs: CGSize, tuple: (width: CGFloat, heoght: CGFloat)) -> CGSize {
+        return CGSize(width: lhs.width - tuple.width, height: lhs.height - tuple.heoght)
+    }
+
+    /// Subtract a CGSize from self.
+    ///
+    ///     var sizeA = CGSize(width: 5, height: 10)
+    ///     let sizeB = CGSize(width: 3, height: 4)
+    ///     sizeA -= sizeB
+    ///     // sizeA = CGPoint(width: 2, height: 6)
+    ///
+    /// - Parameters:
+    ///   - lhs: `self`.
+    ///   - rhs: CGSize to subtract.
+    static func -= (lhs: inout CGSize, rhs: CGSize) {
+        lhs.width -= rhs.width
+        lhs.height -= rhs.height
+    }
+
+    /// Subtract a tuple from self.
+    ///
+    ///     var sizeA = CGSize(width: 5, height: 10)
+    ///     sizeA -= (2, 4)
+    ///     // result = CGSize(width: 3, height: 6)
+    ///
+    /// - Parameters:
+    ///   - lhs: `self`.
+    ///   - tuple: tuple value.
+    static func -= (lhs: inout CGSize, tuple: (width: CGFloat, height: CGFloat)) {
+        lhs.width -= tuple.width
+        lhs.height -= tuple.height
+    }
+
+    /// Multiply two CGSize.
+    ///
+    ///     let sizeA = CGSize(width: 5, height: 10)
+    ///     let sizeB = CGSize(width: 3, height: 4)
+    ///     let result = sizeA * sizeB
+    ///     // result = CGSize(width: 15, height: 40)
+    ///
+    /// - Parameters:
+    ///   - lhs: CGSize to multiply.
+    ///   - rhs: CGSize to multiply with.
+    /// - Returns: The result comes from the multiplication of the two given CGSize structs.
+    static func * (lhs: CGSize, rhs: CGSize) -> CGSize {
+        return CGSize(width: lhs.width * rhs.width, height: lhs.height * rhs.height)
+    }
+
+    /// Multiply a CGSize with a scalar.
+    ///
+    ///     let sizeA = CGSize(width: 5, height: 10)
+    ///     let result = sizeA * 5
+    ///     // result = CGSize(width: 25, height: 50)
+    ///
+    /// - Parameters:
+    ///   - lhs: CGSize to multiply.
+    ///   - scalar: scalar value.
+    /// - Returns: The result comes from the multiplication of the given CGSize and scalar.
+    static func * (lhs: CGSize, scalar: CGFloat) -> CGSize {
+        return CGSize(width: lhs.width * scalar, height: lhs.height * scalar)
+    }
+
+    /// Multiply a CGSize with a scalar.
+    ///
+    ///     let sizeA = CGSize(width: 5, height: 10)
+    ///     let result = 5 * sizeA
+    ///     // result = CGSize(width: 25, height: 50)
+    ///
+    /// - Parameters:
+    ///   - scalar: scalar value.
+    ///   - rhs: CGSize to multiply.
+    /// - Returns: The result comes from the multiplication of the given scalar and CGSize.
+    static func * (scalar: CGFloat, rhs: CGSize) -> CGSize {
+        return CGSize(width: scalar * rhs.width, height: scalar * rhs.height)
+    }
+
+    /// Multiply self with a CGSize.
+    ///
+    ///     var sizeA = CGSize(width: 5, height: 10)
+    ///     let sizeB = CGSize(width: 3, height: 4)
+    ///     sizeA *= sizeB
+    ///     // result = CGSize(width: 15, height: 40)
+    ///
+    /// - Parameters:
+    ///   - lhs: `self`.
+    ///   - rhs: CGSize to multiply.
+    static func *= (lhs: inout CGSize, rhs: CGSize) {
+        lhs.width *= rhs.width
+        lhs.height *= rhs.height
+    }
+
+    /// Multiply self with a scalar.
+    ///
+    ///     var sizeA = CGSize(width: 5, height: 10)
+    ///     sizeA *= 3
+    ///     // result = CGSize(width: 15, height: 30)
+    ///
+    /// - Parameters:
+    ///   - lhs: `self`.
+    ///   - scalar: scalar value.
+    static func *= (lhs: inout CGSize, scalar: CGFloat) {
+        lhs.width *= scalar
+        lhs.height *= scalar
     }
 }
 
@@ -236,3 +440,85 @@ public extension UIEdgeInsets{
 }
 
 
+public extension CGVector {
+    /// The angle of rotation (in radians) of the vector. The range of the angle is -π to π; an angle of 0 points to the right.
+    ///
+    /// https://en.wikipedia.org/wiki/Atan2
+    var angle: CGFloat {
+        return atan2(dy, dx)
+    }
+
+    /// The magnitude (or length) of the vector.
+    ///
+    /// https://en.wikipedia.org/wiki/Euclidean_vector#Length
+    var magnitude: CGFloat {
+        return sqrt((dx * dx) + (dy * dy))
+    }
+}
+
+// MARK: - Initializers
+
+public extension CGVector {
+    /// Creates a vector with the given magnitude and angle.
+    ///
+    ///     let vector = CGVector(angle: .pi, magnitude: 1)
+    ///
+    /// - Parameters:
+    ///     - angle: The angle of rotation (in radians) counterclockwise from the positive x-axis.
+    ///     - magnitude: The length of the vector.
+    ///
+    init(angle: CGFloat, magnitude: CGFloat) {
+        // https://www.grc.nasa.gov/WWW/K-12/airplane/vectpart.html
+        self.init(dx: magnitude * cos(angle), dy: magnitude * sin(angle))
+    }
+
+    /// Multiplies a scalar and a vector (commutative).
+    ///
+    ///     let vector = CGVector(dx: 1, dy: 1)
+    ///     let largerVector = vector * 2
+    ///
+    /// - Parameters:
+    ///   - vector: The vector to be multiplied.
+    ///   - scalar: The scale by which the vector will be multiplied.
+    /// - Returns: The vector with its magnitude scaled.
+    static func * (vector: CGVector, scalar: CGFloat) -> CGVector {
+        return CGVector(dx: vector.dx * scalar, dy: vector.dy * scalar)
+    }
+
+    /// Multiplies a scalar and a vector (commutative).
+    ///
+    ///     let vector = CGVector(dx: 1, dy: 1)
+    ///     let largerVector = 2 * vector
+    ///
+    /// - Parameters:
+    ///   - scalar: The scalar by which the vector will be multiplied.
+    ///   - vector: The vector to be multiplied.
+    /// - Returns: The vector with its magnitude scaled.
+    static func * (scalar: CGFloat, vector: CGVector) -> CGVector {
+        return CGVector(dx: scalar * vector.dx, dy: scalar * vector.dy)
+    }
+
+    /// Compound assignment operator for vector-scalar multiplication.
+    ///
+    ///     var vector = CGVector(dx: 1, dy: 1)
+    ///     vector *= 2
+    ///
+    /// - Parameters:
+    ///   - vector: The vector to be multiplied.
+    ///   - scalar: The scale by which the vector will be multiplied.
+    static func *= (vector: inout CGVector, scalar: CGFloat) {
+        vector.dx *= scalar
+        vector.dy *= scalar
+    }
+
+    /// Negates the vector. The direction is reversed, but magnitude remains the same.
+    ///
+    ///     let vector = CGVector(dx: 1, dy: 1)
+    ///     let reversedVector = -vector
+    ///
+    /// - Parameter vector: The vector to be negated.
+    /// - Returns: The negated vector.
+    static prefix func - (vector: CGVector) -> CGVector {
+        return CGVector(dx: -vector.dx, dy: -vector.dy)
+    }
+}
