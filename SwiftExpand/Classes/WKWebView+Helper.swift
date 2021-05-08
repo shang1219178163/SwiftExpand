@@ -36,6 +36,45 @@ import WebKit
         }
     }
     
+    func navigationDelegateChain(_ navigationDelegate: WKNavigationDelegate?) -> Self {
+        self.navigationDelegate = navigationDelegate
+        return self
+    }
+
+    func uiDelegateChain(_ uiDelegate: WKUIDelegate?) -> Self {
+        self.uiDelegate = uiDelegate
+        return self
+    }
+
+    func allowsBackForwardNavigationGesturesChain(_ allowsBackForwardNavigationGestures: Bool) -> Self {
+        self.allowsBackForwardNavigationGestures = allowsBackForwardNavigationGestures
+        return self
+    }
+
+    @available(iOS 9.0, *)
+    func customUserAgentChain(_ customUserAgent: String?) -> Self {
+        self.customUserAgent = customUserAgent
+        return self
+    }
+
+    @available(iOS 9.0, *)
+    func allowsLinkPreviewChain(_ allowsLinkPreview: Bool) -> Self {
+        self.allowsLinkPreview = allowsLinkPreview
+        return self
+    }
+
+    @available(iOS 14.0, *)
+    func pageZoomChain(_ pageZoom: CGFloat) -> Self {
+        self.pageZoom = pageZoom
+        return self
+    }
+
+    @available(iOS 14.0, *)
+    func mediaTypeChain(_ mediaType: String?) -> Self {
+        self.mediaType = mediaType
+        return self
+    }
+    
     /// JS注入
     func addUserScript(_ source: String) {
         let userScript = WKUserScript(source: source, injectionTime: .atDocumentStart, forMainFrameOnly: false)
@@ -70,7 +109,6 @@ import WebKit
             }
         }
     }
-
 
     /// 字体改变
     static func javaScriptFromTextSizeRatio(_ ratio: CGFloat) -> String {
@@ -133,6 +171,96 @@ import WebKit
         conf.snapshotWidth = snapshotWidth
         takeSnapshot(with: conf, completionHandler: completionHandler)
     }
+}
+
+
+public extension WKWebViewConfiguration {
+
+    func processPoolChain(_ processPool: WKProcessPool) -> Self {
+        self.processPool = processPool
+        return self
+    }
+
+    func preferencesChain(_ preferences: WKPreferences) -> Self {
+        self.preferences = preferences
+        return self
+    }
+
+    func userContentControllerChain(_ userContentController: WKUserContentController) -> Self {
+        self.userContentController = userContentController
+        return self
+    }
+
+    @available(iOS 9.0, *)
+    func websiteDataStoreChain(_ websiteDataStore: WKWebsiteDataStore) -> Self {
+        self.websiteDataStore = websiteDataStore
+        return self
+    }
+
+    func suppressesIncrementalRenderingChain(_ suppressesIncrementalRendering: Bool) -> Self {
+        self.suppressesIncrementalRendering = suppressesIncrementalRendering
+        return self
+    }
+
+    @available(iOS 9.0, *)
+    func applicationNameForUserAgentChain(_ applicationNameForUserAgent: String?) -> Self {
+        self.applicationNameForUserAgent = applicationNameForUserAgent
+        return self
+    }
+
+    @available(iOS 9.0, *)
+    func allowsAirPlayForMediaPlaybackChain(_ allowsAirPlayForMediaPlayback: Bool) -> Self {
+        self.allowsAirPlayForMediaPlayback = allowsAirPlayForMediaPlayback
+        return self
+    }
+
+    @available(iOS 10.0, *)
+    func mediaTypesRequiringUserActionForPlaybackChain(_ mediaTypesRequiringUserActionForPlayback: WKAudiovisualMediaTypes) -> Self {
+        self.mediaTypesRequiringUserActionForPlayback = mediaTypesRequiringUserActionForPlayback
+        return self
+    }
+
+    @available(iOS 13.0, *)
+    func defaultWebpagePreferencesChain(_ defaultWebpagePreferences: WKWebpagePreferences!) -> Self {
+        self.defaultWebpagePreferences = defaultWebpagePreferences
+        return self
+    }
+
+    @available(iOS 14.0, *)
+    func limitsNavigationsToAppBoundDomainsChain(_ limitsNavigationsToAppBoundDomains: Bool) -> Self {
+        self.limitsNavigationsToAppBoundDomains = limitsNavigationsToAppBoundDomains
+        return self
+    }
+
+    func allowsInlineMediaPlaybackChain(_ allowsInlineMediaPlayback: Bool) -> Self {
+        self.allowsInlineMediaPlayback = allowsInlineMediaPlayback
+        return self
+    }
+
+    func selectionGranularityChain(_ selectionGranularity: WKSelectionGranularity) -> Self {
+        self.selectionGranularity = selectionGranularity
+        return self
+    }
+
+    @available(iOS 9.0, *)
+    func allowsPictureInPictureMediaPlaybackChain(_ allowsPictureInPictureMediaPlayback: Bool) -> Self {
+        self.allowsPictureInPictureMediaPlayback = allowsPictureInPictureMediaPlayback
+        return self
+    }
+
+    @available(iOS 10.0, *)
+    func dataDetectorTypesChain(_ dataDetectorTypes: WKDataDetectorTypes) -> Self {
+        self.dataDetectorTypes = dataDetectorTypes
+        return self
+    }
+
+    @available(iOS 10.0, *)
+    func ignoresViewportScaleLimitsChain(_ ignoresViewportScaleLimits: Bool) -> Self {
+        self.ignoresViewportScaleLimits = ignoresViewportScaleLimits
+        return self
+    }
+
+
 }
 
 

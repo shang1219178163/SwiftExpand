@@ -32,17 +32,41 @@ import UIKit
         self.isOn = isOn
         self.onTintColor = UIColor.theme
     }
-}
-
-@objc public extension UIDatePicker{
     
-    convenience init(rect: CGRect = .zero, isOn: Bool = true) {
-        self.init(frame: rect)
-        self.datePickerMode = .date;
-        self.locale = Locale(identifier: "zh_CN");
-        self.backgroundColor = UIColor.white;
-        if #available(iOS 13.4, *) {
-            self.preferredDatePickerStyle = .wheels
-        }
+    func onTintColorChain(_ onTintColor: UIColor?) -> Self {
+        self.onTintColor = onTintColor
+        return self
+    }
+
+    func thumbTintColorChain(_ thumbTintColor: UIColor?) -> Self {
+        self.thumbTintColor = thumbTintColor
+        return self
+    }
+
+    func onImageChain(_ onImage: UIImage?) -> Self {
+        self.onImage = onImage
+        return self
+    }
+
+    func offImageChain(_ offImage: UIImage?) -> Self {
+        self.offImage = offImage
+        return self
+    }
+
+    @available(iOS 14.0, *)
+    func titleChain(_ title: String?) -> Self {
+        self.title = title
+        return self
+    }
+
+    @available(iOS 14.0, *)
+    func preferredStyleChain(_ preferredStyle: UISwitch.Style) -> Self {
+        self.preferredStyle = preferredStyle
+        return self
+    }
+
+    func isOnChain(_ isOn: Bool) -> Self {
+        self.isOn = isOn
+        return self
     }
 }
