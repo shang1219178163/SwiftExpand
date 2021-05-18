@@ -30,7 +30,6 @@ import UIKit
             let oriSel2 = #selector(self.addTarget(_:action:for:))
             let repSel2 = #selector(self.hook_addTarget(_:action:for:))
             hookInstanceMethod(of: oriSel2, with: repSel2)
-            
         }
     }
     

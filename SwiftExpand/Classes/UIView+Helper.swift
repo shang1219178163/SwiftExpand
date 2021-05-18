@@ -452,8 +452,8 @@ import UIKit
     func nextResponder(_ type: AnyClass, isPrint: Bool = false) -> NSObject? {
         var nextResponder: UIResponder? = self
         while nextResponder != nil {
-            if let controller = nextResponder as? UIWindow {
-                return controller
+            if let window = nextResponder as? UIWindow {
+                return window
             }
             nextResponder = nextResponder?.next
             if isPrint && nextResponder != nil {

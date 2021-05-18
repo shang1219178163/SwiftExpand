@@ -30,7 +30,7 @@ import UIKit
             ///带边框
         case titleAndOutline
             ///白底(带边框)
-        case titleAndOutlineRadius
+//        case titleAndOutlineRadius
     }
     
     func setLabelType(_ type: UILabel.LabelShowType) {

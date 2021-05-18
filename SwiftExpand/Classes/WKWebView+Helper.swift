@@ -51,13 +51,11 @@ import WebKit
         return self
     }
 
-    @available(iOS 9.0, *)
     func customUserAgentChain(_ customUserAgent: String?) -> Self {
         self.customUserAgent = customUserAgent
         return self
     }
 
-    @available(iOS 9.0, *)
     func allowsLinkPreviewChain(_ allowsLinkPreview: Bool) -> Self {
         self.allowsLinkPreview = allowsLinkPreview
         return self
