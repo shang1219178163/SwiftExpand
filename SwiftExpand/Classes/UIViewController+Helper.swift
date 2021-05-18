@@ -118,6 +118,7 @@ import UIKit
     
     /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
     func createSearchVC(_ resultsController: UIViewController) -> UISearchController {
+        resultsController.edgesForExtendedLayout = []
         definesPresentationContext = true;
         
         let searchVC = UISearchController(searchResultsController: resultsController)
