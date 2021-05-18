@@ -11,6 +11,158 @@
 import UIKit
 
 @objc public extension UITextField{
+    
+    // default is nil
+    func textChain(_ text: String?) -> Self {
+        self.text = text
+        return self
+    }
+
+    // default is nil
+    
+    func attributedTextChain(_ attributedText: NSAttributedString?) -> Self {
+        self.attributedText = attributedText
+        return self
+    }
+
+    // default is nil. use opaque black
+    func textColorChain(_ textColor: UIColor?) -> Self {
+        self.textColor = textColor
+        return self
+    }
+
+    // default is nil. use system font 12 pt
+    func fontChain(_ font: UIFont?) -> Self {
+        self.font = font
+        return self
+    }
+
+    // default is NSLeftTextAlignment
+    func textAlignmentChain(_ textAlignment: NSTextAlignment) -> Self {
+        self.textAlignment = textAlignment
+        return self
+    }
+
+    // default is UITextBorderStyleNone. If set to UITextBorderStyleRoundedRect, custom background images are ignored.
+    func borderStyleChain(_ borderStyle: UITextField.BorderStyle) -> Self {
+        self.borderStyle = borderStyle
+        return self
+    }
+
+    // applies attributes to the full range of text. Unset attributes act like default values.
+    func defaultTextAttributesChain(_ defaultTextAttributes: [NSAttributedString.Key : Any]) -> Self {
+        self.defaultTextAttributes = defaultTextAttributes
+        return self
+    }
+
+    // default is nil. string is drawn 70% gray
+    func placeholderChain(_ placeholder: String?) -> Self {
+        self.placeholder = placeholder
+        return self
+    }
+
+    // default is nil
+    func attributedPlaceholderChain(_ attributedPlaceholder: NSAttributedString?) -> Self {
+        self.attributedPlaceholder = attributedPlaceholder
+        return self
+    }
+
+    // default is NO which moves cursor to location clicked. if YES, all text cleared
+    func clearsOnBeginEditingChain(_ clearsOnBeginEditing: Bool) -> Self {
+        self.clearsOnBeginEditing = clearsOnBeginEditing
+        return self
+    }
+
+    // default is NO. if YES, text will shrink to minFontSize along baseline
+    func adjustsFontSizeToFitWidthChain(_ adjustsFontSizeToFitWidth: Bool) -> Self {
+        self.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+        return self
+    }
+
+    // default is 0.0. actual min may be pinned to something readable. used if adjustsFontSizeToFitWidth is YES
+    func minimumFontSizeChain(_ minimumFontSize: CGFloat) -> Self {
+        self.minimumFontSize = minimumFontSize
+        return self
+    }
+
+    // default is nil. weak reference
+    func delegateChain(_ delegate: UITextFieldDelegate?) -> Self {
+        self.delegate = delegate
+        return self
+    }
+
+    // default is nil. draw in border rect. image should be stretchable
+    func backgroundChain(_ background: UIImage?) -> Self {
+        self.background = background
+        return self
+    }
+
+    // default is nil. ignored if background not set. image should be stretchable
+    func disabledBackgroundChain(_ disabledBackground: UIImage?) -> Self {
+        self.disabledBackground = disabledBackground
+        return self
+    }
+
+    // default is NO. allows editing text attributes with style operations and pasting rich text
+    
+    func allowsEditingTextAttributesChain(_ allowsEditingTextAttributes: Bool) -> Self {
+        self.allowsEditingTextAttributes = allowsEditingTextAttributes
+        return self
+    }
+
+    // automatically resets when the selection changes
+    
+    func typingAttributesChain(_ typingAttributes: [NSAttributedString.Key : Any]) -> Self {
+        self.typingAttributes = typingAttributes
+        return self
+    }
+
+    // sets when the clear button shows up. default is UITextFieldViewModeNever
+    func clearButtonModeChain(_ clearButtonMode: UITextField.ViewMode) -> Self {
+        self.clearButtonMode = clearButtonMode
+        return self
+    }
+
+    // e.g. magnifying glass
+    func leftViewChain(_ leftView: UIView?) -> Self {
+        self.leftView = leftView
+        return self
+    }
+
+    // sets when the left view shows up. default is UITextFieldViewModeNever
+    func leftViewModeChain(_ leftViewMode: UITextField.ViewMode) -> Self {
+        self.leftViewMode = leftViewMode
+        return self
+    }
+
+    // e.g. bookmarks button
+    func rightViewChain(_ rightView: UIView?) -> Self {
+        self.rightView = rightView
+        return self
+    }
+
+    // sets when the right view shows up. default is UITextFieldViewModeNever
+    func rightViewModeChain(_ rightViewMode: UITextField.ViewMode) -> Self {
+        self.rightViewMode = rightViewMode
+        return self
+    }
+
+    func inputViewChain(_ inputView: UIView?) -> Self {
+        self.inputView = inputView
+        return self
+    }
+
+    func inputAccessoryViewChain(_ inputAccessoryView: UIView?) -> Self {
+        self.inputAccessoryView = inputAccessoryView
+        return self
+    }
+
+    // defaults to NO. if YES, the selection UI is hidden, and inserting text will replace the contents of the field. changing the selection will automatically set this to NO.
+    func clearsOnInsertionChain(_ clearsOnInsertion: Bool) -> Self {
+        self.clearsOnInsertion = clearsOnInsertion
+        return self
+    }
+
     /// [源]UITextField创建
     static func create(_ rect: CGRect = .zero) -> Self {
         let view = self.init(frame: rect);
@@ -33,14 +185,13 @@ import UIKit
     }
     
     //设置 attributedPlaceholder
-    func setPlaceHolder(_ color: UIColor? = nil, font: UIFont = UIFont.systemFont(ofSize: 15), baseline: CGFloat = 0) {
-        guard let holder = placeholder, !holder.isEmpty else { return }
-        var dic = [NSAttributedString.Key.font: self.font ?? font,
-                   NSAttributedString.Key.baselineOffset: baseline,
-        ] as [NSAttributedString.Key : Any]
-        if let color = color {
-            dic[NSAttributedString.Key.foregroundColor] = color
-        }
+    func setPlaceHolder(_ holder: String? = nil, font: UIFont = UIFont.systemFont(ofSize: 15), baseline: CGFloat = 0) {
+        guard let holder = holder ?? placeholder, !holder.isEmpty else { return }
+        let dic: [NSAttributedString.Key : Any] = [
+            .foregroundColor: UIColor.gray.withAlphaComponent(0.7),
+            .font: self.font ?? font,
+            .baselineOffset: baseline,
+        ]
         attributedPlaceholder = NSAttributedString(string: holder, attributes: dic)
     }
     
@@ -189,6 +340,8 @@ import UIKit
         rightView = view
         rightViewMode = .always
     }
+    
+
 }
 
 public extension UITextField{

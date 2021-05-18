@@ -11,6 +11,110 @@ import UIKit
 
 @objc public extension UITextView{
     
+    func delegateChain(_ delegate: UITextViewDelegate?) -> Self {
+        self.delegate = delegate
+        return self
+    }
+
+    func textChain(_ text: String!) -> Self {
+        self.text = text
+        return self
+    }
+
+    func fontChain(_ font: UIFont?) -> Self {
+        self.font = font
+        return self
+    }
+
+    func textColorChain(_ textColor: UIColor?) -> Self {
+        self.textColor = textColor
+        return self
+    }
+
+    // default is NSLeftTextAlignment
+    func textAlignmentChain(_ textAlignment: NSTextAlignment) -> Self {
+        self.textAlignment = textAlignment
+        return self
+    }
+
+    func selectedRangeChain(_ selectedRange: NSRange) -> Self {
+        self.selectedRange = selectedRange
+        return self
+    }
+
+    func isEditableChain(_ isEditable: Bool) -> Self {
+        self.isEditable = isEditable
+        return self
+    }
+
+    // toggle selectability, which controls the ability of the user to select content and interact with URLs & attachments. On tvOS this also makes the text view focusable.
+    @available(iOS 7.0, *)
+    func isSelectableChain(_ isSelectable: Bool) -> Self {
+        self.isSelectable = isSelectable
+        return self
+    }
+
+    @available(iOS 3.0, *)
+    func dataDetectorTypesChain(_ dataDetectorTypes: UIDataDetectorTypes) -> Self {
+        self.dataDetectorTypes = dataDetectorTypes
+        return self
+    }
+
+    // defaults to NO
+    @available(iOS 6.0, *)
+    func allowsEditingTextAttributesChain(_ allowsEditingTextAttributes: Bool) -> Self {
+        self.allowsEditingTextAttributes = allowsEditingTextAttributes
+        return self
+    }
+
+    @available(iOS 6.0, *)
+    func attributedTextChain(_ attributedText: NSAttributedString!) -> Self {
+        self.attributedText = attributedText
+        return self
+    }
+
+    // automatically resets when the selection changes
+    @available(iOS 6.0, *)
+    func typingAttributesChain(_ typingAttributes: [NSAttributedString.Key : Any]) -> Self {
+        self.typingAttributes = typingAttributes
+        return self
+    }
+
+    func inputViewChain(_ inputView: UIView?) -> Self {
+        self.inputView = inputView
+        return self
+    }
+
+    func inputAccessoryViewChain(_ inputAccessoryView: UIView?) -> Self {
+        self.inputAccessoryView = inputAccessoryView
+        return self
+    }
+
+    // defaults to NO. if YES, the selection UI is hidden, and inserting text will replace the contents of the field. changing the selection will automatically set this to NO.
+    @available(iOS 6.0, *)
+    func clearsOnInsertionChain(_ clearsOnInsertion: Bool) -> Self {
+        self.clearsOnInsertion = clearsOnInsertion
+        return self
+    }
+
+    @available(iOS 7.0, *)
+    func textContainerInsetChain(_ textContainerInset: UIEdgeInsets) -> Self {
+        self.textContainerInset = textContainerInset
+        return self
+    }
+
+    @available(iOS 7.0, *)
+    func linkTextAttributesChain(_ linkTextAttributes: [NSAttributedString.Key : Any]) -> Self {
+        self.linkTextAttributes = linkTextAttributes
+        return self
+    }
+
+    @available(iOS 13.0, *)
+    func usesStandardTextScalingChain(_ usesStandardTextScaling: Bool) -> Self {
+        self.usesStandardTextScaling = usesStandardTextScaling
+        return self
+    }
+    
     ///获取文字行数
     var numberOfLine: Int {
         let rows = (contentSize.height - textContainerInset.top - textContainerInset.bottom)/font!.lineHeight
