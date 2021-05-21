@@ -39,8 +39,8 @@ import UIKit
                 return obj
             }
             let obj = UILabel()
-            obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             obj.frame = bounds.inset(by: UIEdgeInsets(top: 8, left: 6, bottom: 8, right: 6))
+            obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             obj.font = font
             obj.textColor = .gray
             obj.textAlignment = textAlignment
@@ -50,7 +50,8 @@ import UIKit
             obj.isUserInteractionEnabled = true
             obj.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(obj)
-
+            
+            
             obj.addGestureTap { (reco) in
                 self.becomeFirstResponder()
             }

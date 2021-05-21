@@ -39,6 +39,7 @@ import Foundation
         }
     }
     
+    
     func setTabBarVisible(_ visible: Bool, animated: Bool) {
         
         // bail if the current state matches the desired state

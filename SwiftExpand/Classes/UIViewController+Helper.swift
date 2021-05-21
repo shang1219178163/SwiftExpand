@@ -232,27 +232,7 @@ import UIKit
             self.navigationController?.navigationBar.alpha = alpha;
         }
     }
-    
-    /// 获取UIViewController/UINavigationController数组
-    static func controllers(_ list: [[String]], isNavController: Bool = false, showVCTitle: Bool = true) -> [UIViewController] {
-        let tabItems: [UITabBarItem] = UITabBar.barItems(list)
-        var marr = [UIViewController]()
-        for e in list.enumerated() {
-            let itemList = e.element
-            
-            var controller: UIViewController = UICtrFromString(itemList.first!)
-            if showVCTitle {
-                let title: String = itemList.count > 1 ? itemList[1] : "";
-                controller.title = title
-            }
-            controller.tabBarItem = tabItems[e.offset]
-            
-            controller = isNavController == true ? UINavCtrFromObj(controller)! : controller
-            marr.append(controller)
-        }
-        return marr
-    }
-    
+        
     ///呈现popover
     func presentPopover(_ contentVC: UIViewController,
                         sender: UIView,
@@ -300,5 +280,22 @@ import UIKit
     ///左滑返回打开(viewDidAppear/viewWillDisappear)
     func popGestureOpen() {
         popGesture(true)
+    }
+}
+
+
+public extension UIViewController{
+    
+    ///刷新 tabBarItem
+    func reloadTabarItem(_ item: (String, UIImage?, UIImage?)) {
+        let (title, image, imageH) = item
+        guard let img = image,
+              let imgH = imageH else {
+                tabBarItem = UITabBarItem(title: title, image: nil, selectedImage: nil)
+                return }
+        
+        let value = img.withRenderingMode(.alwaysOriginal)
+        let valueH = imgH.withRenderingMode(.alwaysTemplate)
+        tabBarItem = UITabBarItem(title: title, image: value, selectedImage: valueH)
     }
 }

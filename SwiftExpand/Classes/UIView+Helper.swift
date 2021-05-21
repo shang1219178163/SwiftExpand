@@ -58,18 +58,6 @@ import UIKit
         }
     }
     
-//    var origin: CGPoint {
-//        get {
-//            return frame.origin
-//        }
-//        set {
-////            frame.origin = newValue
-//            var rectTmp = frame;
-//            rectTmp.origin = newValue;
-//            frame = rectTmp;
-//        }
-//    }
-    
     var minX: CGFloat {
         return frame.minX
     }
@@ -196,27 +184,6 @@ import UIKit
 //        let image = UIGraphicsGetImageFromCurrentImageContext()
 //        UIGraphicsEndImageContext()
 //        return image
-//    }
-    
-    //MARK: -通用响应添加方法
-//    func addActionClosure(_ action: @escaping ViewClosure) {
-//        if let sender = self as? UIButton {
-//            sender.addActionHandler({ (control) in
-//                action(nil, control, control.tag);
-//
-//            }, for: .touchUpInside)
-//        }
-//        else if let sender = self as? UIControl {
-//            sender.addActionHandler({ (control) in
-//                action(nil, control, control.tag);
-//
-//            }, for: .valueChanged)
-//            
-//        } else {
-//            _ = self.addGestureTap { (reco) in
-//                action(reco, reco.view!, reco.view!.tag);
-//            }
-//        }
 //    }
     
     ///手势 - 轻点 UITapGestureRecognizer
