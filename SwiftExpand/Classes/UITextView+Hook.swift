@@ -38,8 +38,9 @@ import UIKit
             if let obj = objc_getAssociatedObject(self, &AssociateKeys.placeHolderLabel) as? UILabel {
                 return obj
             }
-            let obj = UILabel(frame: self.bounds)
+            let obj = UILabel()
             obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            obj.frame = bounds.inset(by: UIEdgeInsets(top: 8, left: 6, bottom: 8, right: 6))
             obj.font = font
             obj.textColor = .gray
             obj.textAlignment = textAlignment
@@ -49,14 +50,8 @@ import UIKit
             obj.isUserInteractionEnabled = true
             obj.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(obj)
-            
-            obj.snp.remakeConstraints { (make) in
-                make.top.equalToSuperview().offset(8)
-                make.left.equalToSuperview().offset(6)
-                make.right.bottom.equalToSuperview().offset(-8)
-            }
-            
-            _ = obj.addGestureTap { (reco) in
+
+            obj.addGestureTap { (reco) in
                 self.becomeFirstResponder()
             }
             
