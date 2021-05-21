@@ -6,7 +6,6 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import UIKit
 
 @objc public extension CALayer{
     

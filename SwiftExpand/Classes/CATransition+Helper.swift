@@ -27,10 +27,11 @@ import QuartzCore
     /// 相机镜头关闭效果
     static let kCATransitionCameraClose  = "cameraIrisHollowClose";
     /// 动画方向
-    static let kSubTypeFuntionNames = [CATransitionSubtype.fromTop,
-                                      CATransitionSubtype.fromLeft,
-                                      CATransitionSubtype.fromBottom,
-                                      CATransitionSubtype.fromRight];
+    static let kSubTypes: [CATransitionSubtype] = [
+        .fromTop,
+        .fromLeft,
+        .fromBottom,
+        .fromRight];
     /// [源]CATransition    
     convenience init(duration: CFTimeInterval,
                      functionName: CAMediaTimingFunctionName = .linear,

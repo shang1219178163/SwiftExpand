@@ -6,7 +6,6 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import UIKit
 
 @objc public extension CAGradientLayer{
     private struct AssociateKeys {
@@ -44,29 +43,5 @@ import UIKit
             objc_setAssociatedObject(self,  &AssociateKeys.defaultColors, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
-    
-    func colorsChain(_ colors: [Any]) -> Self {
-        self.colors = colors
-        return self
-    }
 
-    func locationsChain(_ locations: [NSNumber]) -> Self {
-        self.locations = locations
-        return self
-    }
-
-    func startPointChain(_ startPoint: CGPoint) -> Self {
-        self.startPoint = startPoint
-        return self
-    }
-
-    func endPointChain(_ endPoint: CGPoint) -> Self {
-        self.endPoint = endPoint
-        return self
-    }
-
-    func typeChain(_ type: CAGradientLayerType) -> Self {
-        self.type = type
-        return self
-    }
 }

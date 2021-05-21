@@ -8,7 +8,6 @@
 
 import UIKit
 
-@available(iOS 9.0, *)
 @objc public extension UIStackView {
     
     convenience init(arrangedSubviews: [UIView],
@@ -21,42 +20,6 @@ import UIKit
         self.spacing = spacing
         self.alignment = alignment
         self.distribution = distribution
-    }
-    
-    func axisChain(_ axis: NSLayoutConstraint.Axis) -> Self {
-        self.axis = axis
-        return self
-    }
-
-    func distributionChain(_ distribution: UIStackView.Distribution) -> Self {
-        self.distribution = distribution
-        return self
-    }
-
-    func alignmentChain(_ alignment: UIStackView.Alignment) -> Self {
-        self.alignment = alignment
-        return self
-    }
-
-    func spacingChain(_ spacing: CGFloat) -> Self {
-        self.spacing = spacing
-        return self
-    }
-
-    func isBaselineRelativeArrangementChain(_ isBaselineRelativeArrangement: Bool) -> Self {
-        self.isBaselineRelativeArrangement = isBaselineRelativeArrangement
-        return self
-    }
-
-    func isLayoutMarginsRelativeArrangementChain(_ isLayoutMarginsRelativeArrangement: Bool) -> Self {
-        self.isLayoutMarginsRelativeArrangement = isLayoutMarginsRelativeArrangement
-        return self
-    }
-    
-    @available(iOS 11.0, *)
-    func setCustomSpacingChain(_ spacing: CGFloat, after arrangedSubview: UIView) -> Self {
-        self.setCustomSpacing(spacing, after: arrangedSubview)
-        return self
     }
 
     func addArrangedSubviews(_ views: [UIView]) {

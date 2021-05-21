@@ -33,40 +33,4 @@ import UIKit
         self.onTintColor = UIColor.theme
     }
     
-    func onTintColorChain(_ onTintColor: UIColor?) -> Self {
-        self.onTintColor = onTintColor
-        return self
-    }
-
-    func thumbTintColorChain(_ thumbTintColor: UIColor?) -> Self {
-        self.thumbTintColor = thumbTintColor
-        return self
-    }
-
-    func onImageChain(_ onImage: UIImage?) -> Self {
-        self.onImage = onImage
-        return self
-    }
-
-    func offImageChain(_ offImage: UIImage?) -> Self {
-        self.offImage = offImage
-        return self
-    }
-
-    @available(iOS 14.0, *)
-    func titleChain(_ title: String?) -> Self {
-        self.title = title
-        return self
-    }
-
-    @available(iOS 14.0, *)
-    func preferredStyleChain(_ preferredStyle: UISwitch.Style) -> Self {
-        self.preferredStyle = preferredStyle
-        return self
-    }
-
-    func isOnChain(_ isOn: Bool) -> Self {
-        self.isOn = isOn
-        return self
-    }
 }

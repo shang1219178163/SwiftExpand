@@ -6,7 +6,7 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import UIKit
+import SwiftChain
 
 /// UIAlertController标题富文本key
 public let kAlertCtlrTitle = "attributedTitle"
@@ -151,9 +151,9 @@ public let kAlertActionChecked = "checked"
                          lineBreakMode: NSLineBreakMode = .byCharWrapping,
                          lineSpacing: CGFloat = 5.0) -> UIAlertController {
         let paraStyle = NSMutableParagraphStyle()
-            .lineBreakMode(lineBreakMode)
-            .lineSpacing(lineSpacing)
-            .alignment(alignment)
+            .lineBreakModeChain(lineBreakMode)
+            .lineSpacingChain(lineSpacing)
+            .alignmentChain(alignment)
         
         return setMessageParaStyle(paraStyle)
     }
@@ -166,9 +166,9 @@ public let kAlertActionChecked = "checked"
                           handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
         //富文本效果
         let paraStyle = NSMutableParagraphStyle()
-            .lineBreakMode(.byCharWrapping)
-            .lineSpacing(5)
-            .alignment(.center)
+            .lineBreakModeChain(.byCharWrapping)
+            .lineSpacingChain(5)
+            .alignmentChain(.center)
         block?(paraStyle)
         
         UIAlertController(title: title, message: message, preferredStyle: .alert)

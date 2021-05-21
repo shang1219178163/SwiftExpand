@@ -1,6 +1,6 @@
 {
   "name": "SwiftExpand",
-  "version": "6.7.0.1",
+  "version": "6.9.4",
   "summary": "系统类功能扩展, 极大的提高工作效率.",
   "description": "主要通过分类实现",
   "homepage": "https://github.com/shang1219178163/SwiftExpand",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/shang1219178163/SwiftExpand.git",
-    "tag": "6.7.0.1"
+    "tag": "6.9.4"
   },
   "source_files": "SwiftExpand/Classes/**/*",
   "resource_bundles": {
@@ -28,15 +28,15 @@
   "requires_arc": true,
   "frameworks": [
     "UIKit",
-    "CoreFoundation",
-    "CoreGraphics",
-    "CoreImage",
-    "CoreLocation",
-    "QuartzCore",
-    "WebKit"
+    "Foundation",
+    "WebKit",
+    "QuartzCore"
   ],
   "dependencies": {
     "SnapKit": [
+
+    ],
+    "SwiftChain": [
 
     ]
   },

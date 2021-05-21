@@ -10,67 +10,6 @@ import UIKit
 
 @objc public extension UICollectionViewFlowLayout{
 
-    func minimumLineSpacingChain(_ minimumLineSpacing: CGFloat) -> Self {
-        self.minimumLineSpacing = minimumLineSpacing
-        return self
-    }
-
-    func minimumInteritemSpacingChain(_ minimumInteritemSpacing: CGFloat) -> Self {
-        self.minimumInteritemSpacing = minimumInteritemSpacing
-        return self
-    }
-
-    func itemSizeChain(_ itemSize: CGSize) -> Self {
-        self.itemSize = itemSize
-        return self
-    }
-
-    // defaults to CGSizeZero - setting a non-zero size enables cells that self-size via -preferredLayoutAttributesFittingAttributes:
-    @available(iOS 8.0, *)
-    func estimatedItemSizeChain(_ estimatedItemSize: CGSize) -> Self {
-        self.estimatedItemSize = estimatedItemSize
-        return self
-    }
-
-    // default is UICollectionViewScrollDirectionVertical
-    func scrollDirectionChain(_ scrollDirection: UICollectionView.ScrollDirection) -> Self {
-        self.scrollDirection = scrollDirection
-        return self
-    }
-
-    func headerReferenceSizeChain(_ headerReferenceSize: CGSize) -> Self {
-        self.headerReferenceSize = headerReferenceSize
-        return self
-    }
-
-    func footerReferenceSizeChain(_ footerReferenceSize: CGSize) -> Self {
-        self.footerReferenceSize = footerReferenceSize
-        return self
-    }
-
-    func sectionInsetChain(_ sectionInset: UIEdgeInsets) -> Self {
-        self.sectionInset = sectionInset
-        return self
-    }
-
-    @available(iOS 11.0, *)
-    func sectionInsetReferenceChain(_ sectionInsetReference: UICollectionViewFlowLayout.SectionInsetReference) -> Self {
-        self.sectionInsetReference = sectionInsetReference
-        return self
-    }
-
-    @available(iOS 9.0, *)
-    func sectionHeadersPinToVisibleBoundsChain(_ sectionHeadersPinToVisibleBounds: Bool) -> Self {
-        self.sectionHeadersPinToVisibleBounds = sectionHeadersPinToVisibleBounds
-        return self
-    }
-
-    @available(iOS 9.0, *)
-    func sectionFootersPinToVisibleBoundsChain(_ sectionFootersPinToVisibleBounds: Bool) -> Self {
-        self.sectionFootersPinToVisibleBounds = sectionFootersPinToVisibleBounds
-        return self
-    }
-
     ///  默认布局配置(自上而下,自左而右)
     convenience init(_ numOfRow: Int = 4,
                      width: CGFloat = UIScreen.main.bounds.width,

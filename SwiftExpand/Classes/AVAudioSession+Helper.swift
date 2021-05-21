@@ -6,9 +6,8 @@
 //  Copyright © 2021 BN. All rights reserved.
 //
 
-import UIKit
-
 import AVFoundation
+
 @objc public extension AVAudioSession {
 
     ///音量开关

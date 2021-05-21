@@ -23,65 +23,6 @@ import UIKit
             objc_setAssociatedObject(self, &AssociateKeys.isSelected, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
-    // default is nil
-    func imageChain(_ image: UIImage?) -> Self {
-        self.image = image
-        return self
-    }
-
-    // default is nil
-    func highlightedImageChain(_ highlightedImage: UIImage?) -> Self {
-        self.highlightedImage = highlightedImage
-        return self
-    }
-
-    @available(iOS 13.0, *)
-    func preferredSymbolConfigurationChain(_ preferredSymbolConfiguration: UIImage.SymbolConfiguration?) -> Self {
-        self.preferredSymbolConfiguration = preferredSymbolConfiguration
-        return self
-    }
-
-    // default is NO
-    func isUserInteractionEnabledChain(_ isUserInteractionEnabled: Bool) -> Self {
-        self.isUserInteractionEnabled = isUserInteractionEnabled
-        return self
-    }
-
-    // default is NO
-    func isHighlightedChain(_ isHighlighted: Bool) -> Self {
-        self.isHighlighted = isHighlighted
-        return self
-    }
-
-    // The array must contain UIImages. Setting hides the single image. default is nil
-    func animationImagesChain(_ animationImages: [UIImage]) -> Self {
-        self.animationImages = animationImages
-        return self
-    }
-
-    // The array must contain UIImages. Setting hides the single image. default is nil
-    func highlightedAnimationImagesChain(_ highlightedAnimationImages: [UIImage]) -> Self {
-        self.highlightedAnimationImages = highlightedAnimationImages
-        return self
-    }
-
-    // for one cycle of images. default is number of images * 1/30th of a second (i.e. 30 fps)
-    func animationDurationChain(_ animationDuration: TimeInterval) -> Self {
-        self.animationDuration = animationDuration
-        return self
-    }
-
-    // 0 means infinite (default is 0)
-    func animationRepeatCountChain(_ animationRepeatCount: Int) -> Self {
-        self.animationRepeatCount = animationRepeatCount
-        return self
-    }
-
-    func tintColorChain(_ tintColor: UIColor!) -> Self {
-        self.tintColor = tintColor
-        return self
-    }
 
     /// [源]UIImageView创建
     static func create(_ rect: CGRect = .zero, imgName: String) -> Self {
