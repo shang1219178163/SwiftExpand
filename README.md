@@ -636,7 +636,7 @@ Swift SDK功能拓展 , Objective-C && Swift
 
     @objc public extension NSMutableParagraphStyle{
         
-        func lineSpacing(_ value: CGFloat) -> Self {
+        func lineSpacingChain(_ value: CGFloat) -> Self {
             self.lineSpacing = value
             return self
         }

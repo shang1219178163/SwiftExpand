@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Foundation
 import SwiftExpand
+import WebKit
 
 class HomeViewController: UIViewController {
 
@@ -20,7 +22,17 @@ class HomeViewController: UIViewController {
         textField.frame = CGRect.make(10, 20, kScreenWidth - 20, 35)
         view.addSubview(textField)
         
-        textField.setupLeftView(image: UIImage.image(named: "search_bar", podClassName: "SwiftExpand"))
+        let image = UIImage.image(named: "search_bar", podClassName: "SwiftExpand")!
+        textField.addLeftViewButton { (sender) in
+            sender.imageView?.contentMode = .scaleAspectFit
+            sender.setImage(image, for: .normal)
+//            sender.setBackgroundImage(image, for: .normal)
+
+        } action: { (sender) in
+            DDLog(sender);
+        }
+
+//        textField.setupLeftView(image: UIImage.image(named: "search_bar", podClassName: "SwiftExpand"))
 
         textField.becomeFirstResponder()
         
