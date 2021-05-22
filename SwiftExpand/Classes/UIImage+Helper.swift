@@ -50,6 +50,30 @@ import UIKit
         }
     }
     
+    ///获取 pod bundle 图片资源
+    convenience init?(named name: String, podClass: AnyClass, bundleName: String? = nil) {
+        let bName = bundleName ?? "\(podClass)"
+        if let image = UIImage(named: "\(bName).bundle/\(name)"), let cgImage = image.cgImage{
+            self.init(cgImage: cgImage)
+        } else {
+            let filePath = Bundle(for: podClass).resourcePath! + "/\(bName).bundle"
+            guard let bundle = Bundle(path: filePath) else { return nil}
+            self.init(named: name, in: bundle, compatibleWith: nil)
+        }
+    }
+
+    ///获取 pod bundle 图片资源
+    convenience init?(named name: String, podName: String, bundleName: String? = nil) {
+        let bName = bundleName ?? podName
+        if let image = UIImage(named: "\(bName).bundle/\(name)"), let cgImage = image.cgImage{
+            self.init(cgImage: cgImage)
+        } else {
+            let filePath = Bundle.main.resourcePath! + "/Frameworks/\(podName).framework/\(bName).bundle"
+            guard let bundle = Bundle(path: filePath) else { return nil}
+            self.init(named: name, in: bundle, compatibleWith: nil)
+        }
+    }
+    
     /// UIImage 相等判断
     func equelTo(_ image: UIImage) -> Bool{
         guard let data0 = self.pngData(), let data1 = image.pngData() else {
@@ -74,46 +98,6 @@ import UIKit
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsGetCurrentContext()
         return image!
-    }
-        
-    /// 获取 pod bundle 图片资源
-    static func image(named name: String, podClass: AnyClass, bundleName: String? = nil) -> UIImage?{
-        let bundleNameNew = bundleName ?? "\(podClass)"
-        if let image = UIImage(named: "\(bundleNameNew).bundle/\(name)") {
-            return image;
-        }
-
-        let framework = Bundle(for: podClass)
-        let filePath = framework.resourcePath! + "/\(bundleNameNew).bundle"
-        
-        guard let bundle = Bundle(path: filePath) else { return nil}
-        let image = UIImage(named: name, in: bundle, compatibleWith: nil)
-        return image;
-    }
-    /// 获取 pod bundle 图片资源
-    static func image(named name: String, podClassName: String, bundleName: String? = nil) -> UIImage?{
-        let bundleNameNew = bundleName ?? podClassName
-        if let image = UIImage(named: "\(bundleNameNew).bundle/\(name)") {
-            return image;
-        }
-
-        let framework = Bundle.main
-        let filePath = framework.resourcePath! + "/Frameworks/\(podClassName).framework/\(bundleNameNew).bundle"
-        
-        guard let bundle = Bundle(path: filePath) else { return nil}
-        let image = UIImage(named: name, in: bundle, compatibleWith: nil)
-        return image;
-    }
-    
-    /// 获取 pod bundle 图片资源
-    static func image(named name: String, bundlePath: String) -> UIImage?{
-        if let image = UIImage(named: name) {
-            return image;
-        }
-                
-        guard let bundle = Bundle(path: bundlePath) else { return nil}
-        let image = UIImage(named: name, in: bundle, compatibleWith: nil)
-        return image;
     }
 
     ///生成含有图片和文字的图像
