@@ -10,12 +10,12 @@ import UIKit
 
 @objc public extension UIStackView {
     
-    convenience init(arrangedSubviews: [UIView],
-                      axis: NSLayoutConstraint.Axis,
-                      spacing: CGFloat = 0.0,
-                      alignment: UIStackView.Alignment = .fill,
-                      distribution: UIStackView.Distribution = .fill) {
-        self.init(arrangedSubviews: arrangedSubviews)
+    convenience init(subviews: [UIView],
+                     axis: NSLayoutConstraint.Axis,
+                     spacing: CGFloat = 0.0,
+                     alignment: UIStackView.Alignment = .fill,
+                     distribution: UIStackView.Distribution = .fill) {
+        self.init(arrangedSubviews: subviews)
         self.axis = axis
         self.spacing = spacing
         self.alignment = alignment
@@ -48,7 +48,7 @@ import UIKit
     }
     
     ///数组传入子视图集合
-    func changeViews(_ views: [UIView]) {
+    func changeSubViews(_ views: [UIView]) {
         if views.count == 0 {
             return
         }
