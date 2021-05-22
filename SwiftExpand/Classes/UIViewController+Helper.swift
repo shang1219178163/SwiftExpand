@@ -12,7 +12,7 @@ import UIKit
 @objc public extension UIViewController{
 
     
-    var controllerName: String {
+    var vcName: String {
         var className: String = NNStringFromClass(self.classForCoder)
         if className.contains("Controller") {
             var range = className.range(of: "Controller");
