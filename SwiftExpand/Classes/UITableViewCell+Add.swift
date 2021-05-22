@@ -96,7 +96,7 @@ import UIKit
             view.isUserInteractionEnabled = true;
             view.contentMode = .scaleAspectFit;
             view.backgroundColor = .clear
-            view.image = UIImage(named: kIMG_arrowRight);
+            view.image = UIImage(named: "img_arrowRight_gray");
             
             objc_setAssociatedObject(self, &AssociateKeys.imgViewRight, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return view

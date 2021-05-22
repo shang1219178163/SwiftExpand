@@ -143,53 +143,53 @@ public let kFontSize10: CGFloat = 10;
 
 // MARK: - 图像名称
 
-public let kIMG_arrowRight      = "img_arrowRight_gray";
-public let kIMG_arrowDown       = "img_arrowDown_black";
-public let kIMG_arrowDown_white = "img_arrowDown_white";
-
-public let kIMG_arrowBack       = "img_arrowLeft_white";
-public let kIMG_arrowUp         = "img_arrowUp_blue";
-
-public let kIMG_portrait        = "img_portrait_N";
-public let kIMG_portrait_N      = "img_portrait_N";
-public let kIMG_portrait_H      = "img_portrait_H";
-/// 图片添加
-public let kIMG_pictureAdd      = "img_pictureAdd";
-/// 图片删除
-public let kIMG_pictureDelete   = "img_pictureDelete";
-/// 图片加载失败
-public let kIMG_defaultFailed   = "img_failedDefault";
-/// 图片加载失败(小)
-public let kIMG_defaultFailed_S = "img_failedDefault_S";
-/// 默认肖像
-public let kIMG_defaultPortrait = "img_portrait_N";
-/// 性别男
-public let kIMG_sexBoy          = "img_sex_boy";
-/// 性别女
-public let kIMG_sexGril         = "img_sex_gril";
-/// 按钮减
-public let kIMG_elemetDec       = "img_elemet_decrease";
-/// 按钮加
-public let kIMG_elemetInc       = "img_elemet_increase";
-/// 扫描图标
-public let kIMG_scan            = "img_scan";
-/// NFC图标
-public let kIMG_NFC             = "img_NFC";
-
-public let kIMG_inquiry         = "img_dialog_inquiry";
-public let kIMG_update          = "img_dialog_update";
-public let kIMG_warning         = "img_dialog_warning";
-
-public let kIMG_notice          = "img_notice";
-public let kIMG_location_H      = "img_location_H";
-public let kIMG_more            = "img_more";
-
-public let kIMG_selected_NO     = "icon_selected_no_blue";
-public let kIMG_selected_YES    = "icon_selected_yes_blue";
-public let kIMG_Add             = "btn_add";
-
-public let kIMG_like_H          = "img_like_H";
-public let kIMG_like_W          = "img_like_W";
+//public let kIMG_arrowRight      = "img_arrowRight_gray";
+//public let kIMG_arrowDown       = "img_arrowDown_black";
+//public let kIMG_arrowDown_white = "img_arrowDown_white";
+//
+//public let kIMG_arrowBack       = "img_arrowLeft_white";
+//public let kIMG_arrowUp         = "img_arrowUp_blue";
+//
+//public let kIMG_portrait        = "img_portrait_N";
+//public let kIMG_portrait_N      = "img_portrait_N";
+//public let kIMG_portrait_H      = "img_portrait_H";
+///// 图片添加
+//public let kIMG_pictureAdd      = "img_pictureAdd";
+///// 图片删除
+//public let kIMG_pictureDelete   = "img_pictureDelete";
+///// 图片加载失败
+//public let kIMG_defaultFailed   = "img_failedDefault";
+///// 图片加载失败(小)
+//public let "img_failedDefault_S" = "img_failedDefault_S";
+///// 默认肖像
+//public let "img_portrait_N" = "img_portrait_N";
+///// 性别男
+//public let kIMG_sexBoy          = "img_sex_boy";
+///// 性别女
+//public let kIMG_sexGril         = "img_sex_gril";
+///// 按钮减
+//public let kIMG_elemetDec       = "img_elemet_decrease";
+///// 按钮加
+//public let kIMG_elemetInc       = "img_elemet_increase";
+///// 扫描图标
+//public let kIMG_scan            = "img_scan";
+///// NFC图标
+//public let kIMG_NFC             = "img_NFC";
+//
+//public let kIMG_inquiry         = "img_dialog_inquiry";
+//public let kIMG_update          = "img_dialog_update";
+//public let kIMG_warning         = "img_dialog_warning";
+//
+//public let kIMG_notice          = "img_notice";
+//public let kIMG_location_H      = "img_location_H";
+//public let kIMG_more            = "img_more";
+//
+//public let kIMG_selected_NO     = "icon_selected_no_blue";
+//public let kIMG_selected_YES    = "icon_selected_yes_blue";
+//public let kIMG_Add             = "btn_add";
+//
+//public let kIMG_like_H          = "img_like_H";
+//public let kIMG_like_W          = "img_like_W";
 
 // MARK: - 文字
 
