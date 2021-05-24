@@ -20,7 +20,7 @@ import UIKit
                 return obj
             }
 
-            let view = UITableView.create(self.view.bounds, style: .plain, rowHeight: 50)
+            let view = UITableView(rect: self.view.bounds, style: .plain, rowHeight: 50)
             if self.conforms(to: UITableViewDataSource.self) {
                 view.dataSource = self as? UITableViewDataSource;
             }

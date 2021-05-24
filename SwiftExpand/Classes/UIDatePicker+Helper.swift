@@ -19,7 +19,7 @@ public extension UIDatePicker {
             setValue(newValue, forKeyPath: "textColor")
         }
     }
-    
+    /// 初始化
     convenience init(rect: CGRect = .zero, isOn: Bool = true) {
         self.init(frame: rect)
         self.datePickerMode = .date;

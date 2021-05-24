@@ -29,7 +29,7 @@ import UIKit
         let currentTitle = self.titleForSegment(at: self.selectedSegmentIndex)
         return currentTitle
     }
-    /// [源]UISegmentControl创建
+    /// [源]UISegmentControl创建(弃用)
     static func create(_ rect: CGRect = .zero, items: [Any]?, selectedIdx: Int = 0, type: Int = 0, tintColor: UIColor = .theme, fontSize: CGFloat = 13) -> Self {
         let view = self.init(items: items)
         view.frame = rect
@@ -96,7 +96,7 @@ import UIKit
         return view;
     }
     
-    /// Tint color doesn't have any effect on iOS 13.
+    /// [源]UISegmentControl创建(弃用, 用默认外观也不错)
     func ensureiOS13Style(tintColor: UIColor = .theme, fontSize: CGFloat = 13) {
         if #available(iOS 13, *) {
             let tintColorImage = UIImage(color: tintColor)

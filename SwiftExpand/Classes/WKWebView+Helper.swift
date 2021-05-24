@@ -24,6 +24,7 @@ import WebKit
             let sender = WKWebViewConfiguration()
             sender.allowsInlineMediaPlayback = true;
             sender.selectionGranularity = .dynamic;
+            
             sender.preferences = WKPreferences();
             sender.preferences.javaScriptCanOpenWindowsAutomatically = false;
             sender.preferences.javaScriptEnabled = true;
@@ -133,5 +134,4 @@ import WebKit
         takeSnapshot(with: conf, completionHandler: completionHandler)
     }
 }
-
 
