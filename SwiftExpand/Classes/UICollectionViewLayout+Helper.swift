@@ -74,6 +74,20 @@ import UIKit
     }
     
     
+    func reloadItemSize(_ numOfRow: Int = 4,
+                        width: CGFloat = UIScreen.main.bounds.width,
+                        spacing: CGFloat = 10,
+                        sectionInset: UIEdgeInsets = .zero) {
+        self.sectionInset = sectionInset;
+        minimumLineSpacing = spacing;
+        minimumInteritemSpacing = spacing;
+
+        let itemWidth = (width - (numOfRow.toCGFloat - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat;
+        let itemHeight = itemWidth/0.62;
+        let itemSize = CGSize(width: round(itemWidth), height: itemHeight);
+        reloadItemSize(itemSize)
+    }
+    
     func reloadItemSize(_ size: CGSize) {
         itemSize = size
         guard let collectionView = collectionView else { return }

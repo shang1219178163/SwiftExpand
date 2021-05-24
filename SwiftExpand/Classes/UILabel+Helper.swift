@@ -12,13 +12,17 @@
 import UIKit
 
 @objc public extension UILabel{
-    
-    convenience init(textColor: UIColor = .black, textAlignment: NSTextAlignment = .left) {
-        self.init();
-        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.isUserInteractionEnabled = true;
-        self.textAlignment = textAlignment;
-        self.textColor = textColor
+    /// [源]UILabel创建
+    static func create(_ rect: CGRect = .zero, textColor: UIColor = .black, type: UILabel.LabelShowType = .numLines) -> Self {
+        let view = self.init(frame: rect);
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.isUserInteractionEnabled = true;
+        view.textAlignment = .left;
+        view.textColor = textColor
+        view.font = UIFont.systemFont(ofSize: 15);
+
+        view.setLabelType(type)
+        return view;
     }
     
     ///自定义按钮类型
@@ -56,30 +60,35 @@ import UIKit
             break
         }
     }
-    
-    /// [源]UILabel创建
-    static func create(_ rect: CGRect = .zero, textColor: UIColor = .black, type: UILabel.LabelShowType = .numLines) -> Self {
-        let view = self.init(frame: rect);
-        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.isUserInteractionEnabled = true;
-        view.textAlignment = .left;
-        view.textColor = textColor
-        view.font = UIFont.systemFont(ofSize: 15);
-
-        view.setLabelType(type)
-        return view;
-    }
-    
 
     /// UILabel富文本设置
     func setContent(_ content: String, attDic: [NSAttributedString.Key: Any]) -> NSMutableAttributedString?{
-        guard let text = self.text as String? else { return nil}
+        guard let text = self.text else { return nil}
 
         let attString = NSMutableAttributedString(string: text)
         let range: NSRange = (text as NSString).range(of: content)
         attString.addAttributes(attDic, range: range)
         attributedText = attString
         return attString
+    }
+    
+    /// 字符串添加前缀
+    func insertPrefix(_ prefix: String = kAsterisk, color: UIColor = UIColor.red){
+        guard let tex = self.text,
+              let font = self.font else { return }
+        if tex.contains(prefix) {
+            let attPrefix = NSAttributedString(string: prefix,
+                                               attributes: [NSAttributedString.Key.foregroundColor: color,
+                                                            NSAttributedString.Key.font: font
+                                               ])
+            
+            let matt = NSMutableAttributedString(string: tex.replacingOccurrences(of: prefix, with: ""),
+                                                 attributes: [NSAttributedString.Key.foregroundColor: textColor as Any,
+                                                              NSAttributedString.Key.font: font
+                                                 ])
+            matt.insert(attPrefix, at: 0)
+            self.attributedText = matt
+        }
     }
     
     /// 验证码倒计时显示
