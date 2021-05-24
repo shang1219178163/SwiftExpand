@@ -224,10 +224,10 @@ public extension String{
         }
         return result
     }
-    
+
     /// 计算高度
-    func size(_ font: CGFloat, width: CGFloat) -> CGSize {
-        return (self as NSString).size(font, width: width)
+    func size(with width: CGFloat, font: UIFont = UIFont.systemFont(ofSize: 17)) -> CGSize {
+        return (self as NSString).size(with: width, font: font)
     }
     
     // MARK: -funtions
@@ -311,8 +311,8 @@ public extension String{
     }
     
     /// 字符串首位加*
-    func toAsterisk(_ textColor: UIColor = .black, font: CGFloat = 15) -> NSAttributedString{
-        return (self as NSString).toAsterisk(textColor, font: font)
+    func insertPrefix(_ textColor: UIColor = .black, font: UIFont) -> NSAttributedString{
+        return (self as NSString).insertPrefix(kAsterisk, prefixColor: .red, textColor: textColor, font: font)
     }
     
     /// 复制到剪切板
@@ -608,10 +608,29 @@ public extension String{
         return ""
     }
     
-    /// 字符串首位加*
-    func toAsterisk(_ textColor: UIColor = .black, font: CGFloat = 15) -> NSAttributedString{
-        let isMust = self.contains(kAsterisk)
-        return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, color: textColor, font: font, isMust: isMust)
+    /// 字符串添加前缀
+    func insertPrefix(_ prefix: String = kAsterisk,
+                      prefixColor: UIColor = UIColor.red,
+                      textColor: UIColor = UIColor.black,
+                      font: UIFont) -> NSAttributedString{
+        if self.contains(prefix) == false {
+            return NSAttributedString(string: self as String,
+                                      attributes: [NSAttributedString.Key.foregroundColor: textColor,
+                                                   NSAttributedString.Key.font: font
+                                      ])
+        }
+        
+        let attPrefix = NSAttributedString(string: prefix,
+                                           attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
+                                                        NSAttributedString.Key.font: font
+                                           ])
+        
+        let matt = NSMutableAttributedString(string: (self as String).replacingOccurrences(of: prefix, with: ""),
+                                             attributes: [NSAttributedString.Key.foregroundColor: textColor,
+                                                          NSAttributedString.Key.font: font
+                                             ])
+        matt.insert(attPrefix, at: 0)
+        return matt
     }
     
     /// 复制到剪切板
@@ -692,15 +711,14 @@ public extension String{
     }
     
     ///计算高度
-    func size(_ font: CGFloat, width: CGFloat) -> CGSize {
-        let attDic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font),];
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
-        
-        let size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, attributes: attDic, context: nil).size;
-        return CGSize(width: ceil(size.width), height: ceil(size.height))
+    func size(with width: CGFloat, font: UIFont = UIFont.systemFont(ofSize: 17)) -> CGSize {
+        let attDic = [NSAttributedString.Key.font: font,];
+        var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
+                                     options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                     attributes: attDic,
+                                     context: nil).size;
+        size.width = ceil(size.width);
+        size.height = ceil(size.height);
+        return size;
     }
-        
-//    func map(_ separator: String = ",", block: @escaping (()->Void)) -> String {
-//        self.components(separatedBy: separator).map(<#T##transform: (String) throws -> T##(String) throws -> T#>)
-//    }
 }

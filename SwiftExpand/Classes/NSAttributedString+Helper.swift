@@ -17,7 +17,7 @@ import SwiftChain
         }
         return dic;
     }
-                
+    
     /// 富文本特殊部分配置字典
     static func attrDict(_ font: UIFont = UIFont.systemFont(ofSize:15), textColor: UIColor = .theme) -> [NSAttributedString.Key: Any] {
         let dic: [NSAttributedString.Key: Any] = [
@@ -131,10 +131,9 @@ import SwiftChain
     }
     
     ///  富文本只有同字体大小才能计算高度
-    func size(_ width: CGFloat) -> CGSize {
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+    func size(with width: CGFloat) -> CGSize {
         var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
-                                     options: options,
+                                     options: [.usesLineFragmentOrigin, .usesFontLeading],
                                      context: nil).size;
         size.width = ceil(size.width);
         size.height = ceil(size.height);
@@ -220,7 +219,28 @@ public extension NSMutableAttributedString{
         }
     }
     
+    /// 字符串添加前缀
+    func insertPrefix(_ prefix: String = kAsterisk, prefixColor: UIColor = UIColor.red, font: UIFont) -> Self{
+        let attr = NSAttributedString(string: prefix,
+                                      attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
+                                                   NSAttributedString.Key.font: font
+                                      ])
+        self.insert(attr, at: 0)
+        return self
+    }
+    
+    
+    /// 字符串添加后缀
+    func appendSuffix(_ suffix: String = kAsterisk, prefixColor: UIColor = UIColor.red, font: UIFont) -> Self{
+        let attr = NSAttributedString(string: suffix,
+                                      attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
+                                                   NSAttributedString.Key.font: font
+                                      ])
+        self.append(attr)
+        return self
+    }
 }
+
 
 public extension String {
     

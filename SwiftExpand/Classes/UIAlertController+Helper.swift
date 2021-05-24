@@ -251,12 +251,13 @@ public extension UIAlertController {
         if let message = alertVC.message {
             let width = UIScreen.main.bounds.width - 52
 //            let attDic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize:15),];
-//            let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
-//
-//            let size = message.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, attributes: attDic, context: nil).size;
+//            let size = message.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
+//                                            options: [.usesLineFragmentOrigin, .usesFontLeading],
+//                                            attributes: attDic,
+//                                            context: nil).size;
 //            let messageSize = CGSize(width: ceil(size.width), height: ceil(size.height))
             
-            let messageSize = message.size(15, width: width)
+            let messageSize = message.size(with: width, font: UIFont.systemFont(ofSize: 15))
             top += messageSize.height
         }
         

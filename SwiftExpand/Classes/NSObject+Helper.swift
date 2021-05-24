@@ -176,21 +176,18 @@ import UIKit
         }
         return defalut;
     }
-    // MARK: - 视图相关
 
-    ///  富文本只有同字体大小才能计算高度
-    func sizeWithText(_ text: String = "", font: CGFloat = 15, width: CGFloat) -> CGSize {
-        let attDic = NSAttributedString.paraDict(UIFont.systemFont(ofSize: font), textColor: .black, alignment: .left);
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
-        
-        var size = text.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
-                                     options: options,
-                                     attributes: attDic,
-                                     context: nil).size;
-        size.width = ceil(size.width);
-        size.height = ceil(size.height);
-        return size;
-    }
+//    ///  富文本只有同字体大小才能计算高度(代替者 func size(with width:, font:) -> CGSize)
+//    func sizeWithText(_ text: String = "", font: CGFloat = 15, width: CGFloat) -> CGSize {
+//        let attDic: [NSAttributedString.Key : Any] = [.font : UIFont.systemFont(ofSize: font),];
+//        var size = text.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
+//                                     options: [.usesLineFragmentOrigin, .usesFontLeading],
+//                                     attributes: attDic,
+//                                     context: nil).size;
+//        size.width = ceil(size.width);
+//        size.height = ceil(size.height);
+//        return size;
+//    }
         
     /// 密集小视图的尺寸布局
     func itemSize(_ items: [String], numberOfRow: Int, width: CGFloat = UIScreen.sizeWidth, itemHeight: CGFloat = 60, padding: CGFloat = kPadding) -> CGSize {
@@ -202,26 +199,7 @@ import UIKit
         let size = CGSize(width: width, height: height)
         return size
     }
-    
-    /// 标题前缀差异化显示
-    func getAttringByPrefix(_ prefix: String, content: String, color: UIColor = .black, font: CGFloat = 15, isMust: Bool = false) -> NSAttributedString {
-        let string = content.hasPrefix(prefix) == true ? content : prefix + content
-        let colorMust = isMust == true ? UIColor.red : UIColor.clear
-        let attString = NSAttributedString.attString(string, textTaps: [prefix], font: font, tapFont: font, color: color, tapColor: colorMust, alignment: .left)
-        return attString
-    }
-    /// 乘法表打印
-    static func printChengfaBiao(num: Int = 9) {
-        assert(num > 0)
-        var result = ""
-        for i in 1...num {
-            for j in 1...i {
-                result = "\(result)\t\(j) * \(i) = \(j * i)"
-            }
-            print(result)
-            result = ""
-        }
-    }    
+       
 }
 
 public extension NSObjectProtocol where Self: NSObject {
