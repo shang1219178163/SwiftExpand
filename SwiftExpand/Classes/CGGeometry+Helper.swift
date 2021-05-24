@@ -8,6 +8,51 @@
 
 import UIKit
 
+/// 自定义UIEdgeInsets
+public func UIEdgeInsetsMake(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> UIEdgeInsets{
+    return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+}
+
+/// 自定义CGRect
+public func CGRectMake(_ x: CGFloat = 0, _ y: CGFloat = 0, _ w: CGFloat = 0, _ h: CGFloat = 0) -> CGRect{
+    return CGRect(x: x, y: y, width: w, height: h)
+}
+
+/// 自定义CGPointMake
+public func CGPointMake(_ x: CGFloat = 0, _ y: CGFloat = 0) -> CGPoint {
+    return CGPoint(x: x, y: y)
+}
+
+/// 自定义GGSizeMake
+public func GGSizeMake(_ w: CGFloat = 0, _ h: CGFloat = 0) -> CGSize {
+    return CGSize(width: w, height: h)
+}
+
+/// 自定义GGSizeMake
+public func UIOffsetMake(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> UIOffset {
+    return UIOffset(horizontal: horizontal, vertical: vertical)
+}
+
+///角度转弧度
+ public func CGRadianFromDegrees(_ value: CGFloat) -> CGFloat{
+    return (CGFloat(Double.pi) * (value) / 180.0);
+}
+///弧度转角度
+public func CGDegreesFromRadian(_ value: CGFloat) -> CGFloat{
+    return (value * 180.0)/CGFloat((Double.pi));
+}
+
+/// 自定义两点之间距离
+public func CGDistance(_ pointA: CGPoint, pointB: CGPoint) -> CGFloat {
+    let result = sqrt(pow(pointA.x - pointB.x, 2) + pow(pointA.y - pointB.y, 2))
+    return result
+}
+
+///返回类名字符串
+public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
+    return String(describing: cls);// return "\(type(of: self))";
+}
+
 
 public extension Bool {
     /// Return 1 if true, or 0 if false.
@@ -66,6 +111,21 @@ public extension Int {
     func repeatString(_ repeatedValue: String) ->String { return String(repeating: repeatedValue, count: self) }
     ///返回重复值数组
     func repeatArray<T>(_ repeatedValue: T) -> [T] { return [T](repeating: repeatedValue, count: self) }
+    
+    
+    
+    /// 乘法表打印
+    func printChengfaBiao() {
+        assert(self > 0)
+        var result = ""
+        for i in 1...self {
+            for j in 1...i {
+                result = "\(result)\t\(j) * \(i) = \(j * i)"
+            }
+            print(result)
+            result = ""
+        }
+    }
 }
 
 public extension Double {

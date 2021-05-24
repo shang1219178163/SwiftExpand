@@ -9,26 +9,7 @@ import UIKit
 
 @objc public extension UITableView{
     
-    /// [源]UITableView创建
-    static func create(_ rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) -> Self{
-        let table = self.init(frame: rect, style: style)
-        table.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        table.separatorStyle = .singleLine
-        table.separatorInset = .zero
-        table.rowHeight = rowHeight
-//        table.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self))
-        table.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
-        table.keyboardDismissMode = .onDrag
-        table.backgroundColor = .groupTableViewBackground
-//        table.tableHeaderView = UIView();
-//        table.tableFooterView = UIView()
-
-        table.estimatedRowHeight = 0;
-        table.estimatedSectionHeaderHeight = 0;
-        table.estimatedSectionFooterHeight = 0;
-        return table
-    }
-    
+    /// UITableView创建
     convenience init(rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) {
         self.init(frame: rect, style: style)
         self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -206,6 +187,7 @@ import UIKit
     }
     
 }
+
 
 public extension UITableView{
     /// 泛型复用register cell - Type: "类名.self" (备用默认值 T.self)

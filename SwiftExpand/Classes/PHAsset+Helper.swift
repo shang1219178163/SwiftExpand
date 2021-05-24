@@ -13,7 +13,10 @@ import Photos
     
     /// 请求UIImage
     func requestImage(_ resultHandler: @escaping (UIImage?, [AnyHashable : Any]?) -> Void) {
-        let options = PHImageRequestOptions.defaultOptions()
+        let options = PHImageRequestOptions()
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+        
         PHImageManager.default().requestImage(for: self,
                                               targetSize: PHImageManagerMaximumSize,
                                               contentMode: .aspectFit,
@@ -21,16 +24,4 @@ import Photos
                                               resultHandler: resultHandler)
     }
     
-}
-
-@objc public extension PHImageRequestOptions{
-
-    /// 默认参数
-    static func defaultOptions() -> PHImageRequestOptions {
-        let options = PHImageRequestOptions()
-        options.deliveryMode = .highQualityFormat
-        options.isNetworkAccessAllowed = true
-        return options;
-    }
-
 }

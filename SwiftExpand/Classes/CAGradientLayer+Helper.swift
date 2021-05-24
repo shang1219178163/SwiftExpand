@@ -31,16 +31,16 @@
     
     static var defaultColors: [Any] {
         get {
-            if let obj = objc_getAssociatedObject(self,  &AssociateKeys.defaultColors) as? [Any] {
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.defaultColors) as? [Any] {
                 return obj;
             }
             
             let list = [UIColor.hexValue(0x6cda53, a: 0.9).cgColor, UIColor.hexValue(0x1a965a, a: 0.9).cgColor]
-                objc_setAssociatedObject(self,  &AssociateKeys.defaultColors, list, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(self, &AssociateKeys.defaultColors, list, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return list
         }
         set {
-            objc_setAssociatedObject(self,  &AssociateKeys.defaultColors, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.defaultColors, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
 

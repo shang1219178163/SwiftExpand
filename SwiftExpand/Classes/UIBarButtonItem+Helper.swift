@@ -39,21 +39,6 @@ import UIKit
         }
     }
     
-    /// 按钮是否显示
-    func setHidden(_ hidden: Bool, color: UIColor = UIColor.theme) {
-        isEnabled = !hidden;
-        tintColor = !hidden ? color : .clear;
-    }
-
-    
-    /// 创建 UIBarButtonItem
-//    static func create(_ obj: String, style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem{
-//        if let image = UIImage(named: obj) {
-//            return UIBarButtonItem(image: image, style: style, target: target, action: action)
-//        }
-//        return UIBarButtonItem(title: obj, style: style, target: target, action: action);
-//    }
-    
     convenience init(_ obj: String, style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) {
         if let image = UIImage(named: obj) {
             self.init(image: image, style: style, target: target, action: action)
@@ -65,6 +50,12 @@ import UIKit
     convenience init(_ obj: String, style: UIBarButtonItem.Style = .plain, action: @escaping ((UIBarButtonItem) -> Void)) {
         self.init(obj, style: style, target: nil, action: nil)
         self.addAction(action)
+    }
+    
+    /// 按钮是否显示
+    func setHidden(_ hidden: Bool, color: UIColor = UIColor.theme) {
+        isEnabled = !hidden;
+        tintColor = !hidden ? color : .clear;
     }
     
     func addTargetForAction(_ target: AnyObject, action: Selector) {

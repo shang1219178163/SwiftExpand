@@ -173,24 +173,5 @@ import UIKit
         let b = arc4random_uniform(256);
         return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(1.0));
     }
-            
-    /// 两个颜色是否相等
-    func equalTo(_ c2: UIColor) -> Bool {
-        // some kind of weird rounding made the colors unequal so had to compare like this
-        let c1 = self;
-        var red: CGFloat = 0
-        var green: CGFloat  = 0
-        var blue: CGFloat = 0
-        var alpha: CGFloat  = 0
-        c1.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-        
-        var red2: CGFloat = 0
-        var green2: CGFloat  = 0
-        var blue2: CGFloat = 0
-        var alpha2: CGFloat  = 0
-        c2.getRed(&red2, green: &green2, blue: &blue2, alpha: &alpha2)
-        
-        return (Int(red*255) == Int(red*255) && Int(green*255) == Int(green2*255) && Int(blue*255) == Int(blue*255))
-    }
 }
 

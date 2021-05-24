@@ -27,19 +27,6 @@ import Foundation
         return marr;
     }
     
-    /// 用特定数据源刷新tabBar
-    /// - Parameter list: 参照HomeViewController数据源
-    func reloadTabarItems(_ list: [[String]]) {
-        for e in viewControllers!.enumerated(){
-            let itemList = list[e.offset]
-            let title = itemList[itemList.count - 4]
-            let img = UIImage(named: itemList[itemList.count - 3])?.withRenderingMode(.alwaysOriginal)
-            let imgH = UIImage(named: itemList[itemList.count - 2])?.withRenderingMode(.alwaysTemplate)
-            e.element.tabBarItem = UITabBarItem(title: title, image: img, selectedImage: imgH)
-        }
-    }
-    
-    
     func setTabBarVisible(_ visible: Bool, animated: Bool) {
         
         // bail if the current state matches the desired state

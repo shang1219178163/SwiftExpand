@@ -76,43 +76,6 @@ import SwiftChain
         }
     }
     
-    @available(iOS 10.0, *)
-    func addLocalUserNoti(trigger: AnyObject,
-                          content: UNMutableNotificationContent,
-                          identifier: String,
-                          notiCategories: AnyObject,
-                          repeats: Bool = true,
-                          handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
-        
-        var notiTrigger: UNNotificationTrigger?
-        switch trigger {
-        case let value as NSDate:
-            var interval = value.timeIntervalSince1970 - NSDate().timeIntervalSince1970;
-            interval = interval < 0 ? 1 : interval;
-            notiTrigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: repeats)
-            
-        case let value as DateComponents:
-            notiTrigger = UNCalendarNotificationTrigger(dateMatching: value, repeats: repeats)
-
-        case let value as CLCircularRegion:
-            notiTrigger = UNLocationNotificationTrigger(region: value, repeats: repeats)
-
-        default:
-            break
-        }
-        
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: notiTrigger)
-        let center = UNUserNotificationCenter.current()
-        center.add(request) { (error) in
-            handler?(center, request, error as NSError?)
-            DDLog("推送添加失败\(error.debugDescription)");
-            if error != nil {
-                return;
-            }
-            DDLog("推送已添加成功");
-        }
-    }
-    
     /// app商店链接
     static func appUrlWithID(_ appStoreID: String) -> String {
         let appStoreUrl = "itms-apps://itunes.apple.com/app/id\(appStoreID)?mt=8"
@@ -214,8 +177,8 @@ import SwiftChain
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error) in
             handler?(center, request, error as NSError?)
-            if error != nil {
-                DDLog("推送添加失败: %@", error!.localizedDescription);
+            if let error = error {
+                DDLog("推送添加失败: %@", error.localizedDescription);
             }
         }
     }
@@ -231,8 +194,8 @@ import SwiftChain
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error) in
             handler?(center, request, error as NSError?)
-            if error != nil {
-                DDLog("推送添加失败: %@", error!.localizedDescription);
+            if let error = error {
+                DDLog("推送添加失败: %@", error.localizedDescription);
             }
         }
     }
@@ -248,8 +211,8 @@ import SwiftChain
         let center = UNUserNotificationCenter.current()
         center.add(request) { (error) in
             handler?(center, request, error as NSError?)
-            if error != nil {
-                DDLog("推送添加失败: %@", error!.localizedDescription);
+            if let error = error {
+                DDLog("推送添加失败: %@", error.localizedDescription);
             }
         }
     }

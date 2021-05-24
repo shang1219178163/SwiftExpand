@@ -273,7 +273,8 @@ import UIKit
     
     /// 配置UINavigationBar默认值
     static func setupAppearanceNavigationBar(_ barTintColor: UIColor) {
-        let isDefault: Bool = UIColor.white.equalTo(barTintColor);
+//        let isDefault: Bool = UIColor.white.equalTo(barTintColor);
+        let isDefault: Bool = UIColor.white.isEqual(barTintColor)
         let tintColor = isDefault ? UIColor.black : UIColor.white;
         
         let navBar = UINavigationBar.appearance();
