@@ -265,7 +265,7 @@ public extension String{
     }
 
     /// 计算高度
-    func size(with width: CGFloat, font: UIFont = UIFont.systemFont(ofSize: 17)) -> CGSize {
+    func size(with width: CGFloat, font: Font = Font.systemFont(ofSize: 17)) -> CGSize {
         return (self as NSString).size(with: width, font: font)
     }
     
@@ -350,7 +350,7 @@ public extension String{
     }
     
     /// 字符串首位加*
-    func insertPrefix(_ textColor: UIColor = .black, font: UIFont) -> NSAttributedString{
+    func insertPrefix(_ textColor: Color = .black, font: Font) -> NSAttributedString{
         return (self as NSString).insertPrefix(kAsterisk, prefixColor: .red, textColor: textColor, font: font)
     }
 
@@ -645,9 +645,9 @@ public extension String{
     
     /// 字符串添加前缀
     func insertPrefix(_ prefix: String = kAsterisk,
-                      prefixColor: UIColor = UIColor.red,
-                      textColor: UIColor = UIColor.black,
-                      font: UIFont) -> NSAttributedString{
+                      prefixColor: Color = Color.red,
+                      textColor: Color = Color.black,
+                      font: Font) -> NSAttributedString{
         if self.contains(prefix) == false {
             return NSAttributedString(string: self as String,
                                       attributes: [NSAttributedString.Key.foregroundColor: textColor,
@@ -766,7 +766,7 @@ public extension String{
     }
     
     ///计算高度
-    func size(with width: CGFloat, font: UIFont = UIFont.systemFont(ofSize: 17)) -> CGSize {
+    func size(with width: CGFloat, font: Font = Font.systemFont(ofSize: 17)) -> CGSize {
         let attDic = [NSAttributedString.Key.font: font,];
         var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
                                      options: [.usesLineFragmentOrigin, .usesFontLeading],
