@@ -19,15 +19,7 @@
         self.endPoint = end
     }
     
-//    /// 十六进制字符串
-//    static func gradientColorHex(_ from: String, fromAlpha: CGFloat, to: String, toAlpha: CGFloat = 1.0) -> [Any] {
-//        return [UIColor.hex(from, a: fromAlpha).cgColor, UIColor.hex(to, a: toAlpha).cgColor]
-//    }
-//    
-//    /// 0x开头的十六进制数字
-//    static func gradientColorHexValue(_ from: Int, fromAlpha: CGFloat, to: Int, toAlpha: CGFloat = 1.0) -> [Any] {
-//        return [UIColor.hexValue(from, a: fromAlpha).cgColor, UIColor.hexValue(to, a: toAlpha).cgColor]
-//    }
+
     
     static var defaultColors: [Any] {
         get {
