@@ -15,6 +15,7 @@
     "git": "https://github.com/shang1219178163/SwiftExpand.git",
     "tag": "7.2.0.1"
   },
+  "source_files": "SwiftExpand/Classes/*.swift",
   "ios": {
     "source_files": "SwiftExpand/ios/*.swift",
     "frameworks": "UIKit"
