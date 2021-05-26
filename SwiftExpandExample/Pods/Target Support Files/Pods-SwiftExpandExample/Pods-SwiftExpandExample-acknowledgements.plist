@@ -14,7 +14,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright (c) 2011-Present SnapKit Team - https://github.com/SnapKit
+			<string>Copyright (c) 2021 shang1219178163 &lt;shang1219178163@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ THE SOFTWARE.
 			<key>License</key>
 			<string>MIT</string>
 			<key>Title</key>
-			<string>SnapKit</string>
+			<string>SwiftChain</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

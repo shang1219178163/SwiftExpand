@@ -7,7 +7,7 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
-import UIKit
+
 
 public extension Array{
     
@@ -20,6 +20,16 @@ public extension Array{
     var jsonString: String {
         return (self as NSArray).jsonString;
     }
+    
+    /// 快速生成一个数组(step代表步长)
+    init(count: Int, generator: @escaping ((Int)->Element)) {
+        var list: [Element] = [];
+        for i in 0..<count {
+            list.append(generator(i))
+        }
+        self = list
+    }
+    
     ///同 subarrayWithRange:
     func subarray(_ range: NSRange) -> Array {
         return self.subarray(range.location, range.length)
@@ -29,7 +39,6 @@ public extension Array{
         assert((loc + len) <= self.count);
         return Array(self[loc...len]);
     }
-    
 }
 
 public extension Array where Element == CGFloat{
@@ -112,23 +121,10 @@ public extension Array where Element : NSObject {
         else { return "" }
         return jsonString
     }
-    
-    /// 快速生成一个数组(step代表步长)
-    static func range(_ start: Int = 0, _ end: Int, _ step: Int = 1) -> [Int] {
-        assert(start < end);
-        
-        var list: [Int] = [];
-        
-        let count = end - start + 1;
-        var k = 0;
-        
-        for i in 0..<count {
-            k = start + step*i;
-            if k < end {
-                list.append(k)
-            }
-        }
-        return list
+
+    /// 快速生成一个数组
+    static func generate(count: Int, generator: @escaping ((Int)->Element)) -> NSArray {
+        return Array.init(count: count, generator: generator) as NSArray;
     }
     
     ///获取数组期望值

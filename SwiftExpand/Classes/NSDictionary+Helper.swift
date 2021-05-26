@@ -6,7 +6,6 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
-import UIKit
 
 
 public extension Dictionary{

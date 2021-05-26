@@ -26,7 +26,6 @@
  S: 毫秒
  */
 
-import UIKit
 
 /// 60s
 public let kDateMinute: Double = 60 ;
@@ -142,26 +141,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
             return "0" }
         return "\(date.timeIntervalSince1970)";
     }
-    
-    ///根据 UIDatePicker.Mode 获取时间字符串简
-    static func dateFromPickerMode(_ mode: UIDatePicker.Mode = .dateAndTime, date: Date) -> String {
-        var result = DateFormatter.stringFromDate(date)
-        switch mode {
-        case .time, .countDownTimer:
-            result = (result as NSString).substring(with: NSMakeRange(11, 5))
-
-            break;
-        case .date:
-            result = (result as NSString).substring(with: NSMakeRange(0, 10))
-            break;
-
-        default:
-            result = (result as NSString).substring(with: NSMakeRange(0, 16))
-            break
-        }
-        return result
-    }
-       
+           
     ///两个日期之间差距(*年*天*小时*分*秒)
     static func betweenInfo(_ interval: Int,
                             yearUnit: String = "年",
@@ -566,4 +546,15 @@ public extension Calendar{
     
     static let shared = Calendar(identifier: .gregorian)
     static let unitFlags: Set<Calendar.Component> = [.year, .month, .day, .hour, .minute, .second, .weekdayOrdinal, .weekday]
+    
+    /// eturn the number of days in the month for a specified 'Date'.
+    ///
+    ///        let date = Date() // "Jan 12, 2017, 7:07 PM"
+    ///        Calendar.current.numberOfDaysInMonth(for: date) -> 31
+    ///
+    /// - Parameter date: the date form which the number of days in month is calculated.
+    /// - Returns: The number of days in the month of 'Date'.
+    func numberOfDaysInMonth(for date: Date) -> Int {
+        return range(of: .day, in: .month, for: date)!.count
+    }
 }

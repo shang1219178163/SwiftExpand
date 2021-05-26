@@ -6,7 +6,6 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import UIKit
 import WebKit
 
 
@@ -22,8 +21,9 @@ import WebKit
             }
             
             let sender = WKWebViewConfiguration()
-            sender.allowsInlineMediaPlayback = true;
-            sender.selectionGranularity = .dynamic;
+//            sender.allowsInlineMediaPlayback = true;
+//            sender.selectionGranularity = .dynamic;
+            
             sender.preferences = WKPreferences();
             sender.preferences.javaScriptCanOpenWindowsAutomatically = false;
             sender.preferences.javaScriptEnabled = true;
@@ -70,7 +70,6 @@ import WebKit
             }
         }
     }
-
 
     /// 字体改变
     static func javaScriptFromTextSizeRatio(_ ratio: CGFloat) -> String {
@@ -127,7 +126,7 @@ import WebKit
     }
     
     @available(iOS 11.0, *)
-    func snapshot(_ rect: CGRect, snapshotWidth: NSNumber? = nil, completionHandler: @escaping (UIImage?, Error?) -> Void){
+    func snapshot(_ rect: CGRect, snapshotWidth: NSNumber? = nil, completionHandler: @escaping (Image?, Error?) -> Void){
         let conf = WKSnapshotConfiguration()
         conf.rect = rect
         conf.snapshotWidth = snapshotWidth
@@ -135,28 +134,3 @@ import WebKit
     }
 }
 
-
-public extension URLRequest{
-    ///便捷方法设置 addValue(_ value: String, forHTTPHeaderField field: String)
-    init(url: URL, httpHeaders: [String: String]) {
-        self.init(url: url)
-        httpHeaders.forEach { (key, value) in
-            self.addValue(value, forHTTPHeaderField: key)
-        }
-    }
-
-    ///设置 addValue(_ value: String, forHTTPHeaderField field: String)
-    mutating func addHTTPHeaderField(for dic: [String: String]?) {
-        dic?.forEach { (key, value) in
-            self.addValue(value, forHTTPHeaderField: key)
-        }
-    }
-    
-    mutating func addDict(_ dic: [String: String]?, forHTTPHeaderField field: String = "Cookie") {
-        var result = ""
-        dic?.forEach{ (key: String, value: String) in
-            result = (result + "\(key)=\(value);")
-        }
-        self.addValue(result, forHTTPHeaderField: field)
-    }
-}

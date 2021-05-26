@@ -6,9 +6,8 @@
 //  Copyright © 2020 BN. All rights reserved.
 //
 
-import UIKit
 
-extension URLSession {
+@objc public extension URLSession {
     private struct AssociateKeys {
         static var taskDic   = "NSURLRequest" + "taskDic"
     }
@@ -54,3 +53,5 @@ extension URLSession {
     }
     
 }
+
+

@@ -6,7 +6,7 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import UIKit
+
 
 @objc public extension Timer{
     
@@ -29,7 +29,7 @@ import UIKit
     func pause() {
         self.fireDate = .distantFuture
     }
-    
+    ///创建 GCDTimer
     static func createGCDTimer(_ interval: TimeInterval = 60, repeats: Bool = true, action: @escaping(() -> Void)) -> DispatchSourceTimer {
         let codeTimer = DispatchSource.makeTimerSource(flags: .init(rawValue: 0), queue: DispatchQueue.global())
         codeTimer.schedule(deadline: .now(), repeating: .milliseconds(1000))

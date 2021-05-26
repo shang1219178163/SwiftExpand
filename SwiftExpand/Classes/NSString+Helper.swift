@@ -6,7 +6,7 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
-import UIKit
+
 import CommonCrypto
 
 public extension String{
@@ -208,6 +208,45 @@ public extension String{
         return (self as NSString).dayEnd
     }
     
+    /// 获取前缀
+    func getPrefix(with separates: [String]) -> String {
+        var reult = ""
+        for value in separates {
+            if self.contains(value) {
+                reult = self.components(separatedBy: value).first!
+                break
+            }
+        }
+        return reult;
+    }
+    
+    /// 字符串开始到第index
+    func substringTo(_ index: Int) -> String {
+        guard index < self.count else {
+            assertionFailure("index beyound the length of the string")
+            return ""
+        }
+        
+        let theIndex = self.index(self.startIndex, offsetBy: index)
+        return String(self[startIndex...theIndex])
+    }
+    
+    /// 从第index个开始到结尾的字符
+    func substringFrom(_ index: Int) -> String {
+        guard index < self.count else {
+            assertionFailure("index beyound the length of the string")
+            return ""
+        }
+        
+        guard index >= 0 else {
+            assertionFailure("index can't be lower than 0")
+            return ""
+        }
+        
+        let theIndex = self.index(self.endIndex, offsetBy: index - self.count)
+        return String(self[theIndex..<endIndex])
+    }
+    
     func isValidByRegex(_ regex: String) -> Bool {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         return predicate.evaluate(with: self)
@@ -224,10 +263,10 @@ public extension String{
         }
         return result
     }
-    
+
     /// 计算高度
-    func size(_ font: CGFloat, width: CGFloat) -> CGSize {
-        return (self as NSString).size(font, width: width)
+    func size(with width: CGFloat, font: Font = Font.systemFont(ofSize: 17)) -> CGSize {
+        return (self as NSString).size(with: width, font: font)
     }
     
     // MARK: -funtions
@@ -311,14 +350,10 @@ public extension String{
     }
     
     /// 字符串首位加*
-    func toAsterisk(_ textColor: UIColor = .black, font: CGFloat = 15) -> NSAttributedString{
-        return (self as NSString).toAsterisk(textColor, font: font)
+    func insertPrefix(_ textColor: Color = .black, font: Font) -> NSAttributedString{
+        return (self as NSString).insertPrefix(kAsterisk, prefixColor: .red, textColor: textColor, font: font)
     }
-    
-    /// 复制到剪切板
-    func copyToPasteboard(_ showTips: Bool) {
-        (self as NSString).copyToPasteboard(showTips)
-    }
+
     
     /// 整形判断
     func isPureInteger() -> Bool{
@@ -608,20 +643,31 @@ public extension String{
         return ""
     }
     
-    /// 字符串首位加*
-    func toAsterisk(_ textColor: UIColor = .black, font: CGFloat = 15) -> NSAttributedString{
-        let isMust = self.contains(kAsterisk)
-        return (self as NSString).getAttringByPrefix(kAsterisk, content: self as String, color: textColor, font: font, isMust: isMust)
+    /// 字符串添加前缀
+    func insertPrefix(_ prefix: String = kAsterisk,
+                      prefixColor: Color = Color.red,
+                      textColor: Color = Color.black,
+                      font: Font) -> NSAttributedString{
+        if self.contains(prefix) == false {
+            return NSAttributedString(string: self as String,
+                                      attributes: [NSAttributedString.Key.foregroundColor: textColor,
+                                                   NSAttributedString.Key.font: font
+                                      ])
+        }
+        
+        let attPrefix = NSAttributedString(string: prefix,
+                                           attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
+                                                        NSAttributedString.Key.font: font
+                                           ])
+        
+        let matt = NSMutableAttributedString(string: (self as String).replacingOccurrences(of: prefix, with: ""),
+                                             attributes: [NSAttributedString.Key.foregroundColor: textColor,
+                                                          NSAttributedString.Key.font: font
+                                             ])
+        matt.insert(attPrefix, at: 0)
+        return matt
     }
     
-    /// 复制到剪切板
-    func copyToPasteboard(_ showTips: Bool) {
-        UIPasteboard.general.string = self as String
-        if showTips == true {
-            UIAlertController(title: nil, message: "已复制'\(self)'到剪切板!", preferredStyle: .alert)
-                .present(true, completion: nil)
-        }
-    }
     
     /// 判断是否时间戳字符串
     func isTimeStamp() -> Bool{
@@ -691,16 +737,43 @@ public extension String{
         return result!;
     }
     
-    ///计算高度
-    func size(_ font: CGFloat, width: CGFloat) -> CGSize {
-        let attDic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: font),];
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
-        
-        let size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: options, attributes: attDic, context: nil).size;
-        return CGSize(width: ceil(size.width), height: ceil(size.height))
+    /// 通过集合字符的字母分割字符串
+    func componentsSeparatedByCharactersInString(_ aString: String) -> [String]{
+        let result = (self as NSString).components(separatedBy: CharacterSet(charactersIn: aString))
+        return result;
     }
-        
-//    func map(_ separator: String = ",", block: @escaping (()->Void)) -> String {
-//        self.components(separatedBy: separator).map(<#T##transform: (String) throws -> T##(String) throws -> T#>)
-//    }
+    
+    /// 删除首尾空白字符
+    func deleteWhiteSpaceBeginEnd() -> String{
+        assert(self.length > 0);
+        let chartSet = NSCharacterSet.whitespacesAndNewlines;
+        let result = self.trimmingCharacters(in: chartSet)
+        return result;
+    }
+    
+    /// 取代索引处字符
+    func replacingCharacter(_ index: Int) -> String{
+        assert(self.length > 0);
+        let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: self as String)
+        return result;
+    }
+    
+    func isValidEmailAddress() -> Bool {
+        let emailID: String = self as String
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: emailID)
+    }
+    
+    ///计算高度
+    func size(with width: CGFloat, font: Font = Font.systemFont(ofSize: 17)) -> CGSize {
+        let attDic = [NSAttributedString.Key.font: font,];
+        var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
+                                     options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                     attributes: attDic,
+                                     context: nil).size;
+        size.width = ceil(size.width);
+        size.height = ceil(size.height);
+        return size;
+    }
 }

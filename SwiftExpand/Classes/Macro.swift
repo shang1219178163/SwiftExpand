@@ -7,7 +7,7 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
-import UIKit
+
 
 // MARK: - 系统私有类
 public let kUIButtonBarButton          = "UIButtonBarButton";
@@ -73,24 +73,6 @@ public let kTAG_VIEW_Picture: Int = 1300;
 
 
 // MARK: - 计算有关的尺寸属性
-/// 屏幕宽度
-public let kScreenWidth: CGFloat           = UIScreen.main.bounds.width;
-/// 屏幕高度
-public let kScreenHeight: CGFloat          = UIScreen.main.bounds.height;
-
-public let isiPhoneX: Bool                 = (kScreenHeight >= 812)
-/// IphoneXtab 底部安全区高度
-public let kIphoneXtabHeight: CGFloat      = isiPhoneX ? 34 : 0;
-/// 键盘视图高度
-public let kKeyboardHeight: CGFloat        = 226;
-/// 顶部状态栏 20
-public let kStatusBarHeight: CGFloat       = isiPhoneX ? 44 : 20;
-/// 导航栏高 44
-public let kNaviBarHeight: CGFloat         = 44;
-
-public let kBarHeight: CGFloat             = 64.0;
-/// 底部tabBar高度 49
-public let kTabBarHeight: CGFloat          = isiPhoneX ? (49.0 + 34.0) : 49
 /// 选择器默认高度 180
 public let kPickerViewHeight: CGFloat      = 216;
 
@@ -133,7 +115,7 @@ public let kW_LINE_Vert: CGFloat           = 3.0;
 public let kW_LayerBorder: CGFloat         = 0.5;
 
 
-// MARK: - font
+// MARK: -font
 
 public let kFontSize18: CGFloat = 18;
 public let kFontSize16: CGFloat = 16;
@@ -141,57 +123,7 @@ public let kFontSize14: CGFloat = 14;
 public let kFontSize12: CGFloat = 12;
 public let kFontSize10: CGFloat = 10;
 
-// MARK: - 图像名称
-
-public let kIMG_arrowRight      = "img_arrowRight_gray";
-public let kIMG_arrowDown       = "img_arrowDown_black";
-public let kIMG_arrowDown_white = "img_arrowDown_white";
-
-public let kIMG_arrowBack       = "img_arrowLeft_white";
-public let kIMG_arrowUp         = "img_arrowUp_blue";
-
-public let kIMG_portrait        = "img_portrait_N";
-public let kIMG_portrait_N      = "img_portrait_N";
-public let kIMG_portrait_H      = "img_portrait_H";
-/// 图片添加
-public let kIMG_pictureAdd      = "img_pictureAdd";
-/// 图片删除
-public let kIMG_pictureDelete   = "img_pictureDelete";
-/// 图片加载失败
-public let kIMG_defaultFailed   = "img_failedDefault";
-/// 图片加载失败(小)
-public let kIMG_defaultFailed_S = "img_failedDefault_S";
-/// 默认肖像
-public let kIMG_defaultPortrait = "img_portrait_N";
-/// 性别男
-public let kIMG_sexBoy          = "img_sex_boy";
-/// 性别女
-public let kIMG_sexGril         = "img_sex_gril";
-/// 按钮减
-public let kIMG_elemetDec       = "img_elemet_decrease";
-/// 按钮加
-public let kIMG_elemetInc       = "img_elemet_increase";
-/// 扫描图标
-public let kIMG_scan            = "img_scan";
-/// NFC图标
-public let kIMG_NFC             = "img_NFC";
-
-public let kIMG_inquiry         = "img_dialog_inquiry";
-public let kIMG_update          = "img_dialog_update";
-public let kIMG_warning         = "img_dialog_warning";
-
-public let kIMG_notice          = "img_notice";
-public let kIMG_location_H      = "img_location_H";
-public let kIMG_more            = "img_more";
-
-public let kIMG_selected_NO     = "icon_selected_no_blue";
-public let kIMG_selected_YES    = "icon_selected_yes_blue";
-public let kIMG_Add             = "btn_add";
-
-public let kIMG_like_H          = "img_like_H";
-public let kIMG_like_W          = "img_like_W";
-
-// MARK: - 文字
+// MARK: -文字
 
 /// 网络请求中...
 public let kNetWorkRequesting    = "网络请求中...";
@@ -293,21 +225,4 @@ public func DDLog(_ message: Any..., file: String = #file, function: String = #f
     print(dateStr, "\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
     #endif
 }
-
-//public func DDLog(_ message: Any..., file: String = #file, function: String = #function, line: Int = #line){
-//    #if DEBUG
-//    let params = message.compactMap{ "\($0)" }.joined(separator: ", ");
-//    let fmt = DateFormatter.format("yyyy-MM-dd HH:mm:ss.SSSSSSZ");
-////    var dateStr = fmt.string(from: Date())
-////    print(dateStr,"\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
-//        #if targetEnvironment(simulator)
-//            let dateStr = fmt.string(from: Date().addingTimeInterval(8*60*60))
-//            print(dateStr, "\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
-//        #else
-//            let dateStr = fmt.string(from: Date())
-//            print(dateStr,"\((file as NSString).lastPathComponent).\(function)[line \(line)]: \(params)")
-//        #endif
-//    #endif
-//}
-
 

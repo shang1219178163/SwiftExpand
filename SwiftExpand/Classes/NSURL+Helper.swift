@@ -6,7 +6,6 @@
 //  Copyright © 2020 BN. All rights reserved.
 //
 
-import UIKit
 
 
 public extension URLComponents {

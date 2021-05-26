@@ -1,9 +1,9 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## SnapKit
+## SwiftChain
 
-Copyright (c) 2011-Present SnapKit Team - https://github.com/SnapKit
+Copyright (c) 2021 shang1219178163 <shang1219178163@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

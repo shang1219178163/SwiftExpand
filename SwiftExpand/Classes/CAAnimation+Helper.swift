@@ -5,7 +5,6 @@
 //  Created by Bin Shang on 2019/12/2.
 //
 
-import UIKit
 import QuartzCore
 
 @objc public extension CAAnimation{
@@ -43,12 +42,12 @@ import QuartzCore
     ///背景
     static let kTransformStrokeEnd       = "strokeEnd";
     /// kCAMediaTimingFunction集合
-    static let kFunctionNames = [
-        CAMediaTimingFunctionName.linear,//匀速
-        CAMediaTimingFunctionName.easeIn,//先慢
-        CAMediaTimingFunctionName.easeOut,//后慢
-        CAMediaTimingFunctionName.easeInEaseOut,//先慢 后慢 中间快
-        CAMediaTimingFunctionName.default//默认
-    ];
+    static let kMediaTimingFuncNames: [CAMediaTimingFunctionName] = [
+        .linear,//匀速
+        .easeIn,//先慢
+        .easeOut,//后慢
+        .easeInEaseOut,//先慢 后慢 中间快
+        .default//默认
+        ];
 
 }

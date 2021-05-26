@@ -5,8 +5,7 @@
 //  Created by Bin Shang on 2019/7/15.
 //
 
-import UIKit
-
+import SwiftChain
 
 @objc public extension NSAttributedString{
     ///获取所有的 [Range: NSAttributedString] 集合
@@ -18,26 +17,27 @@ import UIKit
         }
         return dic;
     }
-                
+    
     /// 富文本特殊部分配置字典
-    static func attrDict(_ font: UIFont = UIFont.systemFont(ofSize:15), textColor: UIColor = .theme) -> [NSAttributedString.Key: Any] {
-        let dic = [NSAttributedString.Key.font: font,
-                   NSAttributedString.Key.foregroundColor: textColor,
-                   NSAttributedString.Key.backgroundColor: UIColor.clear,
-                   ];
+    static func attrDict(_ font: Font = Font.systemFont(ofSize:15), textColor: Color = .theme) -> [NSAttributedString.Key: Any] {
+        let dic: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: textColor,
+            .backgroundColor: Color.clear,
+        ];
         return dic;
     }
     
     /// 富文本整体设置
-    static func paraDict(_ font: UIFont = UIFont.systemFont(ofSize:15),
-                         textColor: UIColor = .theme,
+    static func paraDict(_ font: Font = Font.systemFont(ofSize:15),
+                         textColor: Color = .theme,
                          alignment: NSTextAlignment = .left,
                          lineSpacing: CGFloat = 0,
                          lineBreakMode: NSLineBreakMode = .byTruncatingTail) -> [NSAttributedString.Key: Any] {
         let paraStyle = NSMutableParagraphStyle()
-            .lineBreakMode(lineBreakMode)
-            .lineSpacing(lineSpacing)
-            .alignment(alignment)
+            .lineBreakModeChain(lineBreakMode)
+            .lineSpacingChain(lineSpacing)
+            .alignmentChain(alignment)
 
         var dic = attrDict(font, textColor: textColor)
         dic[NSAttributedString.Key.paragraphStyle] = paraStyle
@@ -49,17 +49,17 @@ import UIKit
                           textTaps: [String],
                           font: CGFloat = 15,
                           tapFont: CGFloat = 15,
-                          color: UIColor = .black,
-                          tapColor: UIColor = .theme,
+                          color: Color = .black,
+                          tapColor: Color = .theme,
                           alignment: NSTextAlignment = .left,
                           lineSpacing: CGFloat = 0,
                           lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                           rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
-        let paraDic = paraDict(UIFont.systemFont(ofSize: font), textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
+        let paraDic = paraDict(Font.systemFont(ofSize: font), textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
         let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in
             let nsRange = (text as NSString).range(of: textTap, options: mask)
-            let attDic = attrDict(UIFont.systemFont(ofSize: tapFont), textColor: tapColor)
+            let attDic = attrDict(Font.systemFont(ofSize: tapFont), textColor: tapColor)
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString
@@ -68,33 +68,35 @@ import UIKit
     /// [源]富文本二
     static func createAttString(_ text: String,
                                 textTaps: [String],
-                                font: UIFont = UIFont.systemFont(ofSize: 15),
-                                tapFont: UIFont = UIFont.systemFont(ofSize: 15),
-                                color: UIColor = .black,
-                                tapColor: UIColor = .theme,
+                                font: Font = Font.systemFont(ofSize: 15),
+                                tapFont: Font = Font.systemFont(ofSize: 15),
+                                color: Color = .black,
+                                tapColor: Color = .theme,
                                 alignment: NSTextAlignment = .left,
                                 lineSpacing: CGFloat = 0,
                                 lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                                 rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
         let paraStyle = NSMutableParagraphStyle()
-            .lineBreakMode(lineBreakMode)
-            .lineSpacing(lineSpacing)
-            .alignment(alignment)
+            .lineBreakModeChain(lineBreakMode)
+            .lineSpacingChain(lineSpacing)
+            .alignmentChain(alignment)
 
-        let attDic = [NSAttributedString.Key.font: font,
-                      NSAttributedString.Key.foregroundColor: color,
-                      NSAttributedString.Key.backgroundColor: UIColor.clear,
-                      NSAttributedString.Key.paragraphStyle: paraStyle,
-                    ];
+        let attDic: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: color,
+            .backgroundColor: Color.clear,
+            .paragraphStyle: paraStyle,
+        ];
         
         let attString = NSMutableAttributedString(string: text, attributes: attDic)
         textTaps.forEach { ( textTap: String) in
             let nsRange = (text as NSString).range(of: textTap, options: mask)
 
-            let attDic = [NSAttributedString.Key.font: tapFont,
-                          NSAttributedString.Key.foregroundColor: tapColor,
-                          NSAttributedString.Key.backgroundColor: UIColor.clear,
-                        ];
+            let attDic: [NSAttributedString.Key: Any] = [
+                .font: tapFont,
+                .foregroundColor: tapColor,
+                .backgroundColor: Color.clear,
+            ];
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString
@@ -116,11 +118,11 @@ import UIKit
     }
     
     /// nsRange范围子字符串差异华显示
-    static func attString(_ text: String, nsRange: NSRange, font: CGFloat = 15, textColor: UIColor = UIColor.theme) -> NSAttributedString {
+    static func attString(_ text: String, nsRange: NSRange, font: CGFloat = 15, textColor: Color = Color.theme) -> NSAttributedString {
         assert((nsRange.location + nsRange.length) <= text.count)
         
         let attDict = [NSAttributedString.Key.foregroundColor: textColor,
-                       NSAttributedString.Key.font: UIFont.systemFont(ofSize: font),
+                       NSAttributedString.Key.font: Font.systemFont(ofSize: font),
         ]
         
         let attrString = NSMutableAttributedString(string: text)
@@ -128,11 +130,39 @@ import UIKit
         return attrString
     }
     
+    /// 定义超链接文本颜色样式
+    static func hyperlink(_ string: String, url: URL, font: CGFloat = 14) -> NSAttributedString {
+        let attDic: [NSAttributedString.Key : Any] = [
+            .font: Font.systemFont(ofSize: font),
+            .foregroundColor: Color.blue,
+            .link: url.absoluteURL,
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
+//              .baselineOffset:  15,
+            ]
+        
+        let attString = NSMutableAttributedString(string: string)
+        attString.beginEditing()
+        attString.addAttributes(attDic, range: NSMakeRange(0, attString.length))
+        attString.endEditing()
+        return attString;
+    }
+    /// 包含超链接的全部内容
+    static func hyperlink(dic: [String : String], text: String, font: Font) -> NSMutableAttributedString {
+        let attDic: [NSAttributedString.Key : Any] = [.font: font as Any]
+        let mattStr = NSMutableAttributedString(string: text, attributes: attDic)
+        for e in dic {
+            let url = URL(string: e.value)
+            let attStr = NSAttributedString.hyperlink(e.key, url: url!, font: font.pointSize)
+            let range = (mattStr.string as NSString).range(of: e.key)
+            mattStr.replaceCharacters(in: range, with: attStr)
+        }
+        return mattStr;
+    }
+    
     ///  富文本只有同字体大小才能计算高度
-    func size(_ width: CGFloat) -> CGSize {
-        let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
+    func size(with width: CGFloat) -> CGSize {
         var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
-                                     options: options,
+                                     options: [.usesLineFragmentOrigin, .usesFontLeading],
                                      context: nil).size;
         size.width = ceil(size.width);
         size.height = ceil(size.height);
@@ -218,120 +248,24 @@ public extension NSMutableAttributedString{
         }
     }
     
-}
-
-///属性链式编程实现
-@objc public extension NSMutableAttributedString {
-    
-    func font(_ font: UIFont) -> Self {
-        addAttributes([NSAttributedString.Key.font: font], range: NSMakeRange(0, self.length))
+    /// 字符串添加前缀
+    func insertPrefix(_ prefix: String = kAsterisk, prefixColor: Color = Color.red, font: Font) -> Self{
+        let attr = NSAttributedString(string: prefix,
+                                      attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
+                                                   NSAttributedString.Key.font: font
+                                      ])
+        self.insert(attr, at: 0)
         return self
     }
     
-    func color(_ color: UIColor) -> Self {
-        addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSMakeRange(0, self.length))
-        return self
-    }
     
-    func bgColor(_ color: UIColor) -> Self {
-        addAttributes([NSAttributedString.Key.backgroundColor: color], range: NSMakeRange(0, self.length))
-        return self
-    }
-    
-    func link(_ value: String) -> Self {
-        return linkURL(URL(string: value)!)
-    }
-    
-    func linkURL(_ value: URL) -> Self {
-        addAttributes([NSAttributedString.Key.link: value], range: NSMakeRange(0, self.length))
-        return self
-    }
-    //设置字体倾斜度，取值为float，正值右倾，负值左倾
-    func oblique(_ value: CGFloat = 0.1) -> Self {
-        addAttributes([NSAttributedString.Key.obliqueness: value], range: NSMakeRange(0, self.length))
-        return self
-    }
-       
-    //字符间距
-    func kern(_ value: CGFloat) -> Self {
-        addAttributes([.kern: value], range: NSMakeRange(0, self.length))
-        return self
-    }
-    
-    //设置字体的横向拉伸，取值为float，正值拉伸 ，负值压缩
-    func expansion(_ value: CGFloat) -> Self {
-        addAttributes([.expansion: value], range: NSMakeRange(0, self.length))
-        return self
-    }
-    
-    //设置下划线
-    func underline(_ style: NSUnderlineStyle = .single, _ color: UIColor) -> Self {
-        addAttributes([
-            .underlineColor: color,
-            .underlineStyle: style.rawValue
-        ], range: NSMakeRange(0, self.length))
-        return self
-    }
-    
-    //设置删除线
-    func strikethrough(_ style: NSUnderlineStyle = .single, _ color: UIColor) -> Self {
-        addAttributes([
-            .strikethroughColor: color,
-            .strikethroughStyle: style.rawValue,
-        ], range: NSMakeRange(0, self.length))
-        return self
-    }
-    
-    //设置删除线
-    func stroke(_ color: UIColor, _ value: CGFloat = 0) -> Self {
-        addAttributes([
-            .strokeColor: color,
-            .strokeWidth: value,
-        ], range: NSMakeRange(0, self.length))
-        return self
-    }
-    
-    ///设置基准位置 (正上负下)
-    func baseline(_ value: CGFloat) -> Self {
-        addAttributes([.baselineOffset: value], range: NSMakeRange(0, self.length))
-        return self
-    }
-    
-    ///设置段落
-    func paraStyle(_ alignment: NSTextAlignment,
-                   lineSpacing: CGFloat = 0,
-                   paragraphSpacingBefore: CGFloat = 0,
-                   lineBreakMode: NSLineBreakMode = .byTruncatingTail) -> Self {
-        let style = NSMutableParagraphStyle()
-        style.alignment = alignment
-        style.lineBreakMode = lineBreakMode
-        style.lineSpacing = lineSpacing
-        style.paragraphSpacingBefore = paragraphSpacingBefore
-        addAttributes([.paragraphStyle: style], range: NSMakeRange(0, self.length))
-        return self
-    }
-        
-    ///设置段落
-    func paragraphStyle(_ style: NSMutableParagraphStyle) -> Self {
-        addAttributes([.paragraphStyle: style], range: NSMakeRange(0, self.length))
-        return self
-    }
-    
-    ///设置段落
-    func textAttachment(_ image: UIImage, scale: CGFloat = 1.0) -> Self {
-        let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-        
-        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        image.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        let attachment = NSTextAttachment()
-        attachment.image = newImage
-
-        self.append(NSAttributedString(attachment: attachment))
-//        print(#function, rect, size)
+    /// 字符串添加后缀
+    func appendSuffix(_ suffix: String = kAsterisk, prefixColor: Color = Color.red, font: Font) -> Self{
+        let attr = NSAttributedString(string: suffix,
+                                      attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
+                                                   NSAttributedString.Key.font: font
+                                      ])
+        self.append(attr)
         return self
     }
 }

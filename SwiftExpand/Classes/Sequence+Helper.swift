@@ -7,8 +7,6 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
-import UIKit
-import Foundation
 
 public extension Sequence{
     

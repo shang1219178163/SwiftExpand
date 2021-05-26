@@ -6,7 +6,6 @@
 //  Copyright © 2018 BN. All rights reserved.
 //
 
-import UIKit
 
 public extension DispatchQueue{
     private static var _onceTracker = [String]()

@@ -10,7 +10,7 @@ import QuartzCore
 @objc public extension CATransaction{
     
     /// [源]CATransaction动画
-    static func animDuration(_ duration: CFTimeInterval, functionName: CAMediaTimingFunctionName = .linear, animations: (() -> Void)?, completionBlock: (() -> Void)?) {
+    static func animation(_ duration: CFTimeInterval, functionName: CAMediaTimingFunctionName = .linear, animations: (() -> Void)?, completionBlock: (() -> Void)?) {
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration)
         CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: functionName));
@@ -18,7 +18,5 @@ import QuartzCore
         CATransaction.setCompletionBlock(completionBlock)
         CATransaction.commit()
     }
-    
-  
     
 }

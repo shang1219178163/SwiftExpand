@@ -6,7 +6,6 @@
 //  Copyright © 2019 Xi'an iRain IoT. Technology Service CO., Ltd. . All rights reserved.
 //
 
-import UIKit
 
 @objc public extension NSData{
     /// NSData -> 转数组/字典
@@ -23,6 +22,7 @@ import UIKit
         }
         return nil;
     }
+    
     /// NSData -> 转字符串
     var stringValue: String {
         if let result = String(data: self as Data, encoding: .utf8) {
@@ -65,4 +65,9 @@ public extension Data{
     var fileSize: String {
         return (self as NSData).fileSize;
     }
+    
+    func jsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {
+        return try JSONSerialization.jsonObject(with: self, options: options)
+    }
+    
 }

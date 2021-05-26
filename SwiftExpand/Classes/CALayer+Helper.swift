@@ -6,27 +6,25 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import UIKit
 
 @objc public extension CALayer{
     
+    convenience init(contents: Any?) {
+        self.init()
+        self.contents = contents
+//        self.contentsScale = UIScreen.main.scale
+//        self.rasterizationScale = UIScreen.main.scale
+        self.shouldRasterize = true
+    }
+    
     ///添加边框线
-    func addRoundLine(_ width: CGFloat = 1, color: UIColor, cornerRadius: CGFloat = 3) {
+    func addOutline(_ width: CGFloat = 1, color: Color, cornerRadius: CGFloat = 3) {
         self.borderColor = color.cgColor;
         self.borderWidth = width;
         self.cornerRadius = cornerRadius
         self.masksToBounds = true
     }
-    /// [源]创建 CALayer
-    static func create(_ rect: CGRect = .zero, contents: Any?) -> Self {
-        let layer = self.init()
-        layer.frame = rect
-        layer.contents = contents
-        layer.contentsScale = UIScreen.main.scale
-        layer.rasterizationScale = UIScreen.main.scale
-        layer.shouldRasterize = true
-        return layer
-    }
+    
     /// 线条位置
     func rectWithLine(type: Int = 0, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CGRect {
         var rect = CGRect.zero;
@@ -50,7 +48,7 @@ import UIKit
         return rect;
     }
     /// 创建CALayer 线条
-    func createLayer(type: Int = 0, color: UIColor = UIColor.line, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CALayer {
+    func createLayer(type: Int = 0, color: Color = Color.line, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CALayer {
         let linView = CALayer()
         linView.backgroundColor = color.cgColor;
         linView.frame = self.rectWithLine(type: type, width: width, paddingScale: paddingScale);
@@ -84,14 +82,26 @@ import UIKit
     }
     
     ///添加阴影
-    func showShadow(_ color: UIColor = .gray, radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
+    func showShadow(_ color: Color = .gray, radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
         masksToBounds = false
         shadowColor = color.cgColor
         shadowRadius = radius
         shadowOpacity = Float(opacity)
         shadowOffset = offset
         
-//        let path = UIBezierPath(rect: bounds.offsetBy(dx: 1, dy: 1))
+//        let path = BezierPath(rect: bounds.offsetBy(dx: 1, dy: 1))
 //        layer.shadowPath = path.cgPath
     }
+}
+
+
+@objc public extension CAGradientLayer{
+
+    convenience init(colors: [Any], start: CGPoint, end: CGPoint) {
+        self.init()
+        self.colors = colors
+        self.startPoint = start
+        self.endPoint = end
+    }
+
 }

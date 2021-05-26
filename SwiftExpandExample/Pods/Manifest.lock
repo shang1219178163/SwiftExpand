@@ -1,23 +1,23 @@
 PODS:
-  - SnapKit (4.2.0)
-  - SwiftExpand (6.7.0.1):
-    - SnapKit
+  - SwiftChain (1.0.0.3)
+  - SwiftExpand (7.2.0.3):
+    - SwiftChain
 
 DEPENDENCIES:
   - SwiftExpand (from `../`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - SnapKit
+    - SwiftChain
 
 EXTERNAL SOURCES:
   SwiftExpand:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  SwiftExpand: 6d89cfc660af79d49b0ce8eed981e7cd0754929f
+  SwiftChain: 4b96742bb8a2b3e92a722ebf66125815551dd02e
+  SwiftExpand: 0942cb37f34f1df22f5e1b190a812d805e4c67a4
 
 PODFILE CHECKSUM: 1ebbffd0537dffd57bd2b07a91090ffdaedd1833
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

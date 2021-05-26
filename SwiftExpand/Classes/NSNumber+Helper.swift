@@ -7,7 +7,6 @@
 //  Copyright © 2018 Xi'an iRain IoT. Technology Service CO., Ltd. . All rights reserved.
 //
 
-import Foundation
 
 /// ¥###,##0.00
 public let kNumFormat = "¥###,##0.00";
@@ -101,59 +100,6 @@ public let kNumFormat = "¥###,##0.00";
         let fmt = NumberFormatter.number(style)
         fmt.positiveFormat = format
         return fmt.string(for: obj)
-    }
-       
-    ///最小整数和最大小数
-    func digits(_ miniIntegerDigits: Int = 1,
-                      minFractionDigits: Int = 2,
-                      maxFractionDigits: Int = 2) -> Self {
-        minimumIntegerDigits = miniIntegerDigits
-        minimumFractionDigits = minFractionDigits
-        maximumFractionDigits = maxFractionDigits
-        return self
-    }
-    
-    func formatGroup(_ groupingSeparator: String = ",",
-                     groupingSize: Int = 3) -> Self {
-        self.usesGroupingSeparator = true //分隔设true
-        self.groupingSeparator = groupingSeparator //分隔符
-        self.groupingSize = groupingSize  //分隔位数
-        return self
-    }
-    
-    func positivePrefix(_ prefix: String = "") -> Self {
-        self.positivePrefix = positivePrefix
-        return self
-    }
-    
-    func positiveSuffix(_ suffix: String = "") -> Self {
-        self.positiveSuffix = suffix
-        return self
-    }
-    
-    func negativePrefix(_ prefix: String = "") -> Self {
-        self.negativePrefix = prefix
-        return self
-    }
-    
-    func negativeSuffix(_ suffix: String = "") -> Self {
-        self.negativeSuffix = suffix
-        return self
-    }
-    
-    func positiveFormat(_ format: String = kNumFormat) -> Self {
-        self.positiveFormat = format
-        return self
-    }
-    
-    func negativeFormat(_ format: String) -> Self {
-        self.negativeFormat = format
-        return self
-    }
-
-    func paddingCharacter(_ character: String) -> Self {
-        self.paddingCharacter = character
-        return self
     }
 }
 

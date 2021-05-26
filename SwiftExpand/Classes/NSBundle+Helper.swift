@@ -6,8 +6,6 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import UIKit
-
 
 @objc public extension Bundle{
 
@@ -53,6 +51,13 @@ import UIKit
               let content = try? String(contentsOfFile: path)
               else { return nil}
         return content
+    }
+    
+    static func readPath(forResource name: String, ofType ext: String?) -> [String]? {
+        guard let path = Bundle.main.path(forResource: name, ofType: ext),
+              let data = try? String(contentsOfFile: path, encoding: .utf8)
+              else { return nil}
+        return data.components(separatedBy: .newlines)
     }
 }
 
