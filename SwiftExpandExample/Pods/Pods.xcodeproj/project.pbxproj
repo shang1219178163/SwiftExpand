@@ -115,7 +115,6 @@
 		B66CAF15DE28C8998C210A6717D47566 /* SwiftChain-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6053381FADAB9A8C9620DE9D4777CA0C /* SwiftChain-dummy.m */; };
 		B76435C6B5ECB90501A671AA244AB472 /* UIScreen+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1A6B3C8FDEBF059241DF4D32B63AB5 /* UIScreen+Chain.swift */; };
 		B770E3E0EC77F7394169BC9ECCBF48D2 /* CAGradientLayer+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5795065D1DFA563013D0079C8423C38D /* CAGradientLayer+Chain.swift */; };
-		B7C4974E158E02B2C0E986EF3359BAB4 /* NSObject+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06C013E92862409847EF4647464046E /* NSObject+Helper.swift */; };
 		BA2417E6F35432FEF846B33CC481D345 /* UIApplication+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3706E183F17227D82A0FE2CAA5C5E1 /* UIApplication+Helper.swift */; };
 		BADC1F092824DC5CB6D1C926F7CFBDCB /* UIControl+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F7C6C80BC1BE920D0784977EB409B5 /* UIControl+Helper.swift */; };
 		BB813453138A232EA29970EF405A6577 /* UIViewController+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C665C64CAD174FFFF0467B097D468ABE /* UIViewController+Helper.swift */; };
@@ -326,7 +325,6 @@
 		CCDBF07FE03C2AAE8628F9B3049FF44D /* UISwitch+Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UISwitch+Helper.swift"; sourceTree = "<group>"; };
 		CD84AC9C0896237E141E1E1D507212BE /* Pods-SwiftExpandExample-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SwiftExpandExample-umbrella.h"; sourceTree = "<group>"; };
 		CFE26467F31585F7412DAC8D91A9269F /* IndexPath+Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "IndexPath+Helper.swift"; sourceTree = "<group>"; };
-		D06C013E92862409847EF4647464046E /* NSObject+Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "NSObject+Helper.swift"; sourceTree = "<group>"; };
 		D243D97098EEF4B83D9C1899EBCDF3F9 /* Pods-SwiftExpandExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SwiftExpandExample.release.xcconfig"; sourceTree = "<group>"; };
 		D27057ED12BA53379BABAFA54E0C8217 /* UIPageControl+Chain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIPageControl+Chain.swift"; path = "SwiftChain/Classes/UIPageControl+Chain.swift"; sourceTree = "<group>"; };
 		D5C39A4308A3F69BC57F0C7EC632D18D /* UIWindow+Chain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIWindow+Chain.swift"; path = "SwiftChain/Classes/UIWindow+Chain.swift"; sourceTree = "<group>"; };
@@ -578,7 +576,6 @@
 				AA79213173EDB1E52D345F75DE556CEC /* NSDictionary+Helper.swift */,
 				5DBABDEF432C1A8CE08114CF76721496 /* NSFileManager+Helper.swift */,
 				16F86D37DE542926A7D37D88CE70B79B /* NSNumber+Helper.swift */,
-				D06C013E92862409847EF4647464046E /* NSObject+Helper.swift */,
 				16FEBCA23895A66959B656CD0E3500ED /* NSObject+Hook.swift */,
 				10F68FE6AFB7621B09E8B60881EB0382 /* NSString+Helper.swift */,
 				AFD9D91751A1966CA4D6E3FAA07C71AA /* NSTimer+Helper.swift */,
@@ -956,7 +953,6 @@
 				AC18380374C1B2CD3C040C7D382A8A7F /* NSFileManager+Helper.swift in Sources */,
 				C3508A594E5DCA39B05988B5E9B2239B /* NSNumber+Helper.swift in Sources */,
 				5A688D90B00D0E274521BA2328C590E6 /* NSObject+Define.swift in Sources */,
-				B7C4974E158E02B2C0E986EF3359BAB4 /* NSObject+Helper.swift in Sources */,
 				3C0A5851226CE3E1EEBEF3BB888EA211 /* NSObject+Hook.swift in Sources */,
 				722F1A13FB60C78E2F4CE1C025F42AC4 /* NSString+Helper.swift in Sources */,
 				0B9E4D547B46D38842B9BC965C4304D5 /* NSTimer+Helper.swift in Sources */,
