@@ -32,11 +32,7 @@ import SwiftChain
         let data = NSData(contentsOf: URL(string: "https://www.baidu.com/")!)
         return (data != nil)
     }
-    /// 消息推送是否可用
-    static func hasRightOfPush() -> Bool {
-        let notOpen = UIApplication.shared.currentUserNotificationSettings?.types == UIUserNotificationType(rawValue: 0)
-        return !notOpen;
-    }
+    
     /// 用户相册是否可用
     static func hasRightOfPhotoLibrary() -> Bool {
         var isHasRight = false;
@@ -54,16 +50,12 @@ import SwiftChain
     }
     
     /// 注册APNs远程推送
-    static func registerAPNsWithDelegate(_ delegate: Any) {
+    static func registerAPNsWithDelegate(_ delegate: Any, completionHandler: @escaping (Bool, Error?) -> Void) {
         if #available(iOS 10.0, *) {
             let options: UNAuthorizationOptions = [.alert, .badge, .sound]
             let center = UNUserNotificationCenter.current()
             center.delegate = (delegate as! UNUserNotificationCenterDelegate);
-            center.requestAuthorization(options: options){ (granted: Bool, error:Error?) in
-                if granted {
-                    print("success")
-                }
-            }
+            center.requestAuthorization(options: options, completionHandler: completionHandler)
             UIApplication.shared.registerForRemoteNotifications()
             //            center.delegate = self
         } else {
