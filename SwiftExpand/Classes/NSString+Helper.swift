@@ -353,11 +353,7 @@ public extension String{
     func insertPrefix(_ textColor: UIColor = .black, font: UIFont) -> NSAttributedString{
         return (self as NSString).insertPrefix(kAsterisk, prefixColor: .red, textColor: textColor, font: font)
     }
-    
-    /// 复制到剪切板
-    func copyToPasteboard(_ showTips: Bool) {
-        (self as NSString).copyToPasteboard(showTips)
-    }
+
     
     /// 整形判断
     func isPureInteger() -> Bool{
@@ -672,14 +668,6 @@ public extension String{
         return matt
     }
     
-    /// 复制到剪切板
-    func copyToPasteboard(_ showTips: Bool) {
-        UIPasteboard.general.string = self as String
-        if showTips == true {
-            UIAlertController(title: nil, message: "已复制'\(self)'到剪切板!", preferredStyle: .alert)
-                .present(true, completion: nil)
-        }
-    }
     
     /// 判断是否时间戳字符串
     func isTimeStamp() -> Bool{

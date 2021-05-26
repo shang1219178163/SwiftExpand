@@ -126,7 +126,7 @@ import WebKit
     }
     
     @available(iOS 11.0, *)
-    func snapshot(_ rect: CGRect, snapshotWidth: NSNumber? = nil, completionHandler: @escaping (UIImage?, Error?) -> Void){
+    func snapshot(_ rect: CGRect, snapshotWidth: NSNumber? = nil, completionHandler: @escaping (Image?, Error?) -> Void){
         let conf = WKSnapshotConfiguration()
         conf.rect = rect
         conf.snapshotWidth = snapshotWidth

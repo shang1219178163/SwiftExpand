@@ -20,13 +20,6 @@
         return JSONSerialization.jsonObjectFromData(data);
     }
 
-    /// NSObject -> NSString
-//    static func jsonStringFromObj(_ obj: AnyObject) -> String {
-//        guard let data = JSONSerialization.dataFromObj(obj) as Data?,
-//        let jsonString = String(data: data, encoding: .utf8) as String?
-//        else { return "" }
-//        return jsonString
-//    }
     ///读取本地文件内容
     static func jsonObject(forResource name: String, ofType ext: String?) -> Any?{
         guard let path = Bundle.main.path(forResource: name, ofType: ext),
@@ -36,15 +29,4 @@
         else { return nil}
         return obj
     }
-    /// 本地json文件(.geojson) -> NSString
-    static func ObjFromGeojson(_ name: String) -> Any? {
-        assert(name.contains(".geojson") == true);
-         
-        let array: Array = name.components(separatedBy: ".");
-        guard let path = Bundle.main.path(forResource: array.first, ofType: array.last),
-        let jsonData = try? Data(contentsOf: URL(fileURLWithPath: path)),
-            let obj = try? JSONSerialization.jsonObject(with: jsonData, options: [])
-            else { return nil}
-        return obj
-     }
 }

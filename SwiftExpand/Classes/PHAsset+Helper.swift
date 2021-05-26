@@ -11,7 +11,7 @@ import Photos
 @objc public extension PHAsset{
     
     /// 请求UIImage
-    func requestImage(_ resultHandler: @escaping (UIImage?, [AnyHashable : Any]?) -> Void) {
+    func requestImage(_ resultHandler: @escaping (Image?, [AnyHashable : Any]?) -> Void) {
         let options = PHImageRequestOptions()
         options.deliveryMode = .highQualityFormat
         options.isNetworkAccessAllowed = true
