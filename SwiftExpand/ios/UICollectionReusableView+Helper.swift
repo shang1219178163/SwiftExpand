@@ -25,7 +25,7 @@ import UIKit
     static func dequeueSupplementaryView(_ collectionView: UICollectionView, kind: String = UICollectionView.elementKindSectionHeader, indexPath: IndexPath) -> Self{
 
 //        let kindSuf = kind.components(separatedBy: "KindSection").last;
-//        let identifier = self.identifier + kindSuf!;
+//        let identifier = String(describing: self) + kindSuf!;
         let identifier = kind == UICollectionView.elementKindSectionHeader ? identifyHeader : identifyFooter;
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
         view.lab.text = identifier + "\(indexPath.section)";

@@ -38,7 +38,7 @@ import UIKit
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.isPagingEnabled = true;
 
-        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: UICollectionViewCell.identifier)
+        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: String(describing: self))
         view.backgroundColor = UIColor.background
         return view
     }

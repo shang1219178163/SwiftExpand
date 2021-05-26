@@ -17,7 +17,7 @@ import UIKit
         self.separatorInset = .zero
         self.rowHeight = rowHeight
 //        self.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self))
-        self.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
+        self.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: self))
         self.keyboardDismissMode = .onDrag
         self.backgroundColor = .groupTableViewBackground
 //        self.tableHeaderView = UIView();
