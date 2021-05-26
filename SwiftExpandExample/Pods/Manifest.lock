@@ -1,6 +1,6 @@
 PODS:
   - SwiftChain (1.0.0.3)
-  - SwiftExpand (7.2.0.1):
+  - SwiftExpand (7.2.0.3):
     - SwiftChain
 
 DEPENDENCIES:
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   SwiftChain: 4b96742bb8a2b3e92a722ebf66125815551dd02e
-  SwiftExpand: c1a5309127562872f328d06c6819ebad5c4bb039
+  SwiftExpand: 0942cb37f34f1df22f5e1b190a812d805e4c67a4
 
 PODFILE CHECKSUM: 1ebbffd0537dffd57bd2b07a91090ffdaedd1833
 

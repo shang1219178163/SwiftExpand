@@ -27,6 +27,12 @@ public func AddressOf<T: AnyObject>(_ o: T) -> String {
     return "\(addr)"
 }
 
+///返回类名字符串
+public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
+    return String(describing: cls);// return "\(type(of: self))";
+}
+
+
 //获取本地创建类
 public func NNClassFromString(_ name: String) -> AnyClass? {
     if let cls = NSClassFromString(name) {

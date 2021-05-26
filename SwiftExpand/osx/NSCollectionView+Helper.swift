@@ -6,7 +6,7 @@
 //  Copyright © 2020 Bin Shang. All rights reserved.
 //
 
-import Cocoa
+
 
 public extension NSCollectionView {
 

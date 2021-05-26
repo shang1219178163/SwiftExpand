@@ -261,7 +261,7 @@ public extension UIAlertController {
             top += messageSize.height
         }
         
-        let inset = UIEdgeInsetsMake(top + 3, 16, 75, 16)
+        let inset = EdgeInsetsMake(top + 3, 16, 75, 16)
         alertVC.addCustomView(type, height: height, inset: inset, block: block)
 
         alertVC.addAction(UIAlertAction(title: kTitleCancell, style: .cancel, handler: { (action) in

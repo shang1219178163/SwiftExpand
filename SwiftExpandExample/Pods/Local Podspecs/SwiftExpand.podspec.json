@@ -1,6 +1,6 @@
 {
   "name": "SwiftExpand",
-  "version": "7.2.0.1",
+  "version": "7.2.0.3",
   "summary": "系统类功能扩展, 极大的提高工作效率.",
   "description": "主要通过分类实现",
   "homepage": "https://github.com/shang1219178163/SwiftExpand",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/shang1219178163/SwiftExpand.git",
-    "tag": "7.2.0.1"
+    "tag": "7.2.0.3"
   },
   "source_files": "SwiftExpand/Classes/*.swift",
   "ios": {

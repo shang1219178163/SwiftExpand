@@ -6,7 +6,7 @@
 //  Copyright © 2020 Knowstack. All rights reserved.
 //
 
-import Cocoa
+
 
 public extension NSResponder {
     /// 鼠标状态

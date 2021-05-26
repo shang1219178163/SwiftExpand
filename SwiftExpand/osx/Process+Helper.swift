@@ -6,7 +6,6 @@
 //  Copyright © 2020 Bin Shang. All rights reserved.
 //
 
-import Cocoa
 
 @objc public extension Process {
 

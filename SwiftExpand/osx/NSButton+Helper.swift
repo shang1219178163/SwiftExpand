@@ -6,7 +6,7 @@
 //  Copyright © 2019 Bin Shang. All rights reserved.
 //
 
-import Cocoa
+
 
 @objc public extension NSButton {
     private struct AssociateKeys {
@@ -28,7 +28,7 @@ import Cocoa
 
     // MARK: -funtions
     
-    func setTitleColor(_ color: NSColor, font: CGFloat = 15) {
+    func setTitleColor(_ color: NSColor, font: Font = Font.systemFont(ofSize: 15)) {
         let attDic = NSAttributedString.attrDict(font, textColor: color)
         self.attributedTitle = NSAttributedString(string: title, attributes: attDic)
     }

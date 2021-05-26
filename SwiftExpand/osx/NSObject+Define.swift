@@ -6,7 +6,7 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
-import Cocoa
+
 
 public typealias CellForRowClosure = ((NSTableView, IndexPath) -> NSTableCellView?)
 public typealias DidSelectRowClosure = ((NSTableView, IndexPath) -> Void)

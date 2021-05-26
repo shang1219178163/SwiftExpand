@@ -6,7 +6,7 @@
 //  Copyright © 2019 Bin Shang. All rights reserved.
 //
 
-import Cocoa
+
 
 @objc public extension NSSearchField {
 
