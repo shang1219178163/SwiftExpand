@@ -101,6 +101,31 @@ public extension Array where Element : NSObject {
     }
 }
 
+public extension Array where Element : View{
+    
+    ///更新 NSButton 集合视图
+    func updateItemsConstraint(_ rect: CGRect, numberOfRow: Int = 4, padding: CGFloat = kPadding) {
+        if self.count == 0 || Swift.min(rect.width, rect.height) <= 0 {
+            return;
+        }
+        
+        let rowCount = self.count % numberOfRow == 0 ? self.count/numberOfRow : self.count/numberOfRow + 1;
+        let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
+        let itemHeight = (rect.height - CGFloat(rowCount - 1)*padding)/CGFloat(rowCount)
+        
+        for e in self.enumerated() {
+            let x = CGFloat(e.offset % numberOfRow) * (itemWidth + padding)
+            let y = CGFloat(e.offset / numberOfRow) * (itemHeight + padding)
+            let rect = CGRect(x: x, y: y, width: ceil(itemWidth), height: itemHeight)
+            
+            let sender = e.element;
+            sender.frame = rect;
+        }
+    }
+    
+}
+
+
 @objc public extension NSArray{
 
     /// ->Data

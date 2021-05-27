@@ -12,18 +12,18 @@
 @objc public extension NSPopover {
 
     // MARK: -funtions
-    
-    static func create(controller: NSViewController) -> Self {
-        let popover = self.init()
-        popover.appearance = NSAppearance(named: .vibrantLight)
-        popover.behavior = .transient
-        popover.contentViewController = controller;
+    ///遍历方法
+    convenience init(vc: NSViewController) {
+        self.init()
+        self.appearance = NSAppearance(named: .vibrantLight)
+        self.behavior = .transient
+        self.contentViewController = vc;
         /**
          applicationDefined : 默认值,不会自动关闭popover,ESC键也不能关闭,应用关闭时,popovoer会关闭
          semitransient: 点击popover以外的界面部分,不会自动关闭,但ESC按键可以关闭popover
          transient:  点击popvoer界面以外的部分,popover会自动关闭,ESC键可以关闭popover
          */
-        popover.behavior = .transient
+        self.behavior = .transient
         
         // 4. 显示popover
         /**
@@ -31,8 +31,7 @@
          of:  NSView类型, 用来说明第一个参数(矩形范围)是属于那个控件的.
          preferredEdge : 枚举类型,用来说明矩形四条边的那一条边界
          */
-//        popover.show(relativeTo: view.bounds, of: view, preferredEdge: .maxX)
-        return popover
+//        self.show(relativeTo: view.bounds, of: view, preferredEdge: .maxX)
     }
     
     func show(_ view: NSView, preferredEdge: NSRectEdge) {

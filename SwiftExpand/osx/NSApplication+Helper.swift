@@ -10,20 +10,21 @@ import ServiceManagement
 
 @objc public extension NSApplication{
     private struct AssociateKeys {
-        static var mainWindow   = "NSApplication" + "windowDefault"
+        static var homeWindow   = "NSApplication" + "initWindow"
     }
-    
-    static var windowDefault: NSWindow {
+    ///设置为根 NSWindow
+    static var homeWindow: NSWindow {
         get {
-            var obj = objc_getAssociatedObject(self, &AssociateKeys.mainWindow) as? NSWindow
-            if obj == nil {
-                obj = NSWindow.createMain();
-                objc_setAssociatedObject(self, &AssociateKeys.mainWindow, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.homeWindow) as? NSWindow {
+                return obj
             }
-            return obj!
+            
+            let obj = NSWindow(vc: nil)
+            objc_setAssociatedObject(self, &AssociateKeys.homeWindow, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.mainWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.homeWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
     }
     
@@ -132,16 +133,6 @@ import ServiceManagement
         //\n\n
         """
         return result;
-    }
-    
-    /// http/https请求链接
-    func isNormalURL(_ url: NSURL) -> Bool {
-        guard let scheme = url.scheme else {
-            fatalError("url.scheme不能为nil")
-        }
-        
-        let schemes = ["http", "https"]
-        return schemes.contains(scheme)
     }
     
     /// 打开网络链接

@@ -12,14 +12,15 @@
         static var taskDic   = "NSURLRequest" + "taskDic"
     }
     /// 关联NSMutableArray 数据容器
-    var taskDic: NSMutableDictionary {
+    var taskDic: [Int: URLSessionDataTask] {
         get {
-            var obj = objc_getAssociatedObject(self, &AssociateKeys.taskDic) as? NSMutableDictionary;
-            if obj == nil {
-                obj = NSMutableDictionary();
-                objc_setAssociatedObject(self, &AssociateKeys.taskDic, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.taskDic) as? [Int: URLSessionDataTask] {
+                return obj
             }
-            return obj!;
+            
+            let obj = [Int: URLSessionDataTask] ()
+            objc_setAssociatedObject(self, &AssociateKeys.taskDic, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj;
         }
         set {
             objc_setAssociatedObject(self, &AssociateKeys.taskDic, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -41,14 +42,14 @@
         // request.httpBody = ...
         var dataTask: URLSessionDataTask? = nil
         dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            self.taskDic.removeObject(forKey: NSNumber(integerLiteral: dataTask!.taskIdentifier))
+            self.taskDic.removeValue(forKey: dataTask!.taskIdentifier)
             if let data = data, let res = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                 DispatchQueue.main.async { handler(res, error) }
             } else {
                 DispatchQueue.main.async { handler(nil, error) }
             }
         }
-        taskDic[NSNumber(integerLiteral: dataTask!.taskIdentifier)] = dataTask;
+        taskDic[dataTask!.taskIdentifier] = dataTask;
         dataTask!.resume()
     }
     

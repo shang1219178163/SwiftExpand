@@ -6,23 +6,10 @@
 //  Created by Bin Shang on 2019/11/26.
 //
 
-import UIKit
 
-@objc public extension UIStackView {
+@objc public extension StackView {
     
-    convenience init(subviews: [UIView],
-                     axis: NSLayoutConstraint.Axis,
-                     spacing: CGFloat = 0.0,
-                     alignment: UIStackView.Alignment = .fill,
-                     distribution: UIStackView.Distribution = .fill) {
-        self.init(arrangedSubviews: subviews)
-        self.axis = axis
-        self.spacing = spacing
-        self.alignment = alignment
-        self.distribution = distribution
-    }
-
-    func addArrangedSubviews(_ views: [UIView]) {
+    func addArrangedSubviews(_ views: [View]) {
         for view in views {
             addArrangedSubview(view)
         }
