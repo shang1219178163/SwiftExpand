@@ -22,7 +22,7 @@
 		10EF11C48C283FB26D319E574DDE60FC /* UIAlertController+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CD06BEB2CE5205E7B5AA295CB1AF92 /* UIAlertController+Chain.swift */; };
 		1109C8D3F3189AAB919EE4F2BC48F620 /* UIPageViewController+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7996BEB365B8D1D6605D9DFB915B4136 /* UIPageViewController+Helper.swift */; };
 		124BAA867B03C8271201A29368EADA82 /* CATransition+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A4A3C3A5D6AD3DB175C91CF89C550F /* CATransition+Helper.swift */; };
-		14495EEB265F88A900DBD0F6 /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14495EEA265F88A800DBD0F6 /* UIStackView+Ext.swift */; };
+		14495EEB265F88A900DBD0F6 /* StackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14495EEA265F88A800DBD0F6 /* StackView+Ext.swift */; };
 		14495EF1265F88B300DBD0F6 /* StackView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14495EF0265F88B200DBD0F6 /* StackView+Helper.swift */; };
 		14A5E4E2265E3782002BAB22 /* NSString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A5E4E1265E3782002BAB22 /* NSString+Ext.swift */; };
 		14C8B9D64E159A77DC4E64FDC11E1530 /* NSURLSession+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754B345410B7B5EAB211ED1E5ADFB77B /* NSURLSession+Helper.swift */; };
@@ -209,7 +209,7 @@
 		1225E33441B74D263DBB88B9DD49FB49 /* Pods-SwiftExpandExample-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftExpandExample-frameworks.sh"; sourceTree = "<group>"; };
 		1417B9C8735321FCB051FBDE9B8D9254 /* UISegmentedControl+Chain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+Chain.swift"; path = "SwiftChain/Classes/UISegmentedControl+Chain.swift"; sourceTree = "<group>"; };
 		144931479438C8243B7F136C15796972 /* UIAlertAction+Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIAlertAction+Helper.swift"; sourceTree = "<group>"; };
-		14495EEA265F88A800DBD0F6 /* UIStackView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
+		14495EEA265F88A800DBD0F6 /* StackView+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StackView+Ext.swift"; sourceTree = "<group>"; };
 		14495EF0265F88B200DBD0F6 /* StackView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "StackView+Helper.swift"; sourceTree = "<group>"; };
 		14A5E4E1265E3782002BAB22 /* NSString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Ext.swift"; sourceTree = "<group>"; };
 		14C2F0BB2D5B0DA9E5B1622C5905ACCA /* UITabBarController+Chain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UITabBarController+Chain.swift"; path = "SwiftChain/Classes/UITabBarController+Chain.swift"; sourceTree = "<group>"; };
@@ -511,7 +511,7 @@
 				EE1AC6DE58334130B411CB3264E05982 /* UISlider+Helper.swift */,
 				767C9A5F4DFD35D66793066A89A1104B /* UIStoryboard+Helper.swift */,
 				CCDBF07FE03C2AAE8628F9B3049FF44D /* UISwitch+Helper.swift */,
-				14495EEA265F88A800DBD0F6 /* UIStackView+Ext.swift */,
+				14495EEA265F88A800DBD0F6 /* StackView+Ext.swift */,
 				A9013117F368D0F11BCD28CCAC1603BE /* UITabBar+Helper.swift */,
 				421024869F36F29B06A2D932170ADDC6 /* UITabBarController+Helper.swift */,
 				5103D9AE4355E049FAE57CDE4088A3DE /* UITableHeaderFooterView+Add.swift */,
@@ -973,7 +973,7 @@
 				91CD46DCB0EE97E301A895C3735B6F68 /* UIApplication+Other.swift in Sources */,
 				C33003F0B18859BE560AA08073D7A4E8 /* UIBarButtonItem+Helper.swift in Sources */,
 				F9E3F211A99D0AD8FEB764686D99C73D /* UIButton+Helper.swift in Sources */,
-				14495EEB265F88A900DBD0F6 /* UIStackView+Ext.swift in Sources */,
+				14495EEB265F88A900DBD0F6 /* StackView+Ext.swift in Sources */,
 				94204F564DE11D111271A751F1EF41E1 /* UIButton+Hook.swift in Sources */,
 				2E4E90E14E715E45A1AC6DABA01E2184 /* UIButton+Layer.swift in Sources */,
 				3CB300EF1AFC683C4EA8F721133AE6A8 /* UICollectionReusableView+Helper.swift in Sources */,
