@@ -53,7 +53,7 @@
                 DDLog(error.localizedDescription)
             }
         } else {
-            let data = NSKeyedArchiver.archivedData(withRootObject: value)
+            let data = NSKeyedUnarchiver.unarchiveObject(with: value)
             return data
         }
         return nil

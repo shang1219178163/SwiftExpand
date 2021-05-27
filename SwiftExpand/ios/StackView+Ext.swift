@@ -6,32 +6,19 @@
 //  Created by Bin Shang on 2019/11/26.
 //
 
-import UIKit
 
-@objc public extension UIStackView {
-    
-    convenience init(subviews: [UIView],
+@objc public extension StackView {
+    ///遍利方法
+    convenience init(subviews: [View],
                      axis: NSLayoutConstraint.Axis,
                      spacing: CGFloat = 0.0,
-                     alignment: UIStackView.Alignment = .fill,
-                     distribution: UIStackView.Distribution = .fill) {
+                     alignment: StackView.Alignment = .fill,
+                     distribution: StackView.Distribution = .fill) {
         self.init(arrangedSubviews: subviews)
         self.axis = axis
         self.spacing = spacing
         self.alignment = alignment
         self.distribution = distribution
-    }
-
-    func addArrangedSubviews(_ views: [UIView]) {
-        for view in views {
-            addArrangedSubview(view)
-        }
-    }
-    
-    func removeArrangedSubviews() {
-        for view in arrangedSubviews {
-            removeArrangedSubview(view)
-        }
     }
     
     /// 设置子视图显示比例(此方法前请设置 .axis/.orientation)
@@ -47,25 +34,12 @@ import UIKit
         }
     }
     
-    ///数组传入子视图集合
-    func changeSubViews(_ views: [UIView]) {
-        if views.count == 0 {
-            return
-        }
-        removeArrangedSubviews()
-        let list = views.filter({ $0.isHidden == false })
-        addArrangedSubviews(list)
-        
-        translatesAutoresizingMaskIntoConstraints = true ///方向改变时,组件宽度重绘
-    }
-    
-    
     //排列 NSButton 视图
-    func distributeViewsAlongButton(for buttonType: UIButton.ButtonType, titles: [String], handler: @escaping ((UIButton) -> Void)) {
+    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) {
         translatesAutoresizingMaskIntoConstraints = false
 
         for (idx, value) in titles.enumerated() {
-            let element = UIButton(type: buttonType)
+            let element = Button(type: buttonType)
             element.setTitle(value, for: .normal)
             element.tag = idx
             handler(element)

@@ -82,62 +82,7 @@ public extension NSTableView {
 //设置每行容器视图
 @objc public extension NSTableRowView {
     
-    func selectionHighlightStyleChain(_ selectionHighlightStyle: NSTableView.SelectionHighlightStyle) -> Self {
-        self.selectionHighlightStyle = selectionHighlightStyle
-        return self
-    }
-
-    func isEmphasizedChain(_ isEmphasized: Bool) -> Self {
-        self.isEmphasized = isEmphasized
-        return self
-    }
-
-    func isGroupRowStyleChain(_ isGroupRowStyle: Bool) -> Self {
-        self.isGroupRowStyle = isGroupRowStyle
-        return self
-    }
-
-    func isSelectedChain(_ isSelected: Bool) -> Self {
-        self.isSelected = isSelected
-        return self
-    }
-
-    @available(macOS 10.10, *)
-    func isPreviousRowSelectedChain(_ isPreviousRowSelected: Bool) -> Self {
-        self.isPreviousRowSelected = isPreviousRowSelected
-        return self
-    }
-
-    func isNextRowSelectedChain(_ isNextRowSelected: Bool) -> Self {
-        self.isNextRowSelected = isNextRowSelected
-        return self
-    }
-
-    func isFloatingChain(_ isFloating: Bool) -> Self {
-        self.isFloating = isFloating
-        return self
-    }
-
-    func isTargetForDropOperationChain(_ isTargetForDropOperation: Bool) -> Self {
-        self.isTargetForDropOperation = isTargetForDropOperation
-        return self
-    }
-
-    func draggingDestinationFeedbackStyleChain(_ draggingDestinationFeedbackStyle: NSTableView.DraggingDestinationFeedbackStyle) -> Self {
-        self.draggingDestinationFeedbackStyle = draggingDestinationFeedbackStyle
-        return self
-    }
-
-    func indentationForDropOperationChain(_ indentationForDropOperation: CGFloat) -> Self {
-        self.indentationForDropOperation = indentationForDropOperation
-        return self
-    }
-
-    func backgroundColorChain(_ backgroundColor: NSColor) -> Self {
-        self.backgroundColor = backgroundColor
-        return self
-    }
-
+ 
 
 }
 
