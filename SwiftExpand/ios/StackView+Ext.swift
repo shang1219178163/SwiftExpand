@@ -22,7 +22,7 @@
     }
     
     //排列 NSButton 视图
-    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((UIButton) -> Void)) {
+    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) {
         translatesAutoresizingMaskIntoConstraints = false
 
         for (idx, value) in titles.enumerated() {
