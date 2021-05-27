@@ -47,16 +47,4 @@
     }
     
     
-    //排列 NSButton 视图
-    func distributeViewsAlongButton(for buttonType: UIButton.ButtonType, titles: [String], handler: @escaping ((UIButton) -> Void)) {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        for (idx, value) in titles.enumerated() {
-            let element = UIButton(type: buttonType)
-            element.setTitle(value, for: .normal)
-            element.tag = idx
-            handler(element)
-            addArrangedSubview(element)
-        }
-    }
 }
