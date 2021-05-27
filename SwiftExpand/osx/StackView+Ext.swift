@@ -23,5 +23,31 @@
         self.alignment = alignment
         self.distribution = distribution
     }
+    
+    /// 设置子视图显示比例(此方法前请设置 .axis/.orientation)
+    func setSubViewMultiplier(_ multiplier: CGFloat, at index: Int) {
+        if index < subviews.count {
+            let element = subviews[index];
+            if self.orientation == .horizontal {
+                element.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: multiplier).isActive = true
 
+            } else {
+                element.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier).isActive = true
+            }
+        }
+    }
+
+    //排列 NSButton 视图
+    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) {
+        translatesAutoresizingMaskIntoConstraints = false
+
+        for (idx, value) in titles.enumerated() {
+            let element = Button()
+            element.setButtonType(buttonType)
+            element.title = value
+            element.tag = idx
+            handler(element)
+            addArrangedSubview(element)
+        }
+    }
 }

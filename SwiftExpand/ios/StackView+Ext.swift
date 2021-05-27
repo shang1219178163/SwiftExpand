@@ -21,6 +21,19 @@
         self.distribution = distribution
     }
     
+    /// 设置子视图显示比例(此方法前请设置 .axis/.orientation)
+    func setSubViewMultiplier(_ multiplier: CGFloat, at index: Int) {
+        if index < subviews.count {
+            let element = subviews[index];
+            if self.axis == .horizontal {
+                element.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: multiplier).isActive = true
+
+            } else {
+                element.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier).isActive = true
+            }
+        }
+    }
+    
     //排列 NSButton 视图
     func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) {
         translatesAutoresizingMaskIntoConstraints = false
