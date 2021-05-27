@@ -9,11 +9,11 @@
 
 @objc public extension StackView {
     ///遍利方法
-    convenience init(subviews: [UIView],
+    convenience init(subviews: [View],
                      axis: NSLayoutConstraint.Axis,
                      spacing: CGFloat = 0.0,
-                     alignment: UIStackView.Alignment = .fill,
-                     distribution: UIStackView.Distribution = .fill) {
+                     alignment: StackView.Alignment = .fill,
+                     distribution: StackView.Distribution = .fill) {
         self.init(arrangedSubviews: subviews)
         self.axis = axis
         self.spacing = spacing
