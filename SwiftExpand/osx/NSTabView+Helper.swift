@@ -9,8 +9,6 @@
 
 
 @objc public extension NSTabView {
-
-    // MARK: -funtions
     
     /*
     /// 添加子视图
@@ -34,4 +32,18 @@
         }
     }
     
+}
+
+
+public extension NSTabView {
+
+    ///添加控制器及其名称
+    func addItems(withTuples: [(NSViewController, String)]) {
+        withTuples.forEach { (e) in
+            e.0.title = e.1
+            let item = NSTabViewItem(viewController: e.0)
+            item.view = e.0.view
+            addTabViewItem(item)
+        }
+    }
 }

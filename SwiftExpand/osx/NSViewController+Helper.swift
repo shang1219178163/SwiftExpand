@@ -10,7 +10,17 @@
 
 @objc public extension NSViewController {
 
-    // MARK: -funtions
+    var vcName: String {
+        var name = String(describing: self.classForCoder)
+        if name.hasSuffix("ViewController") {
+            name = name.replacingOccurrences(of: "ViewController", with: "")
+        }
+        if name.hasSuffix("Controller") {
+            name = name.replacingOccurrences(of: "Controller", with: "")
+        }
+        return name;
+    }
+    
     /// 新增子控制器
     func addChildVC(_ controller: NSViewController) {
         controller.view.frame = self.view.bounds
