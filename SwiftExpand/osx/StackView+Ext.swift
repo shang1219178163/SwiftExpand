@@ -38,16 +38,33 @@
     }
 
     //排列 NSButton 视图
-    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) {
+    @discardableResult
+    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) -> Self {
+        if arrangedSubviews.count == titles.count {
+            arrangedSubviews.enumerated().forEach { (e) in
+                if let sender = e.element as? Button {
+                    sender.title = titles[e.offset]
+                }
+            }
+            return self
+        }
+        
+        if arrangedSubviews.count != titles.count {
+            arrangedSubviews.forEach { (e) in
+                e.removeFromSuperview()
+            }
+        }
+        
         translatesAutoresizingMaskIntoConstraints = false
 
         for (idx, value) in titles.enumerated() {
-            let element = Button()
-            element.setButtonType(buttonType)
-            element.title = value
-            element.tag = idx
-            handler(element)
-            addArrangedSubview(element)
+            let sender = Button()
+            sender.setButtonType(buttonType)
+            sender.title = value
+            sender.tag = idx
+            handler(sender)
+            addArrangedSubview(sender)
         }
+        return self
     }
 }

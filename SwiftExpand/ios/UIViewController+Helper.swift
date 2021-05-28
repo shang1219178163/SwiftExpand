@@ -13,16 +13,14 @@ import UIKit
 
     
     var vcName: String {
-        var className: String = NNStringFromClass(self.classForCoder)
-        if className.contains("Controller") {
-            var range = className.range(of: "Controller");
-            if className.contains("ViewController") {
-                range = className.range(of: "ViewController");
-                
-            }
-            className = String(className[..<range!.lowerBound]);
+        var name = String(describing: self.classForCoder)
+        if name.hasSuffix("ViewController") {
+            name = name.replacingOccurrences(of: "ViewController", with: "")
         }
-        return className;
+        if name.hasSuffix("Controller") {
+            name = name.replacingOccurrences(of: "Controller", with: "")
+        }
+        return name;
     }
     
     /// 是否正在展示

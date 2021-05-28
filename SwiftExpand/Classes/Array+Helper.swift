@@ -104,14 +104,14 @@ public extension Array where Element : NSObject {
 public extension Array where Element : View{
     
     ///更新 NSButton 集合视图
-    func updateItemsConstraint(_ rect: CGRect, numberOfRow: Int = 4, padding: CGFloat = kPadding) {
+    func updateItemsConstraint(_ rect: CGRect, numberOfRow: Int = 4, padding: CGFloat = kPadding, edge: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0)) {
         if self.count == 0 || Swift.min(rect.width, rect.height) <= 0 {
             return;
         }
         
         let rowCount = self.count % numberOfRow == 0 ? self.count/numberOfRow : self.count/numberOfRow + 1;
-        let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
-        let itemHeight = (rect.height - CGFloat(rowCount - 1)*padding)/CGFloat(rowCount)
+        let itemWidth = (rect.width - edge.left - edge.right - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
+        let itemHeight = (rect.height - edge.top - edge.bottom - CGFloat(rowCount - 1)*padding)/CGFloat(rowCount)
         
         for e in self.enumerated() {
             let x = CGFloat(e.offset % numberOfRow) * (itemWidth + padding)

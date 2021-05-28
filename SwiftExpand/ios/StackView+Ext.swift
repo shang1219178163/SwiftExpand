@@ -23,27 +23,46 @@
     
     /// 设置子视图显示比例(此方法前请设置 .axis/.orientation)
     func setSubViewMultiplier(_ multiplier: CGFloat, at index: Int) {
-        if index < subviews.count {
-            let element = subviews[index];
-            if self.axis == .horizontal {
-                element.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: multiplier).isActive = true
-
-            } else {
-                element.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier).isActive = true
-            }
+        if index >= subviews.count {
+            return
+        }
+        
+        let element = subviews[index];
+        if self.axis == .horizontal {
+            element.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: multiplier).isActive = true
+        } else {
+            element.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier).isActive = true
         }
     }
     
     //排列 NSButton 视图
-    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) {
-        translatesAutoresizingMaskIntoConstraints = false
-
-        for (idx, value) in titles.enumerated() {
-            let element = Button(type: buttonType)
-            element.setTitle(value, for: .normal)
-            element.tag = idx
-            handler(element)
-            addArrangedSubview(element)
+    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) -> Self {
+        if arrangedSubviews.count == titles.count {
+            arrangedSubviews.enumerated().forEach { (e) in
+                if let sender = e.element as? Button {
+                    sender.setTitle(titles[e.offset], for: .normal)
+                }
+            }
+            return self
         }
+        
+        if arrangedSubviews.count != titles.count {
+            arrangedSubviews.forEach { (e) in
+                e.removeFromSuperview()
+            }
+        }
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        for (idx, value) in titles.enumerated() {
+            let sender = Button(type: buttonType)
+            sender.setTitle(value, for: .normal)
+            sender.setTitleColor(.black, for: .normal)
+            sender.titleLabel?.font = Font.systemFont(ofSize: 15)
+            sender.tag = idx
+            handler(sender)
+            addArrangedSubview(sender)
+        }
+        return self
     }
 }
