@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "SwiftExpand"
-    s.version      = "7.3.2.1"
+    s.version      = "7.3.3"
     s.summary      = "系统类功能扩展, 极大的提高工作效率."
     s.description  = "通过 extension 实现, 低耦合(iOS && macOS)"
 
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
     s.source       = { :git => "https://github.com/shang1219178163/SwiftExpand.git", :tag => "#{s.version}" }
 
     
-    s.source_files = 'SwiftExpand/Classes/*.swift'
+    s.source_files = 'SwiftExpand/Classes/*'
     s.ios.source_files = 'SwiftExpand/ios/*.swift'
     s.osx.source_files = 'SwiftExpand/osx/*.swift'
     s.resource_bundles = {
