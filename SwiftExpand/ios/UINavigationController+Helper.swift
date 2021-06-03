@@ -67,6 +67,18 @@ public extension UINavigationController{
             self.popViewController(animated: animated)
         }
     }
+    
+    ///泛型方法: 跳转到特定页面(viewControllers 包含 pop, 不包含则 push)
+    final func jumpToVC<T: UIViewController>(_ type: T.Type, animated: Bool = true, block: ((T) -> Void)? = nil) {
+        for e in viewControllers {
+            if e.isKind(of: type) {
+                block?(e as! T)
+                popToViewController(e, animated: animated)
+                return
+            }
+        }
+        pushVC(type, animated: animated, block: block)
+    }
 }
 
 
