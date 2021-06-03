@@ -9,9 +9,11 @@
 import SwiftChain
 
 /// UIAlertController标题富文本key
-public let kAlertCtlrTitle = "attributedTitle"
+public let kAlertTitle = "attributedTitle"
 /// UIAlertController信息富文本key
-public let kAlertCtlrMessage = "attributedMessage"
+public let kAlertMessage = "attributedMessage"
+/// UIAlertController信息富文本key
+public let kAlertContentViewController = "contentViewController"
 /// UIAlertController按钮颜色key
 public let kAlertActionColor = "titleTextColor"
 /// UIAlertController按钮颜色image
@@ -22,45 +24,13 @@ public let kAlertActionImageTintColor = "imageTintColor"
 public let kAlertActionChecked = "checked"
 
 @objc public extension UIAlertController{
-
-    /// 创建包含图片不含message的提示框
-    static func createAlertImage(_ title: String?,
-                                 image: String,
-                                 contentMode: UIView.ContentMode = .scaleAspectFit,
-                                 count: Int = 10,
-                                 actionTitles: [String]? = [kTitleCancell, kTitleSure],
-                                 handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
-        assert(UIImage(named: image) != nil)
-        
-        let msg = String(repeating: "\n", count: count)
-        let alertVC = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        // 配置图片
-        let image = UIImage(named: image)
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = contentMode
-        alertVC.view.addSubview(imageView)
-
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: alertVC.view, attribute: .centerX, multiplier: 1, constant: 0))
-        alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: alertVC.view, attribute: .centerY, multiplier: 1, constant: 15))
-        alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 240))
-        alertVC.view.addConstraint(NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 17*CGFloat(count) - 30))
-        // 配置按钮
-        actionTitles?.forEach({ (title:String) in
-            let style: UIAlertAction.Style = [kTitleCancell, kTitleNo].contains(title) ? .destructive : .default
-            alertVC.addAction(UIAlertAction(title: title, style: style, handler: { (action) in
-                handler?(alertVC, action)
-            }))
-        })
-        return alertVC
-    }
     
     /// 创建系统sheetView
     static func createSheet(_ title: String?,
                             message: String? = nil,
                             items: [String]? = nil,
-                            handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
-        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+                            handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> Self {
+        let alertVC = self.init(title: title, message: message, preferredStyle: .actionSheet)
         
         items?.forEach({ (title) in
             let style: UIAlertAction.Style = title == kTitleCancell ? .cancel : .default
@@ -83,80 +53,10 @@ public let kAlertActionChecked = "checked"
                           message: String? = nil,
                           items: [String]? = nil,
                           handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) {
-        let alertVC = UIAlertController.createSheet(title, message:message, items: items, handler: handler)
-        alertVC.present()
+        UIAlertController.createSheet(title, message:message, items: items, handler: handler)
+            .present()
     }
 
-    ///添加多个 UIAlertAction
-    @discardableResult
-    func addActionTitles(_ titles: [String]? = [kTitleCancell, kTitleSure],
-                         handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController {
-        titles?.forEach({ (string) in
-            let style: UIAlertAction.Style = string == kTitleCancell ? .destructive : .default
-            self.addAction(UIAlertAction(title: string, style: style, handler: { (action) in
-                handler?(self, action)
-            }))
-        })
-        return self
-    }
-    ///添加多个 textField
-    @discardableResult
-    func addTextFieldPlaceholders(_ placeholders: [String]?,
-                                  handler: ((UITextField) -> Void)? = nil) -> UIAlertController {
-        if self.preferredStyle != .alert {
-            return self
-        }
-        placeholders?.forEach({ (string) in
-            self.addTextField { (textField: UITextField) in
-                textField.placeholder = string
-                handler?(textField)
-            }
-        })
-        return self
-    }
-        
-    /// 设置标题颜色
-    @discardableResult
-    func setTitleColor(_ color: UIColor = .theme) -> UIAlertController {
-        guard let title = title else {
-            return self;
-        }
-        
-        let attrTitle = NSMutableAttributedString(string: title)
-        attrTitle.addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSRange(location: 0, length: title.count))
-        setValue(attrTitle, forKey: kAlertCtlrTitle)
-        return self;
-    }
-    
-    /// 设置Message文本换行,对齐方式
-    @discardableResult
-    func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> UIAlertController {
-        guard let message = message else {
-            return self;
-        }
-
-        let attrMsg = NSMutableAttributedString(string: message)
-        let attDic = [NSAttributedString.Key.paragraphStyle: paraStyle,
-                      NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13),]
-        attrMsg.addAttributes(attDic, range: NSRange(location: 0, length: message.count))
-        setValue(attrMsg, forKey: kAlertCtlrMessage)
-        return self;
-    }
-    
-    ///设置 Message 样式
-    @discardableResult
-    func setMessageStyle(_ font: UIFont,
-                         textColor: UIColor,
-                         alignment: NSTextAlignment = .left,
-                         lineBreakMode: NSLineBreakMode = .byCharWrapping,
-                         lineSpacing: CGFloat = 5.0) -> UIAlertController {
-        let paraStyle = NSMutableParagraphStyle()
-            .lineBreakModeChain(lineBreakMode)
-            .lineSpacingChain(lineSpacing)
-            .alignmentChain(alignment)
-        
-        return setMessageParaStyle(paraStyle)
-    }
     
     /// [便利方法]提示信息
     static func showAlert(_ title: String? = "提示",
@@ -178,22 +78,11 @@ public let kAlertActionChecked = "checked"
     }
     
     /// [便利方法1]提示信息(兼容 OC)
-    static func showAlert(_ title: String? = "提示", message: String?){
+    static func showAlert(_ title: String? = "提示", message: String?) {
         //富文本效果
         UIAlertController(title: title, message: message, preferredStyle: .alert)
             .addActionTitles([kTitleSure], handler: nil)
             .present()
-    }
-    
-    /// 创建包含图片不含message的提示框
-    static func showAlertImage(_ title: String?,
-                                image: String,
-                                contentMode: UIView.ContentMode = .scaleAspectFit,
-                                count: Int = 20,
-                                actionTitles: [String]? = [kTitleCancell, kTitleSure],
-                                handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
-        let alertVC = UIAlertController.createAlertImage(title, image: image, contentMode: contentMode, count: count, actionTitles: actionTitles, handler: handler)
-        alertVC.present()
     }
 
     ///根据 fmt 进行相隔时间展示
@@ -210,79 +99,128 @@ public let kAlertActionChecked = "checked"
         UserDefaults.standard.synchronize()
         return true
     }
-}
-
-
-public extension UIAlertController {
-
-    ///添加子视图(仅限 actionSheet)
+    
+    ///添加多个 UIAlertAction
     @discardableResult
-    final func addCustomView<T:UIView>(_ type: T.Type, height: CGFloat, inset: UIEdgeInsets, block: @escaping((T)->Void)) -> UIAlertController {
-        if preferredStyle == .alert {
+    func addActionTitles(_ titles: [String]? = [kTitleCancell, kTitleSure],
+                         handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> Self {
+        titles?.forEach({ (string) in
+            let style: UIAlertAction.Style = string == kTitleCancell ? .destructive : .default
+            self.addAction(UIAlertAction(title: string, style: style, handler: { (action) in
+                handler?(self, action)
+            }))
+        })
+        return self
+    }
+    ///添加多个 textField
+    @discardableResult
+    func addTextFieldPlaceholders(_ placeholders: [String]?,
+                                  handler: ((UITextField) -> Void)? = nil) -> Self {
+        if self.preferredStyle != .alert {
             return self
         }
-        let customView = type.init()
-        view.addSubview(customView)
-        customView.translatesAutoresizingMaskIntoConstraints = false
-        customView.topAnchor.constraint(equalTo: view.topAnchor, constant: inset.top).isActive = true
-        customView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -inset.right).isActive = true
-        customView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: inset.left).isActive = true
-        customView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -inset.bottom).isActive = true
-        customView.backgroundColor = .systemGreen
+        placeholders?.forEach({ (string) in
+            self.addTextField { (textField: UITextField) in
+                textField.placeholder = string
+                handler?(textField)
+            }
+        })
+        return self
+    }
+        
+    /// 设置标题颜色
+    @discardableResult
+    func setTitleColor(_ color: UIColor = .theme) -> Self {
+        guard let title = title else {
+            return self;
+        }
+        
+        let attrTitle = NSMutableAttributedString(string: title)
+        attrTitle.addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSRange(location: 0, length: title.count))
+        setValue(attrTitle, forKey: kAlertTitle)
+        return self;
+    }
+    
+    /// 设置Message文本换行,对齐方式
+    @discardableResult
+    func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> Self {
+        guard let message = message else {
+            return self;
+        }
 
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.heightAnchor.constraint(equalToConstant: inset.top + height).isActive = true
-        block(customView)
+        let attrMsg = NSMutableAttributedString(string: message)
+        let attDic = [NSAttributedString.Key.paragraphStyle: paraStyle,
+                      NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13),]
+        attrMsg.addAttributes(attDic, range: NSRange(location: 0, length: message.count))
+        setValue(attrMsg, forKey: kAlertMessage)
+        return self;
+    }
+    
+    ///设置 Message 样式
+    @discardableResult
+    func setMessageStyle(_ font: UIFont,
+                         textColor: UIColor,
+                         alignment: NSTextAlignment = .left,
+                         lineBreakMode: NSLineBreakMode = .byCharWrapping,
+                         lineSpacing: CGFloat = 5.0) -> Self {
+        let paraStyle = NSMutableParagraphStyle()
+            .lineBreakModeChain(lineBreakMode)
+            .lineSpacingChain(lineSpacing)
+            .alignmentChain(alignment)
+        
+        return setMessageParaStyle(paraStyle)
+    }
+    
+    @discardableResult
+    func setContent(vc: UIViewController, height: CGFloat) -> Self {
+        setValue(vc, forKey: kAlertContentViewController)
+        vc.preferredContentSize.height = height
+        preferredContentSize.height = height
         return self
     }
     
-    /// 创建包含图片不含message的提示框
-    static func createSheet<T:UIView>(_ title: String?,
-                                    message: String?,
-                                    type: T.Type,
-                                    height: CGFloat,
-                                    block: @escaping ((T)->Void),
-                                    handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> UIAlertController{
-        let alertVC = UIAlertController(title: title,
-                                        message: message,
-                                        preferredStyle: .actionSheet)
-
-        var top: CGFloat = alertVC.title == nil ? 0.0 : 45
-        if let message = alertVC.message {
-            let width = UIScreen.main.bounds.width - 52
-//            let attDic = [NSAttributedString.Key.font: UIFont.systemFont(ofSize:15),];
-//            let size = message.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
-//                                            options: [.usesLineFragmentOrigin, .usesFontLeading],
-//                                            attributes: attDic,
-//                                            context: nil).size;
-//            let messageSize = CGSize(width: ceil(size.width), height: ceil(size.height))
-            
-            let messageSize = message.size(with: width, font: UIFont.systemFont(ofSize: 15))
-            top += messageSize.height
-        }
-        
-        let inset = EdgeInsetsMake(top + 3, 16, 75, 16)
-        alertVC.addCustomView(type, height: height, inset: inset, block: block)
-
-        alertVC.addAction(UIAlertAction(title: kTitleCancell, style: .cancel, handler: { (action) in
-            handler?(alertVC, action)
-        }))
-        return alertVC
+    @discardableResult
+    func setContent(view: UIView, height: CGFloat) -> Self {
+        let vc = AlertContentController(contentView: view)
+        setContent(vc: vc, height: height)
+        return self
     }
-    
-    /// 创建包含图片不含message的提示框
-    static func showSheet<T:UIView>(_ title: String?,
-                                    message: String?,
-                                    type: T.Type,
-                                    height: CGFloat,
-                                    block: @escaping ((T)->Void),
-                                    handler: ((UIAlertController, UIAlertAction) -> Void)? = nil){
-        
-        UIAlertController.createSheet(title, message: message, type: type, height: height, block: block, handler: handler)
-        .present()
-    }
+
 }
 
+
+fileprivate final class AlertContentController: UIViewController {
+        
+    var contentView: UIView?
+    
+    deinit {
+        DDLog("has deinitialized")
+    }
+    
+    convenience init(contentView: UIView) {
+        self.init()
+        self.contentView = contentView
+    }
+        
+    override func loadView() {
+        view = contentView
+    }
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        view.addSubview(contentView!)
+//
+//        view.getViewLayer()
+//    }
+//
+//    override func viewDidLayoutSubviews() {
+//        super.viewDidLayoutSubviews()
+//
+//        contentView?.frame = CGRectMake(20, 20, view.bounds.width - 40, view.bounds.height - 40)
+//    }
+//
+}
 
 /**
 
@@ -312,27 +250,17 @@ extension UIImage: SwiftExpandCompatible { }
 
 extension SwiftExpand where Base: UIAlertController {
 
-    /// 创建系统sheetView
-    static func createSheet(_ title: String?,
-                            message: String? = nil,
-                            items: [String]? = nil,
-                            handler: ((UIAlertAction) -> Void)? = nil) -> UIAlertController {
-        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        
-        items?.forEach({ (title) in
-            let style: UIAlertAction.Style = title == "取消" ? .cancel : .default
-            alertVC.addAction(UIAlertAction(title: title, style: style, handler: { (alertVC, action) in
-                alertVC.actions.forEach {
-                    if action.title != "确定" {
-                        let number = NSNumber(booleanLiteral: ($0 == action))
-                        $0.setValue(number, forKey: "checked")
-                    }
-                }
-                alertVC.dismiss(animated: true, completion: nil)
-                handler?(action)
-            }))
-        })
-        return alertVC
-    }
+     ///添加多个 UIAlertAction
+     @discardableResult
+     func addActionTitles(_ titles: [String]? = [kTitleCancell, kTitleSure],
+                          handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> Self  {
+         titles?.forEach({ (string) in
+             let style: UIAlertAction.Style = string == kTitleCancell ? .destructive : .default
+             self.addAction(UIAlertAction(title: string, style: style, handler: { (action) in
+                 handler?(self, action)
+             }))
+         })
+         return self
+     }
 }
  */

@@ -17,6 +17,7 @@ import UIKit
             if let obj = objc_getAssociatedObject(self, &AssociateKeys.tag) as? Int {
                 return obj
             }
+            objc_setAssociatedObject(self, &AssociateKeys.tag, 0, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return 0
         }
         set {
@@ -25,24 +26,28 @@ import UIKit
     }
     
     /// 设置UIAlertController按钮颜色
-    func setTitleColor(_ color: UIColor = .theme) {
+    func setTitleColor(_ color: UIColor = .theme) -> Self {
         setValue(color, forKey: kAlertActionColor);
+        return self
+    }
+    
+    // 设置UIAlertController Image
+    func setImage(_ image: UIImage?) -> Self {
+        guard let image = image else { return self }
+        setValue(image, forKey: kAlertActionImage)
+        return self
     }
     
     /// 设置UIAlertController Image
-//    func setImage(_ image: UIImage?) {
-//        guard let image = image else { return }
-//        setValue(image, forKey: kAlertActionImage)
-//    }
+    func setImageTintColor(_ color: UIColor?) -> Self {
+        guard let color = color else { return self }
+        setValue(color, forKey: kAlertActionImageTintColor)
+        return self
+    }
     
-//    /// 设置UIAlertController Image
-//    func setImageTintColor(_ color: UIColor?) {
-//        guard let color = color else { return }
-//        setValue(color, forKey: kAlertActionImageTintColor)
-//    }
-//    
-//    /// 设置UIAlertController Image
-//    func setChecked(_ value: Bool) {
-//        setValue(value, forKey: kAlertActionChecked)
-//    }
+    /// 设置UIAlertController Image
+    func setChecked(_ value: Bool) -> Self {
+        setValue(value, forKey: kAlertActionChecked)
+        return self
+    }
 }
