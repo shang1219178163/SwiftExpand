@@ -74,29 +74,29 @@ public let kDateFormatTwo         = "yyyyMMdd";
     ///日期格式
     enum FormatStyle: String {
         /// yyyy-MM-dd HH:mm:ss(默认)
-        case dateFormat             = "yyyy-MM-dd HH:mm:ss"
+        case Default      = "yyyy-MM-dd HH:mm:ss"
         /// yyyy-MM
-        case dateFormatMonth        = "yyyy-MM"
+        case Month        = "yyyy-MM"
         /// yyyy-MM-dd
-        case dateFormatDay          = "yyyy-MM-dd"
+        case Day          = "yyyy-MM-dd"
         /// yyyy-MM-dd HH
-        case dateFormatHour         = "yyyy-MM-dd HH"
+        case Hour         = "yyyy-MM-dd HH"
         /// yyyy-MM-dd HH:mm
-        case dateFormatMinute       = "yyyy-MM-dd HH:mm"
+        case Minute       = "yyyy-MM-dd HH:mm"
         /// yyyy-MM-dd HH:mm:ss eee
-        case dateFormatMillisecond  = "yyyy-MM-dd HH:mm:ss eee"
+        case Millisecond  = "yyyy-MM-dd HH:mm:ss eee"
         /// yyyy-MM-dd 00:00:00
-        case dateFormatBegin        = "yyyy-MM-dd 00:00:00"
+        case BeginDay     = "yyyy-MM-dd 00:00:00"
         /// yyyy-MM-dd 23:59:59
-        case dateFormatEnd          = "yyyy-MM-dd 23:59:59"
+        case EndDay       = "yyyy-MM-dd 23:59:59"
         /// yyyy-MM-dd HH:mm:00
-        case dateFormatBeginSecond  = "yyyy-MM-dd HH:mm:00"
+        case BeginSecond  = "yyyy-MM-dd HH:mm:00"
         /// yyyy-MM-dd HH:mm:59
-        case dateFormatEndSecond    = "yyyy-MM-dd HH:mm:59"
+        case EndSecond    = "yyyy-MM-dd HH:mm:59"
         /// yyyy年M月
-        case dateFormatMonth_CH     = "yyyy年MM月"
+        case Month_CH     = "yyyy年MM月"
         /// yyyy年MM月dd日
-        case dateFormatDay_CH       = "yyyy年MM月dd日"
+        case Day_CH       = "yyyy年MM月dd日"
     }
     
     /// 获取DateFormatter(默认格式)

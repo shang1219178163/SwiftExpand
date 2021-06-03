@@ -8,7 +8,7 @@
 
 
 /// 自定义EdgeInsets
-public func EdgeInsetsMake(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> EdgeInsets{
+public func UIEdgeInsetsMake(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> EdgeInsets{
     return EdgeInsets(top: top, left: left, bottom: bottom, right: right)
 }
 
