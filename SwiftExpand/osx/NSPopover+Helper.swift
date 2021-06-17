@@ -11,8 +11,6 @@
 
 @objc public extension NSPopover {
 
-    // MARK: -funtions
-    ///遍历方法
     convenience init(vc: NSViewController) {
         self.init()
         self.appearance = NSAppearance(named: .vibrantLight)
@@ -33,6 +31,7 @@
          */
 //        self.show(relativeTo: view.bounds, of: view, preferredEdge: .maxX)
     }
+
     
     func show(_ view: NSView, preferredEdge: NSRectEdge) {
         if isShown == true {

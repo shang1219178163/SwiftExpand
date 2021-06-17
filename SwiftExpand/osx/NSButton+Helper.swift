@@ -32,7 +32,7 @@
         let attDic = NSAttributedString.attrDict(font, textColor: color)
         self.attributedTitle = NSAttributedString(string: title, attributes: attDic)
     }
-
+    
     /// 验证码倒计时显示
     func timerStart(_ interval: Int = 60) {
         var time = interval

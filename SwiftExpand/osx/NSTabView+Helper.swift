@@ -9,7 +9,7 @@
 
 
 @objc public extension NSTabView {
-    
+
     /*
     /// 添加子视图
     /// - Parameter items: @[@[@"JsonToModelNewController", @"json转模型", ],
@@ -31,7 +31,6 @@
             addTabViewItem(item)
         }
     }
-    
 }
 
 

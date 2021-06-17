@@ -28,14 +28,6 @@ import UIKit
         self.estimatedSectionFooterHeight = 0;
     }
     
-    func adJustedContentIOS11() {
-        if #available(iOS 11.0, *) {
-            contentInsetAdjustmentBehavior = .never
-            estimatedRowHeight = 0;
-            estimatedSectionHeaderHeight = 0;
-            estimatedSectionFooterHeight = 0;
-        }
-    }
     
     /// 刷新行数组
     func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .automatic) {
@@ -47,7 +39,6 @@ import UIKit
         for e in rowList.enumerated() {
             if let row = e.element as? NSNumber {
                 marr.append(IndexPath(row: row.intValue , section: section))
-
             }
         }
         beginUpdates()
@@ -60,7 +51,6 @@ import UIKit
         for e in rowList.enumerated() {
             if let row = e.element as? NSNumber {
                 marr.append(IndexPath(row: row.intValue , section: section))
-                
             }
         }
         beginUpdates()
@@ -201,37 +191,28 @@ public extension UITableView{
     
     /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UITableViewCell>(for cellType: T.Type, identifier: String = String(describing: T.self), style: UITableViewCell.CellStyle = .default) -> T{
-        //        let identifier = String(describing: T.self)
-        var cell = self.dequeueReusableCell(withIdentifier: identifier);
-        if cell == nil {
-            cell = T.init(style: style, reuseIdentifier: identifier);
+//        let identifier = String(describing: T.self)
+        if let cell = self.dequeueReusableCell(withIdentifier: T.reuseIdentifier) as? T {
+            return cell
         }
         
-        cell!.selectionStyle = .none;
-        cell!.separatorInset = .zero;
-        cell!.layoutMargins = .zero;
-        cell!.backgroundColor = .white
-        return cell! as! T;
-    }
-    
-    /// 泛型复用cell - aClass: "类名()" (默认identifier: 类名字符串)
-    final func dequeueReusableCell<T: UITableViewCell>(for aClass: T, identifier: String = String(describing: T.self), style: UITableViewCell.CellStyle = .default) -> T{
-        return dequeueReusableCell(for: T.self, identifier: identifier, style: style)
+        let cell = T.init(style: style, reuseIdentifier: T.reuseIdentifier)
+        cell.selectionStyle = .none
+        cell.separatorInset = .zero
+        cell.layoutMargins = .zero
+        cell.backgroundColor = .white
+        return cell
     }
     
     /// 泛型复用HeaderFooterView - cellType: "类名.self" (备用默认值 T.self)
     final func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(for cellType: T.Type, identifier: String = String(describing: T.self)) -> T{
-        var cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier);
-        if cell == nil {
-            cell = T.init(reuseIdentifier: identifier);
+        if let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? T {
+            return cell
         }
-        cell!.layoutMargins = .zero;
-        return cell! as! T;
-    }
-    
-    /// 泛型复用HeaderFooterView - aClass: "类名()" (默认identifier: 类名字符串)
-    final func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(for aClass: T, identifier: String = String(describing: T.self)) -> T{
-        return dequeueReusableHeaderFooterView(for: T.self, identifier: identifier)
+        let cell = T.init(reuseIdentifier: identifier)
+        cell.layoutMargins = .zero;
+//        cell.backgroundColor = .white
+        return cell
     }
         
     /// 按照时间值划分section(例如 var mdic:[String: [NSObject]] = [:] //全局变量)
@@ -268,3 +249,21 @@ public extension UITableView{
         return cellList;
     }
 }
+
+
+
+public protocol Reusable {
+    static var reuseIdentifier: String { get }
+}
+
+public extension Reusable {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+    }
+}
+
+extension UITableViewCell: Reusable { }
+
+extension UITableViewHeaderFooterView: Reusable { }
+
+extension UICollectionViewCell: Reusable { }

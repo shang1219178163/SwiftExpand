@@ -43,19 +43,10 @@ import UIKit
     }
     
     private func hook_viewDidLoad(animated: Bool) {
-//        edgesForExtendedLayout = UIRectEdge(rawValue: 0)
-//        edgesForExtendedLayout = []
-//        if let navigationController = navigationController,
-//            navigationController.viewControllers.count > 0 {
-//            hidesBottomBarWhenPushed = true
-//        }
-
-        if #available(iOS 11.0, *) {
-            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false;
-        }
         hook_viewDidLoad(animated: animated)
+        
+        edgesForExtendedLayout = []
+        automaticallyAdjustsScrollViewInsets = false
     }
     
     private func hook_viewWillAppear(animated: Bool) {

@@ -36,7 +36,7 @@ import UIKit
     //设置 attributedPlaceholder
     func setPlaceHolder(_ holder: String? = nil, font: UIFont = UIFont.systemFont(ofSize: 15), baseline: CGFloat = 0) {
         guard let holder = holder ?? placeholder, !holder.isEmpty else { return }
-        let dic: [NSAttributedString.Key : Any] = [
+        let dic: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.gray.withAlphaComponent(0.7),
             .font: self.font ?? font,
             .baselineOffset: baseline,

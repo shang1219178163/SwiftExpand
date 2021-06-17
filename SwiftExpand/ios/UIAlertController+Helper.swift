@@ -105,7 +105,7 @@ public let kAlertActionChecked = "checked"
     func addActionTitles(_ titles: [String]? = [kTitleCancell, kTitleSure],
                          handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> Self {
         titles?.forEach({ (string) in
-            let style: UIAlertAction.Style = string == kTitleCancell ? .destructive : .default
+            let style: UIAlertAction.Style = string == kTitleCancell ? .cancel : .default
             self.addAction(UIAlertAction(title: string, style: style, handler: { (action) in
                 handler?(self, action)
             }))
@@ -180,12 +180,29 @@ public let kAlertActionChecked = "checked"
     }
     
     @discardableResult
-    func setContent(view: UIView, height: CGFloat) -> Self {
-        let vc = AlertContentController(contentView: view)
-        setContent(vc: vc, height: height)
+    func setContent(view: UIView, height: CGFloat, inset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)) -> Self {
+        let bgView = UIView()
+        bgView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        bgView.addSubview(view)
+        
+//        let inset: UIEdgeInsets = UIEdgeInsets(top: 8, left: 15, bottom: 8, right: 15)
+        view.topAnchor.constraint(equalTo: bgView.topAnchor, constant: inset.top).isActive = true
+        view.rightAnchor.constraint(equalTo: bgView.rightAnchor, constant: -inset.right).isActive = true
+        view.leftAnchor.constraint(equalTo: bgView.leftAnchor, constant: inset.left).isActive = true
+        view.bottomAnchor.constraint(equalTo: bgView.bottomAnchor, constant: -inset.bottom).isActive = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        let vc = AlertContentController(contentView: bgView)
+        setContent(vc: vc, height: height + inset.top + inset.bottom)
         return self
     }
 
+//    @discardableResult
+//    func setContent(view: UIView, height: CGFloat) -> Self {
+//        let vc = AlertContentController(contentView: view)
+//        setContent(vc: vc, height: height)
+//        return self
+//    }
 }
 
 
@@ -255,7 +272,7 @@ extension SwiftExpand where Base: UIAlertController {
      func addActionTitles(_ titles: [String]? = [kTitleCancell, kTitleSure],
                           handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> Self  {
          titles?.forEach({ (string) in
-             let style: UIAlertAction.Style = string == kTitleCancell ? .destructive : .default
+             let style: UIAlertAction.Style = string == kTitleCancell ? .cancel : .default
              self.addAction(UIAlertAction(title: string, style: style, handler: { (action) in
                  handler?(self, action)
              }))

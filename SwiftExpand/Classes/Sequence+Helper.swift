@@ -15,7 +15,7 @@ public extension Sequence{
         return !contains { !predicate($0) }
     }
     
-    
+
 //    public func last(where predicate:(Element) -> Bool) -> Element? {
 //
 //        for element in reversed() where predicate(Element) {
@@ -31,7 +31,7 @@ public extension Sequence where Element: Hashable{
     
 //    var frequencies: [Element: Int]{
 //        let frequencyPairs = self.map{($0,1)}
-//        return Dictionary(frequencyPairs,uniquingKeysWith:+);
+//        return Dictionary(frequencyPairs, uniquingKeysWith:+);
 //    }
     
 }

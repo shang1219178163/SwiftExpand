@@ -26,14 +26,14 @@
     
     /// 设置子视图显示比例(此方法前请设置 .axis/.orientation)
     func setSubViewMultiplier(_ multiplier: CGFloat, at index: Int) {
-        if index < subviews.count {
-            let element = subviews[index];
-            if self.orientation == .horizontal {
-                element.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: multiplier).isActive = true
-
-            } else {
-                element.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier).isActive = true
-            }
+        if index >= subviews.count {
+            return
+        }
+        let element = subviews[index];
+        if self.orientation == .horizontal {
+            element.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: multiplier).isActive = true
+        } else {
+            element.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier).isActive = true
         }
     }
 

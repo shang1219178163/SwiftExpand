@@ -61,6 +61,7 @@ import UIKit
         if dictClass.keys.count == 0 {
             return
         }
+        
         dictClass.forEach { (key, value) in
             if key == UICollectionView.elementKindSectionItem {
                 registerCTVCell(value)
@@ -117,11 +118,6 @@ public extension UICollectionView{
         return cell as! T;
     }
     
-    /// 泛型复用cell - aClass: "类名()" (默认identifier: 类名字符串)
-    final func dequeueReusableCell<T: UICollectionViewCell>(for aClass: T, identifier: String = String(describing: T.self), indexPath: IndexPath) -> T{
-        return dequeueReusableCell(for: T.self, identifier: identifier, indexPath: indexPath)
-    }
-    
     /// 泛型复用SupplementaryView - cellType: "类名.self" (默认identifier: 类名字符串 + Header/Footer)
     final func dequeueReusableSupplementaryView<T: UICollectionReusableView>(for cellType: T.Type, kind: String, indexPath: IndexPath) -> T{
         let kindSuf = kind.components(separatedBy: "KindSection").last;
@@ -132,11 +128,6 @@ public extension UICollectionView{
         view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? .green : .yellow;
         #endif
         return view as! T;
-    }
-    
-    /// 泛型复用SupplementaryView - aClass: "类名()" (默认identifier: 类名字符串 + Header/Footer)
-    final func dequeueReusableSupplementaryView<T: UICollectionReusableView>(for aClass: T, kind: String, indexPath: IndexPath) -> T{
-        return dequeueReusableSupplementaryView(for: T.self, kind: kind, indexPath: indexPath)
     }
     
 }

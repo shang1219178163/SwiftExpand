@@ -51,6 +51,7 @@
             self.setLabel(e.element, forSegment: e.offset)
         }
     }
+    
     static func create(_ rect: NSRect, items: [Any]) -> Self {
         let control = self.init(frame: rect)
         control.segmentStyle = .texturedRounded

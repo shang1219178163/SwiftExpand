@@ -110,23 +110,23 @@ import UIKit
     }
     
     /// [源]UIButton创建(标题)
-    static func create(_ rect: CGRect = .zero, title: String, textColor: UIColor, backgroundColor: UIColor) -> Self {
-        let view = self.init(type: .custom);
-        view.titleLabel?.font = UIFont.systemFont(ofSize:16);
-        view.titleLabel?.adjustsFontSizeToFitWidth = true;
-        view.titleLabel?.minimumScaleFactor = 1.0;
-        view.imageView?.contentMode = .scaleAspectFit
-        view.isExclusiveTouch = true;
-        view.adjustsImageWhenHighlighted = false;
-
-        view.setTitle(title, for: .normal)
-        view.setTitleColor(textColor, for: .normal)
-        view.setBackgroundImage(UIImage(color: backgroundColor), for: .normal)
-        view.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
-        
-        CGRect.zero != rect ? view.frame = rect : view.sizeToFit()
-        return view
-    }
+//    static func create(_ rect: CGRect = .zero, title: String, textColor: UIColor, backgroundColor: UIColor) -> Self {
+//        let view = self.init(type: .custom);
+////        view.titleLabel?.font = UIFont.systemFont(ofSize:16);
+////        view.titleLabel?.adjustsFontSizeToFitWidth = true;
+////        view.titleLabel?.minimumScaleFactor = 1.0;
+////        view.imageView?.contentMode = .scaleAspectFit
+////        view.isExclusiveTouch = true;
+////        view.adjustsImageWhenHighlighted = false;
+////
+////        view.setTitle(title, for: .normal)
+////        view.setTitleColor(textColor, for: .normal)
+////        view.setBackgroundImage(UIImage(color: backgroundColor), for: .normal)
+////        view.setBackgroundImage(UIImage(color: .lightGray), for: .disabled)
+//        
+//        CGRect.zero != rect ? view.frame = rect : view.sizeToFit()
+//        return view
+//    }
         
     /// 创建 UIButton 集群
     static func createGroupView(_ rect: CGRect = .zero, list: [String], numberOfRow: Int = 4, padding: CGFloat = kPadding, action: ((UIButton)->Void)? = nil) -> UIView {

@@ -8,10 +8,10 @@
 
 
 
-@objc extension NSOutlineView {
+@objc public extension NSOutlineView {
 
     /// expand/Collapse
-    public func expandOrCollapseItem(item: Any?, children: Bool = true) {
+    func expandOrCollapseItem(item: Any?, children: Bool = true) {
         let isItemExpanded = self.isItemExpanded(item)
         let animator = self.animator() as NSOutlineView;
 

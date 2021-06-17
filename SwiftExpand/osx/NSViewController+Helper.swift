@@ -21,6 +21,7 @@
         return name;
     }
     
+    // MARK: -funtions
     /// 新增子控制器
     func addChildVC(_ controller: NSViewController) {
         controller.view.frame = self.view.bounds

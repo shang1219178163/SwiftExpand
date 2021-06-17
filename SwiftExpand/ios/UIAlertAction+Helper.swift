@@ -31,23 +31,4 @@ import UIKit
         return self
     }
     
-    // 设置UIAlertController Image
-    func setImage(_ image: UIImage?) -> Self {
-        guard let image = image else { return self }
-        setValue(image, forKey: kAlertActionImage)
-        return self
-    }
-    
-    /// 设置UIAlertController Image
-    func setImageTintColor(_ color: UIColor?) -> Self {
-        guard let color = color else { return self }
-        setValue(color, forKey: kAlertActionImageTintColor)
-        return self
-    }
-    
-    /// 设置UIAlertController Image
-    func setChecked(_ value: Bool) -> Self {
-        setValue(value, forKey: kAlertActionChecked)
-        return self
-    }
 }

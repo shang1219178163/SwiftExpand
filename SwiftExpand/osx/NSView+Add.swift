@@ -48,14 +48,13 @@
     
     var lineTop: NSView {
         get {
-            var obj = objc_getAssociatedObject(self, &AssociateKeys.lineTop) as? NSView;
-            if obj == nil {
-                obj = NSView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
-                obj!.layer?.backgroundColor = NSColor.line.cgColor;
-
-                objc_setAssociatedObject(self, &AssociateKeys.lineTop, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.lineTop) as? NSView {
+                return obj
             }
-            return obj!;
+            let obj = NSView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
+            obj.layer?.backgroundColor = NSColor.line.cgColor;
+            objc_setAssociatedObject(self, &AssociateKeys.lineTop, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj;
         }
         set {
             objc_setAssociatedObject(self, &AssociateKeys.lineTop, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -64,14 +63,13 @@
      
     var lineBottom: NSView {
         get {
-            var obj = objc_getAssociatedObject(self, &AssociateKeys.lineBottom) as? NSView;
-            if obj == nil {
-                obj = NSView(frame: CGRect(x: 0, y: frame.maxY - kH_LINE_VIEW, width: frame.width, height: kH_LINE_VIEW));
-                obj!.layer?.backgroundColor = NSColor.line.cgColor;
-
-                objc_setAssociatedObject(self, &AssociateKeys.lineBottom, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if let obj = objc_getAssociatedObject(self, &AssociateKeys.lineBottom) as? NSView {
+                return obj
             }
-            return obj!;
+            let obj = NSView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
+            obj.layer?.backgroundColor = NSColor.line.cgColor;
+            objc_setAssociatedObject(self, &AssociateKeys.lineBottom, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return obj
         }
         set {
             objc_setAssociatedObject(self, &AssociateKeys.lineBottom, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -79,3 +77,36 @@
     }
     
 }
+
+
+public extension NSView{
+    
+    ///更新各种子视图
+    @discardableResult
+    final func updateItems<T: NSControl>(_ count: Int, type: T.Type, hanler: ((T) -> Void)) -> [T] {
+        if count == 0 {
+            subviews.filter { $0.isMember(of: type) }.forEach { $0.removeFromSuperview() }
+            return []
+        }
+        
+        if let list = self.subviews.filter({ $0.isMember(of: type) }) as? [T], list.count == count {
+            list.forEach { hanler($0) }
+            return list
+        }
+        
+        subviews.filter { $0.isMember(of: type) }.forEach { $0.removeFromSuperview() }
+
+        var array: [T] = [];
+        for i in 0..<count {
+            let sender = type.init(frame: .zero)
+            sender.tag = i
+            self.addSubview(sender)
+            array.append(sender)
+            
+            hanler(sender)
+        }
+        return array;
+    }
+    
+}
+

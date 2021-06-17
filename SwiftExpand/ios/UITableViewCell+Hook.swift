@@ -20,7 +20,6 @@ import UIKit
             }
 
             let offset = UIOffset(horizontal: 0, vertical: 0);
-            
             objc_setAssociatedObject(self, &AssociateKeys.assoryOffSet, offset, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             return offset
         }
