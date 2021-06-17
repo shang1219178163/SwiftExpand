@@ -38,5 +38,4 @@ import UIKit
         tintColor = text
         titleTextAttributes = [.foregroundColor: text]
     }
-
 }
