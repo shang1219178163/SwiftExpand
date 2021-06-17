@@ -23,7 +23,8 @@
  
     ///创建文件到下载目录
     static func createFile(dirUrl: URL = FileManager.downloadsDir!, content: String, name: String, type: String, isCover: Bool = true, openDir: Bool = true){
-        let fileUrl = dirUrl.appendingPathComponent("\(name).\(type)")
+        let tmp = name.hasSuffix(".\(type)") || type == "" ? name : "\(name).\(type)"
+        let fileUrl = dirUrl.appendingPathComponent(tmp)
         let data = content.data(using: .utf8)
 
         let exist = FileManager.default.fileExists(atPath: fileUrl.path)
@@ -31,7 +32,7 @@
             let isSuccess = FileManager.default.createFile(atPath: fileUrl.path, contents: data, attributes: nil)
             print("文件创建结果: \(isSuccess)")
         } else {
-            let fileName = isCover ? "\(name).\(type)" : "\(name) \(DateFormatter.stringFromDate(Date())).\(type)";
+            let fileName = isCover ? tmp : "\(tmp.components(separatedBy: ".").first!) \(DateFormatter.stringFromDate(Date())).\(type)";
             let fileUrl = dirUrl.appendingPathComponent(fileName)
             let isSuccess = FileManager.default.createFile(atPath: fileUrl.path, contents: data, attributes: nil)
             print("文件创建结果: \(isSuccess)")
@@ -40,6 +41,7 @@
             NSWorkspace.shared.open(dirUrl)
         }
     }
+
 }
 
 public extension NSPasteboard{
