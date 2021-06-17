@@ -9,8 +9,24 @@
 import UIKit
 
 
-public extension UIDatePicker {
+@objc public extension UIDatePicker {
+    private struct AssociateKeys {
+        static var closure   = "UIDatePicker" + "closure"
 
+    }
+    /// UIControl 添加回调方式
+    override func addActionHandler(_ action: @escaping ((UIDatePicker) ->Void), for controlEvents: UIControl.Event = .valueChanged) {
+        addTarget(self, action:#selector(p_handleActionDatePicker(_:)), for:controlEvents);
+        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    /// 点击回调
+    @objc private func p_handleActionDatePicker(_ sender: UIDatePicker) {
+        if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIDatePicker) ->Void) {
+            block(sender);
+        }
+    }
+    
     var textColor: UIColor? {
         get {
             value(forKeyPath: "textColor") as? UIColor

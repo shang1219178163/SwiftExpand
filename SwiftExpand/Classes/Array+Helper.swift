@@ -103,9 +103,21 @@ public extension Array where Element : NSObject {
 
 public extension Array where Element : View{
     
+    enum DirectionShowStyle: Int {
+        case topLeftToRight
+        case topRightToLeft
+        case bottomLeftToRight
+        case bottomRightToLeft
+    }
+
+    
     ///更新 NSButton 集合视图
-    func updateItemsConstraint(_ rect: CGRect, numberOfRow: Int = 4, padding: CGFloat = kPadding, edge: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0)) {
-        if self.count == 0 || Swift.min(rect.width, rect.height) <= 0 {
+    func updateItemsConstraint(_ rect: CGRect,
+                               numberOfRow: Int = 4,
+                               padding: CGFloat = kPadding,
+                               edge: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
+                               showStyle: DirectionShowStyle = .topLeftToRight) {
+        if self.count == 0 || Swift.min(rect.width, rect.height) <= 10 {
             return;
         }
         
@@ -116,13 +128,34 @@ public extension Array where Element : View{
         for e in self.enumerated() {
             let x = CGFloat(e.offset % numberOfRow) * (itemWidth + padding)
             let y = CGFloat(e.offset / numberOfRow) * (itemHeight + padding)
-            let rect = CGRect(x: x, y: y, width: ceil(itemWidth), height: itemHeight)
+            var itemRect = CGRect(x: x, y: y, width: ceil(itemWidth), height: itemHeight)
             
+            switch showStyle {
+            case .topRightToLeft:
+                itemRect = CGRect(x: rect.width - x - itemWidth,
+                                  y: y,
+                                  width: itemWidth,
+                                  height: itemHeight)
+
+            case .bottomLeftToRight:
+                itemRect = CGRect(x: x,
+                                  y: rect.height - y - itemHeight,
+                                  width: itemWidth,
+                                  height: itemHeight)
+
+            case .bottomRightToLeft:
+                itemRect = CGRect(x: rect.width - x - itemWidth,
+                                  y: rect.height - y - itemHeight,
+                                  width: itemWidth,
+                                  height: itemHeight)
+
+            default:
+                break
+            }
             let sender = e.element;
-            sender.frame = rect;
+            sender.frame = itemRect;
         }
     }
-    
 }
 
 

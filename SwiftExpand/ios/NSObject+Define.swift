@@ -65,8 +65,31 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
 
 
 @objc public extension NSObject{
+    private struct AssociateKeys {
+        static var runtimeKey   = "NSObject" + "runtimeKey"
+    }
+    /// 动态属性关联key
+    var runtimeKey: UnsafeRawPointer {
+        get {
+            return objc_getAssociatedObject(self, &AssociateKeys.runtimeKey) as! UnsafeRawPointer
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociateKeys.runtimeKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
+
+    /// 类的字符串名称
+    static var identifier: String{
+        return String(describing: self)
+    }
+    
     static var named: String {
         let array = NSStringFromClass(self).components(separatedBy: ".")
+        return array.last ?? ""
+    }
+    
+    var named: String {
+        let array = NSStringFromClass(type(of: self)).components(separatedBy: ".")
         return array.last ?? ""
     }
 
@@ -80,15 +103,13 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
 
         for i in 0..<Int(count) {
             let ivar = list[i]
-            //转换成String字符串
-            guard let name = ivar_getName(ivar),
-                let strName = String(cString: name, encoding: String.Encoding.utf8) else {
-                //继续下一次遍历
+            guard let ivarName = ivar_getName(ivar),
+                  let name = String(utf8String: ivarName) else {
                 continue
             }
             //利用kvc 取值
-            let value = self.value(forKey: strName)
-            block(ivar, strName, value)
+            let value = self.value(forKey: name)
+            block(ivar, name, value)
         }
     }
     ///遍历属性列表
@@ -102,15 +123,14 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
         for i in 0..<Int(count) {
             let property: objc_property_t = list[i]
             //获取成员变量的名称 -> c语言字符串
-            let name = property_getName(property)
+            let pname = property_getName(property)
             //转换成String字符串
-            guard let strName = String(cString: name, encoding: .utf8) else {
-                //继续下一次遍历
+            guard let name = String(utf8String: pname) else {
                 continue
             }
             //利用kvc 取值
-            let value = self.value(forKey: strName)
-            block(property, strName, value)
+            let value = self.value(forKey: name)
+            block(property, name, value)
         }
     }
     ///遍历方法列表
@@ -124,10 +144,10 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
         for i in 0..<Int(count) {
             let method: Method = list[i]
             //获取成员变量的名称 -> c语言字符串
-            let name: Selector = method_getName(method)
+            let sel: Selector = method_getName(method)
             //转换成String字符串
-            let strName = NSStringFromSelector(name)
-            block(method, strName)
+            let name = NSStringFromSelector(sel)
+            block(method, name)
         }
     }
     ///遍历遵循的协议列表
@@ -138,13 +158,11 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
         for i in 0..<Int(count) {
             let proto: Protocol = list[i]
             //获取成员变量的名称 -> c语言字符串
-            let name = protocol_getName(proto)
-            //转换成String字符串
-            guard let strName = String(cString: name, encoding: String.Encoding.utf8) else {
-                //继续下一次遍历
+            let pname = protocol_getName(proto)
+            guard let name = String(utf8String: pname) else {
                 continue
             }
-            block(proto, strName)
+            block(proto, name)
         }
     }
 
@@ -167,18 +185,18 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
         }
     }
     /// 字典转模型
-//    convenience init(dic: [String: Any]) {
-//        self.init();
-//        self.setValuesForKeys(dic)
-//    }
-//    ///详情模型转字典(不支持嵌套)
-//    func toDictionary() -> [AnyHashable : Any] {
-//        var dic: [AnyHashable : Any] = [:]
-//        self.enumeratePropertys { (property, name, value) in
-//            dic[name] = value ?? ""
-//        }
-//        return dic
-//    }
+    convenience init(dic: [String: Any]) {
+        self.init();
+        self.setValuesForKeys(dic)
+    }
+    ///详情模型转字典(不支持嵌套)
+    func toDictionary() -> [AnyHashable : Any] {
+        var dic: [AnyHashable : Any] = [:]
+        self.enumeratePropertys { (property, name, value) in
+            dic[name] = value ?? ""
+        }
+        return dic
+    }
     
     func synchronized(_ lock: AnyObject, block: () -> Void) {
         objc_sync_enter(lock)
@@ -210,7 +228,6 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
     }
 
 }
-
 
 public extension NSObjectProtocol where Self: NSObject {
     /// viewModel.observe(\.playButtonTitle) { [playButton] in playButton!.setTitle($0, for: .normal) },
