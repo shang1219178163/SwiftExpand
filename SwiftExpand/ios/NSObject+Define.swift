@@ -63,6 +63,17 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
 }
 
 
+public extension Optional where Wrapped == String {
+    var orEmpty: String {
+        switch self {
+        case .some(let value):
+            return value
+        case .none:
+            return ""
+        }
+    }
+}
+
 
 @objc public extension NSObject{
     private struct AssociateKeys {
