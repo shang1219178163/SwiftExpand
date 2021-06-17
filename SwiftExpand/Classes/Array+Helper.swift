@@ -31,13 +31,24 @@ public extension Array{
     }
     
     ///同 subarrayWithRange:
-    func subarray(_ range: NSRange) -> Array {
-        return self.subarray(range.location, range.length)
+    func subarray(location: Int, length: Int) -> Array {
+        return subarray(with: NSMakeRange(location, length))
     }
+    
     ///同 subarrayWithRange:
-    func subarray(_ loc: Int, _ len: Int) -> Array {
-        assert((loc + len) <= self.count);
-        return Array(self[loc...len]);
+    func subarray(with range: NSRange) -> Array {
+        assert((range.location + range.length) <= self.count);
+        return Array(self[range.location...(range.location + range.length - 1)]);
+    }
+    
+    /// <= index
+    func subarray(to index: Int) -> Array {
+        return Array(self[0...index]);
+    }
+    
+    /// >= index
+    func subarray(from index: Int) -> Array {
+        return Array(self[index...(self.count - 1)]);
     }
 }
 

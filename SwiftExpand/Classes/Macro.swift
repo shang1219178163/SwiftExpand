@@ -216,8 +216,9 @@ public let kMontDayDes: String = "初一,初二,初三,初四,初五,初六,初�
 ///   - line: 行号
 public func DDLog(_ message: Any?..., file: String = #file, function: String = #function, line: Int = #line){
     #if DEBUG
-    let params = message.compactMap{ "\($0 ?? "nil")" }.joined(separator: ", ");
-    
+//    let params = message.compactMap{ "\($0 ?? "nil")" }.joined(separator: ", ");
+    let params = message.compactMap{ "\($0.orEmpty)" }.joined(separator: ", ");
+
     let fmt = DateFormatter.format("yyyy-MM-dd HH:mm:ss.SSSSSSZ");
     fmt.locale = Locale(identifier: "zh_CN")
     
@@ -226,3 +227,14 @@ public func DDLog(_ message: Any?..., file: String = #file, function: String = #
     #endif
 }
 
+
+fileprivate extension Optional {
+    var orEmpty: Any {
+        switch self {
+        case .some(let value):
+            return value
+        case .none:
+            return "nil"
+        }
+    }
+}
