@@ -10,7 +10,7 @@ import ServiceManagement
 
 @objc public extension NSApplication{
     private struct AssociateKeys {
-        static var homeWindow   = "NSApplication" + "initWindow"
+        static var homeWindow   = "NSApplication" + "homeWindow"
     }
     ///设置为根 NSWindow
     static var homeWindow: NSWindow {

@@ -148,21 +148,25 @@ import UIKit
     }
     
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        guard let menuItems = UIMenuController.shared.menuItems else { return [#selector(copy(_:))].contains(action)}
+        guard let menuItems = UIMenuController.shared.menuItems else {
+            return [#selector(copy(_:))].contains(action)}
         let actions: [Selector] = menuItems.map { $0.action }
         return actions.contains(action)
     }
     
-    // MARK: - UIResponderStandardEditActions
-    override func copy(_ sender: Any?) {
-        UIPasteboard.general.string = text
-    }
-    
-    override func paste(_ sender: Any?) {
-        text = UIPasteboard.general.string
-    }
-    
-    override func delete(_ sender: Any?) {
-        text = ""
-    }
+//    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+//        return super.canPerformAction(action, withSender: sender);
+//    }
+//    // MARK: - UIResponderStandardEditActions
+//    override func copy(_ sender: Any?) {
+//        UIPasteboard.general.string = text
+//    }
+//
+//    override func paste(_ sender: Any?) {
+//        text = UIPasteboard.general.string
+//    }
+//
+//    override func delete(_ sender: Any?) {
+//        text = ""
+//    }
 }

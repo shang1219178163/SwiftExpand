@@ -214,9 +214,9 @@ public let kMontDayDes: String = "初一,初二,初三,初四,初五,初六,初�
 ///   - file: 文件名
 ///   - function: 方法名
 ///   - line: 行号
-public func DDLog(_ message: Any..., file: String = #file, function: String = #function, line: Int = #line){
+public func DDLog(_ message: Any?..., file: String = #file, function: String = #function, line: Int = #line){
     #if DEBUG
-    let params = message.compactMap{ "\($0)" }.joined(separator: ", ");
+    let params = message.compactMap{ "\($0 ?? "nil")" }.joined(separator: ", ");
     
     let fmt = DateFormatter.format("yyyy-MM-dd HH:mm:ss.SSSSSSZ");
     fmt.locale = Locale(identifier: "zh_CN")
