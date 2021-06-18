@@ -83,10 +83,7 @@ import UIKit
             DDLog("\(NSStringFromClass(classForCoder))--Disappear")
         }
     }
-    
-    private func changeAppIconAction(){
-//        print("替换成功")
-    }
+
 
 }
 
@@ -95,7 +92,7 @@ import UIKit
     public func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //判断是否是根控制器
         if viewControllers.count > 0 {
-//            viewController.createBackItem(UIImage(named: "icon_arowLeft_black")!.withRenderingMode(.alwaysTemplate))
+            viewController.createBackItem(UIImage(named: "icon_arowLeft_black")!.withRenderingMode(.alwaysTemplate))
             viewController.hidesBottomBarWhenPushed = true
         }
         //push进入下一个控制器

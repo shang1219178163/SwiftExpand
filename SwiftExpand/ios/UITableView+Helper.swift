@@ -28,6 +28,15 @@ import UIKit
         self.estimatedSectionFooterHeight = 0;
     }
     
+//    func adJustedContentIOS11() {
+//        if #available(iOS 11.0, *) {
+//            contentInsetAdjustmentBehavior = .never
+//            estimatedRowHeight = 0;
+//            estimatedSectionHeaderHeight = 0;
+//            estimatedSectionFooterHeight = 0;
+//        }
+//    }
+    
     /// 刷新行数组
     func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .automatic) {
         assert(section <= numberOfSections)
