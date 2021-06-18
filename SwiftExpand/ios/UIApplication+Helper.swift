@@ -275,10 +275,9 @@ import UIKit
             $0.adjustsImageWhenHighlighted = false
           }(UIButton.appearance())
         
-        
+
         _ = {
             $0.tintColor = tintColor
-            $0.selectedSegmentIndex = 0
 
             $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: tintColor,
             ], for: .normal)
@@ -289,16 +288,11 @@ import UIKit
         
         _ = {
             $0.tintColor = tintColor
-            $0.selectedSegmentIndex = 0
           }(UISegmentedControl.appearance())
-        
-        
+
+                
         _ = {
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-          }(UIView.appearance())
-        
-        
-        _ = {
             $0.showsHorizontalScrollIndicator = false
             $0.keyboardDismissMode = .onDrag;
             if #available(iOS 11.0, *) {
@@ -343,7 +337,6 @@ import UIKit
         
         _ = {
             $0.isUserInteractionEnabled = true;
-            $0.contentMode = .scaleAspectFit;
           }(UIImageView.appearance())
         
         
