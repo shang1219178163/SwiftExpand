@@ -6,7 +6,6 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import Then
 
 /// UIAlertController标题富文本key
 public let kAlertTitle = "attributedTitle"

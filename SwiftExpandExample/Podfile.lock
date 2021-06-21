@@ -1,22 +1,15 @@
 PODS:
-  - SwiftChain (1.0.0.3)
-  - SwiftExpand (7.2.0.3):
-    - SwiftChain
+  - SwiftExpand (7.7.0)
 
 DEPENDENCIES:
   - SwiftExpand (from `../`)
-
-SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - SwiftChain
 
 EXTERNAL SOURCES:
   SwiftExpand:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SwiftChain: 4b96742bb8a2b3e92a722ebf66125815551dd02e
-  SwiftExpand: 0942cb37f34f1df22f5e1b190a812d805e4c67a4
+  SwiftExpand: 5805fde447f61419a69108d6a3d4300c83afb4b0
 
 PODFILE CHECKSUM: 1ebbffd0537dffd57bd2b07a91090ffdaedd1833
 

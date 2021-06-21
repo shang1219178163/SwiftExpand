@@ -1,8 +1,8 @@
 {
   "name": "SwiftExpand",
-  "version": "7.2.0.3",
+  "version": "7.7.0",
   "summary": "系统类功能扩展, 极大的提高工作效率.",
-  "description": "主要通过分类实现",
+  "description": "通过 extension 实现, 低耦合(iOS && macOS)",
   "homepage": "https://github.com/shang1219178163/SwiftExpand",
   "license": {
     "type": "MIT",
@@ -13,9 +13,9 @@
   },
   "source": {
     "git": "https://github.com/shang1219178163/SwiftExpand.git",
-    "tag": "7.2.0.3"
+    "tag": "7.7.0"
   },
-  "source_files": "SwiftExpand/Classes/*.swift",
+  "source_files": "SwiftExpand/Classes/*",
   "ios": {
     "source_files": "SwiftExpand/ios/*.swift",
     "frameworks": "UIKit"
@@ -41,10 +41,5 @@
     "WebKit",
     "Photos"
   ],
-  "dependencies": {
-    "SwiftChain": [
-
-    ]
-  },
   "swift_version": "5"
 }
