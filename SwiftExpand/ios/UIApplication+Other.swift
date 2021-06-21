@@ -8,7 +8,6 @@
 import UIKit
 import UserNotifications
 import Photos
-import SwiftChain
 
 @objc public extension UIApplication{
     /// 全局token

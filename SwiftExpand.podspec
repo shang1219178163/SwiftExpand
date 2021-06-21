@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "SwiftExpand"
-    s.version      = "7.5.4.3"
+    s.version      = "7.5.4.4"
     s.summary      = "系统类功能扩展, 极大的提高工作效率."
     s.description  = "通过 extension 实现, 低耦合(iOS && macOS)"
 
@@ -29,6 +29,6 @@ Pod::Spec.new do |s|
     s.ios.frameworks = 'UIKit'
     s.osx.frameworks = 'AppKit'
 
-     s.dependency 'SwiftChain'
+    #  s.dependency 'SwiftChain'
     s.dependency 'Then'
 end
