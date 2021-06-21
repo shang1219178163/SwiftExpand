@@ -10,6 +10,28 @@
 import Then
 
 @objc public extension NSAlert {
+    @discardableResult
+    func addButtonsChain(_ titles: [String]?) -> Self {
+        titles?.forEach { (obj) in
+            addButton(withTitle: obj)
+        }
+        return self
+    }
+    
+    @discardableResult
+    func beginSheetChain(_ handler: ((NSApplication.ModalResponse) -> Void)? = nil) -> Self {
+        NSApp.activate(ignoringOtherApps: true)
+        guard let window = NSApplication.shared.mainWindow else { return self}
+        beginSheetModal(for: window, completionHandler: handler)
+        return self
+    }
+    
+    @discardableResult
+    func suppressionButtonActionChain(_ handler: @escaping ((NSButton) -> Void)) -> Self {
+        suppressionButton?.addActionHandler(handler)
+        return self
+    }
+    
     ///兼容 OC
     static func create(_ title: String, message: String, btnTitles: [String]?) -> Self {
         let alert = self.init()
@@ -25,15 +47,12 @@ import Then
     }
     ///兼容 OC
     static func show(_ title: String, message: String, btnTitles: [String]?, handler: ((NSApplication.ModalResponse) -> Void)? = nil) {
-//        NSAlert()
-//            .messageTextChain(title)
-//            .informativeTextChain(message)
-//            .addButtonsChain(btnTitles)
-//            .beginSheetChain(handler)
+        NSAlert().then {
+            $0.messageText = title
+            $0.informativeText = message
+            $0.addButtonsChain(btnTitles)
+            $0.beginSheetChain(handler)
+        }
     }
-    
-    func suppressionButtonActionChain(_ handler: @escaping ((NSButton) -> Void)) -> Self {
-        suppressionButton?.addActionHandler(handler)
-        return self
-    }
+
 }

@@ -39,10 +39,10 @@
 
     //排列 NSButton 视图
     @discardableResult
-    func distributeViewsAlongButton(for buttonType: Button.ButtonType, titles: [String], handler: @escaping ((Button) -> Void)) -> Self {
+    func distributeViewsAlongButton(for titles: [String], handler: @escaping ((NSButton) -> Void)) -> Self {
         if arrangedSubviews.count == titles.count {
             arrangedSubviews.enumerated().forEach { (e) in
-                if let sender = e.element as? Button {
+                if let sender = e.element as? NSButton {
                     sender.title = titles[e.offset]
                 }
             }
@@ -58,8 +58,8 @@
         translatesAutoresizingMaskIntoConstraints = false
 
         for (idx, value) in titles.enumerated() {
-            let sender = Button()
-            sender.setButtonType(buttonType)
+            let sender = NSButton()
+            sender.bezelStyle = .rounded
             sender.title = value
             sender.tag = idx
             handler(sender)
@@ -67,4 +67,5 @@
         }
         return self
     }
+ 
 }
