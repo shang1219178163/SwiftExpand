@@ -17,17 +17,7 @@ import Then
         }
         return dic;
     }
-    
-    /// 富文本特殊部分配置字典
-    static func attrDict(_ font: Font = Font.systemFont(ofSize:15), textColor: Color = .theme) -> [NSAttributedString.Key: Any] {
-        let dic: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: textColor,
-            .backgroundColor: Color.clear,
-        ];
-        return dic;
-    }
-    
+        
     /// 富文本整体设置
     static func paraDict(_ font: Font = Font.systemFont(ofSize:15),
                          textColor: Color = .theme,
@@ -39,8 +29,12 @@ import Then
             .lineSpacingChain(lineSpacing)
             .alignmentChain(alignment)
 
-        var dic = attrDict(font, textColor: textColor)
-        dic[NSAttributedString.Key.paragraphStyle] = paraStyle
+        let dic: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: textColor,
+            .backgroundColor: Color.clear,
+            .paragraphStyle: paraStyle,
+        ];
         return dic
     }
     
@@ -55,11 +49,21 @@ import Then
                           lineSpacing: CGFloat = 0,
                           lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                           rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
-        let paraDic = paraDict(Font.systemFont(ofSize: font), textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
+        let paraDic = paraDict(Font.systemFont(ofSize: font),
+                               textColor: color,
+                               alignment: alignment,
+                               lineSpacing: lineSpacing,
+                               lineBreakMode: lineBreakMode)
+        
         let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in
             let nsRange = (text as NSString).range(of: textTap, options: mask)
-            let attDic = attrDict(Font.systemFont(ofSize: tapFont), textColor: tapColor)
+
+            let attDic: [NSAttributedString.Key: Any] = [
+                .font: Font.systemFont(ofSize: tapFont),
+                .foregroundColor: tapColor,
+                .backgroundColor: Color.clear,
+            ];
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString
@@ -76,19 +80,13 @@ import Then
                                 lineSpacing: CGFloat = 0,
                                 lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                                 rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
-        let paraStyle = NSMutableParagraphStyle()
-            .lineBreakModeChain(lineBreakMode)
-            .lineSpacingChain(lineSpacing)
-            .alignmentChain(alignment)
-
-        let attDic: [NSAttributedString.Key: Any] = [
-            .font: font,
-            .foregroundColor: color,
-            .backgroundColor: Color.clear,
-            .paragraphStyle: paraStyle,
-        ];
+        let paraDic = paraDict(font,
+                               textColor: color,
+                               alignment: alignment,
+                               lineSpacing: lineSpacing,
+                               lineBreakMode: lineBreakMode)
         
-        let attString = NSMutableAttributedString(string: text, attributes: attDic)
+        let attString = NSMutableAttributedString(string: text, attributes: paraDic)
         textTaps.forEach { ( textTap: String) in
             let nsRange = (text as NSString).range(of: textTap, options: mask)
 
@@ -118,15 +116,19 @@ import Then
     }
     
     /// nsRange范围子字符串差异华显示
-    static func attString(_ text: String, nsRange: NSRange, font: CGFloat = 15, textColor: Color = Color.theme) -> NSAttributedString {
+    static func attString(_ text: String,
+                          nsRange: NSRange,
+                          font: CGFloat = 15,
+                          textColor: Color = .theme) -> NSAttributedString {
         assert((nsRange.location + nsRange.length) <= text.count)
         
-        let attDict = [NSAttributedString.Key.foregroundColor: textColor,
-                       NSAttributedString.Key.font: Font.systemFont(ofSize: font),
-        ]
+        let attDic: [NSAttributedString.Key: Any] = [
+            .font: Font.systemFont(ofSize: font),
+            .foregroundColor: textColor,
+        ];
         
         let attrString = NSMutableAttributedString(string: text)
-        attrString.addAttributes(attDict, range: nsRange)
+        attrString.addAttributes(attDic, range: nsRange)
         return attrString
     }
     
