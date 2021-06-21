@@ -45,14 +45,5 @@ import Then
         }
         return alert
     }
-    ///兼容 OC
-    static func show(_ title: String, message: String, btnTitles: [String]?, handler: ((NSApplication.ModalResponse) -> Void)? = nil) {
-        NSAlert().then {
-            $0.messageText = title
-            $0.informativeText = message
-            $0.addButtonsChain(btnTitles)
-            $0.beginSheetChain(handler)
-        }
-    }
 
 }
