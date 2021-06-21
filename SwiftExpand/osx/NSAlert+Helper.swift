@@ -7,7 +7,7 @@
 //
 
 
-import SwiftChain
+import Then
 
 @objc public extension NSAlert {
     ///兼容 OC

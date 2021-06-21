@@ -5,7 +5,7 @@
 //  Created by Bin Shang on 2019/7/15.
 //
 
-import SwiftChain
+import Then
 
 @objc public extension NSAttributedString{
     ///获取所有的 [Range: NSAttributedString] 集合
