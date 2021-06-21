@@ -289,3 +289,245 @@ public extension String {
     }
     
 }
+
+
+
+//属性链式编程实现
+@objc public extension NSMutableAttributedString {
+    
+    func fontChain(_ font: Font) -> Self {
+        addAttributes([NSAttributedString.Key.font: font], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    func foregroundColorChain(_ color: Color) -> Self {
+        addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    func backgroundColorChain(_ color: Color) -> Self {
+        addAttributes([NSAttributedString.Key.backgroundColor: color], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    func linkChain(_ value: String) -> Self {
+        return linkURLChain(URL(string: value)!)
+    }
+    
+    func linkURLChain(_ value: URL) -> Self {
+        addAttributes([NSAttributedString.Key.link: value], range: NSMakeRange(0, self.length))
+        return self
+    }
+    //设置字体倾斜度，取值为float，正值右倾，负值左倾
+    func obliqueChain(_ value: CGFloat = 0.1) -> Self {
+        addAttributes([NSAttributedString.Key.obliqueness: value], range: NSMakeRange(0, self.length))
+        return self
+    }
+       
+    //字符间距
+    func kernChain(_ value: CGFloat) -> Self {
+        addAttributes([.kern: value], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    //设置字体的横向拉伸，取值为float，正值拉伸 ，负值压缩
+    func expansionChain(_ value: CGFloat) -> Self {
+        addAttributes([.expansion: value], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    //设置下划线
+    func underlineChain(_ style: NSUnderlineStyle = .single, _ color: Color) -> Self {
+        addAttributes([
+            .underlineColor: color,
+            .underlineStyle: style.rawValue
+        ], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    //设置删除线
+    func strikethroughChain(_ style: NSUnderlineStyle = .single, _ color: Color) -> Self {
+        addAttributes([
+            .strikethroughColor: color,
+            .strikethroughStyle: style.rawValue,
+        ], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    //设置删除线
+    func strokeChain(_ color: Color, _ value: CGFloat = 0) -> Self {
+        addAttributes([
+            .strokeColor: color,
+            .strokeWidth: value,
+        ], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    ///设置基准位置 (正上负下)
+    func baselineChain(_ value: CGFloat) -> Self {
+        addAttributes([.baselineOffset: value], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    ///设置段落
+    func paraStyleChain(_ alignment: NSTextAlignment,
+                   lineSpacing: CGFloat = 0,
+                   paragraphSpacingBefore: CGFloat = 0,
+                   lineBreakMode: NSLineBreakMode = .byTruncatingTail) -> Self {
+        let style = NSMutableParagraphStyle()
+        style.alignment = alignment
+        style.lineBreakMode = lineBreakMode
+        style.lineSpacing = lineSpacing
+        style.paragraphSpacingBefore = paragraphSpacingBefore
+        addAttributes([.paragraphStyle: style], range: NSMakeRange(0, self.length))
+        return self
+    }
+        
+    ///设置段落
+    func paragraphStyleChain(_ style: NSMutableParagraphStyle) -> Self {
+        addAttributes([.paragraphStyle: style], range: NSMakeRange(0, self.length))
+        return self
+    }
+    
+    ///设置段落
+    func textAttachmentChain(_ image: Image, scale: CGFloat = 1.0) -> Self {
+        
+        #if os(macOS)
+            let attachment = NSTextAttachment()
+            let size = NSSize(
+              width: image.size.width * scale,
+              height: image.size.height * scale
+            )
+            attachment.image = NSImage(size: size, flipped: false, drawingHandler: { (rect: NSRect) -> Bool in
+              NSGraphicsContext.current?.cgContext.translateBy(x: 0, y: size.height)
+              NSGraphicsContext.current?.cgContext.scaleBy(x: 1, y: -1)
+              image.draw(in: rect)
+              return true
+            })
+            
+            self.append(NSAttributedString(attachment: attachment))
+        #else
+        let size = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+            let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            UIGraphicsBeginImageContextWithOptions(size, false, scale)
+            image.draw(in: rect)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            let attachment = NSTextAttachment()
+            attachment.image = newImage
+
+            self.append(NSAttributedString(attachment: attachment))
+        #endif
+
+//        print(#function, rect, size)
+        return self
+    }
+    
+    
+}
+
+
+
+@objc public extension NSMutableParagraphStyle{
+    
+    func lineSpacingChain(_ value: CGFloat) -> Self {
+        self.lineSpacing = value
+        return self
+    }
+    
+    func paragraphSpacingChain(_ value: CGFloat) -> Self {
+        self.paragraphSpacing = value
+        return self
+    }
+    
+    func alignmentChain(_ value: NSTextAlignment) -> Self {
+        self.alignment = value
+        return self
+    }
+    
+    func firstLineHeadIndentChain(_ value: CGFloat) -> Self {
+        self.firstLineHeadIndent = value
+        return self
+    }
+    
+    func headIndentChain(_ value: CGFloat) -> Self {
+        self.headIndent = value
+        return self
+    }
+    
+    func tailIndentChain(_ value: CGFloat) -> Self {
+        self.tailIndent = value
+        return self
+    }
+    
+    func lineBreakModeChain(_ value: NSLineBreakMode) -> Self {
+        self.lineBreakMode = value
+        return self
+    }
+    
+    func minimumLineHeightChain(_ value: CGFloat) -> Self {
+        self.minimumLineHeight = value
+        return self
+    }
+    
+    func maximumLineHeightChain(_ value: CGFloat) -> Self {
+        self.maximumLineHeight = value
+        return self
+    }
+    
+    func baseWritingDirectionChain(_ value: NSWritingDirection) -> Self {
+        self.baseWritingDirection = value
+        return self
+    }
+    
+    func lineHeightMultipleChain(_ value: CGFloat) -> Self {
+        self.lineHeightMultiple = value
+        return self
+    }
+    
+    func paragraphSpacingBeforeChain(_ value: CGFloat) -> Self {
+        self.paragraphSpacingBefore = value
+        return self
+    }
+    
+    func hyphenationFactorChain(_ value: Float) -> Self {
+        self.hyphenationFactor = value
+        return self
+    }
+    
+    func tabStopsChain(_ value: [NSTextTab]) -> Self {
+        self.tabStops = value
+        return self
+    }
+    
+    func defaultTabIntervalChain(_ value: CGFloat) -> Self {
+        self.defaultTabInterval = value
+        return self
+    }
+    
+    func allowsDefaultTighteningForTruncationChain(_ value: Bool) -> Self {
+        self.allowsDefaultTighteningForTruncation = value
+        return self
+    }
+    
+    func lineBreakStrategyChain(_ value: NSParagraphStyle.LineBreakStrategy) -> Self {
+        self.lineBreakStrategy = value
+        return self
+    }
+        
+    func addTabStopChain(_ value: NSTextTab) -> Self {
+        self.addTabStop(value)
+        return self
+    }
+    
+    func removeTabStopChain(_ value: NSTextTab) -> Self {
+        self.removeTabStop(value)
+        return self
+    }
+    
+    func setParagraphStyleChain(_ value: NSParagraphStyle) -> Self {
+        self.setParagraphStyle(value)
+        return self
+    }
+}

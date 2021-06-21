@@ -25,11 +25,11 @@ import SwiftChain
     }
     ///兼容 OC
     static func show(_ title: String, message: String, btnTitles: [String]?, handler: ((NSApplication.ModalResponse) -> Void)? = nil) {
-        NSAlert()
-            .messageTextChain(title)
-            .informativeTextChain(message)
-            .addButtonsChain(btnTitles)
-            .beginSheetChain(handler)
+//        NSAlert()
+//            .messageTextChain(title)
+//            .informativeTextChain(message)
+//            .addButtonsChain(btnTitles)
+//            .beginSheetChain(handler)
     }
     
     func suppressionButtonActionChain(_ handler: @escaping ((NSButton) -> Void)) -> Self {

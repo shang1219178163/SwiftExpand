@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00DF39F7188A289262C153A908054D1B /* UISlider+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1AC6DE58334130B411CB3264E05982 /* UISlider+Helper.swift */; };
-		01ACD7FD55AAC1AC8A1DC505C4160777 /* UITapGestureRecognizer+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F02A31490EABE9EB275F1EFB81B9632 /* UITapGestureRecognizer+Helper.swift */; };
 		0323FA6338FA8441A6ACF3725E49FF92 /* NSDate+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B826B164154B817959767066CE00E85 /* NSDate+Ext.swift */; };
 		040753CBBDD2A1F9FB7E11B41F18249E /* UINavigationBar+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1E2D63C0FA3B9B39FF7F137591ECB4A /* UINavigationBar+Helper.swift */; };
 		05DBBA20E8EDE7573FE40A0A5ED6290E /* Dictionary+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA79213173EDB1E52D345F75DE556CEC /* Dictionary+Helper.swift */; };
@@ -266,7 +265,6 @@
 		68AFC309DF3B16CCA7DA25F5496BF3C1 /* UIView+Add.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIView+Add.swift"; sourceTree = "<group>"; };
 		6932D9F48A159E01BF7E38BF6155ED20 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		6D6B37E48FC44F55515336291A0F167F /* UITextView+Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UITextView+Helper.swift"; sourceTree = "<group>"; };
-		6F02A31490EABE9EB275F1EFB81B9632 /* UITapGestureRecognizer+Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecognizer+Helper.swift"; sourceTree = "<group>"; };
 		754B345410B7B5EAB211ED1E5ADFB77B /* URLSession+Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "URLSession+Helper.swift"; sourceTree = "<group>"; };
 		75F7C6C80BC1BE920D0784977EB409B5 /* UIControl+Helper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIControl+Helper.swift"; sourceTree = "<group>"; };
 		7651586513525862124F3EECC156F583 /* URL+Ext.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "URL+Ext.swift"; sourceTree = "<group>"; };
@@ -518,7 +516,6 @@
 				8EF30CB874FCA24B91F8D90A998AE257 /* UITableView+Helper.swift */,
 				10764D79366238B94971F9EE15BD8570 /* UITableViewCell+Add.swift */,
 				DAEAF79F563486FFAF901C30B0A8AD31 /* UITableViewCell+Hook.swift */,
-				6F02A31490EABE9EB275F1EFB81B9632 /* UITapGestureRecognizer+Helper.swift */,
 				9BB1CF30581E141941933901F31A392C /* UITextField+Helper.swift */,
 				6D6B37E48FC44F55515336291A0F167F /* UITextView+Helper.swift */,
 				602486E8C2A23D088744ABBC52A880E7 /* UITextView+Hook.swift */,
@@ -1005,7 +1002,6 @@
 				A6DCDFB73C9A20FE9E12DEB78834D290 /* UITableView+Helper.swift in Sources */,
 				2A3BFB22882C6B25B0CECC80BDD45FF2 /* UITableViewCell+Add.swift in Sources */,
 				3E41DBCAF76D71DE9D174A32F06768B8 /* UITableViewCell+Hook.swift in Sources */,
-				01ACD7FD55AAC1AC8A1DC505C4160777 /* UITapGestureRecognizer+Helper.swift in Sources */,
 				F018D71EBB290CA9A11FD9DA4F7B6B09 /* UITextField+Helper.swift in Sources */,
 				152F88B6FBB9EA939CE9CD0EA1433F4D /* UITextView+Helper.swift in Sources */,
 				5F07FCC0615F21EE975734BCCF5ECF04 /* UITextView+Hook.swift in Sources */,
