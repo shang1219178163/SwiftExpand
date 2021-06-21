@@ -29,7 +29,10 @@
     // MARK: -funtions
     
     func setTitleColor(_ color: NSColor, font: Font = Font.systemFont(ofSize: 15)) {
-        let attDic = NSAttributedString.attrDict(font, textColor: color)
+        let attDic: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: color,
+        ]
         self.attributedTitle = NSAttributedString(string: title, attributes: attDic)
     }
     
