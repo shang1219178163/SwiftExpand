@@ -17,7 +17,7 @@ import UIKit
     /// ->Data
     var jsonData: Data? {
         guard let data = self.jpegData(compressionQuality: 1.0) else { return nil }
-        return data;
+        return data
     }
     
     ///颜色->图像
@@ -347,8 +347,8 @@ import UIKit
 
         self.draw(in: rect)
         ctx.drawPath(using: .fillStroke)
-        let output = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        let output = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
         return output!
     }
     
@@ -406,16 +406,16 @@ import UIKit
     
     /// 根据最大尺寸限制压缩图片
     static func compressData(_ image: UIImage, limit: Int = 1024*1024*2) -> Data {
-        var compression: CGFloat = 1.0;
-        let maxCompression: CGFloat = 0.1;
+        var compression: CGFloat = 1.0
+        let maxCompression: CGFloat = 0.1
         
         var imageData = image.jpegData(compressionQuality: compression)
         while imageData!.count > limit && compression > maxCompression {
-            compression -= 0.1;
+            compression -= 0.1
             imageData = image.jpegData(compressionQuality: compression)
         }
         DDLog("压缩后图片大小:\(imageData!.count/1024)kb_压缩系数:\(compression)")
-        return imageData!;
+        return imageData!
     }
     
     static func binaryCompressData(_ image: UIImage, limit: Int = 1024*1024) -> Data {
@@ -443,32 +443,32 @@ import UIKit
     }
     /// 获取图片data的类型
     static func contentType(_ imageData: NSData) -> String {
-        var type: String = "jpg";
+        var type: String = "jpg"
         
         var c: UInt8?
         imageData.getBytes(&c, length: 1)
         switch c {
         case 0xFF:
-            type = "jpeg";
+            type = "jpeg"
         case 0x89:
-            type = "png";
+            type = "png"
         case 0x47:
-            type = "gif";
+            type = "gif"
         case 0x49,0x4D:
-            type = "tiff";
+            type = "tiff"
         case 0x42:
-            type = "bmp";
+            type = "bmp"
         case 0x52:
             if (imageData.count < 12) {
-                type = "none";
+                type = "none"
             }
             let string: NSString = NSString(data: imageData.subdata(with: NSMakeRange(0, 12)), encoding: String.Encoding.ascii.rawValue)!
             if string.hasPrefix("RIFF"),string.hasSuffix("WEBP") {
                 type = "webp"
             }
         default:
-            break;
+            break
         }
-        return type;
+        return type
     }
 }

@@ -9,12 +9,11 @@
 
 
 public extension NSCollectionView {
-
-    static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem";
-    static let sectionKindBackgroud: String = "UICollectionView.sectiinKindBackgroud";
+    /// NSCollectionView.elementKindSectionItem
+    static let elementKindSectionItem: String = "NSCollectionView.elementKindSectionItem"
+    /// NSCollectionView.sectiinKindBackgroud
+    static let sectionKindBackgroud: String = "NSCollectionView.sectiinKindBackgroud"
     
-    // MARK: -chain
-
 }
 
 
@@ -28,10 +27,10 @@ public extension NSCollectionView{
     /// 泛型复用register supplementaryView - Type: "类名.self" (备用默认值 T.self)
     final func register<T: NSView>(supplementaryViewType: T.Type, ofKind elementKind: String = NSCollectionView.elementKindSectionHeader){
         guard elementKind.contains("KindSection") else {
-            return;
+            return
         }
-        let kindSuf = elementKind.components(separatedBy: "KindSection").last;
-        let identifier = String(describing: T.self) + kindSuf!;
+        let kindSuf = elementKind.components(separatedBy: "KindSection").last
+        let identifier = String(describing: T.self) + kindSuf!
         register(supplementaryViewType.self, forSupplementaryViewOfKind: elementKind, withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier))
 
     }
@@ -39,21 +38,21 @@ public extension NSCollectionView{
     /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: NSCollectionViewItem>(for cellType: T.Type, identifier: String = String(describing: T.self), indexPath: IndexPath) -> T{
         let cell = self.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier), for: indexPath)
-        return cell as! T;
+        return cell as! T
     }
     
     /// 泛型复用SupplementaryView - cellType: "类名.self" (默认identifier: 类名字符串 + Header/Footer)
     final func dequeueReusableSupplementaryView<T: NSView>(for cellType: T.Type, kind: String, indexPath: IndexPath) -> T{
-        let kindSuf = kind.components(separatedBy: "KindSection").last;
-        let identifier = String(describing: T.self) + kindSuf!;
+        let kindSuf = kind.components(separatedBy: "KindSection").last
+        let identifier = String(describing: T.self) + kindSuf!
         let view = self.makeSupplementaryView(ofKind: kind, withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier), for: indexPath)
         
         view.wantsLayer = true
         #if DEBUG
-        view.layer?.backgroundColor = kind == NSCollectionView.elementKindSectionHeader ? NSColor.green.cgColor : NSColor.yellow.cgColor;
+        view.layer?.backgroundColor = kind == NSCollectionView.elementKindSectionHeader ? NSColor.green.cgColor : NSColor.yellow.cgColor
         #else
-        view.layer?.backgroundColor = NSColor.gray.withAlphaComponent(0.7).cgColor;
+        view.layer?.backgroundColor = NSColor.gray.withAlphaComponent(0.7).cgColor
         #endif
-        return view as! T;
+        return view as! T
     }
 }

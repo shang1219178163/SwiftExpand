@@ -68,7 +68,7 @@ public extension String{
     /// md5字符串
     var RMB: String {
         if (self.count <= 0) {
-            return "-";
+            return "-"
         }
         
         if self.cgFloatValue == 0.0 {
@@ -127,7 +127,7 @@ public extension String{
     /// ->Data
     var jsonData: Data? {
         guard let data = self.data(using: .utf8) else { return nil }
-        return data;
+        return data
     }
     
     /// 字符串->数组/字典
@@ -217,7 +217,7 @@ public extension String{
                 break
             }
         }
-        return reult;
+        return reult
     }
     
     /// 字符串开始到第index
@@ -311,7 +311,7 @@ public extension String{
     /// 通过集合字符的字母分割字符串
     func componentsSeparatedByCharacters(_ aString: String) -> [String]{
         let result = self.components(separatedBy: CharacterSet(charactersIn: aString))
-        return result;
+        return result
     }
         
     func filterHTML() -> String {
@@ -338,7 +338,7 @@ public extension String{
     }
     /// 汉字转为拼音
     func transformToPinyin() -> String {
-       return (self as NSString).transformToPinyin();
+       return (self as NSString).transformToPinyin()
     }
     
     /// 汉字链接处理
@@ -556,7 +556,7 @@ public extension String{
         }
         
         let result = self.substring(to: 10).appending(" 00:00:00")
-        return result;
+        return result
     }
     
     ///****-**-** 23:59:59
@@ -590,14 +590,14 @@ public extension String{
     /// 通过集合字符的字母分割字符串
     func componentsSeparatedByCharacters(_ aString: String) -> [String]{
         let result = self.components(separatedBy: CharacterSet(charactersIn: aString))
-        return result;
+        return result
     }
     
     /// 取代索引处字符
     func replacingCharacter(_ aString: String, at index: Int) -> String{
-        assert(self.length > 0);
+        assert(self.length > 0)
         let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: aString)
-        return result;
+        return result
     }
     
     ///获取两个字符串中间的部分(含这两部分)
@@ -633,10 +633,10 @@ public extension String{
     
     /// 转为拼音
     func transformToPinyin() -> String {
-        let chinese: String = self as String;
+        let chinese: String = self as String
         let mutableStr = NSMutableString(string: chinese) as CFMutableString
         let canTransform: Bool = CFStringTransform(mutableStr, nil, kCFStringTransformToLatin, false) &&
-            CFStringTransform(mutableStr, nil, kCFStringTransformStripCombiningMarks, false);
+            CFStringTransform(mutableStr, nil, kCFStringTransformStripCombiningMarks, false)
         if canTransform == true {
             return mutableStr as String
         }
@@ -672,25 +672,25 @@ public extension String{
     /// 判断是否时间戳字符串
     func isTimeStamp() -> Bool{
         if [" ", "-", ":"].contains(self) {
-            return false;
+            return false
         }
         
         if isPureInteger() == false || doubleValue < NSDate().timeIntervalSince1970 {
-            return false;
+            return false
         }
         return true
     }
     /// 整形判断
     func isPureInteger() -> Bool{
-        let scan = Scanner(string: self as String);
-        var val: Int = 0;
-        return (scan.scanInt(&val) && scan.isAtEnd);
+        let scan = Scanner(string: self as String)
+        var val: Int = 0
+        return (scan.scanInt(&val) && scan.isAtEnd)
     }
     /// 浮点形判断
     func isPureFloat() -> Bool{
-        let scan = Scanner(string: self as String);
-        var val: Float = 0.0;
-        return (scan.scanFloat(&val) && scan.isAtEnd);
+        let scan = Scanner(string: self as String)
+        var val: Float = 0.0
+        return (scan.scanFloat(&val) && scan.isAtEnd)
     }
     
     /// (短时间)yyyy-MM-dd
@@ -698,64 +698,64 @@ public extension String{
         if length <= 10 {
             return self as String
         }
-        return self.substring(to: 10);
+        return self.substring(to: 10)
     }
     
     /// 起始时间( 00:00:00时间戳)
     func toTimestampShort() -> String{
-        assert(self.length >= 10);
+        assert(self.length >= 10)
         
-        let tmp = self.substring(to: 10) + " 00:00:00";
+        let tmp = self.substring(to: 10) + " 00:00:00"
         let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatBegin)
         return result
     }
     
     /// 截止时间( 23:59:59时间戳)
     func toTimestampFull() -> String{
-        assert(self.length >= 10);
+        assert(self.length >= 10)
         
-        let tmp = self.substring(to: 10) + " 23:59:59";
+        let tmp = self.substring(to: 10) + " 23:59:59"
         let result = DateFormatter.intervalFromDateStr(tmp, fmt: kDateFormatEnd)
         return result
     }
     ///截止到天
     func timeToDay() -> String {
         if self.contains(" ") == false {
-            return self as String;
+            return self as String
         }
         if let result = self.components(separatedBy: " ").first as String?{
-            return result;
+            return result
         }
         return ""
     }
     
     /// 过滤特殊字符集
     func filter(_ string: String) -> String{
-        assert(self.length > 0);
-        let chartSet = NSCharacterSet(charactersIn: string).inverted;
+        assert(self.length > 0)
+        let chartSet = NSCharacterSet(charactersIn: string).inverted
         let result = addingPercentEncoding(withAllowedCharacters: chartSet)
-        return result!;
+        return result!
     }
     
     /// 通过集合字符的字母分割字符串
     func componentsSeparatedByCharactersInString(_ aString: String) -> [String]{
         let result = (self as NSString).components(separatedBy: CharacterSet(charactersIn: aString))
-        return result;
+        return result
     }
     
     /// 删除首尾空白字符
     func deleteWhiteSpaceBeginEnd() -> String{
-        assert(self.length > 0);
-        let chartSet = NSCharacterSet.whitespacesAndNewlines;
+        assert(self.length > 0)
+        let chartSet = NSCharacterSet.whitespacesAndNewlines
         let result = self.trimmingCharacters(in: chartSet)
-        return result;
+        return result
     }
     
     /// 取代索引处字符
     func replacingCharacter(_ index: Int) -> String{
-        assert(self.length > 0);
+        assert(self.length > 0)
         let result = self.replacingCharacters(in: NSMakeRange(index, 1), with: self as String)
-        return result;
+        return result
     }
     
     func isValidEmailAddress() -> Bool {
@@ -767,13 +767,13 @@ public extension String{
     
     ///计算高度
     func size(with width: CGFloat, font: Font = Font.systemFont(ofSize: 17)) -> CGSize {
-        let attDic = [NSAttributedString.Key.font: font,];
+        let attDic = [NSAttributedString.Key.font: font,]
         var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
                                      options: [.usesLineFragmentOrigin, .usesFontLeading],
                                      attributes: attDic,
-                                     context: nil).size;
-        size.width = ceil(size.width);
-        size.height = ceil(size.height);
-        return size;
+                                     context: nil).size
+        size.width = ceil(size.width)
+        size.height = ceil(size.height)
+        return size
     }
 }

@@ -20,11 +20,11 @@ import ServiceManagement
             }
             
             let obj = NSWindow(vc: nil)
-            objc_setAssociatedObject(self, &AssociateKeys.homeWindow, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.homeWindow, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return obj
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.homeWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.homeWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -46,7 +46,7 @@ import ServiceManagement
     }
     
     static var appIcon: NSImage {
-        let infoDic = Bundle.main.infoDictionary;
+        let infoDic = Bundle.main.infoDictionary
         let imgName = infoDic!["CFBundleIconName"]
         return NSImage(named: imgName as! NSImage.Name)!
     }
@@ -76,12 +76,12 @@ import ServiceManagement
     }
     
     static var userName: String {
-//        return ProcessInfo.processInfo.userName;
-        return ProcessInfo.processInfo.fullUserName;
+//        return ProcessInfo.processInfo.userName
+        return ProcessInfo.processInfo.fullUserName
     }
     
-    static var localizedName: String {
-        return Host.current().localizedName ?? "";
+    static var localizedName: String? {
+        return Host.current().localizedName
     }
     
     static var systemDic: NSDictionary? {
@@ -92,21 +92,21 @@ import ServiceManagement
         guard let dic = self.systemDic,
               let name = dic["ProductName"] as? String
               else { return ""}
-        return name;
+        return name
     }
     /// MacOX 版权
     static var productCopyright: String {
         guard let dic = self.systemDic,
               let copyright = dic["ProductCopyright"] as? String
               else { return ""}
-        return copyright;
+        return copyright
     }
     /// MacOX 版权
     static var productVersion: String {
         guard let dic = self.systemDic,
               let version = dic["ProductVersion"] as? String
               else { return ""}
-        return version;
+        return version
     }
     
     /// 获取默认版权信息
@@ -132,7 +132,7 @@ import ServiceManagement
         //\tCopyright © \(year) \(organization). All rights reserved.
         //\n\n
         """
-        return result;
+        return result
     }
     
     /// 打开网络链接
@@ -146,12 +146,12 @@ import ServiceManagement
     
     /// 打开网络链接(prefix为 http://或 tel:// )
     static func openURLStr(_ urlStr: String, prefix: String = "http://") {
-//        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
-//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
-//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
-        var tmp = urlStr;
+//        let set = NSCharacterSet(charactersIn: "!*'():@&=+$,/?%#[]").inverted
+//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!
+//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        var tmp = urlStr
         if urlStr.hasPrefix(prefix) == false {
-            tmp = prefix + urlStr;
+            tmp = prefix + urlStr
         }
         NSWorkspace.shared.open(URL(string: tmp)!)
     }
@@ -169,18 +169,15 @@ import ServiceManagement
             deviceTokenString = deviceToken.description.trimmingCharacters(in: CharacterSet(charactersIn: "<> "))
         }
 #if DEBUG
-        print("deviceToken：\(deviceTokenString)");
+        print("deviceToken：\(deviceTokenString)")
 #endif
-        return deviceTokenString;
+        return deviceTokenString
     }
 
     /// 配置app图标(传 nil 恢复默认)
     static func setAppIcon(name: String?) {
-        if name == nil {
-            // 恢复默认图片
-            return;
-        }
-        NSApplication.shared.applicationIconImage = NSImage(named: name!)
+        guard let name = name else { return }
+        NSApplication.shared.applicationIconImage = NSImage(named: name)
     }
     
     /// 开机启动项

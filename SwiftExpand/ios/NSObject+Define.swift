@@ -29,7 +29,7 @@ public func AddressOf<T: AnyObject>(_ o: T) -> String {
 
 ///返回类名字符串
 public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
-    return String(describing: cls);// return "\(type(of: self))";
+    return String(describing: cls)// return "\(type(of: self))"
 }
 
 
@@ -37,29 +37,29 @@ public func NNStringFromClass(_ cls: Swift.AnyClass) -> String {
 public func NNClassFromString(_ name: String) -> AnyClass? {
     if let cls = NSClassFromString(name) {
 //        print("✅_Objc类存在: \(name)")
-        return cls;
+        return cls
      }
      
-     let swiftClassName = "\(UIApplication.appBundleName).\(name)";
+     let swiftClassName = "\(UIApplication.appBundleName).\(name)"
      if let cls = NSClassFromString(swiftClassName) {
 //         print("✅_Swift类存在: \(swiftClassName)")
-         return cls;
+         return cls
      }
      print("❌_类不存在: \(name)")
-    return nil;
+    return nil
 }
 
 /// 获取本地 UIViewController 文件(swift 文件名必须带命名空间)
 public func UICtrFromString(_ vcName: String) -> UIViewController {
     assert(vcName.hasSuffix("Controller"), "控制器必须以Controller结尾")
-    let cls: AnyClass = NNClassFromString(vcName)!;
+    let cls: AnyClass = NNClassFromString(vcName)!
     // 通过类创建对象， 不能用cls.init(),有的类可能没有init方法
     // 需将cls转换为制定类型
-    let vcCls = cls as! UIViewController.Type;
+    let vcCls = cls as! UIViewController.Type
     // 创建对象
-    let controller: UIViewController = vcCls.init();
+    let controller: UIViewController = vcCls.init()
     controller.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    return controller;
+    return controller
 }
 
 
@@ -76,33 +76,6 @@ public extension Optional where Wrapped == String {
 
 
 @objc public extension NSObject{
-    private struct AssociateKeys {
-        static var runtimeKey   = "NSObject" + "runtimeKey"
-    }
-    /// 动态属性关联key
-    var runtimeKey: UnsafeRawPointer {
-        get {
-            return objc_getAssociatedObject(self, &AssociateKeys.runtimeKey) as! UnsafeRawPointer
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociateKeys.runtimeKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        }
-    }
-
-    /// 类的字符串名称
-    static var identifier: String{
-        return String(describing: self)
-    }
-    
-    static var named: String {
-        let array = NSStringFromClass(self).components(separatedBy: ".")
-        return array.last ?? ""
-    }
-    
-    var named: String {
-        let array = NSStringFromClass(type(of: self)).components(separatedBy: ".")
-        return array.last ?? ""
-    }
 
     ///遍历成员变量列表
     func enumerateIvars(_ block: @escaping ((Ivar, String, Any?)->Void)) {
@@ -197,7 +170,7 @@ public extension Optional where Wrapped == String {
     }
     /// 字典转模型
     convenience init(dic: [String: Any]) {
-        self.init();
+        self.init()
         self.setValuesForKeys(dic)
     }
     ///详情模型转字典(不支持嵌套)
@@ -220,22 +193,22 @@ public extension Optional where Wrapped == String {
     /// 返回key对应的值
     func valueText(forKey key: String, defalut: String = "-") -> String{
         if key == "" {
-            return "";
+            return ""
         }
         if let result = self.value(forKey: key) {
-            return "\(result)" != "" ? "\(result)" : defalut;
+            return "\(result)" != "" ? "\(result)" : defalut
         }
-        return defalut;
+        return defalut
     }
     /// 返回key对应的值
     func valueText(forKeyPath keyPath: String, defalut: String = "-") -> String{
         if keyPath == "" {
-            return "";
+            return ""
         }
         if let result = self.value(forKeyPath: keyPath) {
-            return "\(result)" != "" ? "\(result)" : defalut;
+            return "\(result)" != "" ? "\(result)" : defalut
         }
-        return defalut;
+        return defalut
     }
 
 }
@@ -255,3 +228,4 @@ public extension NSObjectProtocol where Self: NSObject {
     }
 
 }
+

@@ -37,19 +37,19 @@
  
     // MARK: -funtions
     static func create(_ rect: CGRect, placeholder: String) -> Self {
-        let view = self.init(frame: rect);
-        view.autoresizingMask = [.width, .height];
+        let view = self.init(frame: rect)
+        view.autoresizingMask = [.width, .height]
            
         view.font = NSFont.systemFont(ofSize: 15)
-        view.textColor = NSColor.black;
+        view.textColor = NSColor.black
         view.lineBreakMode = .byCharWrapping
 
-        view.isBordered = false;  ///是否显示边框
-        view.drawsBackground = true;
+        view.isBordered = false  ///是否显示边框
+        view.drawsBackground = true
 
-        view.cell?.wraps = false;
-        view.cell?.isScrollable = true;
-        view.placeholderString = placeholder;
+        view.cell?.wraps = false
+        view.cell?.isScrollable = true
+        view.placeholderString = placeholder
         return view
     }
     
@@ -59,11 +59,11 @@
         let mattStr = NSAttributedString.hyperlink(dic: dic, text: self.stringValue, font: self.font!)
         attributedStringValue = mattStr
         
-        cell?.wraps = true;
-        cell?.isScrollable = true;
-        isEditable = false;
-        isSelectable = true;
-        allowsEditingTextAttributes = true;
+        cell?.wraps = true
+        cell?.isScrollable = true
+        isEditable = false
+        isSelectable = true
+        allowsEditingTextAttributes = true
     }
 }
 

@@ -13,7 +13,7 @@
     /// expand/Collapse
     func expandOrCollapseItem(item: Any?, children: Bool = true) {
         let isItemExpanded = self.isItemExpanded(item)
-        let animator = self.animator() as NSOutlineView;
+        let animator = self.animator() as NSOutlineView
 
         if isItemExpanded == true {
             animator.collapseItem(item, collapseChildren: children)

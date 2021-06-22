@@ -29,14 +29,14 @@
     func addItem(withTitle title: String, keyEquivalent charCode: String, handler: @escaping (NSMenuItem) -> Void) -> Self {
         let item = addItem(withTitle: title, action: nil, keyEquivalent: charCode)
         item.addAction(handler)
-        return self;
+        return self
     }
     
     @discardableResult
     func insertItem(withTitle title: String, keyEquivalent charCode: String, at index: Int, handler: @escaping (NSMenuItem) -> Void) -> Self {
         let item = insertItem(withTitle: title, action: nil, keyEquivalent: charCode, at: index)
         item.addAction(handler)
-        return self;
+        return self
     }
     
 }
@@ -50,18 +50,18 @@
     static func create(title: String, keyEquivalent charCode: String, handler: @escaping ((NSMenuItem) -> Void)) -> NSMenuItem {
         let menuItem = NSMenuItem(title: title, action: nil, keyEquivalent: charCode)
         menuItem.addAction(handler)
-        return menuItem;
+        return menuItem
     }
     /// 闭包回调
     func addAction(_ handler: @escaping ((NSMenuItem) -> Void)) {
-        objc_setAssociatedObject(self, &AssociateKeys.closure, handler, .OBJC_ASSOCIATION_COPY_NONATOMIC);
-        target = self;
-        action = #selector(p_invoke(_:));
+        objc_setAssociatedObject(self, &AssociateKeys.closure, handler, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        target = self
+        action = #selector(p_invoke(_:))
     }
     
     private func p_invoke(_ sender: NSMenuItem) {
         if let handler = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((NSMenuItem) -> Void) {
-            handler(sender);
+            handler(sender)
         }
     }
     

@@ -45,7 +45,7 @@
     static var theme: Color {
         get{
             if let obj = objc_getAssociatedObject(self,  &AssociateKeys.theme) as? Color {
-                return obj;
+                return obj
             }
             return Color.hexValue(0x0082e0)
         }
@@ -120,47 +120,47 @@
     
     /// [源]十六进制颜色字符串
     static func hex(_ hex: String, a: CGFloat = 1.0) -> Color {
-        var cString = hex.trimmingCharacters(in: CharacterSet.whitespaces).uppercased();
+        var cString = hex.trimmingCharacters(in: CharacterSet.whitespaces).uppercased()
         if cString.hasPrefix("#") {
-            let index = cString.index(cString.startIndex, offsetBy:1);
-            cString = String(cString[index...]);
+            let index = cString.index(cString.startIndex, offsetBy:1)
+            cString = String(cString[index...])
         } else if cString.hasPrefix("0X") {
-            let index = cString.index(cString.startIndex, offsetBy:2);
-            cString = String(cString[index...]);
+            let index = cString.index(cString.startIndex, offsetBy:2)
+            cString = String(cString[index...])
         }
         
         if cString.count != 6 {
-            return .red;
+            return .red
         }
         
-        let rIndex = cString.index(cString.startIndex, offsetBy: 2);
-        let rString = String(cString[..<rIndex]);
+        let rIndex = cString.index(cString.startIndex, offsetBy: 2)
+        let rString = String(cString[..<rIndex])
         
-        let otherString = String(cString[rIndex...]);
-        let gIndex = otherString.index(otherString.startIndex, offsetBy: 2);
-        let gString = String(otherString[..<gIndex]);
+        let otherString = String(cString[rIndex...])
+        let gIndex = otherString.index(otherString.startIndex, offsetBy: 2)
+        let gString = String(otherString[..<gIndex])
         
-        let bIndex = cString.index(cString.endIndex, offsetBy: -2);
-        let bString = String(cString[bIndex...]);
+        let bIndex = cString.index(cString.endIndex, offsetBy: -2)
+        let bString = String(cString[bIndex...])
         
         var r: CUnsignedInt = 0, g: CUnsignedInt = 0, b: CUnsignedInt = 0
-        Scanner(string: rString).scanHexInt32(&r);
-        Scanner(string: gString).scanHexInt32(&g);
-        Scanner(string: bString).scanHexInt32(&b);
+        Scanner(string: rString).scanHexInt32(&r)
+        Scanner(string: gString).scanHexInt32(&g)
+        Scanner(string: bString).scanHexInt32(&b)
         
         //        print(hex,rString,gString,bString,otherString)
-        return Color(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a);
+        return Color(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a)
     }
     /// 灰色背景
     static func dim(_ white: CGFloat, a: CGFloat = 0.2) -> Color{
-        return .init(white: white, alpha: a);
+        return .init(white: white, alpha: a)
     }
     
     static func randomColor() -> Color {
-        let r = arc4random_uniform(256);
-        let g = arc4random_uniform(256);
-        let b = arc4random_uniform(256);
-        return Color(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(1.0));
+        let r = arc4random_uniform(256)
+        let g = arc4random_uniform(256)
+        let b = arc4random_uniform(256)
+        return Color(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: CGFloat(1.0))
     }
 }
 

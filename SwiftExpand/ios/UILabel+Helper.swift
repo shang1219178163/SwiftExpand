@@ -14,15 +14,15 @@ import UIKit
 @objc public extension UILabel{
     /// [源]UILabel创建
     static func create(_ rect: CGRect = .zero, textColor: UIColor = .black, type: UILabel.LabelShowType = .numLines) -> Self {
-        let view = self.init(frame: rect);
+        let view = self.init(frame: rect)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.isUserInteractionEnabled = true;
-        view.textAlignment = .left;
+        view.isUserInteractionEnabled = true
+        view.textAlignment = .left
         view.textColor = textColor
-        view.font = UIFont.systemFont(ofSize: 15);
+        view.font = UIFont.systemFont(ofSize: 15)
 
         view.setLabelType(type)
-        return view;
+        return view
     }
     
     ///自定义按钮类型
@@ -40,23 +40,23 @@ import UIKit
     func setLabelType(_ type: UILabel.LabelShowType) {
         switch type {
         case .oneLine:
-            numberOfLines = 1;
-            lineBreakMode = .byTruncatingTail;
-            adjustsFontSizeToFitWidth = true;
+            numberOfLines = 1
+            lineBreakMode = .byTruncatingTail
+            adjustsFontSizeToFitWidth = true
 
         case .titleAndOutline:
-            numberOfLines = 1;
-            lineBreakMode = .byTruncatingTail;
-            textAlignment = .center;
+            numberOfLines = 1
+            lineBreakMode = .byTruncatingTail
+            textAlignment = .center
             
-            layer.borderColor = textColor.cgColor;
-            layer.borderWidth = 1.0;
-            layer.masksToBounds = true;
-            layer.cornerRadius = 0;
+            layer.borderColor = textColor.cgColor
+            layer.borderWidth = 1.0
+            layer.masksToBounds = true
+            layer.cornerRadius = 0
             
         default:
-            numberOfLines = 0;
-            lineBreakMode = .byCharWrapping;
+            numberOfLines = 0
+            lineBreakMode = .byCharWrapping
             break
         }
     }
@@ -100,13 +100,13 @@ import UIKit
             
             time -= 1
             DispatchQueue.main.async {
-                self.isEnabled = time <= 0;
+                self.isEnabled = time <= 0
                 if time > 0 {
-                    self.text = "剩余\(time)s";
-                    return;
+                    self.text = "剩余\(time)s"
+                    return
                 }
                 codeTimer.cancel()
-                self.text = "发送验证码";
+                self.text = "发送验证码"
             }
         }
         codeTimer.resume()
@@ -122,7 +122,7 @@ import UIKit
     func addLongPressMenuItems() {
         isUserInteractionEnabled = true
 
-        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleMenuItems(_:)));
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleMenuItems(_:)))
         addGestureRecognizer(recognizer)
     }
     
@@ -155,7 +155,7 @@ import UIKit
     }
     
 //    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-//        return super.canPerformAction(action, withSender: sender);
+//        return super.canPerformAction(action, withSender: sender)
 //    }
 //    // MARK: - UIResponderStandardEditActions
 //    override func copy(_ sender: Any?) {

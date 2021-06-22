@@ -11,17 +11,17 @@ public extension DispatchQueue{
     private static var _onceTracker = [String]()
     /// 函数只被执行一次
     class func once(token: String, block: () -> ()) {
-        objc_sync_enter(self);
+        objc_sync_enter(self)
         defer {
-            objc_sync_exit(self);
+            objc_sync_exit(self)
         }
         
         if _onceTracker.contains(token) {
-            return;
+            return
         }
 
-        _onceTracker.append(token);
-        block();
+        _onceTracker.append(token)
+        block()
     }
     /// 延迟 delay 秒 执行
     func after(_ delay: TimeInterval, execute closure: @escaping () -> Void) {

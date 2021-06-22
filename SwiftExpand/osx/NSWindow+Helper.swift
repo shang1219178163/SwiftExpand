@@ -14,7 +14,7 @@
         let style: NSWindow.StyleMask = [.titled, .closable, .miniaturizable, .resizable]
         self.init(contentRect: rect, styleMask: style, backing: .buffered, defer: false)
 //        self.contentMinSize = CGSize(width: rect.width * minSizeScale, height: rect.height * minSizeScale)
-        self.contentViewController = vc;
+        self.contentViewController = vc
         self.titlebarAppearsTransparent = true
         self.center()
     }

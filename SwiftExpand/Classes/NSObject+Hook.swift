@@ -12,7 +12,7 @@
     /// 实例方法替换
     @discardableResult
     static func hookInstanceMethod(of origSel: Selector, with replSel: Selector) -> Bool {
-        let clz: AnyClass = classForCoder();
+        let clz: AnyClass = classForCoder()
 
         guard let oriMethod = class_getInstanceMethod(clz, origSel) as Method?,
         let repMethod = class_getInstanceMethod(clz, replSel) as Method?
@@ -29,13 +29,13 @@
         } else {
             method_exchangeImplementations(oriMethod, repMethod)
         }
-        return true;
+        return true
     }
     
     /// 类方法替换
     @discardableResult
     static func hookClassMethod(of origSel: Selector, with replSel: Selector) -> Bool {
-        let clz: AnyClass = classForCoder();
+        let clz: AnyClass = classForCoder()
                 
         guard let oriMethod = class_getClassMethod(clz, origSel) as Method?,
         let repMethod = class_getClassMethod(clz, replSel) as Method?
@@ -52,13 +52,13 @@
         } else {
             method_exchangeImplementations(oriMethod, repMethod)
         }
-        return true;
+        return true
     }
     
     /// 方法替换
     @discardableResult
     static func hookMethod(of origSel: Selector, with replSel: Selector, isClassMethod: Bool) -> Bool {
-        let clz: AnyClass = classForCoder();
+        let clz: AnyClass = classForCoder()
         
         guard let oriMethod = (isClassMethod ? class_getClassMethod(clz, origSel) : class_getClassMethod(clz, origSel)) as Method?,
         let repMethod = (isClassMethod ? class_getClassMethod(clz, replSel) : class_getClassMethod(clz, replSel)) as Method?
@@ -75,7 +75,7 @@
         } else {
             method_exchangeImplementations(oriMethod, repMethod)
         }
-        return true;
+        return true
     }
 }
 
@@ -85,45 +85,45 @@
             return
         }
 
-        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(self.setValue(_:forUndefinedKey:))
             let repSel = #selector(self.hook_setValue(_:forUndefinedKey:))
-            hookInstanceMethod(of: oriSel, with: repSel);
+            hookInstanceMethod(of: oriSel, with: repSel)
             
             let oriSel0 = #selector(self.value(forUndefinedKey:))
             let repSel0 = #selector(self.hook_value(forUndefinedKey:))
-            hookInstanceMethod(of: oriSel0, with: repSel0);
+            hookInstanceMethod(of: oriSel0, with: repSel0)
             
             let oriSel1 = #selector(self.setNilValueForKey(_:))
             let repSel1 = #selector(self.hook_setNilValueForKey(_:))
-            hookInstanceMethod(of: oriSel1, with: repSel1);
+            hookInstanceMethod(of: oriSel1, with: repSel1)
             
             let oriSel2 = #selector(self.setValuesForKeys(_:))
             let repSel2 = #selector(self.hook_setValuesForKeys(_:))
-            hookInstanceMethod(of: oriSel2, with: repSel2);
+            hookInstanceMethod(of: oriSel2, with: repSel2)
         }
         
     }
     
     private func hook_setValue(_ value: Any?, forUndefinedKey key: String){
-        print("setValue: forUndefinedKey:, 未知键Key: \(key)");
+        print("setValue: forUndefinedKey:, 未知键Key: \(key)")
         
     }
     
     private func hook_value(forUndefinedKey key: String) -> Any?{
-        print("valueForUndefinedKey:, 未知键: \(key)");
-        return nil;
+        print("valueForUndefinedKey:, 未知键: \(key)")
+        return nil
     }
     
     private func hook_setNilValueForKey(_ key: String){
-        print("Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil");
-        return;//给一个非指针对象(如NSInteger)赋值 nil, 直接忽略
+        print("Invoke setNilValueForKey:, 不能给非指针对象(如NSInteger)赋值 nil")
+        return//给一个非指针对象(如NSInteger)赋值 nil, 直接忽略
     }
     
     private func hook_setValuesForKeys(_ keyedValues: [String : Any]) {
         for (key, value) in keyedValues {
-//            DDLog(key, value);
+//            DDLog(key, value)
             if value is Int || value is CGFloat || value is Double {
                 self.setValue("\(value)", forKey: key)
             } else {

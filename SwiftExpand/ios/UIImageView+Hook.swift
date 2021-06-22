@@ -9,17 +9,17 @@ import UIKit
 
 @objc extension UIImageView{
     override public class func initializeMethod() {
-        super.initializeMethod();
+        super.initializeMethod()
         
         if self != UIImageView.self {
             return
         }
         
-        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(setter: self.tintColor)
             let repSel = #selector(self.hook_tintColor(_:))
-            hookInstanceMethod(of: oriSel, with: repSel);
+            hookInstanceMethod(of: oriSel, with: repSel)
         }
         
     }
@@ -30,13 +30,13 @@ import UIKit
         
 //        let obj1:AnyClass = NSClassFromString(kUITabBarButton)!
 //        if self.superview?.isKind(of: obj1) == true {
-//            DDLog(self.superview as Any,obj1);
+//            DDLog(self.superview as Any,obj1)
 //            return
 //        }
         
 //        if self.image != nil {
 //            if self.image?.renderingMode != UIImage.RenderingMode.alwaysTemplate {
-//                self.image = self.image!.withRenderingMode(.alwaysTemplate);
+//                self.image = self.image!.withRenderingMode(.alwaysTemplate)
 //            }
 //        }
     }

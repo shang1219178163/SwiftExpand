@@ -23,7 +23,7 @@ import Photos
     
     /// 是否已经登录
     static var isLogin: Bool {
-        return UIApplication.token.count > 0;
+        return UIApplication.token.count > 0
     }
     
     /// 网络状态是否可用
@@ -34,18 +34,18 @@ import Photos
     
     /// 用户相册是否可用
     static func hasRightOfPhotoLibrary() -> Bool {
-        var isHasRight = false;
+        var isHasRight = false
         
         PHPhotoLibrary.requestAuthorization { (status) in
             switch status {
             case .authorized:
-                isHasRight = true;
+                isHasRight = true
           
             default:
-                isHasRight = false;
+                isHasRight = false
             }
         }
-        return isHasRight;
+        return isHasRight
     }
     
     /// 注册APNs远程推送
@@ -53,7 +53,7 @@ import Photos
         if #available(iOS 10.0, *) {
             let options: UNAuthorizationOptions = [.alert, .badge, .sound]
             let center = UNUserNotificationCenter.current()
-            center.delegate = (delegate as! UNUserNotificationCenterDelegate);
+            center.delegate = (delegate as! UNUserNotificationCenterDelegate)
             center.requestAuthorization(options: options, completionHandler: completionHandler)
             UIApplication.shared.registerForRemoteNotifications()
             //            center.delegate = self
@@ -83,10 +83,10 @@ import Photos
     static func updateVersionShow(appStoreID: String, isForce: Bool = false) {
         UIApplication.updateVersion(appStoreID: appStoreID) { (dic, appStoreVer, releaseNotes, isUpdate) in
             if isUpdate == false {
-                return;
+                return
             }
             DispatchQueue.main.async {
-                let titles = isForce == false ? [kTitleUpdate, kTitleCancell] : [kTitleUpdate];
+                let titles = isForce == false ? [kTitleUpdate, kTitleCancell] : [kTitleUpdate]
                 //富文本效果
                 let paraStyle = NSMutableParagraphStyle()
                     .lineBreakModeChain(.byCharWrapping)
@@ -169,7 +169,7 @@ import Photos
         center.add(request) { (error) in
             handler?(center, request, error as NSError?)
             if let error = error {
-                DDLog("推送添加失败: %@", error.localizedDescription);
+                DDLog("推送添加失败: %@", error.localizedDescription)
             }
         }
     }
@@ -186,7 +186,7 @@ import Photos
         center.add(request) { (error) in
             handler?(center, request, error as NSError?)
             if let error = error {
-                DDLog("推送添加失败: %@", error.localizedDescription);
+                DDLog("推送添加失败: %@", error.localizedDescription)
             }
         }
     }
@@ -203,7 +203,7 @@ import Photos
         center.add(request) { (error) in
             handler?(center, request, error as NSError?)
             if let error = error {
-                DDLog("推送添加失败: %@", error.localizedDescription);
+                DDLog("推送添加失败: %@", error.localizedDescription)
             }
         }
     }

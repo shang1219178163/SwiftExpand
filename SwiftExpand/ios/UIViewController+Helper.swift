@@ -20,7 +20,7 @@ import UIKit
         if name.hasSuffix("Controller") {
             name = name.replacingOccurrences(of: "Controller", with: "")
         }
-        return name;
+        return name
     }
     
     /// 是否正在展示
@@ -56,11 +56,11 @@ import UIKit
                     if UIDevice.current.userInterfaceIdiom == .pad {
                         if let controller = alertVC.popoverPresentationController {
                             controller.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-                            controller.sourceView = keyWindow;
+                            controller.sourceView = keyWindow
                             
                             let isEmpty = controller.sourceRect.equalTo(.null) || controller.sourceRect.equalTo(.zero)
                             if isEmpty {
-                                controller.sourceRect = CGRect(x: keyWindow.bounds.midX, y: 64, width: 1, height: 1);
+                                controller.sourceRect = CGRect(x: keyWindow.bounds.midX, y: 64, width: 1, height: 1)
                             }
                         }
                     }
@@ -99,65 +99,65 @@ import UIKit
     
     /// 重置布局
     func setupExtendedLayout() {
-        edgesForExtendedLayout = [];
+        edgesForExtendedLayout = []
         if #available(iOS 11.0, *) {
-            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never;
+            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         } else {
-            automaticallyAdjustsScrollViewInsets = false;
+            automaticallyAdjustsScrollViewInsets = false
         }
     }
     
     /// 重置布局(UIDocumentPickerViewController需要为automatic)
     func setupContentInsetAdjustmentBehavior(_ isAutomatic: Bool = false) {
         if #available(iOS 11.0, *) {
-            UIScrollView.appearance().contentInsetAdjustmentBehavior = isAutomatic == true ? .automatic : .never;
+            UIScrollView.appearance().contentInsetAdjustmentBehavior = isAutomatic == true ? .automatic : .never
         }
     }
     
-    /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false;//避免searchbar下移)
+    /// [源]创建UISearchController(设置IQKeyboardManager.shared.enable = false//避免searchbar下移)
     func createSearchVC(_ resultsController: UIViewController) -> UISearchController {
         resultsController.edgesForExtendedLayout = []
-        definesPresentationContext = true;
+        definesPresentationContext = true
         
         let searchVC = UISearchController(searchResultsController: resultsController)
         if resultsController.conforms(to: UISearchResultsUpdating.self) {
-            searchVC.searchResultsUpdater = resultsController as? UISearchResultsUpdating;
+            searchVC.searchResultsUpdater = resultsController as? UISearchResultsUpdating
         }
         
-        searchVC.dimsBackgroundDuringPresentation = true;
-//        searchVC.hidesNavigationBarDuringPresentation = true;
+        searchVC.dimsBackgroundDuringPresentation = true
+//        searchVC.hidesNavigationBarDuringPresentation = true
         if #available(iOS 9.1, *) {
-            searchVC.obscuresBackgroundDuringPresentation = true;
+            searchVC.obscuresBackgroundDuringPresentation = true
         }
         
-        searchVC.searchBar.barStyle = .default;
-//        searchVC.searchBar.barTintColor = UIColor.theme;
+        searchVC.searchBar.barStyle = .default
+//        searchVC.searchBar.barTintColor = UIColor.theme
         
-        searchVC.searchBar.isTranslucent = false;
+        searchVC.searchBar.isTranslucent = false
 //        searchVC.searchBar.setValue("取消", forKey: "_cancelButtonText")
-        searchVC.searchBar.placeholder = "搜索";
+        searchVC.searchBar.placeholder = "搜索"
         
-//        searchVC.searchBar.delegate = self;
-//        searchVC.delegate = self;
-        return searchVC;
+//        searchVC.searchBar.delegate = self
+//        searchVC.delegate = self
+        return searchVC
     }
         
     /// 导航栏返回按钮图片定制
     func createBackItem(_ image: UIImage) {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem?.addAction({ (item) in
-            self.navigationController?.popViewController(animated: true);
-        });
+            self.navigationController?.popViewController(animated: true)
+        })
     }
     ///系统样式
     func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, closure: @escaping ((UIBarButtonItem) -> Void)) {
-        let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: nil, action: nil);
+        let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: nil, action: nil)
         item.systemType = systemItem
         item.addAction(closure)
         if isLeft == true {
-            navigationItem.leftBarButtonItem = item;
+            navigationItem.leftBarButtonItem = item
         } else {
-            navigationItem.rightBarButtonItem = item;
+            navigationItem.rightBarButtonItem = item
         }
     }
     
@@ -167,13 +167,13 @@ import UIKit
         if let image = UIImage(named: obj) {
             barItem = UIBarButtonItem(image: image, style: style, target: nil, action: nil)
         } else {
-            barItem = UIBarButtonItem(title: obj, style: style, target: nil, action: nil);
+            barItem = UIBarButtonItem(title: obj, style: style, target: nil, action: nil)
         }
         barItem?.addAction(action)        
         if isLeft == true {
-            navigationItem.leftBarButtonItem = barItem;
+            navigationItem.leftBarButtonItem = barItem
         } else {
-            navigationItem.rightBarButtonItem = barItem;
+            navigationItem.rightBarButtonItem = barItem
         }
     }
         
@@ -188,7 +188,7 @@ import UIKit
         assert(controller.isKind(of: UIViewController.self))
         
         addChild(controller)
-//        controller.view.frame = self.view.bounds;
+//        controller.view.frame = self.view.bounds
         controller.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         view.addSubview(controller.view)
         controller.didMove(toParent: self)
@@ -200,34 +200,34 @@ import UIKit
         
         controller.willMove(toParent: nil)
         controller.view.removeFromSuperview()
-        controller.removeFromParent();
+        controller.removeFromParent()
     }
     
     /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
     func transitionTo(VC: UIViewController) {
         beginAppearanceTransition(false, animated: true)  //调用self的 viewWillDisappear:
         VC.beginAppearanceTransition(true, animated: true)  //调用VC的 viewWillAppear:
-        endAppearanceTransition(); //调用self的viewDidDisappear:
-        VC.endAppearanceTransition(); //调用VC的viewDidAppear:
+        endAppearanceTransition() //调用self的viewDidDisappear:
+        VC.endAppearanceTransition() //调用VC的viewDidAppear:
         /*
-         isAppearing 设置为 true : 触发 viewWillAppear:;
-         isAppearing 设置为 false : 触发 viewWillDisappear:;
+         isAppearing 设置为 true : 触发 viewWillAppear:
+         isAppearing 设置为 false : 触发 viewWillDisappear:
          endAppearanceTransition方法会基于我们传入的isAppearing来调用viewDidAppear:以及viewDidDisappear:方法
          */
     }
     /// 手动调用 viewWillAppear,viewDidDisappear 或 viewWillDisappear,viewDidDisappear
     func beginAppearance(_ isAppearing: Bool, animated: Bool){
-        beginAppearanceTransition(isAppearing, animated: animated);
-        endAppearanceTransition();
+        beginAppearanceTransition(isAppearing, animated: animated)
+        endAppearanceTransition()
     }
     
     ///背景灰度设置
     func setAlphaOfBackgroundViews(_ alpha: CGFloat) {
         guard let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIWindow else { return }
         UIView.animate(withDuration: 0.2) {
-            statusBarWindow.alpha = alpha;
-            self.view.alpha = alpha;
-            self.navigationController?.navigationBar.alpha = alpha;
+            statusBarWindow.alpha = alpha
+            self.view.alpha = alpha
+            self.navigationController?.navigationBar.alpha = alpha
         }
     }
         

@@ -6,13 +6,13 @@
 //  Copyright © 2021 BN. All rights reserved.
 //
 /**
- UIControlStateNormal = 0;
- UIControlStateHighlighted = 1;
- UIControlStateDisabled = 2;
- UIControlStateSelected = 4;
- UIControlStateFocused = 8;
- UIControlStateApplication = 16711680;
- UIControlStateReserved = 4278190080;
+ UIControlStateNormal = 0
+ UIControlStateHighlighted = 1
+ UIControlStateDisabled = 2
+ UIControlStateSelected = 4
+ UIControlStateFocused = 8
+ UIControlStateApplication = 16711680
+ UIControlStateReserved = 4278190080
 }
  */
 
@@ -143,7 +143,7 @@ public extension UIButton{
             target.button?.addObserver(target, forKeyPath: "selected", options: .new, context: nil)
             target.button?.addObserver(target, forKeyPath: "highlighted", options: .new, context: nil)
             target.button?.addObserver(target, forKeyPath: "enabled", options: .new, context: nil)
-            objc_setAssociatedObject(self, &AssociateKeys.layerTarget, target, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.layerTarget, target, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return target
         }
     }

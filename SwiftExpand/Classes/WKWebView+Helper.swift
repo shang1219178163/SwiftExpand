@@ -17,22 +17,22 @@ import WebKit
     static var confiDefault: WKWebViewConfiguration {
         get {
             if let obj = objc_getAssociatedObject(self,  &AssociateKeys.confiDefault) as? WKWebViewConfiguration {
-                return obj;
+                return obj
             }
             
             let sender = WKWebViewConfiguration()
-//            sender.allowsInlineMediaPlayback = true;
-//            sender.selectionGranularity = .dynamic;
+//            sender.allowsInlineMediaPlayback = true
+//            sender.selectionGranularity = .dynamic
             
-            sender.preferences = WKPreferences();
-            sender.preferences.javaScriptCanOpenWindowsAutomatically = false;
-            sender.preferences.javaScriptEnabled = true;
+            sender.preferences = WKPreferences()
+            sender.preferences.javaScriptCanOpenWindowsAutomatically = false
+            sender.preferences.javaScriptEnabled = true
             
-            objc_setAssociatedObject(self,  &AssociateKeys.confiDefault, sender, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            return sender;
+            objc_setAssociatedObject(self,  &AssociateKeys.confiDefault, sender, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return sender
         }
         set {
-            objc_setAssociatedObject(self,  &AssociateKeys.confiDefault, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self,  &AssociateKeys.confiDefault, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -102,7 +102,7 @@ import WebKit
             return
         }
         
-        let cookieSource: String = "document.cookie = 'user=\("userValue")';"
+        let cookieSource: String = "document.cookie = 'user=\("userValue")'"
         let cookieScript = WKUserScript(source: cookieSource, injectionTime: .atDocumentStart, forMainFrameOnly: false)
 
         let userContentController = WKUserContentController()

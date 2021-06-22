@@ -28,45 +28,45 @@
 
 
 /// 60s
-public let kDateMinute: Double = 60 ;
+public let kDateMinute: Double = 60
 /// 3600s
-public let kDateHour: Double   = 3600 ;
+public let kDateHour: Double   = 3600
 /// 86400
-public let kDateDay: Double    = 86400 ;
+public let kDateDay: Double    = 86400
 /// 604800
-public let kDateWeek: Double   = 604800 ;
+public let kDateWeek: Double   = 604800
 /// 31556926
-public let kDateYear: Double   = 31556926 ;
+public let kDateYear: Double   = 31556926
 
 
 /// yyyy-MM-dd HH:mm:ss(默认)
-public let kDateFormat            = "yyyy-MM-dd HH:mm:ss";
+public let kDateFormat            = "yyyy-MM-dd HH:mm:ss"
 /// yyyy-MM
-public let kDateFormatMonth       = "yyyy-MM";
+public let kDateFormatMonth       = "yyyy-MM"
 /// yyyy-MM-dd
-public let kDateFormatDay         = "yyyy-MM-dd";
+public let kDateFormatDay         = "yyyy-MM-dd"
 /// yyyy-MM-dd HH
-public let kDateFormatHour        = "yyyy-MM-dd HH";
+public let kDateFormatHour        = "yyyy-MM-dd HH"
 /// yyyy-MM-dd HH:mm
-public let kDateFormatMinute      = "yyyy-MM-dd HH:mm";
+public let kDateFormatMinute      = "yyyy-MM-dd HH:mm"
 /// yyyy-MM-dd HH:mm:ss eee
-public let kDateFormatMillisecond = "yyyy-MM-dd HH:mm:ss eee";
+public let kDateFormatMillisecond = "yyyy-MM-dd HH:mm:ss eee"
 /// yyyy-MM-dd 00:00:00
-public let kDateFormatBegin       = "yyyy-MM-dd 00:00:00";
+public let kDateFormatBegin       = "yyyy-MM-dd 00:00:00"
 /// yyyy-MM-dd 23:59:59
-public let kDateFormatEnd         = "yyyy-MM-dd 23:59:59";
+public let kDateFormatEnd         = "yyyy-MM-dd 23:59:59"
 
 /// yyyy-MM-dd HH:mm:00
-public let kTimeFormatBegin       = "yyyy-MM-dd HH:mm:00";
+public let kTimeFormatBegin       = "yyyy-MM-dd HH:mm:00"
 /// yyyy-MM-dd HH:mm:59
-public let kTimeFormatEnd         = "yyyy-MM-dd HH:mm:59";
+public let kTimeFormatEnd         = "yyyy-MM-dd HH:mm:59"
 
 /// yyyy年M月
-public let kDateFormatMonth_CH    = "yyyy年MM月";
+public let kDateFormatMonth_CH    = "yyyy年MM月"
 /// yyyy年MM月dd日
-public let kDateFormatDay_CH      = "yyyy年MM月dd日";
+public let kDateFormatDay_CH      = "yyyy年MM月dd日"
 /// yyyyMMdd
-public let kDateFormatTwo         = "yyyyMMdd";
+public let kDateFormatTwo         = "yyyyMMdd"
 
 
 @objc public extension DateFormatter{
@@ -101,45 +101,45 @@ public let kDateFormatTwo         = "yyyyMMdd";
     
     /// 获取DateFormatter(默认格式)
     static func format(_ formatStr: String = kDateFormat) -> DateFormatter {
-        let dic = Thread.current.threadDictionary;
+        let dic = Thread.current.threadDictionary
         if let formatter = dic.object(forKey: formatStr) as? DateFormatter {
             return formatter
         }
         
-        let fmt = DateFormatter();
-        fmt.dateFormat = formatStr;
-        fmt.locale = .current;
-        fmt.locale = Locale(identifier: "zh_CN");
-        fmt.timeZone = formatStr.contains("GMT") ? TimeZone(identifier: "GMT") : TimeZone.current;
+        let fmt = DateFormatter()
+        fmt.dateFormat = formatStr
+        fmt.locale = .current
+        fmt.locale = Locale(identifier: "zh_CN")
+        fmt.timeZone = formatStr.contains("GMT") ? TimeZone(identifier: "GMT") : TimeZone.current
         dic.setObject(fmt, forKey: (formatStr as NSString))
-        return fmt;
+        return fmt
     }
     
     /// Date -> String
     static func stringFromDate(_ date: Date, fmt: String = kDateFormat) -> String {
-        let formatter = DateFormatter.format(fmt);
-        return formatter.string(from: date);
+        let formatter = DateFormatter.format(fmt)
+        return formatter.string(from: date)
     }
     
     /// String -> Date
     static func dateFromString(_ dateStr: String, fmt: String = kDateFormat) -> Date? {
-        let formatter = DateFormatter.format(fmt);
+        let formatter = DateFormatter.format(fmt)
         let tmp = dateStr.count <= fmt.count ? dateStr : (dateStr as NSString).substring(to: fmt.count)
-        let result = formatter.date(from: tmp);
+        let result = formatter.date(from: tmp)
         return result
     }
     
     /// 时间戳字符串 -> 日期字符串
     static func stringFromInterval(_ interval: String, fmt: String = kDateFormat) -> String {
         let date = Date(timeIntervalSince1970: interval.doubleValue)
-        return DateFormatter.stringFromDate(date, fmt: fmt);
+        return DateFormatter.stringFromDate(date, fmt: fmt)
     }
 
     /// 日期字符串 -> 时间戳字符串
     static func intervalFromDateStr(_ dateStr: String, fmt: String = kDateFormat) -> String {
         guard let date = DateFormatter.dateFromString(dateStr, fmt: fmt) else {
             return "0" }
-        return "\(date.timeIntervalSince1970)";
+        return "\(date.timeIntervalSince1970)"
     }
            
     ///两个日期之间差距(*年*天*小时*分*秒)
@@ -196,7 +196,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
         let endTime = DateFormatter.stringFromDate(Date(), fmt: fmtEnd)
         let date = Date().adding(day)
         let startTime = DateFormatter.stringFromDate(date, fmt: fmtStart)
-        return [startTime, endTime];
+        return [startTime, endTime]
     }
     
     ///获取指定时间内的所有天数日期
@@ -309,12 +309,12 @@ public let kDateFormatTwo         = "yyyyMMdd";
     }
     /// 秒
     var second: Int {
-       return (self as Date).second;
+       return (self as Date).second
     }
     
     /// 时间戳
     var timeStamp: Int {
-        return (self as Date).timeStamp;
+        return (self as Date).timeStamp
     }
     
     var timeStamp13: Int {
@@ -366,7 +366,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
     //MARK: - 获取日期各种值
     /// 获取默认DateComponents[年月日]
     static func dateComponents(_ aDate: Date) -> DateComponents {
-        return Calendar.shared.dateComponents(Calendar.unitFlags, from: aDate);
+        return Calendar.shared.dateComponents(Calendar.unitFlags, from: aDate)
     }
 
     /// 两个时间差的NSDateComponents
@@ -377,7 +377,7 @@ public let kDateFormatTwo         = "yyyyMMdd";
     /// 一周的第几天
     static func weekDay(_ comp: DateComponents) ->Int{
         //1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
-        return Date.weekDay(comp);
+        return Date.weekDay(comp)
     }
 }
 
@@ -465,7 +465,7 @@ public extension Date{
         let comp = Calendar.shared.dateComponents(Calendar.unitFlags, from: self)
         let comp1 = Calendar.shared.dateComponents(Calendar.unitFlags, from: Date())
         
-        let isSame = (comp1.year == comp.year && comp1.month == comp.month);
+        let isSame = (comp1.year == comp.year && comp1.month == comp.month)
         return isSame
     }
     ///是否是今天
@@ -476,25 +476,25 @@ public extension Date{
     ///****-**-** 00:00:00
     var dayBegin: String{
         let result = DateFormatter.stringFromDate(self, fmt: kDateFormatBegin)
-        return result;
+        return result
     }
     
     ///****-**-** 23:59:59
     var dayEnd: String{
         let result = DateFormatter.stringFromDate(self, fmt: kDateFormatEnd)
-        return result;
+        return result
     }
         
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> NSDate
     func adding(_ days: Int, hour: Int = 0, minute: Int = 0, second: Int = 0) -> Date{
         let date = addingTimeInterval(TimeInterval(days*24*3600 + hour*3600 + minute*60 + second))
-        return date;
+        return date
     }
     
     /// 现在时间上添加天:小时:分:秒(负数:之前时间, 正数: 将来时间) -> String
     func addingDaysDes(_ days: Int, fmt: String = kDateFormat) -> String{
-        let newDate = adding(days);
-        return DateFormatter.stringFromDate(newDate, fmt: fmt);
+        let newDate = adding(days)
+        return DateFormatter.stringFromDate(newDate, fmt: fmt)
     }
     
     ///*天*小时*分*秒

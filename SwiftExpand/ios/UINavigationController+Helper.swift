@@ -17,7 +17,7 @@ import UIKit
     func pushVC(_ name: String, animated: Bool = true) {
         assert(UICtrFromString(name).isKind(of: UIViewController.self))
         let controller = UICtrFromString(name)
-        pushViewController(controller, animated: animated);
+        pushViewController(controller, animated: animated)
     }
     
     /// pop到特定控制器页面
@@ -49,7 +49,7 @@ public extension UINavigationController{
         let controller = type.init()
 //        controller.hidesBottomBarWhenPushed = true
         block?(controller)
-        pushViewController(controller, animated: animated);
+        pushViewController(controller, animated: animated)
     }
     ///泛型方法: pop到特定控制器页面
     final func popToVC<T: UIViewController>(_ type: T.Type, animated: Bool = true) {

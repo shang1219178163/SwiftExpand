@@ -14,14 +14,14 @@ import UIKit
     }
     /// UIControl 添加回调方式
     override func addActionHandler(_ action: @escaping ((UISlider) ->Void), for controlEvents: UIControl.Event = .valueChanged) {
-        addTarget(self, action:#selector(p_handleActionSlider(_:)), for:controlEvents);
-        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        addTarget(self, action:#selector(p_handleActionSlider(_:)), for:controlEvents)
+        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
     /// 点击回调
     private func p_handleActionSlider(_ sender: UISlider) {
         if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UISlider) ->Void) {
-            block(sender);
+            block(sender)
         }
     }
     

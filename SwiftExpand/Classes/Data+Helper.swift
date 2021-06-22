@@ -11,16 +11,16 @@
     /// NSData -> 转数组/字典
     var objValue: Any? {
         if JSONSerialization.isValidJSONObject(self) {
-           return nil;
+           return nil
         }
         
         do {
             let obj: Any = try JSONSerialization.jsonObject(with: self as Data, options: [])
-            return obj;
+            return obj
         } catch {
            print(error)
         }
-        return nil;
+        return nil
     }
     
     /// NSData -> 转字符串
@@ -34,7 +34,6 @@
     ///文件大小
     var fileSize: String {
         let length: CGFloat = CGFloat(self.length)
-        
         if length < 1024.0 {
             return String(format: "%.2fB", length*1.0)
         }
@@ -54,16 +53,16 @@
 public extension Data{
     /// 转数组/字典
     var objValue: Any? {
-        return (self as NSData).objValue;
+        return (self as NSData).objValue
     }
     /// NSData -> 转字符串
     var stringValue: String? {
-        return (self as NSData).stringValue;
+        return (self as NSData).stringValue
     }
     
     /// NSData -> 转字符串
     var fileSize: String {
-        return (self as NSData).fileSize;
+        return (self as NSData).fileSize
     }
     
     func jsonObject(options: JSONSerialization.ReadingOptions = []) throws -> Any {

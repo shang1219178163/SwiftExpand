@@ -67,15 +67,15 @@ import UIKit
     }
     
     static var deviceSystemVer: String {
-        return UIDevice.current.systemVersion;
+        return UIDevice.current.systemVersion
     }
     
     static var deviceSystemName: String {
-        return UIDevice.current.systemName;
+        return UIDevice.current.systemName
     }
     
     static var deviceName: String {
-        return UIDevice.current.name;
+        return UIDevice.current.name
     }
     
     static var deviceModelName: String {
@@ -155,11 +155,11 @@ import UIKit
             window.backgroundColor = UIColor.white
             window.makeKeyAndVisible()
             
-            objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, window, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return window
         }
         set {
-            objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self,  &AssociateKeys.mainWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     /// keyWindow代替品
@@ -243,11 +243,11 @@ import UIKit
         
         
 //        _ = {
-//            $0.barTintColor = barTintColor;
-//            $0.tintColor = tintColor;
-//            $0.isTranslucent = false;
+//            $0.barTintColor = barTintColor
+//            $0.tintColor = tintColor
+//            $0.isTranslucent = false
 //            if #available(iOS 10.0, *) {
-//                $0.unselectedItemTintColor = .gray;
+//                $0.unselectedItemTintColor = .gray
 //            }
 //          }(UITabBar.appearance())
         
@@ -258,8 +258,8 @@ import UIKit
         
         _ = {
             $0.setTitleColor(tintColor, for: .normal)
-            $0.titleLabel?.adjustsFontSizeToFitWidth = true;
-            $0.titleLabel?.minimumScaleFactor = 1.0;
+            $0.titleLabel?.adjustsFontSizeToFitWidth = true
+            $0.titleLabel?.minimumScaleFactor = 1.0
             $0.imageView?.contentMode = .scaleAspectFit
             $0.isExclusiveTouch = true
             $0.adjustsImageWhenHighlighted = false
@@ -268,8 +268,8 @@ import UIKit
         
         _ = {
             $0.setTitleColor(.black, for: .normal)
-            $0.titleLabel?.adjustsFontSizeToFitWidth = true;
-            $0.titleLabel?.minimumScaleFactor = 1.0;
+            $0.titleLabel?.adjustsFontSizeToFitWidth = true
+            $0.titleLabel?.minimumScaleFactor = 1.0
             $0.imageView?.contentMode = .scaleAspectFit
             $0.isExclusiveTouch = true
             $0.adjustsImageWhenHighlighted = false
@@ -294,9 +294,9 @@ import UIKit
         _ = {
             $0.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             $0.showsHorizontalScrollIndicator = false
-            $0.keyboardDismissMode = .onDrag;
+            $0.keyboardDismissMode = .onDrag
             if #available(iOS 11.0, *) {
-                $0.contentInsetAdjustmentBehavior = .never;
+                $0.contentInsetAdjustmentBehavior = .never
             }
           }(UIScrollView.appearance())
         
@@ -307,9 +307,9 @@ import UIKit
             $0.rowHeight = 60
             $0.backgroundColor = .groupTableViewBackground
             if #available(iOS 11.0, *) {
-                $0.estimatedRowHeight = 0.0;
-                $0.estimatedSectionHeaderHeight = 0.0;
-                $0.estimatedSectionFooterHeight = 0.0;
+                $0.estimatedRowHeight = 0.0
+                $0.estimatedSectionHeaderHeight = 0.0
+                $0.estimatedSectionFooterHeight = 0.0
             }
           }(UITableView.appearance())
         
@@ -336,20 +336,20 @@ import UIKit
  
         
         _ = {
-            $0.isUserInteractionEnabled = true;
+            $0.isUserInteractionEnabled = true
           }(UIImageView.appearance())
         
         
         _ = {
-            $0.isUserInteractionEnabled = true;
+            $0.isUserInteractionEnabled = true
           }(UILabel.appearance())
         
         
         _ = {
             $0.pageIndicatorTintColor = barTintColor
             $0.currentPageIndicatorTintColor = tintColor
-            $0.isUserInteractionEnabled = true;
-            $0.hidesForSinglePage = true;
+            $0.isUserInteractionEnabled = true
+            $0.hidesForSinglePage = true
           }(UIPageControl.appearance())
         
         
@@ -360,9 +360,9 @@ import UIKit
         
         
         _ = {
-            $0.datePickerMode = .date;
-            $0.locale = Locale(identifier: "zh_CN");
-            $0.backgroundColor = .white;
+            $0.datePickerMode = .date
+            $0.locale = Locale(identifier: "zh_CN")
+            $0.backgroundColor = .white
             if #available(iOS 13.4, *) {
                 $0.preferredDatePickerStyle = .wheels
             }
@@ -398,9 +398,9 @@ import UIKit
         
     /// 打开网络链接
     static func openURLString(_ string: String, prefix: String = "") {
-//        let set = NSCharacterSet(charactersIn: "!*'();:@&=+$,/?%#[]").inverted;
-//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!;
-//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!;
+//        let set = NSCharacterSet(charactersIn: "!*'():@&=+$,/?%#[]").inverted
+//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: set)!
+//        let str: String = urlStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
         var tmp = string
         if string.hasPrefix(prefix) == false {
@@ -410,15 +410,15 @@ import UIKit
             tmp = tmp.replacingOccurrences(of: "-", with: "")
         }
         guard let url = URL(string: tmp) as URL? else {
-            print("\(#function):链接无法打开!!!\n\(string)");
+            print("\(#function):链接无法打开!!!\n\(string)")
             return
         }
 
         if UIApplication.shared.canOpenURL(url) == false {
-            print("\(#function):链接无法打开!!!\n\(string)");
+            print("\(#function):链接无法打开!!!\n\(string)")
             return
         }
-        UIApplication.openURL(url);
+        UIApplication.openURL(url)
     }
     
     /// 打开网络链接
@@ -443,15 +443,15 @@ import UIKit
             deviceTokenString = deviceToken.description.trimmingCharacters(in: CharacterSet(charactersIn: "<> "))
         }
 #if DEBUG
-        print("deviceToken：\(deviceTokenString)");
+        print("deviceToken：\(deviceTokenString)")
 #endif
-        return deviceTokenString;
+        return deviceTokenString
     }
     
     /// block内任务后台执行(block为空可填入AppDelegate.m方法 applicationDidEnterBackground中)
     static func didEnterBackground(_ block: (()->Void)? = nil) {
-        let application: UIApplication = UIApplication.shared;
-        var bgTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0);
+        let application: UIApplication = UIApplication.shared
+        var bgTask: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 0)
         //注册一个后台任务，并提供一个在时间耗尽时执行的代码块
         bgTask = application.beginBackgroundTask(expirationHandler: {
             if bgTask != UIBackgroundTaskIdentifier.invalid {
@@ -461,7 +461,7 @@ import UIKit
                 application.endBackgroundTask(bgTask)
                 bgTask = UIBackgroundTaskIdentifier.invalid
             }
-        });
+        })
         
         let backgroundQueue = OperationQueue()
         backgroundQueue.addOperation() {

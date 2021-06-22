@@ -19,7 +19,7 @@
         if #available(OSX 10.14, *) {
             effectView.material = .underWindowBackground
         }
-        return effectView;
+        return effectView
     }
     
 }

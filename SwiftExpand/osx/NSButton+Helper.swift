@@ -15,14 +15,14 @@
     
     /// 闭包回调(NSSegmentedControl 专用)
     override func addActionHandler(_ handler: @escaping ((NSButton) -> Void)) {
-        target = self;
-        action = #selector(p_invokeButton(_:));
-        objc_setAssociatedObject(self, &AssociateKeys.closure, handler, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+        target = self
+        action = #selector(p_invokeButton(_:))
+        objc_setAssociatedObject(self, &AssociateKeys.closure, handler, .OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
     
     private func p_invokeButton(_ sender: NSButton) {
         if let handler = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((NSButton) -> Void) {
-            handler(sender);
+            handler(sender)
         }
     }
 
@@ -45,10 +45,10 @@
 
             time -= 1
             DispatchQueue.main.async {
-                self.isEnabled = time <= 0;
+                self.isEnabled = time <= 0
                 if time > 0 {
                     self.title = "剩余\(time)s"
-                    return;
+                    return
                 }
                 codeTimer.cancel()
                 self.title = "发送验证码"

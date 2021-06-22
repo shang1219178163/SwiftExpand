@@ -37,17 +37,17 @@
     
 
     static func create(_ rect: CGRect) -> Self {
-        let view = self.init(frame: rect);
-        view.autoresizingMask = [.width, .height];
+        let view = self.init(frame: rect)
+        view.autoresizingMask = [.width, .height]
            
         view.font = NSFont.systemFont(ofSize: 14)
-        view.textColor = NSColor.black;
+        view.textColor = NSColor.black
 
-        view.isHorizontallyResizable = false;
-        view.isVerticallyResizable = true;
+        view.isHorizontallyResizable = false
+        view.isVerticallyResizable = true
 
         view.maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
-        view.isSelectable = true;
+        view.isSelectable = true
         view.drawsBackground = true
 
         return view
@@ -58,8 +58,8 @@
     func hyperlink(dic: [String : String]) {
         let mattStr = NSAttributedString.hyperlink(dic: dic, text: self.string, font: self.font!)
         self.textStorage?.setAttributedString(mattStr)
-        self.isEditable = false;
-        self.isSelectable = true;
+        self.isEditable = false
+        self.isSelectable = true
     }
     
 }

@@ -15,9 +15,9 @@
             return frame.size.width
         }
         set {
-            var rectTmp = frame;
-            rectTmp.size.width = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.size.width = newValue
+            frame = rectTmp
         }
     }
     
@@ -26,9 +26,9 @@
             return frame.size.height
         }
         set {
-            var rectTmp = frame;
-            rectTmp.size.height = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.size.height = newValue
+            frame = rectTmp
         }
     }
     
@@ -37,9 +37,9 @@
             return frame.size
         }
         set{
-            var rectTmp = frame;
-            rectTmp.size = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.size = newValue
+            frame = rectTmp
         }
     }
     
@@ -48,9 +48,9 @@
             return frame.origin.x
         }
         set {
-            var rectTmp = frame;
-            rectTmp.origin.x = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.origin.x = newValue
+            frame = rectTmp
         }
     }
     
@@ -60,9 +60,9 @@
         }
         set {
 //            frame.origin.y = newValue
-            var rectTmp = frame;
-            rectTmp.origin.y = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.origin.y = newValue
+            frame = rectTmp
         }
     }
     
@@ -72,9 +72,9 @@
         }
         set {
 //            frame.origin = newValue
-            var rectTmp = frame;
-            rectTmp.origin = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.origin = newValue
+            frame = rectTmp
         }
     }
     
@@ -108,7 +108,7 @@
         for subview in subviews {
             subview.layer?.borderWidth = kW_LayerBorder
             subview.layer?.borderColor = NSColor.blue.cgColor
-            subview.getViewLayer();
+            subview.getViewLayer()
          }
         #endif
      }
@@ -116,7 +116,7 @@
     func findSubview(type: NSResponder.Type, resursion: Bool)-> NSView? {
         for e in self.subviews.enumerated() {
             if e.element.isKind(of: type) {
-                return e.element;
+                return e.element
             }
         }
         
@@ -124,11 +124,11 @@
             for e in self.subviews.enumerated() {
                 let tmpView = e.element.findSubview(type: type, resursion: resursion)
                 if tmpView != nil {
-                    return tmpView;
+                    return tmpView
                 }
             }
         }
-        return nil;
+        return nil
     }
     
     /// 获取特定类型父视图
@@ -152,7 +152,7 @@
     
     /// 插入模糊背景
     func addVisualEffectView(_ rect: CGRect = .zero) -> NSVisualEffectView {
-        let tmpRect = CGRect.zero.equalTo(rect) == false ? rect : self.bounds;
+        let tmpRect = CGRect.zero.equalTo(rect) == false ? rect : self.bounds
         let effectView = NSVisualEffectView(frame: tmpRect)
         effectView.blendingMode = .behindWindow
         effectView.state = .active
@@ -161,7 +161,7 @@
             effectView.material = .underWindowBackground
         }
         addSubview(effectView)
-        return effectView;
+        return effectView
     }
     
     ///手势 - 轻点 UITapGestureRecognizer

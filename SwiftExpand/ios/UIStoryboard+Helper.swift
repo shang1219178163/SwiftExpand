@@ -14,6 +14,6 @@ import UIKit
     static func storyboard(with name: String, bundle: Bundle? = nil, identifier: String) -> UIViewController {
         let storyboard = UIStoryboard(name: name, bundle: bundle)
         let controller = storyboard.instantiateViewController(withIdentifier: identifier)
-        return controller;
+        return controller
     }
 }

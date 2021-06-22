@@ -11,12 +11,12 @@
 @objc public extension NSImageView {
 
     static func create(_ rect: CGRect) -> Self {
-        let view = self.init(frame: rect);
+        let view = self.init(frame: rect)
         view.imageFrameStyle = .photo
         view.imageScaling = .scaleNone
         view.imageAlignment = .alignCenter
-        view.isEditable = true;//能否直接将图片拖到一个NSImageView类里
-        view.allowsCutCopyPaste = true;//能否对图片内容进行剪切、复制、粘贴行操作
+        view.isEditable = true//能否直接将图片拖到一个NSImageView类里
+        view.allowsCutCopyPaste = true//能否对图片内容进行剪切、复制、粘贴行操作
         return view
     }
 

@@ -17,26 +17,26 @@ import UIKit
     var funcName: String {
         get {
             if let obj = objc_getAssociatedObject(self, &AssociateKeys.funcName) as? String {
-                return obj;
+                return obj
             }
  
-            let string = String(describing: self.classForCoder);
-            objc_setAssociatedObject(self, &AssociateKeys.funcName, string, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            let string = String(describing: self.classForCoder)
+            objc_setAssociatedObject(self, &AssociateKeys.funcName, string, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return string
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.funcName, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.funcName, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     /// 闭包回调
     func addAction(_ closure: @escaping (UIGestureRecognizer) -> Void) {
-        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         addTarget(self, action: #selector(p_invoke))
     }
     
     private func p_invoke() {
         if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIGestureRecognizer) -> Void) {
-            closure(self);
+            closure(self)
         }
     }
     
@@ -51,13 +51,13 @@ import UIKit
     
     /// 闭包回调
     override func addAction(_ closure: @escaping (UITapGestureRecognizer) -> Void) {
-        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC)
         addTarget(self, action: #selector(p_invokeTap))
     }
     
     private func p_invokeTap() {
         if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UITapGestureRecognizer) -> Void) {
-            closure(self);
+            closure(self)
         }
     }
     
@@ -84,16 +84,16 @@ import UIKit
         let locationOfTouchInLabel = self.location(in: label)
         let textBoundingBox = layoutManager.usedRect(for: textContainer)
         let textContainerOffset = CGPoint(x:(labelSize.width - textBoundingBox.size.width)*0.5 - textBoundingBox.origin.x,
-                                        y:(labelSize.height - textBoundingBox.size.height)*0.5 - textBoundingBox.origin.y);
+                                        y:(labelSize.height - textBoundingBox.size.height)*0.5 - textBoundingBox.origin.y)
         let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x - textContainerOffset.x,
-                                                   y: locationOfTouchInLabel.y - textContainerOffset.y);
+                                                   y: locationOfTouchInLabel.y - textContainerOffset.y)
 
         let indexOfCharacter = layoutManager.characterIndex(for: locationOfTouchInTextContainer,
                                                           in: textContainer,
                                                           fractionOfDistanceBetweenInsertionPoints: nil)
 
         if label.text == nil {
-            return;
+            return
         }
         
         for e in tapTexts.enumerated() {

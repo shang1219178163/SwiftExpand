@@ -29,7 +29,7 @@
         if index >= subviews.count {
             return
         }
-        let element = subviews[index];
+        let element = subviews[index]
         if self.orientation == .horizontal {
             element.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: multiplier).isActive = true
         } else {

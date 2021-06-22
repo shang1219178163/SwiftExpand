@@ -131,20 +131,20 @@ public let kAlertActionChecked = "checked"
     @discardableResult
     func setTitleColor(_ color: UIColor = .theme) -> Self {
         guard let title = title else {
-            return self;
+            return self
         }
         
         let attrTitle = NSMutableAttributedString(string: title)
         attrTitle.addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSRange(location: 0, length: title.count))
         setValue(attrTitle, forKey: kAlertTitle)
-        return self;
+        return self
     }
     
     /// 设置Message文本换行,对齐方式
     @discardableResult
     func setMessageParaStyle(_ paraStyle: NSMutableParagraphStyle) -> Self {
         guard let message = message else {
-            return self;
+            return self
         }
 
         let attrMsg = NSMutableAttributedString(string: message)
@@ -152,7 +152,7 @@ public let kAlertActionChecked = "checked"
                       NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13),]
         attrMsg.addAttributes(attDic, range: NSRange(location: 0, length: message.count))
         setValue(attrMsg, forKey: kAlertMessage)
-        return self;
+        return self
     }
     
     ///设置 Message 样式

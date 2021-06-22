@@ -14,7 +14,7 @@
             let sub = self.attributedSubstring(from: range)
             dic[NSStringFromRange(range)] = sub
         }
-        return dic;
+        return dic
     }
         
     /// 富文本整体设置
@@ -33,7 +33,7 @@
             .foregroundColor: textColor,
             .backgroundColor: Color.clear,
             .paragraphStyle: paraStyle,
-        ];
+        ]
         return dic
     }
     
@@ -62,7 +62,7 @@
                 .font: Font.systemFont(ofSize: tapFont),
                 .foregroundColor: tapColor,
                 .backgroundColor: Color.clear,
-            ];
+            ]
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString
@@ -93,7 +93,7 @@
                 .font: tapFont,
                 .foregroundColor: tapColor,
                 .backgroundColor: Color.clear,
-            ];
+            ]
             attString.addAttributes(attDic, range: nsRange)
         }
         return attString
@@ -124,7 +124,7 @@
         let attDic: [NSAttributedString.Key: Any] = [
             .font: Font.systemFont(ofSize: font),
             .foregroundColor: textColor,
-        ];
+        ]
         
         let attrString = NSMutableAttributedString(string: text)
         attrString.addAttributes(attDic, range: nsRange)
@@ -145,7 +145,7 @@
         attString.beginEditing()
         attString.addAttributes(attDic, range: NSMakeRange(0, attString.length))
         attString.endEditing()
-        return attString;
+        return attString
     }
     /// 包含超链接的全部内容
     static func hyperlink(dic: [String : String], text: String, font: Font) -> NSMutableAttributedString {
@@ -157,17 +157,17 @@
             let range = (mattStr.string as NSString).range(of: e.key)
             mattStr.replaceCharacters(in: range, with: attStr)
         }
-        return mattStr;
+        return mattStr
     }
     
     ///  富文本只有同字体大小才能计算高度
     func size(with width: CGFloat) -> CGSize {
         var size = self.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
                                      options: [.usesLineFragmentOrigin, .usesFontLeading],
-                                     context: nil).size;
-        size.width = ceil(size.width);
-        size.height = ceil(size.height);
-        return size;
+                                     context: nil).size
+        size.width = ceil(size.width)
+        size.height = ceil(size.height)
+        return size
     }
     
 }

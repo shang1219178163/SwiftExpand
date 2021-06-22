@@ -15,7 +15,7 @@
         self.init()
         self.appearance = NSAppearance(named: .vibrantLight)
         self.behavior = .transient
-        self.contentViewController = vc;
+        self.contentViewController = vc
         /**
          applicationDefined : 默认值,不会自动关闭popover,ESC键也不能关闭,应用关闭时,popovoer会关闭
          semitransient: 点击popover以外的界面部分,不会自动关闭,但ESC按键可以关闭popover

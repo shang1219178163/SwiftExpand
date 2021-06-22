@@ -13,12 +13,12 @@
     // MARK: -funtions
     
     static func create(_ rect: CGRect) -> Self {
-        let view = self.init(frame: rect);
-        view.autoresizingMask = [.width, .height];
+        let view = self.init(frame: rect)
+        view.autoresizingMask = [.width, .height]
                       
-        view.hasHorizontalScroller = false;
-        view.hasVerticalScroller = true;
-        view.autohidesScrollers = true;
+        view.hasHorizontalScroller = false
+        view.hasVerticalScroller = true
+        view.autohidesScrollers = true
         
         view.drawsBackground = true
         return view

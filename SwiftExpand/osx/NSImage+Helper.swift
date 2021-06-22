@@ -18,7 +18,7 @@
         if let tiffRepresentation = self.tiffRepresentation {
             return NSBitmapImageRep(data: tiffRepresentation)
         }
-        return nil;
+        return nil
     }
     
     var sizePixels: CGSize {
@@ -29,7 +29,7 @@
     }
     ///便利方法
     convenience init(color: NSColor, size: NSSize = NSSize(width: 1, height: 1)) {
-        self.init(size: size);
+        self.init(size: size)
         self.lockFocus()
         color.drawSwatch(in: NSRect(x: 0, y: 0, width: size.width, height: size.height))
         self.unlockFocus()

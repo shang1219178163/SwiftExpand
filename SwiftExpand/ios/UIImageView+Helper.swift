@@ -25,11 +25,11 @@ import UIKit
     }
     /// [源]UIImageView创建
     convenience init(_ rect: CGRect = .zero, named: String) {
-        self.init(frame: rect);
+        self.init(frame: rect)
         self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.isUserInteractionEnabled = true;
-        self.contentMode = .scaleAspectFit;
-        self.image = UIImage(named: named);
+        self.isUserInteractionEnabled = true
+        self.contentMode = .scaleAspectFit
+        self.image = UIImage(named: named)
     }
 
     ///MARK:默认渲染AlwaysTemplate方式
@@ -72,7 +72,7 @@ import UIKit
         let imageView: UIImageView = {
           let view = UIImageView(frame: oldFrame)
             view.contentMode = .scaleAspectFit
-            view.tag = 1001;
+            view.tag = 1001
                                     
             view.addGesturePinch { (reco) in
                 
@@ -85,28 +85,28 @@ import UIKit
             view.addGestureRotation { (reco) in
                 
             }
-            return view;
+            return view
         }()
         imageView.image = tapView.image
         
         let backgroundView: UIView = {
             let view = UIView(frame: window.bounds)
             view.backgroundColor = .black
-            view.tag = 1000;
-            view.alpha = 0;
-            return view;
+            view.tag = 1000
+            view.alpha = 0
+            return view
         }()
         backgroundView.addSubview(imageView)
         window.insertSubview(backgroundView, at: 1)
                 
         UIView.animate(withDuration: 0.15) {
-            imageView.frame = window.bounds;
-            backgroundView.alpha = 1;
+            imageView.frame = window.bounds
+            backgroundView.alpha = 1
         }
         
         backgroundView.addGestureTap { (reco) in
             UIView.animate(withDuration: 0.15, animations: {
-                backgroundView.alpha = 0;
+                backgroundView.alpha = 0
 
             }) { (finished) in
                 if finished == true {

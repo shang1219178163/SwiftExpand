@@ -19,14 +19,14 @@ import UIKit
     }
     /// UIControl 添加回调方式
     override func addActionHandler(_ action: @escaping ((UIButton) ->Void), for controlEvents: UIControl.Event = .touchUpInside) {
-        addTarget(self, action:#selector(p_handleActionBtn(_:)), for:controlEvents);
-        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        addTarget(self, action:#selector(p_handleActionBtn(_:)), for:controlEvents)
+        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
     /// 点击回调
     private func p_handleActionBtn(_ sender: UIButton) {
         if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIButton) ->Void) {
-            block(sender);
+            block(sender)
         }
     }
 
@@ -77,7 +77,7 @@ import UIKit
 //    /// 快速创建按钮 setImage: 图片名 frame:frame action:点击事件的回调
 //    convenience init(setImage: String, frame:CGRect, action: @escaping ControlClosure){
 ////        self.init()
-//        self.init(action: action);
+//        self.init(action: action)
 //
 //        self.frame = frame
 //        self.setImage(UIImage(named:setImage), for: .normal)
@@ -94,17 +94,17 @@ import UIKit
             size = CGSize(width: 40, height: 40)
         }
                 
-        self.init(type: .custom);
-        self.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height);
+        self.init(type: .custom)
+        self.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         self.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         
         if let image = UIImage(named: obj) {
-            self.setImage(image, for: .normal);
+            self.setImage(image, for: .normal)
         } else {
-            self.setTitle(obj, for: .normal);
+            self.setTitle(obj, for: .normal)
             if obj.count >= 4{
-                self.titleLabel?.adjustsFontSizeToFitWidth = true;
-                self.titleLabel?.minimumScaleFactor = 1;
+                self.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.titleLabel?.minimumScaleFactor = 1
             }
         }
     }
@@ -112,38 +112,38 @@ import UIKit
     /// 创建 UIButton 集群
     static func createGroupView(_ rect: CGRect = .zero, list: [String], numberOfRow: Int = 4, padding: CGFloat = kPadding, action: ((UIButton)->Void)? = nil) -> UIView {
         
-        let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1;
+        let rowCount: Int = list.count % numberOfRow == 0 ? list.count/numberOfRow : list.count/numberOfRow + 1
         let itemWidth = (rect.width - CGFloat(numberOfRow - 1)*padding)/CGFloat(numberOfRow)
         let itemHeight = (rect.height - CGFloat(rowCount - 1)*padding)/CGFloat(rowCount)
         
-        let backView = UIView(frame: rect);
+        let backView = UIView(frame: rect)
         for (i,value) in list.enumerated() {
-            let x = CGFloat(i % numberOfRow) * (itemWidth + padding);
-            let y = CGFloat(i / numberOfRow) * (itemHeight + padding);
-            let rect = CGRect(x: x, y: y, width: itemWidth, height: itemHeight);
+            let x = CGFloat(i % numberOfRow) * (itemWidth + padding)
+            let y = CGFloat(i / numberOfRow) * (itemHeight + padding)
+            let rect = CGRect(x: x, y: y, width: itemWidth, height: itemHeight)
             
             let button: UIButton = {
-                let button = UIButton(type: .custom);
-                button.frame = rect;
-                button.setTitle(value, for: .normal);
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 15);
-                button.titleLabel?.adjustsFontSizeToFitWidth = true;
-                button.titleLabel?.minimumScaleFactor = 1.0;
-                button.isExclusiveTouch = true;
+                let button = UIButton(type: .custom)
+                button.frame = rect
+                button.setTitle(value, for: .normal)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+                button.titleLabel?.adjustsFontSizeToFitWidth = true
+                button.titleLabel?.minimumScaleFactor = 1.0
+                button.isExclusiveTouch = true
                 
-                button.setTitleColor(UIColor.black, for: .normal);
-                button.backgroundColor = UIColor.white;
-                button.tag = i;
+                button.setTitleColor(UIColor.black, for: .normal)
+                button.backgroundColor = UIColor.white
+                button.tag = i
                 
-                return button;
+                return button
             }()
     
             if let action = action {
                 button.addActionHandler(action)
             }
-            backView.addSubview(button);
+            backView.addSubview(button)
         }
-        return backView;
+        return backView
     }
     
     /// 图片上左下右配置
@@ -175,7 +175,7 @@ import UIKit
                                            left: -imageWidth,
                                            bottom: -imageHeight - imageTitleSpace/2,
                                            right: 0)
-            break;
+            break
         case 1:
             imageEdgeInsets = UIEdgeInsets(top: 0,
                                            left: -imageTitleSpace/2,
@@ -185,7 +185,7 @@ import UIKit
                                            left: imageTitleSpace/2,
                                            bottom: 0,
                                            right: -imageTitleSpace/2)
-            break;
+            break
         case 2:
             imageEdgeInsets = UIEdgeInsets(top: 0,
                                            left: 0,
@@ -196,7 +196,7 @@ import UIKit
                                            bottom: 0,
                                            right: 0)
 
-            break;
+            break
         case 3:
             imageEdgeInsets = UIEdgeInsets(top: 0,
                                            left: labelWidth + imageTitleSpace/2,
@@ -207,7 +207,7 @@ import UIKit
                                            bottom: 0,
                                            right: imageWidth + imageTitleSpace/2)
 
-            break;
+            break
         default:
             break
         }
@@ -240,10 +240,10 @@ import UIKit
 
             time -= 1
             DispatchQueue.main.async {
-                self.isEnabled = time <= 0;
+                self.isEnabled = time <= 0
                 if time > 0 {
                     self.setTitle("剩余\(time)s", for: .normal)
-                    return;
+                    return
                 }
                 codeTimer.cancel()
                 self.setTitle("发送验证码", for: .normal)

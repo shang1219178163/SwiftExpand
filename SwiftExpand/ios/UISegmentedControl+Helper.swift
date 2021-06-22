@@ -14,14 +14,14 @@ import UIKit
     }
     /// UIControl 添加回调方式
     override func addActionHandler(_ action: @escaping ((UISegmentedControl) ->Void), for controlEvents: UIControl.Event = .valueChanged) {
-        addTarget(self, action:#selector(p_handleActionSegment(_:)), for:controlEvents);
-        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        addTarget(self, action:#selector(p_handleActionSegment(_:)), for:controlEvents)
+        objc_setAssociatedObject(self, &AssociateKeys.closure, action, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
     /// 点击回调
     private func p_handleActionSegment(_ sender: UISegmentedControl) {
         if let block = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UISegmentedControl) ->Void) {
-            block(sender);
+            block(sender)
         }
     }
     
@@ -38,7 +38,7 @@ import UIKit
         
         if #available(iOS 13, *) {
             view.ensureiOS13Style(tintColor: tintColor, fontSize: fontSize)
-            return view;
+            return view
         }
         
         switch type {
@@ -47,24 +47,25 @@ import UIKit
             view.backgroundColor = UIColor.white
             view.layer.borderWidth = 1.0
             view.layer.borderColor = UIColor.white.cgColor
-            let dicN = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                         
-                         ]
+            let dicN: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.systemFont(ofSize: fontSize),
+            ]
             view.setTitleTextAttributes(dicN, for: .normal)
-            view.setDividerImage(UIImage(color: UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default);
+            view.setDividerImage(UIImage(color: UIColor.white), forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
             
         case 2:
             view.tintColor = UIColor.white
             view.backgroundColor = UIColor.white
             
-            let dicN = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                         ]
-            
-            let dicH = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                         ]
+            let dicN: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.systemFont(ofSize: fontSize),
+            ]
+            let dicH: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.theme,
+                .font: UIFont.systemFont(ofSize: fontSize),
+            ]
             view.setTitleTextAttributes(dicN, for: .normal)
             view.setTitleTextAttributes(dicH, for: .selected)
             
@@ -72,13 +73,15 @@ import UIKit
             view.tintColor = UIColor.clear
             view.backgroundColor = UIColor.line
             
-            let dicN = [NSAttributedString.Key.foregroundColor: UIColor.black,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                         ]
+            let dicN: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.systemFont(ofSize: fontSize),
+            ]
             
-            let dicH = [NSAttributedString.Key.foregroundColor: UIColor.theme,
-                         NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                         ]
+            let dicH: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.theme,
+                .font: UIFont.systemFont(ofSize: fontSize),
+            ]
             view.setTitleTextAttributes(dicN, for: .normal)
             view.setTitleTextAttributes(dicH, for: .selected)
             
@@ -86,14 +89,16 @@ import UIKit
             view.tintColor = UIColor.theme
             view.backgroundColor = UIColor.white
             
-            let dicN = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                        ]
-            let dicH = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize),
-                        ]
+            let dicN: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: fontSize),
+            ]
+            let dicH: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: fontSize),
+            ]
             view.setTitleTextAttributes(dicN, for: .normal)
             view.setTitleTextAttributes(dicH, for: .selected)
         }
-        return view;
+        return view
     }
     
     /// [源]UISegmentControl创建(弃用, 用默认外观也不错)
@@ -117,10 +122,10 @@ import UIKit
             setDividerImage(clearColorImage, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
             setDividerImage(clearColorImage, forLeftSegmentState: .highlighted, rightSegmentState: .normal, barMetrics: .default)
             
-            layer.borderColor = tintColor.cgColor;
-            layer.borderWidth = 1.0;
-            layer.masksToBounds = true;
-            layer.cornerRadius = 1.0;
+            layer.borderColor = tintColor.cgColor
+            layer.borderWidth = 1.0
+            layer.masksToBounds = true
+            layer.cornerRadius = 1.0
         }
     }
     
@@ -133,7 +138,7 @@ import UIKit
             return []
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.items, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.items, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             updateItems(newValue)
         }
     }

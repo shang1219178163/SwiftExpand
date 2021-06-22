@@ -24,7 +24,7 @@ import Foundation
                 marr.append(view)
             }
         }
-        return marr;
+        return marr
     }
     
     func setTabBarVisible(_ visible: Bool, animated: Bool) {

@@ -51,13 +51,13 @@
             if let obj = objc_getAssociatedObject(self, &AssociateKeys.lineTop) as? NSView {
                 return obj
             }
-            let obj = NSView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
-            obj.layer?.backgroundColor = NSColor.line.cgColor;
-            objc_setAssociatedObject(self, &AssociateKeys.lineTop, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            return obj;
+            let obj = NSView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW))
+            obj.layer?.backgroundColor = NSColor.line.cgColor
+            objc_setAssociatedObject(self, &AssociateKeys.lineTop, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return obj
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.lineTop, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.lineTop, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
      
@@ -66,13 +66,13 @@
             if let obj = objc_getAssociatedObject(self, &AssociateKeys.lineBottom) as? NSView {
                 return obj
             }
-            let obj = NSView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW));
-            obj.layer?.backgroundColor = NSColor.line.cgColor;
-            objc_setAssociatedObject(self, &AssociateKeys.lineBottom, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            let obj = NSView(frame: CGRect(x: 0, y: 0, width: frame.width, height: kH_LINE_VIEW))
+            obj.layer?.backgroundColor = NSColor.line.cgColor
+            objc_setAssociatedObject(self, &AssociateKeys.lineBottom, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return obj
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.lineBottom, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.lineBottom, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -96,7 +96,7 @@ public extension NSView{
         
         subviews.filter { $0.isMember(of: type) }.forEach { $0.removeFromSuperview() }
 
-        var array: [T] = [];
+        var array: [T] = []
         for i in 0..<count {
             let sender = type.init(frame: .zero)
             sender.tag = i
@@ -105,7 +105,7 @@ public extension NSView{
             
             hanler(sender)
         }
-        return array;
+        return array
     }
     
 }

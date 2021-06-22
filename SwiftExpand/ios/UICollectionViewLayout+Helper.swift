@@ -18,15 +18,15 @@ import UIKit
                      footerHeight: CGFloat = 30,
                      sectionInset: UIEdgeInsets = .zero) {
         self.init()
-        self.sectionInset = sectionInset;
-        self.minimumLineSpacing = spacing;
-        self.minimumInteritemSpacing = spacing;
+        self.sectionInset = sectionInset
+        self.minimumLineSpacing = spacing
+        self.minimumInteritemSpacing = spacing
 
-        let itemWidth = (width - (numOfRow.toCGFloat - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat;
-        let itemHeight = itemWidth/0.62;
-        self.itemSize = CGSize(width: round(itemWidth), height: itemHeight);
-        self.headerReferenceSize = CGSize(width: width, height: headerHeight);
-        self.footerReferenceSize = CGSize(width: width, height: footerHeight);
+        let itemWidth = (width - (numOfRow.toCGFloat - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat
+        let itemHeight = itemWidth/0.62
+        self.itemSize = CGSize(width: round(itemWidth), height: itemHeight)
+        self.headerReferenceSize = CGSize(width: width, height: headerHeight)
+        self.footerReferenceSize = CGSize(width: width, height: footerHeight)
     }
     
     ///  默认布局配置(自上而下,自左而右)
@@ -78,13 +78,13 @@ import UIKit
                         width: CGFloat = UIScreen.main.bounds.width,
                         spacing: CGFloat = 10,
                         sectionInset: UIEdgeInsets = .zero) {
-        self.sectionInset = sectionInset;
-        minimumLineSpacing = spacing;
-        minimumInteritemSpacing = spacing;
+        self.sectionInset = sectionInset
+        minimumLineSpacing = spacing
+        minimumInteritemSpacing = spacing
 
-        let itemWidth = (width - (numOfRow.toCGFloat - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat;
-        let itemHeight = itemWidth/0.62;
-        let itemSize = CGSize(width: round(itemWidth), height: itemHeight);
+        let itemWidth = (width - (numOfRow.toCGFloat - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat
+        let itemHeight = itemWidth/0.62
+        let itemSize = CGSize(width: round(itemWidth), height: itemHeight)
         reloadItemSize(itemSize)
     }
     

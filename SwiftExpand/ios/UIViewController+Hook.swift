@@ -11,33 +11,33 @@ import UIKit
 @objc extension UIViewController{
     
     override public class func initializeMethod() {
-        super.initializeMethod();
+        super.initializeMethod()
         
         if self == UIViewController.self {
-            let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+            let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
             DispatchQueue.once(token: onceToken) {
                 let oriSel = #selector(viewDidLoad)
                 let repSel = #selector(hook_viewDidLoad)
-                hookInstanceMethod(of: oriSel, with: repSel);
+                hookInstanceMethod(of: oriSel, with: repSel)
                                 
                 let oriSel1 = #selector(viewWillAppear(_:))
                 let repSel1 = #selector(hook_viewWillAppear(animated:))
-                hookInstanceMethod(of: oriSel1, with: repSel1);
+                hookInstanceMethod(of: oriSel1, with: repSel1)
                 
                 let oriSel2 = #selector(viewWillDisappear(_:))
                 let repSel2 = #selector(hook_viewWillDisappear(animated:))
-                hookInstanceMethod(of: oriSel2, with: repSel2);
+                hookInstanceMethod(of: oriSel2, with: repSel2)
                 
                 let oriSelPresent = #selector(present(_:animated:completion:))
                 let repSelPresent = #selector(hook_present(_:animated:completion:))
-                hookInstanceMethod(of: oriSelPresent, with: repSelPresent);
+                hookInstanceMethod(of: oriSelPresent, with: repSelPresent)
             }
         } else if self == UINavigationController.self {
-            let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+            let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
             DispatchQueue.once(token: onceToken) {
-                let oriSel = #selector(UINavigationController.pushViewController(_:animated:));
-                let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:));
-                hookInstanceMethod(of:oriSel , with: repSel);
+                let oriSel = #selector(UINavigationController.pushViewController(_:animated:))
+                let repSel = #selector(UINavigationController.hook_pushViewController(_:animated:))
+                hookInstanceMethod(of:oriSel , with: repSel)
             }
         }
     }
@@ -52,13 +52,13 @@ import UIKit
     private func hook_viewWillAppear(animated: Bool) {
         //需要注入的代码写在此处
         hook_viewWillAppear(animated: animated)
-//        self.eventGather(isBegin: true);
+//        self.eventGather(isBegin: true)
     }
     
     private func hook_viewWillDisappear(animated: Bool) {
         //需要注入的代码写在此处
         hook_viewWillDisappear(animated: animated)
-//        self.eventGather(isBegin: false);
+//        self.eventGather(isBegin: false)
     }
     
     private func hook_present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -72,9 +72,9 @@ import UIKit
     
     // MARK: -funtions
     private func eventGather(isBegin: Bool = true) {
-        let className = NSStringFromClass(classForCoder);
+        let className = NSStringFromClass(classForCoder)
         if className.hasPrefix("UI") && className.hasSuffix("Controller"){
-            return ;
+            return
         }
         
         if isBegin == true {
@@ -96,7 +96,7 @@ import UIKit
             viewController.hidesBottomBarWhenPushed = true
         }
         //push进入下一个控制器
-        hook_pushViewController(viewController, animated: animated);
+        hook_pushViewController(viewController, animated: animated)
     }
 
 }

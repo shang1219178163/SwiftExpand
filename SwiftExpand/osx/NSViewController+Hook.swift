@@ -17,7 +17,7 @@
             return
         }
         
-        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
         DispatchQueue.once(token: onceToken) {
             let oriSel = #selector(present(_:asPopoverRelativeTo:of:preferredEdge:behavior:))
             let repSel = #selector(hook_present(_:asPopoverRelativeTo:of:preferredEdge:behavior:))

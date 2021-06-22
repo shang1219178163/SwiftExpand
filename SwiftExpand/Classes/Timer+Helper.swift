@@ -41,7 +41,7 @@
         }
         
         codeTimer.resume()
-        return codeTimer;
+        return codeTimer
     }
     
     static func cancelGCDTimer(_ timer: DispatchSourceTimer?) {

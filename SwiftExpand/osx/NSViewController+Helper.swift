@@ -18,7 +18,7 @@
         if name.hasSuffix("Controller") {
             name = name.replacingOccurrences(of: "Controller", with: "")
         }
-        return name;
+        return name
     }
     
     // MARK: -funtions

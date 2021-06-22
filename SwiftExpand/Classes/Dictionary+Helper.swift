@@ -12,21 +12,21 @@ public extension Dictionary{
     
     /// ->Data
     var jsonData: Data? {
-        return (self as NSDictionary).jsonData;
+        return (self as NSDictionary).jsonData
     }
     
     /// ->NSString
     var jsonString: String {
-        return (self as NSDictionary).jsonString;
+        return (self as NSDictionary).jsonString
     }
     
     
     var plistData: Data?{
-        return (self as NSDictionary).plistData;
+        return (self as NSDictionary).plistData
     }
     
     func dictionaryFromPlistData(_ plistData: Data) -> Any? {
-        return (self as NSDictionary).dictionaryFromPlistData(plistData);
+        return (self as NSDictionary).dictionaryFromPlistData(plistData)
     }
 }
 
@@ -37,7 +37,7 @@ public extension Dictionary where Key == String, Value == String {
         for (key, value) in self {
             dic[value] = key
         }
-        return dic;
+        return dic
     }
     ///根据键数值排序
     func valuesByKeySorted() -> [String] {
@@ -56,11 +56,11 @@ public extension Dictionary where Key == String, Value == String {
     var jsonData: Data? {
         var data: Data?
         do {
-            data = try JSONSerialization.data(withJSONObject: self, options: []);
+            data = try JSONSerialization.data(withJSONObject: self, options: [])
         } catch {
             print(error)
         }
-        return data;
+        return data
     }
     
     /// ->NSString

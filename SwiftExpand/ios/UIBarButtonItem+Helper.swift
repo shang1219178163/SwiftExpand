@@ -22,20 +22,20 @@ import UIKit
             return .done
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.systemType, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.systemType, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
     /// UIBarButtonItem 回调
     func addAction(_ closure: @escaping ((UIBarButtonItem) -> Void)) {
-        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
-        target = self;
-        action = #selector(p_invoke);
+        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC)
+        target = self
+        action = #selector(p_invoke)
     }
 
     private func p_invoke() {
         if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIBarButtonItem) -> Void) {
-            closure(self);
+            closure(self)
         }
     }
     
@@ -44,7 +44,7 @@ import UIKit
             self.init(image: image, style: style, target: target, action: action)
             return
         }
-        self.init(title: obj, style: style, target: target, action: action);
+        self.init(title: obj, style: style, target: target, action: action)
     }
     
     convenience init(_ obj: String, style: UIBarButtonItem.Style = .plain, action: @escaping ((UIBarButtonItem) -> Void)) {
@@ -54,8 +54,8 @@ import UIKit
     
     /// 按钮是否显示
     func setHidden(_ hidden: Bool, color: UIColor = UIColor.theme) {
-        isEnabled = !hidden;
-        tintColor = !hidden ? color : .clear;
+        isEnabled = !hidden
+        tintColor = !hidden ? color : .clear
     }
     
     func addTargetForAction(_ target: AnyObject, action: Selector) {
@@ -68,7 +68,7 @@ import UIKit
         var list = [UIBarButtonItem]()
         
         for e in titles.enumerated() {
-            let barItem = UIBarButtonItem(title: e.element, style: style, target: target, action: action);
+            let barItem = UIBarButtonItem(title: e.element, style: style, target: target, action: action)
             list.append(barItem)
         }
         return list
@@ -80,7 +80,7 @@ import UIKit
         var list = [UIBarButtonItem]()
         
         for e in titles.enumerated() {
-            let barItem = UIBarButtonItem(title: e.element, style: style, target: nil, action: nil);
+            let barItem = UIBarButtonItem(title: e.element, style: style, target: nil, action: nil)
             barItem.addAction(action)
             list.append(barItem)
         }

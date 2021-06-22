@@ -14,16 +14,16 @@ import UIKit
         if let sender = self.view.subView(UIPageControl.self){
             sender.pageIndicatorTintColor = UIColor.lightGray
             sender.currentPageIndicatorTintColor = UIColor.systemBlue
-            return sender;
+            return sender
         }
-        return nil;
+        return nil
     }
     
     var queuingScrollView: UIScrollView? {
         if let sender = self.view.subView(UIScrollView.self){
-            return sender;
+            return sender
         }
-        return nil;
+        return nil
     }
     
 

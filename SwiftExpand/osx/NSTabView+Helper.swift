@@ -17,7 +17,7 @@
     @[@"AuthorInfoController", @"其他",],
     @[@"NSTestViewController", @"测试模块",],
     @[@"MacTemplet.TmpViewController",],
-    ];
+    ]
      */
     func addItems(_ items: [[String]]) {
         for e in items.enumerated() {

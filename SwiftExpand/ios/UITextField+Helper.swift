@@ -14,16 +14,16 @@ import UIKit
     
     /// [源]UITextField创建
     static func create(_ rect: CGRect = .zero) -> Self {
-        let view = self.init(frame: rect);
+        let view = self.init(frame: rect)
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.borderStyle = .none;
-        view.contentVerticalAlignment = .center;
-        view.clearButtonMode = .whileEditing;
-        view.autocapitalizationType = .none;
-        view.autocorrectionType = .no;
-        view.backgroundColor = .white;
+        view.borderStyle = .none
+        view.contentVerticalAlignment = .center
+        view.clearButtonMode = .whileEditing
+        view.autocapitalizationType = .none
+        view.autocorrectionType = .no
+        view.backgroundColor = .white
         view.returnKeyType = .done
-        view.textAlignment = .left;
+        view.textAlignment = .left
         view.font = UIFont.systemFont(ofSize: 15)
         return view
     }

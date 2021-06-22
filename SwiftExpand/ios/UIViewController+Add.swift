@@ -22,17 +22,17 @@ import UIKit
 
             let view = UITableView(rect: self.view.bounds, style: .plain, rowHeight: 50)
             if self.conforms(to: UITableViewDataSource.self) {
-                view.dataSource = self as? UITableViewDataSource;
+                view.dataSource = self as? UITableViewDataSource
             }
             if self.conforms(to: UITableViewDelegate.self) {
-                view.delegate = self as? UITableViewDelegate;
+                view.delegate = self as? UITableViewDelegate
             }
 
-            objc_setAssociatedObject(self, &AssociateKeys.tbView, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.tbView, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.tbView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.tbView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     

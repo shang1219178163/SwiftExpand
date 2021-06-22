@@ -24,16 +24,16 @@ import UIKit
     
     /// [源]自定义 UITableViewCell 获取方法(兼容OC)
     static func dequeueReusableCell(_ tableView: UITableView, identifier: String, style: UITableViewCell.CellStyle = .default) -> Self {
-        var cell = tableView.dequeueReusableCell(withIdentifier: identifier);
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
         if cell == nil {
-            cell = self.init(style: style, reuseIdentifier: identifier);
+            cell = self.init(style: style, reuseIdentifier: identifier)
         }
 
         cell!.selectionStyle = .none
         cell!.separatorInset = .zero
         cell!.layoutMargins = .zero
         cell!.backgroundColor = .white
-        return cell as! Self;
+        return cell as! Self
     }
     
     /// [OC简洁方法]自定义 UITableViewCell 获取方法
@@ -72,17 +72,17 @@ import UIKit
                 return obj
             }
 
-            let view = UIImageView(frame: .zero);
+            let view = UIImageView(frame: .zero)
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.isUserInteractionEnabled = true;
-            view.contentMode = .scaleAspectFit;
+            view.isUserInteractionEnabled = true
+            view.contentMode = .scaleAspectFit
             view.backgroundColor = .clear
 
-            objc_setAssociatedObject(self, &AssociateKeys.imgViewLeft, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.imgViewLeft, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.imgViewLeft, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.imgViewLeft, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -92,18 +92,18 @@ import UIKit
                 return obj
             }
 
-            let view = UIImageView(frame: .zero);
+            let view = UIImageView(frame: .zero)
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.isUserInteractionEnabled = true;
-            view.contentMode = .scaleAspectFit;
+            view.isUserInteractionEnabled = true
+            view.contentMode = .scaleAspectFit
             view.backgroundColor = .clear
-            view.image = UIImage(named: "img_arrowRight_gray");
+            view.image = UIImage(named: "img_arrowRight_gray")
             
-            objc_setAssociatedObject(self, &AssociateKeys.imgViewRight, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.imgViewRight, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.imgViewRight, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.imgViewRight, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -113,17 +113,17 @@ import UIKit
                 return obj
             }
 
-            let view = UILabel(frame: CGRect.zero);
+            let view = UILabel(frame: CGRect.zero)
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.textAlignment = .left;
-            view.numberOfLines = 0;
-            view.lineBreakMode = .byCharWrapping;
+            view.textAlignment = .left
+            view.numberOfLines = 0
+            view.lineBreakMode = .byCharWrapping
             
-            objc_setAssociatedObject(self, &AssociateKeys.labelLeft, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelLeft, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.labelLeft, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelLeft, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
   
@@ -133,18 +133,18 @@ import UIKit
                 return obj
             }
 
-            let view = UILabel(frame: CGRect.zero);
+            let view = UILabel(frame: CGRect.zero)
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.textAlignment = .left;
-            view.numberOfLines = 0;
-            view.lineBreakMode = .byCharWrapping;
-            view.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0);
+            view.textAlignment = .left
+            view.numberOfLines = 0
+            view.lineBreakMode = .byCharWrapping
+            view.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0)
             
-            objc_setAssociatedObject(self, &AssociateKeys.labelLeftSub, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelLeftSub, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.labelLeftSub, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelLeftSub, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -154,17 +154,17 @@ import UIKit
                 return obj
             }
 
-            let view = UILabel(frame: CGRect.zero);
+            let view = UILabel(frame: CGRect.zero)
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.textAlignment = .left;
-            view.numberOfLines = 0;
-            view.lineBreakMode = .byCharWrapping;
+            view.textAlignment = .left
+            view.numberOfLines = 0
+            view.lineBreakMode = .byCharWrapping
             
-            objc_setAssociatedObject(self, &AssociateKeys.labelRight, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelRight, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.labelRight, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelRight, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -174,43 +174,43 @@ import UIKit
                 return obj
             }
 
-            let view = UILabel(frame: CGRect.zero);
+            let view = UILabel(frame: CGRect.zero)
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.font = UIFont.systemFont(ofSize: 15);
-            view.textAlignment = .right;
-            view.numberOfLines = 0;
-            view.lineBreakMode = .byCharWrapping;
-            view.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0);
-            view.isUserInteractionEnabled = true;
+            view.font = UIFont.systemFont(ofSize: 15)
+            view.textAlignment = .right
+            view.numberOfLines = 0
+            view.lineBreakMode = .byCharWrapping
+            view.font = UIFont.systemFont(ofSize: UIFont.labelFontSize - 2.0)
+            view.isUserInteractionEnabled = true
             
             
-            objc_setAssociatedObject(self, &AssociateKeys.labelRightSub, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelRightSub, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.labelRightSub, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.labelRightSub, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
     var btn: UIButton {
         get {
             if let obj = objc_getAssociatedObject(self, &AssociateKeys.btn) as? UIButton {
-                return obj;
+                return obj
             }
             
-            let view = UIButton(type: .custom);
+            let view = UIButton(type: .custom)
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.titleLabel?.adjustsFontSizeToFitWidth = true;
-            view.titleLabel?.minimumScaleFactor = 1.0;
-            view.isExclusiveTouch = true;
-            view.adjustsImageWhenHighlighted = false;
+            view.titleLabel?.adjustsFontSizeToFitWidth = true
+            view.titleLabel?.minimumScaleFactor = 1.0
+            view.isExclusiveTouch = true
+            view.adjustsImageWhenHighlighted = false
             view.setTitleColor(.black, for: .normal)
             
-            objc_setAssociatedObject(self, &AssociateKeys.btn, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.btn, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.btn, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.btn, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -220,20 +220,20 @@ import UIKit
                  return obj
              }
     
-             let view = UITextField(frame: .zero);
+             let view = UITextField(frame: .zero)
              view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-             view.textAlignment = .left;
-             view.contentVerticalAlignment = .center;
-             view.autocapitalizationType = .none;
-             view.autocorrectionType = .no;
-             view.clearButtonMode = .whileEditing;
-             view.backgroundColor = .white;
+             view.textAlignment = .left
+             view.contentVerticalAlignment = .center
+             view.autocapitalizationType = .none
+             view.autocorrectionType = .no
+             view.clearButtonMode = .whileEditing
+             view.backgroundColor = .white
              
-             objc_setAssociatedObject(self, &AssociateKeys.textfield, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+             objc_setAssociatedObject(self, &AssociateKeys.textfield, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
              return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.textfield, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.textfield, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -243,22 +243,22 @@ import UIKit
                 return obj
             }
             
-            let view = UITextView(frame: .zero);
+            let view = UITextView(frame: .zero)
             view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            view.font = UIFont.systemFont(ofSize: 15);
-            view.textAlignment = .left;
-            view.autocapitalizationType = .none;
-            view.autocorrectionType = .no;
-            view.backgroundColor = .white;
+            view.font = UIFont.systemFont(ofSize: 15)
+            view.textAlignment = .left
+            view.autocapitalizationType = .none
+            view.autocorrectionType = .no
+            view.backgroundColor = .white
             
             view.layer.borderColor = UIColor.lightGray.cgColor
             view.layer.borderWidth = 0.5
             
-            objc_setAssociatedObject(self, &AssociateKeys.textView, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.textView, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return view
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.textView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.textView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

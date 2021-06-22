@@ -20,22 +20,13 @@ import UIKit
         self.register(UITableViewCell.self, forCellReuseIdentifier: String(describing: self))
         self.keyboardDismissMode = .onDrag
         self.backgroundColor = .groupTableViewBackground
-//        self.tableHeaderView = UIView();
+//        self.tableHeaderView = UIView()
 //        self.tableFooterView = UIView()
 
-        self.estimatedRowHeight = 0;
-        self.estimatedSectionHeaderHeight = 0;
-        self.estimatedSectionFooterHeight = 0;
+        self.estimatedRowHeight = 0
+        self.estimatedSectionHeaderHeight = 0
+        self.estimatedSectionFooterHeight = 0
     }
-    
-//    func adJustedContentIOS11() {
-//        if #available(iOS 11.0, *) {
-//            contentInsetAdjustmentBehavior = .never
-//            estimatedRowHeight = 0;
-//            estimatedSectionHeaderHeight = 0;
-//            estimatedSectionFooterHeight = 0;
-//        }
-//    }
     
     /// 刷新行数组
     func reloadRowList(_ rowList: NSArray, section: Int = 0, rowAnimation: UITableView.RowAnimation = .automatic) {
@@ -103,12 +94,12 @@ import UIKit
         let view = UILabel(frame: CGRect(x: labelInset.left,
                                          y: labelInset.top,
                                          width: bounds.width - labelInset.left - labelInset.right,
-                                         height: height - labelInset.top - labelInset.bottom));
-        view.isUserInteractionEnabled = true;
-        view.adjustsFontSizeToFitWidth = true;
-        view.lineBreakMode = .byTruncatingTail;
+                                         height: height - labelInset.top - labelInset.bottom))
+        view.isUserInteractionEnabled = true
+        view.adjustsFontSizeToFitWidth = true
+        view.lineBreakMode = .byTruncatingTail
 
-        view.textColor = .gray;
+        view.textColor = .gray
         view.textAlignment = .left
         view.font = UIFont.systemFont(ofSize: 15)
         sectionView.addSubview(view)
@@ -116,7 +107,7 @@ import UIKit
     }
     ///section cell添加圆角
     func addSectionRoundCorner(_ radius: CGFloat = 10, padding: CGFloat = 10, cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.selectionStyle = .none;
+        cell.selectionStyle = .none
         cell.separatorInset = UIEdgeInsets(top: 0, left: padding*2, bottom: 0, right: padding*2)
         // 设置cell 背景色为透明
         cell.backgroundColor = UIColor.clear
@@ -200,11 +191,11 @@ public extension UITableView{
     /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UITableViewCell>(for cellType: T.Type, identifier: String = String(describing: T.self), style: UITableViewCell.CellStyle = .default) -> T{
 //        let identifier = String(describing: T.self)
-        if let cell = self.dequeueReusableCell(withIdentifier: T.reuseIdentifier) as? T {
+        if let cell = self.dequeueReusableCell(withIdentifier: identifier) as? T {
             return cell
         }
         
-        let cell = T.init(style: style, reuseIdentifier: T.reuseIdentifier)
+        let cell = T.init(style: style, reuseIdentifier: identifier)
         cell.selectionStyle = .none
         cell.separatorInset = .zero
         cell.layoutMargins = .zero
@@ -218,7 +209,7 @@ public extension UITableView{
             return cell
         }
         let cell = T.init(reuseIdentifier: identifier)
-        cell.layoutMargins = .zero;
+        cell.layoutMargins = .zero
 //        cell.backgroundColor = .white
         return cell
     }
@@ -228,9 +219,9 @@ public extension UITableView{
     static func sectionByDatetime<T: NSObject>(_ timeKey: String, length: Int = 9, mdic: inout [String: [T]], list: [T])  -> [String: [T]] {
         for e in list.enumerated() {
             if let time = e.element.value(forKey: timeKey) as? String {
-                let key = time.count >= length ? (time as NSString).substring(to: length) : time;
+                let key = time.count >= length ? (time as NSString).substring(to: length) : time
                 if mdic[key] == nil {
-                    mdic[key] = [];
+                    mdic[key] = []
                 }
                 mdic[key]?.append(e.element as T)
             }
@@ -242,19 +233,19 @@ public extension UITableView{
     static func sectionModelList<T: NSObject>(_ section: Int, mdic: inout [String: [T]]) -> [T]? {
         let keys = mdic.keys.sorted(by: > )
         if keys.count <= 0 {
-            return nil;
+            return nil
         }
         let key = keys[section]
         let modelList = mdic[key]
-        return modelList;
+        return modelList
     }
     /// 获取cellList
     static func sectionCellList(_ titles: [[String]], indexPath: IndexPath) -> [String] {
-        let sectionList = titles[indexPath.section];
+        let sectionList = titles[indexPath.section]
         let obj = sectionList.count > indexPath.row ? sectionList[indexPath.row] : sectionList.last!
         let cellList: [String] = obj.components(separatedBy: ",")
-//        DDLog(cellList);
-        return cellList;
+//        DDLog(cellList)
+        return cellList
     }
 }
 

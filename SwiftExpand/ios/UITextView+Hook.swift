@@ -13,17 +13,17 @@ import UIKit
     }
     
 //    override public class func initializeMethod() {
-//        super.initializeMethod();
+//        super.initializeMethod()
 //
 //        if self != UITextView.self {
 //            return
 //        }
 //
-//        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))";
+//        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
 //        DispatchQueue.once(token: onceToken) {
 //            let oriSel = NSSelectorFromString("deinit")
 //            let repSel = #selector(self.hook_deinit)
-//            hookInstanceMethod(of: oriSel, with: repSel);
+//            hookInstanceMethod(of: oriSel, with: repSel)
 //        }
 //    }
 //
@@ -60,11 +60,11 @@ import UIKit
             NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidChange(_:)), name: UITextView.textDidChangeNotification, object: nil)
 
-            objc_setAssociatedObject(self, &AssociateKeys.placeHolderLabel, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.placeHolderLabel, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return obj
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.placeHolderLabel, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.placeHolderLabel, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     

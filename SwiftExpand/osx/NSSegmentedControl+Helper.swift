@@ -22,21 +22,21 @@
             return [String]()
         }
         set {
-            objc_setAssociatedObject(self, &AssociateKeys.items, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &AssociateKeys.items, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             updateItems(newValue)
         }
     }
         
     func addActionHandler(_ handler: @escaping ((NSSegmentedControl) -> Void), trackingMode: NSSegmentedControl.SwitchTracking) {
-        target = self;
-        action = #selector(p_invokeSegmentedCtl(_:));
-        self.trackingMode = trackingMode;
-        objc_setAssociatedObject(self, &AssociateKeys.closure, handler, .OBJC_ASSOCIATION_COPY_NONATOMIC);
+        target = self
+        action = #selector(p_invokeSegmentedCtl(_:))
+        self.trackingMode = trackingMode
+        objc_setAssociatedObject(self, &AssociateKeys.closure, handler, .OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
     
     private func p_invokeSegmentedCtl(_ sender: NSSegmentedControl) {
         if let handler = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((NSSegmentedControl) -> Void) {
-            handler(sender);
+            handler(sender)
         }
     }
         
@@ -45,8 +45,8 @@
         if items.count == 0 {
             return
         }
-        segmentCount = items.count;
-        selectedSegment = 0;
+        segmentCount = items.count
+        selectedSegment = 0
         for e in items.enumerated() {
             self.setLabel(e.element, forSegment: e.offset)
         }
@@ -68,7 +68,7 @@
             }
             control.setWidth(width, forSegment: e.offset)
         }
-        return control;
+        return control
     }
     
 }

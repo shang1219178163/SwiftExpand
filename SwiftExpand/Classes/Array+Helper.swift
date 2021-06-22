@@ -13,21 +13,17 @@ public extension Array{
     
     /// ->Data
     var jsonData: Data? {
-        return (self as NSArray).jsonData;
+        return (self as NSArray).jsonData
     }
     
     /// ->String
     var jsonString: String {
-        return (self as NSArray).jsonString;
+        return (self as NSArray).jsonString
     }
     
     /// 快速生成一个数组(step代表步长)
-    init(count: Int, generator: @escaping ((Int)->Element)) {
-        var list: [Element] = [];
-        for i in 0..<count {
-            list.append(generator(i))
-        }
-        self = list
+    init(count: Int, generator: @escaping ((Int) ->Element)) {
+        self = (0..<count).map(generator)
     }
     
     ///同 subarrayWithRange:
@@ -38,17 +34,17 @@ public extension Array{
     ///同 subarrayWithRange:
     func subarray(with range: NSRange) -> Array {
         assert((range.location + range.length) <= self.count);
-        return Array(self[range.location...(range.location + range.length - 1)]);
+        return Array(self[range.location...(range.location + range.length - 1)])
     }
     
     /// <= index
     func subarray(to index: Int) -> Array {
-        return Array(self[0...index]);
+        return Array(self[0...index])
     }
     
     /// >= index
     func subarray(from index: Int) -> Array {
-        return Array(self[index...(self.count - 1)]);
+        return Array(self[index...(self.count - 1)])
     }
 }
 
@@ -59,7 +55,7 @@ public extension Array where Element == CGFloat{
     
     ///获取数组期望值
     var expectationValue: CGFloat {
-        var dic = [CGFloat : Int]()
+        var dic = [CGFloat: Int]()
         let set = Set(self)
         
         for value in set {
@@ -108,7 +104,7 @@ public extension Array where Element : NSObject {
             list.append(model)
             recursionModel(model, list: &list)
         }
-        return list;
+        return list
     }
 }
 
@@ -163,8 +159,8 @@ public extension Array where Element : View{
             default:
                 break
             }
-            let sender = e.element;
-            sender.frame = itemRect;
+            let sender = e.element
+            sender.frame = itemRect
         }
     }
 }
@@ -176,7 +172,7 @@ public extension Array where Element : View{
     var jsonData: Data? {
         var data: Data?
         do {
-            data = try JSONSerialization.data(withJSONObject: self, options: []);
+            data = try JSONSerialization.data(withJSONObject: self, options: [])
         } catch {
             print(error)
         }

@@ -20,10 +20,10 @@
 
     static func create(fileTypes: [String]?, allowsMultipleSelection: Bool = false) -> Self {
         let panel = self.init()
-        panel.canChooseFiles = true;
-        panel.canChooseDirectories = true;
-        panel.allowsMultipleSelection = allowsMultipleSelection;
-        panel.allowedFileTypes = fileTypes;
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = true
+        panel.allowsMultipleSelection = allowsMultipleSelection
+        panel.allowedFileTypes = fileTypes
         let path = "/Users/\(ProcessInfo.processInfo.userName)/Downloads"
         panel.directoryURL = URL(fileURLWithPath: path)
 //        panel.runModal()

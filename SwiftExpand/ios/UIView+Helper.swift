@@ -16,9 +16,9 @@ import UIKit
         }
         set {
 //            frame.size.width = newValue
-            var rectTmp = frame;
-            rectTmp.size.width = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.size.width = newValue
+            frame = rectTmp
         }
     }
     
@@ -28,9 +28,9 @@ import UIKit
         }
         set {
 //            frame.size.height = newValue
-            var rectTmp = frame;
-            rectTmp.size.height = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.size.height = newValue
+            frame = rectTmp
         }
     }
         
@@ -40,9 +40,9 @@ import UIKit
         }
         set {
 //            frame.origin.x = newValue
-            var rectTmp = frame;
-            rectTmp.origin.x = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.origin.x = newValue
+            frame = rectTmp
         }
     }
     
@@ -52,9 +52,9 @@ import UIKit
         }
         set {
 //            frame.origin.y = newValue
-            var rectTmp = frame;
-            rectTmp.origin.y = newValue;
-            frame = rectTmp;
+            var rectTmp = frame
+            rectTmp.origin.y = newValue
+            frame = rectTmp
         }
     }
     
@@ -88,8 +88,8 @@ import UIKit
     func getViewLayer(lineColor: UIColor = .blue) {
         #if DEBUG
             for subview in subviews {
-                subview.layer.borderWidth = kW_LayerBorder;
-                subview.layer.borderColor = lineColor.cgColor;
+                subview.layer.borderWidth = kW_LayerBorder
+                subview.layer.borderColor = lineColor.cgColor
                 subview.getViewLayer(lineColor: lineColor)
             }
         #endif
@@ -99,9 +99,9 @@ import UIKit
     func getViewLayer() {
         #if DEBUG
         for subview in subviews {
-            subview.layer.borderWidth = kW_LayerBorder;
-            subview.layer.borderColor = UIColor.blue.cgColor;
-            subview.getViewLayer();
+            subview.layer.borderWidth = kW_LayerBorder
+            subview.layer.borderColor = UIColor.blue.cgColor
+            subview.getViewLayer()
         }
         #endif
     }
@@ -110,7 +110,7 @@ import UIKit
     func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
         for e in self.subviews.enumerated() {
             if e.element.isKind(of: type) {
-                return e.element;
+                return e.element
             }
         }
         
@@ -118,11 +118,11 @@ import UIKit
             for e in self.subviews.enumerated() {
                 let tmpView = e.element.findSubview(type: type, resursion: resursion)
                 if tmpView != nil {
-                    return tmpView;
+                    return tmpView
                 }
             }
         }
-        return nil;
+        return nil
     }
     
     /// 移除所有子视图
@@ -142,7 +142,7 @@ import UIKit
 //        maskLayer.path = path.cgPath
 //        maskLayer.borderWidth = width
 //        maskLayer.borderColor = color.cgColor
-//        layer.mask = maskLayer;
+//        layer.mask = maskLayer
 //        return maskLayer
 //    }
     
@@ -218,7 +218,7 @@ import UIKit
     @discardableResult
     func addGestureLongPress(_ target: Any?, action: Selector?, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: target, action: action)
-        obj.minimumPressDuration = minimumPressDuration;
+        obj.minimumPressDuration = minimumPressDuration
       
         isUserInteractionEnabled = true
         isMultipleTouchEnabled = true
@@ -230,7 +230,7 @@ import UIKit
     @discardableResult
     func addGestureLongPress(_ action: @escaping ((UILongPressGestureRecognizer) ->Void), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: nil, action: nil)
-        obj.minimumPressDuration = minimumPressDuration;
+        obj.minimumPressDuration = minimumPressDuration
       
         isUserInteractionEnabled = true
         isMultipleTouchEnabled = true
@@ -331,7 +331,7 @@ import UIKit
         obj.addAction { (recognizer) in
             if let gesture = recognizer as? UIPinchGestureRecognizer {
                 let location = recognizer.location(in: gesture.view!.superview)
-                gesture.view!.center = location;
+                gesture.view!.center = location
                 gesture.view!.transform = gesture.view!.transform.scaledBy(x: gesture.scale, y: gesture.scale)
                 gesture.scale = 1.0
                 action(gesture)
@@ -351,7 +351,7 @@ import UIKit
         obj.addAction { (recognizer) in
             if let gesture = recognizer as? UIRotationGestureRecognizer {
                 gesture.view!.transform = gesture.view!.transform.rotated(by: gesture.rotation)
-                gesture.rotation = 0.0;
+                gesture.rotation = 0.0
                           
                 action(gesture)
             }
@@ -371,26 +371,26 @@ import UIKit
         }
         
         keyWindow.endEditing(true)
-        keyWindow.addSubview(self);
+        keyWindow.addSubview(self)
 
 //        self.transform = self.transform.scaledBy(x: 1.5, y: 1.5)
         let duration = animated ? 0.15 : 0
         UIView.animate(withDuration: duration, animations: {
-            self.backgroundColor = UIColor.black.withAlphaComponent(0.3);
+            self.backgroundColor = UIColor.black.withAlphaComponent(0.3)
 //            self.transform = CGAffineTransform.identity
             
-        }, completion: completion);
+        }, completion: completion)
     }
     ///从 UIApplication.shared.keyWindow 上移除
     func dismiss(_ animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
         let duration = animated ? 0.15 : 0
         UIView.animate(withDuration: duration, animations: {
-            self.backgroundColor = UIColor.black.withAlphaComponent(0);
+            self.backgroundColor = UIColor.black.withAlphaComponent(0)
 //            self.transform = self.transform.scaledBy(x: 0.5, y: 0.5)
 
         }) { (isFinished) in
             completion?(isFinished)
-            self.removeFromSuperview();
+            self.removeFromSuperview()
         }
     }
     
@@ -472,7 +472,7 @@ import UIKit
         let ctx = UIGraphicsGetCurrentContext()
         self.layer.render(in: ctx!)
         let image = UIGraphicsGetImageFromCurrentImageContext()
-        return image!;
+        return image!
     }
     
     func snapshotImage() -> UIImage?{
@@ -498,7 +498,7 @@ import UIKit
         
     /// 保存图像到相册
     func imageToSavedPhotosAlbum(_ action: @escaping((NSError?) -> Void)) {
-        var image: UIImage = self.convertToImage();
+        var image: UIImage = self.convertToImage()
         if let imgView = self as? UIImageView {
             if imgView.image != nil {
                 image = imgView.image!
