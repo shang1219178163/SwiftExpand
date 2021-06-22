@@ -16,7 +16,7 @@
     static let kPingFangRegular    = "PingFangSC-Regular";
     static let kPingFangThin       = "PingFangSC-Thin";
 
-    func withWeight(_ fontWeight: Font.Weight) -> UIFont{
+    func withWeight(_ fontWeight: Font.Weight) -> Font{
         guard fontName.contains("-") == false,
               let name = fontName.components(separatedBy: "-").first else {
             return self }
@@ -51,7 +51,7 @@
         default:
             break
         }
-        guard let font = UIFont(name: name + "-\(weight.uppercased())", size: pointSize) else { return self}
+        guard let font = Font(name: name + "-\(weight.uppercased())", size: pointSize) else { return self}
         return font
     }
 
