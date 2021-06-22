@@ -7,8 +7,6 @@
 //
 
 
-import Then
-
 @objc public extension NSAlert {
     @discardableResult
     func addButtonsChain(_ titles: [String]?) -> Self {
