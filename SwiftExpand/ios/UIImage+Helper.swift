@@ -20,6 +20,11 @@ import UIKit
         return data
     }
     
+    var assetName: String? {
+        guard let imageAsset = imageAsset else { return nil }
+        return imageAsset.value(forKey:"assetName") as? String
+    }
+    
     ///颜色->图像
     convenience init(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
         let image = UIImage.color(color, size: size)
@@ -471,4 +476,105 @@ import UIKit
         }
         return type
     }
+}
+
+
+
+@objc public extension UIImage {
+    
+    var btn_add: UIImage { return UIImage(named: "btn_add")! }
+    
+    var icon_arowDown_gray: UIImage { return UIImage(named: "icon_arowDown_gray")! }
+
+    var icon_arowLeft_black: UIImage { return UIImage(named: "icon_arowLeft_black")! }
+
+    var icon_arowRight_gray: UIImage { return UIImage(named: "icon_arowRight_gray")! }
+
+    var icon_close: UIImage { return UIImage(named: "icon_close")! }
+
+    var icon_delete: UIImage { return UIImage(named: "icon_delete")! }
+
+    var icon_eye_close: UIImage { return UIImage(named: "icon_eye_close")! }
+
+    var icon_eye_open: UIImage { return UIImage(named: "icon_eye_open")! }
+
+    var icon_finish: UIImage { return UIImage(named: "icon_finish")! }
+
+    var icon_location: UIImage { return UIImage(named: "icon_location")! }
+
+    var icon_selected_no_blue: UIImage { return UIImage(named: "icon_selected_no_blue")! }
+
+    var icon_selected_no_default: UIImage { return UIImage(named: "icon_selected_no_default")! }
+
+    var icon_selected_no_gray: UIImage { return UIImage(named: "icon_selected_no_gray")! }
+
+    var icon_selected_yes_blue: UIImage { return UIImage(named: "icon_selected_yes_blue")! }
+
+    var icon_selected_yes_green: UIImage { return UIImage(named: "icon_selected_yes_green")! }
+
+    var img_NFC: UIImage { return UIImage(named: "img_NFC")! }
+
+    var img_arrowDown_black: UIImage { return UIImage(named: "img_arrowDown_black")! }
+
+    var img_arrowDown_gray: UIImage { return UIImage(named: "img_arrowDown_gray")! }
+
+    var img_arrowDown_orange: UIImage { return UIImage(named: "img_arrowDown_orange")! }
+
+    var img_arrowDown_white: UIImage { return UIImage(named: "img_arrowDown_white")! }
+
+    var img_arrowLeft_white: UIImage { return UIImage(named: "img_arrowLeft_white")! }
+
+    var img_arrowRight_gray: UIImage { return UIImage(named: "img_arrowRight_gray")! }
+
+    var img_arrowUp_blue: UIImage { return UIImage(named: "img_arrowUp_blue")! }
+
+    var img_dialog_inquiry: UIImage { return UIImage(named: "img_dialog_inquiry")! }
+    
+    var img_dialog_update: UIImage { return UIImage(named: "img_dialog_update")! }
+
+    var img_dialog_warning: UIImage { return UIImage(named: "img_dialog_warning")! }
+
+    var img_elemet_decrease: UIImage { return UIImage(named: "img_elemet_decrease")! }
+
+    var img_elemet_increase: UIImage { return UIImage(named: "img_elemet_increase")! }
+
+    var img_failedDefault: UIImage { return UIImage(named: "img_failedDefault")! }
+
+    var img_failedDefault_S: UIImage { return UIImage(named: "img_failedDefault_S")! }
+
+    var img_like_H: UIImage { return UIImage(named: "img_like_H")! }
+
+    var img_like_W: UIImage { return UIImage(named: "img_like_W")! }
+
+    var img_location_H: UIImage { return UIImage(named: "img_location_H")! }
+
+    var img_more: UIImage { return UIImage(named: "img_more")! }
+
+    var img_network_loading_orang: UIImage { return UIImage(named: "img_network_loading_orang")! }
+
+    var img_notice: UIImage { return UIImage(named: "img_notice")! }
+
+    var img_pictureAdd: UIImage { return UIImage(named: "img_pictureAdd")! }
+
+    var img_pictureDelete: UIImage { return UIImage(named: "img_pictureDelete")! }
+
+    var img_portrait_H: UIImage { return UIImage(named: "img_portrait_H")! }
+
+    var img_portrait_N: UIImage { return UIImage(named: "img_portrait_N")! }
+
+    var img_scan: UIImage { return UIImage(named: "img_scan")! }
+
+    var img_sex_boy: UIImage { return UIImage(named: "img_sex_boy")! }
+
+    var img_sex_gril: UIImage { return UIImage(named: "img_sex_gril")! }
+
+    var photo_number: UIImage { return UIImage(named: "photo_number")! }
+
+    var search_bar: UIImage { return UIImage(named: "search_bar")! }
+
+    var toast_error: UIImage { return UIImage(named: "toast_error")! }
+
+    var toast_loading: UIImage { return UIImage(named: "toast_loading")! }
+
+    var toast_success: UIImage { return UIImage(named: "toast_success")! }
 }

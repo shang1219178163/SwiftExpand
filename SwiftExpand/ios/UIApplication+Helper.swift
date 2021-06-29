@@ -242,6 +242,11 @@ import UIKit
           }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIImagePickerController.self]))
         
         
+        _ = {
+            $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: tintColor], for: .normal)
+          }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]))
+        
+        
 //        _ = {
 //            $0.barTintColor = barTintColor
 //            $0.tintColor = tintColor

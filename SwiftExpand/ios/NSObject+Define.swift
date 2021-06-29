@@ -62,6 +62,14 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
     return controller
 }
 
+///获取 ItemSize
+public func calculateItemSize(_ numOfRow: Int = 4, width: CGFloat = UIScreen.main.bounds.width, minimumInteritemSpacing: CGFloat = 10, heightScale: CGFloat = 1) -> CGSize {
+
+    let itemWidth = (width - (CGFloat(numOfRow) - 1) * minimumInteritemSpacing)/CGFloat(numOfRow)
+    let itemSize = CGSize(width: round(itemWidth) - 2, height: itemWidth * heightScale)
+    return itemSize
+}
+
 
 public extension Optional where Wrapped == String {
     var orEmpty: String {
