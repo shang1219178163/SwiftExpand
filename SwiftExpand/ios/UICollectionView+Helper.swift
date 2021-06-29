@@ -12,8 +12,9 @@ import UIKit
     private struct AssociateKeys {
         static var dictClass   = "UICollectionView" + "dictClass"
     }
-    
+    /// UICollectionView.elementKindSectionItem
     static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem"
+    /// UICollectionView.sectiinKindBackgroud
     static let sectionKindBackgroud: String = "UICollectionView.sectiinKindBackgroud"
 
     /// 默认流水布局
@@ -71,14 +72,47 @@ import UIKit
     ///   - list: ["UICollectionViewCell", ]
     func registerReuseIdentifier(_ kind: String = UICollectionView.elementKindSectionHeader, list: [String]) {
         list.forEach { className in
-            if kind == UICollectionView.elementKindSectionItem {
-                register(NNClassFromString(className).self, forCellWithReuseIdentifier: className)
-            } else {
+            switch kind {
+            case UICollectionView.elementKindSectionHeader, UICollectionView.elementKindSectionFooter:
                 let identifier = className + (kind == UICollectionView.elementKindSectionHeader ? "Header" : "Footer")
                 register(NNClassFromString(className).self, forSupplementaryViewOfKind: kind, withReuseIdentifier: identifier)
+
+            default:
+                register(NNClassFromString(className).self, forCellWithReuseIdentifier: className)
             }
         }
     }
+    
+    ///添加长按单元拖拽
+    @objc func addLongPressDragItem(){
+
+        func longPressAction(_ gesture: UILongPressGestureRecognizer){
+            guard let collectionView = gesture.view as? UICollectionView else { return }
+            let point = gesture.location(in: collectionView)
+            guard let indexP = collectionView.indexPathForItem(at: point) else { return }
+
+            switch gesture.state {
+            case .began:
+                if collectionView.beginInteractiveMovementForItem(at: indexP) == false {
+                    break
+                }
+                break
+            case .changed:
+                collectionView.updateInteractiveMovementTargetPosition(point)
+
+            case .ended:
+                collectionView.endInteractiveMovement()
+
+            default:
+                collectionView.cancelInteractiveMovement()
+            }
+        }
+
+        addGestureLongPress({ gesture in
+            longPressAction(gesture)
+        }, for: 0.5)
+    }
+
 }
 
 

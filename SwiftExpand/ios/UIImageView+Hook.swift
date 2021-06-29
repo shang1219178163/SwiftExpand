@@ -26,7 +26,7 @@ import UIKit
     
     private func hook_tintColor(_ color: UIColor!) {
         //需要注入的代码写在此处
-        self.hook_tintColor(color)
+        hook_tintColor(color)
         
 //        let obj1:AnyClass = NSClassFromString(kUITabBarButton)!
 //        if self.superview?.isKind(of: obj1) == true {

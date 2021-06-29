@@ -39,16 +39,22 @@ import UIKit
         }
     }
     
-    convenience init(_ obj: String, style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) {
+    convenience init(obj: String, style: UIBarButtonItem.Style = .plain, target: Any? = nil, action: Selector? = nil) {
         if let image = UIImage(named: obj) {
             self.init(image: image, style: style, target: target, action: action)
-            return
+        } else {
+            self.init(title: obj, style: style, target: target, action: action)
         }
-        self.init(title: obj, style: style, target: target, action: action)
     }
     
-    convenience init(_ obj: String, style: UIBarButtonItem.Style = .plain, action: @escaping ((UIBarButtonItem) -> Void)) {
-        self.init(obj, style: style, target: nil, action: nil)
+    convenience init(obj: String, style: UIBarButtonItem.Style = .plain, action: @escaping ((UIBarButtonItem) -> Void)) {
+        self.init(obj: obj, style: style, target: nil, action: nil)
+        self.addAction(action)
+    }
+    
+    convenience init(systemItem: UIBarButtonItem.SystemItem, action: @escaping ((UIBarButtonItem) -> Void)) {
+        self.init(barButtonSystemItem: systemItem, target: nil, action: nil)
+        self.systemType = systemItem
         self.addAction(action)
     }
     

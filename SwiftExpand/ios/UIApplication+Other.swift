@@ -148,7 +148,7 @@ import Photos
 @available(iOS 10.0, *)
 @objc public extension UNMutableNotificationContent{
     ///创建本地通知
-    convenience init(_ title: String, body: String, userInfo: [AnyHashable : Any], sound: UNNotificationSound = .default) {
+    convenience init(_ title: String, body: String, userInfo: [AnyHashable: Any], sound: UNNotificationSound = .default) {
         self.init()
         self.title = title
         self.body = body

@@ -118,12 +118,7 @@ public extension Array where Element : View{
     }
     
     ///更新 NSButton 集合视图
-    func updateItemsConstraint(_ rect: CGRect,
-                               numberOfRow: Int = 4,
-                               minimumInteritemSpacing: CGFloat = kPadding,
-                               minimumLineSpacing: CGFloat = kPadding,
-                               sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0),
-                               showStyle: DirectionShowStyle = .topLeftToRight) {
+    func updateItemsConstraint(_ rect: CGRect, numberOfRow: Int = 4, minimumInteritemSpacing: CGFloat = kPadding, minimumLineSpacing: CGFloat = kPadding, sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0), showStyle: DirectionShowStyle = .topLeftToRight) {
         if self.count == 0 || Swift.min(rect.width, rect.height) <= 10 {
             return;
         }

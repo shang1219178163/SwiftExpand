@@ -216,7 +216,7 @@ import UIKit
     
     ///手势 - 长按 UILongPressGestureRecognizer
     @discardableResult
-    func addGestureLongPress(_ target: Any?, action: Selector?, for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
+    func addGestureLongPress(_ target: Any?, action: Selector?, for minimumPressDuration: TimeInterval = 0.5) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: target, action: action)
         obj.minimumPressDuration = minimumPressDuration
       
@@ -228,7 +228,7 @@ import UIKit
     
     ///手势 - 长按 UILongPressGestureRecognizer
     @discardableResult
-    func addGestureLongPress(_ action: @escaping ((UILongPressGestureRecognizer) ->Void), for minimumPressDuration: TimeInterval) -> UILongPressGestureRecognizer {
+    func addGestureLongPress(_ action: @escaping ((UILongPressGestureRecognizer) ->Void), for minimumPressDuration: TimeInterval = 0.5) -> UILongPressGestureRecognizer {
         let obj = UILongPressGestureRecognizer(target: nil, action: nil)
         obj.minimumPressDuration = minimumPressDuration
       
@@ -476,13 +476,19 @@ import UIKit
     }
     
     func snapshotImage() -> UIImage?{
-        guard let context = UIGraphicsGetCurrentContext() else { return nil}
-        
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
-        self.layer.render(in: context)
-        let snap: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return snap ?? nil
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
+        guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
+        // 截图:实际是把layer上面的东西绘制到上下文中
+        layer.render(in: ctx)
+//        self.drawHierarchy(in: self.frame, afterScreenUpdates: true)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        // 保存相册
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        return image
     }
     
     func snapshotImageAfterScreenUpdates(_ afterUpdates: Bool) -> UIImage?{
@@ -491,9 +497,9 @@ import UIKit
         }
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
         self.drawHierarchy(in: self.bounds, afterScreenUpdates: afterUpdates)
-        let snap: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+        let snap = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return snap ?? nil
+        return snap
     }
         
     /// 保存图像到相册
@@ -518,7 +524,6 @@ import UIKit
         insertSubview(blurView, at: 0)
         return blurView
     }
-    
 }
 
 

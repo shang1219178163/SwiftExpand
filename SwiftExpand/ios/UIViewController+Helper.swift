@@ -37,7 +37,8 @@ import UIKit
             presentedViewController.dismiss(animated: false, completion: nil)
         }
         
-        self.modalPresentationStyle = .fullScreen
+//        modalPresentationStyle = .fullScreen
+        modalPresentationStyle = .overFullScreen
         DispatchQueue.main.async {
             switch self {
             case let alertVC as UIAlertController:
@@ -148,33 +149,6 @@ import UIKit
         navigationItem.leftBarButtonItem?.addAction({ (item) in
             self.navigationController?.popViewController(animated: true)
         })
-    }
-    ///系统样式
-    func createBarItem(_ systemItem: UIBarButtonItem.SystemItem, isLeft: Bool = false, closure: @escaping ((UIBarButtonItem) -> Void)) {
-        let item = UIBarButtonItem(barButtonSystemItem: systemItem, target: nil, action: nil)
-        item.systemType = systemItem
-        item.addAction(closure)
-        if isLeft == true {
-            navigationItem.leftBarButtonItem = item
-        } else {
-            navigationItem.rightBarButtonItem = item
-        }
-    }
-    
-    /// 创建 UIBarButtonItem
-    func createBarItem(_ obj: String, style: UIBarButtonItem.Style = .plain, isLeft: Bool = false, action: @escaping ((UIBarButtonItem) -> Void)){
-        var barItem: UIBarButtonItem?
-        if let image = UIImage(named: obj) {
-            barItem = UIBarButtonItem(image: image, style: style, target: nil, action: nil)
-        } else {
-            barItem = UIBarButtonItem(title: obj, style: style, target: nil, action: nil)
-        }
-        barItem?.addAction(action)        
-        if isLeft == true {
-            navigationItem.leftBarButtonItem = barItem
-        } else {
-            navigationItem.rightBarButtonItem = barItem
-        }
     }
         
     func addControllerName(_ vcName: String) {

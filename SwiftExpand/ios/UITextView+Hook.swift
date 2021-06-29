@@ -39,7 +39,7 @@ import UIKit
                 return obj
             }
             let obj = UILabel()
-            obj.frame = bounds.inset(by: UIEdgeInsets(top: 8, left: 6, bottom: 8, right: 6))
+            obj.frame = bounds.inset(by: UIEdgeInsets(top: 18, left: 6, bottom: 8, right: 6))
             obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             obj.font = font
             obj.textColor = .gray

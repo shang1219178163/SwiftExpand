@@ -46,9 +46,9 @@ import UIKit
     }
     
     private func hook_layoutSubviews() {
-        hook_layoutSubviews()
-        
         positionAccessoryView(assoryOffSet.horizontal, dy: assoryOffSet.vertical)
+
+        hook_layoutSubviews()
     }
     
 }
