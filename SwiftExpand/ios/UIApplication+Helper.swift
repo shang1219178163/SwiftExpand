@@ -230,13 +230,13 @@ import UIKit
     
     /// 配置 app 外观主题色
     static func setupAppearance(_ tintColor: UIColor, barTintColor: UIColor) {
+        
         _ = {
             $0.barTintColor = barTintColor
             $0.tintColor = tintColor
             $0.titleTextAttributes = [NSAttributedString.Key.foregroundColor: tintColor,]
           }(UINavigationBar.appearance())
-        
-        
+                
         _ = {
             $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
           }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIImagePickerController.self]))

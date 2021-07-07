@@ -28,9 +28,9 @@ import UIKit
                 let repSel2 = #selector(hook_viewWillDisappear(animated:))
                 hookInstanceMethod(of: oriSel2, with: repSel2)
                 
-                let oriSelPresent = #selector(present(_:animated:completion:))
-                let repSelPresent = #selector(hook_present(_:animated:completion:))
-                hookInstanceMethod(of: oriSelPresent, with: repSelPresent)
+//                let oriSelPresent = #selector(present(_:animated:completion:))
+//                let repSelPresent = #selector(hook_present(_:animated:completion:))
+//                hookInstanceMethod(of: oriSelPresent, with: repSelPresent)
             }
         } else if self == UINavigationController.self {
             let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"

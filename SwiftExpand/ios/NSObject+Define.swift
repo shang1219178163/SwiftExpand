@@ -71,18 +71,6 @@ public func calculateItemSize(_ numOfRow: Int = 4, width: CGFloat = UIScreen.mai
 }
 
 
-public extension Optional where Wrapped == String {
-    var orEmpty: String {
-        switch self {
-        case .some(let value):
-            return value
-        case .none:
-            return ""
-        }
-    }
-}
-
-
 @objc public extension NSObject{
 
     ///遍历成员变量列表

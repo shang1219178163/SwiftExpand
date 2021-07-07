@@ -101,8 +101,7 @@ public let kAlertActionChecked = "checked"
     
     ///添加多个 UIAlertAction
     @discardableResult
-    func addActionTitles(_ titles: [String]? = [kTitleCancell, kTitleSure],
-                         handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> Self {
+    func addActionTitles(_ titles: [String]? = [kTitleCancell, kTitleSure], handler: ((UIAlertController, UIAlertAction) -> Void)? = nil) -> Self {
         titles?.forEach({ (string) in
             let style: UIAlertAction.Style = string == kTitleCancell ? .cancel : .default
             self.addAction(UIAlertAction(title: string, style: style, handler: { (action) in
@@ -113,8 +112,7 @@ public let kAlertActionChecked = "checked"
     }
     ///添加多个 textField
     @discardableResult
-    func addTextFieldPlaceholders(_ placeholders: [String]?,
-                                  handler: ((UITextField) -> Void)? = nil) -> Self {
+    func addTextFieldPlaceholders(_ placeholders: [String]?, handler: ((UITextField) -> Void)? = nil) -> Self {
         if self.preferredStyle != .alert {
             return self
         }
