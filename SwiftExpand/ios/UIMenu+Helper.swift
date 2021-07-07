@@ -29,6 +29,8 @@ public extension UIMenu{
 @available(iOS 14.0, *)
 public extension UIButton {
     
+    /// row
+    /// - Returns: row(state is on)
     func checkRow(by section: Int) -> Int?{
         guard let sectionMenu = menu?.children[section] as? UIMenu
               else { return nil }
