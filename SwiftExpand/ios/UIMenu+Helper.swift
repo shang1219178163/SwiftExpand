@@ -13,13 +13,12 @@ public let kActionState = "_state"
 @available(iOS 14.0, *)
 public extension UIMenu{
 
-    /// map: data to UIMenu
+    /// Data mapping UIMenu structure
     static func map(_ title: String = "", data: [(String, [(String, UIImage?)])], handler: @escaping UIActionHandler) -> UIMenu {
-        return UIMenu(title: title, children: data.map { (title, tuples) in
-            UIMenu(title: title, options: .displayInline, children:
-                    tuples.map({ (title: String, image: UIImage?) in
-                        return UIAction(title: title, image: image, handler: handler)
-                    })
+        return UIMenu(title: title, children: data.map {
+            UIMenu(title: $0.0, options: .displayInline, children: $0.1.map({
+                    return UIAction(title: $0.0, image: $0.1, handler: handler)
+                })
             )
         })
     }
@@ -28,7 +27,7 @@ public extension UIMenu{
 @available(iOS 14.0, *)
 public extension UIAction{
     
-    /// state change(.on/.off),支持单选/多选
+    /// state change(.on/.off), Support single selection/multiple selection.
     func handleStateChange(_ sender: UIButton, section: Int, isSingleChoose: Bool, handler: (()->Void)?) {
         guard let menu = sender.menu?.children[section] as? UIMenu else { return }
         if isSingleChoose == false {
@@ -54,7 +53,7 @@ public extension UIAction{
 @available(iOS 14.0, *)
 public extension UIButton {
         
-    /// Actions (单选,多选)
+    /// Actions (Support single selection/multiple selection)
     /// - Returns: row(state is on)
     func checkActions(by section: Int) -> [UIAction]?{
         guard let sectionMenu = menu?.children[section] as? UIMenu
@@ -68,7 +67,7 @@ public extension UIButton {
         return firters as? [UIAction]
     }
     
-    /// row(单选)
+    /// row(Support single selection)
     /// - Returns: row(state is on)
     func checkRow(by section: Int) -> Int?{
         guard let sectionMenu = menu?.children[section] as? UIMenu
