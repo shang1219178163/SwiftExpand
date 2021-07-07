@@ -43,10 +43,10 @@ import UIKit
     }
     
     private func hook_viewDidLoad(animated: Bool) {
-        hook_viewDidLoad(animated: animated)
-        
         edgesForExtendedLayout = []
         automaticallyAdjustsScrollViewInsets = false
+        
+        hook_viewDidLoad(animated: animated)
     }
     
     private func hook_viewWillAppear(animated: Bool) {
