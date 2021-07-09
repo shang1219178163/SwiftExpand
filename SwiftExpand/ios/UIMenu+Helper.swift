@@ -34,7 +34,7 @@ public extension UIAction{
             if self.state == .off {
                 self.setValue(1, forKey: kActionState)
             } else if self.state == .on {
-                self.setValue( 0, forKey: kActionState)
+                self.setValue(0, forKey: kActionState)
             }
         } else {
             menu.children.forEach {

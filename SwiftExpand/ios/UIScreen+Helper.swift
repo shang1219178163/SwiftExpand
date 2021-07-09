@@ -21,11 +21,17 @@ import UIKit
     }
     
     static var statusBarHeight: CGFloat {
-        return isIPhoneX ? 44 : 20
+//        return isIPhoneX ? 44 : 20
+        var height = UIApplication.shared.statusBarFrame.size.height
+        if #available(iOS 13.0, *) {
+            height = UIApplication.shared.windows[0].windowScene?.statusBarManager?.statusBarFrame.size.height ?? 44
+        }
+        return height
     }
     
     static var navBarHeight: CGFloat {
-        return isIPhoneX ? 88 : 64
+        return 44
+//        return isIPhoneX ? 88 : 64
     }
     
     static var barHeight: CGFloat {
