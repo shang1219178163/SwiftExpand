@@ -216,6 +216,67 @@ import UIKit
         return UIImage.init(cgImage: newCGImage, scale: 1, orientation: .up)
     }
     
+    /// rotation by UIImage.Orientation
+    func rotation(_ orientation: UIImage.Orientation) -> UIImage {
+        var rotate: Double = 0.0
+        var rect: CGRect = .zero
+        var translateX: CGFloat = 0
+        var translateY: CGFloat = 0
+        var scaleX: CGFloat = 1.0
+        var scaleY: CGFloat = 1.0
+        switch orientation {
+            case .left:
+                rotate = Double.pi / 2
+                rect = CGRectMake(0, 0, size.height, size.width)
+                translateX = 0
+                translateY = -rect.size.width
+                scaleY = rect.size.width/rect.size.height
+                scaleX = rect.size.height/rect.size.width
+                break
+                
+            case .right:
+                rotate = 3*Double.pi / 2
+                rect = CGRectMake(0, 0, size.height, size.width)
+                translateX = -rect.size.height
+                translateY = 0
+                scaleY = rect.size.width/rect.size.height
+                scaleX = rect.size.height/rect.size.width
+                break
+                
+            case .down:
+                rotate = Double.pi
+                rect = CGRectMake(0, 0, size.width, size.height)
+                translateX = -rect.size.width
+                translateY = -rect.size.height
+                break
+                
+            default:
+                rotate = 0.0
+                rect = CGRectMake(0, 0, size.width, size.height)
+                translateX = 0
+                translateY = 0
+                
+            break
+        }
+        
+        UIGraphicsBeginImageContext(rect.size)
+        guard let context = UIGraphicsGetCurrentContext() else { return self }
+        defer {
+            UIGraphicsEndImageContext()
+        }
+        
+        //做CTM变换
+        context.translateBy(x: 0.0, y: rect.size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.rotate(by: CGFloat(rotate))
+        context.translateBy(x: translateX, y: translateY)
+        context.scaleBy(x: scaleX, y: scaleY)
+        //绘制图片
+        self.draw(in: rect)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return self }
+        return image
+    }
+    ///裁剪
     func croppedImage(bound: CGRect) -> UIImage {
         let scaledBounds = CGRect(x:bound.origin.x * self.scale,
                                   y:bound.origin.y * self.scale,
@@ -482,99 +543,101 @@ import UIKit
 
 @objc public extension UIImage {
     
-    var btn_add: UIImage { return UIImage(named: "btn_add")! }
+    static let btn_add = UIImage(named: "btn_add")!
     
-    var icon_arowDown_gray: UIImage { return UIImage(named: "icon_arowDown_gray")! }
+    static let icon_arowDown_gray = UIImage(named: "icon_arowDown_gray")!
 
-    var icon_arowLeft_black: UIImage { return UIImage(named: "icon_arowLeft_black")! }
+    static let icon_arowLeft_black = UIImage(named: "icon_arowLeft_black")!
 
-    var icon_arowRight_gray: UIImage { return UIImage(named: "icon_arowRight_gray")! }
+    static let icon_arowRight_gray = UIImage(named: "icon_arowRight_gray")!
 
-    var icon_close: UIImage { return UIImage(named: "icon_close")! }
+    static let icon_close = UIImage(named: "icon_close")!
 
-    var icon_delete: UIImage { return UIImage(named: "icon_delete")! }
+    static let icon_delete = UIImage(named: "icon_delete")!
 
-    var icon_eye_close: UIImage { return UIImage(named: "icon_eye_close")! }
+    static let icon_eye_close = UIImage(named: "icon_eye_close")!
 
-    var icon_eye_open: UIImage { return UIImage(named: "icon_eye_open")! }
+    static let icon_eye_open = UIImage(named: "icon_eye_open")!
 
-    var icon_finish: UIImage { return UIImage(named: "icon_finish")! }
+    static let icon_finish = UIImage(named: "icon_finish")!
 
-    var icon_location: UIImage { return UIImage(named: "icon_location")! }
+    static let icon_location = UIImage(named: "icon_location")!
 
-    var icon_selected_no_blue: UIImage { return UIImage(named: "icon_selected_no_blue")! }
+    static let icon_selected_no_blue = UIImage(named: "icon_selected_no_blue")!
 
-    var icon_selected_no_default: UIImage { return UIImage(named: "icon_selected_no_default")! }
+    static let icon_selected_no_default = UIImage(named: "icon_selected_no_default")!
 
-    var icon_selected_no_gray: UIImage { return UIImage(named: "icon_selected_no_gray")! }
+    static let icon_selected_no_gray = UIImage(named: "icon_selected_no_gray")!
 
-    var icon_selected_yes_blue: UIImage { return UIImage(named: "icon_selected_yes_blue")! }
+    static let icon_selected_yes_blue = UIImage(named: "icon_selected_yes_blue")!
 
-    var icon_selected_yes_green: UIImage { return UIImage(named: "icon_selected_yes_green")! }
+    static let icon_selected_yes_green = UIImage(named: "icon_selected_yes_green")!
 
-    var img_NFC: UIImage { return UIImage(named: "img_NFC")! }
+    static let img_NFC = UIImage(named: "img_NFC")!
 
-    var img_arrowDown_black: UIImage { return UIImage(named: "img_arrowDown_black")! }
+    static let img_arrowDown_black = UIImage(named: "img_arrowDown_black")!
 
-    var img_arrowDown_gray: UIImage { return UIImage(named: "img_arrowDown_gray")! }
+    static let img_arrowDown_gray = UIImage(named: "img_arrowDown_gray")!
 
-    var img_arrowDown_orange: UIImage { return UIImage(named: "img_arrowDown_orange")! }
+    static let img_arrowDown_orange = UIImage(named: "img_arrowDown_orange")!
 
-    var img_arrowDown_white: UIImage { return UIImage(named: "img_arrowDown_white")! }
+    static let img_arrowDown_white = UIImage(named: "img_arrowDown_white")!
 
-    var img_arrowLeft_white: UIImage { return UIImage(named: "img_arrowLeft_white")! }
+    static let img_arrowLeft_white = UIImage(named: "img_arrowLeft_white")!
 
-    var img_arrowRight_gray: UIImage { return UIImage(named: "img_arrowRight_gray")! }
+    static let img_arrowRight_gray = UIImage(named: "img_arrowRight_gray")!
 
-    var img_arrowUp_blue: UIImage { return UIImage(named: "img_arrowUp_blue")! }
+    static let img_arrowUp_blue = UIImage(named: "img_arrowUp_blue")!
 
-    var img_dialog_inquiry: UIImage { return UIImage(named: "img_dialog_inquiry")! }
+    static let img_dialog_inquiry = UIImage(named: "img_dialog_inquiry")!
     
-    var img_dialog_update: UIImage { return UIImage(named: "img_dialog_update")! }
+    static let img_dialog_update = UIImage(named: "img_dialog_update")!
 
-    var img_dialog_warning: UIImage { return UIImage(named: "img_dialog_warning")! }
+    static let img_dialog_warning = UIImage(named: "img_dialog_warning")!
 
-    var img_elemet_decrease: UIImage { return UIImage(named: "img_elemet_decrease")! }
+    static let img_elemet_decrease = UIImage(named: "img_elemet_decrease")!
 
-    var img_elemet_increase: UIImage { return UIImage(named: "img_elemet_increase")! }
+    static let img_elemet_increase = UIImage(named: "img_elemet_increase")!
 
-    var img_failedDefault: UIImage { return UIImage(named: "img_failedDefault")! }
+    static let img_failedDefault = UIImage(named: "img_failedDefault")!
 
-    var img_failedDefault_S: UIImage { return UIImage(named: "img_failedDefault_S")! }
+    static let img_failedDefault_S = UIImage(named: "img_failedDefault_S")!
 
-    var img_like_H: UIImage { return UIImage(named: "img_like_H")! }
+    static let img_like_H = UIImage(named: "img_like_H")!
 
-    var img_like_W: UIImage { return UIImage(named: "img_like_W")! }
+    static let img_like_W = UIImage(named: "img_like_W")!
 
-    var img_location_H: UIImage { return UIImage(named: "img_location_H")! }
+    static let img_location_H = UIImage(named: "img_location_H")!
 
-    var img_more: UIImage { return UIImage(named: "img_more")! }
+    static let img_more = UIImage(named: "img_more")!
 
-    var img_network_loading_orang: UIImage { return UIImage(named: "img_network_loading_orang")! }
+    static let img_network_loading_orang = UIImage(named: "img_network_loading_orang")!
 
-    var img_notice: UIImage { return UIImage(named: "img_notice")! }
+    static let img_notice = UIImage(named: "img_notice")!
 
-    var img_pictureAdd: UIImage { return UIImage(named: "img_pictureAdd")! }
+    static let img_pictureAdd = UIImage(named: "img_pictureAdd")!
 
-    var img_pictureDelete: UIImage { return UIImage(named: "img_pictureDelete")! }
+    static let img_pictureDelete = UIImage(named: "img_pictureDelete")!
 
-    var img_portrait_H: UIImage { return UIImage(named: "img_portrait_H")! }
+    static let img_portrait_H = UIImage(named: "img_portrait_H")!
 
-    var img_portrait_N: UIImage { return UIImage(named: "img_portrait_N")! }
+    static let img_portrait_N = UIImage(named: "img_portrait_N")!
 
-    var img_scan: UIImage { return UIImage(named: "img_scan")! }
+    static let img_scan = UIImage(named: "img_scan")!
 
-    var img_sex_boy: UIImage { return UIImage(named: "img_sex_boy")! }
+    static let img_sex_boy = UIImage(named: "img_sex_boy")!
 
-    var img_sex_gril: UIImage { return UIImage(named: "img_sex_gril")! }
+    static let img_sex_gril = UIImage(named: "img_sex_gril")!
+    
+    static let img_update = UIImage(named: "img_update")!
 
-    var photo_number: UIImage { return UIImage(named: "photo_number")! }
+    static let photo_number = UIImage(named: "photo_number")!
 
-    var search_bar: UIImage { return UIImage(named: "search_bar")! }
+    static let search_bar = UIImage(named: "search_bar")!
 
-    var toast_error: UIImage { return UIImage(named: "toast_error")! }
+    static let toast_error = UIImage(named: "toast_error")!
 
-    var toast_loading: UIImage { return UIImage(named: "toast_loading")! }
+    static let toast_loading = UIImage(named: "toast_loading")!
 
-    var toast_success: UIImage { return UIImage(named: "toast_success")! }
+    static let toast_success = UIImage(named: "toast_success")!
 }
