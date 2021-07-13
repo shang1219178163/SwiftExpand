@@ -542,102 +542,102 @@ import UIKit
 
 
 @objc public extension UIImage {
-    
+    /// btn_add
     static let btn_add = UIImage(named: "btn_add")!
-    
+    /// icon_arowDown_gray
     static let icon_arowDown_gray = UIImage(named: "icon_arowDown_gray")!
-
+    /// icon_arowLeft_black
     static let icon_arowLeft_black = UIImage(named: "icon_arowLeft_black")!
-
+    /// icon_arowRight_gray
     static let icon_arowRight_gray = UIImage(named: "icon_arowRight_gray")!
-
+    /// icon_close
     static let icon_close = UIImage(named: "icon_close")!
-
+    /// icon_delete
     static let icon_delete = UIImage(named: "icon_delete")!
-
+    /// icon_eye_close
     static let icon_eye_close = UIImage(named: "icon_eye_close")!
-
+    /// icon_eye_open
     static let icon_eye_open = UIImage(named: "icon_eye_open")!
-
+    /// icon_finish
     static let icon_finish = UIImage(named: "icon_finish")!
-
+    /// icon_location
     static let icon_location = UIImage(named: "icon_location")!
-
+    /// icon_selected_no_blue
     static let icon_selected_no_blue = UIImage(named: "icon_selected_no_blue")!
-
+    /// icon_selected_no_default
     static let icon_selected_no_default = UIImage(named: "icon_selected_no_default")!
-
+    /// icon_selected_no_gray
     static let icon_selected_no_gray = UIImage(named: "icon_selected_no_gray")!
-
+    /// icon_selected_yes_blue
     static let icon_selected_yes_blue = UIImage(named: "icon_selected_yes_blue")!
-
+    /// icon_selected_yes_green
     static let icon_selected_yes_green = UIImage(named: "icon_selected_yes_green")!
-
+    /// img_NFC
     static let img_NFC = UIImage(named: "img_NFC")!
-
+    /// img_arrowDown_black
     static let img_arrowDown_black = UIImage(named: "img_arrowDown_black")!
-
+    /// img_arrowDown_gray
     static let img_arrowDown_gray = UIImage(named: "img_arrowDown_gray")!
-
+    /// img_arrowDown_orange
     static let img_arrowDown_orange = UIImage(named: "img_arrowDown_orange")!
-
+    /// img_arrowDown_white
     static let img_arrowDown_white = UIImage(named: "img_arrowDown_white")!
-
+    /// img_arrowLeft_white
     static let img_arrowLeft_white = UIImage(named: "img_arrowLeft_white")!
-
+    /// img_arrowRight_gray
     static let img_arrowRight_gray = UIImage(named: "img_arrowRight_gray")!
-
+    /// img_arrowUp_blue
     static let img_arrowUp_blue = UIImage(named: "img_arrowUp_blue")!
-
+    /// img_dialog_inquiry
     static let img_dialog_inquiry = UIImage(named: "img_dialog_inquiry")!
-    
+    /// img_dialog_update
     static let img_dialog_update = UIImage(named: "img_dialog_update")!
-
+    /// img_dialog_warning
     static let img_dialog_warning = UIImage(named: "img_dialog_warning")!
-
+    /// img_elemet_decrease
     static let img_elemet_decrease = UIImage(named: "img_elemet_decrease")!
-
+    /// img_elemet_increase
     static let img_elemet_increase = UIImage(named: "img_elemet_increase")!
-
+    /// img_failedDefault
     static let img_failedDefault = UIImage(named: "img_failedDefault")!
-
+    /// img_failedDefault_S
     static let img_failedDefault_S = UIImage(named: "img_failedDefault_S")!
-
+    /// img_like_H
     static let img_like_H = UIImage(named: "img_like_H")!
-
+    /// img_like_W
     static let img_like_W = UIImage(named: "img_like_W")!
-
+    /// img_location_H
     static let img_location_H = UIImage(named: "img_location_H")!
-
+    /// img_more
     static let img_more = UIImage(named: "img_more")!
-
+    /// img_network_loading_orang
     static let img_network_loading_orang = UIImage(named: "img_network_loading_orang")!
-
+    /// img_notice
     static let img_notice = UIImage(named: "img_notice")!
-
+    /// img_pictureAdd
     static let img_pictureAdd = UIImage(named: "img_pictureAdd")!
-
+    /// img_pictureDelete
     static let img_pictureDelete = UIImage(named: "img_pictureDelete")!
-
+    /// img_portrait_H
     static let img_portrait_H = UIImage(named: "img_portrait_H")!
-
+    /// img_portrait_N
     static let img_portrait_N = UIImage(named: "img_portrait_N")!
-
+    /// img_scan
     static let img_scan = UIImage(named: "img_scan")!
-
+    /// img_sex_boy
     static let img_sex_boy = UIImage(named: "img_sex_boy")!
-
+    /// img_sex_gril
     static let img_sex_gril = UIImage(named: "img_sex_gril")!
-    
+    /// img_update
     static let img_update = UIImage(named: "img_update")!
-
+    /// photo_number
     static let photo_number = UIImage(named: "photo_number")!
-
+    /// search_bar
     static let search_bar = UIImage(named: "search_bar")!
-
+    /// toast_error
     static let toast_error = UIImage(named: "toast_error")!
-
+    /// toast_loading
     static let toast_loading = UIImage(named: "toast_loading")!
-
+    /// toast_success
     static let toast_success = UIImage(named: "toast_success")!
 }

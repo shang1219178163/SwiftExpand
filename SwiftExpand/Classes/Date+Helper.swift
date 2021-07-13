@@ -558,3 +558,12 @@ public extension Calendar{
         return range(of: .day, in: .month, for: date)!.count
     }
 }
+
+
+public extension Locale{
+
+    /// zh_CN
+    static let zh_CN = Locale(identifier: "zh_CN")
+    /// en_US
+    static let en_US = Locale(identifier: "en_US")
+}

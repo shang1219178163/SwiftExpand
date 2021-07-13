@@ -76,4 +76,9 @@ import UIKit
         barButtonItem.width = width
         return barButtonItem
     }
+    
+    /// Creates a flexibleSpace space UIBarButtonItem with a specific width.
+    static func flexibleSpace() -> UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    }
 }
