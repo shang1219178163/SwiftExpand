@@ -26,7 +26,7 @@ import UIKit
 
 //        let kindSuf = kind.components(separatedBy: "KindSection").last
 //        let identifier = String(describing: self) + kindSuf!
-        let identifier = kind == UICollectionView.elementKindSectionHeader ? identifyHeader : identifyFooter
+        let identifier = kind == UICollectionView.elementKindSectionHeader ? reuseIdentifierHeader : reuseIdentifierFooter
         let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
         view.lab.text = identifier + "\(indexPath.section)"
 
@@ -35,11 +35,11 @@ import UIKit
     }
     
     /// 表头值
-    static var identifyHeader: String {
+    static var reuseIdentifierHeader: String {
         return String(describing: self) + "Header"
      }
     /// 表尾值
-    static var identifyFooter: String {
+    static var reuseIdentifierFooter: String {
         return String(describing: self) + "Footer"
      }
  
