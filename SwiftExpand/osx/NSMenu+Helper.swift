@@ -68,11 +68,8 @@
         }
     }
     
-    convenience init(title string: String, keyEquivalent charCode: String, submenu: NSMenu?, handler: ((NSMenuItem) -> Void)?) {
+    convenience init(title string: String, keyEquivalent charCode: String, handler: ((NSMenuItem) -> Void)?) {
         self.init(title: string, action: nil, keyEquivalent: charCode)
-        if let submenu = submenu {
-            self.submenu = submenu
-        }
         if let handler = handler {
             self.addAction(handler)
         }

@@ -45,8 +45,8 @@ public func NSCtrFromString(_ vcName: String) -> NSViewController {
     // 需将cls转换为制定类型
     let vcCls = cls as! NSViewController.Type
     // 创建对象
-    let controller: NSViewController = vcCls.init()
-    return controller;
+    let vc: NSViewController = vcCls.init()
+    return vc
 }
 
 ///获取 ItemSize
