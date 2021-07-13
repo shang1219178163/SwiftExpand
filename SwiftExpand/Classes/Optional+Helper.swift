@@ -6,7 +6,6 @@
 //  Copyright © 2021 CocoaPods. All rights reserved.
 //
 
-import UIKit
 
 /// do {} catch {}
 public func should(_ do: () throws -> Void) -> Error? {
