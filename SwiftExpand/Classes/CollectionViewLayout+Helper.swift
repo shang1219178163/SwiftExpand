@@ -6,12 +6,10 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-import UIKit
-
-@objc public extension UICollectionViewFlowLayout{
+@objc public extension CollectionViewFlowLayout{
 
     /// 默认布局配置(自上而下,自左而右)
-    convenience init(numOfRow: Int = 4, width: CGFloat = UIScreen.main.bounds.width, heightScale: CGFloat = 1.3, spacing: CGFloat = 10, headerHeight: CGFloat = 30, footerHeight: CGFloat = 30, sectionInset: UIEdgeInsets = .zero) {
+    convenience init(numOfRow: Int = 4, width: CGFloat = kScreenWidth, heightScale: CGFloat = 1.3, spacing: CGFloat = 10, headerHeight: CGFloat = 30, footerHeight: CGFloat = 30, sectionInset: EdgeInsets = .zero) {
         self.init()
         self.minimumInteritemSpacing = spacing
         self.minimumLineSpacing = spacing
@@ -22,23 +20,12 @@ import UIKit
         self.headerReferenceSize = CGSize(width: width, height: headerHeight)
         self.footerReferenceSize = CGSize(width: width, height: footerHeight)
     }
-        
-    /// 默认布局配置(自上而下,自左而右)
-    static func createFlowLayout(_ numOfRow: Int = 4, width: CGFloat = UIScreen.main.bounds.width, heightScale: CGFloat = 1.3, spacing: CGFloat = 10, headerHeight: CGFloat = 30, footerHeight: CGFloat = 30, sectionInset: UIEdgeInsets = .zero) -> UICollectionViewFlowLayout {
-        return UICollectionViewFlowLayout.init(numOfRow: numOfRow,
-                                               width: width,
-                                               heightScale: heightScale,
-                                               spacing: spacing,
-                                               headerHeight: headerHeight,
-                                               footerHeight: footerHeight,
-                                               sectionInset: sectionInset)
-    }
     
     /// 获取代理方法里的布局基础属性值
     func refreshValueFromDelegate(_ indexPath: IndexPath) {
         if let collectionView = collectionView, let delegate = collectionView.delegate {
-            if delegate.conforms(to: UICollectionViewDelegateFlowLayout.self) == true {
-                if let flowDelegate: UICollectionViewDelegateFlowLayout = delegate as? UICollectionViewDelegateFlowLayout{
+            if delegate.conforms(to: CollectionViewDelegateFlowLayout.self) == true {
+                if let flowDelegate: CollectionViewDelegateFlowLayout = delegate as? CollectionViewDelegateFlowLayout{
                     if let value = flowDelegate.collectionView?(collectionView, layout: self, minimumLineSpacingForSectionAt: indexPath.section) as CGFloat? {
                         minimumLineSpacing = value
                     }
@@ -47,7 +34,7 @@ import UIKit
                         minimumInteritemSpacing = inset
                     }
                     
-                    if let inset = flowDelegate.collectionView?(collectionView, layout: self, insetForSectionAt: indexPath.section) as UIEdgeInsets? {
+                    if let inset = flowDelegate.collectionView?(collectionView, layout: self, insetForSectionAt: indexPath.section) as EdgeInsets? {
                         sectionInset = inset
                     }
                     
@@ -63,7 +50,7 @@ import UIKit
         }
     }
     
-    func reloadItemSize(_ numOfRow: Int = 4, width: CGFloat = UIScreen.main.bounds.width, heightScale: CGFloat = 1.6, minimumInteritemSpacing: CGFloat = 8, sectionInset: UIEdgeInsets = .zero) {
+    func reloadItemSize(_ numOfRow: Int = 4, width: CGFloat = kScreenWidth, heightScale: CGFloat = 1.6, minimumInteritemSpacing: CGFloat = 8, sectionInset: EdgeInsets = .zero) {
         self.minimumInteritemSpacing = minimumInteritemSpacing
         self.sectionInset = sectionInset
 
