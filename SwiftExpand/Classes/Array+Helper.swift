@@ -22,7 +22,7 @@ public extension Array{
     }
     
     /// 快速生成一个数组(step代表步长)
-    init(count: Int, generator: @escaping ((Int) ->Element)) {
+    init(count: Int, generator: @escaping ((Int) -> Element)) {
         self = (0..<count).map(generator)
     }
     
@@ -110,7 +110,7 @@ public extension Array where Element : NSObject {
 
 public extension Array where Element : View{
     
-    enum DirectionShowStyle: Int {
+    enum GroupItemsLayoutStyle: Int {
         case topLeftToRight
         case topRightToLeft
         case bottomLeftToRight
@@ -118,7 +118,7 @@ public extension Array where Element : View{
     }
     
     ///更新 NSButton 集合视图
-    func updateItemsConstraint(_ rect: CGRect, numberOfRow: Int = 4, minimumInteritemSpacing: CGFloat = kPadding, minimumLineSpacing: CGFloat = kPadding, sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0), showStyle: DirectionShowStyle = .topLeftToRight) {
+    func updateItemsConstraint(_ rect: CGRect, numberOfRow: Int = 4, minimumInteritemSpacing: CGFloat = kPadding, minimumLineSpacing: CGFloat = kPadding, sectionInset: EdgeInsets = EdgeInsets(top: 0, left: 0, bottom: 0, right: 0), showStyle: GroupItemsLayoutStyle = .topLeftToRight) {
         if self.count == 0 || Swift.min(rect.width, rect.height) <= 10 {
             return;
         }

@@ -151,30 +151,28 @@ import UIKit
         })
     }
         
-    func addControllerName(_ vcName: String) {
-        let controller = UICtrFromString(vcName)
-        assert(controller.isKind(of: UIViewController.self))
-        addControllerVC(controller)
+    func addVCName(_ vcName: String) {
+        let vc = UICtrFromString(vcName)
+        assert(vc.isKind(of: UIViewController.self))
+        addChildVC(vc)
     }
     
-    /// 添加子控制器(对应方法 removeControllerVC)
-    func addControllerVC(_ controller: UIViewController) {
-        assert(controller.isKind(of: UIViewController.self))
-        
-        addChild(controller)
-//        controller.view.frame = self.view.bounds
-        controller.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        view.addSubview(controller.view)
-        controller.didMove(toParent: self)
+    /// 添加子控制器(对应方法 removeChildVC)
+    func addChildVC(_ vc: UIViewController) {
+        addChild(vc)
+//        vc.view.frame = self.view.bounds
+        vc.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        view.addSubview(vc.view)
+        vc.didMove(toParent: self)
     }
     
-    /// 移除添加的子控制器(对应方法 addControllerVC)
-    func removeControllerVC(_ controller: UIViewController) {
-        assert(controller.isKind(of: UIViewController.self))
+    /// 移除添加的子控制器(对应方法 addChildVC)
+    func removeChildVC(_ vc: UIViewController) {
+        assert(vc.isKind(of: UIViewController.self))
         
-        controller.willMove(toParent: nil)
-        controller.view.removeFromSuperview()
-        controller.removeFromParent()
+        vc.willMove(toParent: nil)
+        vc.view.removeFromSuperview()
+        vc.removeFromParent()
     }
     
     /// 显示controller(手动调用viewWillAppear和viewDidAppear,viewWillDisappear)
