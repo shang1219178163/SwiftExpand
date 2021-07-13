@@ -36,7 +36,7 @@
         
         let brightness = 0.299 * vRed + 0.587 * vGreen + 0.114 * vBlue
         let result = (brightness < 0.5)
-        DDLog(result ? "深色" : "浅色")
+//        DDLog(result ? "深色" : "浅色")
         return result
     }
 

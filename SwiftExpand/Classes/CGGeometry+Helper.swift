@@ -97,11 +97,10 @@ public extension Int {
     static var random: Int { return Int(arc4random()) / Int(UInt32.max) }
 
     ///返回重复值字符串
-    func repeatString(_ repeatedValue: String) ->String { return String(repeating: repeatedValue, count: self) }
-    ///返回重复值数组
-    func repeatArray<T>(_ repeatedValue: T) -> [T] { return [T](repeating: repeatedValue, count: self) }
-    
-    
+//    func repeatString(_ repeatedValue: String) ->String { return String(repeating: repeatedValue, count: self) }
+//    ///返回重复值数组
+//    func repeatArray<T>(_ repeatedValue: T) -> [T] { return [T](repeating: repeatedValue, count: self) }
+
     
     /// 乘法表打印
     func printChengfaBiao() {
