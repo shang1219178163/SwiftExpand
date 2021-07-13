@@ -7,11 +7,6 @@
 
 
 // MARK: - 计算有关的尺寸属性
-/// 屏幕宽度
-public let kScreenWidth: CGFloat           = UIScreen.main.bounds.size.width
-/// 屏幕高度
-public let kScreenHeight: CGFloat          = UIScreen.main.bounds.size.height
-
 public let isiPhoneX: Bool                 = (kScreenHeight >= 812)
 /// IphoneXtab 底部安全区高度
 public let kIphoneXtabHeight: CGFloat      = isiPhoneX ? 34 : 0
