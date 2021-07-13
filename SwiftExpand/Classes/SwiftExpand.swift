@@ -20,6 +20,9 @@ public typealias Image = NSImage
 public typealias EdgeInsets = NSEdgeInsets
 public typealias CollectionViewFlowLayout = NSCollectionViewFlowLayout
 public typealias CollectionViewDelegateFlowLayout = NSCollectionViewDelegateFlowLayout
+extension NSEdgeInsets {
+    public static let zero: NSEdgeInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+}
 #else
 import UIKit
 public typealias View = UIView
