@@ -12,7 +12,7 @@
 
     // MARK: -funtions
     static func create(imageName: String?) -> NSStatusItem {
-        var image = NSApplication.appIcon.resize(CGSize(width: 40, height: 30), isPixels: true)
+        var image = NSApplication.appIcon!.resize(CGSize(width: 40, height: 30), isPixels: true)
         if let imageName = imageName, let newImage = NSImage(named: imageName) {
             image = newImage
         }

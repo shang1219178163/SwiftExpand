@@ -28,7 +28,7 @@
         guard let documentView = documentView else { return }
 
         if isFlipped == true {
-            documentView.scroll(CGPoint.zero)
+            documentView.scroll(.zero)
         } else {
             let maxHeight = max(bounds.height, documentView.bounds.height)
             documentView.scroll(CGPoint(x: 0, y: maxHeight))

@@ -57,16 +57,6 @@
         return newImage
     }
     
-    static func imageWithColor(_ color: NSColor, size: NSSize = NSSize(width: 1, height: 1)) -> NSImage {
-        let image = NSImage(size: size)
-        image.lockFocus()
-        color.drawSwatch(in: NSRect(x: 0, y: 0, width: size.width, height: size.height))
-        image.unlockFocus()
-        return image
-    }
-    
-
-    
 }
 
 @objc extension NSBitmapImageRep {

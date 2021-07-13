@@ -23,16 +23,17 @@
     
     // MARK: -funtions
     /// 新增子控制器
-    func addChildVC(_ controller: NSViewController) {
-        controller.view.frame = self.view.bounds
-        addChild(controller)
-        view.addSubview(controller.view)
+    func addChildVC(_ vc: NSViewController) {
+        vc.view.frame = self.view.bounds
+        addChild(vc)
+        view.addSubview(vc.view)
     }
     
-    /// 控制器移除
-    func removeChildVC() {
-        view.removeFromSuperview()
-        removeFromParent()
+    /// 移除添加的子控制器(对应方法 addChildVC)
+    func removeChildVC(_ vc: NSViewController) {
+        assert(vc.isKind(of: NSViewController.self))
+        
+        vc.view.removeFromSuperview()
+        vc.removeFromParent()
     }
-    
 }

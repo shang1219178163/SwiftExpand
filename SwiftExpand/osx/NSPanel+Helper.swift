@@ -16,8 +16,6 @@
 
 @objc public extension NSOpenPanel {
 
-    // MARK: -funtions
-
     static func create(fileTypes: [String]?, allowsMultipleSelection: Bool = false) -> Self {
         let panel = self.init()
         panel.canChooseFiles = true

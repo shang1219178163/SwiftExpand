@@ -10,8 +10,16 @@
 
 
 @objc public extension NSMenu {
+    
+    convenience init(title: String, children: [NSMenuItem]) {
+        self.init(title: title)
+        children.forEach {
+            addItem($0)
+        }
+    }
+
     ///遍历方法
-    convenience init(with title: String = "Menu", itemTitles: [String], handler: ((NSMenuItem) -> Void)? = nil) {
+    convenience init(with title: String = "Menu", itemTitles: [String], handler: ((NSMenuItem) -> Void)?) {
         self.init()
         self.title = title
                 
@@ -38,7 +46,7 @@
         item.addAction(handler)
         return self
     }
-    
+
 }
 
 
@@ -46,12 +54,7 @@
     private struct AssociateKeys {
         static var closure = "NSMenuItem" + "closure"
     }
-    
-    static func create(title: String, keyEquivalent charCode: String, handler: @escaping ((NSMenuItem) -> Void)) -> NSMenuItem {
-        let menuItem = NSMenuItem(title: title, action: nil, keyEquivalent: charCode)
-        menuItem.addAction(handler)
-        return menuItem
-    }
+
     /// 闭包回调
     func addAction(_ handler: @escaping ((NSMenuItem) -> Void)) {
         objc_setAssociatedObject(self, &AssociateKeys.closure, handler, .OBJC_ASSOCIATION_COPY_NONATOMIC)
@@ -65,4 +68,14 @@
         }
     }
     
+    convenience init(title string: String, keyEquivalent charCode: String, submenu: NSMenu?, handler: ((NSMenuItem) -> Void)?) {
+        self.init(title: string, action: nil, keyEquivalent: charCode)
+        if let submenu = submenu {
+            self.submenu = submenu
+        }
+        if let handler = handler {
+            self.addAction(handler)
+        }
+    }
+
 }

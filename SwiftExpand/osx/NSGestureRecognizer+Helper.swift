@@ -10,7 +10,7 @@
 
 @objc public extension NSGestureRecognizer {
     private struct AssociateKeys {
-        static var closure    = "NSGestureRecognizer" + "closure"
+        static var closure = "NSGestureRecognizer" + "closure"
     }
 
     /// 闭包回调
@@ -30,7 +30,7 @@
 
 @objc public extension NSClickGestureRecognizer {
     private struct AssociateKeys {
-        static var closure    = "NSClickGestureRecognizer" + "closure"
+        static var closure = "NSClickGestureRecognizer" + "closure"
     }
     
     /// 闭包回调

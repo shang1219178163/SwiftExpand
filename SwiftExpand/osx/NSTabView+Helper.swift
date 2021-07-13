@@ -21,13 +21,13 @@
      */
     func addItems(_ items: [[String]]) {
         for e in items.enumerated() {
-            let controller = NSCtrFromString(e.element.first!)
+            let vc = NSCtrFromString(e.element.first!)
             if e.element.count > 1 {
-                controller.title = controller.title ?? e.element[1]
+                vc.title = vc.title ?? e.element[1]
             }
             
-            let item = NSTabViewItem(viewController: controller)
-            item.view = controller.view
+            let item = NSTabViewItem(viewController: vc)
+            item.view = vc.view
             addTabViewItem(item)
         }
     }
@@ -37,12 +37,26 @@
 public extension NSTabView {
 
     ///添加控制器及其名称
-    func addItems(withTuples: [(NSViewController, String)]) {
-        withTuples.forEach { (e) in
-            e.0.title = e.1
-            let item = NSTabViewItem(viewController: e.0)
-            item.view = e.0.view
+    @discardableResult
+    func addItems(_ items: [(NSViewController, String)], handler: ((NSTabViewItem)->Void)? = nil) -> Self {
+        items.forEach { (vc, title) in
+            vc.title = title
+            
+            let item = NSTabViewItem(viewController: vc)
+            item.view = vc.view
+            handler?(item)
             addTabViewItem(item)
         }
+        return self
     }
+    
+    @discardableResult
+    func reloadItems(_ items: [(NSViewController, String)], handler: ((NSTabViewItem)->Void)? = nil) -> Self {
+        tabViewItems.forEach {
+            removeTabViewItem($0)
+        }
+        addItems(items, handler: handler)
+        return self
+    }
+    
 }

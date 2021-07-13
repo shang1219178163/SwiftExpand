@@ -28,8 +28,8 @@ import ServiceManagement
         }
     }
     
-    static var appName: String {
-        guard let infoDic = Bundle.main.infoDictionary else { return "" }
+    static var appName: String? {
+        guard let infoDic = Bundle.main.infoDictionary else { return nil }
         if let name = infoDic["CFBundleDisplayName"] as? String {
             return name
         }
@@ -39,44 +39,49 @@ import ServiceManagement
         return ""
     }
     
-    static var appBundleName: String {
+    static var appBundleName: String? {
         guard let infoDic = Bundle.main.infoDictionary,
-        let result = infoDic["CFBundleExecutable"] as? String else { return "" }
+        let result = infoDic["CFBundleExecutable"] as? String else { return nil }
         return result
     }
     
-    static var appIcon: NSImage {
-        let infoDic = Bundle.main.infoDictionary
-        let imgName = infoDic!["CFBundleIconName"]
-        return NSImage(named: imgName as! NSImage.Name)!
+    static var appIcon: NSImage? {
+        guard let infoDic = Bundle.main.infoDictionary,
+        let imgName = infoDic["CFBundleIconName"] as? String,
+        let image = NSImage(named: imgName)
+        else { return nil }
+        return image
     }
     
-    static var appVer: String {
+    static var appVer: String? {
         guard let infoDic = Bundle.main.infoDictionary,
-        let result = infoDic["CFBundleShortVersionString"] as? String else { return "" }
+        let result = infoDic["CFBundleShortVersionString"] as? String else { return nil }
         return result
     }
     
-    static var appBuild: String {
+    static var appBuild: String? {
         guard let infoDic = Bundle.main.infoDictionary,
-        let result = infoDic["CFBundleVersion"] as? String else { return "" }
+        let result = infoDic["CFBundleVersion"] as? String else { return nil }
         return result
     }
     
-    static var systemInfo: String {
+    static var systemInfo: String? {
         guard let infoDic = Bundle.main.infoDictionary,
-        let result = infoDic["DTSDKName"] as? String else { return "" }
+        let result = infoDic["DTSDKName"] as? String else { return nil }
         return result
     }
     
-    static var appCopyright: String {
+    static var appCopyright: String? {
         guard let infoDic = Bundle.main.infoDictionary,
-        let result = infoDic["NSHumanReadableCopyright"] as? String else { return "" }
+        let result = infoDic["NSHumanReadableCopyright"] as? String else { return nil }
         return result
     }
     
     static var userName: String {
-//        return ProcessInfo.processInfo.userName
+        return ProcessInfo.processInfo.userName
+    }
+    
+    static var fullUserName: String {
         return ProcessInfo.processInfo.fullUserName
     }
     
@@ -88,24 +93,24 @@ import ServiceManagement
         return NSDictionary(contentsOfFile: "/System/Library/CoreServices/SystemVersion.plist")
     }
     /// MacOX
-    static var productName: String {
+    static var productName: String? {
         guard let dic = self.systemDic,
               let name = dic["ProductName"] as? String
-              else { return ""}
+              else { return nil }
         return name
     }
     /// MacOX 版权
-    static var productCopyright: String {
+    static var productCopyright: String? {
         guard let dic = self.systemDic,
               let copyright = dic["ProductCopyright"] as? String
-              else { return ""}
+              else { return nil }
         return copyright
     }
     /// MacOX 版权
-    static var productVersion: String {
+    static var productVersion: String? {
         guard let dic = self.systemDic,
               let version = dic["ProductVersion"] as? String
-              else { return ""}
+              else { return nil }
         return version
     }
     
@@ -116,7 +121,7 @@ import ServiceManagement
     /// 获取文件版权信息
     static func copyright(with name: String,
                           type: String,
-                          bundleName: String = NSApplication.appBundleName,
+                          bundleName: String = NSApplication.appBundleName ?? "",
                           author: String = NSApplication.userName,
                           organization: String = NSApplication.userName) -> String {
         let dateStr = DateFormatter.stringFromDate(Date(), fmt: "yyyy/MM/dd HH:mm")
@@ -182,7 +187,7 @@ import ServiceManagement
     
     /// 开机启动项
     static func loginAutoLaunch(enabled: Bool) {
-        let identifier: String = NSApplication.appBundleName
+        let identifier = NSApplication.appBundleName ?? ""
         if SMLoginItemSetEnabled(identifier as CFString, enabled) {
           if enabled {
             NSLog("Successfully add login item.")

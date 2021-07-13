@@ -6,7 +6,9 @@
 //  Copyright © 2019 Bin Shang. All rights reserved.
 //
 
+let macDownloadsDirectory = "/Users/\(NSUserName())/Downloads"
 
+let macDocumentsDirectory = "/Users/\(NSUserName())/Documents"
 
 
 @objc public extension FileManager{
@@ -99,9 +101,7 @@ public extension NSPasteboard{
         return nil
     }
     ///解析拖拽到目标视图上的信息同时options 参数限制可拖入子元素的类型（ nil 表示不限类型）
-    func readObjects(forClasses classArray: [AnyClass] = [NSImage.self, NSColor.self, NSString.self, NSURL.self],
-                     options: [NSPasteboard.ReadingOptionKey : Any]? = nil,
-                     handler: ((Any)->Void)? = nil) -> Bool {
+    func readObjects(forClasses classArray: [AnyClass] = [NSImage.self, NSColor.self, NSString.self, NSURL.self], options: [NSPasteboard.ReadingOptionKey : Any]? = nil, handler: ((Any)->Void)? = nil) -> Bool {
         guard let pasteboardObjects = readObjects(forClasses: classArray, options: options),
               pasteboardObjects.count > 0 else {
             return false

@@ -32,7 +32,6 @@ public extension NSCollectionView{
         let kindSuf = elementKind.components(separatedBy: "KindSection").last
         let identifier = String(describing: T.self) + kindSuf!
         register(supplementaryViewType.self, forSupplementaryViewOfKind: elementKind, withIdentifier: NSUserInterfaceItemIdentifier(rawValue: identifier))
-
     }
     
     /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)

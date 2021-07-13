@@ -18,8 +18,8 @@
     
     @discardableResult
     func beginSheetChain(_ handler: ((NSApplication.ModalResponse) -> Void)? = nil) -> Self {
+        guard let window = NSApplication.shared.mainWindow else { return self }
         NSApp.activate(ignoringOtherApps: true)
-        guard let window = NSApplication.shared.mainWindow else { return self}
         beginSheetModal(for: window, completionHandler: handler)
         return self
     }
