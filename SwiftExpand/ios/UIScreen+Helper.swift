@@ -7,7 +7,14 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
-import UIKit
+public let isiPhoneX: Bool              = UIScreen.isIPhoneX
+/// 状态栏 20
+public let kStatusBarHeight: CGFloat    = UIScreen.statusBarHeight
+/// 导航栏高
+public let kNavBarHeight: CGFloat       = UIScreen.navBarHeight
+
+/// 底部tabBar高度 49
+public let kTabBarHeight: CGFloat       = UIScreen.tabBarHeight
 
 
 @objc public extension UIScreen {
@@ -29,21 +36,16 @@ import UIKit
         return height
     }
     
-    static var navBarHeight: CGFloat {
-        return 44
-//        return isIPhoneX ? 88 : 64
+    static var isIPhoneX: Bool {
+        return UIScreen.main.bounds.size.height >= 812
     }
     
-    static var barHeight: CGFloat {
-        return (UIScreen.statusBarHeight + UIScreen.navBarHeight)
+    static var navBarHeight: CGFloat {
+        return isIPhoneX ? 88 : 64
     }
     
     static var tabBarHeight: CGFloat {
         return isIPhoneX ? (49.0 + 34.0) : 49
-    }
-    
-    static var isIPhoneX: Bool {
-        return UIScreen.main.bounds.size.height >= 812
     }
     
 //    @available(iOS 11.0, *)
