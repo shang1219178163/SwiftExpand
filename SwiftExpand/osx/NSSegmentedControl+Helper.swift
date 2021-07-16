@@ -53,22 +53,22 @@
     }
     
     static func create(_ rect: NSRect, items: [Any]) -> Self {
-        let control = self.init(frame: rect)
-        control.segmentStyle = .texturedRounded
-        control.trackingMode = .momentary
+        let sender = self.init(frame: rect)
+        sender.segmentStyle = .texturedRounded
+        sender.trackingMode = .momentary
         
-        control.segmentCount = items.count
+        sender.segmentCount = items.count
         
-        let width: CGFloat = rect.width/CGFloat(control.segmentCount)
+        let width: CGFloat = rect.width/CGFloat(sender.segmentCount)
         for e in items.enumerated() {
             if e.element is NSImage {
-                control.setImage((e.element as! NSImage), forSegment: e.offset)
+                sender.setImage((e.element as! NSImage), forSegment: e.offset)
             } else {
-                control.setLabel(e.element as! String, forSegment: e.offset)
+                sender.setLabel(e.element as! String, forSegment: e.offset)
             }
-            control.setWidth(width, forSegment: e.offset)
+            sender.setWidth(width, forSegment: e.offset)
         }
-        return control
+        return sender
     }
     
 }

@@ -9,25 +9,7 @@
 import ServiceManagement
 
 @objc public extension NSApplication{
-    private struct AssociateKeys {
-        static var homeWindow   = "NSApplication" + "homeWindow"
-    }
-    ///设置为根 NSWindow
-    static var homeWindow: NSWindow {
-        get {
-            if let obj = objc_getAssociatedObject(self, &AssociateKeys.homeWindow) as? NSWindow {
-                return obj
-            }
-            
-            let obj = NSWindow(vc: nil)
-            objc_setAssociatedObject(self, &AssociateKeys.homeWindow, obj, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            return obj
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociateKeys.homeWindow, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-    
+
     static var appName: String? {
         guard let infoDic = Bundle.main.infoDictionary else { return nil }
         if let name = infoDic["CFBundleDisplayName"] as? String {

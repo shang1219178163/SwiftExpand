@@ -39,8 +39,7 @@
     
     /// 打开弹窗
     func showSheet(_ handler: ((NSApplication.ModalResponse) -> Void)? = nil) {
-        let rect = CGRectMake(0, 0, preferredContentSize.width, preferredContentSize.height)
-        let window = NSWindow(vc: self, rect: rect)
+        let window = NSWindow(vc: self, size: preferredContentSize)
         NSApp.keyWindow?.beginSheet(window, completionHandler: handler)
     }
     /// 关闭弹窗
