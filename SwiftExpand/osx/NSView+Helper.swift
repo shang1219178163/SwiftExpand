@@ -173,18 +173,18 @@
     }
         
     ///手势 - 旋转 NSRotationGestureRecognizer
-//    @discardableResult
-//    func addGestureRotation(_ action: @escaping ((NSRotationGestureRecognizer) ->Void)) -> NSRotationGestureRecognizer {
-//        let obj = NSRotationGestureRecognizer(target: nil, action: nil)
-//        addGestureRecognizer(obj)
-//
-//        obj.addAction { (recognizer) in
-//            if let gesture = recognizer as? NSRotationGestureRecognizer {
-//////                gesture.view?.layer?.transform = gesture.view?.layer?.transform?.rotated(by: gesture.rotation)
-//                gesture.rotation = 0.0
-//                action(gesture)
-//            }
-//        }
-//        return obj
-//    }
+    @discardableResult
+    func addGestureRotation(_ action: @escaping ((NSRotationGestureRecognizer) ->Void)) -> NSRotationGestureRecognizer {
+        let obj = NSRotationGestureRecognizer(target: nil, action: nil)
+        addGestureRecognizer(obj)
+
+        obj.addAction { (recognizer) in
+            if let gesture = recognizer as? NSRotationGestureRecognizer {
+                gesture.view!.layer!.setAffineTransform(gesture.view!.layer!.affineTransform().rotated(by: gesture.rotation))
+                gesture.rotation = 0.0
+                action(gesture)
+            }
+        }
+        return obj
+    }
 }
