@@ -36,4 +36,16 @@
         vc.view.removeFromSuperview()
         vc.removeFromParent()
     }
+    
+    /// 打开弹窗
+    func showSheet(_ handler: ((NSApplication.ModalResponse) -> Void)? = nil) {
+        let rect = CGRectMake(0, 0, preferredContentSize.width, preferredContentSize.height)
+        let window = NSWindow(vc: self, rect: rect)
+        NSApp.keyWindow?.beginSheet(window, completionHandler: handler)
+    }
+    /// 关闭弹窗
+    func endSheet(response: NSApplication.ModalResponse) {
+        guard let window = view.window else { return }
+        NSApp.keyWindow?.endSheet(window, returnCode: response)
+    }
 }

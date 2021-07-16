@@ -10,7 +10,6 @@
 
 @objc public extension NSScrollView {
 
-    // MARK: -funtions
     
     static func create(_ rect: CGRect) -> Self {
         let view = self.init(frame: rect)

@@ -15,7 +15,6 @@ import UIKit
             return frame.size.width
         }
         set {
-//            frame.size.width = newValue
             var rectTmp = frame
             rectTmp.size.width = newValue
             frame = rectTmp
@@ -27,7 +26,6 @@ import UIKit
             return frame.size.height
         }
         set {
-//            frame.size.height = newValue
             var rectTmp = frame
             rectTmp.size.height = newValue
             frame = rectTmp
@@ -39,7 +37,6 @@ import UIKit
             return frame.origin.x
         }
         set {
-//            frame.origin.x = newValue
             var rectTmp = frame
             rectTmp.origin.x = newValue
             frame = rectTmp
@@ -51,61 +48,26 @@ import UIKit
             return frame.origin.y
         }
         set {
-//            frame.origin.y = newValue
             var rectTmp = frame
             rectTmp.origin.y = newValue
             frame = rectTmp
         }
     }
     
-    var minX: CGFloat {
-        return frame.minX
-    }
-    
-    var minY: CGFloat {
-        return frame.minY
-    }
-    
-    var midX: CGFloat {
-        return frame.midX
-    }
-    
-    var midY: CGFloat {
-        return frame.midY
-    }
-    
-    var maxX: CGFloat {
-        return frame.maxX
-    }
-    
-    var maxY: CGFloat {
-        return frame.maxY
-    }
     
     //MARK: -funtions
     
     /// 图层调试
-    func getViewLayer(lineColor: UIColor = .blue) {
-        #if DEBUG
-            for subview in subviews {
-                subview.layer.borderWidth = kW_LayerBorder
-                subview.layer.borderColor = lineColor.cgColor
-                subview.getViewLayer(lineColor: lineColor)
-            }
-        #endif
-    }
-    
-    /// 图层调试(兼容OC)
-    func getViewLayer() {
+    func getViewLayer(_ lineColor: UIColor = .blue) {
         #if DEBUG
         for subview in subviews {
             subview.layer.borderWidth = kW_LayerBorder
-            subview.layer.borderColor = UIColor.blue.cgColor
-            subview.getViewLayer()
+            subview.layer.borderColor = lineColor.cgColor
+            subview.getViewLayer(lineColor)
         }
         #endif
     }
-    
+        
     /// 寻找子视图
     func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
         for e in self.subviews.enumerated() {
