@@ -59,17 +59,6 @@
         return nil
     }
     
-    /// [弃用]UserDefaults 二次封装(遵守编解码协议的模型)
-    static func setArcObject(_ value: Any?, forkey key: String) {
-        guard let value = standard.object(forKey: key) else { return }
-        let data = NSKeyedArchiver.archivedData(withRootObject: value)
-        self.standard.set(data, forKey: key)
-    }
-    /// [弃用]UserDefaults 二次封装(遵守编解码协议的模型)
-    static func arcObject(forKey key: String) -> Any? {
-        guard let data = standard.object(forKey: key) as? Data else { return nil}
-        return NSKeyedUnarchiver.unarchiveObject(with: data)
-    }
 }
 
 public extension UserDefaults{

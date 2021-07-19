@@ -190,7 +190,6 @@ public extension UITableView{
     
     /// 泛型复用cell - cellType: "类名.self" (默认identifier: 类名字符串)
     final func dequeueReusableCell<T: UITableViewCell>(for cellType: T.Type, identifier: String = String(describing: T.self), style: UITableViewCell.CellStyle = .default) -> T{
-//        let identifier = String(describing: T.self)
         if let cell = self.dequeueReusableCell(withIdentifier: identifier) as? T {
             return cell
         }

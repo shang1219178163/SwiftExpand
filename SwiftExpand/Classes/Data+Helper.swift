@@ -15,7 +15,7 @@
         }
         
         do {
-            let obj: Any = try JSONSerialization.jsonObject(with: self as Data, options: [])
+            let obj = try JSONSerialization.jsonObject(with: self as Data, options: [])
             return obj
         } catch {
            print(error)

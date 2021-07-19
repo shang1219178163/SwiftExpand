@@ -258,14 +258,13 @@ public extension UIViewController{
     
     ///刷新 tabBarItem
     func reloadTabarItem(_ item: (String, UIImage?, UIImage?)) {
-        let (title, image, imageH) = item
-        guard let img = image,
-              let imgH = imageH else {
+        guard let img = item.1,
+              let imgH = item.2 else {
                 tabBarItem = UITabBarItem(title: title, image: nil, selectedImage: nil)
                 return }
         
         let value = img.withRenderingMode(.alwaysOriginal)
         let valueH = imgH.withRenderingMode(.alwaysTemplate)
-        tabBarItem = UITabBarItem(title: title, image: value, selectedImage: valueH)
+        tabBarItem = UITabBarItem(title: item.0, image: value, selectedImage: valueH)
     }
 }

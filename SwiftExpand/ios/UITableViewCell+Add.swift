@@ -24,15 +24,12 @@ import UIKit
     
     /// [源]自定义 UITableViewCell 获取方法(兼容OC)
     static func dequeueReusableCell(_ tableView: UITableView, identifier: String, style: UITableViewCell.CellStyle = .default) -> Self {
-        var cell = tableView.dequeueReusableCell(withIdentifier: identifier)
-        if cell == nil {
-            cell = self.init(style: style, reuseIdentifier: identifier)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? Self.init(style: style, reuseIdentifier: identifier)
 
-        cell!.selectionStyle = .none
-        cell!.separatorInset = .zero
-        cell!.layoutMargins = .zero
-        cell!.backgroundColor = .white
+        cell.selectionStyle = .none
+        cell.separatorInset = .zero
+        cell.layoutMargins = .zero
+        cell.backgroundColor = .white
         return cell as! Self
     }
     
