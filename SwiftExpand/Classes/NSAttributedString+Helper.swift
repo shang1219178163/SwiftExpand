@@ -40,15 +40,15 @@
     /// [源]富文本
     static func attString(_ text: String,
                           textTaps: [String],
-                          font: CGFloat = 15,
-                          tapFont: CGFloat = 15,
+                          font: Font = Font.systemFont(ofSize: 15),
+                          tapFont: Font = Font.systemFont(ofSize: 15),
                           color: Color = .black,
                           tapColor: Color = .theme,
                           alignment: NSTextAlignment = .left,
                           lineSpacing: CGFloat = 0,
                           lineBreakMode: NSLineBreakMode = .byTruncatingTail,
                           rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
-        let paraDic = paraDict(Font.systemFont(ofSize: font),
+        let paraDic = paraDict(font,
                                textColor: color,
                                alignment: alignment,
                                lineSpacing: lineSpacing,
@@ -59,7 +59,7 @@
             let nsRange = (text as NSString).range(of: textTap, options: mask)
 
             let attDic: [NSAttributedString.Key: Any] = [
-                .font: Font.systemFont(ofSize: tapFont),
+                .font: tapFont,
                 .foregroundColor: tapColor,
                 .backgroundColor: Color.clear,
             ]
