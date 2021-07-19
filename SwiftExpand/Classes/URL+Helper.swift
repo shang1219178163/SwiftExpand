@@ -65,7 +65,9 @@ public extension URL {
     
     ///追加查询参数
     func appendingQueryParameters(_ parameters: [String: String]) -> URL {
-        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)!
+        assert((URLComponents(url: self, resolvingAgainstBaseURL: true) != nil))
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: true) else {
+            return self}
         return components.appendingQueryParameters(parameters)
     }
     
@@ -75,7 +77,9 @@ public extension URL {
     }
     
     func removingQueryParameters(for keys: [String]) -> URL {
-        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)!
+        assert((URLComponents(url: self, resolvingAgainstBaseURL: true) != nil))
+        guard var components = URLComponents(url: self, resolvingAgainstBaseURL: true) else {
+            return self}
         return components.removingQueryParameters(for: keys)
     }
     
