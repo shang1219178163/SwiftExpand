@@ -18,7 +18,7 @@ import ServiceManagement
         if let bundleName = infoDic[kCFBundleNameKey as String] as? String {
             return bundleName
         }
-        return ""
+        return nil
     }
     
     static var appBundleName: String? {
