@@ -58,6 +58,12 @@ import UIKit
         self.addAction(action)
     }
     
+    convenience init(button obj: String, action: @escaping ((UIButton) -> Void)) {
+        let sender = UIButton(barItem: obj)
+        sender.addActionHandler(action)
+        self.init(customView: sender)
+    }
+    
     /// 按钮是否显示
     func setHidden(_ hidden: Bool, color: UIColor = UIColor.theme) {
         isEnabled = !hidden

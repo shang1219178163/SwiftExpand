@@ -70,7 +70,7 @@
     
     /// 线条默认颜色(同cell分割线颜色)
     static var line: Color {
-        return Color.hexValue(0xe4e4e4);
+        return Color.hexValue(0xe4e4e4)
     }
     
     static var excel: Color {

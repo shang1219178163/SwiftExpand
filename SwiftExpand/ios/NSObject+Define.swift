@@ -57,9 +57,9 @@ public func UICtrFromString(_ vcName: String) -> UIViewController {
     // 需将cls转换为制定类型
     let vcCls = cls as! UIViewController.Type
     // 创建对象
-    let controller: UIViewController = vcCls.init()
-    controller.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    return controller
+    let vc: UIViewController = vcCls.init()
+    vc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    return vc
 }
 
 ///获取 ItemSize

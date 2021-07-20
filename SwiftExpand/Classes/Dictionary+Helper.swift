@@ -16,7 +16,7 @@ public extension Dictionary{
     }
     
     /// ->NSString
-    var jsonString: String {
+    var jsonString: String? {
         return (self as NSDictionary).jsonString
     }
     
@@ -64,10 +64,10 @@ public extension Dictionary where Key == String, Value == String {
     }
     
     /// ->NSString
-    var jsonString: String {
+    var jsonString: String? {
         guard let jsonData = self.jsonData as Data?,
         let jsonString = String(data: jsonData, encoding: .utf8) as String?
-        else { return "" }
+        else { return nil }
         return jsonString
     }
     

@@ -5,7 +5,9 @@
 //  Created by Bin Shang on 2019/11/9.
 //
 
-import UIKit
+/**
+ 此实现不完美, 建议继承 UITextView 实现该效果
+ */
 
 @objc extension UITextView{
     private struct AssociateKeys {
@@ -30,7 +32,7 @@ import UIKit
 //    private func hook_deinit() {
 //        //需要注入的代码写在此处
 //        NotificationCenter.default.removeObserver(self)
-//        self.hook_deinit()
+//        hook_deinit()
 //    }
             
     public var placeHolderLabel: UILabel {
@@ -39,18 +41,18 @@ import UIKit
                 return obj
             }
             let obj = UILabel()
-            obj.frame = bounds.inset(by: UIEdgeInsets(top: 18, left: 6, bottom: 8, right: 6))
             obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            obj.frame = bounds.inset(by: UIEdgeInsets(top: 18, left: 6, bottom: 8, right: 6))
             obj.font = font
             obj.textColor = .gray
             obj.textAlignment = textAlignment
             obj.text = "请输入"
             obj.numberOfLines = 0
+            obj.contentMode = .top
             obj.backgroundColor = .clear
             obj.isUserInteractionEnabled = true
-            obj.translatesAutoresizingMaskIntoConstraints = false
+//            obj.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(obj)
-            
             
             obj.addGestureTap { (reco) in
                 self.becomeFirstResponder()

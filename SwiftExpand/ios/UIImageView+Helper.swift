@@ -24,7 +24,7 @@ import UIKit
         }
     }
     /// [源]UIImageView创建
-    convenience init(_ rect: CGRect = .zero, named: String) {
+    convenience init(rect: CGRect = .zero, named: String) {
         self.init(frame: rect)
         self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.isUserInteractionEnabled = true
