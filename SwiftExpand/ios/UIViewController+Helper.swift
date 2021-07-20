@@ -98,16 +98,6 @@ import UIKit
         return result
     }
     
-    /// 重置布局
-    func setupExtendedLayout() {
-        edgesForExtendedLayout = []
-        if #available(iOS 11.0, *) {
-            UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
-        } else {
-            automaticallyAdjustsScrollViewInsets = false
-        }
-    }
-    
     /// 重置布局(UIDocumentPickerViewController需要为automatic)
     func setupContentInsetAdjustmentBehavior(_ isAutomatic: Bool = false) {
         if #available(iOS 11.0, *) {
