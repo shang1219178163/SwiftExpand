@@ -7,6 +7,9 @@
 //
 
 
+import Foundation
+
+
 @objc public extension Font{
     static let kPingFang           = "PingFang SC";
     static let kPingFangMedium     = "PingFangSC-Medium";

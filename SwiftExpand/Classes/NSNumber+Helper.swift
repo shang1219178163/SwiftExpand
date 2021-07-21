@@ -7,6 +7,12 @@
 //  Copyright © 2018 Xi'an iRain IoT. Technology Service CO., Ltd. . All rights reserved.
 //
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+import Foundation
 
 /// ¥###,##0.00
 public let kNumFormat = "¥###,##0.00";

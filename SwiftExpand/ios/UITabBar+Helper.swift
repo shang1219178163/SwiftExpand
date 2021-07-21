@@ -3,6 +3,7 @@
 //  SwiftExpand
 //
 //  Created by Bin Shang on 2019/12/2.
+//  Copyright © 2018 Bin Shang. All rights reserved.
 //
 
 import UIKit

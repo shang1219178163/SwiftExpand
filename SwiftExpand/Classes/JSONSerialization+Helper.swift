@@ -7,6 +7,9 @@
 //
 
 
+import Foundation
+
+
 @objc public extension JSONSerialization{
 
     ///读取本地文件内容

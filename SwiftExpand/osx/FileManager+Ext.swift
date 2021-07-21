@@ -6,10 +6,10 @@
 //  Copyright © 2019 Bin Shang. All rights reserved.
 //
 
+import AppKit
+
 let macDownloadsDirectory = "/Users/\(NSUserName())/Downloads"
-
 let macDocumentsDirectory = "/Users/\(NSUserName())/Documents"
-
 
 @objc public extension FileManager{
     /// 下载目录

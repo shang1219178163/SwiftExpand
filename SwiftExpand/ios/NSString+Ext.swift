@@ -3,10 +3,10 @@
 //  SwiftExpand
 //
 //  Created by Bin Shang on 2021/5/26.
+//  Copyright © 2021 Bin Shang. All rights reserved.
 //
 
 import UIKit
-
 
 public extension String{
     /// 复制到剪切板

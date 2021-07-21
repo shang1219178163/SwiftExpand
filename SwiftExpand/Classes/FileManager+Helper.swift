@@ -7,6 +7,9 @@
 //
 
 
+import Foundation
+
+
 public extension FileManager{
     
     var documentsURL: URL {

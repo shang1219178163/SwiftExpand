@@ -6,6 +6,13 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+import Foundation
+
 @objc public extension CollectionViewFlowLayout{
 
     /// 默认布局配置(自上而下,自左而右)

@@ -5,6 +5,8 @@
 //  Created by Bin Shang on 2019/3/29.
 //  Copyright © 2019 BN. All rights reserved.
 //
+
+import Foundation
 import QuartzCore
 
 @objc public extension CATransaction{

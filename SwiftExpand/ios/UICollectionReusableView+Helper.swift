@@ -3,8 +3,8 @@
 //  SwiftExpand
 //
 //  Created by Bin Shang on 2018/12/22.
+//  Copyright © 2021 Bin Shang. All rights reserved.
 //
-
 
 /*
  UICollectionViewCell继承于UICollectionReusableView,所以两者属性,方法不能同名

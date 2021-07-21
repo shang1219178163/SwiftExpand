@@ -7,6 +7,9 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
+import UIKit
+import Foundation
+
 public let isiPhoneX: Bool              = UIScreen.isIPhoneX
 /// 状态栏 20
 public let kStatusBarHeight: CGFloat    = UIScreen.statusBarHeight

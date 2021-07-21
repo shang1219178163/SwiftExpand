@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 // 定义数据类型(其实就是设置别名)
 public typealias CellForRowClosure = ((UITableView, IndexPath) ->UITableViewCell?)

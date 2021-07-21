@@ -6,6 +6,12 @@
 //  Copyright © 2019 Xi'an iRain IoT. Technology Service CO., Ltd. . All rights reserved.
 //
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+import Foundation
 
 @objc public extension NSData{
     /// NSData -> 转数组/字典

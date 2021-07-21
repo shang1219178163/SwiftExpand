@@ -2,12 +2,17 @@
 //  UITextView+Hook.swift
 //  SwiftExpand
 //
-//  Created by Bin Shang on 2019/11/9.
+//  Created by Bin Shang on 2019/1/15.
+//  Copyright © 2019 BN. All rights reserved.
 //
+
 
 /**
  此实现不完美, 建议继承 UITextView 实现该效果
  */
+
+import UIKit
+import Foundation
 
 @objc extension UITextView{
     private struct AssociateKeys {

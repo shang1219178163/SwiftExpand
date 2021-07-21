@@ -8,7 +8,7 @@
 //
 
 import UIKit
-
+import Foundation
 
 @objc public extension UIView {
     private struct AssociateKeys {

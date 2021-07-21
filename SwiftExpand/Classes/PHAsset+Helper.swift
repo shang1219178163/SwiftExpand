@@ -6,8 +6,10 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
+import Foundation
 import Photos
 
+@available(macOS 10.13, *)
 @objc public extension PHAsset{
     
     /// 请求UIImage

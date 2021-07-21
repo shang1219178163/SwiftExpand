@@ -6,6 +6,8 @@
 //  Copyright © 2020 BN. All rights reserved.
 //
 
+import Foundation
+
 /*
  let result = NSDecimalNumber.calculate { () -> NSDecimalNumber in
      let a = NSDecimalNumber(decimal: 0.1562)
@@ -15,7 +17,7 @@
  }
  **/
 
-
+import Foundation
 
 @objc public extension NSDecimalNumber {
     

@@ -6,6 +6,7 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
+import Foundation
 import WebKit
 
 
@@ -52,7 +53,7 @@ import WebKit
     }
     
     ///添加 cookie的自动推送
-    @available(iOS 11.0, *)
+    @available(iOS 11.0, macOS 10.13, *)
     func copyNSHTTPCookieStorageToWKHTTPCookieStore(_  handler: (() -> Void)? = nil) {
         guard let cookies = HTTPCookieStorage.shared.cookies else { return }
         let cookieStore = self.configuration.websiteDataStore.httpCookieStore
@@ -125,7 +126,7 @@ import WebKit
         load(request)
     }
     
-    @available(iOS 11.0, *)
+    @available(iOS 11.0, macOS 10.13, *)
     func snapshot(_ rect: CGRect, snapshotWidth: NSNumber? = nil, completionHandler: @escaping (Image?, Error?) -> Void){
         let conf = WKSnapshotConfiguration()
         conf.rect = rect

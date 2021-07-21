@@ -6,6 +6,8 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
+import Foundation
+
 
 
 @objc public extension Timer{

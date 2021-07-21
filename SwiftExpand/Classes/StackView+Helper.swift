@@ -3,9 +3,10 @@
 //  StackView+Helper.swift
 //  Alamofire
 //
-//  Created by Bin Shang on 2019/11/26.
+//  Created by Bin Shang on 2019/11/26.All rights reserved.
 //
 
+import Foundation
 
 @objc public extension StackView {
     

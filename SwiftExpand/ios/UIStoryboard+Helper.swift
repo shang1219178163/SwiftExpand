@@ -3,10 +3,11 @@
 //  IntelligentOfParking
 //
 //  Created by Bin Shang on 2020/1/20.
-//  Copyright © 2020 Xi'an iRain IoT. Technology Service CO., Ltd. . All rights reserved.
+//  Copyright © 2018 Bin Shang. All rights reserved.
 //
 
 import UIKit
+import Foundation
 
 @objc public extension UIStoryboard{
     

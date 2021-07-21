@@ -6,6 +6,9 @@
 //	Copyright © 2021 Bin Shang. All rights reserved.
 //
 
+import UIKit
+import Foundation
+
 @objc public extension UIColor{
 
     convenience init(light: UIColor, dark: UIColor) {

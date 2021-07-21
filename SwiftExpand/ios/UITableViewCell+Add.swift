@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import Foundation
 
 @objc public extension UITableViewCell{
     private struct AssociateKeys {

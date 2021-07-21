@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import Foundation
 
 @objc public extension UIViewController{
     private struct AssociateKeys {

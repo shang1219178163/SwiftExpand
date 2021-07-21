@@ -3,10 +3,10 @@
 //  SwiftExpand
 //
 //  Created by Bin Shang on 2019/12/2.
+//  Copyright © 2021 Bin Shang. All rights reserved.
 //
 
 import UIKit
-
     
 public extension NSIndexPath{
     /// {section, row}

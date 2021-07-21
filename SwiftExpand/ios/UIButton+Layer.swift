@@ -5,6 +5,9 @@
 //  Created by Bin Shang on 2021/1/23.
 //  Copyright © 2021 BN. All rights reserved.
 //
+
+import UIKit
+import Foundation
 /**
  UIControlStateNormal = 0
  UIControlStateHighlighted = 1

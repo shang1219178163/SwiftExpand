@@ -6,6 +6,9 @@
 //  Copyright © 2018 BN. All rights reserved.
 //
 
+import Foundation
+
+import Foundation
 
 public extension DispatchQueue{
     private static var _onceTracker = [String]()

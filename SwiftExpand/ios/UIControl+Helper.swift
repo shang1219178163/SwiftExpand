@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 @objc extension UIControl {
     private struct AssociateKeys {

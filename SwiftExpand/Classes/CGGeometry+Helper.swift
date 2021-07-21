@@ -6,6 +6,12 @@
 //  Copyright © 2020 BN. All rights reserved.
 //
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+import Foundation
 
 /// 自定义EdgeInsets
 public func UIEdgeInsetsMake(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> EdgeInsets{

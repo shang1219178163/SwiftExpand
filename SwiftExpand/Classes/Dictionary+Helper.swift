@@ -6,6 +6,8 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
+import Foundation
+
 
 
 public extension Dictionary{

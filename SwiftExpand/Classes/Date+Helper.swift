@@ -5,6 +5,8 @@
 //  Created by dev on 2018/12/11.
 //  Copyright © 2018年 BN. All rights reserved.
 //
+
+import Foundation
 /*
  G: 公元时代，例如AD公元
  yy: 年的后2位

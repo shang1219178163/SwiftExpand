@@ -6,6 +6,8 @@
 //  Copyright © 2020 BN. All rights reserved.
 //
 
+import Foundation
+
 
 @objc public extension URLSession {
     private struct AssociateKeys {

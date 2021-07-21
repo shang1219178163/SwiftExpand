@@ -8,7 +8,7 @@
 //
 
 import UIKit
-
+import Foundation
 
 @objc extension UIControl{
     override public class func initializeMethod() {

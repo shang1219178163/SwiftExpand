@@ -6,7 +6,10 @@
 //	Copyright © 2021 Bin Shang. All rights reserved.
 //
 
+import UIKit
+import Foundation
 import AVFoundation
+
 public extension URL {
     /// Generate a thumbnail image from given url. Returns nil if no thumbnail could be created. This function may take some time to complete. It's recommended to dispatch the call if the thumbnail is not generated from a local resource.
     ///

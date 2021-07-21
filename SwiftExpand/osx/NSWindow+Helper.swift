@@ -6,7 +6,7 @@
 //  Copyright © 2019 Bin Shang. All rights reserved.
 //
 
-
+import AppKit
 
 @objc public extension NSWindow {
     ///便利方法

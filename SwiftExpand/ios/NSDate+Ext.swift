@@ -7,6 +7,9 @@
 //
 
 
+import UIKit
+import Foundation
+
 @objc public extension DateFormatter{
 
     ///根据 UIDatePicker.Mode 获取时间字符串简

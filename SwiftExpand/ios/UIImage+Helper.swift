@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 //MARK - UIImage
 @objc public extension UIImage {

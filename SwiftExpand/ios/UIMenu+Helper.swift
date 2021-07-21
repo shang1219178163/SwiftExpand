@@ -6,6 +6,8 @@
 //  Copyright © 2021 BN. All rights reserved.
 //
 
+import UIKit
+import Foundation
 
 /// UIAction: "_state"
 public let kActionState = "_state"

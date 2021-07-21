@@ -5,6 +5,12 @@
 //  Created by Bin Shang on 2019/7/15.
 //
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+import Foundation
 
 @objc public extension NSAttributedString{
     ///获取所有的 [Range: NSAttributedString] 集合

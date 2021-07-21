@@ -3,8 +3,11 @@
 //  SwiftExpand
 //
 //  Created by Bin Shang on 2021/5/26.
+//  Copyright © 2021 Bin Shang. All rights reserved.
 //
 
+import UIKit
+import Foundation
 
 /// 自定义GGSizeMake
 public func UIOffsetMake(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> UIOffset {

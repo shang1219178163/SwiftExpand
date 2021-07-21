@@ -7,7 +7,7 @@
 //
 
 
-
+import AppKit
 
 @objc public extension NSMenu {
     

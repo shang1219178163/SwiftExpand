@@ -6,7 +6,12 @@
 //  Copyright © 2018年 BN. All rights reserved.
 //
 
-
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+import Foundation
 import CommonCrypto
 
 public extension String{

@@ -6,6 +6,8 @@
 //  Copyright © 2020 BN. All rights reserved.
 //
 
+import Foundation
+
 
 
 public extension URLComponents {

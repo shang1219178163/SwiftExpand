@@ -6,6 +6,13 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+import Foundation
+
 
 @objc public extension UserDefaults{
     
@@ -30,7 +37,7 @@
     ///UserDefaults 保存模型
     static func arcObject(_ value: Any?, forkey defaultName: String) {
         guard let value = value else { return }
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, macOS 13.0, *) {
             do {
                 let data = try NSKeyedArchiver.archivedData(withRootObject: value, requiringSecureCoding: true)
                 standard.setValue(data, forKey: defaultName)
@@ -45,7 +52,7 @@
     ///UserDefaults 解包模型
     static func unarcObject(ofClasses classes: Set<AnyHashable>, forkey defaultName: String) -> Any? {
         guard let value = standard.object(forKey: defaultName) as? Data else { return nil}
-        if #available(iOS 11.0, *) {
+        if #available(iOS 11.0, macOS 13.0, *) {
             do {
                 let data = try NSKeyedUnarchiver.unarchivedObject(ofClasses: classes, from: value)
                 return data
