@@ -35,7 +35,7 @@ import Foundation
      }
     
     ///UserDefaults 保存模型
-    static func arcObject(_ value: Any?, forkey defaultName: String) {
+    static func archiveObject(_ value: Any?, forkey defaultName: String) {
         guard let value = value else { return }
         if #available(iOS 11.0, macOS 13.0, *) {
             do {

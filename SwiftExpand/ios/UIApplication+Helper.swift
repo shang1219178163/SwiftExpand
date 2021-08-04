@@ -242,7 +242,6 @@ import Foundation
             $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
           }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIImagePickerController.self]))
         
-        
         _ = {
             $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: tintColor], for: .normal)
           }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]))

@@ -19,6 +19,9 @@ public let kNavBarHeight: CGFloat       = UIScreen.navBarHeight
 /// 底部tabBar高度 49
 public let kTabBarHeight: CGFloat       = UIScreen.tabBarHeight
 
+///iphonex底部额外控件高度
+public let kTabBarPaddingHeight: CGFloat   = UIScreen.isIPhoneX ? 34 : 0
+
 
 @objc public extension UIScreen {
     
