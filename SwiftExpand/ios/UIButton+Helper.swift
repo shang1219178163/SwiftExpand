@@ -29,7 +29,13 @@ import Foundation
         }
     }
 
-
+    
+    func sizeToAdjust(_ widthSpacing: CGFloat = 0, height: CGFloat) {
+        let size = sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: 0))
+        widthAnchor.constraint(equalToConstant: size.width + widthSpacing).isActive = true
+        heightAnchor.constraint(equalToConstant: height).isActive = true
+    }
+    
     ///自定义按钮类型
     @objc enum CustomType: Int {
              ///主题色底白字

@@ -215,14 +215,30 @@ public extension String{
     
     /// 获取前缀
     func getPrefix(with separates: [String]) -> String {
-        var reult = ""
+        var result = ""
         for value in separates {
             if self.contains(value) {
-                reult = self.components(separatedBy: value).first!
+                result = self.components(separatedBy: value).first!
                 break
             }
         }
-        return reult
+        return result
+    }
+    
+    /// (填充字符到最大长度)padding [value] to [width]
+    func padLeft(_ width: Int, _ padding: String = " ") -> String {
+        if width <= self.count {
+            return self
+        }
+        return padding * (width - count) + self
+    }
+    
+    /// (填充字符到最大长度)padding [value] to [width]
+    func padRight(_ width: Int, _ padding: String = " ") -> String {
+        if width <= self.count {
+            return self
+        }
+        return self + padding * (width - count)
     }
     
     /// 字符串开始到第index
