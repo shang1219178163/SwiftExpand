@@ -71,25 +71,6 @@ import UIKit
         return attString
     }
     
-    /// 字符串添加前缀
-    func insertPrefix(_ prefix: String = kAsterisk, color: UIColor = UIColor.red){
-        guard let tex = self.text,
-              let font = self.font else { return }
-        if tex.contains(prefix) {
-            let attPrefix = NSAttributedString(string: prefix,
-                                               attributes: [NSAttributedString.Key.foregroundColor: color,
-                                                            NSAttributedString.Key.font: font
-                                               ])
-            
-            let matt = NSMutableAttributedString(string: tex.replacingOccurrences(of: prefix, with: ""),
-                                                 attributes: [NSAttributedString.Key.foregroundColor: textColor as Any,
-                                                              NSAttributedString.Key.font: font
-                                                 ])
-            matt.insert(attPrefix, at: 0)
-            self.attributedText = matt
-        }
-    }
-    
     /// 验证码倒计时显示
     func timerStart(_ interval: Int = 60) {
         var time = interval
