@@ -256,23 +256,38 @@ public extension NSMutableAttributedString{
     }
     
     /// 字符串添加前缀
-    func insertPrefix(_ prefix: String = kAsterisk, prefixColor: Color = Color.red, font: Font) -> Self{
-        let attr = NSAttributedString(string: prefix,
-                                      attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
-                                                   NSAttributedString.Key.font: font
-                                      ])
-        self.insert(attr, at: 0)
+    func insertPrefix(_ prefix: String = kAsterisk, color: Color = Color.red, font: Font) -> Self{
+        guard let range = self.string.range(of: prefix) else {
+            let attr = NSAttributedString(string: prefix,
+                                          attributes: [NSAttributedString.Key.foregroundColor: color,
+                                                       NSAttributedString.Key.font: font
+                                          ])
+            self.insert(attr, at: 0)
+            return self
+        }
+
+        let nsRange = NSRange(range, in: self.string)
+        addAttributes([NSAttributedString.Key.foregroundColor: color,
+                       NSAttributedString.Key.font: font
+        ], range: nsRange)
         return self
     }
     
-    
     /// 字符串添加后缀
-    func appendSuffix(_ suffix: String = kAsterisk, prefixColor: Color = Color.red, font: Font) -> Self{
-        let attr = NSAttributedString(string: suffix,
-                                      attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
-                                                   NSAttributedString.Key.font: font
-                                      ])
-        self.append(attr)
+    func appendSuffix(_ suffix: String = kAsterisk, color: Color = Color.red, font: Font) -> Self{
+        guard let range = self.string.range(of: suffix, options: .backwards) else {
+            let attr = NSAttributedString(string: suffix,
+                                          attributes: [NSAttributedString.Key.foregroundColor: color,
+                                                       NSAttributedString.Key.font: font
+                                          ])
+            self.append(attr)
+            return self
+        }
+        
+        let nsRange = NSRange(range, in: self.string)
+        addAttributes([NSAttributedString.Key.foregroundColor: color,
+                       NSAttributedString.Key.font: font
+        ], range: nsRange)
         return self
     }
 }
