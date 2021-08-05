@@ -213,24 +213,12 @@ public extension String{
         return (self as NSString).dayEnd
     }
     
-    /// 获取前缀
-    func getPrefix(with separates: [String]) -> String {
-        var result = ""
-        for value in separates {
-            if self.contains(value) {
-                result = self.components(separatedBy: value).first!
-                break
-            }
-        }
-        return result
-    }
-    
     /// (填充字符到最大长度)padding [value] to [width]
     func padLeft(_ width: Int, _ padding: String = " ") -> String {
         if width <= self.count {
             return self
         }
-        return padding * (width - count) + self
+        return String(repeating: padding, count: width - count) + self
     }
     
     /// (填充字符到最大长度)padding [value] to [width]
@@ -238,7 +226,7 @@ public extension String{
         if width <= self.count {
             return self
         }
-        return self + padding * (width - count)
+        return self + String(repeating: padding, count: width - count)
     }
     
     /// 字符串开始到第index
@@ -295,6 +283,7 @@ public extension String{
         let result = (self as NSString).substring(with: NSMakeRange(location, length))
         return result
     }
+    
     /// range转换为NSRange
     func nsRange(from range: Range<String.Index>) -> NSRange {
         return NSRange(range, in: self)
@@ -310,11 +299,6 @@ public extension String{
             else { return nil }
         return from ..< to
     }
-    
-    ///过滤字符集
-//    func replacingOccurrences(of String: String, withSet: String) -> String {
-//        return (self as NSString).replacingOccurrences(of: String, withSet: withSet)
-//    }
     
     ///获取两个字符串中间的部分(含这两部分)
     func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
@@ -369,13 +353,7 @@ public extension String{
         let encodingURL = self.addingPercentEncoding(withAllowedCharacters: charSet)
         return encodingURL ?? ""
     }
-    
-    /// 字符串首位加*
-    func insertPrefix(_ textColor: Color = .black, font: Font) -> NSAttributedString{
-        return (self as NSString).insertPrefix(kAsterisk, prefixColor: .red, textColor: textColor, font: font)
-    }
 
-    
     /// 整形判断
     func isPureInteger() -> Bool{
         return (self as NSString).isPureInteger()
@@ -493,6 +471,50 @@ public extension String{
         return String(repeating: lhs, count: rhs)
     }
 }
+
+//Range/nsRange 相互转换
+//  let string = "Hello USA 🇺🇸 !!! Hello World !!!"
+//  if let nsRange = string.range(of: "Hello World")?.nsRange(in: string) {
+//      (string as NSString).substring(with: nsRange) //  "Hello World"
+//  }
+//
+//  if let nsRange = string.nsRange(of: "Hello World") {
+//    (string as NSString).substring(with: nsRange) //  "Hello World"
+//  }
+//  let nsRanges = string.nsRanges(of: "Hello")
+//  print(nsRanges)   // "[{0, 5}, {19, 5}]\n"
+//
+public extension RangeExpression where Bound == String.Index  {
+    func nsRange<S: StringProtocol>(in string: S) -> NSRange { .init(self, in: string) }
+}
+
+public extension StringProtocol {
+    
+    func nsRange<S: StringProtocol>(of string: S, options: String.CompareOptions = [], range: Range<Index>? = nil, locale: Locale? = nil) -> NSRange? {
+        self.range(of: string,
+                   options: options,
+                   range: range ?? startIndex..<endIndex,
+                   locale: locale ?? .current)?
+            .nsRange(in: self)
+    }
+    
+    func nsRanges<S: StringProtocol>(of string: S, options: String.CompareOptions = [], range: Range<Index>? = nil, locale: Locale? = nil) -> [NSRange] {
+        var start = range?.lowerBound ?? startIndex
+        let end = range?.upperBound ?? endIndex
+        var ranges: [NSRange] = []
+        while start < end,
+            let range = self.range(of: string,
+                                   options: options,
+                                   range: start..<end,
+                                   locale: locale ?? .current) {
+            ranges.append(range.nsRange(in: self))
+            start = range.lowerBound < range.upperBound ? range.upperBound :
+            index(range.lowerBound, offsetBy: 1, limitedBy: endIndex) ?? endIndex
+        }
+        return ranges
+    }
+}
+
 
 
 @objc public extension NSString{
@@ -643,10 +665,7 @@ public extension String{
     func isBig(_ value: String) -> Bool {
         return compare(value, options: .numeric) == .orderedDescending
     }
-//    /// 等于version
-//    func isSame(version: String) -> Bool {
-//        return compare(version, options: .numeric) == .orderedSame
-//    }
+
     /// 小于version
     func isSmall(_ value: String) -> Bool {
         return compare(value, options: .numeric) == .orderedAscending
@@ -663,33 +682,7 @@ public extension String{
         }
         return ""
     }
-    
-    /// 字符串添加前缀
-    func insertPrefix(_ prefix: String = kAsterisk,
-                      prefixColor: Color = Color.red,
-                      textColor: Color = Color.black,
-                      font: Font) -> NSAttributedString{
-        if self.contains(prefix) == false {
-            return NSAttributedString(string: self as String,
-                                      attributes: [NSAttributedString.Key.foregroundColor: textColor,
-                                                   NSAttributedString.Key.font: font
-                                      ])
-        }
-        
-        let attPrefix = NSAttributedString(string: prefix,
-                                           attributes: [NSAttributedString.Key.foregroundColor: prefixColor,
-                                                        NSAttributedString.Key.font: font
-                                           ])
-        
-        let matt = NSMutableAttributedString(string: (self as String).replacingOccurrences(of: prefix, with: ""),
-                                             attributes: [NSAttributedString.Key.foregroundColor: textColor,
-                                                          NSAttributedString.Key.font: font
-                                             ])
-        matt.insert(attPrefix, at: 0)
-        return matt
-    }
-    
-    
+
     /// 判断是否时间戳字符串
     func isTimeStamp() -> Bool{
         if [" ", "-", ":"].contains(self) {
