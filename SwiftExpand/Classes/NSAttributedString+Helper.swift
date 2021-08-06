@@ -123,12 +123,12 @@ import Foundation
     /// nsRange范围子字符串差异华显示
     static func attString(_ text: String,
                           nsRange: NSRange,
-                          font: CGFloat = 15,
+                          font: Font = Font.systemFont(ofSize: 15),
                           textColor: Color = .theme) -> NSAttributedString {
         assert((nsRange.location + nsRange.length) <= text.count)
         
         let attDic: [NSAttributedString.Key: Any] = [
-            .font: Font.systemFont(ofSize: font),
+            .font: font,
             .foregroundColor: textColor,
         ]
         
@@ -138,9 +138,9 @@ import Foundation
     }
     
     /// 定义超链接文本颜色样式
-    static func hyperlink(_ string: String, url: URL, font: CGFloat = 14) -> NSAttributedString {
+    static func hyperlink(_ string: String, url: URL, font: Font = Font.systemFont(ofSize: 14)) -> NSAttributedString {
         let attDic: [NSAttributedString.Key : Any] = [
-            .font: Font.systemFont(ofSize: font),
+            .font: font,
             .foregroundColor: Color.blue,
             .link: url.absoluteURL,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
@@ -159,7 +159,7 @@ import Foundation
         let mattStr = NSMutableAttributedString(string: text, attributes: attDic)
         for e in dic {
             let url = URL(string: e.value)
-            let attStr = NSAttributedString.hyperlink(e.key, url: url!, font: font.pointSize)
+            let attStr = NSAttributedString.hyperlink(e.key, url: url!, font: font)
             let range = (mattStr.string as NSString).range(of: e.key)
             mattStr.replaceCharacters(in: range, with: attStr)
         }
