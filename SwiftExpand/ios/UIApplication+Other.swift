@@ -158,12 +158,9 @@ import Photos
     }
     
     ///添加TimeInterval本地通知到通知中心
-    func addTimeIntervalRequestToCenter(_ timeInterval: TimeInterval = 1,
-                                        repeats: Bool = false,
-                                        handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
+    func addRequestToCenter(_ trigger: UNNotificationTrigger,
+                            handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
         let identifier = DateFormatter.stringFromDate(Date())
-        /// 几秒后触发，如果要设置可重复触发需要大于60
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: repeats)
         let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
         
         let center = UNUserNotificationCenter.current()
@@ -173,39 +170,30 @@ import Photos
                 DDLog("推送添加失败: %@", error.localizedDescription)
             }
         }
+    }
+    
+    ///添加TimeInterval本地通知到通知中心
+    func addTimeIntervalRequestToCenter(_ timeInterval: TimeInterval = 1,
+                                        repeats: Bool = false,
+                                        handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
+        /// 几秒后触发，如果要设置可重复触发需要大于60
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: repeats)
+        addRequestToCenter(trigger, handler: handler)
     }
     ///添加Calendar本地通知到通知中心
     func addCalendarRequestToCenter(_ dateComponents: DateComponents,
                                     repeats: Bool = false,
                                     handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
-        let identifier = DateFormatter.stringFromDate(Date())
         ///某年某月某日某天某时某分某秒触发
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: repeats)
-        let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
-        
-        let center = UNUserNotificationCenter.current()
-        center.add(request) { (error) in
-            handler?(center, request, error as NSError?)
-            if let error = error {
-                DDLog("推送添加失败: %@", error.localizedDescription)
-            }
-        }
+        addRequestToCenter(trigger, handler: handler)
     }
     ///添加Location本地通知到通知中心
     func addLocationRequestToCenter(_ region: CLCircularRegion,
                                     repeats: Bool = false,
                                     handler: ((UNUserNotificationCenter, UNNotificationRequest, NSError?)->Void)?) {
-        let identifier = DateFormatter.stringFromDate(Date())
         ///在某个位置触发
         let trigger = UNLocationNotificationTrigger(region: region, repeats: repeats)
-        let request = UNNotificationRequest(identifier: identifier, content: self, trigger: trigger)
-        
-        let center = UNUserNotificationCenter.current()
-        center.add(request) { (error) in
-            handler?(center, request, error as NSError?)
-            if let error = error {
-                DDLog("推送添加失败: %@", error.localizedDescription)
-            }
-        }
+        addRequestToCenter(trigger, handler: handler)
     }
 }
