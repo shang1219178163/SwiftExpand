@@ -65,12 +65,6 @@ import Foundation
         self.init(customView: sender)
     }
     
-    /// 按钮是否显示
-    func setHidden(_ hidden: Bool, color: UIColor = UIColor.theme) {
-        isEnabled = !hidden
-        tintColor = !hidden ? color : .clear
-    }
-    
     func addTargetForAction(_ target: AnyObject, action: Selector) {
         self.target = target
         self.action = action
