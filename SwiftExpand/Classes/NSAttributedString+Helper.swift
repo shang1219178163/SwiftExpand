@@ -256,7 +256,7 @@ public extension NSMutableAttributedString{
     }
     
     /// 字符串添加前缀
-    func insertPrefix(_ prefix: String = kAsterisk, color: Color = Color.red, font: Font) -> Self{
+    func appendPrefix(_ prefix: String = kAsterisk, color: Color = Color.red, font: Font) -> Self{
         guard let range = self.string.range(of: prefix) else {
             let attr = NSAttributedString(string: prefix,
                                           attributes: [NSAttributedString.Key.foregroundColor: color,
@@ -413,7 +413,6 @@ public extension String {
     
     ///设置段落
     func textAttachmentChain(_ image: Image, scale: CGFloat = 1.0) -> Self {
-        
         #if os(macOS)
             let attachment = NSTextAttachment()
             let size = NSSize(
@@ -441,7 +440,6 @@ public extension String {
 
             self.append(NSAttributedString(attachment: attachment))
         #endif
-
 //        print(#function, rect, size)
         return self
     }
