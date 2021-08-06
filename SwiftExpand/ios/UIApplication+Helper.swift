@@ -272,6 +272,7 @@ import Foundation
         
         
         _ = {
+            $0.setTitleColor(.black, for: .normal)
             $0.titleLabel?.adjustsFontSizeToFitWidth = true
             $0.titleLabel?.minimumScaleFactor = 1.0
             $0.imageView?.contentMode = .scaleAspectFit
