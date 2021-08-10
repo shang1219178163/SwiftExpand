@@ -15,31 +15,39 @@ import UIKit
 import Foundation
 
 public extension Array{
-    
     /// ->Data
     var jsonData: Data? {
-        return (self as NSArray).jsonData
+        var data: Data?
+        do {
+            data = try JSONSerialization.data(withJSONObject: self, options: [])
+        } catch {
+            print(error)
+        }
+        return data;
     }
     
-    /// ->String
+    /// ->NSString
     var jsonString: String {
-        return (self as NSArray).jsonString
+        guard let jsonData = self.jsonData as Data?,
+        let jsonString = String(data: jsonData, encoding: .utf8) as String?
+        else { return "" }
+        return jsonString
     }
     
     /// 快速生成一个数组(step代表步长)
     init(count: Int, generator: @escaping ((Int) -> Element)) {
         self = (0..<count).map(generator)
     }
-    
-    ///同 subarrayWithRange:
-    func subarray(location: Int, length: Int) -> Array {
-        return subarray(with: NSMakeRange(location, length))
-    }
-    
+
     ///同 subarrayWithRange:
     func subarray(with range: NSRange) -> Array {
         assert((range.location + range.length) <= self.count);
         return Array(self[range.location...(range.location + range.length - 1)])
+    }
+    
+    ///同 subarrayWithRange:
+    func subarray(location: Int, length: Int) -> Array {
+        return subarray(with: NSMakeRange(location, length))
     }
     
     /// <= index
@@ -51,9 +59,11 @@ public extension Array{
     func subarray(from index: Int) -> Array {
         return Array(self[index...(self.count - 1)])
     }
+
 }
 
-public extension Array where Element == CGFloat{
+public extension Array where Element == CGFloat {
+    
     var sum: CGFloat {
         return self.reduce(0, +)
     }
@@ -84,6 +94,32 @@ public extension Array where Element == CGFloat{
         }
         DDLog("数组:\(self)\n各元素出现次数: \(dic)\n各元素出现概率: \(percentDic)\n总和: \(sum)\n期望值是: \(expectation)")
         return expectation
+    }
+    
+}
+
+public extension Array where Element : Equatable {
+    
+    mutating func removeFirst(_ element: Element) {
+        if let index = firstIndex(of: element) {
+            remove(at: index)
+        }
+    }
+    
+    mutating func removeLast(_ element: Element) {
+        if let index = lastIndex(of: element) {
+            remove(at: index)
+        }
+    }
+    
+}
+
+
+public extension Array where Element : Hashable {
+
+    //去重
+    var unique: [Element] {
+        return Array(Set(self))
     }
     
 }
@@ -170,21 +206,12 @@ public extension Array where Element : View{
 
     /// ->Data
     var jsonData: Data? {
-        var data: Data?
-        do {
-            data = try JSONSerialization.data(withJSONObject: self, options: [])
-        } catch {
-            print(error)
-        }
-        return data;
+        return (self as Array).jsonData
     }
     
-    /// ->NSString
+    /// ->String
     var jsonString: String {
-        guard let jsonData = self.jsonData as Data?,
-        let jsonString = String(data: jsonData, encoding: .utf8) as String?
-        else { return "" }
-        return jsonString
+        return (self as Array).jsonString
     }
 
     /// 快速生成一个数组
@@ -194,19 +221,7 @@ public extension Array where Element : View{
     
     ///获取数组期望值
     var expectationValue: CGFloat {
-        if self.count == 0 {
-            return 0.0
-        }
-        
-        if let list = self as? [NSNumber] {
-            let array = list.map({ CGFloat($0.floatValue) })
-            return array.expectationValue
-        }
-        
-        if let list = self as? [NSString] {
-            let array = list.map({ CGFloat($0.floatValue) })
-            return array.expectationValue
-        }
-        return 0.0
+        guard let array = self as? [CGFloat] else { return 0.0 }
+        return array.expectationValue
     }
 }
