@@ -378,19 +378,29 @@ import Foundation
         }
         return nil
     }
-    ///获取下一级别响应者
-    func nextResponder(_ type: AnyClass, isPrint: Bool = false) -> NSObject? {
-        var nextResponder: UIResponder? = self
-        while nextResponder != nil {
-            if let window = nextResponder as? UIWindow {
-                return window
-            }
-            nextResponder = nextResponder?.next
-            if isPrint && nextResponder != nil {
-                print("responder - \(nextResponder!)")
-            }
+//    ///获取下一级别响应者
+//    func nextResponder(_ type: AnyClass, isPrint: Bool = false) -> NSObject? {
+//        var nextResponder: UIResponder? = self
+//        while nextResponder != nil {
+//            if let window = nextResponder as? UIWindow {
+//                return window
+//            }
+//            nextResponder = nextResponder?.next
+//            if isPrint && nextResponder != nil {
+//                print("responder - \(nextResponder!)")
+//            }
+//        }
+//        return nil
+//    }
+
+    func findViewController() -> UIViewController? {
+        if let nextResponder = self.next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = self.next as? UIView {
+            return nextResponder.findViewController()
+        } else {
+            return nil
         }
-        return nil
     }
     
     ///往复动画
@@ -525,3 +535,4 @@ public extension Array where Element : UIView {
         return list
     }
 }
+
