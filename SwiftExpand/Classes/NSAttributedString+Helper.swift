@@ -23,7 +23,7 @@ import Foundation
         return dic
     }
         
-    /// 富文本整体设置
+    /// 富文本段落设置
     static func paraDict(_ font: Font = Font.systemFont(ofSize:15), textColor: Color = .theme, alignment: NSTextAlignment = .left, lineSpacing: CGFloat = 0, lineBreakMode: NSLineBreakMode = .byWordWrapping) -> [NSAttributedString.Key: Any] {
         let paraStyle = NSMutableParagraphStyle()
             .lineBreakModeChain(lineBreakMode)
@@ -39,7 +39,7 @@ import Foundation
         return dic
     }
     
-    /// [源]富文本
+    /// 创建富文本
     static func createAttString(_ text: String, textTaps: [String], font: Font = Font.systemFont(ofSize: 15), tapFont: Font = Font.systemFont(ofSize: 15), color: Color = .black, tapColor: Color = .theme, alignment: NSTextAlignment = .left, lineSpacing: CGFloat = 0, lineBreakMode: NSLineBreakMode = .byWordWrapping, rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
         let paraDic = paraDict(font, textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
         
@@ -55,6 +55,27 @@ import Foundation
             attString.addAttributes(linkDic, range: nsRange)
         }
         return attString
+    }
+    
+    /// 创建超链接富文本
+    static func createLink(_ text: String, linkDic: [String: String], font: Font) -> NSMutableAttributedString {
+        let attDic: [NSAttributedString.Key: Any] = [
+            .font: font as Any
+        ]
+        let mattString = NSMutableAttributedString(string: text, attributes: attDic)
+        linkDic.forEach { e in
+            let linkAttDic: [NSAttributedString.Key: Any] = [
+                .font: font,
+                .foregroundColor: Color.blue,
+                .link: e.value,
+                .underlineStyle: NSUnderlineStyle.single.rawValue,
+            ]
+            
+            let attStr = NSAttributedString(string: e.key, attributes: linkAttDic)
+            let range = (mattString.string as NSString).range(of: e.key)
+            mattString.replaceCharacters(in: range, with: attStr)
+        }
+        return mattString
     }
     
     /// nsRange范围子字符串差异华显示
