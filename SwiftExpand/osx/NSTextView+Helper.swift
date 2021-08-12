@@ -55,11 +55,14 @@ import AppKit
     
     /// 超链接处理
     /// - Parameter dic: [标题:网址]
-    func hyperlink(dic: [String : String]) {
-        let mattStr = NSAttributedString.hyperlink(dic: dic, text: self.string, font: self.font!)
+    func hyperlink(dic: [String: String]) {
+        let mattStr = NSAttributedString.createLink(self.string, dic: dic, font: self.font!)
+
         self.textStorage?.setAttributedString(mattStr)
         self.isEditable = false
         self.isSelectable = true
     }
     
 }
+
+

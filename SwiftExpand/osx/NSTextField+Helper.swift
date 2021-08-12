@@ -56,7 +56,7 @@ import AppKit
     /// 超链接处理
     /// - Parameter dic: [标题:网址]
     func hyperlink(dic: [String : String]) {
-        let mattStr = NSAttributedString.hyperlink(dic: dic, text: self.stringValue, font: self.font!)
+        let mattStr = NSAttributedString.createLink(self.stringValue, dic: dic, font: self.font!)
         attributedStringValue = mattStr
         
         cell?.wraps = true
