@@ -24,11 +24,7 @@ import Foundation
     }
         
     /// 富文本整体设置
-    static func paraDict(_ font: Font = Font.systemFont(ofSize:15),
-                         textColor: Color = .theme,
-                         alignment: NSTextAlignment = .left,
-                         lineSpacing: CGFloat = 0,
-                         lineBreakMode: NSLineBreakMode = .byTruncatingTail) -> [NSAttributedString.Key: Any] {
+    static func paraDict(_ font: Font = Font.systemFont(ofSize:15), textColor: Color = .theme, alignment: NSTextAlignment = .left, lineSpacing: CGFloat = 0, lineBreakMode: NSLineBreakMode = .byWordWrapping) -> [NSAttributedString.Key: Any] {
         let paraStyle = NSMutableParagraphStyle()
             .lineBreakModeChain(lineBreakMode)
             .lineSpacingChain(lineSpacing)
@@ -44,126 +40,35 @@ import Foundation
     }
     
     /// [源]富文本
-    static func attString(_ text: String,
-                          textTaps: [String],
-                          font: Font = Font.systemFont(ofSize: 15),
-                          tapFont: Font = Font.systemFont(ofSize: 15),
-                          color: Color = .black,
-                          tapColor: Color = .theme,
-                          alignment: NSTextAlignment = .left,
-                          lineSpacing: CGFloat = 0,
-                          lineBreakMode: NSLineBreakMode = .byTruncatingTail,
-                          rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
-        let paraDic = paraDict(font,
-                               textColor: color,
-                               alignment: alignment,
-                               lineSpacing: lineSpacing,
-                               lineBreakMode: lineBreakMode)
+    static func createAttString(_ text: String, textTaps: [String], font: Font = Font.systemFont(ofSize: 15), tapFont: Font = Font.systemFont(ofSize: 15), color: Color = .black, tapColor: Color = .theme, alignment: NSTextAlignment = .left, lineSpacing: CGFloat = 0, lineBreakMode: NSLineBreakMode = .byWordWrapping, rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
+        let paraDic = paraDict(font, textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
         
-        let attString = NSMutableAttributedString(string: text, attributes: paraDic)
-        textTaps.forEach { ( textTap: String) in
-            let nsRange = (text as NSString).range(of: textTap, options: mask)
+        let linkDic: [NSAttributedString.Key: Any] = [
+            .font: tapFont,
+            .foregroundColor: tapColor,
+            .backgroundColor: Color.clear,
+        ]
 
-            let attDic: [NSAttributedString.Key: Any] = [
-                .font: tapFont,
-                .foregroundColor: tapColor,
-                .backgroundColor: Color.clear,
-            ]
-            attString.addAttributes(attDic, range: nsRange)
+        let attString = NSMutableAttributedString(string: text, attributes: paraDic)
+        for e in textTaps {
+            let nsRange = (attString.string as NSString).range(of: e, options: mask)
+            attString.addAttributes(linkDic, range: nsRange)
         }
         return attString
-    }
-    
-    /// [源]富文本二
-    static func createAttString(_ text: String,
-                                textTaps: [String],
-                                font: Font = Font.systemFont(ofSize: 15),
-                                tapFont: Font = Font.systemFont(ofSize: 15),
-                                color: Color = .black,
-                                tapColor: Color = .theme,
-                                alignment: NSTextAlignment = .left,
-                                lineSpacing: CGFloat = 0,
-                                lineBreakMode: NSLineBreakMode = .byTruncatingTail,
-                                rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
-        let paraDic = paraDict(font,
-                               textColor: color,
-                               alignment: alignment,
-                               lineSpacing: lineSpacing,
-                               lineBreakMode: lineBreakMode)
-        
-        let attString = NSMutableAttributedString(string: text, attributes: paraDic)
-        textTaps.forEach { ( textTap: String) in
-            let nsRange = (text as NSString).range(of: textTap, options: mask)
-
-            let attDic: [NSAttributedString.Key: Any] = [
-                .font: tapFont,
-                .foregroundColor: tapColor,
-                .backgroundColor: Color.clear,
-            ]
-            attString.addAttributes(attDic, range: nsRange)
-        }
-        return attString
-    }
-        
-    /// 特定范围子字符串差异华显示
-    static func attString(_ text: String, offsetStart: Int, offsetEnd: Int) -> NSAttributedString {
-        let nsRange = NSRange(location: offsetStart, length: (text.count - offsetStart - offsetEnd))
-        let attrString = attString(text, nsRange: nsRange)
-        return attrString
-    }
-    
-    /// 字符串差异华显示
-    static func attString(_ text: String, textSub: String) -> NSAttributedString {
-        let range = text.range(of: textSub)
-        let nsRange = text.nsRange(from: range!)
-        let attrString = attString(text, nsRange: nsRange)
-        return attrString
     }
     
     /// nsRange范围子字符串差异华显示
-    static func attString(_ text: String,
-                          nsRange: NSRange,
-                          font: Font = Font.systemFont(ofSize: 15),
-                          textColor: Color = .theme) -> NSAttributedString {
+    static func attString(_ text: String, nsRange: NSRange, font: Font = Font.systemFont(ofSize: 15), tapColor: Color = .theme) -> NSAttributedString {
         assert((nsRange.location + nsRange.length) <= text.count)
-        
+
         let attDic: [NSAttributedString.Key: Any] = [
             .font: font,
-            .foregroundColor: textColor,
+            .foregroundColor: tapColor,
         ]
-        
+
         let attrString = NSMutableAttributedString(string: text)
         attrString.addAttributes(attDic, range: nsRange)
         return attrString
-    }
-    
-    /// 定义超链接文本颜色样式
-    static func hyperlink(_ string: String, url: URL, font: Font = Font.systemFont(ofSize: 14)) -> NSAttributedString {
-        let attDic: [NSAttributedString.Key : Any] = [
-            .font: font,
-            .foregroundColor: Color.blue,
-            .link: url.absoluteURL,
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
-//              .baselineOffset:  15,
-            ]
-        
-        let attString = NSMutableAttributedString(string: string)
-        attString.beginEditing()
-        attString.addAttributes(attDic, range: NSMakeRange(0, attString.length))
-        attString.endEditing()
-        return attString
-    }
-    /// 包含超链接的全部内容
-    static func hyperlink(dic: [String : String], text: String, font: Font) -> NSMutableAttributedString {
-        let attDic: [NSAttributedString.Key : Any] = [.font: font as Any]
-        let mattStr = NSMutableAttributedString(string: text, attributes: attDic)
-        for e in dic {
-            let url = URL(string: e.value)
-            let attStr = NSAttributedString.hyperlink(e.key, url: url!, font: font)
-            let range = (mattStr.string as NSString).range(of: e.key)
-            mattStr.replaceCharacters(in: range, with: attStr)
-        }
-        return mattStr
     }
     
     ///  富文本只有同字体大小才能计算高度
@@ -177,6 +82,7 @@ import Foundation
     }
     
 }
+
 
 public extension NSAttributedString{
     convenience init(data: Data, documentType: DocumentType, encoding: String.Encoding = .utf8) throws {

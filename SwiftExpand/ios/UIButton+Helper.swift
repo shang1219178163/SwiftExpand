@@ -64,7 +64,6 @@ import Foundation
             setTitleColor(titleColor, for: state)
             layer.borderColor = titleColor.cgColor
             layer.borderWidth = 1
-            layer.cornerRadius = 5
                     
         default:
             break

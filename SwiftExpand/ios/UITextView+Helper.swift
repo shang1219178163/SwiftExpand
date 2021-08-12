@@ -39,23 +39,29 @@ import Foundation
         let view = UITextView.create(rect)
         view.contentOffset = CGPoint(x: 0, y: 8)
         view.isEditable = false
+        view.isSelectable = true
         view.dataDetectorTypes = .all
         return view
     }
+    
     /// 用户协议点击跳转配制方法
-    func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], tapColor: UIColor = UIColor.theme, fontSize: CGFloat = 15) {
-        let attDic = [NSAttributedString.Key.foregroundColor: self.textColor ?? UIColor.gray,
-                      NSAttributedString.Key.font: self.font ?? UIFont.systemFont(ofSize: fontSize)
+    @available(*, deprecated, message: "replace by NSAttributedString.createAttString(textTaps:, font:, tapFont:, color:, tapColor:, alignment:, lineSpacing:, lineBreakMode:, rangeOptions:)")
+    func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], tapColor: UIColor = UIColor.systemBlue, fontSize: CGFloat = 15) {
+        let attDic: [NSAttributedString.Key: Any] = [
+            .foregroundColor: self.textColor ?? UIColor.gray,
+            .font: self.font ?? UIFont.systemFont(ofSize: fontSize)
         ]
                 
-        let linkAttDic = [NSAttributedString.Key.foregroundColor: tapColor,
-                          NSAttributedString.Key.font: self.font ?? UIFont.systemFont(ofSize: fontSize)
+        let linkAttDic: [NSAttributedString.Key: Any] =
+            [.foregroundColor: tapColor,
+             .font: self.font ?? UIFont.systemFont(ofSize: fontSize)
         ]
         setupUserAgreements(content, tapTexts: tapTexts, tapUrls: tapUrls, attributes: attDic, linkAttributes: linkAttDic)
     }
     
     /// 用户协议点击跳转配制方法
-    func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], attributes: [NSAttributedString.Key : Any], linkAttributes: [NSAttributedString.Key : Any], options mask: NSString.CompareOptions = []) {
+    @available(*, deprecated, message: "replace by NSAttributedString.createAttString(textTaps:, font:, tapFont:, color:, tapColor:, alignment:, lineSpacing:, lineBreakMode:, rangeOptions:)")
+    func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], attributes: [NSAttributedString.Key: Any], linkAttributes: [NSAttributedString.Key: Any], options mask: NSString.CompareOptions = []) {
         let attString = NSMutableAttributedString(string: content, attributes: attributes)
         for e in tapTexts.enumerated() {
             let nsRange = (attString.string as NSString).range(of: e.element, options: mask)

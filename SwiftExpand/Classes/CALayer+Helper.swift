@@ -30,6 +30,18 @@ import UIKit
         self.masksToBounds = true
     }
     
+    ///添加阴影
+    func addShadow(_ color: Color = .gray.withAlphaComponent(0.5), radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
+        masksToBounds = false
+        shadowColor = color.cgColor
+        shadowRadius = radius
+        shadowOpacity = Float(opacity)
+        shadowOffset = offset
+        
+//        let path = BezierPath(rect: bounds.offsetBy(dx: 1, dy: 1))
+//        layer.shadowPath = path.cgPath
+    }
+    
     /// 线条位置
     func rectWithLine(type: Int = 0, width: CGFloat = 0.8, paddingScale: CGFloat = 0) -> CGRect {
         var rect = CGRect.zero;
@@ -86,17 +98,7 @@ import UIKit
         self.add(anim, forKey: nil)
     }
     
-    ///添加阴影
-    func showShadow(_ color: Color = .gray, radius: CGFloat = 3.5, opacity: CGFloat = 1, offset: CGSize = .zero) {
-        masksToBounds = false
-        shadowColor = color.cgColor
-        shadowRadius = radius
-        shadowOpacity = Float(opacity)
-        shadowOffset = offset
-        
-//        let path = BezierPath(rect: bounds.offsetBy(dx: 1, dy: 1))
-//        layer.shadowPath = path.cgPath
-    }
+
 }
 
 
