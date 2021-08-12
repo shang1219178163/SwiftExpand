@@ -26,6 +26,31 @@ public let kAlertActionChecked = "checked"
 
 @objc public extension UIAlertController{
     
+    private var subView5: UIView? {
+        let subView1: UIView = self.view.subviews[0]
+        let subView2: UIView = subView1.subviews[0]
+        let subView3: UIView = subView2.subviews[0]
+        let subView4: UIView = subView3.subviews[0]
+        let subView5: UIView = subView4.subviews[0]
+        return subView5
+    }
+    
+    var titleLabel: UILabel? {
+        guard let subView5 = subView5,
+              subView5.subviews.count > 3,
+              let label = subView5.subviews[1] as? UILabel
+              else { return nil }
+        return label
+    }
+    
+    var messageLabel: UILabel? {
+        guard let subView5 = subView5,
+              subView5.subviews.count > 3,
+              let label = subView5.subviews[2] as? UILabel
+              else { return nil }
+        return label
+    }
+    
     /// 创建系统sheetView
     static func createSheet(_ title: String?,
                             message: String? = nil,
