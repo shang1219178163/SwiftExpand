@@ -63,7 +63,7 @@ import Foundation
             .font: font as Any
         ]
         let mattString = NSMutableAttributedString(string: text, attributes: attDic)
-        linkDic.forEach { e in
+        dic.forEach { e in
             let linkAttDic: [NSAttributedString.Key: Any] = [
                 .font: font,
                 .foregroundColor: Color.blue,
