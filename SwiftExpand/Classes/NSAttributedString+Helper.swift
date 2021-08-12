@@ -58,7 +58,7 @@ import Foundation
     }
     
     /// 创建超链接富文本
-    static func createLink(_ text: String, linkDic: [String: String], font: Font) -> NSMutableAttributedString {
+    static func createLink(_ text: String, dic: [String: String], font: Font) -> NSMutableAttributedString {
         let attDic: [NSAttributedString.Key: Any] = [
             .font: font as Any
         ]
