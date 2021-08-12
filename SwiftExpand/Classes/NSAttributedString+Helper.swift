@@ -40,7 +40,7 @@ import Foundation
     }
     
     /// 创建富文本
-    static func createAttString(_ text: String, textTaps: [String], font: Font = Font.systemFont(ofSize: 15), tapFont: Font = Font.systemFont(ofSize: 15), color: Color = .black, tapColor: Color = .theme, alignment: NSTextAlignment = .left, lineSpacing: CGFloat = 0, lineBreakMode: NSLineBreakMode = .byWordWrapping, rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
+    static func create(_ text: String, textTaps: [String], font: Font = Font.systemFont(ofSize: 15), tapFont: Font = Font.systemFont(ofSize: 15), color: Color = .black, tapColor: Color = .theme, alignment: NSTextAlignment = .left, lineSpacing: CGFloat = 0, lineBreakMode: NSLineBreakMode = .byWordWrapping, rangeOptions mask: NSString.CompareOptions = []) -> NSAttributedString {
         let paraDic = paraDict(font, textColor: color, alignment: alignment, lineSpacing: lineSpacing, lineBreakMode: lineBreakMode)
         
         let linkDic: [NSAttributedString.Key: Any] = [
@@ -58,12 +58,12 @@ import Foundation
     }
     
     /// 创建超链接富文本
-    static func createLink(_ text: String, dic: [String: String], font: Font) -> NSMutableAttributedString {
+    static func createLink(_ text: String, linkDic: [String: String], font: Font) -> NSMutableAttributedString {
         let attDic: [NSAttributedString.Key: Any] = [
             .font: font as Any
         ]
         let mattString = NSMutableAttributedString(string: text, attributes: attDic)
-        dic.forEach { e in
+        linkDic.forEach { e in
             let linkAttDic: [NSAttributedString.Key: Any] = [
                 .font: font,
                 .foregroundColor: Color.blue,

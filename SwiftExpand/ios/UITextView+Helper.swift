@@ -45,7 +45,7 @@ import Foundation
     }
     
     /// 用户协议点击跳转配制方法
-    @available(*, deprecated, message: "replace by NSAttributedString.createAttString(textTaps:, font:, tapFont:, color:, tapColor:, alignment:, lineSpacing:, lineBreakMode:, rangeOptions:)")
+    @available(*, deprecated, message: "replace by NSAttributedString.create(textTaps:, font:, tapFont:, color:, tapColor:, alignment:, lineSpacing:, lineBreakMode:, rangeOptions:)")
     func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], tapColor: UIColor = UIColor.systemBlue, fontSize: CGFloat = 15) {
         let attDic: [NSAttributedString.Key: Any] = [
             .foregroundColor: self.textColor ?? UIColor.gray,
@@ -60,7 +60,7 @@ import Foundation
     }
     
     /// 用户协议点击跳转配制方法
-    @available(*, deprecated, message: "replace by NSAttributedString.createAttString(textTaps:, font:, tapFont:, color:, tapColor:, alignment:, lineSpacing:, lineBreakMode:, rangeOptions:)")
+    @available(*, deprecated, message: "replace by NSAttributedString.create(textTaps:, font:, tapFont:, color:, tapColor:, alignment:, lineSpacing:, lineBreakMode:, rangeOptions:)")
     func setupUserAgreements(_ content: String, tapTexts: [String], tapUrls: [String], attributes: [NSAttributedString.Key: Any], linkAttributes: [NSAttributedString.Key: Any], options mask: NSString.CompareOptions = []) {
         let attString = NSMutableAttributedString(string: content, attributes: attributes)
         for e in tapTexts.enumerated() {
