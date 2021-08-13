@@ -29,16 +29,15 @@ import Foundation
     }
     
     /// 呈现
-    func present(_ animated: Bool = true, completion: (() -> Void)? = nil) {
+    func present(_ animated: Bool = true, style: UIModalPresentationStyle = .fullScreen, completion: (() -> Void)? = nil) {
         guard let keyWindow = UIApplication.shared.keyWindow ?? UIApplication.shared.windows.filter({ $0.isKeyWindow }).first,
               let rootVC = keyWindow.rootViewController
               else { return }
         if let presentedViewController = rootVC.presentedViewController {
             presentedViewController.dismiss(animated: false, completion: nil)
         }
-        
 //        modalPresentationStyle = .fullScreen
-        modalPresentationStyle = .overFullScreen
+//        modalPresentationStyle = .overFullScreen
         DispatchQueue.main.async {
             switch self {
             case let alertVC as UIAlertController:

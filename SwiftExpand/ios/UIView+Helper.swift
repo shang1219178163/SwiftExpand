@@ -68,19 +68,29 @@ import Foundation
         }
         #endif
     }
+    ///递归子视图
+    func recursionSubView(_ level: Int = 0, isPrint: Bool = true, block: ((UIView)->Void)? = nil) {
+        for subview in subviews {
+            if isPrint {
+                let blank = " "*level
+                print("\(blank)\(level): \(String(describing: subview.classForCoder))")
+            }
+            block?(subview)
+            subview.recursionSubView(level + 1, isPrint: isPrint, block: block)
+        }
+    }
         
     /// 寻找子视图
     func findSubview(type: UIResponder.Type, resursion: Bool)-> UIView? {
-        for e in self.subviews.enumerated() {
+        for e in subviews.enumerated() {
             if e.element.isKind(of: type) {
                 return e.element
             }
         }
         
         if resursion == true {
-            for e in self.subviews.enumerated() {
-                let tmpView = e.element.findSubview(type: type, resursion: resursion)
-                if tmpView != nil {
+            for e in subviews.enumerated() {
+                if let tmpView = e.element.findSubview(type: type, resursion: resursion) {
                     return tmpView
                 }
             }
