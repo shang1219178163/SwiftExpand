@@ -105,7 +105,30 @@ import Foundation
         UIGraphicsGetCurrentContext()
         return image!
     }
+    /// color
+    func maskWithColor(_ color: UIColor) -> UIImage? {
+        let maskImage = cgImage!
 
+        let width = size.width
+        let height = size.height
+        let bounds = CGRect(x: 0, y: 0, width: width, height: height)
+
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let context = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)!
+
+        context.clip(to: bounds, mask: maskImage)
+        context.setFillColor(color.cgColor)
+        context.fill(bounds)
+
+        if let cgImage = context.makeImage() {
+            let coloredImage = UIImage(cgImage: cgImage)
+            return coloredImage
+        } else {
+            return nil
+        }
+    }
+    
     ///生成含有图片和文字的图像
     static func textEmbededImage(image: UIImage, string: String, color: UIColor, imageAlignment: Int = 0, segFont: UIFont? = nil) -> UIImage {
         let font = segFont ?? UIFont.systemFont(ofSize: 16.0)
@@ -466,6 +489,43 @@ import Foundation
         // Actually do the resizing to the rect using the ImageContext stuff
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
         image.draw(in: CGRect(origin: .zero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
+    // 缩放图片
+    func resizeImage(_ size: CGSize, isScaleFit: Bool = true) -> UIImage? {
+        if #available(iOS 10.0, *) {
+            let renderer = UIGraphicsImageRenderer(size: size)
+            return renderer.image { (context) in
+                self.draw(in: CGRect(origin: .zero, size: size))
+            }
+        }
+        
+        if isScaleFit == false {
+            UIGraphicsBeginImageContext(size)
+            self.draw(in: CGRect(origin: .zero, size: size))
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return image
+        }
+        
+        let imageSize = self.size
+        let widthRatio  = size.width  / imageSize.width
+        let heightRatio = size.height / imageSize.height
+
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width:imageSize.width * heightRatio, height: imageSize.height * heightRatio)
+        } else {
+            newSize = CGSize(width:imageSize.width * widthRatio, height: imageSize.height * widthRatio)
+        }
+
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: CGRect(origin: .zero, size: newSize))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return newImage

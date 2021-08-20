@@ -10,6 +10,25 @@ import UIKit
 
 @objc public extension UITableView{
     
+    ///空列表
+    var isEmpty: Bool {
+        guard let dataSource = dataSource else {
+            return true
+        }
+        var isEmpty: Bool = true
+        if dataSource.responds(to: #selector(dataSource.numberOfSections(in:))),
+            let sections: Int = dataSource.numberOfSections?(in: self) {
+            let rowCount = (0..<sections)
+                .map { dataSource.tableView(self, numberOfRowsInSection: $0) }
+                .reduce(0, +)
+            isEmpty = (rowCount <= 0)
+            
+        } else {
+            isEmpty = dataSource.tableView(self, numberOfRowsInSection: 0) <= 0
+        }
+        return isEmpty
+    }
+    
     /// UITableView创建
     convenience init(rect: CGRect = .zero, style: UITableView.Style = .plain, rowHeight: CGFloat = 70.0) {
         self.init(frame: rect, style: style)

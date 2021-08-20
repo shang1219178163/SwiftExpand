@@ -259,6 +259,25 @@ import Foundation
             objc_setAssociatedObject(self, &AssociateKeys.textView, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
+    
+    ///隐藏分割线
+    func separatorHidden() {
+        separatorInset = UIEdgeInsetsMake(0, 0, 0, kScreenWidth);
+    }
+    ///展示分割线
+    func separatorShow() {
+        separatorInset = .zero
+    }
+    
+    ///添加前缀星号
+    func appendPrefixAsterisk(_ title: String) {
+        guard let textLabel = textLabel,
+              let text = textLabel.text else { return }
+        if title.contains("*") {
+            textLabel.attributedText = text.matt.appendPrefix(font: textLabel.font)
+        }
+    }
+
 }
 
 public extension UITableViewCell{
@@ -276,4 +295,5 @@ public extension UITableViewCell{
         block?(view)
         return view
     }
+    
 }

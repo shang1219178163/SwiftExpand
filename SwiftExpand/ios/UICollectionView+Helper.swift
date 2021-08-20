@@ -18,6 +18,24 @@ import Foundation
     /// UICollectionView.sectiinKindBackgroud
     static let sectionKindBackgroud: String = "UICollectionView.sectiinKindBackgroud"
 
+    ///空列表
+    var isEmpty: Bool {
+        guard let dataSource = dataSource else {
+            return true
+        }
+        var isEmpty: Bool = true
+        if dataSource.responds(to: #selector(dataSource.numberOfSections(in:))),
+            let sections: Int = dataSource.numberOfSections?(in: self) {
+            let rowCount = (0..<sections)
+                .map { dataSource.collectionView(self, numberOfItemsInSection: $0) }
+                .reduce(0, +)
+            isEmpty = (rowCount <= 0)
+            
+        } else {
+            isEmpty = dataSource.collectionView(self, numberOfItemsInSection: 0) <= 0
+        }
+        return isEmpty
+    }
     /// 默认流水布局
     static func layoutDefault(_ headerHeight: CGFloat = 40, footerHeight: CGFloat = 0) -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
