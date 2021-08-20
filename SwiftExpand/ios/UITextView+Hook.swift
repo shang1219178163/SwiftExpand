@@ -47,11 +47,10 @@ import Foundation
             }
             let obj = UILabel()
             obj.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            obj.frame = bounds.inset(by: UIEdgeInsets(top: 18, left: 6, bottom: 8, right: 6))
             obj.font = font
             obj.textColor = .gray
             obj.textAlignment = textAlignment
-            obj.text = "请输入"
+//            obj.text = "请输入"
             obj.numberOfLines = 0
             obj.contentMode = .top
             obj.backgroundColor = .clear
@@ -62,6 +61,9 @@ import Foundation
             obj.addGestureTap { (reco) in
                 self.becomeFirstResponder()
             }
+            
+            let inset = UIEdgeInsets(top: 8, left: 6, bottom: 8, right: 6)
+            obj.zz_equalToSuperview(inset)
             
             NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(p_textViewDidEndEditing(_:)), name: UITextView.textDidEndEditingNotification, object: nil)

@@ -238,6 +238,12 @@ import Foundation
             $0.titleTextAttributes = [NSAttributedString.Key.foregroundColor: tintColor,]
           }(UINavigationBar.appearance())
                 
+        if #available(iOS 11.0, *) {
+        _ = {
+            $0.tintColor = nil
+          }(UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]))
+        }
+        
         _ = {
             $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
           }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIImagePickerController.self]))

@@ -358,17 +358,17 @@ public extension EdgeInsets{
     init(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) {
         self.init(top: top, left: left, bottom: bottom, right: right)
     }
-    
     /// 仿OC方法
-    static func make(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Self{
+    static func make(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Self {
         return Self(top: top, left: left, bottom: bottom, right: right)
     }
+    
     ///Add two EdgeInsets
     static func + (_ lhs: EdgeInsets, _ rhs: EdgeInsets) -> EdgeInsets {
         return EdgeInsets(top: lhs.top + rhs.top,
-                            left: lhs.left + rhs.left,
-                            bottom: lhs.bottom + rhs.bottom,
-                            right: lhs.right + rhs.right)
+                          left: lhs.left + rhs.left,
+                          bottom: lhs.bottom + rhs.bottom,
+                          right: lhs.right + rhs.right)
     }
 }
 
@@ -412,5 +412,23 @@ public extension CGVector {
     ///     let reversedVector = -vector
     static prefix func - (vector: CGVector) -> CGVector {
         return CGVector(dx: -vector.dx, dy: -vector.dy)
+    }
+}
+
+
+/// 自定义元祖
+public struct Tuple5<T0, T1, T2, T3, T4> {
+    public let t0: T0
+    public let t1: T1
+    public let t2: T2
+    public let t3: T3
+    public let t4: T4
+
+    public init(_ t0: T0, _ t1: T1, _ t2: T2, _ t3: T3, _ t4: T4) {
+        self.t0 = t0
+        self.t1 = t1
+        self.t2 = t2
+        self.t3 = t3
+        self.t4 = t4
     }
 }

@@ -81,7 +81,7 @@ public let kNumFormat = "¥###,##0.00";
         return fmt
     }
 
-    /// 保留小数,默认四舍五入[弃用,代替者: format( _ style:, minFractionDigits:, maxFractionDigits:, positivePrefix:, groupingSeparator: , groupingSize:) -> NumberFormatter]
+    @available(*, deprecated, message: "弃用, 保留小数,默认四舍五入[代替者: format( _ style:, minFractionDigits:, maxFractionDigits:, positivePrefix:, groupingSeparator: , groupingSize:) -> NumberFormatter]")
     static func fractionDigits(obj: CGFloat,
                                min: Int = 2,
                                max: Int = 2,

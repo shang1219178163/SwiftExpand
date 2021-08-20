@@ -55,9 +55,8 @@ import Foundation
         }
     }
     
-    
     //MARK: -funtions
-    
+
     /// 图层调试
     func getViewLayer(_ lineColor: UIColor = .blue) {
         #if DEBUG
@@ -546,3 +545,17 @@ public extension Array where Element : UIView {
     }
 }
 
+
+
+@objc public extension UIView{
+
+    /// 原生 inset 布局
+    func zz_equalToSuperview(_ inset: EdgeInsets) {
+        guard let superview = superview else { return }
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalTo: superview.topAnchor, constant: inset.top).isActive = true
+        rightAnchor.constraint(equalTo: superview.rightAnchor, constant: -inset.right).isActive = true
+        leftAnchor.constraint(equalTo: superview.leftAnchor, constant: inset.left).isActive = true
+        bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -inset.bottom).isActive = true
+    }
+}

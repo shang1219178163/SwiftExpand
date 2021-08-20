@@ -103,6 +103,7 @@ import UIKit
     }
     
     /// [源]UISegmentControl创建(弃用, 用默认外观也不错)
+    @available(*, deprecated, message: "过度封装,代码冗余")
     func ensureiOS13Style(tintColor: UIColor = .theme, fontSize: CGFloat = 13) {
         if #available(iOS 13, *) {
             let tintColorImage = UIImage(color: tintColor)
