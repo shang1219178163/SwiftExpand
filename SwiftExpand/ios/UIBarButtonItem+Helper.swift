@@ -72,17 +72,28 @@ import Foundation
         self.target = target
         self.action = action
     }
-    
-    
+
     /// Creates a fixed space UIBarButtonItem with a specific width.
-    static func fixedSpace(width: CGFloat) -> UIBarButtonItem {
-        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+    static func fixedSpace(width: CGFloat, target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem {
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: target, action: action)
         barButtonItem.width = width
         return barButtonItem
     }
     
     /// Creates a flexibleSpace space UIBarButtonItem with a specific width.
-    static func flexibleSpace() -> UIBarButtonItem {
+    static func flexibleSpace(_ target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem {
+        return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: target, action: action)
+    }
+}
+
+public extension UIBarButtonItem{
+    
+    static func space(_ width: CGFloat? = nil, target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem {
+        if let width = width {
+            let barButtonItem = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
+            barButtonItem.width = width
+            return barButtonItem
+        }
         return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     }
 }

@@ -166,11 +166,10 @@ import Foundation
     /// keyWindow代替品
     var currentKeyWindow: UIWindow? {
         get {
-//            UIApplication.shared.delegate?.window
             if #available(iOS 13.0, *) {
                 return UIApplication.shared.windows.filter({ $0.isKeyWindow }).first
             }
-            return UIApplication.shared.keyWindow
+            return UIApplication.shared.keyWindow ?? UIApplication.shared.windows.first
         }
     }
     

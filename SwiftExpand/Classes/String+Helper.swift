@@ -318,7 +318,7 @@ public extension String{
         let result = self.components(separatedBy: CharacterSet(charactersIn: aString))
         return result
     }
-        
+    
     func filterHTML() -> String {
         var html = self
         

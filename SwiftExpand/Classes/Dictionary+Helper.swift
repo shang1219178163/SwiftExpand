@@ -56,6 +56,10 @@ public extension Dictionary where Key == String, Value == String {
 
     /// ->Data
     var jsonData: Data? {
+        if !JSONSerialization.isValidJSONObject(self) {
+            return nil
+        }
+        
         var data: Data?
         do {
             data = try JSONSerialization.data(withJSONObject: self, options: [])

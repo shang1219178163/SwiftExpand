@@ -109,7 +109,7 @@ import UIKit
     /// [源]HeaderView,footerView(兼容 OC)
     func createSectionViewLabel(_ height: CGFloat = 30, labelInset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((UILabel)->Void)) -> UIView{
         let sectionView = UIView()
-        sectionView.backgroundColor = .background
+        sectionView.backgroundColor = .groupTableViewBackground
                 
         let view = UILabel(frame: CGRect(x: labelInset.left,
                                          y: labelInset.top,
@@ -119,10 +119,12 @@ import UIKit
         view.adjustsFontSizeToFitWidth = true
         view.lineBreakMode = .byTruncatingTail
 
-        view.textColor = .gray
+//        view.textColor = .gray
         view.textAlignment = .left
         view.font = UIFont.systemFont(ofSize: 15)
         sectionView.addSubview(view)
+        
+//        sectionView.getViewLayer()
         return sectionView
     }
     ///section cell添加圆角
