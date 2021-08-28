@@ -17,6 +17,10 @@ import Foundation
 public extension Array{
     /// ->Data
     var jsonData: Data? {
+        if !JSONSerialization.isValidJSONObject(self) {
+            return nil
+        }
+        
         var data: Data?
         do {
             data = try JSONSerialization.data(withJSONObject: self, options: [])
@@ -59,7 +63,16 @@ public extension Array{
     func subarray(from index: Int) -> Array {
         return Array(self[index...(self.count - 1)])
     }
-
+    ///移动索引元素
+    mutating func move(_ index: Int, toIndex: Int? = nil) {
+        let element = self[index]
+        remove(at: index)
+        if let toIndex = toIndex, toIndex < self.count - 1 {
+            insert(element, at: toIndex)
+        } else {
+            append(element)
+        }
+    }
 }
 
 public extension Array where Element == CGFloat {

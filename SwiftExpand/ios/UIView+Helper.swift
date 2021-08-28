@@ -558,4 +558,15 @@ public extension Array where Element : UIView {
         leftAnchor.constraint(equalTo: superview.leftAnchor, constant: inset.left).isActive = true
         bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -inset.bottom).isActive = true
     }
+    
+    func zz_heightEqualTo(_ constant: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalToConstant: constant).isActive = true
+    }
+    
+    func zz_widthEqualTo(_ constant: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalToConstant: constant).isActive = true
+    }
+
 }
