@@ -124,7 +124,7 @@ import UIKit
         view.font = UIFont.systemFont(ofSize: 15)
         sectionView.addSubview(view)
         
-//        sectionView.getViewLayer()
+        sectionView.getViewLayer()
         return sectionView
     }
     ///section cell添加圆角
