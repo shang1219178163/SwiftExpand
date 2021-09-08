@@ -111,7 +111,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
         return "\(date.timeIntervalSince1970)";
     }
     
-**UIBarButtonItem**
+**UIBarButtonItem 事件转代码块**
 
     @objc extension UIBarButtonItem{
         private struct AssociateKeys {
@@ -127,26 +127,6 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
     
     private func p_invoke() {
         if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIBarButtonItem) -> Void) {
-            closure(self);
-        }
-    }
-}
-    
-**UIGestureRecognizer**
-
-    @objc extension UIGestureRecognizer{
-        private struct AssociateKeys {
-        static var funcName   = "UIGestureRecognizer" + "funcName"
-        static var closure    = "UIGestureRecognizer" + "closure"
-    }
-    /// 闭包回调
-    public func addAction(_ closure: @escaping (UIGestureRecognizer) -> Void) {
-        objc_setAssociatedObject(self, &AssociateKeys.closure, closure, .OBJC_ASSOCIATION_COPY_NONATOMIC);
-        addTarget(self, action: #selector(p_invoke))
-    }
-    
-    private func p_invoke() {
-        if let closure = objc_getAssociatedObject(self, &AssociateKeys.closure) as? ((UIGestureRecognizer) -> Void) {
             closure(self);
         }
     }
@@ -213,23 +193,6 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
             return result
         }
     } 
-    
-**UIStackView**
-    
-    @objc public extension UIStackView {
-        /// 设置子视图显示比例(此方法前请设置 .axis/.orientation)
-        func setSubViewMultiplier(_ multiplier: CGFloat, at index: Int) {
-            if index < subviews.count {
-                let element = subviews[index];
-                if self.axis == .horizontal {
-                    element.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: multiplier).isActive = true
-    
-                } else {
-                    element.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: multiplier).isActive = true
-                }
-            }
-        }
-    }
     
 **UIView 手势**
 
@@ -421,108 +384,8 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
             return list
         }
     }
-    
-**UIView 密集子视图**
 
-    public extension UIView{
-        
-        ///更新各种子视图
-        @discardableResult
-        final func updateItems<T: UIView>(_ count: Int, type: T.Type, hanler: ((T) -> Void)) -> [T] {
-            if count == 0 {
-                subviews.filter { $0.isMember(of: type) }.forEach { $0.removeFromSuperview() }
-                return []
-            }
-            
-            if let list = self.subviews.filter({ $0.isMember(of: type) }) as? [T] {
-                if list.count == count {
-                    list.forEach { hanler($0) }
-                    return list
-                }
-            }
-            
-            subviews.filter { $0.isMember(of: type) }.forEach { $0.removeFromSuperview() }
-        
-            var arr: [T] = [];
-            for i in 0..<count {
-                let subview = type.init(frame: .zero)
-                subview.tag = i
-                self.addSubview(subview)
-                arr.append(subview)
-                
-                hanler(subview)
-            }
-            return arr;
-        }
-        
-        ///更新各种子类按钮
-        @discardableResult
-        final func updateButtonItems<T: UIButton>(_ count: Int, type: T.Type, hanler: ((T) -> Void)) -> [T] {
-            return updateItems(count, type: type) {
-                if $0.title(for: .normal) == nil {
-                    $0.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-                    $0.setTitle("\(type)\($0.tag)", for: .normal)
-                    $0.setTitleColor(.black, for: .normal)
-                    $0.setBackgroundColor(.lightGray, for: .disabled)
-                }
-                hanler($0)
-            }
-        }
-        
-        ///更新各种子类UILabel
-        @discardableResult
-        final func updateLabelItems<T: UILabel>(_ count: Int, type: T.Type, hanler: ((T) -> Void)) -> [T] {
-            return updateItems(count, type: type) {
-                if $0.text == nil {
-                    $0.text = "\(type)\($0.tag)"
-                    $0.font = UIFont.systemFont(ofSize: 15)
-                }
-                hanler($0)
-            }
-        }
-        
-        /// [源]创建子类型的 view(例如 cell headerView)
-        @discardableResult
-        final func createSubTypeView<T: UIView>(_ type: T.Type, height: CGFloat = 30, inset: UIEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 10), block: @escaping ((T)->Void)) -> UIView{
-            if let subView = viewWithTag(tag) as? T {
-                block(subView)
-                return subView
-            }
-            let sectionView = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: height))
-            sectionView.backgroundColor = .background
-        
-            let view = type.init(frame: CGRect(x: inset.left,
-                                               y: inset.top,
-                                               width: bounds.width - inset.left - inset.right,
-                                               height: height - inset.top - inset.bottom));
-            view.autoresizingMask = [.flexibleWidth, .flexibleHeight, ]
-            view.tag = tag
-            sectionView.addSubview(view)
-            block(view)
-            return sectionView
-        }
-        
-        /// [源]创建子类型的 view(cell 添加视图)
-        @discardableResult
-        final func createSubTypeView<T: UIView>(_ type: T.Type, tag: Int, inset: UIEdgeInsets = .zero, block: @escaping ((T)->Void)) -> UIView{
-            if let subView = viewWithTag(tag) as? T {
-                block(subView)
-                return subView
-            }
-            
-            let view = type.init(frame: CGRect(x: inset.left,
-                                               y: inset.top,
-                                               width: bounds.width - inset.left - inset.right,
-                                               height: bounds.height - inset.top - inset.bottom));
-            view.autoresizingMask = [.flexibleWidth, .flexibleHeight, ]
-            view.tag = tag
-            addSubview(view)
-            block(view)
-            return view
-        }
-    }
-
-**UIControl 事件**
+**UIControl 事件转代码块**
 
     @objc extension UIControl {
         private struct AssociateKeys {
@@ -635,110 +498,6 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
             return NSAttributedString(string: self)
         }
     }
-
-    @objc public extension NSMutableParagraphStyle{
-        
-        func lineSpacingChain(_ value: CGFloat) -> Self {
-            self.lineSpacing = value
-            return self
-        }
-        
-        func paragraphSpacing(_ value: CGFloat) -> Self {
-            self.paragraphSpacing = value
-            return self
-        }
-        
-        func alignment(_ value: NSTextAlignment) -> Self {
-            self.alignment = value
-            return self
-        }
-        
-        func firstLineHeadIndent(_ value: CGFloat) -> Self {
-            self.firstLineHeadIndent = value
-            return self
-        }
-        
-        func headIndent(_ value: CGFloat) -> Self {
-            self.headIndent = value
-            return self
-        }
-        
-        func tailIndent(_ value: CGFloat) -> Self {
-            self.tailIndent = value
-            return self
-        }
-        
-        func lineBreakMode(_ value: NSLineBreakMode) -> Self {
-            self.lineBreakMode = value
-            return self
-        }
-        
-        func minimumLineHeight(_ value: CGFloat) -> Self {
-            self.minimumLineHeight = value
-            return self
-        }
-        
-        func maximumLineHeight(_ value: CGFloat) -> Self {
-            self.maximumLineHeight = value
-            return self
-        }
-        
-        func baseWritingDirection(_ value: NSWritingDirection) -> Self {
-            self.baseWritingDirection = value
-            return self
-        }
-        
-        func lineHeightMultiple(_ value: CGFloat) -> Self {
-            self.lineHeightMultiple = value
-            return self
-        }
-        
-        func paragraphSpacingBefore(_ value: CGFloat) -> Self {
-            self.paragraphSpacingBefore = value
-            return self
-        }
-        
-        func hyphenationFactor(_ value: Float) -> Self {
-            self.hyphenationFactor = value
-            return self
-        }
-        
-        func tabStops(_ value: [NSTextTab]) -> Self {
-            self.tabStops = value
-            return self
-        }
-        
-        func defaultTabInterval(_ value: CGFloat) -> Self {
-            self.defaultTabInterval = value
-            return self
-        }
-        
-        func allowsDefaultTighteningForTruncation(_ value: Bool) -> Self {
-            self.allowsDefaultTighteningForTruncation = value
-            return self
-        }
-        
-        func lineBreakStrategy(_ value: NSParagraphStyle.LineBreakStrategy) -> Self {
-            self.lineBreakStrategy = value
-            return self
-        }
-            
-        func addTabStopChain(_ value: NSTextTab) -> Self {
-            self.addTabStop(value)
-            return self
-        }
-        
-        func removeTabStopChain(_ value: NSTextTab) -> Self {
-            self.removeTabStop(value)
-            return self
-        }
-        
-        func setParagraphStyleChain(_ value: NSParagraphStyle) -> Self {
-            self.setParagraphStyle(value)
-            return self
-        }
-    }
-
 
     
 ##  Requirements

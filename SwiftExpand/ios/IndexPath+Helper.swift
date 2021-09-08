@@ -10,7 +10,7 @@ import UIKit
     
 public extension NSIndexPath{
     /// {section, row}
-    var string: String {
+    var toString: String {
         return String(format: "{%d, %d}", section, row)
     }
 
@@ -29,7 +29,7 @@ public extension NSIndexPath{
     
 public extension IndexPath{
     /// {section, row}
-    var string: String {
+    var toString: String {
         return String(format: "{%d, %d}", section, row)
     }
     

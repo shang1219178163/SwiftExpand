@@ -56,7 +56,7 @@ public extension Bool {
     }
 
     /// Return "true" if true, or "false" if false.
-    var string: String {
+    var toString: String {
         return self ? "true" : "false"
     }
 }
