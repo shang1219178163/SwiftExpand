@@ -11,7 +11,7 @@ import Foundation
 
 @objc public extension UICollectionView{
     private struct AssociateKeys {
-        static var dictClass   = "UICollectionView" + "dictClass"
+        static var dictClass = "UICollectionView" + "dictClass"
     }
     /// UICollectionView.elementKindSectionItem
     static let elementKindSectionItem: String = "UICollectionView.elementKindSectionItem"
