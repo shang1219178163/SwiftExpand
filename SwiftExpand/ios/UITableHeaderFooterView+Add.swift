@@ -10,21 +10,7 @@ import UIKit
 import Foundation
 
 @objc public extension UITableViewHeaderFooterView{
-    
-//    private struct AssociateKeys {
-//        static var indicatorView = "UITableViewHeaderFooterView" + "indicatorView"
-//        static var imgViewLeft   = "UITableViewHeaderFooterView" + "imgViewLeft"
-//        static var imgViewRight  = "UITableViewHeaderFooterView" + "imgViewRight"
-//        static var labelLeft     = "UITableViewHeaderFooterView" + "labelLeft"
-//        static var labelLeftSub  = "UITableViewHeaderFooterView" + "labelLeftSub"
-//        static var labelRight    = "UITableViewHeaderFooterView" + "labelRight"
-//        static var labelRightSub = "UITableViewHeaderFooterView" + "labelRightSub"
-//        static var btn           = "UITableViewHeaderFooterView" + "btn"
-//        static var textfield     = "UITableViewHeaderFooterView" + "textfield"
-//        static var isOpen        = "UITableViewHeaderFooterView" + "isOpen"
-//        static var isCanOpen     = "UITableViewHeaderFooterView" + "isCanOpen"
-//    }
-    
+
     /// [源]自定义 UITableViewHeaderFooterView 获取方法(兼容OC)
     static func dequeueReusableHeaderFooterView(_ tableView: UITableView, identifier: String) -> Self {
         let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: identifier) ?? self.init(reuseIdentifier: identifier)
