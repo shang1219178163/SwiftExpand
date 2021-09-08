@@ -23,7 +23,7 @@ import Foundation
     static func dequeueReusableHeaderFooterView(_ tableView: UITableView) -> Self {
         return dequeueReusableHeaderFooterView(tableView, identifier: String(describing: self))
     }
-    
+ 
 }
 
 @objcMembers public class NNFoldSectionModel: NSObject{
