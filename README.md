@@ -754,4 +754,4 @@ shang1219178163, shang1219178163@gmail.com
 
 ## License
 
-CocoaExpand is available under the MIT license. See the LICENSE file for more info.
+SwiftExpand is available under the MIT license. See the LICENSE file for more info.
