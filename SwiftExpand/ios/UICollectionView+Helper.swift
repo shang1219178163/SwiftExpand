@@ -163,7 +163,7 @@ public extension UICollectionView{
         let kindSuf = kind.components(separatedBy: "KindSection").last
         let identifier = String(describing: T.self) + kindSuf!
         let view = self.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath)
-        view.lab.text = kindSuf! + "\(indexPath.section)"
+//        view.lab.text = kindSuf! + "\(indexPath.section)"
         #if DEBUG
         view.backgroundColor = kind == UICollectionView.elementKindSectionHeader ? .green : .yellow
         #endif

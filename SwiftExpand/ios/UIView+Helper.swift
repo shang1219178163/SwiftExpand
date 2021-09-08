@@ -333,7 +333,7 @@ import Foundation
 
     ///呈现到 UIApplication.shared.keyWindow 上
     func show(_ animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
-        guard let keyWindow = UIApplication.shared.keyWindow else { return }
+        guard let keyWindow = UIApplication.shared.keyWindow ?? UIApplication.shared.windows.first else { return }
         if keyWindow.subviews.contains(self) {
             self.dismiss()
         }

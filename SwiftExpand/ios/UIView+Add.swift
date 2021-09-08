@@ -88,22 +88,6 @@ import Foundation
         }
     }
     
-    /// 渐变色层
-    var gradientLayer: CAGradientLayer {
-        get {
-            if let obj = objc_getAssociatedObject(self, &AssociateKeys.gradientLayer) as? CAGradientLayer {
-                return obj
-            }
-            
-            let colors = [UIColor.theme.withAlphaComponent(0.5).cgColor, UIColor.theme.withAlphaComponent(0.9).cgColor]
-            let layer = CAGradientLayer(colors: colors, start: CGPointMake(0, 0), end: CGPointMake(1.0, 0))
-            objc_setAssociatedObject(self, &AssociateKeys.gradientLayer, layer, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            return layer
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociateKeys.gradientLayer, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
     
     func addLineDashLayer(color: UIColor = .red,
                           width: CGFloat = 1,
