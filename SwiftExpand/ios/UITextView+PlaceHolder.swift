@@ -18,27 +18,6 @@ import Foundation
     private struct AssociateKeys {
         static var placeHolderLabel = "UITextView" + "placeHolderLabel"
     }
-    
-//    override public class func initializeMethod() {
-//        super.initializeMethod()
-//
-//        if self != UITextView.self {
-//            return
-//        }
-//
-//        let onceToken = "Hook_\(NSStringFromClass(classForCoder()))"
-//        DispatchQueue.once(token: onceToken) {
-//            let oriSel = NSSelectorFromString("deinit")
-//            let repSel = #selector(self.hook_deinit)
-//            hookInstanceMethod(of: oriSel, with: repSel)
-//        }
-//    }
-//
-//    private func hook_deinit() {
-//        //需要注入的代码写在此处
-//        NotificationCenter.default.removeObserver(self)
-//        hook_deinit()
-//    }
             
     public var placeHolderLabel: UILabel {
         get {
