@@ -75,3 +75,12 @@ import Foundation
     
 
 }
+
+
+///禁用粘贴复制菜单
+public class NNTextView: UITextView {
+    
+    public override var canBecomeFirstResponder: Bool{
+        return false
+    }
+}

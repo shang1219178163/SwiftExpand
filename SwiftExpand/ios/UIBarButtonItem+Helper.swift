@@ -72,6 +72,26 @@ import Foundation
         self.target = target
         self.action = action
     }
+    
+    @discardableResult
+    func setTitleColor(_ textColor: UIColor, for state: UIControl.State) -> Self {
+        guard var attributes = titleTextAttributes(for: state) else {
+            setTitleTextAttributes([NSAttributedString.Key.foregroundColor: textColor], for: state)
+            return self }
+        attributes[.foregroundColor] = textColor
+        setTitleTextAttributes(attributes, for: state)
+        return self
+    }
+    
+    @discardableResult
+    func setTitleFont(_ font: UIFont, for state: UIControl.State) -> Self {
+        guard var attributes = titleTextAttributes(for: state) else {
+            setTitleTextAttributes([NSAttributedString.Key.font: font], for: state)
+            return self }
+        attributes[.font] = font
+        setTitleTextAttributes(attributes, for: state)
+        return self
+    }
 
     /// Creates a fixed space UIBarButtonItem with a specific width.
     static func fixedSpace(width: CGFloat, target: Any? = nil, action: Selector? = nil) -> UIBarButtonItem {

@@ -203,6 +203,18 @@ public extension String{
         return false
     }
     
+    
+    var isImageSuffix: Bool {
+        var result = false;
+        for e in ["BMP", "JPG", "JPEG", "PNG", "GIF"] {
+            result = self.hasSuffix(".\(e.lowercased())")
+            if result == true {
+                break
+            }
+        }
+        return result
+    }
+    
     ///****-**-** 00:00:00
     var dayBegin: String{
         return (self as NSString).dayBegin

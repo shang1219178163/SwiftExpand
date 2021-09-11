@@ -568,6 +568,8 @@ import Foundation
         DDLog("压缩后图片大小:\(data!.count)kb_压缩系数:\(compression)")
         return data!
     }
+
+    
     /// 获取图片data的类型
     static func contentType(_ imageData: NSData) -> String {
         var type: String = "jpg"
@@ -597,6 +599,30 @@ import Foundation
             break
         }
         return type
+    }
+    
+    // 把两张图片绘制成一张图片(添加小图到大图上)
+    func combine(image: UIImage) -> UIImage {
+        
+        // 1.1.获取第一张图片的宽度
+        let width: CGFloat = max(self.size.width, image.size.width)
+        // 1.2.获取第一张图片的高度
+        let height: CGFloat = max(self.size.height, image.size.height)
+
+        // 1.3.开始绘制图片的大小
+        UIGraphicsBeginImageContext(CGSize(width: width, height: height))
+        // 1.4.绘制第一张图片的起始点
+        self.draw(at: CGPoint(x: 0, y: 0))
+        // 1.5.绘制第二章图片的起始点
+        let point = CGPoint(x: (width - image.size.width)*0.5, y: (height - image.size.height)*0.5)
+        image.draw(at: point)
+
+        // 1.6.获取已经绘制好的
+        let imageLong = UIGraphicsGetImageFromCurrentImageContext()!
+        // 1.7.结束绘制
+        UIGraphicsEndImageContext()
+        // 1.8.返回已经绘制好的图片
+        return imageLong
     }
 }
 
