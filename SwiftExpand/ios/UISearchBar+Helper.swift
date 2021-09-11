@@ -72,16 +72,19 @@ import UIKit
         return searchBar
     }
     /// 创建默认搜索框
-    static func createDefault() -> UISearchBar {
-        let view = UISearchBar.create(CGRectMake(0, 0, kScreenWidth, 50))
+    static func createDefault(_ size: CGSize = CGSize(width: kScreenWidth, height: 50)) -> UISearchBar {
+        let view = UISearchBar(frame: CGRectMake(0, 0, size.width, size.height))
         view.layer.cornerRadius = 0
         view.showsCancelButton = false
+        view.backgroundImage = UIImage()
         view.backgroundColor = .white
-        view.textField?.placeholder = "请输入名称搜索"
-        view.textField?.backgroundColor = UIColor.background
+        
+        view.textField?.font = UIFont.systemFont(ofSize: 13)
+        view.textField?.placeholder = "请输入关键字搜索"
+        view.textField?.backgroundColor = .groupTableViewBackground
         view.textField?.layer.cornerRadius = 5
         view.textField?.layer.masksToBounds = true
-        return view
+        return view;
     }
     
     func hiddenSearchBarBackground() {

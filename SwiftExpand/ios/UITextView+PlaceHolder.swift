@@ -6,11 +6,6 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-
-/**
- 此实现不完美, 建议继承 UITextView 实现该效果
- */
-
 import UIKit
 import Foundation
 
