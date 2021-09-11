@@ -22,6 +22,7 @@ import AppKit
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = allowsMultipleSelection
         panel.allowedFileTypes = fileTypes
+        
         let path = "/Users/\(ProcessInfo.processInfo.userName)/Downloads"
         panel.directoryURL = URL(fileURLWithPath: path)
 //        panel.runModal()
@@ -33,7 +34,7 @@ import AppKit
     
     static func open(fileTypes: [String]?, allowsMultipleSelection: Bool = false) -> Self {
         let panel = self.create(fileTypes: fileTypes, allowsMultipleSelection: allowsMultipleSelection)
-        panel.runModal()
+//        panel.runModal()
         if panel.runModal() == NSApplication.ModalResponse.OK {
             DDLog(panel.urls)
         }

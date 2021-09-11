@@ -234,7 +234,8 @@ import Foundation
         _ = {
             $0.barTintColor = barTintColor
             $0.tintColor = tintColor
-            $0.titleTextAttributes = [NSAttributedString.Key.foregroundColor: tintColor,]
+            $0.titleTextAttributes = [.foregroundColor: tintColor,
+            ]
           }(UINavigationBar.appearance())
                 
         if #available(iOS 11.0, *) {
@@ -244,13 +245,17 @@ import Foundation
         }
         
         _ = {
-            $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .normal)
-          }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIImagePickerController.self]))
+            $0.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+        }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIImagePickerController.self]))
         
         _ = {
-            $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: tintColor], for: .normal)
-          }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]))
+            $0.setTitleTextAttributes([.foregroundColor: tintColor], for: .normal)
+        }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]))
         
+        _ = {
+            $0.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 15), ], for: .normal)
+            $0.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 15), ], for: .highlighted)
+        }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]))
         
 //        _ = {
 //            $0.barTintColor = barTintColor
@@ -265,17 +270,7 @@ import Foundation
 //        _ = {
 //            $0.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5.0)
 //          }(UITabBarItem.appearance())
-        
-        _ = {
-            $0.setTitleColor(tintColor, for: .normal)
-            $0.titleLabel?.adjustsFontSizeToFitWidth = true
-            $0.titleLabel?.minimumScaleFactor = 1.0
-            $0.imageView?.contentMode = .scaleAspectFit
-            $0.isExclusiveTouch = true
-            $0.adjustsImageWhenHighlighted = false
-          }(UIButton.appearance(whenContainedInInstancesOf: [UINavigationBar.self]))
-        
-        
+                
         _ = {
             $0.setTitleColor(.black, for: .normal)
             $0.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -289,9 +284,9 @@ import Foundation
         _ = {
             $0.tintColor = tintColor
 
-            $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: tintColor,
+            $0.setTitleTextAttributes([.foregroundColor: tintColor,
             ], for: .normal)
-            $0.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: barTintColor,
+            $0.setTitleTextAttributes([.foregroundColor: barTintColor,
             ], for: .selected)
           }(UISegmentedControl.appearance(whenContainedInInstancesOf: [UINavigationBar.self]))
 
