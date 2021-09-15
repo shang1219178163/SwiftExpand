@@ -279,7 +279,10 @@ import Foundation
             $0.isExclusiveTouch = true
             $0.adjustsImageWhenHighlighted = false
           }(UIButton.appearance())
-        
+                
+        if let aClass = NSClassFromString("UICalloutBarButton")! as? UIButton.Type {
+            aClass.appearance().setTitleColor(.white, for: .normal)
+        }
 
         _ = {
             $0.tintColor = tintColor

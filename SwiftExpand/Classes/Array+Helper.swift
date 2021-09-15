@@ -77,8 +77,20 @@ public extension Array{
 
 public extension Array where Element == CGFloat {
     
-    var sum: CGFloat {
-        return self.reduce(0, +)
+    var sumValue: CGFloat {
+        return self.reduce(0.0, +)
+    }
+    
+    var avgValue: CGFloat {
+        return self.sumValue/CGFloat(self.count)
+    }
+    
+    var maxValue: CGFloat? {
+        return self.sorted(by: >).first
+    }
+
+    var minValue: CGFloat? {
+        return self.sorted(by: <).first
     }
     
     ///获取数组期望值
@@ -230,6 +242,26 @@ public extension Array where Element : View{
     /// 快速生成一个数组
     static func generate(count: Int, generator: @escaping ((Int)->Element)) -> NSArray {
         return Array.init(count: count, generator: generator) as NSArray;
+    }
+    
+    ///嵌套数组获取 distinctUnionOfArrays 数组
+    var distinctUnionOfArrays: NSArray {
+        return self.value(forKeyPath: "@distinctUnionOfArrays") as! NSArray
+    }
+    
+    ///嵌套数组获取 unionOfArrays 数组
+    var unionOfArrays: NSArray {
+        return self.value(forKeyPath: "@unionOfArrays") as! NSArray
+    }
+    
+    ///嵌套数组获取 distinctUnionOfObjects 数组
+    var distinctUnionOfObjects: NSArray {
+        return self.value(forKeyPath: "@distinctUnionOfObjects") as! NSArray
+    }
+    
+    ///嵌套数组获取 unionOfObjects 数组
+    var unionOfObjects: NSArray {
+        return self.value(forKeyPath: "@unionOfObjects") as! NSArray
     }
     
     ///获取数组期望值

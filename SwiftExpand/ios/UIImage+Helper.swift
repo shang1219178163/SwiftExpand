@@ -601,6 +601,15 @@ import Foundation
         return type
     }
     
+    func imageFromCurrentImageContext() -> UIImage? {
+        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height)
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        self.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+    
     // 把两张图片绘制成一张图片(添加小图到大图上)
     func combine(image: UIImage) -> UIImage {
         

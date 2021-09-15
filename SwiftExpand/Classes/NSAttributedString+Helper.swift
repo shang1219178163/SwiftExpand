@@ -249,6 +249,11 @@ public extension String {
         return self
     }
     
+    func systemFontChain(_ fontSize: CGFloat = 17, weight: Font.Weight = .regular) -> Self {
+        let font = Font.systemFont(ofSize: fontSize, weight: weight)
+        return fontChain(font)
+    }
+    
     func foregroundColorChain(_ color: Color) -> Self {
         addAttributes([NSAttributedString.Key.foregroundColor: color], range: NSMakeRange(0, self.length))
         return self
