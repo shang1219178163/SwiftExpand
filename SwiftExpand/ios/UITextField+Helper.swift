@@ -46,8 +46,8 @@ import Foundation
     }
     
     ///设置密码明暗文切换
-    func addPasswordEveBlock(_ image: UIImage? = UIImage(named: "icon_eye_close"),
-                             selectedImage: UIImage? = UIImage(named: "icon_eye_open"),
+    func addPasswordEveBlock(_ image: UIImage? = UIImage.icon_eye_close,
+                             selectedImage: UIImage? = UIImage.icon_eye_open,
                              edge: UIEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5),
                              block: @escaping ((UIButton) ->Void)) {
         let view = UIView()
@@ -55,8 +55,8 @@ import Foundation
 //        view.backgroundColor = .systemGreen
         
         let sender = UIButton(type: .custom)
-        sender.setImage(image ?? UIImage(named: "icon_eye_close"), for: .normal)
-        sender.setImage(selectedImage ?? UIImage(named: "icon_eye_open"), for: .selected)
+        sender.setImage(image, for: .normal)
+        sender.setImage(selectedImage, for: .selected)
         sender.addActionHandler({ (sender) in
             sender.isSelected = !sender.isSelected
             self.isSecureTextEntry = !sender.isSelected

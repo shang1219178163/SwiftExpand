@@ -207,7 +207,7 @@ public extension String{
     var isImageSuffix: Bool {
         var result = false;
         for e in ["BMP", "JPG", "JPEG", "PNG", "GIF"] {
-            result = self.hasSuffix(".\(e.lowercased())")
+            result = self.hasSuffix(".\(e)") || self.hasSuffix(".\(e.lowercased())")
             if result == true {
                 break
             }

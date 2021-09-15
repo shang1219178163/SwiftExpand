@@ -93,7 +93,7 @@ import Foundation
     public func hook_pushViewController(_ viewController: UIViewController, animated: Bool) {
         //判断是否是根控制器
         if viewControllers.count > 0 {
-            viewController.createBackItem(UIImage(named: "icon_arowLeft_black")!.withRenderingMode(.alwaysTemplate))
+            viewController.createBackItem(UIImage.icon_arowLeft_black.withRenderingMode(.alwaysTemplate))
             viewController.hidesBottomBarWhenPushed = true
         }
         //push进入下一个控制器
