@@ -12,6 +12,7 @@ import Foundation
 @objc public extension UINavigationBar {
     
     ///设置背景色
+    @available(iOS, introduced: 10, deprecated: 15, message: "replace by setColor(_ tintColor:, background:, shadowColor:)")
     func setBackgroudColor(_ color: UIColor?, for barMetrics: UIBarMetrics) {
         guard let color = color else {
             setBackgroundImage(nil, for: barMetrics)
@@ -25,18 +26,60 @@ import Foundation
     }
     
     ///设置标题颜色
+    @available(iOS, introduced: 10, deprecated: 15, message: "replace by setColor(_ tintColor:, background:, shadowColor:)")
     func setTextColor(_ color: UIColor) {
         tintColor = color
         titleTextAttributes = [NSAttributedString.Key.foregroundColor: color,]
     }
-    
-    func setColors(withTint text: UIColor = .white, background: UIColor = .clear) {
-        setBackgroundImage(UIImage(), for: .default)
-        shadowImage = UIImage()
-        isTranslucent = (background == .clear)
-        backgroundColor = background
+        
+    func setColor(_ tintColor: UIColor, background: UIColor, shadowColor: UIColor? = nil, font: UIFont = UIFont.systemFont(ofSize: 15)) {        
+//        setBackgroundImage(UIImage(), for: .default)
+//        shadowImage = UIImage()
+//        isTranslucent = (background == .clear)
+        setBackgroundImage(UIImage(color: background), for: .default)
+
         barTintColor = background
-        tintColor = text
-        titleTextAttributes = [.foregroundColor: text]
+        self.tintColor = tintColor
+        titleTextAttributes = [.foregroundColor: tintColor,
+                                .font: font]
+        
+        if #available(iOS 13, *) {
+            let barAppearance = UINavigationBarAppearance.create(tintColor, background: background, shadowColor: shadowColor, font: font)
+            
+            standardAppearance = barAppearance
+            scrollEdgeAppearance = barAppearance
+        }
+    }
+}
+
+
+@available(iOS 13.0, *)
+@objc public extension UINavigationBarAppearance{
+    
+    /// 创建
+    static func create(_ color: UIColor, background: UIColor, shadowColor: UIColor? = nil, font: UIFont = UIFont.systemFont(ofSize: 15)) -> UINavigationBarAppearance {
+        let barAppearance = UINavigationBarAppearance()
+        barAppearance.configureWithOpaqueBackground()
+        barAppearance.backgroundColor = background
+        
+        barAppearance.titleTextAttributes = [.foregroundColor: color, ]
+        
+        let buttonAppearanceNormal = barAppearance.buttonAppearance.normal
+        buttonAppearanceNormal.titleTextAttributes = [.foregroundColor: color,
+                                                      .backgroundColor: background,
+                                                      .font: font
+        ]
+
+        let doneButtonAppearanceNormal = barAppearance.doneButtonAppearance.normal
+        doneButtonAppearanceNormal.titleTextAttributes = [.foregroundColor: color,
+                                                          .backgroundColor: background,
+                                                          .font: font
+        ]
+        
+        
+        if let shadowColor = shadowColor {
+            barAppearance.shadowColor = shadowColor
+        }
+        return barAppearance
     }
 }

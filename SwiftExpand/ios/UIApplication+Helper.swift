@@ -230,32 +230,53 @@ import Foundation
     
     /// 配置 app 外观主题色
     static func setupAppearance(_ tintColor: UIColor, barTintColor: UIColor) {
-        
         _ = {
             $0.barTintColor = barTintColor
             $0.tintColor = tintColor
             $0.titleTextAttributes = [.foregroundColor: tintColor,
             ]
           }(UINavigationBar.appearance())
-                
+        
+        
         if #available(iOS 11.0, *) {
-        _ = {
-            $0.tintColor = nil
-          }(UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]))
+            _ = {
+                $0.tintColor = nil
+            }(UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentBrowserViewController.self]))
         }
         
-        _ = {
-            $0.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
-        }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIImagePickerController.self]))
         
-        _ = {
-            $0.setTitleTextAttributes([.foregroundColor: tintColor], for: .normal)
-        }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]))
+        if #available(iOS 13.0, *) {
+            let barAppearance = UINavigationBarAppearance.create(tintColor, background: barTintColor, shadowColor: nil)
+            _ = {
+                $0.standardAppearance = barAppearance
+                $0.scrollEdgeAppearance = barAppearance
+            }(UINavigationBar.appearance())
+
+            
+            let tabbarAppearance = UITabBarAppearance.create(barTintColor, background: tintColor)
+            _ = {
+                $0.standardAppearance = tabbarAppearance
+                if #available(iOS 15.0, *) {
+                    $0.scrollEdgeAppearance = tabbarAppearance
+                }
+            }(UITabBar.appearance())
+        } else {
+            // Fallback on earlier versions
+        }
+        
         
         _ = {
             $0.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 15), ], for: .normal)
             $0.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: 15), ], for: .highlighted)
         }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]))
+        
+//        _ = {
+//            $0.setTitleTextAttributes([.foregroundColor: tintColor], for: .normal)
+//        }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]))
+        
+        _ = {
+            $0.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+        }(UIBarButtonItem.appearance(whenContainedInInstancesOf: [UIImagePickerController.self]))
         
 //        _ = {
 //            $0.barTintColor = barTintColor
@@ -265,7 +286,6 @@ import Foundation
 //                $0.unselectedItemTintColor = .gray
 //            }
 //          }(UITabBar.appearance())
-        
         
 //        _ = {
 //            $0.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5.0)
@@ -279,11 +299,17 @@ import Foundation
             $0.isExclusiveTouch = true
             $0.adjustsImageWhenHighlighted = false
           }(UIButton.appearance())
-                
+        
+        
         if let aClass = NSClassFromString("UICalloutBarButton")! as? UIButton.Type {
             aClass.appearance().setTitleColor(.white, for: .normal)
         }
 
+        
+        _ = {
+            $0.tintColor = tintColor
+          }(UISegmentedControl.appearance())
+        
         _ = {
             $0.tintColor = tintColor
 
@@ -292,11 +318,6 @@ import Foundation
             $0.setTitleTextAttributes([.foregroundColor: barTintColor,
             ], for: .selected)
           }(UISegmentedControl.appearance(whenContainedInInstancesOf: [UINavigationBar.self]))
-
-        
-        _ = {
-            $0.tintColor = tintColor
-          }(UISegmentedControl.appearance())
 
                 
         _ = {
@@ -369,7 +390,7 @@ import Foundation
         
         _ = {
             $0.datePickerMode = .date
-            $0.locale = Locale(identifier: "zh_CN")
+            $0.locale = Locale.zh_CN
             $0.backgroundColor = .white
             if #available(iOS 13.4, *) {
                 $0.preferredDatePickerStyle = .wheels
@@ -491,8 +512,8 @@ import Foundation
             //如果支持, 替换icon
             UIApplication.shared.setAlternateIconName(name) { (error) in
                 //点击弹框的确认按钮后的回调
-                if error != nil {
-                    print(error ?? "更换icon发生错误")
+                if let error = error {
+                    print("更换icon发生错误")
                 }
             }
         }
