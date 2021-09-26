@@ -87,3 +87,46 @@ public extension NSRegularExpression{
     }
 
 }
+
+
+
+@objc public extension NSPredicate{
+    /// SELF MATCHES 匹配正则和字符串
+    static func evaluateMatches(_ regex: String, aString: String) -> Bool {
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        return predicate.evaluate(with: aString)
+    }
+    
+}
+
+
+public extension NSPredicate{
+
+//    ///正则匹配模式
+//    enum Pattern: String {
+//        ///jian
+//        case simplePhone = "^1[0-9]{10}$"
+//        /// email
+//        case email = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+//        /// IPAddress
+//        case IPAddress = "^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$"
+//        /// 密码是否符合彼标准 8-14位字母数组的组合
+//        case password_6_14 = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,14}$";
+//    }
+}
+
+
+public extension String{
+
+    ///验证
+    func valid(_ regex: String) -> Bool {
+        return NSPredicate.evaluateMatches(regex, aString: self)
+    }
+    
+    
+    ///验证金额,默认两位小数
+    func validMoney(_ maxFractionDigits: Int = 1) -> Bool {
+        let regex = "^\\-?([1-9]\\d*|0)(\\.\\d{0,\(maxFractionDigits)})?$"
+        return NSPredicate.evaluateMatches(regex, aString: self)
+    }
+}
