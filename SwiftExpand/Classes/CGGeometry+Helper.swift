@@ -346,17 +346,21 @@ public extension CGSize{
 
 public extension EdgeInsets{
     
-    var vertical: CGFloat {
-        return top + bottom
-    }
-
-    var horizontal: CGFloat {
-        return left + right
-    }
+//    var vertical: CGFloat {
+//        return top + bottom
+//    }
+//
+//    var horizontal: CGFloat {
+//        return left + right
+//    }
 
     /// 便利方法
     init(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) {
         self.init(top: top, left: left, bottom: bottom, right: right)
+    }
+    
+    init(all: CGFloat) {
+        self.init(top: all, left: all, bottom: all, right: all)
     }
     /// 仿OC方法
     static func make(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Self {

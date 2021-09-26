@@ -39,7 +39,7 @@ import Foundation
     convenience init(rect: CGRect = .zero, isOn: Bool = true) {
         self.init(frame: rect)
         self.datePickerMode = .date
-        self.locale = Locale(identifier: "zh_CN")
+        self.locale = Locale.zh_CN
         self.backgroundColor = UIColor.white
         if #available(iOS 13.4, *) {
             self.preferredDatePickerStyle = .wheels

@@ -126,9 +126,9 @@ public extension String.StringInterpolation {
     }
      
     /// 获取对应的字符串
-    func toString(_ max: Int = 2) -> String{
-        let result = NumberFormatter.fractionDigits(obj: CGFloat(self.floatValue), min: 2, max: max, roundingMode: .up)
-        return result ?? ""
+    func toString(_ max: Int = 2) -> String?{
+        let fmt = NumberFormatter.format(.none, minFractionDigits: 1, maxFractionDigits: max, positivePrefix: "", groupingSeparator: "", groupingSize: 3)
+        return fmt.string(for: self)
     }
   
 }

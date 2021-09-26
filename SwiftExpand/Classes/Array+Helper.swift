@@ -37,7 +37,7 @@ public extension Array{
         else { return "" }
         return jsonString
     }
-    
+        
     /// 快速生成一个数组(step代表步长)
     init(count: Int, generator: @escaping ((Int) -> Element)) {
         self = (0..<count).map(generator)
@@ -71,6 +71,17 @@ public extension Array{
             insert(element, at: toIndex)
         } else {
             append(element)
+        }
+    }
+    
+    ///递归子元素
+    func recursion(_ block: ((Element)->Void)? = nil) {
+        self.forEach { e in
+            if let list = e as? Array {
+                list.recursion(block)
+            } else {
+                block?(e)
+            }
         }
     }
 }
@@ -146,7 +157,7 @@ public extension Array where Element : Hashable {
     var unique: [Element] {
         return Array(Set(self))
     }
-    
+
 }
 
 

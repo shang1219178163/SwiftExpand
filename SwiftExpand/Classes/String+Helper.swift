@@ -152,7 +152,8 @@ public extension String{
     }
 
     var urlEncoded: String {
-        return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+//        return addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        return addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     }
     
     var isValidUrl: Bool {
@@ -223,6 +224,28 @@ public extension String{
     ///****-**-** 23:59:59
     var dayEnd: String{
         return (self as NSString).dayEnd
+    }
+    
+    func hasPrefixs(_ prefixs: [String]) -> Bool{
+        var result = false;
+        for e in prefixs {
+            result = self.hasPrefix("\(e)") || self.hasPrefix("\(e.lowercased())")
+            if result == true {
+                break
+            }
+        }
+        return result
+    }
+
+    func hasSuffixs(_ suffixs: [String]) -> Bool{
+        var result = false;
+        for e in suffixs {
+            result = self.hasSuffix("\(e)") || self.hasSuffix("\(e.lowercased())")
+            if result == true {
+                break
+            }
+        }
+        return result
     }
     
     /// (填充字符到最大长度)padding [value] to [width]
