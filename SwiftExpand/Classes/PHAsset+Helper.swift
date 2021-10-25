@@ -12,7 +12,7 @@ import Photos
 
 @objc public extension PHAsset{
     
-    /// 请求UIImage
+    /// 请求Image
     @available(macOS 10.13, *)
     func requestImage(_ resultHandler: @escaping (Image?, [AnyHashable: Any]?) -> Void) {
         let options = PHImageRequestOptions()
@@ -86,6 +86,7 @@ import Photos
 @available(macOS 10.13, iOS 8, *)
 @objc public extension PHPhotoLibrary{
     /// 创建自定义相册
+    @available(macOS 10.15, iOS 8, *)
     func createAssetCollection(_ title: String, completionHandler: ((Bool, Error?) -> Void)?){
         PHPhotoLibrary.shared().performChanges({
             PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: title)
@@ -93,8 +94,8 @@ import Photos
         }, completionHandler: completionHandler)
     }
     
-    
     /// 删除图片
+    @available(macOS 10.15, iOS 8, *)
     func deleteAssets(_ assets: [PHAsset], completionHandler: ((Bool, Error?) -> Void)?){
         PHPhotoLibrary.shared().performChanges({
             PHAssetChangeRequest.deleteAssets(assets as NSFastEnumeration)
@@ -104,11 +105,11 @@ import Photos
 }
 
 
-
+@available(iOS 8, *)
 @objc public extension PHImageManager{
 
 
-    func getOriginalPhoto(_ asset: PHAsset, progressHandler: @escaping PHAssetImageProgressHandler, completion: ((UIImage, [AnyHashable: Any], Bool) -> Void)?) -> PHImageRequestID {
+    func getOriginalPhoto(_ asset: PHAsset, progressHandler: @escaping PHAssetImageProgressHandler, completion: ((Image, [AnyHashable: Any], Bool) -> Void)?) -> PHImageRequestID {
         let option = PHImageRequestOptions()
         option.isNetworkAccessAllowed = true
         option.resizeMode = .fast
@@ -121,7 +122,7 @@ import Photos
                   let isDegraded = info[PHImageResultIsDegradedKey] as? Bool,
                     cancelled == false else {
                         return }
-                if let image = UIImage(data: imageData),
+                if let image = Image(data: imageData),
                     let result = image.fixedOrientation() {
                     completion?(result, info, isDegraded)
                 }
