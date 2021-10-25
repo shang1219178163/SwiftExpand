@@ -175,6 +175,11 @@ public extension CGFloat {
     var ceil: CGFloat {
         return Foundation.ceil(self)
     }
+    
+    func toString(_ fractionDigits: Int = 2) -> String {
+        return String.init(format: "%.\(fractionDigits)f", self)
+    }
+    
 }
 
 
@@ -224,6 +229,13 @@ public extension CGRect{
         return CGPoint(x: maxX, y: maxY)
     }
 
+    func toString(_ fractionDigits: Int = 2) -> String {
+        let xString = String.init(format: "%.\(fractionDigits)f", origin.x)
+        let yString = String.init(format: "%.\(fractionDigits)f", origin.y)
+        let wString = String.init(format: "%.\(fractionDigits)f", size.width)
+        let hString = String.init(format: "%.\(fractionDigits)f", size.height)
+        return "(\(xString), \(yString), \(wString), \(hString))"
+    }
 }
 
 public extension CGPoint{
@@ -279,6 +291,13 @@ public extension CGPoint{
     static func *= (point: inout CGPoint, scalar: CGFloat) {
         point.x *= scalar
         point.y *= scalar
+    }
+    
+    
+    func toString(_ fractionDigits: Int = 2) -> String {
+        let xString = String.init(format: "%.\(fractionDigits)f", x)
+        let yString = String.init(format: "%.\(fractionDigits)f", y)
+        return "(\(xString), \(yString))"
     }
 }
 
@@ -341,6 +360,13 @@ public extension CGSize{
         lhs.width *= scalar
         lhs.height *= scalar
     }
+    
+    
+    func toString(_ fractionDigits: Int = 2) -> String {
+        let wString = String.init(format: "%.\(fractionDigits)f", width)
+        let hString = String.init(format: "%.\(fractionDigits)f", height)
+        return "(\(wString), \(hString))"
+    }
 }
 
 
@@ -373,6 +399,15 @@ public extension EdgeInsets{
                           left: lhs.left + rhs.left,
                           bottom: lhs.bottom + rhs.bottom,
                           right: lhs.right + rhs.right)
+    }
+    
+    
+    func toString(_ fractionDigits: Int = 2) -> String {
+        let topString = String.init(format: "%.\(fractionDigits)f", top)
+        let leftString = String.init(format: "%.\(fractionDigits)f", self.left)
+        let bottomString = String.init(format: "%.\(fractionDigits)f", bottom)
+        let rightString = String.init(format: "%.\(fractionDigits)f", self.right)
+        return "(\(topString), \(leftString), \(bottomString), \(rightString))"
     }
 }
 
