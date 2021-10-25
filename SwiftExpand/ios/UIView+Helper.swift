@@ -499,6 +499,7 @@ import Foundation
     }
 
     /// 插入模糊背景
+    @discardableResult
     func insertVisualEffectView(style: UIBlurEffect.Style = .light) -> UIVisualEffectView {
         let blurView = UIVisualEffectView(effect: UIBlurEffect(style: style))
         blurView.frame = self.bounds

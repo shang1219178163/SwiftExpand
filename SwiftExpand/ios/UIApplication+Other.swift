@@ -49,23 +49,23 @@ import Photos
         return isHasRight
     }
     
+    ///打开应用自己的设置页面
+    func openSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else {
+            print("api 失效, 请更新")
+            return
+        }
+        open(url, options: [:], completionHandler: nil)
+    }
+    
     /// 注册APNs远程推送
-    static func registerAPNsWithDelegate(_ delegate: Any, completionHandler: @escaping (Bool, Error?) -> Void) {
-        if #available(iOS 10.0, *) {
+    static func registerAPNsWithDelegate(_ delegate: UNUserNotificationCenterDelegate, completionHandler: @escaping (Bool, Error?) -> Void) {
             let options: UNAuthorizationOptions = [.alert, .badge, .sound]
             let center = UNUserNotificationCenter.current()
-            center.delegate = (delegate as! UNUserNotificationCenterDelegate)
+            center.delegate = delegate
             center.requestAuthorization(options: options, completionHandler: completionHandler)
             UIApplication.shared.registerForRemoteNotifications()
-            //            center.delegate = self
-        } else {
-            // 请求授权
-            let types: UIUserNotificationType = [.alert, .badge, .sound]
-            let settings = UIUserNotificationSettings(types: types, categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(settings)
-            // 需要通过设备UDID, 和app bundle id, 发送请求, 获取deviceToken
-            UIApplication.shared.registerForRemoteNotifications()
-        }
+
     }
     
     /// app商店链接

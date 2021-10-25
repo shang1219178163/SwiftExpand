@@ -447,88 +447,43 @@ import Foundation
         guard let image = UIImage(contentsOfFile: url.path) else {
             return nil
         }
-
-        if #available(iOS 10.0, *) {
-            let renderer = UIGraphicsImageRenderer(size: size)
-            return renderer.image { (context) in
-                image.draw(in: CGRect(origin: .zero, size: size))
-            }
-        }
-        return UIImage.resizeImage(image: image, size: size)
-    }
-    
-    // 缩放图片
-    static func resizeImage(image: UIImage, size: CGSize, isScaleFit: Bool = true) -> UIImage? {
-        if #available(iOS 10.0, *) {
-            let renderer = UIGraphicsImageRenderer(size: size)
-            return renderer.image { (context) in
-                image.draw(in: CGRect(origin: .zero, size: size))
-            }
-        }
         
-        if isScaleFit == false {
-            UIGraphicsBeginImageContext(size)
-            image.draw(in: CGRect(origin: .zero, size: size))
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return image
-        }
-        
-        let imageSize = image.size
-        let widthRatio  = size.width  / imageSize.width
-        let heightRatio = size.height / imageSize.height
-
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width:imageSize.width * heightRatio, height: imageSize.height * heightRatio)
-        } else {
-            newSize = CGSize(width:imageSize.width * widthRatio, height: imageSize.height * widthRatio)
-        }
-
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        image.draw(in: CGRect(origin: .zero, size: newSize))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
+        return image.resizeImage(size, isScaleFit: true)
     }
     
     // 缩放图片
     func resizeImage(_ size: CGSize, isScaleFit: Bool = true) -> UIImage? {
-        if #available(iOS 10.0, *) {
-            let renderer = UIGraphicsImageRenderer(size: size)
-            return renderer.image { (context) in
-                self.draw(in: CGRect(origin: .zero, size: size))
-            }
-        }
-        
-        if isScaleFit == false {
-            UIGraphicsBeginImageContext(size)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { (context) in
             self.draw(in: CGRect(origin: .zero, size: size))
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return image
         }
         
-        let imageSize = self.size
-        let widthRatio  = size.width  / imageSize.width
-        let heightRatio = size.height / imageSize.height
-
-        // Figure out what our orientation is, and use that to form the rectangle
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-            newSize = CGSize(width:imageSize.width * heightRatio, height: imageSize.height * heightRatio)
-        } else {
-            newSize = CGSize(width:imageSize.width * widthRatio, height: imageSize.height * widthRatio)
-        }
-
-        // Actually do the resizing to the rect using the ImageContext stuff
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        self.draw(in: CGRect(origin: .zero, size: newSize))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
+//        if isScaleFit == false {
+//            UIGraphicsBeginImageContext(size)
+//            self.draw(in: CGRect(origin: .zero, size: size))
+//            let image = UIGraphicsGetImageFromCurrentImageContext()
+//            UIGraphicsEndImageContext()
+//            return image
+//        }
+//
+//        let imageSize = self.size
+//        let widthRatio  = size.width  / imageSize.width
+//        let heightRatio = size.height / imageSize.height
+//
+//        // Figure out what our orientation is, and use that to form the rectangle
+//        var newSize: CGSize
+//        if(widthRatio > heightRatio) {
+//            newSize = CGSize(width:imageSize.width * heightRatio, height: imageSize.height * heightRatio)
+//        } else {
+//            newSize = CGSize(width:imageSize.width * widthRatio, height: imageSize.height * widthRatio)
+//        }
+//
+//        // Actually do the resizing to the rect using the ImageContext stuff
+//        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+//        self.draw(in: CGRect(origin: .zero, size: newSize))
+//        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext()
+//        return newImage
     }
     
     /// 根据最大尺寸限制压缩图片

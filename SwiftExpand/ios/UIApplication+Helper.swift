@@ -282,9 +282,7 @@ import Foundation
 //            $0.barTintColor = barTintColor
 //            $0.tintColor = tintColor
 //            $0.isTranslucent = false
-//            if #available(iOS 10.0, *) {
-//                $0.unselectedItemTintColor = .gray
-//            }
+//            $0.unselectedItemTintColor = .gray
 //          }(UITabBar.appearance())
         
 //        _ = {
@@ -447,16 +445,7 @@ import Foundation
             print("\(#function):链接无法打开!!!\n\(string)")
             return
         }
-        UIApplication.openURL(url)
-    }
-    
-    /// 打开网络链接
-    static func openURL(_ url: URL) {
-        if #available(iOS 10.0, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        } else {
-            UIApplication.shared.openURL(url)
-        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     /// 远程推送deviceToken处理
