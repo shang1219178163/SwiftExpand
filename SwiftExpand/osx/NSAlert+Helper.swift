@@ -31,18 +31,15 @@ import AppKit
         return self
     }
     
-    ///兼容 OC
-    static func create(_ title: String, message: String, btnTitles: [String]?) -> Self {
-        let alert = self.init()
-        alert.messageText = title
-        alert.informativeText = message
-        alert.alertStyle = .informational
-        if let titles = btnTitles {
-            for e in titles {
-                alert.addButton(withTitle: e)
-            }
+    convenience init(title: String, message: String, btnTitles: [String], alertStyle: NSAlert.Style = .informational) {
+        self.init()
+        self.messageText = title
+        self.informativeText = message
+        self.alertStyle = alertStyle
+        for e in btnTitles {
+            self.addButton(withTitle: e)
         }
-        return alert
     }
 
+    
 }
