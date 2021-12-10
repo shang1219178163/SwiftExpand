@@ -30,95 +30,73 @@
 # echo -e "\033[46m 青底色 \033[0m"
 # echo -e "\033[47m 白底色 \033[0m"
 
-kForegroundBlackColor=30;
-kForegroundRedColor=31;
-kForegroundGreenColor=32;
-kForegroundYellowColor=33;
-kForegroundBlueColor=34;
-kForegroundCyanColor=35;
-kForegroundPurpleColor=36;
-kForegroundWhiteColor=37
-
-kBackgroundBlackColor=40;
-kBackgroundRedColor=41;
-kBackgroundGreenColor=42;
-kBackgroundYellowColor=44;
-kBackgroundBlueColor=44;
-kBackgroundCyanColor=45;
-kBackgroundPurpleColor=46;
-kBackgroundWhiteColor=47;
-
 ## red to echo
 function echo_red(){
-    echo "\033[31m$1\033[0m"
+    echo -e "\033[31m$1\033[0m"
     # echo -e "\033[31m\033[01m\033[05m[ $1 ]\033[0m"
 }
 
 function echo_redbg(){
-    # echo "\033[41;37m$1\033[0m"
-    echo "\033[41;30m$1\033[0m"
+    # echo -e "\033[41;37m$1\033[0m"
+    echo -e "\033[41;30m$1\033[0m"
 }
-
-# function echo_redbg(){
-#     echo "\033[${kBackgroundRedColor};${kForegroundWhiteColor}m${1}\033[0m"
-#     echo "\033[${kBackgroundRedColor};${kForegroundBlackColor}m${1}\033[0m"
-# }
 
 ## green to echo 
 function echo_green(){
-    echo "\033[32m$1\033[0m"
+    echo -e "\033[32m$1\033[0m"
+
 }
 
 function echo_greenbg(){
     # echo "\033[42;37m$1\033[0m"
-    echo "\033[42;30m$1\033[0m"
+    echo -e "\033[42;30m$1\033[0m"
 }
 
 ## yellow to echo 
 function echo_yellow(){
-    echo "\033[33m$1\033[0m"
+    echo -e "\033[33m$1\033[0m"
 }
 
 function echo_yellowbg(){
     # echo "\033[43;37m$1\033[0m"
-    echo "\033[43;30m$1\033[0m"
+    echo -e "\033[43;30m$1\033[0m"
 }
 
 ## blue to echo 
 function echo_blue(){
-    echo "\033[34m$1\033[0m"
+    echo -e "\033[34m$1\033[0m"
 }
 
 function echo_bluebg(){
     # echo "\033[44;37m$1\033[0m"
-    echo "\033[44;30m$1\033[0m"
+    echo -e "\033[44;30m$1\033[0m"
 }
 
 function echo_purple(){
-    echo "\033[35m$1\033[0m"
+    echo -e "\033[35m$1\033[0m"
 }
 
 function echo_purplebg(){
     # echo "\033[45;37m$1\033[0m"
-    echo "\033[45;30m$1\033[0m"
+    echo -e "\033[45;30m$1\033[0m"
 }
 
 function echo_cyan(){
-    echo "\033[36m$1\033[0m"
+    echo -e "\033[36m$1\033[0m"
 }
 
 function echo_cyanbg(){
     # echo "\033[46;37m$1\033[0m"
-    echo "\033[46;30m$1\033[0m"
+    echo -e "\033[46;30m$1\033[0m"
 }
 
 function echo_white(){
-    echo "\033[37m$1\033[0m"
+    echo -e "\033[37m$1\033[0m"
 }
 
 function echo_whitebg(){
     # echo "\033[47;37m$1\033[0m"
-    echo "\033[47;30m$1\033[0m"
+    echo -e "\033[47;30m$1\033[0m"
 }
 
 #设置日志级别
@@ -126,7 +104,6 @@ loglevel=0 #debug:0; info:1; warn:2; error:3
 logfile=$0".log"
 # i日志 []<-(logtype:String msg:String )  <-------带入参的函数注释
 function log(){
-
     local logtype=$1    
     local msg=$2        
     datetime=`date +'%F %H:%M:%S'`
@@ -162,4 +139,36 @@ function log(){
     esac
     } | tee -a $logfile
 
+}
+
+
+function testLogColor(){
+    local send=$(datetime)
+    echo $send
+    echo_red "red $send"
+    echo_green "green $send"
+    echo_yellow "yellow $send"
+    echo_blue "blue $send"
+    echo_purple "purple $send"
+    echo_cyan "cyan $send"
+    echo_white "white $send"
+
+    # echo_redbg "red $send"
+    # echo_greenbg "green $send"
+    # echo_yellowbg "yellow $send"
+    # echo_bluebg "blue $send"
+    # echo_purplebg "purple $send"
+    # echo_cyanbg "cyan $send"
+    # echo_whitebg "white $send"
+
+    log "${send}"
+
+    log debug "${send}"
+    log info "${send}"
+    log warn "${send}"
+    log error "${send}"
+
+    # echo "___$?___"
+    # echo_purple `$now()`
+    exit 1;
 }
