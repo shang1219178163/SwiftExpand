@@ -226,6 +226,21 @@ public extension String{
         return (self as NSString).dayEnd
     }
     
+    /// 转驼峰
+    func toCamelCase() -> String {
+        if !self.contains("-") {
+            return self;
+        }
+        let result = self.split(separator: "-").reduce("", { $0 + $1.capitalized })
+        return result;
+    }
+    
+    /// 首字母小写
+    func firstLetterLowercased() -> String {
+        let result = self[0].lowercased() + self[1...];
+        return result;
+    }
+    
     func hasPrefixs(_ prefixs: [String]) -> Bool{
         var result = false;
         for e in prefixs {
@@ -491,6 +506,14 @@ public extension Substring {
     subscript (bounds: PartialRangeUpTo<Int>) -> Substring {
         let end = index(startIndex, offsetBy: bounds.upperBound)
         return self[startIndex ..< end]
+    }
+    
+    func toCamelCase() -> String {
+        return String(self).toCamelCase()
+    }
+
+    func firstLetterLowercased() -> String {
+        return String(self).firstLetterLowercased()
     }
 }
 
