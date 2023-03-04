@@ -178,28 +178,6 @@ import Foundation
         return UIImage(cgImage: downsampledImage)
     }
     
-    /// 获取网络图片尺寸
-    ///
-    /// - Parameter url: 网络图片链接
-    /// - Returns: 图片尺寸size
-    static func getImageSize(_ url: String?) -> CGSize {
-        guard let url = url,
-              let tempUrl = URL(string: url),
-              let imageSourceRef = CGImageSourceCreateWithURL(tempUrl as CFURL, nil),
-              let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSourceRef, 0, nil)
-        else {
-            return CGSize.zero;
-        }
-
-        let imageDict = imageProperties as Dictionary;
-        guard let width = imageDict[kCGImagePropertyPixelWidth] as? CGFloat,
-              let height = imageDict[kCGImagePropertyPixelHeight] as? CGFloat
-        else {
-            return CGSize.zero;
-        }
-        return CGSize(width: width, height: height);
-    }
-    
     /// Fix image orientaton to protrait up
     func fixedOrientation() -> UIImage? {
         guard imageOrientation != UIImage.Orientation.up else {
@@ -610,8 +588,6 @@ import Foundation
         // 1.8.返回已经绘制好的图片
         return imageLong
     }
-    
-    
 }
 
 
