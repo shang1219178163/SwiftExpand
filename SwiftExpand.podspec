@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
     s.name         = "SwiftExpand"
-    s.version      = "7.24.0"
+    s.version      = "7.25.0"
     s.summary      = "系统类功能扩展, 极大的提高工作效率."
     s.description  = "通过 extension 实现, 低耦合(iOS && macOS)"
 
@@ -28,4 +28,9 @@ Pod::Spec.new do |s|
     s.frameworks = 'Foundation', 'QuartzCore', 'WebKit', 'Photos'
     s.ios.frameworks = 'UIKit'
     s.osx.frameworks = 'AppKit'
+
+    s.pod_target_xcconfig = {
+      'DEFINES_MODULE' => 'YES'
+    }
+
 end
