@@ -73,7 +73,7 @@ import UIKit
     }
     /// 创建默认搜索框
     static func createDefault(_ size: CGSize = CGSize(width: kScreenWidth, height: 50)) -> UISearchBar {
-        let view = UISearchBar(frame: CGRectMake(0, 0, size.width, size.height))
+        let view = UISearchBar(frame: CGRect(0, 0, size.width, size.height))
         view.layer.cornerRadius = 0
         view.showsCancelButton = false
         view.backgroundImage = UIImage()
