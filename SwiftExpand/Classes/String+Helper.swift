@@ -231,8 +231,7 @@ public extension String{
         if !self.contains(separator) {
             return self;
         }
-        let result = self.components(separatedBy: separator)
-            .reduce("", { $0 + $1.capitalized })
+        let result = self.split(separator: separator).reduce("", { $0 + $1.capitalized })
         return result;
     }
     
@@ -352,9 +351,25 @@ public extension String{
     }
     
     ///获取两个字符串中间的部分(含这两部分)
-    func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
-        return (self as NSString).substring(prefix, subfix: subfix, isContain: isContain)
+    func substring(_ prefix: String, suffix: String, isContain: Bool = false) -> String {
+        guard let range = self.range(of: prefix),
+              let range1 = self.range(of: suffix, options: .backwards) else {
+                  return ""
+              }
+
+        let location = self.distance(from: self.startIndex, to:range.lowerBound)
+        let location1 = self.distance(from: self.startIndex, to:range1.lowerBound)
+
+        if isContain {
+            return String(self[location...location1])
+        }
+        let result = self[(location + prefix.count)..<location1]
+        return String(result)
     }
+    ///获取两个字符串中间的部分(含这两部分)
+//    func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
+//        return (self as NSString).substring(prefix, subfix: subfix, isContain: isContain)
+//    }
     
     //使用正则表达式替换
     func pregReplace(pattern: String, with: String, options: NSRegularExpression.Options = []) -> String {
@@ -507,14 +522,6 @@ public extension Substring {
     subscript (bounds: PartialRangeUpTo<Int>) -> Substring {
         let end = index(startIndex, offsetBy: bounds.upperBound)
         return self[startIndex ..< end]
-    }
-    
-    func toCamelCase() -> String {
-        return String(self).toCamelCase()
-    }
-
-    func firstLetterLowercased() -> String {
-        return String(self).firstLetterLowercased()
     }
 }
 
@@ -703,18 +710,18 @@ public extension StringProtocol {
     }
     
     ///获取两个字符串中间的部分(含这两部分)
-    func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
-        let beginLocation = self.range(of: prefix).location
-        let endLocation = self.range(of: subfix, options: .backwards).location
-        if beginLocation == NSNotFound || endLocation == NSNotFound {
-            return self as String
-        }
-        
-        let beginIdx = isContain == true ? beginLocation : beginLocation + 1
-        let endIdx = isContain == true ? endLocation - beginLocation + 1 : endLocation - beginLocation
-        let result = self.substring(with: NSRange(location: beginIdx, length: endIdx))
-        return result
-    }
+//    func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
+//        let beginLocation = self.range(of: prefix).location
+//        let endLocation = self.range(of: subfix, options: .backwards).location
+//        if beginLocation == NSNotFound || endLocation == NSNotFound {
+//            return self as String
+//        }
+//
+//        let beginIdx = isContain == true ? beginLocation : beginLocation + 1
+//        let endIdx = isContain == true ? endLocation - beginLocation + 1 : endLocation - beginLocation
+//        let result = self.substring(with: NSRange(location: beginIdx, length: endIdx))
+//        return result
+//    }
     
     func filterHTML() -> String {
         return (self as String).filterHTML()

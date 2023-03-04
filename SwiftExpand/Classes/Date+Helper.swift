@@ -133,8 +133,7 @@ public let kDateFormatTwo         = "yyyyMMdd"
     
     /// 时间戳字符串 -> 日期字符串
     static func stringFromInterval(_ interval: String, fmt: String = kDateFormat) -> String {
-        guard let timeInterval = Double(interval) else { return "" }
-        let date = Date(timeIntervalSince1970: timeInterval)
+        let date = Date(timeIntervalSince1970: interval.doubleValue)
         return DateFormatter.stringFromDate(date, fmt: fmt)
     }
 
