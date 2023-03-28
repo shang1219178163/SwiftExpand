@@ -31,15 +31,14 @@ import AppKit
         return self
     }
     
-    convenience init(title: String, message: String, btnTitles: [String], alertStyle: NSAlert.Style = .informational) {
+    convenience init(title: String, message: String, btnTitles: [String], style: NSAlert.Style = .informational) {
         self.init()
         self.messageText = title
         self.informativeText = message
-        self.alertStyle = alertStyle
+        self.alertStyle = style
         for e in btnTitles {
             self.addButton(withTitle: e)
         }
     }
 
-    
 }
