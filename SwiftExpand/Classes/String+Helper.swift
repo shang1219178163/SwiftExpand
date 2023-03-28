@@ -352,8 +352,8 @@ public extension String{
     }
     
     ///获取两个字符串中间的部分(含这两部分)
-    func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
-        return (self as NSString).substring(prefix, subfix: subfix, isContain: isContain)
+    func substring(_ pref: String, suffix: String, isContain: Bool = false) -> String {
+        return (self as NSString).substring(pref, suffix: suffix, isContain: isContain)
     }
     
     //使用正则表达式替换
@@ -703,9 +703,11 @@ public extension StringProtocol {
     }
     
     ///获取两个字符串中间的部分(含这两部分)
-    func substring(_ prefix: String, subfix: String, isContain: Bool = false) -> String {
-        let beginLocation = self.range(of: prefix).location
-        let endLocation = self.range(of: subfix, options: .backwards).location
+    func substring(_ pre: String, preOptions: NSString.CompareOptions = [],
+                   suffix: String, subfixOptions: NSString.CompareOptions = .backwards,
+                   isContain: Bool = false) -> String {
+        let beginLocation = self.range(of: pre, options: preOptions).location
+        let endLocation = self.range(of: suffix, options: subfixOptions).location
         if beginLocation == NSNotFound || endLocation == NSNotFound {
             return self as String
         }
@@ -715,6 +717,24 @@ public extension StringProtocol {
         let result = self.substring(with: NSRange(location: beginIdx, length: endIdx))
         return result
     }
+    
+    ///获取两个字符串中间的部分(含这两部分)
+//    func substring(_ prefix: String, prefixOptions: String.CompareOptions = [], suffix: String, suffixOptions: String.CompareOptions = .backwards, isContain: Bool = false) -> String {
+//        guard let range = self.range(of: prefix),
+//              let range1 = self.range(of: suffix, options: .backwards) else {
+//                  return ""
+//              }
+//
+//        let location = self.distance(from: self.startIndex, to:range.lowerBound)
+//        let location1 = self.distance(from: self.startIndex, to:range1.lowerBound)
+//
+//        if isContain {
+//            return String(self[location...location1])
+//        }
+//        let result = self[(location + prefix.count)..<location1]
+//        return String(result)
+//    }
+    
     
     func filterHTML() -> String {
         return (self as String).filterHTML()
