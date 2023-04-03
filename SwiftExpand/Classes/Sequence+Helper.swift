@@ -12,6 +12,11 @@ import Foundation
 
 public extension Sequence{
     
+    func sorted<T: Comparable>(by attribute: KeyPath<Element, T>) -> [Element] {
+        return sorted(by: { $0[keyPath: attribute] < $1[keyPath: attribute] })
+    }
+    
+
     func all(matching predicate: (Element) -> Bool) -> Bool {
         // 对于一个条件，如果没有元素不满足它的话，那意味着所有元素都满足它：
         return !contains { !predicate($0) }

@@ -56,6 +56,14 @@ import Foundation
     }
     
     //MARK: -funtions
+    
+    /// 递归设置子视图
+    func recursion(_ cb: @escaping ((UIView) -> Void)){
+        subviews.forEach { e in
+            cb(e);
+            e.recursion(cb);
+        }
+    }
 
     /// 图层调试
     func getViewLayer(_ lineColor: UIColor = .blue) {

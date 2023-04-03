@@ -22,6 +22,15 @@ import UIKit
         self.shouldRasterize = true
     }
     
+    
+    /// 递归设置子视图
+    func recursion(_ cb: @escaping ((CALayer) -> Void)){
+        sublayers?.forEach { e in
+            cb(e);
+            e.recursion(cb);
+        }
+    }
+    
     ///添加边框线
     func addOutline(_ width: CGFloat = 1, color: Color, cornerRadius: CGFloat = 3) {
         self.borderColor = color.cgColor;

@@ -75,4 +75,25 @@ public extension Data{
         return try JSONSerialization.jsonObject(with: self, options: options)
     }
     
+    /// JSONDecoder 数组
+    func decodeList<M: Decodable>(_ cb: ((JSONDecoder) -> Void)? = nil) -> [M] {
+        let decoder = JSONDecoder();
+        decoder.dateDecodingStrategy = .secondsSince1970;
+        cb?(decoder);
+        
+        guard let result = try? decoder.decode([M].self, from: self) else {
+            return [];
+        }
+        return result;
+    }
+    
+    /// JSONDecoder 对象/结构体
+    func decodeObj<M: Decodable>(_ cb: ((JSONDecoder) -> Void)? = nil) -> M? {
+        let decoder = JSONDecoder();
+        decoder.dateDecodingStrategy = .secondsSince1970;
+        cb?(decoder);
+        
+        let result = try? decoder.decode(M.self, from: self)
+        return result;
+    }
 }
