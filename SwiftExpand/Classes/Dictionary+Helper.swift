@@ -27,6 +27,16 @@ public extension Dictionary{
         return (self as NSDictionary).plistData
     }
     
+    /// 递归设置子视图
+    func recursion(_ cb: @escaping ((Dictionary) -> Void)){
+        for (_, v) in self {
+            if let dic = v as? Dictionary {
+                cb(dic)
+                recursion(cb)
+            }
+        }
+    }
+    
     func dictionaryFromPlistData(_ plistData: Data) -> Any? {
         return (self as NSDictionary).dictionaryFromPlistData(plistData)
     }
