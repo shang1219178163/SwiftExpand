@@ -22,7 +22,7 @@ import Foundation
         self.minimumLineSpacing = spacing
         self.sectionInset = sectionInset
 
-        let itemWidth = (width - (numOfRow.toCGFloat - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat
+        let itemWidth = (width - (numOfRow.cgFloatValue - 1)*spacing - sectionInset.left - sectionInset.right)/numOfRow.cgFloatValue
         self.itemSize = CGSize(width: round(itemWidth) - 2, height: itemWidth * heightScale)
         self.headerReferenceSize = CGSize(width: width, height: headerHeight)
         self.footerReferenceSize = CGSize(width: width, height: footerHeight)
@@ -61,7 +61,7 @@ import Foundation
         self.minimumInteritemSpacing = minimumInteritemSpacing
         self.sectionInset = sectionInset
 
-        let itemWidth = (width - (numOfRow.toCGFloat - 1) * minimumInteritemSpacing - sectionInset.left - sectionInset.right)/numOfRow.toCGFloat
+        let itemWidth = (width - (numOfRow.cgFloatValue - 1) * minimumInteritemSpacing - sectionInset.left - sectionInset.right)/numOfRow.cgFloatValue
         let itemSize = CGSize(width: round(itemWidth) - 2, height: itemWidth * heightScale)
         reloadItemSize(itemSize)
     }

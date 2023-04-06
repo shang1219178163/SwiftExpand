@@ -13,25 +13,25 @@ import UIKit
 #endif
 import Foundation
 
-/// 自定义EdgeInsets
-public func UIEdgeInsetsMake(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> EdgeInsets{
-    return EdgeInsets(top: top, left: left, bottom: bottom, right: right)
-}
-
-/// 自定义CGRect
-public func CGRectMake(_ x: CGFloat = 0, _ y: CGFloat = 0, _ w: CGFloat = 0, _ h: CGFloat = 0) -> CGRect{
-    return CGRect(x: x, y: y, width: w, height: h)
-}
-
-/// 自定义CGPointMake
-public func CGPointMake(_ x: CGFloat = 0, _ y: CGFloat = 0) -> CGPoint {
-    return CGPoint(x: x, y: y)
-}
-
-/// 自定义GGSizeMake
-public func GGSizeMake(_ w: CGFloat = 0, _ h: CGFloat = 0) -> CGSize {
-    return CGSize(width: w, height: h)
-}
+///// 自定义EdgeInsets
+//public func UIEdgeInsetsMake(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> EdgeInsets{
+//    return EdgeInsets(top: top, left: left, bottom: bottom, right: right)
+//}
+//
+///// 自定义CGRect
+//public func CGRectMake(_ x: CGFloat = 0, _ y: CGFloat = 0, _ w: CGFloat = 0, _ h: CGFloat = 0) -> CGRect{
+//    return CGRect(x: x, y: y, width: w, height: h)
+//}
+//
+///// 自定义CGPointMake
+//public func CGPointMake(_ x: CGFloat = 0, _ y: CGFloat = 0) -> CGPoint {
+//    return CGPoint(x: x, y: y)
+//}
+//
+///// 自定义GGSizeMake
+//public func GGSizeMake(_ w: CGFloat = 0, _ h: CGFloat = 0) -> CGSize {
+//    return CGSize(width: w, height: h)
+//}
 
 ///角度转弧度
  public func CGRadianFromDegrees(_ value: CGFloat) -> CGFloat{
@@ -51,24 +51,34 @@ public func CGDistance(_ pointA: CGPoint, pointB: CGPoint) -> CGFloat {
 
 public extension Bool {
     /// Return 1 if true, or 0 if false.
-    var int: Int {
+    var intValue: Int {
         return self ? 1 : 0
     }
 
     /// Return "true" if true, or "false" if false.
-    var toString: String {
+    func toString() -> String {
         return self ? "true" : "false"
     }
 }
 
 
 public extension Int {
-
-    var double: Double  { return Double(self) }
-
-    var float: Float    { return Float(self) }
-
-    var cgFloat: CGFloat { return CGFloat(self) }
+    
+    static var randomCGFloat: CGFloat {
+        return CGFloat(arc4random()) / CGFloat(UInt32.max)
+    }
+    
+    static var random: Int {
+        return Int(arc4random()) / Int(UInt32.max)
+    }
+    /// 转为Double类型
+    var doubleValue: Double  { return Double(self) }
+    /// 转为Float类型
+    var floatValue: Float    { return Float(self) }
+    // 转为CGFloat类型
+    var cgFloatValue: CGFloat { return CGFloat(self) }
+    /// 转为 NSNumber
+    var nsNumberValue: NSNumber { return NSNumber(integerLiteral: self); }
     
     /// 偶数
     var isEven: Bool     {  return (self % 2 == 0)  }
@@ -78,16 +88,11 @@ public extension Int {
     var isPositive: Bool {  return (self > 0)   }
     /// 小于0
     var isNegative: Bool {  return (self < 0)   }
-    /// 转为Double类型
-    var toDouble: Double {  return Double(self) }
-    /// 转为Float类型
-    var toFloat: Float   {  return Float(self)  }
-    /// 转为CGFloat类型
-    var toCGFloat: CGFloat   {  return CGFloat(self)  }
+
     /// 转为String类型
-    var toString: String { return NSNumber(integerLiteral: self).stringValue; }
-    /// 转为NSNumber类型
-    var toNumber: NSNumber { return NSNumber(integerLiteral: self); }
+    func toString() -> String {
+        return NSNumber(integerLiteral: self).stringValue;
+    }
     
     var digits: Int {
         if (self == 0) {
@@ -97,16 +102,28 @@ public extension Int {
         return Int(log10(fabs(Double(self)))) + 1
 //        }
     }
-    
-    static var randomCGFloat: CGFloat { return CGFloat(arc4random()) / CGFloat(UInt32.max) }
-    
-    static var random: Int { return Int(arc4random()) / Int(UInt32.max) }
 
-    ///返回重复值字符串
-//    func repeatString(_ repeatedValue: String) ->String { return String(repeating: repeatedValue, count: self) }
+
+//    ///返回重复值字符串
+//    func repeatString(_ repeatedValue: String) ->String {
+//        return String(repeating: repeatedValue, count: self)
+//    }
 //    ///返回重复值数组
-//    func repeatArray<T>(_ repeatedValue: T) -> [T] { return [T](repeating: repeatedValue, count: self) }
+//    func repeatArray<T>(_ repeatedValue: T) -> [T] {
+//        return [T](repeating: repeatedValue, count: self)
+//    }
 
+    /// 超出取边界值
+    func clamp(lowerLimit: Int, upperLimit: Int) -> Int {
+        if self < lowerLimit {
+            return lowerLimit
+        }
+
+        if self > upperLimit {
+            return upperLimit
+        }
+        return self
+    }
     
     /// 乘法表打印
     func printChengfaBiao() {
@@ -123,17 +140,17 @@ public extension Int {
 }
 
 public extension Double {
-    var int: Int { return Int(self) }
+    /// 转为 int
+    var intValue: Int { return Int(self) }
+    /// 转为 Float
+    var floatValue: Float { return Float(self) }
+    /// 转为 CGFloat
+    var cgFloatValue: CGFloat { return CGFloat(self) }
+    /// 转为 NSNumber
+    var nsNumberValue: NSNumber { return NSNumber(floatLiteral: self); }
 
-    /// Float.
-    var float: Float { return Float(self) }
-
-    var cgFloat: CGFloat { return CGFloat(self) }
-    
     /// 转为String类型
-    var toString: String { return NSNumber(floatLiteral: self).stringValue; }
-    /// 转为NSNumber类型
-    var toNumber: NSNumber { return NSNumber(floatLiteral: self); }
+    func toString() -> String { return NSNumber(floatLiteral: self).stringValue; }
     
     /// 保留n为小数
     func roundedTo(_ n: Int) -> Double {
@@ -141,16 +158,27 @@ public extension Double {
         let result = (self * divisor).rounded() / divisor
         return result
     }
+    /// 超出取边界值
+    func clamp(lowerLimit: Double, upperLimit: Double) -> Double {
+        if self < lowerLimit {
+            return lowerLimit
+        }
+
+        if self > upperLimit {
+            return upperLimit
+        }
+        return self
+    }
+
 }
 
 public extension Float {
-
-    var int: Int { return Int(self) }
-
-    /// Double.
-    var double: Double { return Double(self) }
-
-    var cgFloat: CGFloat { return CGFloat(self) }
+    /// 转为 int
+    var intValue: Int { return Int(self) }
+    /// 转为Double类型
+    var doubleValue: Double { return Double(self) }
+    /// 转为 CGFloat
+    var cgFloatValue: CGFloat { return CGFloat(self) }
 }
 
 public extension CGFloat {
@@ -213,19 +241,19 @@ public extension CGRect{
         return self.init(x: x, y: y, width: w, height: h)
     }
     
-    var pointLeftTop: CGPoint {
+    var leftTop: CGPoint {
         return CGPoint(x: minX, y: minY)
     }
     
-    var pointLeftBtm: CGPoint {
+    var leftBtm: CGPoint {
         return CGPoint(x: minX, y: maxY)
     }
     
-    var pointRightTop: CGPoint {
+    var rightTop: CGPoint {
         return CGPoint(x: maxY, y: minX)
     }
     
-    var pointRightBtm: CGPoint {
+    var rightBtm: CGPoint {
         return CGPoint(x: maxX, y: maxY)
     }
 
@@ -252,7 +280,6 @@ public extension CGPoint{
     static func distance(from point1: CGPoint, to point2: CGPoint) -> CGFloat {
         return sqrt(pow(point2.x - point1.x, 2) + pow(point2.y - point1.y, 2))
     }
-    
     
     /// Add two CGPoints.
     ///     let point = point1 + point2
@@ -372,14 +399,6 @@ public extension CGSize{
 
 public extension EdgeInsets{
     
-//    var vertical: CGFloat {
-//        return top + bottom
-//    }
-//
-//    var horizontal: CGFloat {
-//        return left + right
-//    }
-
     /// 便利方法
     init(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) {
         self.init(top: top, left: left, bottom: bottom, right: right)
@@ -392,6 +411,12 @@ public extension EdgeInsets{
     static func make(_ top: CGFloat, _ left: CGFloat, _ bottom: CGFloat, _ right: CGFloat) -> Self {
         return Self(top: top, left: left, bottom: bottom, right: right)
     }
+    
+    /// 对称声明
+    static func symmetric(_ vertical: CGFloat, _ horizontal: CGFloat) -> Self {
+        return Self(top: vertical, left: horizontal, bottom: vertical, right: horizontal)
+    }
+
     
     ///Add two EdgeInsets
     static func + (_ lhs: EdgeInsets, _ rhs: EdgeInsets) -> EdgeInsets {

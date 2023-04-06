@@ -150,7 +150,7 @@ import Foundation
      /// 获取密集子视图的总高度
     static func groupViewHeight(_ count: Int = 9, numberOfRow: Int = 4, padding: CGFloat = 12, itemHeight: CGFloat = 40) -> CGFloat {
         let rowCount = count % numberOfRow == 0 ? count/numberOfRow : count/numberOfRow + 1
-        return rowCount.toCGFloat * itemHeight + (rowCount - 1).toCGFloat * padding
+        return rowCount.cgFloatValue * itemHeight + (rowCount - 1).cgFloatValue * padding
     }
     
      ///视图添加圆角

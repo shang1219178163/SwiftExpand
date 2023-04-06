@@ -54,7 +54,7 @@ import Foundation
     
     ///隐藏分割线
     func separatorHidden() {
-        separatorInset = UIEdgeInsetsMake(0, 0, 0, kScreenWidth);
+        separatorInset = UIEdgeInsets(0, 0, 0, kScreenWidth);
     }
     ///展示分割线
     func separatorShow() {

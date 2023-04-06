@@ -9,10 +9,10 @@
 import UIKit
 import Foundation
 
-/// 自定义GGSizeMake
-public func UIOffsetMake(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> UIOffset {
-    return UIOffset(horizontal: horizontal, vertical: vertical)
-}
+///// 自定义GGSizeMake
+//public func UIOffsetMake(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> UIOffset {
+//    return UIOffset(horizontal: horizontal, vertical: vertical)
+//}
 
 public extension UIOffset{
     /// 便利方法
@@ -20,10 +20,10 @@ public extension UIOffset{
         self.init(horizontal: horizontal, vertical: vertical)
     }
     
-    /// 仿OC方法
-    static func make(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> Self{
-        return Self(horizontal: horizontal, vertical: vertical)
-    }
+//    /// 仿OC方法
+//    static func make(_ horizontal: CGFloat = 0, _ vertical: CGFloat = 0) -> Self{
+//        return Self(horizontal: horizontal, vertical: vertical)
+//    }
 
     ///Add two UIOffset
     static func + (lhs: UIOffset, rhs: UIOffset) -> UIOffset {
