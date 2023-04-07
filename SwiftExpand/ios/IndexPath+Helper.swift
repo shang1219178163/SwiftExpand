@@ -9,10 +9,6 @@
 import UIKit
     
 public extension NSIndexPath{
-    /// {section, row}
-    var toString: String {
-        return String(format: "{%d, %d}", section, row)
-    }
 
     var previousRow: NSIndexPath {
         if row == 0 {
@@ -24,15 +20,15 @@ public extension NSIndexPath{
     var nextRow: NSIndexPath {
         return NSIndexPath(row: self.row + 1, section: self.section)
     }
+    /// {section, row}
+    func toString() -> String {
+        return String(format: "{%d, %d}", section, row)
+    }
 }
 
     
 public extension IndexPath{
-    /// {section, row}
-    var toString: String {
-        return String(format: "{%d, %d}", section, row)
-    }
-    
+
     var previousRow: IndexPath {
         if row == 0 {
             return self
@@ -44,4 +40,9 @@ public extension IndexPath{
         return IndexPath(row: self.row + 1, section: self.section)
     }
 
+    /// {section, row}
+    func toString() -> String {
+        return String(format: "{%d, %d}", section, row)
+    }
+    
 }

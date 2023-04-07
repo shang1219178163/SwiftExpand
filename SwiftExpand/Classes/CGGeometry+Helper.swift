@@ -14,7 +14,7 @@ import UIKit
 import Foundation
 
 ///// 自定义EdgeInsets
-//public func UIEdgeInsetsMake(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> EdgeInsets{
+//public func UIEdgeInsets(_ top: CGFloat = 0, _ left: CGFloat = 0, _ bottom: CGFloat = 0, _ right: CGFloat = 0) -> EdgeInsets{
 //    return EdgeInsets(top: top, left: left, bottom: bottom, right: right)
 //}
 //
@@ -78,7 +78,7 @@ public extension Int {
     // 转为CGFloat类型
     var cgFloatValue: CGFloat { return CGFloat(self) }
     /// 转为 NSNumber
-    var nsNumberValue: NSNumber { return NSNumber(integerLiteral: self); }
+    var numberValue: NSNumber { return NSNumber(integerLiteral: self); }
     
     /// 偶数
     var isEven: Bool     {  return (self % 2 == 0)  }
@@ -147,7 +147,7 @@ public extension Double {
     /// 转为 CGFloat
     var cgFloatValue: CGFloat { return CGFloat(self) }
     /// 转为 NSNumber
-    var nsNumberValue: NSNumber { return NSNumber(floatLiteral: self); }
+    var numberValue: NSNumber { return NSNumber(floatLiteral: self); }
 
     /// 转为String类型
     func toString() -> String { return NSNumber(floatLiteral: self).stringValue; }
