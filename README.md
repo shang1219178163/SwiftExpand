@@ -5,7 +5,147 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
 
 ## Usage：
 
-**NNClassFromString**
+### Runtime方法封装
+```
+@objc public extension NSObject{
+
+    ///遍历成员变量列表
+    func enumerateIvars(_ block: @escaping ((Ivar, String, Any?)->Void)) {
+        var count: UInt32 = 0
+        guard let list = class_copyIvarList(self.classForCoder, &count) else { return }
+        defer {
+            free(list)// 释放c语言对象
+        }
+
+        for i in 0..<Int(count) {
+            let ivar = list[i]
+            guard let ivarName = ivar_getName(ivar),
+                  let name = String(utf8String: ivarName) else {
+                continue
+            }
+            //利用kvc 取值
+            let value = self.value(forKey: name)
+            block(ivar, name, value)
+        }
+    }
+    ///遍历属性列表
+    func enumeratePropertys(_ block: @escaping ((objc_property_t, String, Any?)->Void)) {
+        var count: UInt32 = 0
+        guard let list = class_copyPropertyList(self.classForCoder, &count) else { return }
+        defer {
+            free(list)// 释放c语言对象
+        }
+        
+        for i in 0..<Int(count) {
+            let property: objc_property_t = list[i]
+            //获取成员变量的名称 -> c语言字符串
+            let pname = property_getName(property)
+            //转换成String字符串
+            guard let name = String(utf8String: pname) else {
+                continue
+            }
+            //利用kvc 取值
+            let value = self.value(forKey: name)
+            block(property, name, value)
+        }
+    }
+    ///遍历方法列表
+    func enumerateMethods(_ block: @escaping ((Method, String)->Void)) {
+        var count: UInt32 = 0
+        guard let list = class_copyMethodList(self.classForCoder, &count) else { return }
+        defer {
+            free(list)// 释放c语言对象
+        }
+
+        for i in 0..<Int(count) {
+            let method: Method = list[i]
+            //获取成员变量的名称 -> c语言字符串
+            let sel: Selector = method_getName(method)
+            //转换成String字符串
+            let name = NSStringFromSelector(sel)
+            block(method, name)
+        }
+    }
+    ///遍历遵循的协议列表
+    func enumerateProtocols(_ block: @escaping ((Protocol, String)->Void)) {
+        var count: UInt32 = 0
+        guard let list = class_copyProtocolList(self.classForCoder, &count) else { return }
+
+        for i in 0..<Int(count) {
+            let proto: Protocol = list[i]
+            //获取成员变量的名称 -> c语言字符串
+            let pname = protocol_getName(proto)
+            guard let name = String(utf8String: pname) else {
+                continue
+            }
+            block(proto, name)
+        }
+    }
+
+    /// 模型自动编码
+    func se_encode(with aCoder: NSCoder) {
+        enumeratePropertys { (property, name, value) in
+            guard let value = self.value(forKey: name) else { return }
+            //进行编码
+            aCoder.encode(value, forKey: name)
+        }
+    }
+    
+    /// 模型自动解码
+    func se_decode(with aDecoder: NSCoder) {
+        enumeratePropertys { (property, name, value) in
+            //进行解档取值
+            guard let value = aDecoder.decodeObject(forKey: name) else { return }
+            //利用kvc给属性赋值
+            self.setValue(value, forKeyPath: name)
+        }
+    }
+    /// 字典转模型
+    convenience init(dic: [String: Any]) {
+        self.init()
+        self.setValuesForKeys(dic)
+    }
+    ///详情模型转字典(不支持嵌套)
+    func toDictionary() -> [AnyHashable : Any] {
+        var dic: [AnyHashable : Any] = [:]
+        self.enumeratePropertys { (property, name, value) in
+            dic[name] = value ?? ""
+        }
+        return dic
+    }
+    
+    func synchronized(_ lock: AnyObject, block: () -> Void) {
+        objc_sync_enter(lock)
+        block()
+        objc_sync_exit(lock)
+    }
+            
+    // MARK: - KVC
+
+    /// 返回key对应的值
+    func valueText(forKey key: String, defalut: String = "-") -> String{
+        if key == "" {
+            return ""
+        }
+        if let result = self.value(forKey: key) {
+            return "\(result)" != "" ? "\(result)" : defalut
+        }
+        return defalut
+    }
+    /// 返回key对应的值
+    func valueText(forKeyPath keyPath: String, defalut: String = "-") -> String{
+        if keyPath == "" {
+            return ""
+        }
+        if let result = self.value(forKeyPath: keyPath) {
+            return "\(result)" != "" ? "\(result)" : defalut
+        }
+        return defalut
+    }
+
+}
+```
+### 反射方法封装 NNClassFromString
 
     //get class by name
     public func NNClassFromString(_ name: String) -> AnyClass? {
@@ -23,7 +163,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
         return nil;
     }
     
-**UICtrFromString**
+### 反射方法封装 UICtrFromString
     
     /// get UIViewController by name
     public func UICtrFromString(_ vcName: String) -> UIViewController {
@@ -37,7 +177,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
         return controller;
     }
 
-**UITableViewCell**
+### 重构 UITableViewCell
 
     /// custom - UITableViewCell
     class UITableViewCellOne: UITableViewCell {}
@@ -51,7 +191,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
     /// Reusable
     let view = UITableHeaderFooterViewZero.dequeueReusableHeaderFooterView(tableView)
 
-**UICollectionViewCell**
+### 重构 UICollectionViewCell
 
     ctView.dictClass = [UICollectionView.elementKindSectionHeader: ["UICTReusableViewOne",],
                         UICollectionView.elementKindSectionFooter: ["UICTReusableViewZero",],
@@ -67,7 +207,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
     /// Reusable
     let view = collectionView.dequeueReusableSupplementaryView(for: UICTReusableViewOne.self, kind: kind, indexPath: indexPath)
 
-**DateFormatter**
+### 封装 DateFormatter
 
     @objc public extension DateFormatter{
     /// 获取DateFormatter(默认格式)
@@ -111,7 +251,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
         return "\(date.timeIntervalSince1970)";
     }
     
-**UIBarButtonItem 事件转代码块**
+### 重构 UIBarButtonItem 事件转回调
 
     @objc extension UIBarButtonItem{
         private struct AssociateKeys {
@@ -132,7 +272,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
     }
 }
 
-**UIViewController**
+### 呈现方法封装 UIViewController
        
     @objc public extension UIViewController {
     
@@ -194,7 +334,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
         }
     } 
     
-**UIView 手势**
+### 重构 UIView 手势方法
 
     @objc public extension UIView {
         ///手势 - 轻点 UITapGestureRecognizer
@@ -385,7 +525,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
         }
     }
 
-**UIControl 事件转代码块**
+### 重构 UIControl 事件转回调
 
     @objc extension UIControl {
         private struct AssociateKeys {
@@ -406,7 +546,7 @@ Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, i
     }
     
     
-**NSAttributedString 属性链式编程实现**
+### 重构 NSAttributedString 链式编程实现
 
     ///属性链式编程实现
     @objc public extension NSAttributedString {
