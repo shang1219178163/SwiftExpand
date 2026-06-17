@@ -14,6 +14,9 @@ let package = Package(
             targets: ["SwiftExpand"]
         ),
     ],
+     dependencies: [
+        .package(url: "https://github.com/shang1219178163/SwiftExpand.git", from: "8.2.0")
+    ],
     targets: [
         .target(
             name: "SwiftExpand",
