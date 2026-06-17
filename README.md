@@ -2,6 +2,7 @@
 
 Swift 的 SDK 功能扩展,提高工作效率, 低耦合(Objective-C && Swift, iOS && macOS)
 
+v8.2.0兼容 SPM；
 
 ## Usage：
 
