@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UITabBar+Helper.swift
 //  SwiftExpand
@@ -120,3 +121,5 @@ public extension UITabBar{
 }
 
 
+
+#endif

@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  PHAsset+Ext.swift
 //  SwiftExpand
@@ -32,3 +33,5 @@ import Photos
         }
     }
 }
+
+#endif

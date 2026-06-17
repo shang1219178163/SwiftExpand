@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UITableView+Helper.swift
 //  SwiftExpand
@@ -291,3 +292,5 @@ extension UITableViewCell: Reusable { }
 extension UITableViewHeaderFooterView: Reusable { }
 
 extension UICollectionViewCell: Reusable { }
+
+#endif

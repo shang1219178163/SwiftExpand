@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSCollectionView+Helper.swift
 //  MacTemplet
@@ -55,3 +56,5 @@ public extension NSCollectionView{
         return view as! T
     }
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UINavigationBar+Helper.swift
 //  SwiftTemplet
@@ -83,3 +84,5 @@ import Foundation
         return barAppearance
     }
 }
+
+#endif

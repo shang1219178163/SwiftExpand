@@ -1,3 +1,4 @@
+#if os(macOS)
 
 //
 //  NSTableView+Helper.swift
@@ -105,3 +106,5 @@ public extension NSTableView {
     }
 
 }
+
+#endif

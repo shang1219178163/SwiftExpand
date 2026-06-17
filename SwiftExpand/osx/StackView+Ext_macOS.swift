@@ -1,3 +1,4 @@
+#if os(macOS)
 
 //
 //  StackView+Helper.swift
@@ -69,3 +70,5 @@ import AppKit
     }
  
 }
+
+#endif

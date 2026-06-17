@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIGestureRecognizer+Helper.swift
 //  SwiftExpand
@@ -152,3 +153,5 @@ import UIKit
     }
 
 }
+
+#endif

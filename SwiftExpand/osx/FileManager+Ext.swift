@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSFileManager+Helper.swift
 //  MacTemplet
@@ -139,3 +140,5 @@ public extension NSPasteboard{
         return true
     }
 }
+
+#endif

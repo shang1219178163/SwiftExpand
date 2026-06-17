@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSApplication+Helper.swift
 //  MacTemplet
@@ -184,3 +185,5 @@ import ServiceManagement
     }
 
 }
+
+#endif

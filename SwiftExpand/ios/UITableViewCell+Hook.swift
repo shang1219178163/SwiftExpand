@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UITableViewCell+Hook.swift
 //  SwiftTemplet
@@ -53,3 +54,5 @@ import Foundation
     }
     
 }
+
+#endif

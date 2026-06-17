@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSScreen+Helper.swift
 //  MacTemplet
@@ -20,3 +21,5 @@ import AppKit
     }
     
 }
+
+#endif

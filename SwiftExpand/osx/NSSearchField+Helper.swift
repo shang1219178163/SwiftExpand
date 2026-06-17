@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSSearchField+Helper.swift
 //  MacTemplet
@@ -45,3 +46,5 @@ import AppKit
     
 }
 
+
+#endif

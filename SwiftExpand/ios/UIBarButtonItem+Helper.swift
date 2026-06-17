@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIBarButtonItem+Helper.swift
 //  SwiftTemplet
@@ -117,3 +118,5 @@ public extension UIBarButtonItem{
         return UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
     }
 }
+
+#endif

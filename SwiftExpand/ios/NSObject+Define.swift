@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  NSObject+Define.swift
 //  SwiftTemplet
@@ -226,3 +227,5 @@ public extension NSObjectProtocol where Self: NSObject {
 
 }
 
+
+#endif

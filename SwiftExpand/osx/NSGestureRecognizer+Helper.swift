@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSGestureRecognizer+Helper.swift
 //  MacTemplet
@@ -48,3 +49,5 @@ import AppKit
     
 }
 
+
+#endif

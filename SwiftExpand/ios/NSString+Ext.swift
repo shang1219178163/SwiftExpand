@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  String+Ext.swift
 //  SwiftExpand
@@ -18,3 +19,5 @@ public extension String{
         }
     }
 }
+
+#endif

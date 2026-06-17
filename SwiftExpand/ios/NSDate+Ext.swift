@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //	Date+Ext.Swift
 //	MacTemplet
@@ -32,3 +33,5 @@ import Foundation
     }
 
 }
+
+#endif

@@ -6,7 +6,11 @@
 //  Copyright © 2019 BN. All rights reserved.
 //
 
-
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
 import Foundation
 
 

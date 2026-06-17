@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UISearchBar+Helper.swift
 //  SwiftExpand
@@ -105,3 +106,5 @@ import UIKit
         text = ""
     }
 }
+
+#endif

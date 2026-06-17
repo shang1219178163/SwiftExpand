@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UICollectionViewCell+Helper.swift
 //  SwiftExpand
@@ -22,3 +23,5 @@ import UIKit
         return dequeueReusableCell(collectionView, identifier: String(describing: self), indexPath: indexPath)
     }
 }
+
+#endif

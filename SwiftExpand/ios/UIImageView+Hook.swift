@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIImageView+Hook.swift
 //  SwiftExpand
@@ -42,3 +43,5 @@ import UIKit
 //        }
     }
 }
+
+#endif

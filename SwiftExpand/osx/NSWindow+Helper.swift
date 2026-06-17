@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSWindow+Helper.swift
 //  MacTemplet
@@ -26,3 +27,5 @@ import AppKit
     }
 }
 
+
+#endif

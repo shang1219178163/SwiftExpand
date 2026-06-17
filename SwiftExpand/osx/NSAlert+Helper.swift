@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSAlert+Helper.swift
 //  MacTemplet
@@ -42,3 +43,5 @@ import AppKit
     }
 
 }
+
+#endif

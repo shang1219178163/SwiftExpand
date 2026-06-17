@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 //
 //  UIStackView+Helper.swift
@@ -69,3 +70,5 @@ import Foundation
         return self
     }
 }
+
+#endif

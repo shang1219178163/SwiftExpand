@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSTextView+Helper.swift
 //  MacTemplet
@@ -66,3 +67,5 @@ import AppKit
 }
 
 
+
+#endif

@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 //
 //  UIButton+Helper.swift
@@ -257,3 +258,5 @@ import Foundation
         codeTimer.resume()
     }
 }
+
+#endif

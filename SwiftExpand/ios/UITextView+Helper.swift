@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 //
 //  UITextView+Helper.swift
@@ -84,3 +85,5 @@ public class NNTextView: UITextView {
         return false
     }
 }
+
+#endif

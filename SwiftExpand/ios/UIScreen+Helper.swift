@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 //
 //  UIScreen+Helper.swift
@@ -59,3 +60,5 @@ public let kTabBarPaddingHeight: CGFloat   = UIScreen.isIPhoneX ? 34 : 0
 //        return UIApplication.shared.delegate?.window??.safeAreaInsets ?? UIEdgeInsets.zero
 //    }
 }
+
+#endif

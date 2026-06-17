@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  CALayer+Ext.swift
 //  SwiftExpand
@@ -21,3 +22,5 @@ import Foundation
         self.add(anim, forKey: "position")
     }
 }
+
+#endif

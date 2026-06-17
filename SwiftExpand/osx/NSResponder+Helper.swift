@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSResponder+Helper.swift
 //  Swift-NSToolBar
@@ -17,3 +18,5 @@ public extension NSResponder {
         case exited = 3
     }
 }
+
+#endif

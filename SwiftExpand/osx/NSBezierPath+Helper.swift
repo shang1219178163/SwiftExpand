@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSBezierPath+Helper.swift
 //  MacTemplet
@@ -32,3 +33,5 @@ extension NSBezierPath {
         return path
     }
 }
+
+#endif

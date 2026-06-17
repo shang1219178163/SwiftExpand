@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSStatusItem+Helper.swift
 //  MacTemplet
@@ -30,3 +31,5 @@ import AppKit
     }
 }
 
+
+#endif

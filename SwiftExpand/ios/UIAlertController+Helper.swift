@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIAlertController+Helper.swift
 //  SwiftTemplet
@@ -370,3 +371,5 @@ extension SwiftExpand where Base: UIAlertController {
      }
 }
  */
+
+#endif

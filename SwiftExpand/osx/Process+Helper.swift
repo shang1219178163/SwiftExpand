@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  Process+Helper.swift
 //  MacTemplet
@@ -25,3 +26,5 @@ import AppKit
         }
     }
 }
+
+#endif

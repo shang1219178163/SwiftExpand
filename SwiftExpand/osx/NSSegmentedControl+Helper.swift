@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSSegmentedControl+Helper.swift
 //  MacTemplet
@@ -72,3 +73,5 @@ import AppKit
     }
     
 }
+
+#endif

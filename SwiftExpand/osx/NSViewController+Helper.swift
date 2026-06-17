@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSViewController+Helper.swift
 //  MacTemplet
@@ -48,3 +49,5 @@ import AppKit
         NSApp.keyWindow?.endSheet(window, returnCode: response)
     }
 }
+
+#endif

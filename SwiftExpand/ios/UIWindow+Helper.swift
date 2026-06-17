@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIWindow+Helper.swift
 //  SwiftTemplet
@@ -37,3 +38,5 @@ import Foundation
     }
 
 }
+
+#endif

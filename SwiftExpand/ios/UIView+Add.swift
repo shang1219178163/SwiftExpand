@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 //
 //  UIView+Add.swift
@@ -278,3 +279,5 @@ public extension UIView{
     }
 }
 
+
+#endif

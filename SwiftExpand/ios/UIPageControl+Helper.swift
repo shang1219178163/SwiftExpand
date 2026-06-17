@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIPageControl+Helper.swift
 //  SwiftExpand
@@ -21,3 +22,5 @@ import UIKit
     }
     
 }
+
+#endif

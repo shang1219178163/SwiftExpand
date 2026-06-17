@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIPageViewController+Helper.swift
 //  SwiftTemplet
@@ -29,3 +30,5 @@ import Foundation
     
 
 }
+
+#endif

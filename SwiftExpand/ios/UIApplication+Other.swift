@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIApplication+Other.swift
 //  SwiftExpand
@@ -197,3 +198,5 @@ import Photos
         addRequestToCenter(trigger, handler: handler)
     }
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIButton+Layer.swift
 //  SwiftTemplet
@@ -175,3 +176,5 @@ public extension UIButton{
         return layerTarget.cornerRadius(for: state)
     }
 }
+
+#endif

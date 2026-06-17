@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIControl+Helper.swift
 //  BuildUI
@@ -26,3 +27,5 @@ import Foundation
         }
     }
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSView+Helper.swift
 //  MacTemplet
@@ -188,3 +189,5 @@ import AppKit
         return obj
     }
 }
+
+#endif

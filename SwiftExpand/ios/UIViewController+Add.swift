@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 //
 //  UIViewController+Add.swift
@@ -39,3 +40,5 @@ import Foundation
     
 }
 
+
+#endif

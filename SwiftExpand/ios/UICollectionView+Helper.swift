@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UICollectionView+Helper.swift
 //  SwiftTemplet
@@ -173,3 +174,5 @@ public extension UICollectionView{
 }
 
 
+
+#endif

@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIView+Animation.swift
 //  SwiftTemplet
@@ -46,3 +47,5 @@ import Foundation
         })
     }
 }
+
+#endif

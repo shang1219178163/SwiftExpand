@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIDatePicker+Helper.swift
 //  SwiftTemplet
@@ -47,3 +48,5 @@ import Foundation
     }
 }
 
+
+#endif

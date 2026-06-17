@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UITextView+PlaceHolder.swift
 //  SwiftExpand
@@ -72,3 +73,5 @@ import Foundation
     
     
 }
+
+#endif

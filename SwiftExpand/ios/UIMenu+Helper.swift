@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIMenu+Helper.swift
 //  SwiftTemplet
@@ -85,3 +86,5 @@ public extension UIButton {
     }
     
 }
+
+#endif

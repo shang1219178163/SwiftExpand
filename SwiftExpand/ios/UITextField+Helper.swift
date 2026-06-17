@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 
 //
@@ -277,3 +278,5 @@ public extension UITextField{
         return sender
     }
 }
+
+#endif

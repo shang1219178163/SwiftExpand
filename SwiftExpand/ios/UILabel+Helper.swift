@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UILabel+Helper.swift
 //  SwiftExpand
@@ -150,3 +151,5 @@ import UIKit
 //        text = ""
 //    }
 }
+
+#endif

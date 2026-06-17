@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSButton+Helper.swift
 //  MacTemplet
@@ -57,3 +58,5 @@ import AppKit
         codeTimer.resume()
     }
 }
+
+#endif

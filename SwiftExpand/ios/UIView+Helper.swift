@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIView+Helper.swift
 //  SwiftTemplet
@@ -579,3 +580,5 @@ public extension Array where Element : UIView {
     }
 
 }
+
+#endif

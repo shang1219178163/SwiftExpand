@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSMenu+Helper.swift
 //  MacTemplet
@@ -76,3 +77,5 @@ import AppKit
     }
 
 }
+
+#endif

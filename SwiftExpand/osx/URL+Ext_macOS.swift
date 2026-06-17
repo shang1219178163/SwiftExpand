@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //	URL+Ext.Swift
 //	MacTemplet
@@ -33,3 +34,5 @@ public extension URL {
         return NSImage(cgImage: cgImage, size: .zero)
     }
 }
+
+#endif

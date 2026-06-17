@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UINavigationController+Helper.swift
 //  SwiftExpand
@@ -96,3 +97,5 @@ extension DispatchTime: ExpressibleByFloatLiteral {
         self = DispatchTime.now() + .milliseconds(Int(value * 1000))
     }
 }
+
+#endif

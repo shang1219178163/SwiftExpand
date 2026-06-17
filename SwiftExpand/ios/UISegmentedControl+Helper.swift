@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UISegmentedControl+Helper.swift
 //  SwiftExpand
@@ -202,3 +203,5 @@ import UIKit
     }
     
 }
+
+#endif

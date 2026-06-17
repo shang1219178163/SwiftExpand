@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSTextField+Helper.swift
 //  MacTemplet
@@ -71,3 +72,5 @@ import AppKit
 @objc public extension NSTextFieldCell {
 
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSObject+Define.swift
 //  SwiftTemplet
@@ -56,3 +57,5 @@ public func calculateItemSize(_ numOfRow: Int = 4, width: CGFloat = NSScreen.mai
     let itemSize = CGSize(width: round(itemWidth) - 2, height: itemWidth * heightScale)
     return itemSize
 }
+
+#endif

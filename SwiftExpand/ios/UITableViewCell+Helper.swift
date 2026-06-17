@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 
 //
 //  UITableViewCell+Add.swift
@@ -89,3 +90,5 @@ public extension UITableViewCell{
     }
     
 }
+
+#endif

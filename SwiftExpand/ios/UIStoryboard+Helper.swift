@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIStoryboard+Helper.swift
 //  IntelligentOfParking
@@ -18,3 +19,5 @@ import Foundation
         return controller
     }
 }
+
+#endif

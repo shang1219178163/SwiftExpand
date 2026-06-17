@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSImageView+Helper.swift
 //  MacTemplet
@@ -21,3 +22,5 @@ import AppKit
     }
 
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //	Color+Ext.Swift
 //	MacTemplet
@@ -19,3 +20,5 @@ import Foundation
         }
     }
 }
+
+#endif

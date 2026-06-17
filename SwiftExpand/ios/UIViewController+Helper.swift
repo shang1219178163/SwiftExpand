@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIViewController+Helper.swift
 //  SwiftTemplet
@@ -257,3 +258,5 @@ public extension UIViewController{
         tabBarItem = UITabBarItem(title: item.0, image: value, selectedImage: valueH)
     }
 }
+
+#endif

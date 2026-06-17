@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIAlertAction+Helper.swift
 //  SwiftExpand
@@ -33,3 +34,5 @@ import UIKit
     }
     
 }
+
+#endif

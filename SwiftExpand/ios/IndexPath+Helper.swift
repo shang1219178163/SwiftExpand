@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  IndexPath+Helper.swift
 //  SwiftExpand
@@ -46,3 +47,5 @@ public extension IndexPath{
     }
     
 }
+
+#endif

@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSViewController+Hook.swift
 //  MacTemplet
@@ -35,3 +36,5 @@ import AppKit
     }
 
 }
+
+#endif

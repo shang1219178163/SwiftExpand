@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UITableHeaderFooterView+Add.swift
 //  BuildUI
@@ -42,3 +43,5 @@ import Foundation
 //    public var dataList: NSMutableArray = []
     public var cellList: NSMutableArray = []
 }
+
+#endif

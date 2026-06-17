@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSView+Add.swift
 //  MacTemplet
@@ -110,3 +111,5 @@ public extension NSView{
     
 }
 
+
+#endif

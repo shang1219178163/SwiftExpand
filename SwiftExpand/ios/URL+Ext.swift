@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //	URL+Ext.Swift
 //	MacTemplet
@@ -39,3 +40,5 @@ public extension URL {
         return UIImage(cgImage: cgImage)
     }
 }
+
+#endif

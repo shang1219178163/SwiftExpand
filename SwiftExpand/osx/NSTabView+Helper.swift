@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSTabView+Helper.swift
 //  MacTemplet
@@ -60,3 +61,5 @@ public extension NSTabView {
     }
     
 }
+
+#endif

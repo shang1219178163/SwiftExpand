@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIViewController+Hook.swift
 //  SwiftTemplet
@@ -102,3 +103,5 @@ import Foundation
 
 }
 
+
+#endif

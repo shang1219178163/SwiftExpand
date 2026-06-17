@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UISlider+Helper.swift
 //  SwiftExpand
@@ -49,3 +50,5 @@ import UIKit
         }
     }
 }
+
+#endif

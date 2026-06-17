@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UISwitch+Helper.swift
 //  SwiftExpand
@@ -35,3 +36,5 @@ import UIKit
     }
     
 }
+
+#endif

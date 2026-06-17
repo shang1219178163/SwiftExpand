@@ -1,3 +1,4 @@
+#if os(macOS)
 
 //
 //  NSPopover+Helper.swift
@@ -40,3 +41,5 @@ import AppKit
         show(relativeTo: view.bounds, of: view, preferredEdge: preferredEdge)
     }
 }
+
+#endif

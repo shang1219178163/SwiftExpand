@@ -1,3 +1,4 @@
+#if os(macOS)
 //
 //  NSImage+Helper.swift
 //  MacTemplet
@@ -73,3 +74,5 @@ extension Data {
     
 }
 
+
+#endif

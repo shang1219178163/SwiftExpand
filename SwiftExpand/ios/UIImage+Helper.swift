@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIImage+Helper.swift
 //  SwiftTemplet
@@ -56,28 +57,52 @@ import Foundation
         }
     }
     
-    ///获取 pod bundle 图片资源
+    ///获取 pod / SPM bundle 图片资源
     convenience init?(named name: String, podClass: AnyClass, bundleName: String? = nil) {
         let bName = bundleName ?? "\(podClass)"
-        if let image = UIImage(named: "\(bName).bundle/\(name)"), let cgImage = image.cgImage{
+        if let image = UIImage(named: "\(bName).bundle/\(name)"), let cgImage = image.cgImage {
             self.init(cgImage: cgImage)
-        } else {
-            let filePath = Bundle(for: podClass).resourcePath! + "/\(bName).bundle"
-            guard let bundle = Bundle(path: filePath) else { return nil}
-            self.init(named: name, in: bundle, compatibleWith: nil)
+            return
         }
+        if let bundle = UIImage.resourceBundle(podName: bName, bundleName: bName, podClass: podClass),
+           let image = UIImage(named: name, in: bundle, compatibleWith: nil),
+           let cgImage = image.cgImage {
+            self.init(cgImage: cgImage)
+            return
+        }
+        return nil
     }
 
-    ///获取 pod bundle 图片资源
+    ///获取 pod / SPM bundle 图片资源
     convenience init?(named name: String, podName: String, bundleName: String? = nil) {
         let bName = bundleName ?? podName
-        if let image = UIImage(named: "\(bName).bundle/\(name)"), let cgImage = image.cgImage{
+        if let image = UIImage(named: "\(bName).bundle/\(name)"), let cgImage = image.cgImage {
             self.init(cgImage: cgImage)
-        } else {
-            let filePath = Bundle.main.resourcePath! + "/Frameworks/\(podName).framework/\(bName).bundle"
-            guard let bundle = Bundle(path: filePath) else { return nil}
-            self.init(named: name, in: bundle, compatibleWith: nil)
+            return
         }
+        if let bundle = UIImage.resourceBundle(podName: podName, bundleName: bName),
+           let image = UIImage(named: name, in: bundle, compatibleWith: nil),
+           let cgImage = image.cgImage {
+            self.init(cgImage: cgImage)
+            return
+        }
+        return nil
+    }
+
+    private static func resourceBundle(podName: String, bundleName: String, podClass: AnyClass? = nil) -> Bundle? {
+        if podName == "SwiftExpand" || bundleName == "SwiftExpand" {
+            return SwiftExpandResources.bundle
+        }
+        if let podClass = podClass,
+           let resourcePath = Bundle(for: podClass).resourcePath,
+           let bundle = Bundle(path: resourcePath + "/\(bundleName).bundle") {
+            return bundle
+        }
+        if let resourcePath = Bundle.main.resourcePath,
+           let bundle = Bundle(path: resourcePath + "/Frameworks/\(podName).framework/\(bundleName).bundle") {
+            return bundle
+        }
+        return nil
     }
     
     /// UIImage 相等判断
@@ -692,3 +717,5 @@ import Foundation
     /// toast_success
     static let toast_success = UIImage(named: "toast_success")!
 }
+
+#endif

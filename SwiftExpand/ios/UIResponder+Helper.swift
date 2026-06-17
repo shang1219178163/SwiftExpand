@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIResponder+Helper.swift
 //  SwiftTemplet
@@ -43,3 +44,5 @@ public extension UIResponder {
         return nil
     }
 }
+
+#endif

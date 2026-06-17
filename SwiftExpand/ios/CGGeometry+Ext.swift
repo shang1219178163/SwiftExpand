@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  CGGeometry+Ext.swift
 //  SwiftExpand
@@ -30,3 +31,5 @@ public extension UIOffset{
         return UIOffset(horizontal: lhs.horizontal + rhs.vertical, vertical: lhs.horizontal + rhs.vertical)
     }
 }
+
+#endif

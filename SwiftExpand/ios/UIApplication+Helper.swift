@@ -1,3 +1,4 @@
+#if os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
 //
 //  UIApplication+Helper.swift
 //  SwiftTemplet
@@ -508,3 +509,5 @@ import Foundation
         }
     }
 }
+
+#endif
